@@ -1,50 +1,67 @@
-import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+import apiConfig from '../config/api'
+import { ChangeDescription, DiffJob, DiffWorker } from '../lib/DiffWorker'
 import { defaultMetadata, diffChanges } from '../lib/saveUtils'
-import saveToAPI from './saveToAPI'
+import { QUEUE_NAMES } from '../queues'
+import { Initiative } from '../types'
 
-export class DiffInitiativesJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+export class DiffInitiativesJob extends DiffJob {
+  declare data: DiffJob['data'] & {
     companyName: string
     existingCompany: any
     wikidata: { node: string }
-    initiatives: any
+    initiatives: Initiative[]
   }
 }
 
-const diffInitiatives = new DiscordWorker<DiffInitiativesJob>(
-  'diffInitiatives',
+const diffInitiatives = new DiffWorker<DiffInitiativesJob>(
+  QUEUE_NAMES.DIFF_INITIATIVES,
   async (job) => {
-    const { url, companyName, existingCompany, initiatives } = job.data
+    const {
+      url,
+      companyName,
+      existingCompany,
+      initiatives,
+      autoApprove,
+      wikidata,
+    } = job.data
     const metadata = defaultMetadata(url)
 
-    const body = {
-      initiatives,
-      metadata,
+    if (job.isDataApproved()) {
+      await job.enqueueSaveToAPI(
+        'initiatives',
+        companyName,
+        wikidata,
+        job.getApprovedBody()
+      )
+      return
     }
 
-    const { diff, requiresApproval } = await diffChanges({
-      existingCompany,
-      before: existingCompany?.initiatives,
-      after: initiatives,
-    })
-
-    job.log('Diff:' + diff)
-
-    // Only save if we detected any meaningful changes
-    if (diff) {
-      await saveToAPI.queue.add(companyName + ' initiatives', {
-        ...job.data,
-        body,
-        diff,
-        requiresApproval,
-        apiSubEndpoint: 'initiatives',
-
-        // Remove duplicated job data that should be part of the body from now on
-        initiatives: undefined,
+    if (!job.hasApproval()) {
+      const { diff, requiresApproval } = await diffChanges({
+        existingCompany,
+        before: existingCompany?.initiatives,
+        after: initiatives,
       })
+
+      const previousInitiatives = existingCompany?.initiatives ?? []
+
+      const change: ChangeDescription = {
+        type: 'initiatives',
+        oldValue: { initiatives: previousInitiatives },
+        newValue: { initiatives },
+      }
+
+      await job.handleDiff(
+        'initiatives',
+        diff,
+        change,
+        typeof requiresApproval == 'boolean' ? requiresApproval : false
+      )
     }
 
-    return { body, diff, requiresApproval }
+    if (job.hasApproval() && !job.isDataApproved()) {
+      await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+    }
   }
 )
 

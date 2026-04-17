@@ -1,0 +1,1420 @@
+#### Overview of XVIVO’s GHG emissions in 2024 by source of emissions
+
+In percentage of total emissions Scope 3 99%
+
+Scope 2 0.6% Scope 1 0.4%
+
+##### Pollution
+##### Circularity Own workforce
+
+Workers in the value chain Affected communities Consumers & end users Business conduct
+
+#### Environment
+
+XVIVO is committed to supplying safe sustainable products and ensuring compliance with laws regulations and standards where the environment plays a key role.
+Due to strict sterility requirements a prerequisite for guaranteeing patient safety is that the reuse of materials is prohibited as clearly stipulated by the WHO.
+Because our disposable products cannot be reused due to biological contamination this means that using our products has a degree of environ mental impact.
+
+XVIVO has an Environmental policy in place which can be found on our website (www. xvivogroup.com).
+15,451 tCO2e In 2024 we conducted our first green house gas (GHG) emission collection and calculation using the methodology of the Green House Gas Protocol.
+Scope 3 emissions accounts for an absolute majority 99% of total emissions primarily a result from emissions from pur chased goods and services and upstream transportation and distribution.
+
+Our environmental work focuses on three areas where we have the opportunity to influence our environmental impact through responsible decisions facilities partners and logistics.
+
+#### 40XVIVO ANNUAL REPORT 2024
+
+
+<!-- PAGE: 40 -->
+Our greatest contribution to a better world XVIVO's ESRS focus areas*
+
+|  |
+| --- |
+| Our greatest contribution to sustainability is creating opportunities to save more lives enhance the quality of life for patients and improve healthcare economics so that healthcare systems all over the world can afford to do even more. Our core business is based on our vision that ‘nobody should die waiting for a new organ’. XVIVO's profits are largely reinvested in research and develop ment. In 2024 about 32 percent of revenues were reinvested in R&D projects and mainte nance with the aim of improving transplant care by bringing new lifesaving products to the market in the future. High quality and safety of our products is critical to our operations. | We ensure quality and safety through compli ance with applicable laws and regulations and our process based quality management system. In preparation for the Corporate Sustainability Responsibility Directive (CSRD) the upcoming new EU directive for sustainability reporting XVIVO has conducted a double materiality assessment (DMA) in 2024. The assessment looks at XVIVO's impact on environment and people referred to as impact materiality alongside their impact on XVIVO known as financial materiality. The assessed topics are defined in the Europeans Sustainability Reporting Standard (ESRS) and the outcome of the DMA will be the basis of XVIVO's sustainability work going forward.
+| UN Sustainable Development Goals |
+![table image]({page: 40, x: 36}, {y: 54, {width: 181}, {height: 10})
+
+In 2015 all UN member states adopted the Agenda for Sustainable Development.
+As part of this process 17 sustainability goals were developed to ensure peace and prosperity for the planet and humans.
+By working with XVIVO's ESRS focus areas we primarily contribute to furthering Sustainable Development Goals 3 5 8 and 9.
+Our product offering contrib utes to more lives saved and improved health Gender equality and workplace inclusion The health safety and development of our employees are critical in parallel with sustain able economic growth We are making substantial invest ments in innovation and leading technolo gies to create long term value for society
+
+Climate change
+
+###### 41XVIVO ANNUAL REPORT 2024
+
+
+<!-- PAGE: 41 -->
+Overview of XVIVO's ESG work
+
+|  |
+|  |
+| Environment | Strive for renewable energy use Strong partnerships ensure compliance with environmental regulations in production Responsible travel policy Collaboration for efficient logistics
+| Social responsibility | Purpose and value driven organization Annual employee survey and performance dialogue process Safe & inclusive working environment Equal opportunities in the workplace Social responsibility
+| Corporate Governance | Global quality processes Clinical trials according to GCP* principles Strong relationships with suppliers Proactive and continuous training of internal and external partners
+![table image]({page: 41, x: 50}, {y: 94, {width: 310}, {height: 46})
+
+- Good Clinical Practices
+
+####### 47XVIVO ANNUAL REPORT 2024
+
+
+<!-- PAGE: 47 -->
+In XVIVOs largest market the US legislation has been established aimed at ensuring that financial relationships and transactions with the healthcare sector are reported to the authorities.
+This takes place through the Open Payments Program (the Sunshine Act).
+The information is public and publication of XVIVO's data enables the company's financial transactions within this sector to be assessed with full transparency by an external party.
+Similar legislation exists in many of our major markets primarily in the EU which ensures transparency in our transactions.
+
+Employees and external stakeholders can report suspected or detected misconduct to an external whistleblower function via our website.
+
+Data integrity and IT security Cyberthreats have become a serious problem for companies and can significantly impact both the organization and personal privacy.
+XVIVO works actively with security related to IT systems and sensitive data.
+We collect patient data in our clinical trials.
+We do our utmost to ensure that this data is processed confidentially and that personal privacy is always protected.
+Our clinical trials are conducted in accordance with ISO14155 and GCP and all data processing takes place in accordance with the GDPR.
+Data from our clinical trials are collected and stored in electronic data collection systems that are certified for or compatible with relevant certifications (ISO27001 ISO9001) and/or national or international standards (HIPAA NEN7510) for data processing and security.
+
+Setting the stage for ESG work in 2025 In 2024 we laid the foundation for extending our strategic and systematic sustainability work to further strengthen our positive impact on our surrounding world.
+
+The DMA and its outcome carried out together with a leading Nordic sustainability partner forms the basis for our sustainability focus in the short and long term.
+The DMA is a key component of our long term corporate strategy and will be updated annually.
+
+Based on the outcome of the DMA a broader plan was set in place to outline our sustain ability work in the upcoming years by con ducting an analysis of our sustainability activities and governance.
+Based on the analysis we developed a roadmap of sustainability activities to strengthen our existing sustainability capabilities in the coming years.
+
+We conducted a resilience assessment to judge how well XVIVO can withstand or adapt to risks and challenges to ensure long term sustainability and operational stability.
+As part XVIVO's broader effort to strengthen our ESG resilience and capabilities we are conducting mapping of our environmental impact.
+Example of the work done is a full GHG emission screening including all scopes and identification of relevant categories in scope 3.
+In 2025 we will continue this effort with mapping of eg
+decarbonization activities.
+
+Aligned with rest of the sustainability work we have done further assessment of existing sustainability governance to integrate future initiatives more into our core business and operations.
+
+Significant events and key ratios 2024
+
+| Sales |  | Organic growth | EBITDA margin |
+| --- | --- | --- | --- |
+| SEK | 822 M | 39% | 21%
+![table image]({page: 5, x: 506}, {y: 85, {width: 304}, {height: 12})
+
+### Note 3. Operating segments
+
+|  |
+|  |
+| The Group's business is divided up into operating segments on the basis of what parts of the business the company's chief operating decision maker follows up in a management approach. | The following operating segments have been identified • Thoracic Sales of lung and heart transplant products. •Abdominal Sales of liver and kidney transplant products. •Services Revenue from sales of services in organ recovery
+![table image]({page: 78, x: 465}, {y: 82, {width: 366}, {height: 47})
+
+Group management follows up the sales and gross margin of the business and makes decisions regarding the distribution of resources on the basis of the goods and services the Group develops and sells in the respective segments.
+
+The Group's internal reporting is thus constructed so that Group management can follow up all goods’ performance.
+It is on the basis of this internal reporting that the Group's segments have been identified as the various parts have under gone a process that has aimed at combining segments that are similar.
+
+|  | Thoracic | Abdominal | Services | Consolidated total |
+| --- | --- | --- | --- | --- |
+| Disposables | 539,237 | 372,518 | 154,829 | 118,342 | - | -694,066 490,860 |  | 
+| Machines | 13,554 | 9,485 | 19,819 | 11,397 | - | - | 33,373 | 20,882
+| Services | - | - | - | - | 87,760 | 79,140 | 87,760 | 79,140
+| Total | 552,791 | 382,003 | 174,648 | 129,739 | 87,760 | 79,140 | 815,199 | 590,882
+| Revenue from operational leasing | 2,444 | 2,360 | 4,772 | 4,300 | - | - | 7,216 | 6,660
+| Total | 555,235 | 384,363 | 179,420 | 134,039 | 87,760 | 79,140 | 822,415 | 597,542
+![table image]({page: 78, x: 124}, {y: 246, {width: 400}, {height: 8})
+
+The segments’ gross profit includes directly attributable costs and costs that can be divided up into segments in a reasonable and reliable manner.
+The items recognized in the segments’ gross income are measured in accordance with the gross margin that Group management follows up.
+
+####### Basis for Opinions
+
+We conducted our audit in accordance with International Standards on Auditing (ISA) and generally accepted auditing standards in Sweden.
+Our responsibilities under those standards are further described in the Auditor's Responsibilities section.
+We are independent of the parent company and the group in accordance with professional ethics for accountants in Sweden and have otherwise fulfilled our ethical responsibilities in accordance with these requirements.This includes that based on the best of our knowledge and belief no prohibited services referred to in the Audit Regulation (537/2014) Article 5.1 have been provided to the audited company or where applicable its parent company or its controlled companies within the EU.
+
+We believe that the audit evidence we have obtained is sufficient and appropriate to provide a basis for our opinions.
+
+###### Certification
+
+The Board of Directors and the CEO hereby certify that the annual accounts have been prepared in accordance with generally accepted accounting principles in Sweden and have been drawn up in accordance with the international accounting standards referred to in Regulation (EC) No 1606/2002 of the European Parliament and of the Council of July 19 2002 on the application of international accounting standards.
+The annual accounts and the consolidated accounts provide a fair representation of the Parent Company's and the Group's position and performance.
+The Administration Report for the Parent Company and the Group provides a true and fair overview of the development of the company's operations financial position and earnings and describes the significant risks and uncertainty factors to which the Parent Company and the companies included in the Group are exposed.
+
+As indicated above the annual accounts and the consolidated annual accounts were approved for release by the Board of Directors and the CEO on April 2 2025.
+The Consolidated Income Statement the Consolidated Statement of Other Comprehensive Income and the Consolidated Statement of Financial Position as well as the Parent Company Income Statement and Statement of Financial Position are subject to adoption by the Annual General Meeting on April 25 2025.
+
+Gothenburg Sweden April 2 2025
+
+| Gosta Johannesson | Christoffer Rosenblad |
+| --- | --- |
+| Chairman of the Board | CEO
+![table image]({page: 102, x: 466}, {y: 127, {width: 226}, {height: 8})
+
+| Goran Dellgren | Camilla oberg |
+| --- | --- |
+| Board member | Board member
+![table image]({page: 102, x: 466}, {y: 185, {width: 265}, {height: 8})
+
+| Erik Stromqvist | Lars Henriksson |
+| --- | --- |
+| Board member | Board member
+![table image]({page: 102, x: 466}, {y: 243, {width: 265}, {height: 8})
+
+Lena Hoglund Board member
+
+Our audit report was issued on April 2 2025
+
+########### Auditor’s responsibility
+
+Our objective concerning the audit of the adminis tration and thereby our opinion about discharge from liability is to obtain audit evidence to assess with a reasonable degree of assurance whether any member of the Board of Directors or the Managing Director in any material respect
+
+- • has undertaken any action or been guilty of any omission which can give rise to liability to the company, or
+
+- • in any other way has acted in contravention of the Companies Act, the Annual Accounts Act or the Articles of Association.
+
+Our objective concerning the audit of the pro posed appropriations of the company's profit or loss and thereby our opinion about this is to assess with reasonable degree of assurance whether the proposal is in accordance with the Companies Act.
+
+Reasonable assurance is a high level of assurance but is not a guarantee that an audit conducted in accordance with generally accepted auditing standards in Sweden will always detect actions or omissions that can give rise to liability to the company or that the proposed appropriations of the company's profit or loss are not in accordance with the Companies Act.
+
+As part of an audit in accordance with generally accepted auditing standards in Sweden we exercise professional judgment and maintain professional scepticism throughout the audit.
+The examination of the administration and the pro posed appropriations of the company's profit or loss is based primarily on the audit of the accounts.
+Additional audit procedures performed are based on our professional judgment with starting point in risk and materiality.
+This means that we focus the examination on such actions areas and relation ships that are material for the operations and where deviations and violations would have particular importance for the company's situation.
+
+### Cash flow disclosures, leases Group
+
+|  | 2024 | 2023 |
+| --- | --- | --- |
+| Amortization of lease liability | 10,902 | 10,703
+| Interest expense lease liabilities | 1,115 | 800
+| Lease expense for short term leases | 1,358 | 1,356
+| Variable lease expenses | 280 | 802
+| Total | 13,655 | 13,661
+| Additional right of use assets | Group | 
+![table image]({page: 85, x: 364}, {y: 96, {width: 363}, {height: 9})
+
+|  | 2024 | 2023 |
+| --- | --- | --- |
+| Buildings | 11,897 | 29,282
+| Cars | 669 | 3,152
+| Total | 12,567 | 32,434
+| Carrying amount of right of use asset | Group | 
+![table image]({page: 85, x: 363}, {y: 195, {width: 363}, {height: 9})
+
+|  | 2024 | 2023 |
+| --- | --- | --- |
+| Buildings | 31,318 | 28,997
+| Cars | 2,449 | 3,330
+| Total | 33,767 | 32,327
+| Carrying amount of lease liabilities | Group | 
+![table image]({page: 85, x: 363}, {y: 270, {width: 363}, {height: 9})
+
+|  | 2024 | 2023 |
+| --- | --- | --- |
+| Lease liabilities | 34,043 | 31,437
+| Total | 34,043 | 31,437
+![table image]({page: 85, x: 363}, {y: 345, {width: 399}, {height: 8})
+
+A lease analysis for agreed minimum future lease payments payable pursuant to non reversible con tracts is presented in Note 25.
+
+#### Flexible products for machine perfusion of donated livers
+
+XVIVO's offering in liver transplantation comprises the proprietary machine Liver Assist with related disposables.
+The machine includes a pump that handles perfusion of the organ a heating unit that regulates tempera ture and an oxygenator.
+
+Liver Assist is used at the recipient hospital either for Hypothermic Oxygenated Perfusion (HOPE) ie
+cold perfusion or for normother mic ie
+warm assessment of donated livers.
+In addition the machine can also be used for sub-normothermic perfusion or for a combi nation of cold and warm perfusion.
+The temperature and protocol used depends on the organ and clinical preferences.
+Liver Assist is CE marked under MDR.
+In January 2025 XVIVO submitted an Investigational Device Exemption (IDE) application to the FDA seeking approval to initiate a clinical study for Liver Assist in the US.
+The study is expected to commence in 2025.
+
+Kidney transplantation For patients with chronic kidney failure there are two treatment alternatives transplantation or dialysis.
+Transplantation is the best option primarily for the patient's quality of life and survival1 but also from a socioeconomic perspective since the alternative dialysis is both costly and resource intensive.
+An estimated 4 million patients receive dialysis globally.
+Of these 800,000 are in the US alone where the estimated cost is approximately 7,000 USD per month per dialysis patient.2
+
+- 1. Chaudhry D, Chaudhry A, Peracha J, Sharif A. Survival for waitlisted kidney failure patients receiving transplantation versus remaining on waiting list: systematic review and meta-analysis BMJ 2022; 376 :e068769 doi:10.1136/bmj-2021-068769. 2. https://usrds-adr.niddk.nih.gov/2022/end-stage-renal-disease/9-healthcare-expenditures-for-persons-with-esrd
+
+# Key ratios
+# Significant events
+
+|  | 2024 | 2023 |
+| --- | --- | --- |
+| Net sales | 822 | 598
+| Gross margin % | 75 | 74
+| Gross margin non durable goods % | 81 | 81
+| EBIT (Operating margin),% | 11 | 1
+| EBIT (Operating margin) (adjusted1) % | 14 | 7
+| EBITDA % | 21 | 13
+| EBITDA (adjusted2) % | 22 | 17
+| Net margin % | 21 | 15
+| Equity/assets ratio % | 90 | 89
+| Earnings per share SEK | 5.47 | 3.07
+| Shareholders’ equity per share SEK | 68.47 | 61.75
+| Share price on closing day SEK | 489 | 330
+| Market cap on closing day SEK M | 15,403 | 10,379
+![table image]({page: 5, x: 762}, {y: 182, {width: 346}, {height: 8})
+
+#### Facilities
+
+XVIVO's head office is located in GoCo Health Innovation City a development region in Gothenburg focusing on innovation in health care.
+The office is powered by 100 percent renewable energy.
+
+XVIVO seeks to reduce energy consumption wherever possible.
+Production of the compa ny's products takes place through external specialized partners which means that XVIVO's facilities refer to office premises and development centers.
+Globally 79 percent of XVIVO's power supply is derived from renew able energy sources.
+
+In addition to XVIVO's administrative offices the company operates three development centers in Groningen the Netherlands Lund Sweden and Denver USA.
+The share of renewable energy for these centers will be mapped in 2025.
+
+######## 54XVIVO ANNUAL REPORT 2024
+
+
+<!-- PAGE: 54 -->
+Significant risks and uncertainties
+
+There are several risk factors which impact XVIVO's business and which may do so in the future.
+
+The risks are presented in the following areas
+
+- • Market risks
+
+- • Operational risks
+
+- • Legal and regulatory risks
+
+- • Global health crises and conflicts
+
+- • Financial risks
+
+Market risk Lung transplantations are a life saving proce dure for which there are no medical treatment alternatives.
+The shortage of organs is signifi cant and there is potential within healthcare systems to improve efficiency enabling more transplants to be performed.
+The cost of trans plantation is largely offset by lower overall life saving patient treatment costs although hospitals frequently remain dependent on government reimbursement for transplantation to be financially sustainable.
+Other market risks are hospital access to funding and medical resources.
+In the assessment of XVIVO the business is not currently significantly impacted by changes in the world economy.
+Organ transplantation is a prioritized treat ment by health authorities around the world.
+
+Operational risks These primarily comprise risks that limit or prevent XVIVO from developing manufactur ing and selling qualitative efficient and safe products.
+The risks have been identified and essentially reduced to manageable levels for example by signing agreements with suppli ers partners and customers as well as co-investments in production facilities.
+XVIVO is a company of limited size and the organiza tion is still in the process of being built up.
+XVIVO's future development is partly depen dent on key personnel with specialist knowl edge remaining in the organization Legal and regulatory risks The market for XVIVO is impacted by applica ble legislation and other regulations.
+Changes in legislation or political decisions may impact the company's ability to run or develop the business.
+XVIVO's products need regulatory approval on the markets where they are marketed.
+The market for medical technology products is being regulated to an increasing extent with a view to increasing patient safety and reducing the risk of incorrect treatment.
+This means increased product development costs for XVIVO but also greater barriers for new competitors who want to break into the market.
+
+Due to the nature of the business there is a risk of claims for damages and liability.
+To protect the Group against the economic effects of any claims XVIVO is insured against general and business related claims for damages.
+XVIVO performs regular reviews with brokers and insurance advisors and the applicable insurance cover is presented to the Board annually.
+
+Global health crises and conflicts Although XVIVO and the transplantation industry in general are returning significant growth there is continued uncertainty in the surrounding world.
+The Covid 19 pandemic showed that global transplantation activity is negatively affected by health crises that place healthcare services under significant pressure.
+Geopolitical conflict and war in the surround ing world are currently having a limited impact on XVIVO's operations both in terms of sales and the supply chain.
+
+Financial risks XVIVO has most of its sales in other curren cies than SEK.
+The US dollar and the Euro are the most important currencies.
+Expenses are largely in SEK but a considerable portion is in USD.
+XVIVO does not currently hedge its revenues in foreign currency which means there is a currency risk for the business (see Note 25 for further information).
+
+Sustainability and responsibility Sustainability and responsible business practices are integral parts of XVIVO\'s strategy and corporate culture.
+The company\'s focus on sustainability efforts intensified in 2024.
+XVIVO has partnered with a leading sustainability consulting firm to ensure com pliance with the EU Corporate Sustainability Reporting Directive (CSRD) for the 2025 financial year.
+In compliance with the Swedish Annual Accounts Act XVIVO has prepared a Sustainability Report included as a separate section in the Annual Report on pages 39-48.
+
+Legal disputes The company was not involved in any legal disputes in 2024 that had any significant impact on the company's finances or business.
+
+55XVIVO ANNUAL REPORT 2024
+
+
+<!-- PAGE: 55 -->
+
+### Machine perfusion – a market ten times larger than traditional storage on ice Tailored service offering that supports the growth of transplant programs
+## Financial targets 2027 - profitable growth
+### EBIT
+
+>20%
+
+### Profitability is driven by the sales and utilization of disposables.
+
+In heart transplantation we have a new pioneering preservation technology.
+The technology is expected to receive regulatory approval CE marking during the first half of 2025 paving the way for its European launch.
+Following the CE marking an approval application will be submitted to the regulatory authorities in Australia where we anticipate a swift process.
+A clinical study for the technol ogy in the US successfully completed patient enrollment in November 2024 and we are now awaiting the one year follow up data.
+The technology includes a machine dispos ables and a perfusion solution with a supplement.
+
+## Status of regulatory approvals in key markets
+
+- Unapproved product(s)
+
+PMA approval for STEEN Solution & XPS / PERFADEX Plus 510(k) approval
+
+Kidney Assist Transport 510(k) approval
+
+##### Revenue model for Thoracic and Abdominal
+
+In the Thoracic and Abdominal business areas profitability is driven by the sales and utiliza tion of disposables rather than by the machines sold.
+
+Machine sales are recognized as sales of capital goods.
+The goal is to expand the installed base of perfusion machines for all organs with customers looking to initiate or scale up their transplantation programs.
+
+For each installed machine regardless of whether it is intended for preservation assessment of organs or transport dispos ables are used for each handled organ.
+These disposables and solutions are considered one time use consumables comprise the business areas’ main source of income.
+
+The gross margin is strong and amounted to 85 percent (84) for machine perfusion in
+
+### Extending horizons
+
+XVIVO Gemenskapens gata 9 SE 431 53 Molndal Sweden info@xvivogroup.com xvivogroup.com
+
+
+
+ This is some of the important tables from the markdown with more precision:
+
+## Services business area
+
+Organ recovery as a service Since 2021 XVIVO offers organ recovery as a service on the US market.
+XVIVO is responsi ble for the removal of donor organs and for transporting them to transplant clinics where the implantation surgery is performed by the clinic's own surgeons.
+XVIVO\'s surgeons are on call around the clock and have experience of more than 2,000 organ recoveries.
+The current geographical service area covers the East Coast to Mid West where XVIVO currently is responsible for approximately 8% of all heart and lung recovery.
+
+By allowing a third party to collect organs transplant clinics can focus on their patients and increase the number of transplants.
+This leads to more lives being saved while reduc ing costs and saving time.
+Today the compa ny\'s offering covers heart and lung services and as part of its business plan it aims to expand its service portfolio in the coming years to new geographic regions in the US while also incorporating kidney and liver services.
+
+FlowHawk A communication platform for the transplantation process In October 2024 XVIVO acquired FlowHawk.
+It is a digital tool for communication and workflow planning developed specifically for transplantation processes which includes the development and distribution of this software platform.
+FlowHawk is available in the US market and is used by several major transplant clinics.
+XVIVO\'s organ recovery service has implemented FlowHawk into its service offer during 2024.
+
+Today transplant clinics often rely on traditional text messages emails and phone calls for communication which can be cumbersome and inefficient but also a security risk for sensitive patient data.
+Transplant clinics need ways to remove unnecessary barriers and streamline processes in order to continue increasing the number of successful trans plants.
+The FlowHawk software platform enables HIPAA compliant direct communica tion with collaborating teams ensuring that the right information reaches the right people at the right time.
+Simple transparent and traceable workflows ensure that all relevant tasks are completed and decisions are logged.
+
+#### Note 14. Intangible non-current assets (cont’d.)
+
+Amortization has been divided by function in the Income Statement as follows
+
+|  | Group | Parent Company |
+| --- | --- | --- |
+| Costs of goods sold | -52 | -90 | - | -
+| Selling expenses | -6,172 | -5,992 | -23 | -23
+| Administration expenses | -493 | -430 | -396 | -430
+| Research and development expenses | -28,265 | -30,146 | -14,862 | -16,863
+| Total | -34,982 | -36,658 | -15,281 | -17,316
+![table image]({page: 90, x: 273}, {y: 105, {width: 399}, {height: 8})
+
+The present value of forecast cash flows has been calculated using a discount rate of 11.6 percent before tax for assets in lung operations 12.6 percent before tax for heart operations 13.6 percent before tax for assets in liver operations 11.6 percent before tax for assets in kidney operations,12.6 percent for assets linked to organ recovery operations and 11.6 percent for the operations in Italy.
+The recoverable amount which is calculated in the Group as value in use exceeds the carrying amount for all impairment tested assets.
+Management believes that no reasonable changes in the important variables and assump tions result in the entity's recoverable amount being lower than the carrying amounts.
+
+The Group's goodwill is attributable to acquisitions of subsidiaries and their businesses.
+Goodwill primarily consists of synergy effects that do not meet the requirements for accounting as intangi ble assets at the time of the acquisition.
+Primary synergies are potentially increased sales values per client as well as increased sales potential for new clients which can be achieved by utilizing XVIVO's knowledge and experience within global marketing and regulatory issues in acquired operations.
+Synergies which could contribute to future net sales is also to be found within research and development.
+Goodwill and capitalized expenditure have been tested for impairment on the basis of budgets and forecasts where the first year of the forecast is based on the company's budget and the subse quent four years on the basis of the historical growth rate adjusted by the company manage ment's forecasts for the future.
+The forecasts have been produced internally by the company management on the basis of historical data management's cumulative experience and their best assessment of the company's development potential.
+The main variables in the forecast are market growth and market share gross margin sales costs and investments.
+Management\'s forecasts for market growth and market share are based on the assumption that the transplantation market will continue to expand by at least 5-7 percent annually reflecting historical growth trends.
+Over time XVIVO aims to establish a market leading position in each organ segment.
+Capitalized development expenses were written down by SEK 20 million during the year.
+The cost was recognized under Research and development expenses.
+The asset value before impairment primarily comprised internally and externally accumulated costs attributable to development work in the early stage of product development.
+In 2024 management assessed that the assets in question no longer hold value for the business and have therefore been fully written down to zero.
+
+In order to support the impairment testing of goodwill that has been carried out a comprehen sive analysis has been made of the sensitivity of the variables used in the model.
+An assumed increase in the discount rate of an additional 5 percentage points demonstrates that the recover able amounts are still greater than the carrying amounts.
+Other assumptions such as the gross margin capital expenditure requirements and the growth rate have been assumed to be constant.
+Conceivable changes in these assumptions over time are not expected to lead to any indication that the carrying amount for goodwill cannot be defended.
+
+91XVIVO ANNUAL REPORT 2024
+
+
+<!-- PAGE: 91 -->
+
+##### Corruption and Bribery
+
+In the global healthcare sector business relationships are established between private and public operators and there is an inherent risk of corruption including improper pay ments made in good faith.
+It is therefore important to have clear and detailed guide lines on how business should be conducted.
+XVIVO's Code of Conduct and XVIVO's Supplier and Distributor Code of Conduct set out guidelines for avoiding bribes and corrup tion.
+In 2024 100 % percent of XVIVO's executive management and Board of Director's acknowledged the Code of Conduct and anti-corrupction policy.
+100 % of executive management also received training on anti-corruption.
+For all other employee categories training on anti-corruption policy and Code of Conduct is either part of the on boarding process or an annual re-certifica tion process.
+All our suppliers are evaluated to ensure they meet our quality standards
+
+### 25XVIVO ANNUAL REPORT 2024
+
+
+<!-- PAGE: 25 -->
+Methods for preserving and assessing donated organs Service providers
+
+######### 53XVIVO ANNUAL REPORT 2024
+
+
+<!-- PAGE: 53 -->
+potential to reshape liver transplant logistics.
+The trial showed that donor livers could be transplanted with good outcomes after up to 20 hours of preservation using DHOPE (Dual Hypothermic Oxegynized Machine Perfusion).
+This finding provides transplant clinics with the opportunity for the first time to plan the timing of a transplant and avoid nighttime surgery.
+By extending perfusion times UMCG in 2023 was able to perform the majority of all liver transplants during daytime rather than nighttime.
+
+XVIVO acquired FlowHawk a unique communication platform for the transplant process Financial income of SEK 64 million from fair value valuation of financial liabilities
+
+Group's key ratios 5 year summary
+
+|  | 2024 | 2023 | 2022 | 2021 | 2020 |
+| --- | --- | --- | --- | --- | --- |
+| Net sales SEK M | 822 | 598 | 415 | 258 | 180
+| Gross margin % | 75 | 74 | 72 | 73 | 72
+| Gross margin disposables % | 81 | 81 | 79 | 76 | 75
+| EBITDA % | 21 | 13 | 12 | 5 | -9
+| EBITDA adjusted%* | 22 | 17 | 14 | 11 | 11
+| EBIT (Operating margin),% | 11 | 1 | 2 | -7 | -25
+| EBIT adjusted (Operating margin) %* | 14 | 7 | 3 | -1 | -6
+| Net margin % | 21 | 15 | 4 | 3 | -24
+| Total Assets SEK M | 2,403 | 2,196 | 1,733 | 1,543 | 1,150
+| Equity/assets ratio % | 90 | 89 | 83 | 83 | 88
+| Earnings per share SEK | 5.47 | 3.07 | 0.62 | 0.28 | -1.61
+| Shareholders’ equity per share SEK | 68.47 | 61.75 | 47.94 | 43.58 | 35.11
+| Share price on closing day SEK | 489 | 330 | 183 | 279 | 314
+| Average number of employees | 158 | 130 | 114 | 92 | 63
+![table image]({page: 53, x: 640}, {y: 80, {width: 405}, {height: 8})
+
+- Adjusted for effects from non-recurring costs
+
+year primarily consisted of costs related to the company\'s European heart preservation study and its two clinical studies in the US on heart and liver transplantation.
+and researchers in all major markets in the world.
+Considerable resources are spent on research and development and the company is one of the leading innovators in the industry.
+Of the total operating expenses of SEK 528 million (445) research and development costs accounted for SEK 148 million (136) corre sponding to 28 (31) percent.
+During the year development expenses of SEK 120 million (100) were capitalized as intangible assets.
+Capitalized development expenses during the Write downs of financial liabilities relating to contingent consideration for acquired busi nesses had a positive impact of SEK 64.4 million (4.1) on the Income Statement in the quarter.
+The change was recognized under financial income and expenses and did not affect operating income (EBIT) EBITDA or cashflow.
+Nor did the assessment result in any need for write downs of intangible assets associated with acquisitions.
+
+On October 11 XVIVO acquired a digital tool for communication and workflow developed for the transplant process which includes the development and distribution of the FlowHawk software platform from Healthtech Solutions Inc. trading as OmniLife.
+100 percent of the initial purchase price for the acquisition of the assets related to FlowHawk corresponds to USD 6.0 million and was paid in cash at closing financed using existing company funds.
+A contingent consideration of USD 1.0 million is to be paid out in the first half of 2026 provided certain performance based targets are met during 2025.
+Non recurring costs associated with the transaction amoun ted to SEK 5 million and impacted the third quarter of 2024.
+Integration of the operations is expected to be completed during the first half of 2025 with additional non recurring costs of approximately SEK 5 million.
+
+Lena Hagman is appointed deputy CEO.
+
+The Board of Directors of XVIVO Perfusion AB (publ) (“XVIVO”) has appointed Lena Hagman as deputy CEO.
+Lena will also remain in her role as COO.
+
+Research and development XVIVO mainly conducts product development on its own while research is mainly carried out in collaboration with world leading institutions
+
+############ 108XVIVO ANNUAL REPORT 2024
+
+
+<!-- PAGE: 108 -->
+Esef report have been marked with iXBRL in accordance with what follows from the Esef regulation.
+
+### Note 8. Auditor’s fees and reimbursement of costs
+
+|  | Group | Parent Company |
+| --- | --- | --- |
+| Auditing | 1,036 | 1,005 | 476 | 422
+| Auditing activities in addition to auditing | 112 | 145 | 112 | 145
+| Tax consulting | 209 | 131 | 209 | 131
+| Other services | - | 160 | - | 160
+| Total | 1,357 | 1,441 | 797 | 858
+![table image]({page: 84, x: 275}, {y: 80, {width: 401}, {height: 8})
+
+| Auditing involves review of the Annual Report of the accounting records and of the management of the Board of Directors and CEO and other tasks that the company's auditors are required to undertake as well as advice and other assistance that arise from observations as a result of this review or the carrying out of these other tasks. Auditing activities in addition to auditing involve | quality assurance services including assistance as a result of such review as shall be carried out in accordance with national statutes the articles of association company statutes or agreements and which result in a report intended for other parties than the client. Tax consulting is recognized separately. Anything else is other services. |
+| --- | --- |
+| Note 10. Leases The Group rents office premises in Gothenburg. The current lease for office premises expires on January 31 2026. The Group also rents office premises and warehouse facilities in Denver Colorado in the US. The current rental agreement expires on September 30 2025 with an option for extension. The agreement period for warehouse premises terminates on September 30 2025 and June 30 2030 respectively. The Group also rents office premises and warehouse facilities in Lund Sweden. The current lease expires on October 31 2025 with an option for extension. The Group also rents office premises and warehouse facilities in Groningen The Netherlands. The current lease expires on December 31 2028 with an option for extension. | Rental payments are linked to CPI and vary with the market as a whole. Variable payments are invoiced in arrears after an annual review. There are no restrictions as a result of lease agreements already entered into. Where rebuilding or exten sion work has been paid for by the Group individual testing is carried out to ascertain whether the costs can be included in the Balance Sheet or whether they are to be expensed in their entirety. In addition the Group has entered into lease agreements for three company cars and some office equipment. The Group expenses lease liabilities with a term of less than 12 months.
+![table image]({page: 84, x: 246}, {y: 178, {width: 386}, {height: 203})
+
+### Cost disclosures, leases: Group
+
+|  | 2024 | 2023 |
+| --- | --- | --- |
+| Depreciation of right of use assets | 12,005 | 10,650
+| -Of which buildings | 10,912 | 10,065
+| -Of which cars | 1,092 | 585
+| Interest expense lease liabilities | 1,115 | 800
+| Lease expense for short term leases | 1,358 | 1,356
+| Variable lease expenses | 280 | 802
+| Total | 14,757 | 13,608
+![table image]({page: 84, x: 793}, {y: 317, {width: 400}, {height: 8})
+
+###### 43XVIVO ANNUAL REPORT 2024
+
+
+<!-- PAGE: 43 -->
+combine meeting or events to avoid additional journeys.
+Train and other ground transporta tion should always be considered before travel by air.
+When an airline offers the opportunity to climate compensate XVIVO's policy states that this shall be included in the booking.
+
+Our culture is strongly characterized by our vision that “nobody should die waiting for a new organ”
+
+# Sustainability is a part of our DNA
+
+Our products and services enable more lives to be saved increase quality of life and improve health economics.
+
+Read more on page 39.
+
+########### Göteborg
+
+KPMG AB Signed on the Swedish original
+
+####### 57XVIVO ANNUAL REPORT 2024
+
+
+<!-- PAGE: 57 -->
+targets.
+The criteria shall be designed to contribute to the company's business strategy and long term interests including its sustain ability by for example being clearly linked to the business strategy or promote the execu tive's long term development.
+
+The extent to which the criteria for awarding variable cash remuneration has been satisfied shall be evaluated/determined when the measurement period has ended.
+The Remuneration Committee is responsible for the evaluation so far as it concerns variable remuneration to the CEO.
+For variable cash remuneration to other executives the CEO is responsible for the evaluation.
+For financial objectives the evaluation shall be based on the latest financial information made public by the company.
+
+Salary and employment terms for employees In the preparation of the Board of Directors’ proposal for these remuneration guidelines salary and employment terms for employees of the company have been taken into account by including information on the employees’ total remuneration the components of the remuneration and increase and growth rate of the remuneration over time in the Remuneration Committee's and the Board of Directors’ basis of decision when evaluating whether the guidelines and the limitations set out herein are reasonable.
+The gap between remuneration to executives and remuneration to other employees is disclosed in the remuneration report.
+
+The decision making process to determine review and implement the guidelines The Board of Directors has established a Remuneration Committee.
+The Committee's tasks include preparing the Board of Directors’ decision to propose guidelines for executive remuneration to senior executives.
+The current guidelines were adopted by the Annual General Meeting 2021 and the Board is required to propose new guidelines at least every four years and present the proposal to the AGM. The guidelines shall be in force until new guidelines are adopted by the General Meeting.
+The Remuneration Committee shall also monitor and evaluate programs for variable remuneration for the executive management the application of the guidelines for executive remuneration as well as the current remuneration structures and compen sation levels in the company.
+The ordinary members of the Remuneration Committee are independent of the company and its executive management.
+The CEO and other members of the executive management do not participate in the Board of Directors’ processing of and resolutions regarding remuneration related matters in so far as they are affected by such matters.
+
+Board of Directors’ service assignments Directors elected by the General Meeting shall in special cases be eligible for remunera tion for services in their respective area of expertise which is not Board work.
+Remuneration for such services shall be made on market terms and approved by the Board of Directors and may not exceed SEK 300,000 excluding VAT per year and director.
+
+Derogation from the guidelines The Board of Directors may resolve to tempo rarily derogate from the guidelines in whole or in part if in a specific case there is special cause for such action and a derogation is necessary to serve the company's long term interests including its sustainability or to ensure the company's financial viability.
+As set out above the Remuneration Committee's tasks include preparing the Board of Directors’ resolutions in remuneration related matters which includes resolutions to derogate from the guidelines.
+
+Guidelines for remuneration to senior executives Board proposal to AGM 2025
+
+####### EBIT (adjusted)
+
+| SEK 000 | 2024 | 2023 |  |  |  |
+| --- | --- | --- | --- | --- | --- |
+| EBIT (Operating income) | 88,353 | 4,187 |  |  | 
+| Acquisition costs | 5,559 | - |  |  | 
+| Integration costs | 1,430 | 22,103 |  |  | 
+| Impairment intangible fixed assets | 20,291 | 16,439 |  |  | 
+| EBIT (adjusted) | 115,633 | 42,729 |  |  | 
+| Gross margin |
+|  |  |  | SEK 000 | 2024 | 2023
+| Operating income |
+|  |  |  | Net sales | 822,415 | 597,542
+| Operating expenses |
+|  |  |  | Costs of goods sold | -206,000 | -152,431
+|  |  |  | Gross profit | 616,415 | 445,111
+|  |  |  | Gross margin % | 75 | 74
+| Gross margin disposables |
+| Operating income |
+|  |  |  | Net sales | 694,066 | 490,859
+| Operating expenses |
+|  |  |  | Costs of goods sold | -135,591 | -95,932
+|  |  |  | Gross profit | 558,475 | 394,927
+|  |  |  | Gross margin % | 81 | 81
+| Equity/assets ratio |
+|  |  |  | SEK 000 | 241,231 | 231,231
+|  |  |  | Shareholders’ Equity | 2,156,778 | 1,945,045
+|  |  |  | Total assets | 2,402,743 | 2,195,611
+|  |  |  | Equity/assets ratio % | 90 | 89
+![table image]({page: 101, x: 36}, {y: 326, {width: 400}, {height: 8})
+
+####### EBITDA (adjusted)
+
+| SEK 000 | 2024 | 2023 |
+| --- | --- | --- |
+| EBITDA (Operating income before depreciation and amortization) | 176,069 | 80,537
+| Acquisition costs | 5,559 | -
+| Integration costs | 1,430 | 22,103
+| EBITDA (adjusted) | 183,058 | 102,640
+![table image]({page: 101, x: 36}, {y: 230, {width: 400}, {height: 8})
+
+######## MSEK MSEK
+
+900 800 700 600 500 400 300 200 100 0
+
+####### Accumulated exchange rate difference in shareholders’ equity
+
+| Group | 2024 | 2023 |
+| --- | --- | --- |
+| Opening value | 60,885 | 87,782
+| Exchange rate difference for the year in foreign subsidiaries net after tax | 31,303 | -26,897
+| Total | 92,188 | 60,885
+![table image]({page: 94, x: 793}, {y: 67, {width: 400}, {height: 8})
+
+The disclosure requirement according to Chapter 5 §14 of the Annual Accounts Act relating to specifica tion of change in equity compared to the previous year's Balance Sheet is presented in the report on Change in Equity.
+
+|  | Group | Parent Company |
+| --- | --- | --- |
+| Cash and cash equivalents | 415,521 | 246,088 | 270,882 | 147,778
+| Short term investments | - | 300,000 | - | 300,000
+| Total | 415,521 | 546,088 | 270,882 | 447,778
+![table image]({page: 94, x: 273}, {y: 122, {width: 399}, {height: 8})
+
+Cash and cash equivalents include bank balances frozen as security for bank guarantees of SEK 0.3 million (0.3) in both the Parent Company and the Group.
+
+Retained Earnings incl.
+net income for the year Retained earnings including net income for the year include profits earned in the Parent Company and its subsidiaries reserve in restricted equity.
+The reserve shall be reduced as and when the capitalized expenditure is amortized or written down.
+
+Non restricted equity Retained earnings in the Parent Company that is the previous year's retained earnings and income minus dividend paid during the year together with net income for the year constitute non restricted equity which is the amount that is available for dividend to the shareholders.
+
+Restricted reserves Restricted reserves in the Parent Company may not be reduced by the distribution of profit.
+
+####### EBITDA
+
+| SEK 000 | 2024 | 2023 |
+| --- | --- | --- |
+| Operating profit | 88,353 | 4,187
+| Amortization and impairment of intangible assets | 55,273 | 53,098
+| Depreciation and impairment of Property Plant and Equipment | 32,443 | 23,252
+| EBITDA (Operating income before depreciation and amortization) | 176,069 | 80,537
+![table image]({page: 101, x: 36}, {y: 132, {width: 400}, {height: 8})
+
+###### Note 25. Financial instruments and financial risk management (cont’d.)
+
+Credit risks The Group's financial assets are recognized at SEK 586 million (685) of which SEK 416 million (546) is cash and cash equivalents.
+Historically the Group has had low credit losses and this was also true for 2024.
+Risk is limited through the use of credit assessments and advance payments from new customers as well as through close customer monitoring by the finance and marketing functions conjunctively.
+Furthermore individual testing is performed of accounts receivable in terms of solvency and credit rating on the balance sheet date.
+
+Currency risks Currency risk is the risk of fluctuations in the value of financial instruments due to exchange rate fluctuations.
+This risk is related to changes in expected and contracted payment flows (transac tion exposure) the revaluation of foreign subsidiaries’ assets and liabilities in foreign currencies (translation exposure) and financial exposure in the form of currency risks in payment flows for loans and investments.
+The company is impacted by variations in exchange rates.
+The aim is to minimize the impact of these changes wherever practically possible.
+
+Changes in EUR and USD have the greatest impact.
+External sales from the US subsidiary are entirely in USD.
+Inflows are matched with the subsidiary's outflows in the form of costs which are also primarily in USD.
+External sales from the Dutch subsidiary are entirely in EUR.
+Inflows are matched with the subsidiary's outflows in the form of costs which are also primarily in EUR.
+External sales from the Swedish Parent Company during 2024 was primarily in EUR 74 percent (72).
+Most of the costs for the Swedish units are in SEK but there are some costs in EUR.
+These outflows are matched as far as possible with inflows in EUR.
+In the other subsidiaries intra-Group revenues in local currency are matched with costs which are essentially in the same local currency.
+
+Sensitivity analysis In order to manage interest and currency risks the Group aims to reduce the impact of short term fluctuations on the Group's results.
+However in the long term lasting changes in exchange rates and interest rates will have an impact on the consoli dated results.
+
+It has been calculated that a general increase of 5 percent in SEK against all other foreign currencies reduced the Group's operating income before tax by approximately SEK 14 million (8) for the year that ended on December 31 2024.
+
+98XVIVO ANNUAL REPORT 2024
+
+
+<!-- PAGE: 98 -->
+
+### Note 5. Other operating income
+
+|  | Group | Parent Company |
+| --- | --- | --- |
+| Exchange rate gains | 3,719 | 3,905 | 3,321 | 3,589 |  |  |  |  | 
+| Other operating income | 1,090 | 5,432 | 5,784 | 142 |  |  |  |  | 
+| Total | 4,809 | 9,337 | 9,105 | 3,731 |  |  |  |  | 
+| Note 7. Employees personnel costs and Board fees |
+|  |  |  |  |  | Average number of employees | Total |  | Percentage of women | 
+|  |  |  |  |  |  | 2024 | 2023 | 2024 | 2023
+|  |  |  |  |  | Parent Company Sweden | 60 | 53 | 57% | 57%
+|  |  |  |  |  | Subsidiaries USA | 54 | 43 | 42% | 42%
+|  |  |  |  |  | Subsidiary Netherlands | 27 | 21 | 29% | 29%
+|  |  |  |  |  | Subsidiary Italy | 9 | 7 | 71% | 71%
+|  |  |  |  |  | Subsidiary France | 3 | 3 | 67% | 67%
+|  |  |  |  |  | Subsidiary China | 2 | 1 | 0% | 0%
+|  |  |  |  |  | Subsidiary Brazil | 2 | 1 | 100% | 100%
+|  |  |  |  |  | Subsidiary Australia | 1 | 1 | 0% | 0%
+|  |  |  |  |  | Total | 158 | 130 | 48% | 48%
+| Percentage of women in senior positions |
+|  |  |  |  |  | Group |  |  | 2024 | 2023
+|  |  |  |  |  | The Board of Directors |  |  | 33% | 33%
+|  |  |  |  |  | Management Team |  |  | 44% | 56%
+| Personnel costs |
+|  |  |  |  |  | Group |  |  | 2024 | 2023
+|  |  |  |  |  | Salary and other remuneration |  |  | 221,550 | 200,599
+|  |  |  |  |  | Pension expenses defined contribution plans |  |  | 14,733 | 13,083
+|  |  |  |  |  | Social security contributions |  |  | 42,381 | 33,318
+|  |  |  |  |  | Total |  |  | 278,664 | 247,000
+|  |  |  |  |  | Parent Company |  |  | 2024 | 2023
+|  |  |  |  |  | Salary and other remuneration |  |  | 70,411 | 58,516
+|  |  |  |  |  | Pension expenses defined contribution plans |  |  | 10,455 | 8,614
+|  |  |  |  |  | Social security contributions |  |  | 23,872 | 18,030
+|  |  |  |  |  | Total |  |  | 104,739 | 85,160
+![table image]({page: 81, x: 275}, {y: 84, {width: 400}, {height: 8})
+
+Of the Group's pension expenses SEK 1,169 million (0.983) relate to the Board and CEO of which SEK 1.169 million (0.983) to the CEO.
+
+### Note 6. Other operating expenses
+
+|  | Group | Parent Company |
+| --- | --- | --- |
+| Exchange rate losses | -3,992 | -4,113 | -3,795 | -3,824
+| Capital loss sale of non current asset | -780 | -1,001 | -251 | -409
+| Total | -4,772 | -5,114 | -4,047 | -4,233
+![table image]({page: 81, x: 275}, {y: 198, {width: 401}, {height: 8})
+
+### Consolidated Changes in Shareholders’ Equity
+#### Attributable to Parent Company shareholders
+
+Total share holder's equitySEK 000
+
+|  | Share capital | Other capital contributions | Reserves | Retained earnings incl. net income for the year |
+| --- | --- | --- | --- | --- |
+| Total comprehensive income for the year |
+| Net income for the year | - | - | - | 91,820 | 91,820
+| Total other comprehensive income for the year | - | - | -26,897 | - | -26,897
+| Total comprehensive income for the year | - | - | -26,897 | 91,820 | 64,923
+![table image]({page: 69, x: 378}, {y: 95, {width: 618}, {height: 8})
+
+###### Note 24. Accrued expenses and deferred income
+
+Upon maturity the stock option program is estimated to entail a total dilution effect for existing shares of approximately 0.7 percent.
+
+|  | Group | Parent Company |
+| --- | --- | --- |
+| The 2022 Annual General Meeting resolved to issue a maximum of 130,000 stock options (series 2022/2025) with the accompanying right to subscribe for a maximum of 130,000 new shares to employees of the XVIVO Group. Of these stock options all 45,500 have been subscribed for by employees. The stock options program 2022/2025 gives the stock option holder the right to subscribe for a new share at SEK 336.01 during May 2025. |
+|  | Vacation pay | 10,947 | 9,836 | 8,377 | 7,133
+|  | Accrued social security contributions | 8,054 | 6,152 | 3,730 | 3,121
+| Accrued special employer's contribution for | pension expense | 4,477 | 2,001 | 4,477 | 2,001
+|  | Accrued salary pension and bonus | 44,169 | 31,238 | 19,195 | 12,298
+|  | Board fees | 1,866 | 2,550 | 1,866 | 2,550
+|  | Auditing | 685 | 625 | 635 | 575
+|  | Other accrued expenses | 14,876 | 16,537 | 6,805 | 7,271
+|  | Deferred income | 13,469 | 3,694 | 4,232 | 2,693
+|  | Total | 98,544 | 72,633 | 49,318 | 37,642
+![table image]({page: 95, x: 703}, {y: 252, {width: 400}, {height: 8})
+
+######## Responsibilities of the Board of Directors and the Managing Director
+
+The Board of Directors and the Managing Director are responsible for the preparation of the annual accounts and consolidated accounts and that they give a fair presentation in accordance with the Annual Accounts Act and concerning the consoli dated accounts in accordance with IFRS Accounting Standards as adopted by the EU.
+The Board of Directors and the Managing Director are also responsible for such internal control as they determine is necessary to enable the preparation of annual accounts and consolidated accounts that are free from material misstatement whether due to fraud or error.
+
+In preparing the annual accounts and consolidated accounts The Board of Directors and the Managing Director are responsible for the assessment of the company's and the group's ability to continue as a going concern.
+They disclose as applicable matters related to going concern and using the going concern basis of accounting.
+The going concern basis of accounting is however not applied if the Board of Directors and the Managing Director intend to liquidate the company to cease opera tions or has no realistic alternative but to do so.
+
+The Audit Committee shall without prejudice to the Board of Director's responsibilities and tasks in general among other things oversee the compa ny's financial reporting process.
+
+Auditor's responsibility Our objectives are to obtain reasonable assurance about whether the annual accounts and consoli dated accounts as a whole are free from material misstatement whether due to fraud or error and to issue an auditor's report that includes our opinions.
+Reasonable assurance is a high level of assurance but is not a guarantee that an audit conducted in accordance with ISAs and generally accepted auditing standards in Sweden will always detect a material misstatement when it exists.
+Misstatements can arise from fraud or error and are considered material if individually or in the aggregate they could reasonably be expected to influence the economic decisions of users taken on the basis of these annual accounts and consoli dated accounts.
+
+As part of an audit in accordance with ISAs we exercise professional judgment and maintain profes sional scepticism throughout the audit.
+We also
+
+- • Evaluate the appropriateness of accounting policies used and the reasonableness of accounting estimates and related disclosures made by the Board of Directors and the Managing Director.
+
+- • Conclude on the appropriateness of the Board of Directors’ and the Managing Director’s, use of the going concern basis of accounting in preparing the annual accounts and consolidated accounts. We also draw a conclusion, based on the audit evidence obtained, as to whether any material uncertainty exists related to events or conditions that may cast significant doubt on the company’s and the group’s ability to continue as a going concern. If we conclude that a material uncertainty exists, we are required to draw attention in our auditor’s report to the related disclosures in the annual accounts and consoli- dated accounts or, if such disclosures are inadequate, to modify our opinion about the annual accounts and consolidated accounts. Our conclusions are based on the audit evidence obtained up to the date of our auditor’s report. However, future events or conditions may cause a company and a group to cease to continue as a going concern.
+
+- • Evaluate the overall presentation, structure and content of the annual accounts and consolidated accounts, including the disclosures, and whether the annual accounts and consolidated accounts represent the underlying transactions and events in a manner that achieves fair presentation.
+
+- • Plan and perform the group audit to obtain sufficient and appropriate audit evidence regarding the financial information of the entities or business units within the group as a basis for forming an opinion on the consolidated accounts. We are responsible for the direction, supervision and review of the audit work performed for purposes of the group audit. We remain solely responsible for our opinions.
+
+We must inform the Board of Directors of among other matters the planned scope and timing of the audit.
+We must also inform of significant audit findings during our audit including any significant deficiencies in internal control that we identified.
+
+We must also provide the Board of Directors with a statement that we have complied with relevant ethical requirements regarding independence and to communicate with them all relationships and other matters that may reasonably be thought to bear on our independence and where applicable measures that have been taken to eliminate the threats or related safeguards.
+
+# Strategic focus areas
+
+Our strategic objective is to become the preferred partner in the transplant process.
+Read more on page 21.
+
+Hypothermic Oxygenated Perfusion HOPE A proven method for optimizing organ preservation outside the body.
+
+Read more on page 33.
+
+########### Basis for Opinions
+
+We conducted the audit in accordance with generally accepted auditing standards in Sweden.
+Our responsibilities under those standards are further described in the Auditor's Responsibilities section.
+We are independent of the parent company and the group in accordance with professional ethics for accountants in Sweden and have otherwise fulfilled our ethical responsibilities in accordance with these requirements.
+
+We believe that the audit evidence we have obtained is sufficient and appropriate to provide a basis for our opinions.
+
+####### Key Audit Matters
+
+Key audit matters of the audit are those matters that in our professional judgment were of most significance in our audit of the annual accounts and consolidated accounts of the current period.
+These matters were addressed in the context of our audit of and in forming our opinion thereon the annual accounts and consolidated accounts as a whole but we do not provide a separate opinion on these matters.
+
+Revenue recognition See disclosure 2 and accounting principles on page 75 in the annual account and consolidated accounts for detailed information and description of the matter.
+
+### 35XVIVO ANNUAL REPORT 2024
+
+
+<!-- PAGE: 35 -->
+Collaborations relating to early research and development
+
+Professor Stig Steen's research relating to perfusion solutions and machine perfusion forms the basis for XVIVO's lung and heart technologies.
+The collaboration with Professor Stig Steen has been ongoing since 1998 with research carried out at Igelosa Life Science a medical research center in Lund Sweden.
+The focus is on developing new clinical methods and innovations in organ transplantation for the benefit of patients.
+
+For the abdominal (liver and kidney) technolo gies Dr Arjan van der Plaats XVIVO's R&D Director Global Engineering & Technical Product Management in collaboration with University Medical Center Groningen carried out the fundamental development.
+The deve l op ment work in abdominal has been ongoing since 1999 and is focused on the implementa tion of oxygenated machine perfusion and generating clinical data that supports the innovative technology and methods used.
+
+XVIVO\'s research is mainly done in collabora tion with world leading institutions and researchers.
+The technology attracts major interest from external clinics and researchers who initiate pre-clinical and clinical research.
+
+By conducting different research projects alongside partners in the US Canada Australia New Zealand and Europe we ensure our competence and remain at the forefront of clinical development.
+
+In house product development Product development is multidisciplinary and based on collaboration between our special ists in mechanics biochemistry electronics and software development.
+The lead times for development and assessment in pre-clinical and clinical trials are long.
+Apart from being competent and creative this means that we also need to be persistent and goal oriented.
+
+Product development mainly takes place in house at our head office in Gothenburg (perfusion solutions) at the subsidiaries in Lund (heart) in Denver (lung) and Groningen (kidney and liver).
+As a result of sound knowl edge of product development and manufac turing and the relevant regulatory demands we are able to streamline the process and shorten the time to launch.
+
+Clinical evidence In order to document the safety and efficacy of our products we conduct pre-clinical and clinical trials in collaboration with leading researchers and clinics.
+Clinical data is the foundation for obtaining market approval for the products but is also critical for demon strating their value to our target groups.
+
+Demanding processes for product approval
+
+To introduce products on different markets regulatory approvals are necessary.
+The regulatory demands have become more stringent and the approvals processes more complex.
+We emphasize coordination between the various parts of the organization research & development clinical trials and quality & regulatory affairs.
+The approvals processes vary not just depending on prod uct but also which market and associated authorities and regulatory framework affected.
+The focus is increasing on patient safety but also on clinical evidence ie
+proof of the products’ efficacy and safety.
+Once a machine or a solution has been approved and intro duced on a market follow up including documentation and reporting to the relevant authorities continues.
+
+The collaboration with Professor Stig Steen has been ongoing since 1998 and research is carried out at Igelosa Life Science
+
+36XVIVO ANNUAL REPORT 2024
+
+
+<!-- PAGE: 36 -->
+
+##### Purpose
+
+We believe in an extended life of donated organs
+
+#### Distribution
+
+For distribution of our products we proactively choose suppliers that seek to reduce their environmental impact.
+Planning and effective collaborations ensure that we minimize the need for air transportation.
+
+Social responsibility XVIVO wants to change the world for everyone in need of a new organ.
+Committed employees are key to us being able to contribute to saving more lives and im proving health as well as achieving our business goals while acting responsibly.
+An inclusive atmosphere where all employees are met with respect is central to ensuring a positive working environment where everyone can develop and can contribute to XVIVO's vision.
+Our business culture is strongly characterized by our vision that “nobody should die waiting for a new organ”.
+
+XVIVO's culture is also extensively shaped by Swedish corporate culture which is based on trust participation and personal responsibility with a strong foundation in human rights.
+This is simultaneously linked to the ability to operate in different cultures.
+
+Through our Supplier Code of Conduct we expect our suppliers to respect human rights to treat their employees with the same respect and to provide safe and healthy working conditions in line with those at XVIVO.
+
+##### Follow-up
+
+The quality control system is reviewed on a management level and is applied throughout the organization.
+
+XVIVO monitors processes and products during the production phase to ensure that our products satisfy quality requirements.
+We implement continuous improvements in our Corrective and Preventive Action process and conduct extensive investigations of root causes.
+This is followed up with corrective measures aimed at solving problems and preventing repeat occurrences.
+
+All our suppliers are evaluated to ensure they meet our quality standards.
+When necessary we carry out inspections on site based on a risk assessment.
+We require all suppliers to accept and follow our supplier requirements.
+After a product has been launched we continue to monitor it through our clinical follow up risk management and aftermarket review processes.
+We measure and consider all customer complaints related to our prod ucts.
+Customer satisfaction is measured regularly through surveys to ensure that our products live up to customer expectations.
+We use this feedback and the lessons we learn from it to continuously adapt and improve our products.
+
+XVIVO offers training aimed at our customers and distributors to ensure the safe and effective use of our products.
+
+ESG risks In the double materiality analysis (DMA) conducted in 2024 XVIVO's most significant sustainability risks were identified as unethical organ sourcing and bribery and corruption.
+
+#### Note 14. Intangible assets
+
+|  | Group | Parent Company |
+| --- | --- | --- |
+| Capitalized expenditure |
+| Opening acquisition cost | 551,084 | 460,406 | 549,632 | 459,785
+| Capitalized expenditure for the year | 109,299 | 91,118 | 103,253 | 90,256
+| Disposals for the year | - | -409 | - | -409
+| Reclassification in the year | - | - | - | -
+| Exchange rate differences for the year | 89 | -31 | - | -
+| Closing accumulated acquisition cost | 660,472 | 551,084 | 652,885 | 549,632
+| Opening amortization | -119,638 | -103,874 | -119,645 | -103,881
+| Amortization for the year | -13,710 | -15,764 | -13,710 | -15,764
+| Reclassification in the year | - | - | - | -
+| Exchange rate differences for the year | -6 | - | - | -
+| Closing accumulated amortizations | -133,354 | -119,638 | -133,355 | -119,645
+| Opening impairment | -16,439 | - | -16,439 | -
+| Impairment losses for the year | -20,069 | -16,439 | -20,066 | -16,439
+| Closing accumulated impairments | -36,508 | -16,439 | -36,505 | -16,439
+| Closing carrying amount | 490,610 | 415,007 | 483,025 | 413,548
+![table image]({page: 88, x: 273}, {y: 84, {width: 399}, {height: 8})
+
+|  | Group | Parent Company |
+| --- | --- | --- |
+| Acquired development projects |
+| Opening acquisition cost | 226,123 | 217,811 | 76,162 | -
+| Capitalized expenditure for the year | 10,586 | 9,022 | - | -
+| Mergers | - | - | - | 76,162
+| Exchange rate differences for the year | 5,320 | -710 | - | -
+| Closing accumulated acquisition cost | 242,029 | 226,123 | 76,162 | 76,162
+| Opening amortization | -42,625 | -29,833 | -12,129 | -
+| Mergers | - | - | - | -12,129
+| Amortization for the year | -12,794 | -13,284 | - | -
+| Exchange rate differences for the year | -1,128 | 492 | - | -
+| Closing accumulated amortizations | -56,547 | -42,625 | -12,129 | -12,129
+| Closing carrying amount | 185,482 | 183,498 | 64,033 | 64,033
+| Closing balance recognized value of capitalized expenditure | 676,092 | 598,505 | 547,058 | 477,581
+![table image]({page: 88, x: 702}, {y: 84, {width: 399}, {height: 18})
+
+###### 77XVIVO ANNUAL REPORT 2024
+
+
+<!-- PAGE: 77 -->
+manufacturing costs and a reasonable share of indirect manufacturing costs based on normal capacity.
+Internal gains arising from intra-Group sales are deducted from the value of inventories.
+
+Earnings per share Calculation of earnings per share is based on the Group's net income for the year attributable to the Parent Company shareholders and on the weighted average number of shares outstanding during the year.
+Potential ordinary shares are only seen as diluting in periods when they lead to a lower profit or a greater loss per share.
+
+#### 62XVIVO ANNUAL REPORT 2024
+
+
+<!-- PAGE: 62 -->
+| Lars Henriksson Lena Hoglund Goran Dellgren and Erik Stromqvist. Gosta Johannesson was elected Chairman of the Board. A resolution was passed to adopt Board fees totaling SEK 1,985,000 SEK of which SEK 480,000 to the Chairman SEK 230,000 to each of the other Board members and SEK 100,000 to the Chairman of the Audit Committee SEK 50,000 to each of the other members of the Audit Committee SEK 75,000 to the Chairman of the Remuneration Committee and SEK 40,000 to each of the other members of the Remuneration Committee. | The Board was authorized for the period until the next Annual General Meeting to decide to complete new share issues of a maximum of 10 percent of the total number of shares and votes in the company corresponding to 3,149,947 shares based on the number of shares as of December 31 2024. The AGM on April 25 2024 resolved to issue a maximum of 105,136 performance based shares of which 80,000 shares were allo cated to participants and 25,136 utilized by the company to cover social security contribu tions attributable to the program. The vesting | period for these warrants is May 15 2024 to May 15 2027. Each warrant confers the holder the right to obtain free of charge a perfor mance based share after the end of the vesting period. Allocation is conditional on partly or fully satisfying the perfor mance based targets as set by the Board. The offering is aimed at senior executives and key personnel in the XVIVO Group. The program is expected to generate a dilution effect of 0.33 percent of the total number of shares and votes in the company. The Annual General Meeting decided in accordance with the Board's proposal to authorize the remuneration report for the financial year 2023. |
+| --- | --- | --- |
+| Corporate Governance |
+| Annual General Meeting |
+| The proposal not to pay any dividend for the financial year 2023 was approved. |
+![table image]({page: 62, x: 36}, {y: 54, {width: 187}, {height: 23})
+
+The figure illustrates XVIVO's corporate governance model and who appoints the central bodies.
+
+Nomination Committee External Auditors
+
+#### eNPS (Net Promoter Score)
+
+51 (42)
+
+####### 61XVIVO ANNUAL REPORT 2024
+
+
+<!-- PAGE: 61 -->
+“Good corporate governance means ensuring that companies are run sustainably responsi bly and as efficiently as possible on behalf of their shareholders.
+The confidence of legisla tors and the public that companies act responsibly is crucial if companies are to have the freedom to realize their strategies to create value.
+The confidence of existing and potential shareholders that such is the case is crucial to their interest in investing in compa nies thus securing corporate Sweden's freedom to develop and its supply of compe tence and venture capital.”
+(Extract from the Swedish Corporate Governance Code)
+
+XVIVO Perfusion AB (publ) is a Swedish public limited company listed on Nasdaq Stockholm's main market since November 28 2016.
+The corporate governance policies applied by XVIVO are based on Swedish legislation primarily the Swedish Companies Act and the Swedish Annual Accounts Act and NASDAQ Stockholm AB's regulations.
+The company has applied the Swedish Corporate Governance Code (“the Code”) as from the day the company's shares were listed on Nasdaq Stockholm's main market.
+Further information on corporate governance in XVIVO is to be found at www.xvivogroup.com.
+
+##### 81XVIVO ANNUAL REPORT 2024
+
+
+<!-- PAGE: 81 -->
+
+####### KPMG AB
+
+Daniel Haglund Authorized Public Accountant Auditor in charge
+
+##### Product development and clinical trials
+
+Our product development process ensures that customer needs are satisfied and that safety standards are met.
+All ideas are thor oughly evaluated and potential design risks identified and either eliminated or minimized.
+
+We limit the use of animal testing and actively work to develop alternative test methods.
+We test our products on animals only when it is legally required.
+
+We carry out clinical trials to test our products.
+All clinical trials where XVIVO is involved are planned and completed in accordance with the ethical principles indicated in the Helsinki declaration and follow Good Clinical Practice (GCP) principles and applicable legislation and guidelines.
+XVIVO carries out clinical trials in accordance with applicable local regulations and interna tional legal requirements.
+These include EU directives 2007/47/EG and 95/46/EG (on the protection of individuals regarding the pro cessing of personal data and on the free movement of such data) and ISO standard 14155 (Clinical investigation of medical devices for human subjects Good clinical practice).
+To ensure that patient rights safety and wellbeing are protected that reported data is reliable and robust and that the conduct of clinical trials corresponds to MDR 2017/745 XVIVO ensures continuous and detailed oversight of all clinical operations.
+The extent of such oversight is determined on the basis of assessments that include all the character istics of the clinical trial.
+
+46XVIVO ANNUAL REPORT 2024
+
+
+<!-- PAGE: 46 -->
+
+### CEO
+
+During the financial year 2024 CEO Christoffer Rosenblad was paid renumeration totaling SEK 7,380,000 (5,031,000) including vacation allowance and other benefits of which SEK 3,501,000 (2,041,000) was variable renumeration.
+A car allowance and health insurance benefit of SEK 6,000 (3,000) was paid.
+
+As long as the CEO is based in Sweden his pension follows a defined contribution plan and pension premiums of 30% of his salary are paid by the company.
+If the company terminates the CEO's employment notice of 6 months shall be given.
+If the company terminates the CEO's employment severance pay of 12 months’ salary shall be paid.
+The CEO's retirement age is 65.
+His employment is regulated by a CEO agreement.
+
+Other senior executives Salary of SEK 24,882,000 (19,338,000) was paid during the 2024 financial year to senior execu tives Group management comprising 8 (8) people excluding the CEO including a vacation allow ance of which SEK 8,906,000 thousand (5,636,000) was variable remuneration.
+The variable remuneration is based on the outcome of various parameters compared with set objectives.
+
+The parameters relate to the company's sales and results as well as individually set objectives.
+Premiums for normal occupational pension were paid.
+The retirement age is 65 for these senior executives.
+If the company terminates the senior executives’ employment notice of 3-6 months shall be given.
+No senior executives are entitled to severance pay.
+There are no loans to senior executives.
+
+Defined contribution pension plans In Sweden the Group has defined contribution pension plans for employees.
+The entire cost of these is met by the company.
+Outside Sweden there are defined contribution plans which are partly paid for by the subsidiaries and partly covered by fees paid by the employees.
+Payment for these plans is done on an ongoing basis according to the rules of each individual plan.
+
+####### Description of key audit matter
+
+As of 31 December 2024 the Group reported goodwill of SEK 682,5 million and capitalized development costs of SEK 676,1 million represent ing 57 % of total assets.
+Goodwill will be subject to at least one so called impairment test which contains both complexity and significant elements of assessments from the management of the Group.
+An impairment test must be prepared for each of the cash generating units where goodwill and balanced expenses for development work are reported.
+
+Goodwill relates to the operations within perfadex sales as well as the acquisitions of XVIVO B.V XVIVO Services Inc XVIVO Srl and the acquisi tion of FlowHawk which was made through the newly established subsidiary XVIVO Digital Services.
+Capitalized expenditures for develop ment work mainly refers to the operations within heart transplantation regulatory approval for XPS and STEEN Solution in the US market as well as acquired assets relating to the kidney and liver areas identified in connection with the acquisition of XVIVO BV.
+
+In the Parent Company shares in subsidiaries are reported at an amount of SEK 495 million whose value is largely affected by the assessment of goodwill and capitalized expenses for develop ment work carried out in the Group.
+
+The test should be carried out according to the applicable regulations according to a certain technique where management must make uture assessments of the company's internal and external conditions and plans.
+Examples of such assessments are future payments which requires assumptions about future market conditions and thus indirectly about how competitors can be expected to act. Another important assumption is which discount rate should be used to take into account that future assessed payments are associated with risk and are therefore are worth less than liquid funds that are directly available to the Group.
+
+##### Drivers that affect demand
+
+Transplantation offers lower alternative cost Kidney transplants have been shown to generate significant cost savings for health care providers.
+A Swedish study2 showed that if a patient receives a transplant instead for attending dialysis for 10 years this generates savings of between 66-79 percent per patient for healthcare services.
+This change should also impact positively on patient quality of life as dialysis can impact a patient's day to day life.
+
+A growing and aging population The global population continues to grow at the same time as the average life span and the proportion of elderly people is rising.
+An increased proportion of elderly people in the population is an important factor affecting supply and demand for organ transplantation.
+An increasing number of elderly people donate and receive donated organs age is no longer a contraindication.
+
+More people suffer from chronic disease An increasing number of people are affected by chronic disease (or non communicable diseases NCD) mainly due to smoking unhealthy diet insufficient physical activity and dangerous alcohol use.
+Chronic disease is the main underlying cause of organ failure which leads to increased demand for transplants.
+
+66-79%
+
+###### Note 25. Financial instruments and financial risk management
+
+| Through its operations the Group is exposed to various types of financial risk. Financial risk pertains to fluctuations in the company's earnings and cash flow as a result of changes in exchange rates and interest rates refinancing risks and credit risks. | Lease analysis |
+| --- | --- |
+| Maturity structure of financial liabilities |
+![table image]({page: 96, x: 36}, {y: 82, {width: 285}, {height: 17})
+
+12/31/2023
+
+Capital risk
+
+| The Group's aim regarding the capital structure is to secure the Group's ability to continue opera tions so that it can continue to generate returns for shareholders and benefits for other stakehold ers and to maintain an optimal capital structure to keep the cost of capital down. The Group can change the dividend to shareholders repay capital to shareholders issue new shares buy back its own shares or sell/buy assets with the aim of maintaining or adjusting the capital structure. | XVIVO's Board of Directors believes that the company should have a strong capital base to enable continued high growth both organically and through acquisitions. The aim is that the Group will be able to meet its financial obligations in good times and bad without significant unforeseen costs and without risking the Group's reputation. Liquidity risks are managed centrally for the entire Group by the Finance department. |
+| --- | --- |
+|  | Other non current liabilities (non interest bearing) | - | 64,415 | - | - | - | - | 64,415
+|  | Accounts payable | 36,053 | - | - | - | - | - | 36,053
+| Financial policy |
+|  | Other liabilities | 88,167 | - | - | - | - | - | 88,167
+| XVIVO has a Group policy for its financial operations which defines financial risks and states how the company should manage these risks. Furthermore the policy states which reports must be prepared. Under this policy the company must always maintain liquidity corresponding to known future net cash outflows over a period of not less than three months. |
+|  | Total | 134,488 | 72,846 | 3,602 | 3,371 | 3,333 | 2,432 | 220,072
+| 12/31/2024 |
+| Interest bearing liabilities | (leases) | 10,917 | 5,699 | 5,897 | 5,981 | 4,532 | 1,017 | 34,043
+|  | Other non current liabilities (non interest bearing) | 15,956 | - | - | - | - | - | 15,956
+|  | Accounts payable | 39,452 | - | - | - | - | - | 39,452
+|  | Other liabilities | 127,141 | - | - | - | - | - | 127,141
+|  | Total | 193,466 | 5,699 | 5,897 | 5,981 | 4,532 | 1,017 | 216,592
+![table image]({page: 96, x: 36}, {y: 82, {width: 400}, {height: 8})
+
+97XVIVO ANNUAL REPORT 2024
+
+
+<!-- PAGE: 97 -->
+
+#### Kristoffer Nordström
+
+CFO
+
+#### SUSTAINABILITY REPORT
+# Sustainability is a part of our DNA
+
+Sustainability is a natural part of XVIVO's operations.
+Our products and services enable more lives to be saved increase quality of life and improve health economics.
+In 2024 we increased our focus on sustainability and started important initiatives to meet future requirements.
+
+39XVIVO ANNUAL REPORT 2024
+
+
+<!-- PAGE: 39 -->
+
+########### Financial assets measured at amortized cost Group Parent Company 2024 2023 2024 2023
+########### Financial liabilities measured at amortized cost Group Parent Company 2024 2023 2024 2023
+
+Balance Sheet assets
+
+| Account receivables | 117,292 | 98,127 | 40,457 | 26,185 |  |  |  |  |  |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Other current receivables | 52,857 | 40,586 | 22,354 | 21,302 |  |  |  |  | 
+| Cash and cash equivalents | 415,521 | 546,088 | 270,882 | 447,778 |  |  |  |  | 
+| Total | 585,671 | 684,801 | 333,693 | 495,265 |  |  |  |  | 
+| (71.998) and was recognized in financial items. The calculation has taken place in accordance with the Accounting principles indicated in Note 1. |
+|  |  |  |  |  |  | Group |  | Parent Company | 
+|  |  |  |  |  |  | 2024 | 2023 | 2024 | 2023
+|  |  |  |  |  | Closing carrying amount | 64,415 | 170,416 | 64,415 | 170,416
+|  |  |  |  |  | Contingent consideration | - | - | - | -
+|  |  |  |  |  | Discounting of contingent consideration | 4,760 | 751 | 4,760 | 751
+|  |  |  |  |  | Depreciation of contingent consideration 1) | -64,389 | -69,036 | -64,389 | -69,036
+|  |  |  |  |  | Payment of contingent consideration | - | -34,003 | - | -34,003
+|  |  |  |  |  | Currency revaluation 1) | 662 | -3,713 | 662 | -3,713
+|  |  |  |  |  | Closing carrying amount | 5,448 | 64,415 | 5,448 | 64,415
+| 1) Recognized in net financial items Balance Sheet liabilities |
+| Interest bearing liabilities (leases) | 10,917 | 31,437 | - | - |  |  |  |  | 
+| Accounts payable | 39,452 | 36,053 | 20,989 | 19,568 |  |  |  |  | 
+| Other liabilities | 121,693 | 88,167 | 56,087 | 48,337 |  |  |  |  | 
+| Total | 172,062 | 155,657 | 77,076 | 67,905 |  |  |  |  | 
+![table image]({page: 98, x: 36}, {y: 258, {width: 400}, {height: 8})
+
+#### Financing activities
+
+| New share issue |  | - | 429,250 |
+| --- | --- | --- | --- |
+| The Parent Company has no items to be recognized in other comprehensive income and therefore no statement of comprehensive income has been presented. |
+| Amortization of lease liability |  | -10,902 | -10,703
+| Cash flow from financing activities |  | -10,902 | 418,547
+| Cash flow for the year |  | -143,426 | 303,215
+| Opening cash and cash equivalents |  | 546,088 | 246,545
+| Exchange rate differences in cash and cash equivalents |  | 12,859 | -3,672
+| Cash and cash equivalents at the end of the year | 21 | 415,521 | 546,088
+![table image]({page: 70, x: 36}, {y: 352, {width: 399}, {height: 8})
+
+########## The auditor’s opinion regarding the statutory sustainability report
+
+The Board of Directors is responsible for the sustainability report on pages 39-48 and that it is prepared in accordance with the Annual Accounts Act in accordance with the older wording that applied before 1 July 2024.
+
+Our examination has been conducted in accor dance with FAR´s standard RevR 12 The auditor's opinion regarding the statutory sustainability report.
+This means that our examination of the statutory sustainability report is different and substantially less in scope than an audit conducted in accordance with International Standards on Auditing and generally accepted auditing stan dards in Sweden.
+We believe that the examination has provided us with sufficient basis for our opinion.
+
+A statutory sustainability report has been prepared.
+
+KPMG AB Box 11908 404 39 , Goteborg was appointed auditor of XVIVO Perfusion AB (publ) by the general meeting of the shareholders on the 25 of April 2024.
+KPMG AB or auditors operating at KPMG AB have been the company's auditor since 2013.
+
+########## The auditor\'s examination of the corporate governance statement
+
+The Board of Directors is responsible for that the corporate governance statement on pages 62-67 has been prepared in accordance with the Annual Accounts Act.
+
+Our examination of the corporate governance statement is conducted in accordance with FAR´s standard RevR 16 The auditor´s examination of the corporate governance statement.
+This means that our examination of the corporate governance statement is different and substantially less in scope than an audit conducted in accordance with International Standards on Auditing and generally accepted auditing standards in Sweden.
+We believe that the examination has provided us with sufficient basis for our opinions.
+
+A corporate governance statement has been prepared.
+Disclosures in accordance with chapter 6 section 6 the second paragraph points 2-6 of the Annual Accounts Act and chapter 7 section 31 the second paragraph the same law are consistent with the other parts of the annual accounts and consolidated accounts and are in accordance with the Annual Accounts Act.
+
+####### FINANCIAL CALENDAR AND CONTACTS
+
+
+<!-- PAGE: 49 -->
+Financial statements
+
+|  | Administration Report |  |  |
+| --- | --- | --- | --- |
+| 62 | Corporate Governance Report |  | 
+| 68 | Financial statements Group |  | 
+| 71 | Financial statements Parent Company |  | 
+| 75 Supplementary disclosures and Notes to the Financial Statements 104 Auditor's report | Supplementary disclosures and Notes to the Financial Statements 104 Auditor's report |  | 
+| 110 | Board of Directors and Auditors |  | 
+| 112 | Senior Management |  | 
+| 114 | Glossary |  | 
+| 116 | Definitions |  | 
+| Notes |
+|  | Note 1. Accounting principles | 75 | Note 1. Accounting principles
+|  | Note 2. Net sales | 79 | Note 2. Net sales
+|  | Note 3. Operating segments | 79 | Note 3. Operating segments
+|  | Note 4. Business acquisitions | 81 | Note 4. Business acquisitions
+|  | Note 5. Other operating income | 82 | Note 5. Other operating income
+|  | Note 6. Other operating expenses | 82 | Note 6. Other operating expenses
+|  | Note 7. Employees personnel costs and Board fees | 82 | Note 7. Employees personnel costs and Board fees
+|  | Note 8. Auditor's fees and reimbursement of costs | 85 | Note 8. Auditor's fees and reimbursement of costs
+|  | Note 9. Operating expenses by type of cost | 85 | Note 9. Operating expenses by type of cost
+|  | Note 10. Leases | 85 | Note 10. Leases
+|  | Note 11. Net financial items | 87 | Note 11. Net financial items
+|  | Note 12. Exchange rate differences | 87 | Note 12. Exchange rate differences
+|  | Note 13. Income tax | 87 | Note 13. Income tax
+|  | Note 14. Intangible assets | 89 | Note 14. Intangible assets
+|  | Note 15. Property plant and equipment | 92 | Note 15. Property plant and equipment
+|  | Note 16. Participations in Group companies | 93 | Note 16. Participations in Group companies
+|  | Note 17. Inventories | 94 | Note 17. Inventories
+|  | Note 18. Receivables from and liabilities to Group companies | 94 | Note 18. Receivables from and liabilities to Group companies
+![table image]({page: 49, x: 61}, {y: 121, {width: 122}, {height: 26})
+
+|  |
+|  |
+| 94 | Note 19. Account receivables
+| 94 | Note 20. Prepaid expenses and accrued income
+| 95 | Note 21. Cash and cash equivalents and bank overdraft facility
+| 95 | Note 22. Shareholders’ Equity
+| 96 | Note 23. Earnings per share
+| 96 | Note 24. Accrued expenses and deferred income
+| 97 | Note 25. Financial instruments and financial risk management
+| 99 | Note 26. Fair value and carrying amounts of financial assets and liabilities 100 Note 27. Pledged assets for own liabilities 100 Note 28. Appropriation of non restricted equity 100 Note 29. Cash flow statement
+| 101 | Note 30. Related party transactions
+| 101 | Note 31. Events after the record date
+| 101 | Note 32. Critical assessments and estimates 102 Note 33. Reconciliation of alternative performance measures 103 Certification
+| 50XVIVO ANNUAL REPORT 2024 | CONTENT FINANCIAL REPORT CONTENTS FINANCIAL REPORT
+![table image]({page: 49, x: 572}, {y: 121, {width: 238}, {height: 8})
+
+
+<!-- PAGE: 50 -->
+
+####### Parent Company
+
+Financial assets and liabilities amounted to SEK 334 million (495) and SEK 77 million (68) respec tively.
+There has been no forward cover for the currency components included in the above figures.
+
+### Note 12. Exchange rate differences
+
+|  | Group | Parent Company |
+| --- | --- | --- |
+| In operating income net | -273 | -208 | -474 | -236 |  |  |  |  | 
+| In financial items net | 32,664 | 9,893 | 32,670 | 9,994 |  |  |  |  | 
+| Total | 32,391 | 9,685 | 32,196 | 9,758 |  |  |  |  | 
+| Note 13. Income tax |
+| Recognized in Statement of Total Comprehensive Income and Income Statement |
+|  |  |  |  |  |  | Group |  | Parent Company | 
+|  |  |  |  |  |  | 2024 | 2023 | 2024 | 2023
+| Current tax expense (-) |
+|  |  |  |  |  | Tax expense for the year | -9,911 | -11,051 | - | -
+|  |  |  |  |  | Adjustment of tax pertaining to previous years | 1,682 | -3,371 | - | -
+|  |  |  |  |  | Total current tax expense | -8,229 | -14,422 | - | -
+| Deferred tax expense (-) |
+|  |  |  |  |  | Deferred tax on temporary differences | 2,307 | -6,239 | 1,046 | 593
+|  |  |  |  |  | Deferred tax in taxable value capitalized/utilized during the year in loss carry forwards | -23,861 | 15,935 | -25,918 | -2,953
+|  |  |  |  |  | Deferred tax on acquired excess value | 2,017 | 2,025 | - | -
+|  |  |  |  |  | Total deferred tax expense | -19,537 | 11,721 | -24,872 | -2,360
+|  |  |  |  |  | Total tax expense recognized | -27,766 | -2,701 | -24,872 | -2,360
+| Reconciliation effective tax rate |
+|  |  |  |  |  | Profit before tax | 199,948 | 94,521 | 123,437 | -2,704
+| Tax pursuant to current tax rate for |
+|  |  |  |  |  | Parent Company (20.6%) | -41,189 | -19,471 | -25,428 | 557
+|  |  |  |  |  | Difference in foreign tax rates | -608 | -1,507 | - | -
+|  |  |  |  |  | Non deductible expenses | -7,928 | -12,358 | -2,517 | -3,526
+|  |  |  |  |  | Non taxable income | 21,696 | 23,803 | 3,127 | 5,871
+|  |  |  |  |  | Non capitalized losses | -654 | - | - | -
+|  |  |  |  |  | Capitalized losses and utilization of previously non capitalized losses | - | 10,123 | - | -5,266
+|  |  |  |  |  | Difference in recorded and paid tax previous year | 1,482 | -3,371 | -54 | -
+|  |  |  |  |  | Other | -565 | 80 | - | 4
+|  |  |  |  |  | Total tax expense | -27,766 | -2,701 | -24,872 | -2,360
+|  |  |  |  |  | Effective tax rate % | 14% | 3% | 20% | -87%
+![table image]({page: 86, x: 272}, {y: 282, {width: 399}, {height: 8})
+
+87XVIVO ANNUAL REPORT 2024
+
+
+<!-- PAGE: 87 -->
+
+#### Note 13. Income taxes (cont’d)
+##### Tax attributable to other comprehensive income
+
+|  | Group | 2024 | 2023 |
+| --- | --- | --- | --- |
+| Translation differences for the year after translation of foreign businesses | -3,158 | - | -3,158 | 15,340 | - | 15,340
+| Translation differences for the year after translation of foreign businesses (extended investment) | 34,461 | - | 34,461 | 11,557 | - | 11,557
+| Other comprehensive income | 31,303 | - | 31,303 | 26,897 | - | 26,897
+![table image]({page: 87, x: 198}, {y: 105, {width: 400}, {height: 18})
+
+#### Costs for defined contribution pension plans
+
+|  | 2024 | 2023 |
+| --- | --- | --- |
+| Group | 14,733 | 13,083
+| Parent Company | 10,455 | 8,614
+![table image]({page: 82, x: 792}, {y: 356, {width: 188}, {height: 8})
+
+##### Non-current assets Group
+
+|  | 2024 | 2023 |
+| --- | --- | --- |
+| Sweden | 678,990 | 578,396
+| The US | 411,004 | 292,861
+| The Netherlands | 338,436 | 320,252
+| Italy | 127,855 | 126,349
+| North and South America excl. the US | - | -
+| EMEA excl. Sweden Netherlands and Italy | 11 | 12
+| Asia/Pacific and Oceania | 19 | 40
+| Total | 1,556,315 | 1,317,910
+![table image]({page: 79, x: 788}, {y: 96, {width: 401}, {height: 8})
+
+##### 71XVIVO ANNUAL REPORT 2024
+
+
+<!-- PAGE: 71 -->
+
+##### 17XVIVO ANNUAL REPORT 2024
+
+
+<!-- PAGE: 17 -->
+
+##### 86XVIVO ANNUAL REPORT 2024
+
+
+<!-- PAGE: 86 -->
+
+####### 48XVIVO ANNUAL REPORT 2024
+
+
+<!-- PAGE: 48 -->
+
+###### 42XVIVO ANNUAL REPORT 2024
+
+
+<!-- PAGE: 42 -->
+
+###### 34XVIVO ANNUAL REPORT 2024
+
+
+<!-- PAGE: 34 -->
+
+##### 79XVIVO ANNUAL REPORT 2024
+
+
+<!-- PAGE: 79 -->
+
+##### Recognized directly in Shareholders’ Equity
+
+|  | Group | Parent Company |
+| --- | --- | --- |
+| Tax expense (-) |
+| Current tax related to transaction expenses for new share issue | - | -2,214 | - | -2,214 |  |  |  |  | 
+| Current tax relating to employee stock options | -1,658 | -103 | -1,188 | -66 |  |  |  |  | 
+| Total Tax items recognized directly in Shareholders’ Equity | -1,658 | -2,317 | -1,188 | -2,280 |  |  |  |  | 
+| Recognized in Statement of Financial Position and Balance Sheet |
+|  |  |  |  |  |  | Group |  | Parent Company | 
+|  |  |  |  |  | Deferred tax asset | 2024 | 2023 | 2024 | 2023
+|  |  |  |  |  | Deferred tax related to internal profit on inventories | 3,072 | 2,365 | - | -
+|  |  |  |  |  | Deferred tax related to pensions and similar obligations | 621 | 465 | 621 | 465
+|  |  |  |  |  | Deferred tax related to capitalized loss carry forwards | 24,864 | 47,330 | 2,401 | 28,318
+|  |  |  |  |  | Deferred tax relating to employee stock options | 3,580 | 411 | 2,488 | 411
+|  |  |  |  |  | Deferred tax relating to leases | 317 | 142 | - | -
+|  |  |  |  |  | Total deferred tax asset | 32,454 | 50,713 | 5,510 | 29,194
+![table image]({page: 87, x: 272}, {y: 301, {width: 399}, {height: 8})
+
+|  | Group | Parent Company |
+| --- | --- | --- |
+| Deferred tax on acquired excess value Intangible assets | 27,851 | 29,293 | 12,698 | 12,698
+| Total deferred tax liability | 27,851 | 29,293 | 12,698 | 12,698
+![table image]({page: 87, x: 702}, {y: 235, {width: 399}, {height: 8})
+
+### Note 10. Leases (cont’d.)
+
+Expensed fees relating to operating leases are as follows
+
+|  | Parent Company 2024 | 2023 |
+| --- | --- | --- |
+| Minimum lease charges | 5,026 | 5,236
+| Total lease charges | 5,026 | 5,236
+| Lease analysis |
+|  | Parent Company 2024 | 2023
+| Year 1 | 4,393 | 4,616
+| Year 2 | 328 | 3,875
+| Year 3 | - | 420
+| Year 4 | - | -
+| Year 5 | - | -
+| Later than year 5 | - | -
+| Total | 4,721 | 8,911
+| The Group leases machines for lung perfusion under operating leases. Revenue amounted to SEK 7,216 million (6,660). Future non cancelable lease payments become due as follows |
+| Group | Parent Company | 
+| 2024 2023 | 2024 | 2023
+| Year 1 7,517 5,294 | 382 | 305
+| Year 2 4,636 2,078 | - | -
+| Year 3 2,532 1,506 | - | -
+| Year 4 1,211 940 | - | -
+| Year 5 | - | -
+| Later than year 5 | - | -
+| Total 15,897 9,818 | 382 | 305
+![table image]({page: 85, x: 785}, {y: 92, {width: 402}, {height: 8})

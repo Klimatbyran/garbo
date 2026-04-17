@@ -1,0 +1,1063 @@
+## Page 86:
+                ```markdown
+|                                         | 2024    | 2023    |
+|-----------------------------------------|---------|---------|
+| **Övriga innehavsoblag, %**            |         |         |
+| Företag som har skrivit under          | 100     | 100     |
+| FNs Global Compact                      | 100     | 100     |
+| Företag som har en antikorruptionspolicy| 100     | 100     |
+| Företag som har en uppförandekod        | 100     | 100     |
+| Företag som har en hälsо- och arbetsmiljöpolicy | 100     | 100     |
+| Företag som har en uppförandekod för leverantörer | 100     | 100     |
+
+| **JÄMSTALLNINGSBORD KONCERN**          | 2024   | 2023   |
+|-----------------------------------------|--------|--------|
+| Könsfördelning, kvinnor, %              | 30     | 29     |
+| Medarbetare                            | 27     | 27     |
+| Ledningsgrupper                         | 27     | 25     |
+| Styrelse                               | 27     | 25     |
+
+| **VÅXTHUSGASUTSLÄPP, ton CO₂**         | 2024    | 2023     |
+|-----------------------------------------|---------|----------|
+| Scope 1                                 | 61 657  | 54 361   |
+| Scope 2                                 | 7 828   | 19 431   |
+| Scope 3                                 | 725 532 | 629 568  |
+| Totala utsläpp                          | 795 037 | 703 359  |
+
+| **Lundbergs**                          | 2024    | 2023    |
+|-----------------------------------------|---------|---------|
+| Scope 1                                 | 6 480   | 6 784   |
+| Scope 2                                 | 12 895  | 15 763  |
+| Scope 3                                 | 19 426  | 22 562  |
+| Totala utsläpp                          | 42 801  | 44 109  |
+
+| **Holmen**                             | 2024    | 2023    |
+|-----------------------------------------|---------|---------|
+| Scope 1                                 | 61 315  | 54 225  |
+| Scope 2                                 | 414 190 | 1 174  | 
+| Scope 3                                 | 707 540 | 609 183 |
+| Totala utsläpp                          | 769 318 | 675 207 |
+```
+
+## Hållbarhetsarbete
+
+Lundbergs Fastigheters langsiktiga vision ar att vara den ledan\xad de utvecklaren av hallbara stadsmiljoer dar manniskor foretag och organisationer kan utvecklas i samverkan.
+Genom engage\xad mang nyfikenhet oppenhet och ansvarstagande vill fastig\xad hetsbolaget ga i taten for utvecklingen av attraktiva och hall\xad bara stadsmiljoer.
+Langsiktig lonsamhet ar en grundlaggande forutsattning for att kunna genomfora foretagets strategier och uppna malen.
+En balanserad ekonomisk tillvaxt och lonsamhet med hansyn till miljo och manniskor ar ocksa en for utsattning for hallbar utveckling.
+
+Med en stabil finansiell stallning ar Lundbergs en palitlig affarspartner for saval kunder som leverantorer.
+For hyresgas\xad terna ar det en trygghet att ha en fastighetsagare som haller in gangna avtal samt har formagan att investera i sina fastig heter.
+
+Miljo och klimatpaverkan Lundbergs varnar om miljon saval narmiljon som i ett systemper\xad spektiv.
+Det handlar om att ta hand om de tillgangar bolaget har att skota om fastigheterna och dess naromraden och pa sa satt skapa en hallbar stadsutveckling.
+Bolaget deltar i utvecklingen av framtida hallbara losningar med ambitionen att ligga i framkant nar det galler framtagande av nya produkter och tjanster.
+
+Klimatkrisen ar en av var tids viktigaste fragor och Lund\xad bergs Fastigheter liksom andra delar av samhallet behover snabbt anpassa verksamheten for att minimera dess inverkan pa klimatet.
+Bygg\xad och anlaggningssektorns fardplan for fossil\xad fri konkurrenskraft har Lundbergs Fastigheter sedan tidigare ratificerat.
+Bolagets ansvar som storskalig bestallare och dess stora paverkan pa omgivningen har dock resulterat i en hojd ambitionsniva.
+Lundbergs genomfor lopande matningar av alla verksamhetens utslapp kopplade till Scope 1 2 och 3 dvs utslapp i hela vardekedjan.
+Malsattningen ar att verksamheten ska vara klimatneutral i hela vardekedjan till 2030.
+
+Siffror i Scope 2 och 3 avseende fjarrvarme och fjarrkyla rak\xad nas alltid om under andra kvartalet aret efter varfor vardena for 2023 ar reviderade i ovanstaende tabell.
+var egen fardplan mot klimatneutralitet 2030 innehaller en mangd olika projekt och omstallningar.
+I nartid finns projekt dar exempelvis byggmaterial av lagre kvalitet ersatts mot mer hallbara alternativ.
+Pa langre sikt finns mer strukturella utma\xad ningar avseende metodik och processer for att sakerstalla exempelvis mojligheter till aterbruk pa ett effektivt satt.
+Fragor som Lundbergs Fastigheter inte kan losa sjalva men dar bola\xad get kan vara en padrivande part for att forandra.
+
+## Page 26:
+                ```markdown
+| Scope | 2021 | 2022 | 2023 |
+|-------|------|------|------|
+| Scope 1 | 51   | 30   | 51   |
+| Scope 2 | 6,480| 6,784| 5,791|
+| Scope 3 | 12,895| 15,763| 16,318|
+| Total utsläpp | 19,426| 22,576| 21,160|
+| varav nybyggnation | 5,050| n.a. | n.a. |
+```
+
+##### VÄXTHUSGASUTSLÄPP, ton CO2e
+
+| Koncern | 2024 | 2023 | 2022 |
+| --- | --- | --- | --- |
+| Scope 1 | 61 657 | 54 361 | 58 543
+| Scope 2 | 7 828 | 19 431 | 35 618
+| Scope 3 | 725 552 | 629 568 | 623 939
+| Totala utslapp | 795 037 | 703 359 | 718 100
+| Lundbergs | 2024 | 2023 | 2022
+| Scope 1 | 51 | 30 | 51
+| Scope 2 | 6 480 | 6 784 | 5 791
+| Scope 3 | 12 895 | 15 763 | 16 318
+| Totala utslapp | 19 426 | 22 576 | 22 160
+| Holmen | 2024 | 2023 | 2022
+| Scope 1 | 61 315 | 54 225 | 58 414
+| Scope 2 | 463 | 11 794 | 29 007
+| Scope 3 | 707 540 | 609 188 | 603 958
+| Totala utslapp | 769 318 | 675 207 | 691 379
+| Hufvudstaden | 2024 | 2023 | 2022
+| Scope 1 | 291 | 106 | 78
+| Scope 2 | 885 | 853 | 820
+| Scope 3 | 5 118 | 4 617 | 3 663
+| Totala utslapp | 6 293 | 5 576 | 4 561
+![table image]({page: 86, x: 317}, {y: 290, {width: 245}, {height: 7})
+
+Siffror i Scope 2 och 3 avseende fjarrvarme och fjarrkyla raknas alltid om under andra kvartalet aret efter varfor vardena for 2023 ar reviderade i ovan staende tabell.
+
+Bolagen rapporterar enligt GHGP och siffrorna avser marknadsbaserad allokeringsmetod.
+olika avgransningar i redovisning har dock gjorts i respektive bolags rapportering.
+For fordjupad information se respektive bolags arsredovisning.
+
+■ Affarsetik och styrning ■ ekonomiskt resultat ■ Hallbara affarsmodeller ■ klimat och resurseffektivitet ■ Mangfald och inkludering
+
+■ Affarsetik och styrning ■ Mangfald och inkludering ■ Medarbetarutveckling ■ engagemang i organisationen ■ Balans i arbetslivet
+
+■ klimat ■ Affarsetik och styrning ■ ekonomiskt resultat ■ Hallbara affarsmodeller ■ klimat och resurseffektivitet ■ Mangfald och inkludering
+
+■ Affarsetik och styrning ■ ekonomiskt resultat ■ Hallbara affarsmodeller ■ klimat och resurseffektivitet ■ Mangfald och inkludering ■ Samhallspaverkan i stort ■ Hallbara affarsmodeller ■ Affarsetik och styrning ■ Miljo och klimat ■ Mangfald och inkludering
+
+| 2024 | 2023 |
+| --- | --- |
+| 100 | 100
+| 100 | 100
+| 100 | 100
+| 100 | 100
+| 100 | 100
+| 100 | 100
+![table image]({page: 86, x: 244}, {y: 549, {width: 25}, {height: 7})
+
+■ Hemsida och pressmeddelanden ■ Hallbarhetsratingar och undersokningar
+
+■ Bolagsstamma
+
+■ kontinuerlig informationsgivning till medarbetare ■ Utvecklingssamtal ■ Medarbetarundersokningar
+
+### VÄXTHUSGASUTSLÄPP, TON CO2e
+
+| Lundbergs | 2024 | 2023 | 2022 | 2021 |
+| --- | --- | --- | --- | --- |
+| Scope 1 | 51 | 30 | 51 | 41
+| Scope 2 | 6 480 | 6 784 | 5 791 | 6 363
+| Scope 3 | 12 895 | 15 763 | 16 318 | 22 567
+| Totala utslapp | 19 426 | 22 576 | 22 160 | 28 971
+| varav nybyggnation | - | - | - | 5 050
+![table image]({page: 26, x: 319}, {y: 283, {width: 244}, {height: 7})
+
+I fastigheten Tulpanen orebro har innergarden forvandlats till en trivsam samlingsplats med boule gronska och grillplatser.
+Med forbattrad belysning bidrar den till okad trygghet och gemenskap.
+
+27LUNDBERGS aRS OCH HaLLBARHETSREDOVISNING 2024
+
+
+<!-- PAGE: 27 -->
+
+### Hållbarhet
+
+Indutrade har ett strategiskt ramverk som sammanfattar bolagets fokusom raden for hallbar utveckling.
+Bolaget arbetar med overgripande mal inom omradena manniskor miljo samt pro dukter och kunder med arlig uppfolj ning.
+Specifika malsattningar till 2030 ar att minska vaxthusgasutslappen inom scope 1 och 2 med 50 % och inom scope 3 med 25% fran basaret 2023.
+Klimatmalen ar validerade av SBTi.
+
+###### Kolumn 2
+
+ekonomiska verksamheters miljomal och index ccM = Begransning av klimatforandringar ccA = Anpassning till klimatforandringar Wtr = Vattenresurser och marina resurser ce = Den cirkulara ekonomin PPc = Forebyggande och begransning av fororeningar
+
+### Hållbarhet
+
+Hallbarhetsstrategin fokuserar pa omradena ansvar klimat och resiliens.
+Malen inkluderar en minskning av CO2-utslapp fran egen verksamhet med 70% mellan 2015 och 2030 samt en minskning av CO2-utslapp fran var dekedjan med 50% mellan 2020 och 2030.
+Dartill kommer det langsiktiga malet att ha netto noll CO2-utslapp i egen verksamhet och vardekedja ar 2045.
+Skanskas klimatmal har blivit vetenskapligt validerade av Science Based Targets initiative.
+
+#### HOLMEN
+
+Tillampliga ekonomiska verksamheter De verksamheter som bedoms som forenliga (och tillampliga) enligt tax onomin ar skord av egen skog (verksamhet 1.3) samt elproduktion fran vind kraft vattenkraft och bioenergi (verksamhet 4.3 4.5 samt 4.8).
+Utvardering av uppfyllelse av kriterier Holmen har utvarderat uppfyllelsen av de kriterier avseende vasentliga bidrag och kriterier avseende att inte orsaka betyda skada som anges i bilaga 1 till den delegerade akten om begransningar till klimatforandringar.
+koncernens skogsbruksplan tillsammans med upprattad klimatnyttoanalys som visar pa okad kolinlagring samt att lagstiftning sakerstaller fortsatt mar kanvandning for skogsbruk bedoms tillsammans uppfylla kraven for vasen tligt bidrag avseende skogsforvaltning.
+Skogsforvaltningen sker i enlighet med koncernens certifieringar vilket tillsammans med lagstiftningens krav och upprattad klimatanpassningsplan sakerstaller att skogsforvaltningen inte kommer orsaka betydande skada.
+Vid utvardering av att koncernens produktion av vind vatten och bioenergi sker i enlighet med uppstallda kriterier har analys gjorts av respektive kraftanlaggnings individuella design och egenskaper samt klimatanpassningsplaner upprattade for respektive verksamhet.
+
+##### Målsättningar
+
+Lundbergs liksom alla innehavsbolagen arbetar aktivt med att bidra till sina delar av Fn:s 17 globala mal for hallbar utveckling.
+Lundbergs foljer utvecklingen av hallbarhetsrelaterade regel\xad verk och externa krav exempelvis fran EU:s Sustainable Finance Action Plan vilket innefattar EU:s taxonomiforordning och hallbarhetsrapporteringsdirektivet Corporate Sustainability reporting Directive (CSrD) liksom frivilliga rapporteringskrav i form av task Force on Climate\xadrelated Financial Disclosure's (tCFD) och Science Based target initiative (SBti).
+
+Klimatforandringarna ar en av var tids viktigaste fragor och naringslivet har ett stort ansvar att begransa den globala uppvarmningen och stalla om till en cirkular konsumtion och produktion.
+Dessutom maste foretagandet bedrivas pa ett satt sa att jordens planetara granser inte overskrids.
+
+Lundbergs uppmuntrar innehavsbolagen till bolagss pecifika mal som linjerar med Parisavtalets malsattningar.
+Bolaget anser att det ar en forutsattning for fortsatt konkurrenskraft och langsiktigt vardeskapande oavsett branschtillhorighet.
+Dartill har Lundbergs sjalva antagit malet om en klimatneutral verksamhet till 2030 i hela vardekedjan (scope 1 2 och 3) i den helagda verksamheten.
+Detta tjanar bade som inspiration och stod for ovriga bolag i deras egna beslut.
+
+##### noter – koncernen
+###### DRIFTUTGIFTER 2024
+
+|  | Kriterier for vasentligt bidrag | Kriterier avseende att inte orsaka betydande skada |
+| --- | --- | --- |
+| Ekonomiska verksamheter (1) |
+| VERKSAMHETER SOM OMFATTAS AV TAXONOMIN |
+| A.1. Miljomassigt hallbara verksamheter (taxonomiforenliga) |
+| Skord av egen skog | 381 18 J | N/EL N/EL N/EL N/EL N/EL |  | CCM 1.3 |  |  | - | J | J | J | J | J | J | 14 | - | -
+| Vindkraft | 15 1 J | N/EL N/EL N/EL N/EL N/EL |  | CCM 4.3 |  |  | - | J | J | - | J | J | J | 0 | - | -
+| Vattenkraft | 35 2 J | N/EL N/EL N/EL N/EL N/EL |  | CCM 4.5 |  |  | - | J | J | - | - | J | J | 2 | - | -
+| Bioenergi | 38 2 J | N/EL N/EL N/EL N/EL N/EL |  | CCM 4.8 |  |  | - | J | J | J | - | J | J | 0 | - | -
+| agande och forvarv av byggnader | CCM 7.7 / CCA 7.7 | 130 | 6 | J | N | N/EL N/EL N/EL N/EL | - | J | - | - | - | - | J | 6 | - | -
+| Driftutgifter for de miljomassigt hallbara (taxonomiforenliga) verksamheterna (A.1) | 599 29 29 | - | - | - | - | - | - | - | - | - | - | - | - | 22 |  | 
+| Varav mojliggorande verksamheter | - - - | - | - | - | - | - | - | - | - | - | - | - | - | 0 | e | 
+| Varav omstallningsverksamheter | - - - |  |  |  |  |  | - | - | - | - | - | - | - |  |  | t
+| A.2 Verksamheter som omfattas av taxonomin men som inte ar miljomassigt hallbara (ej taxonomiforenliga) | EL N/EL EL N/EL |  | EL N/EL | EL N/EL | EL N/EL | EL N/EL |  |  |  |  |  |  |  |  |  | 
+| agande och forvarv av byggnader | 180 9 EL | EL | N/EL N/EL N/EL N/EL | CCM 7.7 / CCA 7.7 |  |  |  |  |  |  |  |  |  | 12 |  | 
+| Driftutgifter for de verksamheter som omfattas av taxonomin men som inte ar miljomassigt hallbara (ej taxonomiforenliga) (A.2) | 180 9 9 | - | - | - | - | - |  |  |  |  |  |  |  | 12 |  | 
+| A. Driftutgifter for verksamheter som omfattas av taxonomin (A.1+A.2) | 799 38 38 |  | - | - | - | - |  |  |  |  |  |  |  | 34 |  | 
+| B. VERKSAMHETER SOM INTE OMFATTAS AV TAXONOMIN |
+| Driftutgifter hos verksamheter som inte omfattas av taxonomin | 1 298 62 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+| TOTALT (A+B) | 2 078 100 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+![table image]({page: 91, x: 250}, {y: 86, {width: 204}, {height: 6})
+
+taxonomiforenlig andel for driftutgifter okade till 29 procent (22) framst till foljd av hogre kostnader for skogsvard.
+
+Andel av driftutgifter/totala driftutgifter
+
+### Lundbergs Fastigheter har brutit ner den övergripande målsättningen till tre tydliga inriktningar: ENERGIANVÄNDNING LUNDBERGS FASTIGHETER
+
+kWh/m2 Atemp
+
+- 1. Minska utsläppen kopplat till byggnationer
+
+120
+
+- 2. Minskad energiförbrukning
+
+110
+
+- 3. Påverka positivt avseende kundernas hållbarhetsarbete
+
+100
+
+Det viktigaste verktyget i omstallningen ar att ha en hog med\xad vetenhet i varje beslut.
+Konkret klimatnytta skapas genom att utmana det traditionella sattet att bygga pa och materialet som det byggs med.
+Genom att materialinventera lokaler och bosta\xad der och i forsta hand bevara och aterbruka material hojs vardet pa befintligt material och resurseffektiviteten okar.
+nar nytt material kops in ska detta vara klimat\xad och miljobedomt.
+Att rela\xad tivt snabbt kunna utvardera en byggmetod eller ett material ar centralt for att skapa snabbast mojliga forandring och att mata utslappen ar vasentligt for att kunna folja upp och utvardera utslappsminskade atgarder som bolaget vidtar.
+
+90
+
+80
+
+70
+
+60 2024202320222021202020192018201720162015
+
+Totalt Nyproduktion
+
+Atemp = yta uppvarmd till over tio grader Arbetet med att forbattra datakvaliteten och minska osaker\xad heterna i klimatberakningarna ar ett pagaende arbete.
+2023 gjorde bolaget stor forflyttning da klimatkalkyler integrerades i ekonomiska kalkyler for hyresgastanpassningar och bostads\xad renoveringar.
+Under 2024 har detta arbetssatt utvecklats ytter\xad ligare till att omfatta fler typer av byggprojekt.
+Pa sa satt erhalls nu projektspecifika klimatberakningar for alla dessa projekt.
+Denna information samlas in och analyseras i bolagets business intelligence\xadverktyg och anvands som beslutsstod i strategi\xad och styrningsarbete och for rapporteringsandamal.
+
+Bolaget staller upp tydliga och tuffa miljoregler for entrepre\xad norer underentreprenorer materialleverantorer och konsulter.
+De varor som levereras ska bland annat vara godkanda eller rekommenderade i nagot av systemen for miljobedomning (Svanen Basta Byggvarubedomningen eller Sunda Hus).
+tillampningen av miljoreglerna foljs upp vid arliga intern\xad revisioner.
+
+##### Driftutgifter
+
+Driftutgifter (aven bedomda som tillampliga) for Holmen ar reparationer och underhall samt forskning och utveckling.
+
+tillampliga driftutgifter avseende skord av egen skog inkluderar utveck ling och underhall av den egna skogen i form av gallring underhall av vagar rojning och godsling.
+
+tillampliga driftutgifter i elproduktion utgors av mindre renoveringar och underhall av utrustning for elproduktion samt olika former av utvecklings arbeten sasom projektering av nya vindkraftsparker.
+
+Av koncernens driftutgifter 2 078 mnkr uppgar tillampliga och forenliga driftutgifter till 469 mnkr vilket motsvarar 23 procent.
+
+Se tabeller pa sid 90-92 for ytterligare information.
+
+Nyckeltalen for omsattning kapitalutgifter (investeringar) och driftutgifter beraknas enligt foljande Andel taxonomitillamplig verksamhet = tillamplig verksamhet
+
+### Hållbarhet
+
+Bolaget har ett antal olika langsiktiga hallbarhetsmal uppdelat pa fyra fokus omraden som omfattar klimat och cirkularitet marknadsledarskap ansvarsfull arbetsgivare samt etiskt affarsbeteende.
+Alleima har atagit sig att satta mal i linje med Science Based Targets initiative forenligt med Paris avtalet.
+
+- 2) Enligt styrelsens förslag.
+
+#### Miljö
+
+Holmens fornybara produkter bidrar till att minska behovet av fos silbaserade alternativ och det aktiva miljoarbetet sakerstaller efterlevnad av de regler och villkor som stalls pa verksamheten.
+Verksamheten ger upphov till utslapp till luft och vatten och miljo arbetet handlar om att hantera paverkan pa manniskor och miljo.
+For att kunna bedriva industriproduktion kravs miljotillstand som anger godkanda utslappsnivaer av olika amnen.
+Verksamhetens totala miljopaverkan regleras i den individuella tillstandsprov ningen enligt miljobalken samt genom Industriutslappsforord ningen som anger att basta tillgangliga teknik ska tillampas.
+
+Holmen bedriver produktionsverksamhet vid nio anlaggningar som kraver miljotillstand.
+Tillstanden anger bland annat villkor for tillaten produktionsvolym samt tillatna utslapp till luft och vatten.
+
+
+<!-- PAGE: 50 -->
+Alla verksamheter i Holmens produktionsanlaggningar var vid arsskiftet 2024/2025 certifierade enligt miljoledningssystem.
+Arbete pagar for att inkludera Linghem Bygdsiljums och Krok sjons anlaggningar i ovriga sagverks ISO 9001-certifikat.
+Samtliga Holmens anlaggningar som anvander virkesravara har sparbar hetscertifikat.
+
+##### Holmen
+
+Holmen ar val positionerat for den pagaende klimatomstall\xad ningen genom att forse kunderna med trabaserade produkter och fornybar energi som ersatter fossilbaserade alternativ.
+Det finns en risk att alltmer kravande tillstandsprocesser hammar utvecklingen av industrin och den fornyelsebara energipro\xad duktionen.
+risken finns aven att politiska beslut fattas som paverkar hur skogen far brukas.
+
+####### Miljömål
+
+BIot = Biologisk mangfald och ekosystem Tillampliga ekonomiska verksamheter
+
+### Husqvarna Forest &
+### Garden 58%
+### Gardena 25%
+### Husqvarna
+### Construction 16%
+
+| Nettoomsattning mnkr | 48 352 | 53 261 |
+| --- | --- | --- |
+| FINANSIELLA NYCKELTAL |
+| 2024 2023 |
+| Justerat rorelseresultat1 mnkr | 3 195 | 4 970
+| Resultat per aktie kr | 2,31 | 3,81
+| Skuldsattningsgrad ggr | 0,59 | 0,66
+| Medelantal anstallda | 13 353 | 13 755
+| Utdelning per aktie kr | 1,002 | 3,00
+| Borskurs 31 dec kr A-aktien | 58,10 | 82,30
+| 1) Exklusive jamforelsestorande -598 mnkr (-1 090). 2) Enligt styrelsens forslag. |
+| SToRSTA AKTIEaGARE |
+| 2024-12-31 | kapital % | roster %
+| Investor | 16,8 | 33,9
+| Robert Bosch | 12,0 | 4,4
+| Lundbergs | 7,6 | 25,8
+| Silchester International Investors LLP | 5,0 | 1,9
+| Swedbank Robur Fonder | 3,0 | 1,1
+![table image]({page: 39, x: 397}, {y: 364, {width: 156}, {height: 7})
+
+Husqvarna Group bestar av tre divisio ner.
+Husqvarna Forest & Garden ar inriktat pa produkter och losningar for gronomraden till saval konsument som professionella anvandare Garde na mot konsument via tradgardspro dukter och Husqvarna Construction mot professionella aktorer med utrustning service och support till anvandare inom byggindustrin.
+Kon cernen har ett brett och globalt distri butionsnat konkurrenskraftigt pro duktsortiment och hog teknisk kom petens.
+Fokus ar pa premiumproduk ter och losningar under starka varu marken som primart saljs via fack och detaljhandel.
+Mer an 25 000 ater forsaljare i fler an 100 lander represen terar varumarkena Husqvarna och Gardena.
+Koncernen har en expone ring mot snabbvaxande segment sasom batteridrivna produkter robot grasklippare digitalisering och andra losningar for tradgardsautomation.
+Hallbarhet blir ett alltmer prioriterat omrade for kunderna nagot som koncernen uppmuntrar och framjar.
+Hallbarhetsplanen Sustainovate 2025 ar utformad for att maximera koncer nens bidrag for att hantera klimatfor andringar och resursbrist.
+Ramverket fokuserar pa tre omraden driva omstallning till koldioxidsnala los ningar tanka om och omforma for en resurssmart kundupplevelse samt inspirera till aktiviteter som gor skill nad pa lang sikt.
+Ramverket innehall er aven specifikt utformade malsatt ningar sa som att minska absoluta koldioxidutslapp i vardekedjan.
+
+Finansiella mal Koncernens malsattning ar att omsattningen arligen ska oka orga niskt med 5 procent.
+Rorelsemargina len ska na 13 procent och det operati va rorelsekapitalet i forhallande till nettoomsattningen ska vara 20 pro cent.
+Vid sidan av de finansiella malen finns ocksa ambitionen att dubbla forsaljningen av robotgrasklippare oka andelen elektrifierade produkter till tva tredjedelar och fordubbla anta let uppkopplade produkter inom fem ar fran 2021.
+
+kr 100
+
+90
+
+80
+
+70
+
+60
+
+50 OktJuliAprilJan 2024
+
+#### Information om risker och osäkerhetsfaktorer
+
+Efterfragan pa Holmens produkter paverkas av bland annat mak roekonomiska och politiska faktorer samt konkurrenskraften hos framst europeiska producenter.
+For andring i efterfragan pa Holmens produkter paverkar mojligheten att producera fullt vid bolagets industrier och kan leda till lagre intakter.
+Intakterna kan aven paverkas om skorden fran egen skog be hover begransas samt av variation i nederbord och vind vilka styr produktionen av vatten och vindkraft.
+Holmen stravar efter att uppratthalla en bra kostnadsposition genom storskalig produktion i valinvesterade produktionsanlaggningar effektiva logistiklosningar och god kontroll over forsorjningen av virke och energi.
+Tillsammans med langvariga kundrelationer och starka produktvarumarken okar det mojligheten att uppratthalla en hog produktion aven vid svarare marknadsforhallanden.
+
+Marknadsbalansen inom respektive produktsegment styr for saljningspriset och paverkar intakterna.
+Holmen har begransade mojligheter att snabbt gora storre forandringar i produktutbud vid prisforandring men anpassar produktinriktning mot de pro dukter och marknader som bedoms ha bast langsiktiga forutsatt ningar samt genom att ha en bred kundbas och ett utbud som stracker sig over flera produktomraden.
+
+Virke el och kemikalier ar de mest vasentliga insatsvarorna och prisforandringar paverkar lonsamheten.
+Holmens kostnader ar beroende av prisutvecklingen pa insatsvaror samt hur val Holmen lyckas oka effektiviteten i produktion och administration.
+Det finns en risk att kostnaderna okar vid ravarubrist eller forhojd pris bild pa insatsvaror.
+Nastan halften av virkesbehovet tacks av skord i egna skogar medan aterstoden huvudsakligen kops in fran pri vata skogsagare.
+Genom den integrerade produktionsprocessen ar Holmen i stort sett i balans pa massa.
+Kartongverksamheten tillverkar nastan all el som behovs vid de egna bruken medan till verkningen av papper forsorjs av externa elinkop.
+Prisrisken for denna konsumtion hanteras genom fysiska fastprisavtal och finansiella sakringar.
+Samtidigt saljer Holmen el fran vatten och vindkraft till elnatet.
+
+Holmen verkar pa en global marknad och saljer produkter till flertalet lander runt om i varlden.
+Den geografiska spridningen innebar att Holmen ar exponerat for politiska risker konflikter naturkatastrofer epidemier och pandemier.
+
+Forandringar i valutakurser paverkar Holmens resultat.
+Risken vid transaktionsexponering beror pa att en vasentlig del av forsalj ningsintakterna ar i andra valutor an kostnaderna.
+Risken vid omrakningsexponering harror fran omrakningen av de utlandska dotterbolagens tillgangar skulder och resultat till svenska kronor.
+For att minska resultatpaverkan av forandrade valutakurser sakras nettoflodet med valutaterminer.
+
+Holmen forsakrar sina anlaggningar for skada pa egendom och avbrott vid oforutsedda handelser.
+Koncernen har aven ansvarsforsakring som omfattar plotslig och oforutsedd miljo skada som drabbar tredje part.
+Holmens skogs innehav ar inte for sakrat da det ar spritt over stora delar av Sverige och den laga ris ken for samtidiga om fattande skador bedoms darfor inte moti vera kostnaden for forsakring.
+
+Holmens ratt att fa bruka den egna skogen ar vasentlig for att uppratthalla dess varde.
+Det finns en risk att kraven pa att nyttja skogen som en kolsanka okar i framtiden.
+En sadan utveckling skulle kunna paverka det mojliga brukandet av skogen och dar med tillgangen pa ravara.
+Krav pa forandrade skogsbruksmetoder skulle kunna leda till minskad skord och okade kostnader.
+Brukandet av skog och mark ar reglerat bade nationellt och pa EU niva.
+For att kunna bedriva ett aktivt och hallbart skogsbruk ar det av vikt att lagar inte begransar forutsattningarna for en hallbar verksamhet.
+Holmen deltar i nationella och internationella branschorganisationer for att paverka i relevanta politiska och regulatoriska fragor.
+
+Under aret har implementering av ett antal EU regelverk och Sveriges konkurrenskraft varit i fokus.
+En alltfor ambitios imple mentering fran Sveriges sida riskerar paverka Sveriges och Hol mens mojligheter att bidra till klimatomstallningen.
+Holmen har bade i egen regi och genom branschorganisationer kontinuerligt tagit aktiv del i dialogen for att paverka EU:s regelverk och svenska regeringens planering for genomforande bland annat genom att belysa de positiva klimateffekterna som en brukad skog och sub stitutionen som produkter fran skogen medfor.
+
+######## Taxonomiförenlighet per mål1 Mål som omfattas av taxonomin
+
+| ccM | 29 % | 38 % |
+| --- | --- | --- |
+| ccA | % | 15 %
+| Wtr | - | -
+| ce | - | -
+| PPc | - | -
+| BIo | - | -
+![table image]({page: 91, x: 43}, {y: 619, {width: 188}, {height: 6})
+
+
+<!-- PAGE: 92 -->
+
+#### AFFÄRSETIK OCH STYRNING
+
+Koncern % 2024
+
+Foretag som har skrivit under Fn:s Global compact Foretag som har en visselblasningsfunktion Foretag som har en antikorruptionspolicy Foretag som har en uppforandekod Foretag som har en arbetsmiljopolicy Foretag som har en uppforandekod for leverantorer
+
+100 100 100 100 100
+
+100
+
+Utslapp samtliga innehavsbolag Lundbergs onskar att innehavsbolagen satter matbara klimatmal i linje med Parisavtalet.
+Av innehavsbolagen har samtliga tio satt upp matbara klimat mal och atta av dessa har satt klimatmal enligt Science Based targets ini tiativ.
+
+## Holmen B Generalindex (SIXGX) prisindex
+
+
+<!-- PAGE: 36 -->
+
+####### NOT 13 – forts.
+
+Skatteverket har nekat Holmen avdrag avseende skattemassiga underskott i spanska dotterbolag som likviderats.
+Holmen har overklagat beslutet.
+Av\xad dragen motsvarar 386 mnkr i skatt men nagon skattefordran avseende dessa har inte redovisats.
+
+Forandring av uppskjuten skatt i temporara skillnader och underskottsavdrag
+
+|  | Redo visat i ovrigt total\xad resultat | Omrak\xad nings\xad differenser och ovrigt |
+| --- | --- | --- |
+| 2024 mnkr |
+| Biologiska tillgangar | -6 294 | -215 |  |  | -6 510 | 
+| Skogsmark | -5 272 | 5 | -93 |  | -5 360 | 
+| Forvaltningsfastigheter | -12 908 | -176 |  | -11 | -13 095 | 
+| Finansiella placeringar | -1 458 | -9 | 269 |  | -1 198 | 
+| Obeskattade reserver | -1 249 | -139 |  |  | -1 388 | 
+| ovrigt | -151 | -7 | 135 | -23 | -47 | till Lundbergs forvarv av Holmen. Nedskrivningsprovning av goodwill i Holmens forvarv av Martinsons gors ar ligen genom att berakna nyttjandevardet for den kassaflodesgenererande enhet till vilken goodwill allokerats. Berakningarna gors genom att bedoma framtida kassafloden vilka utgar fran aktuella nivaer pa forsaljningspriser kostnader och volymer for det kommande aret. Vid berakningar av kassa\xad floden for perioder darefter anvands priser och kostnader beraknat med utgangspunkt i historisk data. Forandrade forutsattningar till foljd av klimat\xad forandringar bedoms inte ha vasentlig paverkan. De framtida kassaflodena har diskonterats med 8 procents ranta fore skatt. Diskonteringsrantan har faststallts genom berakning av den viktade kapitalkostnaden (WACC). Uti\xad fran dessa berakningar foreligger inget nedskrivningsbehov. Nedskrivningsprovning av goodwill i Lundbergs forvarv av Holmen bedoms med ledning av aktiernas borskurs den 31 december och ingen av\xad eller nedskrivning har gjorts av vardet. ovriga immateriella anlaggningstillgangar bestar huvudsakligen av IT\xadsystem 142 mnkr (186) och vardet pa nyttjanderatt avseende vissa energi\xad tillgangar 54 mnkr (58). Tillgangarna ar i huvudsak externt forvarvade. For\xad utom goodwill har samtliga tillgangar en bestambar nyttjandeperiod och skrivs av under 3-20 ar.
+| NOT 15 MATERIELLA ANLaGGNINGSTILLGaNGAR |
+|  | -28 543 | -607 | 311 | -51 | -28 890 | 
+![table image]({page: 69, x: 193}, {y: 124, {width: 166}, {height: 7})
+
+### Hufvudstaden A Generalindex (SIXGX) prisindex
+
+
+<!-- PAGE: 38 -->
+
+####### Västerbotten
+
+| Virkesforrad | 1988 | 1993 | 2000 | 2010 | 2019 | 2024 |
+| --- | --- | --- | --- | --- | --- | --- |
+| Vasternorrland Jamtland |
+| m3sk per hektar produktiv skogsmark | 90 | 100 | 105 | 114 | 118 | 121
+![table image]({page: 70, x: 312}, {y: 286, {width: 245}, {height: 15})
+
+Vardering utifran transaktioner med skogsfastigheter
+
+| Priserna for enskilda skogsfastigheter varierar framforallt till foljd av geografiskt lage och virkes\xad forrad. For att hantera dessa skillnader baseras varderingen pa hur mycket som betalats i for\xad hallande till fastighetens virkesforrad uppdelat pa olika geografiska omraden framforallt lan. For att fa en tillrackligt stor population anvands tre ars samlade transaktioner. Berakningen gors genom en sammanvag\xad ning av varderingar gjorda utifran | I tabellen nedan visas Holmens virkesforrad uttryckt i m3sk virkesforrad bonitet for den produktiva skogsmarken samt aldersfordelning per omrade. |
+| --- | --- |
+| Gavleborg |
+| Uppsala |
+|  | Virkesforrad miljoner m3sk Bonitet m3/ha aldersfordelning % 0\xad20 21\xad40 41\xad60 61\xad80 81\xad100 101+
+| Stockholm |
+|  | Vasterbotten 38 4,0 29 25 14 18 7 8
+| Sodermanland |
+|  | Vasternorrland 32 4,3 27 24 18 15 6 10
+| ostergotland |
+|  | Jamtland 15 3,5 24 22 17 6 3 29
+| Kalmar |
+| Prisstatistik publicerad av marknadsaktorer vilken Holmen anvander tillsammans med voly\xad men virkesforrad for den produktiva skogsmar\xad ken for att berakna ett varde av den produktiva skogsmarken per lan. | Gavleborg 26 6,2 28 24 26 13 2 7
+|  | Uppsala och soderut 15 7,4 27 26 24 12 4 7
+|  | 127 4,6 27 24 18 14 5 11
+| Vardering per den 31 december 2024 |
+| Detaljerade uppgifter om transaktioner med skogsfastigheter vilka Holmen med hjalp av en regressionsmodell anvander for att berakna skogsmarkens varde per hektar utifran parametrarna lage (lan eller del av lan) virkesforrad samt bonitet (dvs markens produktionsformaga) for den produktiva skogsmarken. Berakningen sker for varje skogsfastighet vilket aggregeras upp till ett varde per lan. | Varderingen utifran transaktioner med skogsfastigheter uppgar till 57 843 mnkr (56 348) vilket motsvarar 55 tkr (54) per hektar produktiv skogsmark respektive 456 kr (447) per m3sk virkesforrad pa den produktiva skogsmarken.
+![table image]({page: 70, x: 57}, {y: 322, {width: 489}, {height: 49})
+
+Varderingen per lan framgar av tabellen nedan.
+For Vasterbotten Jamtland och Vasternorrland har prisskillnaden inom lan beaktats i den utstrackning det varit mojligt utifran prisstatistik och detaljerade transaktionsdata.
+
+|  | Holmens skogar | Holmens redovisade varde | Marknadsstatistik2 |
+| --- | --- | --- | --- |
+| Vasterbotten | 486 | 371 | 1 376 | 270 | 13 772 | 37 | 358 | 330 102
+| Vasternorrland | 329 | 273 | 620 | 440 | 13 945 | 51 | 429 | 102 87
+| Jamtland | 194 | 146 | 357 | 410 | 6 105 | 42 | 401 | 194 170
+| Gavleborg | 184 | 163 | 1 434 | 114 | 12 076 | 74 | 462 | 115 74
+| Uppsala och soderut | 109 | 91 | 502 | 181 | 11 946 | 131 | 823 | 190 79
+| 1 303 | 1 045 | 4 289 | 244 | 57 843 | 55 | 456 | 931 | 106
+| 2023 |
+| Vasterbotten | 489 | 371 | 1 378 | 270 | 13 048 | 35 | 346 | 309 102
+| Vasternorrland | 329 | 273 | 621 | 440 | 13 730 | 50 | 416 | 99 92
+| Jamtland | 194 | 147 | 357 | 410 | 5 705 | 39 | 382 | 170 144
+| Gavleborg | 184 | 164 | 1 432 | 114 | 12 064 | 74 | 465 | 134 76
+| Uppsala och soderut | 108 | 91 | 501 | 181 | 11 802 | 130 | 818 | 168 86
+| 1 305 | 1 046 | 4 289 | 244 | 56 348 | 54 | 447 | 880 | 102
+![table image]({page: 70, x: 207}, {y: 523, {width: 406}, {height: 7})
+
+- 1) Avser produktiv skogsmark.
+
+- 2) Avser transaktioner som utgör underlag för värderingen utifrån detaljerade uppgifter om transaktioner med skogsfastigheter.
+
+
+<!-- PAGE: 71 -->
+
+####### Nej
+
+|  | total verksamhet1 |
+| --- | --- |
+| total verksamhet1 |
+| 1) Avser total enligt taxonomins definition ej att likstalla med total enligt finansiell redovisning. |
+| Karnenergi och fossilgasrelaterade verksamheter |
+|  | Karnenergirelaterade verksamheter |  | Ja/Nej
+|  | 1 | Koncernen utfor finansierar eller ar exponerat mot forskning utveckling demonstration och utbyggnad av innovativa elproduktionsanlaggningar som producerar energi fran karnenergiprocesser med minimalt avfall fran branslecykeln. | Nej
+|  | 2 | Koncernen utfor finansierar eller ar exponerat mot uppforande och saker drift av nya karntekniska anlaggningar for produktion av el eller pro cessvarme inbegripet for fjarrvarme eller industriella processer sasom vatgasproduktion samt for sakerhetsuppgraderingar av dessa med hjalp av basta tillgangliga teknik. | Nej
+|  | 3 | Koncernen utfor finansierar eller ar exponerat mot saker drift av befintliga karntekniska anlaggningar som producerar el eller processvarme inbegri pet for fjarrvarme eller industriella processer sasom vatgasproduktion fran karnenergi samt sakerhetsuppgraderingar av dessa. | Nej
+![table image]({page: 88, x: 195}, {y: 313, {width: 221}, {height: 31})
+
+| Fossilgasrelaterade verksamheter | Ja/Nej |
+| --- | --- |
+| 4 Koncernen utfor finansierar eller ar exponerat mot uppforande eller drift av elproduktionsanlaggningar som producerar el med hjalp av fossila gasformiga branslen. | Nej
+| 5 Koncernen utfor finansierar eller ar exponerat mot uppforande renove ring och drift av anlaggningar for kombinerad produktion av varme/kyla och el med hjalp av fossila gasformiga branslen. | Nej
+![table image]({page: 88, x: 319}, {y: 235, {width: 216}, {height: 23})
+
+6 Koncernen utfor finansierar eller ar exponerat mot uppforande renovering och drift av varmeproduktionsanlaggningar som producerar varme/ kyla med hjalp av fossila gasformiga branslen.
+
+
+<!-- PAGE: 89 -->
+
+###### Holmen
+
+- 1.3 Skörd av egen skog
+
+- 4.3 elproduktion från vindkraft
+
+- 4.5 elproduktion från vattenkraft
+
+- 4.8 elproduktion från bioenergi
+
+Lundbergs Fastighetsrorelse och Hufvudstaden
+
+- 7.1/3.1 Uppförande av nya byggnader (7.1 refer- erar till ccM och ccA, 3.1 refererar till ce)
+
+- 7.2/3.2 renovering av befintliga byggnader (7.2 refererar till ccM och ccA, 3.2 refererar till ce)
+
+- 7.3 Installation, underhåll och reparation av energieffektiv utrustning
+
+- 7.4 Installation, underhåll och reparation av laddstationer för elfordon i byggnader
+
+- 7.5 Installation, underhåll och reparation av instrument och anordningar för mätning, reglering och kontroll av byggnaders energiprestanda
+
+- 7.6 Installation, underhåll och reparation av tekniker för förnybar energi
+
+- 7.7 Ägande och förvärv av byggnader
+
+### NOT 5 – forts.
+#### Aktiesparprogram
+
+Holmen hade under 2024 tva utestaende langsiktiga riktade aktiespar\xad program LTIP 2022 och LTIP 2024 beslutade av arsstamman.
+Syftet med programmen ar att starka intressegemenskap mellan nyckelpersoner och aktieagarna samt att framja ett langsiktigt engagemang for Holmen.
+
+Holmens arsstamma 2022 fattade beslut om ett riktat aktiesparprogram for nyckelpersoner i koncernen (LTIP 2022).
+For deltagande kravs en egen investering i Holmen\xadaktier (s.k. sparaktier) samt att anstallningen bestar under hela programmets loptid.
+Programmet loper ut den 8 maj 2025 och omfattar 67 deltagare som sammanlagt investerat 18 861 sparaktier.
+Pro\xad grammet har prestationsvillkor kopplade dels till den samlade avkastningen pa sysselsatt kapital for industriaffarsomradena Travaror samt Kartong och Papper (”ROCE”) dels till totalavkastningen pa Holmens aktie av serie B (”TSR”) under perioden 2022\xad2024.
+Prestationsvillkoret kopplat till ROCE kan ge 3\xad6 aktier per sparaktie beroende pa befattning.
+For prestationsvillkoret kopplat till ROCE kommer maximal tilldelning att ske.
+Prestationsvillkoret kopplat till TSR kan ge 0,5 aktie per sparaktie.
+Ingen tilldelning for presta\xad tionsvillkoret kopplat till TSR kommer ske da totalavkastningen understeg kravet.
+Antalet aktier som forvantas tilldelas nar programmet avslutas i maj 2025 uppgar till 66 400.
+Total redovisad kostnad for LTIP 2022 uppgar for perioden 2022\xad2024 till 42 mnkr varav 9 mnkr (16) redovisats under 2024.
+Holmens arsstamma 2024 fattade beslut om ett aktiesparprogram rik\xad tat enbart till medlemmar i koncernledningen (LTIP 2024).
+For deltagande i programmet kravs en egen investering i Holmen\xadaktier (s.k. sparaktier) samt att anstallningen bestar under hela programmets loptid.
+Programmet loper ut varen 2027 och omfattar 10 deltagare som sammantaget investerat 8 940 sparaktier.
+Programmet har prestationsvillkor kopplade till den samlade avkastningen pa sysselsatt kapital for industriaffarsomradena Travaror samt Kartong och Papper (”ROCE”) utvecklingen av Holmens klimatnytta samt till totalavkastningen pa Holmens aktie av serie B (”TSR”) under perioden 2024\xad2026.
+Prestationsvillkoret kopplat till ROCE kan ge 3,6\xad5,4 aktier per sparaktie beroende pa befattning.
+For full tilldelning kravs att ROCE over\xad stiger en maximiniva beslutad av styrelsen.
+Ingen tilldelning sker om ROCE understiger en miniminiva beslutad av styrelsen.
+For utfall mellan minimi\xad och maximinivan justeras tilldelningen linjart.
+Prestationsvillkoret kopplat till Klimatnyttan kan ge 0,4\xad0,6 aktier per sparaktie beroende pa befattning.
+For tilldelning kravs att den rapporterade klimatnyttan matt som ett genomsnitt under rakenskapsaren 2024-2026 har okat jamfort med den rapporterade klimatnyttan under jamforelsearet 2023.
+Vid minskad eller oforandrad klimatnytta under matperioden sker ingen tilldelning kopplat till Klimatnyttan.
+Prestationsvillkoret kopplat till TSR kan ge 0,5 aktie per spar\xad aktie.
+Antal aktier som maximalt kan komma att tilldelas under programmet uppgar till 47 000.
+Total redovisad kostnad for LTIP 2024 uppgar till 5 mnkr (\xad).
+
+#### Virkespriser
+
+kr/m3fub 800
+
+700
+
+600
+
+500
+
+400
+
+300
+
+200
+
+|  | Realt | Nominellt |  | Pris anvant i varderingen (nominellt) |
+| --- | --- | --- | --- | --- |
+| Skordeplan |
+| 1 000 m3fub/ar 3 500 |
+| 3 000 |
+| 2 500 2 000 1 500 1 000 500 |
+| 0 | 2005- 2009 | 2010- 2014 2015- 2019 | 2020- 2024 | 2025 2029*
+![table image]({page: 72, x: 87}, {y: 474, {width: 89}, {height: 13})
+
+## EGET KAPITAL OCH SKULDER
+
+| Eget kapital | 26 |
+| --- | --- |
+| reserver | 27 | 16 398 | 15 240
+| Balanserade vinstmedel inklusive arets resultat |  | 94 855 | 89 838
+| Eget kapital hanforligt till moderbolagets aktieagare |  | 113 733 | 107 558
+| innehav utan bestammande inflytande | 2 28 | 52 972 | 52 773
+| Summa eget kapital |  | 166 705 | 160 332
+| Skulder Langfristiga skulder |
+| langfristiga finansiella skulder | 21 35 | 14 051 | 14 130
+| langfristiga skulder nyttjanderattstillgangar | 21 | 844 | 855
+| ovriga langfristiga skulder |  | 111 | 122
+| pensionsataganden | 29 | 165 | 143
+| langfristiga avsattningar | 30 | 406 | 435
+| Uppskjutna skatteskulder | 13 | 28 893 | 28 546
+| Summa langfristiga skulder |  | 44 470 | 44 231
+| Kortfristiga skulder Kortfristiga finansiella skulder | 21 35 | 5 873 | 4 783
+| Kortfristiga skulder nyttjanderattstillgangar | 21 | 99 | 96
+| leverantorsskulder | 31 | 4 119 | 3 762
+| aktuell skatteskuld | 13 | 217 | 147
+| Kortfristiga avsattningar | 30 | 45 | 31
+| ovriga rorelseskulder | 31 | 2 870 | 2 721
+| Summa kortfristiga skulder |  | 13 223 | 11 541
+| Summa skulder |  | 57 692 | 55 772
+| SUMMA EGET KAPITAL OCH SKULDER |  | 224 397 | 216 104
+![table image]({page: 58, x: 57}, {y: 394, {width: 422}, {height: 7})
+
+
+<!-- PAGE: 59 -->
+
+Nyckeltal
+# NYCKELTAL FÖR KONCERNEN
+
+|  | 2024 | 2023 | 2022 | 2021 | 2020 | 2019 | 2018 | 2017 | 2016 | 2015 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Substansvarde efter uppskjuten skatt1 mdkr | 137,6 | 135,1 | 119,9 | 133,1 | 111,4 | 96,7 | 72,0 | 75,9 | 68,1 | 56,3
+| Substansvarde per aktie efter uppskjuten skatt1 kr | 555 | 545 | 484 | 537 | 449 | 391 | 290 | 306 | 275 | 227
+| Eget kapital per aktie hanforligt till moderbolagets aktieagare kr | 459 | 434 | 402 | 402 | 344 | 327 | 259 | 252 | 230 | 194
+| nettomsattning m m mnkr | 29 311 | 28 664 | 29 193 | 24 832 | 19 887 | 21 655 | 20 219 | 20 404 | 19 357 | 20 347
+| resultat efter finansiella poster mnkr | 9 808 | 9 244 | 7 679 | 17 134 | 4 471 | 23 335 | 8 230 | 11 236 | 17 419 | 8 258
+| exklusive nedskrivningar och orealiserade vardeforandringar mnkr | 9 533 | 13 690 | 7 988 | 11 912 | 6 058 | 9 760 | 3 445 | 6 712 | 11 511 | 3 783
+| resultat efter skatt mnkr | 8 383 | 8 678 | 5 773 | 14 924 | 4 108 | 19 535 | 7 483 | 9 467 | 15 457 | 6 652
+| varav innehav utan bestammande inflytande mnkr | 2 081 | 1 423 | 4 259 | 3 556 | 517 | 7 607 | 3 893 | 2 785 | 3 215 | 2 276
+| resultat per aktie hanforligt till moderbolagets aktieagare kr | 25,41 | 29,25 | 6,10 | 45,84 | 14,48 | 48,09 | 14,48 | 26,94 | 49,36 | 17,65
+| Utdelning per aktie kr | 4,602 | 4,30 | 4,00 | 3,75 | 3,50 | 0,00 | 3,20 | 3,00 | 2,80 | 2,65
+| Skuldsattningsgrad ggr | 0,12 | 0,11 | 0,12 | 0,14 | 0,15 | 0,14 | 0,15 | 0,16 | 0,18 | 0,21
+| Soliditet procent | 74 | 74 | 73 | 73 | 72 | 72 | 71 | 71 | 69 | 67
+![table image]({page: 19, x: 224}, {y: 161, {width: 508}, {height: 7})
+
+- 1) Värdena har beräknats enligt tillvägagångssätt på sid 16.
+
+- 2) Enligt styrelsens förslag.
+
+## EGET KAPITAL OCH SKULDER
+
+| Eget kapital Bundet eget kapital | 15 |  |  |
+| --- | --- | --- | --- |
+| Aktiekapital (248 000 000 aktier) |  | 2 480 | 2 480
+| Fritt eget kapital Fond for verkligt varde |  | 8 874 | 7 936
+| Balanserade vinstmedel |  | 31 871 | 30 039
+| arets resultat |  | 3 192 | 2 898
+| Summa eget kapital |  | 46 417 | 43 354
+| Obeskattade reserver | 16 | 1 054 | 879
+| Avsattningar | 17 | 1 118 | 1 387
+| Langfristiga skulder Langfristiga finansiella skulder | 13 | 4 400 | 4 900
+| ovriga langfristiga skulder |  |  | 14
+| Summa langfristiga skulder |  | 4 400 | 4 914
+| Kortfristiga skulder Skulder till koncernforetag | 12,13 | 0 | 0
+| ovriga finansiella skulder | 13 | 2 040 | 1 535
+| Skatteskulder |  | 33 | 1
+| ovriga rorelseskulder | 18 | 27 | 15
+| Summa kortfristiga skulder |  | 2 101 | 1 551
+| SUMMA EGET KAPITAL OCH SKULDER |  | 55 089 | 52 084
+![table image]({page: 92, x: 316}, {y: 367, {width: 247}, {height: 7})
+
+#### NOT 9 – VÄRDEFÖRÄNDRINGAR FÖRVALTNINGSFASTIGHETER OCH DERIVAT
+
+| mnkr | 2024 | 2023 |
+| --- | --- | --- |
+| Forvaltningsfastigheter |
+| Orealiserade | -654 | -5 066
+| Derivat |
+| Orealiserade | -21 | -66
+|  | -674 | -5 132
+|  | 907 | 562
+| NOT 10 VaRDEFoRaNDRINGAR BIOLOGISKA TILLGaNGAR |
+| mnkr | 2024 | 2023
+| Forandring till foljd av skord | -1 078 | -977
+| Orealiserad forandring av verkligt varde | 1 985 | 1 539
+![table image]({page: 66, x: 317}, {y: 336, {width: 247}, {height: 7})
+
+#### FINANSIELLA NYCKELTAL
+
+2024 2023
+
+| Resultat efter skatt mnkr | 12 654 | 26 844 |
+| --- | --- | --- |
+| Substansvarde mdkr | 159,6 | 150,3
+| Substansvarde kr/aktie | 370 | 348
+| Skuldsattningsgrad ggr | 0,04 | 0,05
+| Utdelning per aktie kr | 8,251 | 7,75
+| Borskurs 31 dec kr A -aktien | 349,40 | 328,90
+![table image]({page: 40, x: 47}, {y: 394, {width: 156}, {height: 7})
+
+- 1) Enligt styrelsens förslag.
+
+##### ALLEIMAAKTIEN
+
+kr 100
+
+90
+
+80
+
+70
+
+60 OktJuliAprilJan 2024 Jan 2025
+
+Alleima Generalindex (SIXGX) prisindex
+
+Genom sina produkter och experter inom materialteknologi metallurgi och industriella processer hjalper Alleima sina kunder att bli effektivare lonsammare sakrare och mer hallbara.
+Den helt integrerade vardekedjan fran forskning och utveckling och pri mar smaltning till slutprodukt gor att de kan erbjuda hogkvalitativa pro dukter och ett flexibelt utbud.
+Bolaget har en stark marknadsposition pa en lang rad nischade slutmarknader.
+Erbjudandet omfattar over 900 aktiva legeringsrecept och ett brett sorti ment av produkter till flera kundseg ment exempelvis rorprodukter var meelement trad till medicinteknisk utrustning samt precisionsbandstal.
+Produkterna saljs i omkring 80 lander.
+Alleima ar organiserat i tre divisio ner.
+Tube som utvecklar och tillverkar rorformiga produkter och andra langa produkter av avancerat rostfritt stal och speciallegeringar som framst anvands inom produktion av kraft kemikalier olja och gas fornybar energi samt fordon och flyg.
+Kanthal levere rar produkter och tjanster inom indu striell varmning motstandsmaterial och inom andra anvandningsomra
+
+Finansiella mal Alleimas finansiella mal ar att leverera lonsam organisk intaktstillvaxt i linje med eller overstigande tillvaxten i prioriterade slutmarknader samt en justerad EBIT marginal (exklusive metallpriseffekter och jamforelsesto rande poster) overstigande i genom snitt 9 procent over en konjunkturcy kel.
+Nettoskuld i forhallande till eget kapital ska understiga 0,3.
+Utdelning ska i genomsnitt justerat for metall priseffekter uppga till 50 procent av periodens resultat over en konjunk turcykel.
+Utdelningen ska beakta finansiell stallning kassaflode och framtidsutsikter.
+
+
+<!-- PAGE: 43 -->
+
+#### Leasing
+
+Vid ett avtals ingang bedoms om avtalet ar eller innehaller ett leasingav\xad tal.
+Ett avtal ar eller innehaller ett leasingavtal om avtalet overlater ratten att under en viss period bestamma over anvandningen av en identifierad tillgang i utbyte mot ersattning.
+Koncernen redovisar en nyttjanderattstill\xad gang och tillhorande skuld vid leasingavtalets ingang.
+Skulderna varderas initialt till nuvardet av aterstaende leasingavgifter under den bedomda lea\xad singperioden.
+Leasingavgifterna diskonteras med koncernens marginella upplaningsranta vilken utover koncernens kreditrisk aterspeglar respek\xad tive avtals leasingperiod och valuta.
+Nyttjanderattstillgangar varderas initialt till skuldens varde med tillagg for leasingavgifter som betalats vid eller fore inlednings datumet plus eventuella initiala direkta utgifter.
+Nyttjanderatts\xad tillgangen skrivs av linjart under leasingperiodens loptid.
+
+Leasingperioden utgors av den ej uppsagbara perioden med tillagg for ytterligare perioder i avtalet om det vid inledningsdatumet bedoms som rimligt sakert att dessa kommer att nyttjas.
+
+Koncernen har i egenskap av leasetagare tomtrattsavtal.
+Tomtratter betraktas enligt IFRS 16 som eviga hyresavtal och kommer darmed inte att skrivas av.
+Vardet pa nyttjanderattstillgangen kvarstar till nasta omforhand\xad ling av respektive tomtrattsavgald.
+Leasingskulden amorteras inte utan ar oforandrad fram till omforhandling.
+Kostnaderna for tomtrattsavgalder redovisas i sin helhet som en finansiell kostnad.
+
+For leasingavtal som har en leasingperiod pa 12 manader eller mindre eller med en underliggande tillgang av lagt varde redovisas inte nagon nyttjanderattstillgang och leasingskuld.
+Leasingavgifter for dessa leasing\xad avtal redovisas som kostnad linjart over leasingperioden.
+
+###### noter – koncernen
+#### NOT 39 – forts.
+##### KAPITALUTGIFTER 2024
+
+|  | Kriterier for vasentligt bidrag | Kriterier avseende att inte orsaka betydande skada |
+| --- | --- | --- |
+| Ekonomiska verksamheter (1) |
+| VERKSAMHETER SOM OMFATTAS AV TAXONOMIN |
+| A.1. Miljomassigt hallbara verksamheter (taxonomiforenliga) |
+| Skord av egen skog | CCM 1.3 | 221 6 J | N/EL N/EL N/EL N/EL N/EL |  |  |  |  | - | J | J | J | J | J | J | 7 | - | -
+| Vindkraft | CCM 4.3 | 503 13 J | N/EL N/EL N/EL N/EL N/EL |  |  |  |  | - | J | J | - | J | J | J | 0 | - | -
+| Vattenkraft | CCM 4.5 | 67 2 J | N/EL N/EL N/EL N/EL N/EL |  |  |  |  | - | J | J | - | - | J | J | 1 | - | -
+| Bioenergi | CCM 4.8 | --J | N/EL N/EL N/EL N/EL N/EL |  |  |  |  | - | J | J | J | - | J | J | 0 | - | -
+| Laddstationer for elfordon i byggnader1 | CCM 7.4 / CCA 7.4 | 5 0 J | N | N/EL N/EL N/EL N/EL |  |  |  | - | J | - | - | - | - | J | 0 | E | -
+| Instrument for byggnaders energiprestanda1 | CCM 7.5 / CCA 7.5 | 5 0 J | N N/EL N/EL N/EL N/EL |  |  |  |  | - | J | - | - | - | - | J | 0 | E | -
+| tekniker for fornybar energi 1 | CCM 7.6 / CCA 7.6 | 2 0 J | N | N/EL N/EL N/EL N/EL |  |  |  | - | J | - | - | - | - | J | 0 | E | -
+| agande och forvarv av byggnader | CCM 7.7 / CCA 7.7 | 398 10 J | N | N/EL N/EL N/EL N/EL |  |  |  | - | J | - | - | - | - | J | 4 | - | -
+| Kapitalutgifter for de miljomassigt hallbara (taxonomiforenliga) verksamheterna (A.1) |  | 1 200 31 31 | - | - | - | - | - | - | - | - | - | - | - | - | 12 |  | 
+| Varav mojliggorande verksamheter | 12 | 0 | 0 | - | - | - | - | - | - | - | - | - | - | - | - | 0 | e
+| Varav omstallningsverksamheter |  | - - - |  |  |  |  |  | - | - | - | - | - | - | - | - |  | t
+| A.2 Verksamheter som omfattas av taxo no min men som inte ar miljomassigt hallbara (ej taxonomiforenliga) |  | EL N/EL EL N/EL |  | EL N/EL | EL N/EL | EL N/EL | EL N/EL |  |  |  |  |  |  |  |  |  | 
+| Uppforande av nya byggnader | CCM 7.1 / CCA 7.1 / CE 3.1 | 6 0 EL | EL | N/EL N/EL |  | EL | N/EL |  |  |  |  |  |  |  | 5 |  | 
+| renovering av befintliga byggnader | CCM 7.2 / CCA 7.2 / CE 3.2 | 699 18 EL | EL | N/EL N/EL |  | EL | N/EL |  |  |  |  |  |  |  | 17 |  | 
+| energieffektiv utrustning1 | CCM 7.3 / CCA 7.3 | 47 1 EL | EL | N/EL N/EL N/EL N/EL |  |  |  |  |  |  |  |  |  |  | 2 |  | 
+| agande och forvarv av byggnader | CCM7.7 / CCA 7.7 | 348 9 EL | EL | N/EL N/EL N/EL N/EL |  |  |  |  |  |  |  |  |  |  | 19 |  | 
+| Kapitalutgifter for de verksamheter som omfattas av taxonomin men som inte ar miljomassigt hallbara (ej taxonomiforenliga) (A.2) |  | 1 100 28 28 | - | - | - | - | - |  |  |  |  |  |  |  | 43 |  | 
+| A. Kapitalutgifter for verksamheter som omfattas av taxonomin (A.1+A.2) |  | 2 300 60 60 | - | - | - | - | - |  |  |  |  |  |  |  | 56 | - | -
+| B. VERKSAMHETER SOM INTE OMFATTAS AV TAXONOMIN |
+| kapitalutgifter hos verksamheter som inte omfattas av taxonomin |  | 1 560 40 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+| TOTALT (A+B) |  | 3 860 100 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+![table image]({page: 90, x: 258}, {y: 86, {width: 218}, {height: 6})
+
+- 1) omfattar installation, underhåll och reparation. För fullständig definition se ruta sid 92.
+
+taxonomiforenlig andel for kapitalutgifter okade till 31 procent (12) framst till foljd av uppbyggnad av vindkraftproduktion samt hogre andel investeringar i taxonomi forenliga fastigheter under 2024.
+
+Forenlig kapitalutgift i respektive bolag (enligt taxonomin) Lundbergs Fastighetsrorelses forenliga kapitalutgifter uppgar till 321 mnkr vilket motsvarar 58 procent av fastighetsrorelsens totala investeringar.
+Holmens forenliga kapitalutgifter uppgar till 790 mnkr vilket motsvarar 34 procent av Holmens totala investeringar.
+Hufvudstadens forenliga kapitalutgifter uppgar till 88 mnkr vilket motsvarar 9 procent av Hufvudstadens totala investeringar.
+
+Information om kapitalutgifter (investeringar) Samtliga redovisade kapitalutgifter inom verksamheter 7.1 7.7 ar hanforbara till forvaltningsfastigheter.
+Av de 221 mnkr i forenliga kapitalutgifter avseende skord av egen skog avser 170 mnkr skogstillgangar 37 mnkr materiella anlagg ningstillgangar och 14 mnkr leasingavtal.
+Av de 503 mnkr i forenliga kapital utgifter avseende vindkraft avser 503 mnkr materiella anlaggningstillgangar.
+Av de 66 mnkr i forenliga kapitalutgifter avseende vattenkraft avser 66 mnkr mate riella anlaggningstillgangar.
+Andelen som harror fran forvarv avser kop av skogsfastigheter med 30 mnkr.
+
+Andel av kapitalutgifter/totala kapitalutgifter
+
+|  | Taxonomiforenlighet per mal1 | Mal som omfattas av taxonomin |
+| --- | --- | --- |
+| ccM | 31 % | 60 %
+| ccA | % | 39 %
+| Wtr | - | -
+| ce | - | 18 %
+| PPc | - | -
+| BIo | - | -
+![table image]({page: 90, x: 355}, {y: 583, {width: 196}, {height: 6})
+
+
+<!-- PAGE: 91 -->
+
+##### noter – koncernen
+#### NOT 39 – forts.
+##### OMSÄTTNING 2024
+
+|  | Kriterier for vasentligt bidrag | Kriterier avseende att inte orsaka betydande skada |
+| --- | --- | --- |
+| Ekonomiska verksamheter (1) |
+| VERKSAMHETER SOM OMFATTAS AV TAXONOMIN |
+| A.1. Miljomassigt hallbara verksamheter (taxonomiforenliga) |
+| Skord av egen skog CCM 1.3 | 811 3 J | N/EL N/EL N/EL N/EL N/EL |  |  |  |  | - | J | J | J | J | J | J | 2 | - | -
+| Vindkraft CCM 4.3 | 169 1 J | N/EL N/EL N/EL N/EL N/EL |  |  |  |  | - | J | J | - | J | J | J | 1 | - | -
+| Vattenkraft CCM 4.5 | 454 2 J | N/EL N/EL N/EL N/EL N/EL |  |  |  |  | - | J | J | - | - | J | J | 3 | - | -
+| Bioenergi CCM 4.8 | 784 3 J | N/EL N/EL N/EL N/EL N/EL |  |  |  |  | - | J | J | J | - | J | J | 3 | - | -
+| agande och forvarv av byggnader CCM 7.7 | 1 546 5 J | N/EL N/EL N/EL N/EL N/EL |  |  |  |  | - | J | - | - | - | - | J | 4 | - | -
+| De miljomassigt hallbara verksam heternas omsattning (A.1) | 3 764 13 13 | - | - | - | - | - | - | - | - | - | - | - | - | 13 |  | 
+| Varav mojliggorande verksamheter | - - - | - | - | - | - | - | - | - | - | - | - | - | - | - | e | 
+| Varav omstallningsverksamheter | - - - |  |  |  |  |  | - | - | - | - | - | - | - | - |  | t
+| A.2 Verksamheter som omfattas av taxo nomin men som inte ar miljomassigt hallbara (ej taxonomiforenliga) | EL N/EL EL N/EL |  | EL N/EL | EL N/EL | EL N/EL | EL N/EL |  |  |  |  |  |  |  |  |  | 
+| agande och forvarv av byggnader CCM 7.7 | 2 545 9 EL | N/EL N/EL N/EL N/EL N/EL |  |  |  |  |  |  |  |  |  |  |  | 9 |  | 
+| Omsattningen hos de verksamheter som omfattas av taxonomin men som inte ar miljomassigt hallbara (ej taxonomiforenliga) (A.2) | 2 545 9 9 |  |  |  |  |  |  |  |  |  |  |  |  | 9 |  | 
+| A. Omsattning for verksamheter som omfattas av taxonomin (A.1+A.2) | 6 309 21 21 |  |  |  |  |  |  |  |  |  |  |  |  | 22 |  | 
+| B. VERKSAMHETER SOM INTE OMFATTAS AV TAXONOMIN |
+| omsattningen hos verksamheter som inte omfattas av taxonomin | 23 546 79 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+| TOTALT (A+B) | 29 855 100 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+![table image]({page: 89, x: 227}, {y: 86, {width: 181}, {height: 6})
+
+taxonomiforenlig andel for omsattning uppgick till 13 procent (13) vilket var i linje med foregaende ar.
+Forenlig omsattning i respektive bolag Lundbergs Fastighetsrorelses forenliga omsattning uppgar till 1 070 mnkr vilket motsvarar 56 procent av fastighetsrorelsens totala omsattning.
+Holmens forenliga omsattning uppgar till 2 218 mnkr vilket motsvarar 9 procent av Holmens totala omsattning.
+Hufvudstadens forenliga omsattning uppgar till 476 mnkr vilket motsvarar 15 procent av Hufvudstadens totala omsattning.
+
+
+<!-- PAGE: 90 -->
+
+##### Styrning av hållbarhetsarbetet
+
+Genom ett engagerat agande och god kunskap om de enskil\xad da bolagens forutsattningar paverkar Lundbergs de borsnote\xad rade bolagen framst genom arbete i bolagens styrelser och val\xad beredningar.
+vara representanter i bolagens styrelser ska agera utifran Lundbergs principer och vara en tydlig kravstallare pa bolagen avseende deras hallbarhetsarbete.
+En god formaga att hantera risker och mojligheter relaterade till miljo socialt ansvar och affarsetik bidrar till bolagens framgang.
+
+Det langsiktiga agandet Lundbergs representerar ger inne\xad havsbolagen mojlighet att satsa pa innovation och vidareut\xad veckling bygga uthalligt starka marknadspositioner och battre konkurrenskraft.
+Beslut och ansvar for hallbarhetsstrategier genomforande och rapportering ligger dock hos styrelser och ledningar i respektive bolag.
+Som aktiv agare ger vi innehavs\xad bolagen stod i utvecklingen mot en mer hallbar verksamhet.
+
+23LUNDBERGS aRS OCH HaLLBARHETSREDOVISNING 2024
+
+
+<!-- PAGE: 23 -->
+I all var verksamhet tror vi pa ett oppet affarsklimat dar hog etik och affarsmoral ska vara ledstjarnor.
+Hallbarhetsarbetet sker inom ramen for Lundbergs modell for aktivt agande.
+Utgangspunkt i arbetet ar Lundbergs uppforandekod.
+Genom styrelserna i innehavsbolagen ska Lundbergs verka for att kodens forhallningssatt genomsyrar samtliga innehavs\xad bolag.
+
+Uppforan de koden innebar att representanter for Lundbergs bland annat forvantas
+
+■ Agera i linje med de juridiska krav som galler dar foretaget ar verksamt ■ Agera i linje med Fn:s Global Compact genom att folja gallande lagar foreskrifter och internationella riktlinjer och principer inom miljo antikorruption arbetsratt och manskliga rattig heter ■ Gora investeringar med hansyn tagen till dess langsiktiga ekonomiska sociala och miljomassiga paverkan ■ Ha relationer som praglas av hog affarsmoral ■ Ha arbetsplatser som praglas av oppenhet lyhordhet och omsesidig respekt samt avstandstagande fran all diskriminering ■ Efterstrava oppenhet tydlighet och tillforlitlighet i kommunikation med omvarlden
+
+Uppforandekoden baseras pa Fn:s Global Compacts tio inter\xad nationella principer om manskliga rattigheter arbetsratt miljo\xad hansyn och antikorruption.
+Lundbergs ar sedan 2016 ansluten till och stodjer Fn:s Global Compact och forbinder sig darmed att i sin verksamhet forverkliga och integrera dess principer.
+
+Lundbergs arbetar med de av Fn:s Globala mal for hallbar utveckling som ligger narmast affarsverksamheten och arbetet sker integrerat i verksamheten.
+
+Foljande mal har identifierats som de mest vasentliga for bade investeringsverksamheten och fastighetsbolaget
+
+■ Mal 3 God halsa och valbefinnande ■ Mal 5 Jamstalldhet ■ Mal 7 Hallbar energi for alla ■ Mal 8 Anstandiga arbetsvillkor och ekonomisk tillvaxt ■ Mal 9 Hallbar industri innovationer och infrastruktur ■ Mal 11 Hallbara stader och samhallen ■ Mal 12 Hallbar konsumtion och produktion ■ Mal 13 Bekampa klimatforandringarna
+
+
+<!-- PAGE: 24 -->
+
+#### Göteborg 16%
+
+140
+
+120
+
+100 OktJuliAprilJan 2024 Jan 2025
+
+Kontor 58% Butik och restaurang 36% Lager och ovrigt 3% Garage 3%
+
+#### Stockholm 63%
+
+NK 21%
+
+# Policyer och styrdokument
+
+Som stod for saval chefer som medarbetare och for att saker\xad stalla att Fn:s Global Compact och Fn:s principer avseende manskliga rattigheter arbetsforhallanden miljo och anti\xad korruption efterlevs tillampas forutom uppforandekoden ett antal policyer och styrdokument.
+
+Policyerna ar del av introduktionen vid nyanstallningar och finns tillgangliga pa bolagets intranat.
+Utbildning avseende policys sker lopande for hela fastighetsbolaget genom utbild\xad ningsinsatser.
+Foretaget har ocksa under senare ar genomfort utbildningar for personalen inom digital sakerhet och GDPr.
+Lundbergs varnar om intressenternas integritet och forvaltar information pa ett ansvarsfullt satt.
+
+Lundbergs ar emot alla former av korruption och det ar samtliga medarbetares skyldighet att forsoka forhindra alla former av bedragliga aktiviteter.
+Korruption ar inte bara olagligt utan det far allvarliga negativa effekter pa samhallet och Lund\xad bergs har ett val utvecklat antikorruptionsarbete.
+vi staller hoga krav pa vara samarbetspartners och arbetar inte med nagra som ar inblandade i korrupta aktiviteter.
+Genom uppforande\xad koden uppforandekoden for leverantorer och noggranna rutiner kring upphandling minskas korruptionsriskerna.
+
+For att forenkla for den som vill lamna information om miss\xad forhallanden som strider mot gallande lagstiftning etik moral eller Lundbergs policyer finns en visselblasarfunktion inrattad.
+Pa detta satt kan medarbetare kunder leverantorer och sam\xad arbetspartners lamna information och samtidigt vara garante\xad rade anonymitet.
+Alla anmalningar tas emot och utreds av en extern aktor.
+Inga anmalningar har inkommit under 2024.
+
+###### Noter - koNcerNeN
+##### NOT 19 – ANDeLAr I INtreSSeFÖretAG
+
+| Intresseforetag mnkr | 2024 | 2023 |
+| --- | --- | --- |
+| redovisat vid arets borjan | 39 846 | 33 989
+| Investering | 1 248 | 733
+| Avyttring optionslosen | -9 | 
+| resultatandel1 | 3 392 | 6 228
+| erhallen utdelning | -1 069 | -993
+| Andel i ovrigt totalresultat | 206 | -111
+|  | 43 613 | 39 846
+![table image]({page: 75, x: 43}, {y: 84, {width: 73}, {height: 7})
+
+- 1) resultat efter skatt och innehav utan bestämmande inflytande i intresseföretag.
+
+| Antal andelar 2024-12-31 | Andel i procent3 | Redovisat varde mnkr |
+| --- | --- | --- |
+| Intresseforetag1 |
+| Moderbolagets |
+| AB Industrivarden2 | 88 550 000 20,5 (26,0) 19,7 (25,1) |  |  | 32 635 | 29 515
+| Indutrade AB2 | 96 840 000 | 26,6 | 26,6 | 6 299 | 5 723
+| Dotterforetagens |
+| Brannalvens kraft AB | 5 556 | 13,9 | 13,9 | 45 | 36
+| Gidekraft AB | 990 | 9,9 | 9,9 | 0 | 0
+| Harrsele AB | 9 886 | 49,4 | 49,4 | 1 534 | 1 527
+| rebio AB | 2 014 | 40,3 | 40,3 | 10 | 10
+| Uni4 Marketing AB | 2 050 | 41,0 | 41,0 | 22 | 21
+| Vattenfall tuggen AB | 683 | 6,8 | 6,8 | 90 | 90
+| ovriga |  |  |  | 1 | 1
+|  |  |  |  | 43 613 | 39 846
+![table image]({page: 75, x: 107}, {y: 200, {width: 53}, {height: 7})
+
+- 1) I de fall röstandelen understiger 20 procent föreligger ett betydande inflytande över bolagens verksamhet på grund av aktieägaravtal.
+
+- 2) Verkligt värde enligt aktuell börskurs uppgår för Husqvarna till 2 515 mnkr (3 586), för Industrivärden till 30 932 mnkr (27 962) och för Indutrade till 26 825 mnkr (25 353).
+
+- 3) Andel beräknas efter avdrag av återköpta aktier. röstandel anges i parentes i de fall den ej överensstämmer med kapitalandel.
+
+agandet i Brannalvens kraft AB Gidekraft AB Harrsele AB samt Vattenfall tuggen AB avser vattenkrafttillgangar.
+agarandelen ger Holmen ratt att kopa producerad elkraft till sjalvkostnadspris vilket innebar att endast ett mycket begransat resultat uppstar i intresseforetagen.
+Inkopt elkraft saljs externt till marknadspris och resultatet redovisas i Holmen.
+
+##### Aktierisk
+##### Finansieringsrisk
+
+|  |
+|  |
+| Finansieringsrisk ar risken for att vid en given tidpunkt inte kunna erhalla nodvandig finansiering for verksamheten. Lundbergs rantebarande nettoskuld uppgick den 31 december 2024 till 6 116 mnkr (6 159) fordelat pa rantebarande skulder och rantebarande pensionsataganden 6 681 mnkr (6 604) och rantebarande tillgangar 565 mnkr (445). Den genomsnittliga kapitalbindningstiden var 32 mana\xad der (36). Forfallostrukturen pa finansiella skulder framgar av tabellen nedan. Utover upptagna krediter om 6,4 mdkr fanns avtalade langfristiga laneloften om sammanlagt 3,0 mdkr samt kortfristiga kreditloften pa 100 mnkr med forfall inom 12 manader. Lundbergs har derivatinstrument som redovisas i kategorin finansiella tillgangar och skulder varderade till verkligt varde via resultatet. Sakringsredovisning tillampas ej. Lundbergs har en avtalad emissionsram avseende foretagscertifikat som uppgar till nominellt hogst 3,0 mdkr varav 500 mnkr var upptaget per den 31 december 2024. | Lundbergs rantebarande nettoskuld uppgick den 31 december 2024 till 6 116 mnkr (6 159) fordelat pa rantebarande skulder och rantebarande pensionsataganden 6 681 mnkr (6 604) och rantebarande tillgangar 565 mnkr (445). Den genomsnittliga kapitalbindningstiden var 32 mana\xad der (36). Forfallostrukturen pa finansiella skulder framgar av tabellen nedan. Utover upptagna krediter om 6,4 mdkr fanns avtalade langfristiga laneloften om sammanlagt 3,0 mdkr samt kortfristiga kreditloften pa 100 mnkr med forfall inom 12 manader. Lundbergs har derivatinstrument som redovisas i kategorin finansiella tillgangar och skulder varderade till verkligt varde via resultatet. Sakringsredovisning tillampas ej. Lundbergs har en avtalad emissionsram avseende foretagscertifikat som uppgar till nominellt hogst 3,0 mdkr varav 500 mnkr var upptaget per den 31 december 2024. Aktierisk omfattar aktiekursrisk och likviditetsrisk. Med aktiekursrisk avses risken for vardenedgang pa grund av forandringar i kurser pa aktiemarkna\xad den. Lundbergs har som strategi att inneha storre aktieinnehav i ett begran\xad sat antal bolag. Aktiekursrisken begransas genom att Lundbergs som aktiv och langsiktig agare paverkar bolagens strategier och beslut. en forandring av aktiekursen med en procentenhet skulle paverka aktieportfoljens varde med 220 mnkr. Likviditetsrisk kan uppkomma om en aktie till exempel ar svar att avyttra. Lundbergs portfolj innehaller borsnoterade aktier med god likviditet varfor likviditetsrisken ar begransad. Aktieportfoljen framgar av not 20 och uppgar till totalt 22 014 mnkr. HOLMEN Den finansiella stallningen ska vara stark for att ha handlingsfrihet att fatta langsiktiga affarsmassiga beslut. Den finansiella nettoskulden ska inte over\xad stiga 25 procent av eget kapital. Valutarisk
+| Lundbergs har aven ett svenskt sa kallat Medium term note\xadprogram med ett rambelopp om 10,0 mdkr vilket ger mojlighet att ge ut obligationer i SeK eller eUr till framst svenska placerare. Per den 31 december 2024 var 4,9 mdkr utnyttjat. Bolaget har betryggande marginaler till kreditgivarnas restriktioner (covenants) avseende laneavtalen. | Bolaget har betryggande marginaler till kreditgivarnas restriktioner (covenants) avseende laneavtalen. Forandringar i valutakurser paverkar Holmens resultat. risken vid trans\xad aktions exponering beror pa att en vasentlig del av forsaljningsintakterna ar i andra valutor an kostnaderna. risken vid omrakningsexponering harror fran omrakningen av de utlandska dotterbolagens tillgangar och skulder och resultat till svenska kronor.
+![table image]({page: 82, x: 57}, {y: 535, {width: 725}, {height: 41})
+
+
+<!-- PAGE: 83 -->
+
+### Kr
+
+19LUNDBERGS aRS OCH HaLLBARHETSREDOVISNING 2024
+
+
+<!-- PAGE: 19 -->
+
+### Lundbergs B Generalindex (SIXGX) Prisindex
+
+0 100 200 300 400 500 600 700
+
+Feb 20252024202320222021202020192018201720162015
+
+#### FINANSIELLA NYCKELTAL
+
+2024 2023
+
+|  |  | Nettoomsattning mnkr | 22 759 22 795 |
+| --- | --- | --- | --- |
+|  |  | Rorelseresultat mnkr | 3 721 4 755
+|  |  | Resultat per aktie kr | 18,0 23,0
+|  |  | Skuldsattningsgrad ggr | 0,06 0,03
+|  |  | Medelantal anstallda | 3 498 3 546
+| Kartong och Papper utvecklar produk ter baserat pa farsk vedravara i en i stort sett fossilfri produktionsprocess. Solid och falskartong produceras vid ett svenskt och ett engelskt bruk dar produk terna marknadsfors under varumarkena Invercote Incada och Inverform. Kartong verksamheten ska vaxa utifran positionen som marknadsledare inom premium segmentet for fornybara konsument forpackningar dar hog kvalitet kundan passade losningar och forstklassig service kombineras med storskalig produktion. Pappersprodukter tillverkas vid tva svens ka bruk. Har tillvaratas den farska fiberns egenskaper och ger kostnads och resurs effektiva alternativ till traditionella pap persval for bocker forpackningar och grafiska publikationer. Travaror producerar sagade och forad lade travaror till bygghandel snickeri och byggindustri vid fem sagverk i anslutning till egen skog. Holmen erbjuder aven kund anpassade losningar for ett klimatsmart och storskaligt trabyggande. Sagverkens placering med narhet till hav jarnvag och vag innebar effektiva transportlosningar till kunderna. Verksamheten ska utveck las genom okad foradling och forbattrat utnyttjande av virkesravaran i kombina tion med storskalig produktion. |
+| Energi ansvarar for koncernens vat ten och vindkrafttillgangar samt for elforsorjningen till Holmens svenska enheter. Under ett normalar levererar Holmen 1,9 TWh fornybar el fran vatten och vindkraft. Tillsammans med elpro duktion vid bruken svarar produktionen av vatten och vindkraft idag for cirka 60 procent av koncernens elanvandning. Holmens produktion av fornybar vatten och vindkraft bidrar till en hallbar energi forsorjning i Sverige och till den europe iska omstallningen mot fossilfria energi |
+| kallor. |
+| Hallbarhet |
+| Holmens affarsmodell ar cirkular dar grunden ar den hallbart brukade skogen. De vaxande traden foradlas i egen industri till allt fran tra for klimatsmart byggande till fornybara forpackningar magasin och bocker samtidigt som Holmen produce rar vatten och vindkraft pa egen mark. Samtliga kartong och pappersbruk ar certifierade for sparbarhet miljo och kvalitet. Verksamheten som helhet med egen energiproduktion och resurseffekti va produktionsenheter bidrar till langsik tig vardetillvaxt och stor klimatnytta genom att arligen minska mangden kol dioxid i atmosfaren. Holmens affar skapar varde for bade aktieagare och kunder samtidigt som den bidrar till ett battre klimat och en levande landsbygd. |
+|  |  | Utdelning per aktie kr | 12,001 11,502
+|  |  | Borskurs 31 dec kr B aktien | 406,20 425,70
+![table image]({page: 36, x: 420}, {y: 367, {width: 148}, {height: 7})
+
+- 1) Enligt styrelsens förslag, varav extra utdelning om 3,00 kr.
+
+- 2) Varav extra utdelning om 3,00 kr.
+
+Finansiella mal Skogen brukas hallbart for att ge god arlig avkastning och stabil vardetillvaxt.
+Tillvaxt och skord ska oka over tid.
+Pro duktionen av fornybar energi ska oka genom att komplettera befintlig vatten kraft med vindkraft pa egen mark.
+Indu strin drivs med fokus pa langsiktig lon samhet och malsattningen att uthalligt avkasta mer an 10 procent pa sysselsatt kapital.
+Den finansiella nettoskulden ska inte overstiga 25 procent av eget kapital.
+Holmen ska ge en god arlig utdelning till aktieagarna.
+Nivan anpassas till koncer nens lonsamhetssituation investerings planer och finansiella stallning.
+Utdel ningen kompletteras med aktieaterkop nar det bedoms skapa langsiktigt varde for aktieagarna.
+
+15,1%
+
+###### LUNDBERGS ÅRS- OCH HÅLLBARHETSREDOVISNING 202488
+
+taxonomiforordningen ar ett klassificeringsverktyg som ska vara en vag ledning for finansiella aktorer att identifiera ekonomiska aktiviteter som vasentligt bidrar till att eU ska na sina klimatmal och grona tillvaxtstrategi.
+taxonominforordningen bygger pa sex miljomal.
+For koncernen bedoms ekonomiska aktiviteter med betydande paverkan pa klimatet samt atgarder som vidtas for anpassning till klimatforandringar (miljomal ett och tva) som tillampliga.
+For Lundbergs och Hufvudstaden ar bidrag till en cirkular ekonomi (miljomal fyra) tillampligt vid uppforande av nya byggnader och renovering av befintliga byggnader.
+
+enligt forordningen ska redovisningen omfatta hur stor andel av omsattning kapitalutgifter och driftutgifter som ar taxonomitillamp liga och taxonomiforenliga.
+Berakning av nyckeltalen har gjorts i enlighet med definitionerna 1.1.1 1.1.2 och 1.1.3 i bilaga 1 till den delegerade akten om upplysningsskyldighet enligt artikel 8 i taxonomiforordningen.
+en ekono misk tillamplig verksamhet anses forenlig med forordningen miljomas sigt hallbar om den uppfyller kraven for vasentligt bidrag for minst ett av sex miljomal inte gor nagon vasentlig skada pa nagot av de resterande fem malen samt uppfyller kraven avseende sociala minimiskyddsatgarder.
+
+I tabellerna nedan aterfinns konsoliderade taxonomiresultat.
+Se respektive bolags arsredovisning for separat taxonomirapportering for vidare detaljer.

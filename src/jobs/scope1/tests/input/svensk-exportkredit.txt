@@ -1,0 +1,2241 @@
+#### Hållbarhetsnot 10. Informationssäkerhet
+
+Informationen i noten kommer fran SEK:s sakerhetsledningssystem.
+Underlag for analys av SEK:s sakerhetsovervakning hamtas fran Micro soft defender som ar SEK:s sakerhetsovervakningsverktyg.
+
+Hallbarhetsnot 11.
+Hallbar finansiering
+
+SEK:s hallbarhetsklassade lan rapporteras utifran SEK:s redovisnings principer for finansiell rapportering och informationen kommer fran SEK:s system for finansiell rapportering.
+Den uppskattade minskning av vaxthusgasutslapp som redovisas i noten utgar fran berakningar SEK erhallit fran projektagare exportor eller i samband med rapporter som tagits fram i samband med projekten.
+Berakningar gors pa projekt basis och baseras pa det ar projektet ar fardigstallt och redovisas i pro portion till SEK:s andel av projektets totala finansiering.
+
+Indirekt positiv paverkan av SEK:s nyutlaning pa Sveriges BNP och sysselsattning beraknas genom multiplikatorer som SCB tagit fram pa branschniva enligt SNI 2007.
+Multiplikatorerna som berakningarna baseras pa ar fran 2017.
+Modellen beraknar det svenska innehallet i en exportorder eller vid en investering.
+Resultatet baseras pa SEK:s nyut laning samt faktorer fran SCB.
+SEK finansierar manga olika typer av affarer och alla passar inte nodvandigtvis in i modellen med exakthet.
+Berakningarna kan darfor endast goras pa en overgripande niva och resultaten bor tolkas med forsiktighet.
+
+Hallbarhetsnot 12.
+Projektrelaterad finansiering
+
+Informationen om SEK:s projektrelaterade finansiering kommer fran SEK:s system for finansiell rapportering och interna riskrapporter.
+Noten inkluderar antal nya projekt med A eller B-riskklassning som haft likviddag under rakenskapsaret.
+
+Hallbarhetsnot 13.
+Klimatrelaterade risker och mojligheter (TCFD) SEK:s klimatrelaterade risker och mojligheter redovisas enligt rekommen dationer fran Task Force on Climate related financial disclosures (TCFD).
+
+| Kategori | Relevans | Kommentar |
+| --- | --- | --- |
+| Scope 1 |  | SEK har inga direkta utsläpp |
+| Köldmedium | Ej relevant |  |
+| Fordon | Ej relevant |  |
+| Stationär förbränning | Ej relevant |  |
+| Scope 2 |
+| Elektricitet | Inkluderad | Omfattar köpt 100 procent förnyelsebar elektricitet. |
+| Fjärrvärme | Inkluderad | Omfattar fjärrvärme från kontorslokaler. |
+| Fjärrkyla | Ej relevant |  |
+| Scope 3 |
+| 3.1 Köpta varor och tjänster | Inkluderad | Omfattar kontorsförbrukning, elektronik och molntjänster. |
+| 3.2 Kapitalvaror | Ej relevant |  |
+| 3.3 Bränsle och energirelaterade aktiviteter | Inkluderad | Automatisk inkludering. |
+| 3.4 Uppströms transport och distribution | Inkluderad | Omfattar den logistik som kommer till verksamheten. |
+| 3.5 Avfall | Inkluderad | Omfattar verksamhetens eget avfall. |
+| 3.6 Tjänsteresor | Inkluderad | Omfattar taxiresor, hyrbilar, tågresor, hotell och flygresor. |
+| 3.7 Anställdas pendling | Inkluderad | Omfattar anställdas pendlingsresor, mätt via enkät 2024. |
+| 3.8 Uppströms leasade tillgångar | Ej relevant |  |
+| 3.9 Nedströms transport och distribution | Ej relevant |  |
+| 3.10 Bearbetning av sålda produkter | Ej relevant |  |
+| 3.11 Användning av sålda produkter | Ej relevant |  |
+| 3.12 Slutbehandling av sålda produkter | Ej relevant |  |
+| 3.13 Nedströms leasade tillgångar | Ej relevant |  |
+| 3.14 Franchiser | Ej relevant |  |
+| 3.15 Investeringar | Inkluderad | Omfattar ca 70 procent av SEK:s totala finansiering. |
+![table image]({page: 139, x: 67}, {y: 432, {width: 402}, {height: 8})
+
+
+<!-- PAGE: 140 -->
+
+#### Riskhantering
+
+SEK genomfor en arlig bolagsovergripande riskbedomning avseende klimat respektive miljo samt biologisk mangfald som ligger till grund for SEK:s rutiner riktlinjer och ovriga riskreducerande atgarder.
+For hojd hallbarhetsrisk avseende klimat och miljo anses foreligga om nagon av foljande riskindikatorer foreligger
+
+- • Projekt och projektrelaterad utlåning (läs mer i hållbarhetsnot 12),
+
+- • Utlåning till verksamheter med betydande miljö och klimat- relaterade risker. Information om SEK:s klimatrelaterade risker och möjligheter redovisas i enlighet med rekommendationer från TCFD i hållbarhetsnot 13.
+
+Biologisk mangfald Biologisk mangfald inom finansbranschen ar annu ett relativt omoget hallbarhetsfraga jamfort med exempelvis klimat.
+Det ar for SEK vik tigt att integrera biologisk mangfald i beslutsfattande for att ta tillvara pa mojligheter och hantera risker forknippade med omradet samt ta hansyn till den paverkan pa manniska och miljo som forlust av biolo gisk mangfald kan ha.
+Sedan 2023 deltar SEK i forskningsprogrammet Mistra BIOPATH som har som vision att integrera biologisk mangfald som en naturlig del i alla beslut inom det finansiella systemet och i naringslivet.
+Under aret genomforde SEK tillsammans med forskare fran BIOPATH ett pilotprojekt for att kartlagga och analysera utla ningsportfoljen utifran rapporteringsramverket TNFD:s (Task Force on Nature related Financial Disclosures) sa kallade LEAP metod.
+Under kommande ar kommer ett utvecklingsarbete bedrivas inom SEK for att tydligare integrera biologisk mangfald inklusive ovriga for SEK vasent liga miljo och klimatfragor i riskanalyser och beslutsfattande.
+
+SEK:s klimatpaverkan SEK har under 2024 arbetat med att utoka berakning av finansierade vaxthusgasutslapp sa kallade scope 3.15 till storre del av utlanings portfoljen.
+Finansierade vaxthusgasutslapp har beraknats genom att multiplicera lantagarens (bolagets) totala vaxthusgasutslapp med en tillskrivningsfaktor dar berakningen baseras pa metodik fran Part nership for Carbon Accounting Financials (PCAF).
+Tillskrivningsfak torn utgors av SEK:s utlaning till bolaget dividerat med bolagets varde eller totala tillgangar.
+Bolagets utslapp utgors i forsta hand av rappor terade utslappsdata.
+Om rapporterade uppgifter har varit otillrackliga har uppskattade siffror anvants.
+Uppskattade siffror har baserats pa bransch land och storlek pa bolaget.
+Under 2024 har finansierade vaxthusgasutslapp okat framst till foljd av att fler exponeringar ingar i berakningen samt att SEK i linje med affarsstrategin finansierat bolag som ar under omstallning.
+Under 2025 kommer SEK att fortsatta for battra berakningsmetodik datainsamling och datakvalitet da detta ar ett omrade under utveckling dar bedomningen ar att det fortfarande rader stor osakerhet.
+SEK kommer aven att fortsatta arbetet med att inkludera exportkrediter och projektrelaterad finansiering dar tillforlit liga data idag saknas.
+Detta sammantaget kan innebara att redovisade finansierade vaxthusgaser bade kan komma att oka och minska till dess att berakningsmetoder och datakvalitet ar mer robusta.
+
+For rakenskapsaret 2024 har SEK valt att klimatkompensera for de vaxt husgasutslapp som ingar i scope for redovisningen exklusive scope 3.15.
+
+SEK:s rapporterade utslapp fran egen verksamhet har okat under de senaste aren.
+okningen beror delvis pa en hogre resursforbruk ning men aven pa forbattrade matmetoder en utokad datainsamling och fler inkluderade utslappskategorier.
+Detta ar ett viktigt steg for att sakerstalla en mer heltackande och transparent redovisning av SEK:s klimatavtryck fran den egna verksamhet.
+Mer information om omfatt ning och systembegransningar beskrivs under Redovisningsprinciper och bolagets klimatpaverkan i sin helhet inklusive klimatkompensa tionsprojekt och biogena utslapp beskrivs i separat Klimatredovisning som aterfinns pa www.sek.se.
+
+| SEK:s finansierade växthusgas- utsläpp i ton CO2e | 2024 | 2023 |
+| --- | --- | --- |
+| Scope 3.15 | 24 288 000 | 15 748 000 |
+![table image]({page: 125, x: 305}, {y: 658, {width: 221}, {height: 8})
+
+| SEK:s klimatpåverkan i ton CO2e1 | 2024 | 2023 | 2022 | 2021 | 2020 |
+| --- | --- | --- | --- | --- | --- |
+| Totala växthusgasutsläpp | 695 | 492 | 325 | 129 | 165 |
+| Scope 2 | 19 | 9 | 7 | 15 | 9 |
+| Scope 3 | 676 | 483 | 318 | 114 | 156 |
+![table image]({page: 125, x: 67}, {y: 705, {width: 459}, {height: 8})
+
+1 Redovisas med marknadsbaserad metod och innefattar inte SEK:s finansierade vaxthusgasutslapp.
+
+
+<!-- PAGE: 126 -->
+Hallbarhetsnot 6.
+Egna medarbetare
+
+Styrning och riktlinjer SEK:s verksamhet ar beroende av medarbetares kompetens och enga gemang.
+SEK:s formaga att attrahera rekrytera behalla och utveckla kompetens ar en kritisk framgangsfaktor och en strategisk fraga.
+SEK:s utgangspunkt ar svensk lagstiftning och kollektivavtalen pa finans marknaden.
+SEK:s personalpolicy som inkluderar arbetsmiljo mang fald lamplighet ersattning skadligt bruk och SEK:s Uppforandekod vag leder tillsammans med ovriga interna riktlinjer SEK:s medarbetarresa.
+SEK har ocksa rutiner for hur riktlinjer foljs upp och arligen utvarderas.
+
+Halsa och arbetsmiljo SEK stravar efter att skapa en hallbar och halsosam arbetssituation for bade medarbetare och inhyrd personal genom ett systematiskt arbets miljoarbete som inkluderar forebyggande insatser riskbedomning och uppfoljning.
+Arbetsmiljoperspektivet ar integrerat i all verksamhet och beslutsfattande.
+SEK stodjer en god halsa genom dels forebyg gande insatser dels tydlighet och stod nar ohalsa uppkommer.
+For att hantera ohalsa rehabilitering konflikter och trakasserier finns tydliga och transparenta rutiner pa plats.
+
+SEK har infort ett flexibelt arbetssatt dar kontoret ar en motesplats for samverkan och samarbete.
+Kontoren ar inredda med hoj och sank bara skrivbord och uppmuntrar till rorelse under arbetsdagen.
+Nar arbetet sa tillater finns mojlighet for SEK:s medarbetare att arbeta fran annan plats upp till tva dagar per vecka.
+
+For att SEK ska vara en trivsam och trygg arbetsplats har bolaget tydliga riktlinjer inklusive plan for hantering relaterat till bruk av alko hol spel och liknande fragor.
+Syftet ar att sakerstalla att arbetsplatsen inte drabbas av konsekvenser fran skadligt bruk.
+
+Kultur mangfald och inkludering SEK:s kultur ar den viktigaste mojliggoraren for att lyckas med upp draget.
+Malbilden sammanfattas som ”Tillsammans ar vi ett hogpreste rande lag” och varderingarna ar Proaktiva Engagerade och Lagspelare.
+I Medarbetarforum som inkluderar alla anstallda presenteras och dis kuteras olika omraden som ar av vikt for SEK:s utveckling Tillfallena starker SEK:s kultur forstaelse for SEK:s uppdrag och samarbete.
+
+Mangfald innebar att SEK inkluderar olika perspektiv och kompe tenser.
+Dessa innefattar saval synliga som inre egenskaper karaktars drag och erfarenheter sa som alder kon geografisk harkomst samt utbildnings och yrkesbakgrund.
+Under aret har SEK arbetat med stra tegiskt initiativ i syfte att oka insikterna kring mangfald och inklude ring inom bolaget.
+Bland annat har SEK tydliggjort vad mangfald och inkludering betyder for oss.
+I april deltog alla medarbetare i en fore lasning som gav viktiga insikter kring hur beteenden okar inkludering pa arbetsplatsen.
+Inkludering har integrerats som en prioriterad for maga inom SEK:s ledarskap.
+SEK arbetar aktivt for att forebygga och motverka krankande sarbehandling och diskriminering bland annat genom tydlig ansvarsfordelning involverande ledarskap och god social arbetsmiljo.
+Diskriminering utifran kon konsoverskridande iden titet eller uttryck etnisk tillhorighet religion eller annan trosuppfatt ning funktionshinder sexuell laggning eller alder far inte forekomma i arbetssituationen.
+SEK har ocksa processer for rekrytering lonesatt ning lonekartlaggning och foraldraledighet som alla ska stodja okad mangfald och att diskriminering inte forekommer.
+Under aret har SEK inte haft nagra rapporterade fall av diskriminering.
+
+Kompetens och utveckling Kompetensforsorjning innebar att sakerstalla att ratt kompetens finns pa ratt plats for att na verksamhetens mal i enlighet med Affarsplanen och verka for att tillgodose kompetensbehov pa bade kort och lang sikt.
+Medarbetare ska kunna ta ansvar prestera och utvecklas i sitt arbete i linje med SEK:s uppdrag och affarsplan.
+SEK efterstravar intern kompetensutveckling och utvecklingsmojligheter anpassat efter orga nisationens kompetensbehov resurser och individens potential.
+Krav profil for utlyst tjanst bade intern och extern ska vara relevant kom petensbaserad och objektiv.
+Urval av kandidater gors utifran kravprofil med sarskilt beaktande av lamplighet och mangfald.
+
+Ledare med personalansvar genomfor arliga utvecklingssamtal pa ett enhetligt strukturerat och dokumenterat satt.
+Syftet ar att satta mal samt identifiera utvecklingsbehov pa individuell niva utifran affarsplan och kompetensbehov.
+Utvecklingssamtalet innebar aven en dialog om varderingsefterlevnad dar varje medarbetare far aterkoppling kring beteenden.
+
+Larande och utveckling sker ocksa genom intern kunskapsdelning och obligatoriska utbildningar for att sakerstalla medarbetarnas kompetens.
+
+- • SEK deltar i Swedish Export Academy, ett halvårsprogram som stär- ker kunskap och samarbete mellan Team Sweden:s organisationer för att främja svensk export. Minst vartannat år deltar cirka fem medarbetare från SEK.
+
+- • Under 2023 lanserade SEK en digital hållbarhetsutbildning med certifiering för att öka förståelsen för centrala begrepp och finans- marknadens utveckling. Totalt har 85 procent av samtliga medarbe- tare på SEK genomgått utbildningen under 2023, sedan dess inklu- deras nyanställda i uppsamlingsheat löpande varje år.
+
+### GRI Content Index
+
+| Standard Disclosure | Content | Page number | Omission |
+| --- | --- | --- | --- |
+| GRI 1: Foundation |
+| Statement of use | SEK has reported in accordance with the GRI standards for the period 1 January 2024 – 31 December 2024 |  |  |
+| GRI 1 used | GRI 1: Foundation 2021 |  |  |
+| Applicable GRI sector standards | None currently available |  |  |
+| GRI 2: General Disclosures |
+| 2-1 | Organizational details | 58 |  |
+| 2-2 | Entities included in the organization’s sustainability reporting | 117 |  |
+| 2-3 | Reporting period, frequency and contact point | 117 |  |
+| 2-4 | Restatements of information | 117, 140 |  |
+| 2-5 | External assurance | 44, 117, 150 |  |
+| 2-6 | Activities, value chain, and other business relationships | 8, 11, 14-15, 131, 137 |  |
+| 2-7 | Employees | 75, 128 |  |
+| 2-8 | Workers who are not employees | 128 |  |
+| 2-9 | Governance structure and composition | 38-42, 44-46 |  |
+| 2-10 | Nomination and selection of the highest governance body | 39 |  |
+| 2-11 | Chair of the highest governance body | 39 |  |
+| 2-12 | Role of the highest governance body in overseeing the management of impacts | 118, 124-125 |  |
+| 2-13 | Delegation of responsibility for managing impacts | 124 |  |
+| 2-14 | Role of the highest governance body in sustainability reporting | 41, 118 |  |
+| 2-15 | Conflicts of interest | 43-46 |  |
+| 2-16 | Communication of critical concerns | 44 |  |
+| 2-17 | Collective knowledge of the highest governance body | 40-41 |  |
+| 2-18 | Evaluation of the performance of the highest governance body | 39, 44 |  |
+| 2-19 | Remuneration policies | 68-75 |  |
+| 2-20 | Process to determine remuneration | 68-75 |  |
+| 2-21 | Annual total compensation ratio | 129 |  |
+| 2-22 | Statement on sustainable development strategy | 3-5 |  |
+| 2-23 | Policy commitments | 124-125 |  |
+| 2-24 | Embedding policy commitments | 124-125 |  |
+| 2-25 | Processes to remediate negative impacts | 125, 128, 130-131 |  |
+| 2-26 | Mechanisms for seeking advice and raising concerns | 127-128, 131 |  |
+| 2-27 | Compliance with laws and regulations | 43-44, 131 |  |
+| 2-28 | Membership associations | 124 |  |
+| 2-29 | Approach to stakeholder engagement | 118-119 |  |
+| 2-30 | Collective bargaining agreements | 68, 127 |  |
+| Standard Disclosure | Content | Page number | Omission |
+| GRI 3: Material Topics |
+| 3-1 | Process to determine material topics | 120-121 |  |
+| 3-2 | List of material topics | 122-123 |  |
+| GRI 201: ECONOMIC PERFORMANCE 2016 |
+| 3-3 | Management of material topics | 118, 122-123, 126, 134, 136-139 |  |
+| 201-1 | Direct economic value generated and distributed | 53-55, 74 |  |
+| 201-2 | Financial implications and other risks and opportunities due to climate change | 136-139 |  |
+| GRI 203: INDIRECT ECONOMIC IMPACTS 2016 |
+| 3-3 | Management of material topics | 118, 122-123, 126, 134, 136-138 |  |
+| 203-2 | Significant indirect economic impacts | 134 |  |
+| GRI 205: ANTI-CORRUPTION 2016 |
+| 3-3 | Management of material topics | 118, 123, 125, 131-132, 135 |  |
+| 205-1 | Operations assessed for risks related to corruption | 131 |  |
+| 205-2 | Communication and training about anti-corruption policies and procedures | 131-132 |  |
+| Own metric | Description of whistleblower policies and procedures | 131 |  |
+| GRI 305: EMISSIONS |
+| 3-3 | Management of material topics | 118, 122, 126, 134, 136-139 |  |
+| 305-2 | Energy indirect (Scope 2) GHG emissions | 126 |  |
+| 305-3 | Other indirect (Scope 3) GHG emissions | 126, 140 |  |
+| GRI 401: EMPLOYMENT |
+| 3-3 | Management of material topics | 122-123, 127-129 |  |
+| 401-1 | New employee hires and employee turnover | 129 |  |
+| 401-2 | Benefits provided to full-time employees that are not provided to temporary or part-time employees | 73, 127 |  |
+| GRI 403: OCCUPATIONAL HEALTH AND SAFETY |
+| 3-3 | Management of material topics | 10, 122, 127-129 |  |
+| 403-1 | Occupational health and safety management system | 127-128 |  |
+| 403-2 | Hazard identification, risk assessment, and incident investigation | 127-128 |  |
+| 403-3 | Occupational health services | 127 |  |
+| 403-4 | Worker participation, consultation, and communication on occupational health and safety | 127-128 |  |
+| 403-5 | Worker training on occupational health and safety | 127-128 |  |
+| 403-6 | Promotion of worker health | 127 |  |
+| 403-7 | Prevention and mitigation of occupational health and safety impacts directly linked by business relationships | 127-128 |  |
+![table image]({page: 140, x: 69}, {y: 131, {width: 220}, {height: 16})
+
+
+<!-- PAGE: 141 -->
+| Standard Disclosure | Content | Page number | Omission |
+| --- | --- | --- | --- |
+| Own metric | Percentage of employees absence due to sickness | Percentage of employees absence due to sickness |  |
+| 404: TRAINING AND EDUCATION |
+| 3-3 | Management of material topics | 10, 122, 127-128 |  |
+| 404-2 | Programs for upgrading employeeskills and transition assistance programs | 127-128 |  |
+| 404-3 | Percentage of employees receiving regular performance and career development reviews |  | Information unavailable / incomplete due to data not measured during the year. |
+| This will be addressed going forward using new data collection tools. |
+| Own metric | Percentage of employees completing training on sustainability | 127 |  |
+| GRI 405: DIVERSITY AND EQUAL OPPORTUNITY 2016 |
+| 3-3 | Management of material topics | 10, 122, 127-129 |  |
+| 405-1 | Diversity of governance bodies and employees | 45-48, 75, 128 |  |
+| 405–2 | Ratio of basic salary and remuneration of women to men | 129 |  |
+| GRI 406: NON DISCRIMINATION |
+| 3-3 | Management of material topics | 10, 122, 127-128 |  |
+| 406-1 | Incidents of discrimination and corrective actions taken | 127 |  |
+| GRI 413: LOCAL COMMUNITIES |
+| 3-3 | Management of material topics | 119, 122, 130, 134-135 |  |
+| Own metric | Total number of operations/transactions assessed for risks related to human rights | 130 |  |
+| Own metric | Significant risks related to human rights identified through the risk assessment | 130 |  |
+| GRI G4: SECTOR-SUPPLEMENT FOR FINANCIAL SERVICES |
+| 3-3 | Management of material topics | 122-123, 133-135 |  |
+| FS6 | Lending portfolio broken down by region and sector | 28, 121 |  |
+| FS8 | Products with environmental benefits | 15, 134 |  |
+![table image]({page: 141, x: 69}, {y: 739, {width: 297}, {height: 8})
+
+
+<!-- PAGE: 143 -->
+
+#### Uppföljning
+
+Uppfoljning av klimat och miljorisker och sociala risker i relevanta ingangna affarer ska goras sa lange SEK har utestaende exponering mot dessa.
+Vid redan ingangna utlaningstransaktioner som inte langre bedoms folja SEK:s riskaptit ska SEK vidta atgarder utifran de mojlig heter som finns att paverka samt rapportera avvikelsen till styrelsen.
+
+Projektrelaterad finansiering 2024 Nya projektrelaterade utlaningstransaktioner under 2024 bedoms mota kraven under Ekvatorprinciperna eller OECD:s riktlinjer for social och miljomassig hansyn vid statsstodda exportkrediter.
+Under 2024 beviljade SEK tva A-projekt i Sverige samt Saudiarabien och tva B-projekt i Guyana samt Saudiarabien.
+Under 2024 identifierades tva projekt i SEK:s projektportfolj som potentiellt lag utanfor SEKs riskaptit.
+atgarder vidtogs bland annat genom upprattande av atgardsplaner.
+
+| Antal | 2024 | 2023 | 2022 | 2021 | 2020 |
+| --- | --- | --- | --- | --- | --- |
+| Antal | 2024 | 2023 |  |  |  |
+| Fördjupad analys A- och B-projekt1 | 4 | 5 |  |  |  |
+| 1 Sverige, Saudiarabien och Guyana. |
+| Beviljade lån till kategori A-projekt | 2 | 2 | 6 | 3 | 4 |
+| Beviljade lån till kategori B-projekt | 2 | 3 | 6 | 8 | 5 |
+| Beviljade lån till kategori C-projekt | 0 | 0 | 1 | – | – |
+![table image]({page: 134, x: 67}, {y: 418, {width: 459}, {height: 8})
+
+
+<!-- PAGE: 135 -->
+Hallbarhetsnot 13.
+Klimatrelaterade risker och mojligheter (TCFD)
+
+I denna not redovisas information om SEK:s klimatrelaterade finan siella risker och mojligheter enligt rekommendationer fran Task Force on Climate related financial disclosures (TCFD).
+SEK ar exponerade mot klimatrelaterade risker och mojligheter genom utlaningen och lik viditetsforvaltning samt genom den operativa verksamheten.
+Det ar framforallt i SEK:s utlaningstransaktioner som vasentliga klimatrelate rade bade finansiella och icke finansiella risker och mojligheter upp star i SEK:s affarsmodell.
+SEK:s direkta klimatpaverkan utgors i huvud sak av tjansteresor och inkop av varor.
+
+Klimatrelaterade risker bedoms i SEK:s vasentlighetsanalys vara en vasentlig hallbarhetsfraga bade ur ett finansiellt samt icke finansiell (paverkans) perspektiv for SEK.
+Se narmare beskrivning i hallbarhets not 3.
+Klimatrelaterade finansiella och icke finansiella risker Klimatrelaterade finansiella risker delas in i omstallningsrisker och fysiska risker.
+Omstallningsrisker ar finansiella risker som uppstar till foljd av omstallningen till en mindre fossilberoende ekonomi.
+Exem pel pa omstallningsrisker/riskdrivare ar forandringar i policys lagar och regler teknologiska forandringar samt beteendeforandringar.
+Om omstallningsrisker paverkar SEK:s kunders aterbetalningsformaga kan det innebara finansiella risker for SEK.
+
+Fysiska klimatrisker ar de skador och forluster som uppstar pa grund av fysiska konsekvenser av klimatforandringar.
+Fysiska klimatrisker/ riskdrivare kan vara akuta klimathandelser exempelvis extremvader eller kroniska forandringar i klimat monster sasom stigande havsnivaer.
+Om fysiska risker paverkar SEK:s kunders aterbetalningsformaga kan aven det innebara finansiella for SEK.
+
+SEK har identifierat flera transmissionskanaler som forklarar hur klimatrelaterade riskdrivare kan paverka SEK genom sina motparter till exempel lagre lonsamhet okade kostnader for regelefterlevnad och legala kostnader lagre kopformaga hos hushallen och storningar i leveranskedjor.
+Klimatrelaterade riskdrivare paverkar i dagslaget framst kreditrisk.
+SEK hanterar finansiella klimat risker framst genom bolagets kreditprocess som finns beskriven i not 26.
+
+Klimatrelaterad icke finansiell risk definieras av SEK som risken for att SEK:s verksamhet direkt eller indirekt paverkar klimatet negativt.
+Denna risk uppstar framst till foljd av utlaning till fossila samt fossil relaterade tillgangar och projekt samt andra hogutslappande verksam heter.
+SEK foljer Ekvatorprinciperna och OECD:s riktlinjer for social och miljomassig hansyn vid statsstodda exportkrediter som innehaller riktlinjer for identifiering bedomning och hantering av klimatrelate rade risker.
+
+Utveckling inom regelverksomradet Flera initiativ har genomforts och pagar for att inkludera klimatrelaterade risker och mojligheter i regelverken som styr den finansiella sektorn.
+
+EU:s hallbarhetsredovisningsdirektiv Corporate Sustainability Reporting Directive (CSRD) tradde i kraft 1 januari 2024 pa EU niva.
+Direktivet antogs i svensk lag 1 juli 2024.
+CSRD syftar till att hallbar hetsrapportering ska vara likvardig med finansiell rapportering.
+SEK omfattas av direktivet from.
+rakenskapsaret 2025 och ska hallbarhets rapportera i enlighet med kraven i CSRD i sin ars och hallbarhets redovisning for rakenskapsaret 2025.
+Som del av direktivet har EU:s tekniska organ EFRAG tagit fram European Sustainability Reporting Standards (ESRS) som ar obligatoriska att tillampa i rapporteringen.
+Standarderna tacker bland annat omradet klimat.
+SEK har ett bolags overgripande pagaende projekt som ska sakerstalla regelefterlevnad.
+Projektet har aven granskats av SEK:s internrevisorer.
+
+European Banking Authority (EBA) publicerade under 2024 utkast till riktlinjer for hantering av miljo sociala och styrningsrisker (ESG).
+Riktlinjerna staller krav pa institut avseende identifiering matning han tering och overvakning av ESG risker bland annat genom planer som syftar till att sakerstalla motstandskraft pa kort medellang och lang sikt.
+Riktlinjerna publicerades i dess slutliga form den 9 januari 2025 och ska for stora institut vilket SEK enligt CRR ar borjas tillampas fran och med den 11 januari 2026.
+SEK har redan paborjat arbetet for att sakerstalla regelefterlevnad och hantering av riskerna i enlighet med kraven i riktlinjerna.
+
+##### Kreditpolicy
+
+Kreditpolicyn ger forutsattningar for SEK:s utlaningsaffar och kredit riskhantering och bygger pa den av styrelsen utfardade Riskpolicyn.
+Kreditpolicyn beskriver att kreditgivning ska ske i overensstammelse med SEK:s uppdrag baserat pa agaranvisningen.
+SEK styr overgripande sina kreditrisker enligt ett antal grundlaggande principer daribland SEK:s riskaptit for hallbarhet samt ”Policy for hallbar finansiering”.
+Kredit policyn anger specifikt att kreditgivning ska ske pa hallbara grun der och baseras pa god kunskap om SEK:s motparter och affarstrans aktioner.
+Hallbarhetsrisker dar klimatrelaterade delar ingar ska hante ras innan kreditgivning.
+
+Ledningens roll vid bedomning och hantering av klimatrelaterade risker och mojligheter Ledningen hanterar klimatrelaterade fragor som en integrerad del i foretagets riskhantering affarsstrategi och planerings process.
+I vd:s"Instruktion for hantering av Hallbarhetsrisk” beskrivs ledningens ansvar for att bedoma och hantera hallbarhetsrelaterade risker och mojligheter dar klimatrelaterade delar ingar.
+
+Strategi for klimatrelaterade risker och mojligheter SEK s strategi for att ta pa sig styra och ha kontroll over de klimatrisker som SEK ar eller kan bli exponerat for ar integrerat i affarsmodellen i affarsstrategin samt i den finansiella planeringen.
+
+For att sakerstalla att bolaget identifierar klimatrelaterade risker som i manga fall bedoms materialiseras pa langre sikt har SEK forlangt den strategiska planeringen till 2035.
+
+SEK:s strategi for att hantera klimatrelaterade risker och mojligheter ar att fokusera pa att oka andelen nyutlaning till
+
+- • Företag med ambitiösa och trovärdiga planer på att minska deras utsläpp i linje med vetenskapligt baserade klimatmål.
+
+- • Verksamheter som klassas som gröna enligt SEK:s ramverk för håll- bara obligationer och därmed allokera kapital till klimatomställ- ningen. Genom att utfärda gröna obligationer kan SEK öronmärka kapital till projekt som ha en positiv inverkan på klimatet.
+
+SEK:s strategiska aktiviteter for att hantera klimatrelaterade risker och mojligheter inkluderar foljande
+
+- • Arbeta strategiskt för att säkerställa efterlevnad av SEK:s principer som stipuleras i Policy för hållbar finansiering,
+
+- • Restriktiv hållning till transaktioner med en negativ påverkan på klimatet,
+
+- • Engagera SEK i kunders klimatomställning samt i internationella samarbeten och nätverk,
+
+- • Öka SEK:s medarbetares kunskapsnivå inom relevanta hållbarhets- frågor däribland klimat.
+
+oka andelen gron utlaning For att styra investeringar mot miljomassigt hallbara verksamheter och darmed bidra till att uppna malen i Parisavtalet har SEK satt mal avse ende utlaning genom grona lan.
+Kraven for att kategoriseras som gron tillgang efter 2021 finns angivna i ”SEK Sustainability Bond Framework” som baseras pa bland annat EU:s taxonomi for hallbar ekonomisk verk samhet.
+Grona lan beskrivs narmare i hallbarhetsnot 5.
+Restriktiv hallning till transaktioner med negativ paverkan pa klimatet En viktig del i SEK:s klimatrelaterade strategi for att minska utslappen av vaxthusgaser och darmed reducera de finansiella och icke finan siella klimatrelaterade riskerna ar att begransa och sedan upphora med utlaningen till fossila branslen.
+Dessa begransningar finns angivna i SEK:s ”Policy for hallbar finansiering” samt i Styrelsens riskaptit.
+I enlighet med policyn ska SEK successivt upphora med finansiering av fossila branslen.
+SEK finansierar inte kolgruvor kolkraft koltranspor ter eller nya oljekraftverk.
+Efter sista december 2022 finansieras inte heller prospektering och utvinning av olja och gas.
+Nya gaskraftverk finansieras endast i undantagsfall under en overgangsperiod.
+SEK kan finansiera projekt och verksamheter med hoga vaxthusgasut slapp dar fossilfria alternativ annu inte utvecklats sasom gruvor och fossila branslen for industriellt bruk under forutsattning att projektet over tiden bedoms bidra positivt till omstallningen.
+Vid finansiering av projekt eller verksamheter med hoga vaxthusgasutslapp beaktas storleken pa totala vaxthusgasutslapp i livscykeln for verksamheten inlasningseffekter och robusta omstallningsplaner i linje med Paris avtalets 1,5 graders mal.
+
+Dialog om kundernas klimatomstallning For att kunna vara en drivande kraft i omstallningen behover SEK hela tiden bli battre pa att forsta och hantera klimatrisker samt jobba aktivt med losningar for tillgangar med hoga utslapp.
+SEK arbetar for att oka bearbetningen mot branscher som ar viktiga for klimatomstallningen och prioriterar kunder med hog potential for minskade vaxthusgasutslapp.
+
+Genom att erbjuda finansieringslosningar till bolag som staller om sin verksamhet utifran vetenskapligt baserade klimatmal kan SEK bli en mojliggorare for omstallningen och minska de klimatrelaterade riskerna.
+For detta andamal erbjuder SEK bland annat hallbarhetslan kade lan med syfte att bidra positivt till att ett bolags hela verksamhet anpassas till klimatomstallningen.
+
+
+<!-- PAGE: 137 -->
+Riskhantering for klimatrelaterade risker och mojligheter
+
+Riskhantering inkluderar hela processen att identifiera mata styra rapportera och kontrollera de vasentliga risker SEK ar eller kan bli exponerat for.
+Hantering av finansiell klimatrisk sker indirekt genom hanteringen av de finansiella riskerna framst kreditrisk men aven till exempel likviditetsrisk och operativ risk.
+Klimatrelaterad risk ur ett paverkansperspektiv hanteras inom ramen for hallbarhetsrisk (paverkan).
+
+SEK:s riskramverk SEK har ett ramverk for riskhantering (”riskramverk”) for att sakerstalla att SEK lopande kan identifiera mata styra rapportera och ha kon troll over de vasentliga risker som SEK ar eller kan bli exponerat for.
+Riskramverket ar val integrerat i SEK:s organisation och beslutsstruk tur.
+SEK:s riskhantering bygger pa tre linjer med en tydlig atskillnad av ansvar mellan affars och stodverksamheten kontrollfunktionerna och internrevisionen.
+SEK:s riskkultur omfattar de yrkesmassiga varde ringar attityder och beteenden som har avgorande betydelse for hur verksamheten hanterar sina risker.
+SEK har ett ramverk for internkon troll som tillser att saval verksamheten som kontrollfunktionerna ar effektiva och andamalsenliga att verksamheten bedrivs pa ett ansvars fullt satt att den finansiella och icke finansiella information som rap porteras ar tillforlitlig samt att interna och externa regler efterlevs.
+
+Hantering av kort medellang och langsiktiga effekter av klimatrisker i SEK:s riskramverk bestar bland annat av
+
+- • Att inkludera klimatrelaterade risker i Riskpolicyn, riskaptit och i riskstrategin samt i SEK:s Kreditpolicy och Policy för hållbar finansiering.
+
+- • Att utföra klimatrelaterade scenarioanalyser och stresstester.
+
+- • Datainsamling och riskbedömning (både kvalitativa och kvantita- tiva) på bolagsövergripande och transaktionsnivå.
+
+- • Kriterier vid utlåning genom att fasa ut samt upphöra med finansie- ring av fossila bränslen samt begränsa utlåning till högutsläppande verksamheter utan trovärdiga omställningsplaner.
+
+Se mer detaljerad beskrivning av SEK:s riskramverk samt hantering av finansiella risker i hallbarhetsnot 6 samt not 26.
+Metod for att identifiera finansiella klimatrelaterade risker SEK identifierar klimatrelaterade risker i utlaningsprocessen genom ESG faktorer i kreditprocessen.
+Finansiella omstallningsrisker samt SEK:s motstandskraft i olika framtida scenarios identifieras aven genom klimatrelaterade scenarioanalyser och stresstester.
+Se en mer detalje rad beskrivning av hantering av hallbarhetsrisk paverkansvasentlighet i hallbarhetsnot 4 samt hantering av ESG risker dar klimat ingar som en del av E finansiell paverkan i not 26.
+
+SEK har under aret fortsatt arbetet med metoden for att berakna och redovisa bolagets finansierade vaxthusgasutslapp.
+Under kom mande ar kommer arbetet fortsatta med att ta fram robusta metoder mal och matetal for styrning och hantering av klimatrelaterade risker.
+
+ESG faktorer i kreditratingprocessen SEK har en process for identifiering utvardering och bedomning av ESG faktorer (inklusive klimatrelaterade finansiella risker) inom ramen for SEK:s riskklassificering.
+Under november 2021 anmalde SEK till FI om uppdaterad metodik med dartill underliggande arbetsprocesser for att tydligare inkludera ESG faktorer (inklusive klimatrelaterade omstallnings och fysiska risker) i kreditratingprocessen for SEK:s foretagsmotparter.
+Den reviderade metodiken arbetsprocesser och struktur som implementerades under 2022 har mojliggjort en mer effektiv och andamalsenlig analys av klimatrelaterade risker.
+Arbetet har utvecklats ytterligare under 2024 for ovriga motparter.
+
+Analys av exponeringar kansliga for klimatrelaterade risker SEK:s riskfunktion foljer kvartalsvis upp och rapporterar till ledning och styrelse exponeringar som ar utsatta/kansliga for klimatrelaterade risker.
+
+SEK:s berakningar av finansierade vaxthusgasutslapp kommer att ligga till grund for kommande utveckling av styrning och riskhante ring inklusive rapportering av klimatrelaterade risker och mojligheter.
+Tabell over finansierade vaxthusgasutslapp presenteras i hallbarhets not 5.
+
+Motstandskraften i SEK:s strategi och affarsmodell i olika scenarioanalyser Klimatrelaterade scenarioanalyser och stresstester genomfors for att bedoma SEK:s motstandskraft i olika scenarier genom att identifiera klimatrelaterade risker samt bedoma vad dessa kan ha for paverkan pa de verksamheter som SEK finansierar samt pa SEK:s finansiella situa tion och kapitalrelation.
+
+Arbetet med scenarioanalyser och stresstester bidrar aven till ett okat larande kring klimatrelaterade risker och kopplingen till risker och mojligheter i den egna verksamheten.
+Analyserna hjalper aven SEK att forsta hur en kombination av klimatrelaterade risker kan paverka bola gets affar strategier och finansiella stallning over tid.
+
+I likhet med foregaende ar baseras scenarioanalys och stresstest avseende 2024 pa tre olika scenarier.
+De scenarier som anvands har utvecklats av den Internationella Energimyndigheten (IEA) och Network for Greening the Financial System (NGFS).
+De scenarier som anvands ar
+
+- • Nettonoll-scenario vid 2050 (Net Zero by 2050 Scenario)
+
+- • Försenat 2-graders scenario (Delayed Transition Scenario)
+
+- • Nuvarande policyer scenario (Current Policy Scenario)
+
+Omstallningsriskerna bedoms vara storst i det Forsenade 2 graders scenariot medan de fysiska klimatriskerna bedoms vara storst i Nuva rande policyer scenariot.
+
+Under 2024 har SEK utvecklat en ny metodik for scenarioanalyser och stresstester och hansyn tas till bade omstallnings och fysiska kli matrelaterade risker.
+Syftet med den nya metodiken ar att differentiera SEK:s motparter med hansyn till klimatrelaterade risker och som kan innebara en finansiell risk for SEK.
+Det gors genom att ta fram en kvan titativ score pa motpartsniva baserad pa tillganglig data istallet for att som tidigare ar da en kvalitativ bedomning gjordes pa sektorniva.
+De motparter som far en hog score antas ha en hogre risk att migrera i riskklass i de olika scenarierna.
+Dessa migrationer anvands sedan som underlag for berakningar av eventuell paverkan pa laneportfoljens riskvagda tillgangar (REA) och SEK:s kapitalrelation.
+Berakningarna utgar fran befintliga data och metoden och berakningarna kommer att utvecklas allt eftersom mer data blir tillganglig.
+
+Resultatet av 2024 ar stresstest visar pa begransade negativa effek ter pa SEK:s finansiella situation till foljd av klimatrelaterade risker.
+
+Exponering mot sektorer kansliga for fysisk risk Med okande global uppvarmning ar och kommer med stor sannolikhet bolag som SEK finansierar att vara utsatta for fysiska klimatrisker till exempel okade temperaturer oversvamningar vattenbrist och andra storningar vilket kan fa en paverkan pa bolagens aterbetalningsfor maga och darmed innebara en finansiell risk for SEK.
+
+I 2024 ars stresstester har SEK valt att aven inkludera fysiska risker i berakningarna.
+I det ”nuvarande policy scenariot” (Current Policy Sce nario) forvantas den globala uppvarmningen att na 4°C vilket skulle resultera i betydande fysiska risker.
+
+Under aret har SEK fortsatt med analysen av fysiska klimatrelate rade risker och det pagar ett arbete for att utoka tillgang till data for att ytterligare kunna vidareutveckla det arbete som paborjats tidigare ar.
+Process for att identifiera bedoma och hantera klimatrelaterade (paverkansvasentlighet) risker Utlanings och likviditetstransaktioner screenas av SEK for att iden tifiera transaktioner med hog risk for klimatpaverkan.
+For de trans aktioner dar hog risk for negativ klimatpaverkan identifieras utfors fordjupade analyser av en hallbarhetsanalytiker for att sakerstalla att transaktionen ar inom SEK:s riskaptit.
+Foljande parametrar indikerar forhojd klimatrelaterad risk
+
+- • fossil- och fossilrelaterad verksamhet,
+
+- • övriga sektorer som är utsatta för omställnings- eller fysisk klimatrelaterad risk,
+
+- • projekt och projektrelaterad finansiering.
+
+Fossil och fossilrelaterad verksamhet omfattar har utvinning prospek tering samt transport av fossila branslen.
+Energiutvinning av fossila branslen omfattar koleldade kraftverk och industriprojekt som inne fattar koleldade kraftverk och annan energiproduktion fran fossila branslen.
+Med fossila branslen avses kol olja naturgas och oljeskiffer.
+
+
+<!-- PAGE: 138 -->
+Kontroll och rapportering
+
+SEK kontrollerar och foljer upp kapitalmal riskaptit limiter riskhan tering samt interna och externa regler for att pa sa satt sakerstalla att riskexponeringarna halls pa en for SEK acceptabel niva samt att risk hanteringen ar effektiv och andamalsenlig.
+
+SEK:s oberoende kontrollfunktioner presenterar regelbundet och minst kvartalsvis till styrelsen finans och riskutskottet (FRU) och vd rapporter over utvecklingen av bolagets vasentliga risker.
+Riskrappor teringen ska ge en korrekt och heltackande bild av SEK:s riskexpone ring inklusive exponeringar avseende klimatrelaterade risker.
+
+Mal och matetal for klimatrelaterade risker och mojligheter I denna sektion presenteras de mal och matetal som SEK anvander for att bedoma och hantera relevanta klimatrelaterade risker och mojligheter.
+
+SEK:s klimatrelaterade verksamhetsmal Nedan beskrivs SEK:s verksamhetsmal i mer detalj.
+
+Mal 1 SEK:s balansrakning ska na nettonoll vaxthusgasutslapp senast 2045 For att na detta mal bedomer SEK att finansieringen av fossila verk samheter initialt behover begransas for att sedan upphora.
+Vidare behover risker samt exponering mot andra sektorer som ar utsatta for omstallnings samt fysisk risk analyseras for att framover ha mojlig heten att forma strategier som begransar eventuella risker relaterat till dessa sektorer.
+
+Ett arbete som paborjats under 2023 har fortsatt under 2024 for att berakna och redovisa finansierade vaxthusgasutslapp.
+Syftet med arbetet ar att kunna analysera hur val anpassade SEK:s exponeringar ar med Parisavtalets mal.
+Arbete kommer att utvecklas under kommande ar i takt med att metoder och datakvalitet utvecklas.
+Darefter kommer SEK pa ett mer robust satt kunna analysera hur val i linje med Parisavta let exponeringarna forhaller sig och kunna satta avkarboniseringsmal i linje med NZECA Target Setting Protocol.
+Arbetet kommer aven att ligga till grund for SEK:s fortsatta strategiska arbete.
+SEK:s finansierade vaxthusgasutslapp redovisas under hallbarhetsnot 5.
+
+Mal 2 Hallbarhetsklassad utlaning ska uppga till Skr 150 miljarder 2035 SEK:s strategiska mal ar att oka andelen utlaning som bidrar till att na globala klimatmal.
+Detta innebar att stotta verksamheter och projekt som redan i dag kan uppvisa utslappsprestanda i enlighet med globala klimatmal men aven verksamheter och projekt som har en robust och trovardig plan att kunna stalla om till de nivaer av utslapp av vaxthus gasutslapp som globala klimatmal stipulerar.
+Utover detta star SEK infor eventuella malkonflikter da det ingar i SEK:s uppdrag att finan siera for svenska staten viktiga strategiska affarer vilka inte alltid moter globala klimatmal.
+SEK presenterar uppfoljningen av hallbarhetsklas sad utlaning i hallbarhetsnot 11.
+Mal 3 SEK ska na nettonoll utslapp i den egna verksamheten senast 2030 SEK:s klimatpaverkan redovisas under hallbarhetsnot 5.
+Exponering mot fossilrelaterade tillgangar For att sakerstalla att verksamheten foljer begransningarna som finns angivna i SEK:s ”Policy for hallbar finansiering” samt i styrelsens ”Ris kaptit” foljs exponeringar som ar kansliga for klimatrelaterade risker upp och rapporteras kvartalsvis till ledning och styrelse.
+
+Enligt Policy for hallbar finansiering sker inte kreditgivning till pro spektering utvinning eller transport av fossila branslen vilket kontroll eras i SEK:s process for hantering av hallbarhetsrisker i utlaningen som beskrivs i hallbarhetsnot 4.
+I de fall dar SEK inte har insyn kring slut anvandande men dar det finns en risk att utrustning kan saljas vidare till fossila verksamheter sker en bedomning att finansieringen sker till parter som har en diversifierad verksamhet.
+
+Under 2024 har SEK:s foretagsexponering i branschen Olja Gas & branslen enligt tabell pa sid 121 okat till Skr 4,8 miljarder.
+Motsvarande siffra for 2023 uppgick till Skr 3,7 miljarder.
+okningen ar hanforlig till finansiering av biobransleanlaggning.
+
+
+<!-- PAGE: 139 -->
+
+##### Emission av obligation
+
+SEK lanar upp pengar pa flera geografiska marknader i olika valutor och i olika format.
+
+SEK emitterar aven hallbara obligationer for att finansiera hallbarhetsklassad utlaning.
+
+- • USMTN Program
+
+- • EMTN Program
+
+- • AUMTN Program
+
+- • US CP Program
+
+- • Euro CP Program
+
+### Hållbarhetsnot 2. Intressenter
+
+Intressenter ar de grupper eller individer som direkt eller indirekt paverkar eller paverkas av SEK:s verksamhet.
+Genom att fora dialog och samverka med intressenter okar SEK kunskapen om deras priori teringar och vilka forvantningar intressenterna har pa SEK och anvan der insikterna for att utveckla hallbarhetsarbetet.
+SEK ser aven natu ren som en viktig men tyst huvudintressent eftersom SEK finansierar manga verksamheter som bade ar beroende av och paverkar naturen.
+
+Intressenternas forvantningar I tabellen visas hur den kontinuerliga dialogen med SEK:s intressenter sker och vilka fragor som de framhallit som viktiga for SEK att priori tera.
+De generella forvantningar som redovisas i tabellen ar en sam manvagd bedomning av intressentdialog som skett tidigare ar justerat med de teman som belysts under 2024.
+SEK for aven kontinuerlig dia log med andra intressentgrupper som till exempel journalister studen ter skolor universitet samt press och media.
+
+Intressentdialoger viktig input till vasentlighetsanalysen Manga enskilda individer och grupper paverkas av hur SEK bedriver sin verksamhet.
+Inom ramen for den due diligence som genomfors vid A och B-projekt (se definitioner) inkluderas dialog med individer grupper och lokalsamhallen.
+Intressentdialoger ar en viktig del i att identifiera och bedoma paverkan samt utgor grunden for vilka risk reducerande atgarder som vidtas i relation till paverkade samhallen konsumenter och slutanvandare.
+SEK:s deltagande i OECD:s arbets grupper for social och miljomassig hansyn vid statsstodda exportkredi ter samt Ekvatorprincipernas arbetsgrupper ar vardefullt for utbyte av erfarenheter kring due diligence av projekt samt tillampning av riktlin jer. Las mer i avsnitt Utlaning under SEK:s verksamhet.
+
+SEK fangar upp perspektiv och okar kunskapen om miljo och klimat paverkan genom att ta del av forskningsrapporter och analyser samt genom att fora dialog med frivillig och branschorganisationer samt specialister pa miljo och klimatfragor.
+SEK far ocksa kontinuerligt insikter via det av EKN:s och SEK:s inrattade vetenskapliga klimatrad som fungerar som radgivande stod i arbetet med att anpassa det svenska exportfinansieringssystemet for att ligga i linje med Parisavta lets 1,5-gradersmal se hallbarhetsnot 5 samt 13.
+
+For att oka insikterna om hur SEK tydligare kan integrera biologisk mangfald i det finansiella beslutsfattandet genomforde SEK tillsam mans med forskare fran forskningsprogrammet Mistra BIOPATH ett pilotprojekt under aret for att kartlagga och analysera utlaningsport foljen utifran rapporteringsramverket TNFD:s (Task Force on Natu re-related Financial Disclosures) sa kallade LEAP metod.
+
+Intressenter som kan paverka SEK:s verksamhet och som anvander SEK:s hallbarhetsredovisning for att bilda sig en uppfattning inklude rar bland annat SEK:s agare investerare kreditratinginstitut ESG ra tingbolag agentbanker och kunder.
+Under 2024 genomforde SEK utover den kontinuerliga kunddialogen ett antal kundseminarier med hallbarhetsfokus.
+Ett antal av arets intressentdialoger med investerare har ocksa haft fokus pa hallbarhet.
+Bland annat genomfordes under april en roadshow med ESG fokus.
+
+| Intressentgrupp | Dialogform | Generella förväntningar på SEK |
+| --- | --- | --- |
+| Investerare Förser SEK med kapital och förväntar sig avkastning. Många investerare använder bedömningar från kreditratingbolag och ESG-ratingbolag som input för sin analys. | Möten, konferenser, inves- terarpresentationer och finansiella rapporter. | Avkastning. Samverkan kring hållbarhetsfrågor. Trans- parens och integritet i hållbarhetskriterierna. Emission av gröna, sociala och hållbarhetslänkade obligationer och obligationer kopplade till de globala hållbarhetsmålen och EU:s taxonomi. |
+| Svenska staten (ägare) Beslutar SEK:s uppdrag och samhällsupp- drag. Tillsätter styrelsen. Följer upp ägarens intentioner och bolagets utveckling via ägardialog. | Ägarpolicy, uppdrag, ägar anvisning och håll- barhetsanalys. Styrelse- representation. Möten och nätverksträffar. | Finansiering på kommersiella och hållbara grunder, ansvarsfullt agerande och tillvaratagande av affärsmöjlig- heter som leder till hållbart värdeskapande. Beslut om och agerande för att uppfylla strategiska mål för hållbart vär- deskapande. Samverkan med övriga statliga aktörer inom ”Team Sweden”. Anpassning av exportkreditsystemet till Parisavtalet och Kunming-Montreal Global Biodiversity Framework (GBF). Beräkna och arbeta med bolagets finan- sierade växthusgasutsläpp. Anpassning av processer för att möta kraven i CSRD. |
+![table image]({page: 117, x: 69}, {y: 377, {width: 445}, {height: 84})
+
+#### Övergripande processbeskrivning väsentlighetsanalys
+
+Identifiering och bedomning
+
+- Hållbarhetskontext och ingångsvärden
+
+- Bedömning av frågans signifikans
+
+- Slutlig prioritering
+
+Vision uppdrag och vardegrund
+
+| Strategi och riskramverk | Påverkansperspektiv | Risker och möjligheter | ”Tröskelvärden” för väsentlig påverkan respektive finansiell effekt |
+| --- | --- | --- | --- |
+| Bransch, affärsmodell | Påverkan |  |  |
+| Värdekedja, affärsrelationer |  | Finansiellt perspektiv |  |
+![table image]({page: 119, x: 98}, {y: 596, {width: 117}, {height: 17})
+
+Bedomningskriterier utifran SEK:s processer och metoder Finansiella produkter och exponering inom utlaning
+
+Egen arbetsstyrka geografiskt lage kreditratinginstituten S&P och Moody's samt ESG ratingbolag som MSCI och Sustainalytics vager in olika ESG faktorer i sin bedomning av SEK.
+
+
+<!-- PAGE: 120 -->
+Foretagsexponeringar fordelade efter bransch1 brutto Exportkrediter/Projektfinansiering med stater som motpart fordelade efter bransch1 brutto
+
+| Skr mdr | 2024 |
+| IT och kommunikations- tjänster |
+| Skr mdr | 2024 |
+|  | Industri Flyg & Försvar 44,4 |
+|  | Infrastruktur Infrastruktur 22,2 |
+![table image]({page: 120, x: 75}, {y: 91, {width: 204}, {height: 8})
+
+| IT | 9,2 |
+| Kommunikationstjänster | 62,0 |
+| telekom | 57,9 |
+| övriga kommunikationstjänster | 4,1 |
+| maskinell utrustning (machinery) | 14,8 |
+| byggvaror & konstruktion | 13,8 |
+| flyg & försvar | 6,7 |
+| industriella konglomerat | 5,9 |
+| övriga kapitalvaror | 9,6 |
+| Transport | 15,7 |
+| Kommersiell & professionell service | 4,4 |
+| papper & skog | 15,2 |
+| metaller & gruvdrift | 11,5 |
+| övriga råvaror | 2,9 |
+| bilar & bilkomponenter | 6,7 |
+| livsmedel | 6,1 |
+| övriga konsumentvaror | 16,2 |
+| Elverksamhet (utilities) | 13,3 |
+![table image]({page: 120, x: 140}, {y: 103, {width: 139}, {height: 8})
+
+| järnväg | 12,8 |
+| hälsovård | 3,7 |
+| vatten & sanitet | 2,5 |
+| transport | 1,6 |
+| vägar | 0,8 |
+| avfallshantering | 0,8 |
+| solkraft | 5,7 |
+| transmission | 0,9 |
+| vattenkraft | 0,1 |
+![table image]({page: 120, x: 387}, {y: 135, {width: 130}, {height: 8})
+
+| Industri | Kapitalvaror | 50,8 |
+| --- | --- | --- |
+| Råvaror | Råvaror | 29,6 |
+![table image]({page: 120, x: 75}, {y: 150, {width: 204}, {height: 8})
+
+| Energi | Energi | 6,7 |
+| --- | --- | --- |
+| Total |  | 73,3 |
+![table image]({page: 120, x: 313}, {y: 205, {width: 204}, {height: 8})
+
+1 Kreditexponeringen for stater har klassificerats enligt IFC Perfor mance Standards dar det ar tillampbart i ovriga fall i enlighet med branschklassificeringssystemet GICS (Global Industry Classifica tion Standard).
+
+| Konsumentvaror | Konsumentvaror | 29,0 |
+| --- | --- | --- |
+| El, vatten & gas | Oberoende kraftproducenter | 14,3 |
+| Finans | Finans | 13,9 |
+| Energi | Olja, gas & bränslen | 4,8 |
+| Hälsovård | Hälsovård | 4,7 |
+| Övrigt | Övrigt | 1,8 |
+| Total |  | 253,5 |
+![table image]({page: 120, x: 75}, {y: 308, {width: 204}, {height: 8})
+
+1 Kreditexponering i enlighet med branschklassificeringssystemet GICS Global Industry Classification Standard).
+GICS underkate gorier visas for exponeringar > Skr 5 mdr.
+
+Beroenden risker och mojligheter kopplade till ovriga delar i SEK:s vardekedja sasom den egna arbetskraften kan likasa paverka SEK finansiellt.
+Exempelvis kan kompetensforsorjningen underlattas alternativt forsvaras utifran hur SEK hanterar fragor som arbetsvillkor jamstalldhet mangfald och inkludering.
+SEK:s hantering av fragor som informationssakerhet affarsetik och motverkande av finansiell brotts lighet kan paverka anseendet for SEK och starka alternativt skada intressenters fortroende for SEK.
+
+Bedomning av fragornas signifikans och slutlig prioritering I det tredje steget bedomdes hur signifikant respektive hallbarhetsfra gas paverkan pa omgivningen var samt hur stor den potentiella finan siella effekten var i olika delar av vardekedjan.
+Denna kvalificerade kvalitativa bedomning genomfordes av en expertgrupp bestaende av Chief Financial Officer Riskchef Hallbarhetschef Chef Strategi affarsutveckling och kommunikation och Kreditchef med stod av de personer fran Hallbarhet Kredit och Risk som ingick i den tvarfunktio nella arbetsgruppen.
+Utifran en sammanvagd kvalificerad bedomning genomforde ”expertgruppen” i det fjarde steget en slutlig prioritering av vilka fragor som bedomdes vasentliga for SEK.
+Den slutliga listan faststalldes av foretagsledningen.
+
+Den due diligence som genomfors pa transaktionsniva inom utlaning ger vardefull input om vasentlig paverkan (se hallbarhetsnot 4).
+2023 ars analys av potentiell negativ paverkan kopplat till utlaningen inne fattade bland annat en kartlaggning av vilka miljomassiga och sociala risker som identifierats som vasentliga i SEK:s fordjupade analyser utifran IFC Performance Standards for utestaende A och B-projekt (se definitioner).
+Samtliga SEK:s hallbarhetsanalytiker bidrog darefter utifran sin kunskap om de specifika projekten till att koppla identifie rade vasentliga hallbarhetsrisker mot de miljomassiga och sociala sek torovergripande standarderna i ESRS.
+
+For icke projektrelaterad finansiering dar SEK identifierar hog riskbranscher med betydande miljo klimat och/eller sociala risker genomfordes en liknande kartlaggning.
+
+Analys och bedomning av paverkan kopplad till ovriga delar i SEK:s vardekedja (upplaning likviditetsplaceringar och egen verksam het inklusive inkop av varor och tjanster) har i vasentlighetsanalysen bedomts med hjalp av interna experter samt for dessa funktioner ansvariga ledamoter i SEK:s foretagsledning.
+
+Forberedelse for CSRD Inom ramen for SEK:s arbete med att implementera EU direktivet CSRD har SEK under 2024 arbetat med att utveckla den dubbla vasentlighetsanalysen som genomfordes 2023 i enlighet med kraven i rapporteringsstandarden ESRS.
+Under 2024 har bland annat skrad darsydda relevanta och granskningsbara bedomningsmallar med defi nierade och relevanta poangskalor och trosklar for respektive omrade och underomrade (topic/sub-topic) upprattats.
+Resultatet av denna dubbla vasentlighetsanalys kommer att utgora grunden for hallbar hetsrapporteringen for rakenskapsaret 2025.
+
+Analys och bedomning av potentiell finansiell effekt SEK ar indirekt exponerad genom sina motparters exponering mot ESG faktorer som for SEK skulle kunna materialiseras genom paver kan pa motparternas aterbetalningsformaga.
+Las mer om kreditrisk i not 26.
+SEK ar som finansiar ocksa beroende av att kunna lana upp pengar pa den internationella kapitalmarknaden.
+SEK:s investerare I tabellen nedan beskrivs utfallet av vasentlighetsanalysen 2023.
+
+
+<!-- PAGE: 121 -->
+Resultatet av vasentlighetsanalysen 2023
+
+| Väsentlig fråga | Varför väsentlig ur ett påverkansperspektiv | Varför väsentlig ur ett finansiellt perspektiv | Hänvisning |
+| --- | --- | --- | --- |
+| Klimat och miljö Klimatförändring | Utlåningsportföljens exponering mot projekt och verk- samheter med väsentlig faktiskt och potentiell negativ | Kreditrisk |  |
+![table image]({page: 121, x: 70}, {y: 113, {width: 262}, {height: 30})
+
+SEK ar indirekt exponerad genom lantagares exponering mot ESG faktorer som potentiellt kan materialiseras genom paverkan pa motpar ternas aterbetalningsformaga.
+Pa en tidshori sont upp till 3 ar (10 ar for klimatforandring dar SEK rapporterar enligt TCFD) bedoms inte den potentiella finansiella effekten for SEK vara vasentlig.
+okad insyn kring specifika fragors finansiella paverkan pa motparter samt okad insikt kring paverkan i ett langre tidsperspektiv kan dock snabbt forandra analysen.
+
+paverkan till exempel gruvor papper & skog transport och elproduktion.
+
+till exempel gruvor transport och olika typer av tillverk ningsindustri.
+
+Utlaningsportfoljens exponering mot projekt och verk samheter med betydande potentiell negativ paverkan till exempel gruvor havsbaserad vindkraft papper & skog och livsmedelsbranscher.
+
+| Föroreningar | Utlåningsportföljens exponering mot projekt och verk- samheter med betydande potentiell negativ påverkan; |
+| Vatten och marina | resurser Se hållbar- hetsnot 5, Klimat och miljö, samt hållbarhetsnot 13, Klimatrela- terade risker och möjlig- heter (TCFD). |
+| Kreditrisk och finansierings- risk beskrivs under not 26. |
+![table image]({page: 121, x: 70}, {y: 190, {width: 42}, {height: 33})
+
+##### Uppföljning
+
+For A och B-projekt inom projektrelaterad finansiering sker aterrapportering dar hall barhetsanalytiker foljer upp att hallbarhets klausulerna i kreditavtalet hanteras under kre ditens loptid.
+Vid bristande efterlevnad av faststallda villkor initieras dialog samt kravstallning mot lantagaren genom att uppratta en atgardsplan for att hantera risker och avvikelser vilken lopande foljs upp.
+For ovriga affarer sker lopande overvakning av negativa nyheter samt om nagot intraffar som innebar att klausuler i kreditavtalet blir att pakalla.
+
+
+<!-- PAGE: 125 -->
+Hallbarhetsnot 5.
+Klimat och miljo
+
+Som statlig aktor med utlaning runt om i varlden har SEK en viktig roll att fylla som kravstallare for att exportforetag och lantagare ska folja globala klimat och miljooverenskommelser och tillhorande riktlinjer.
+
+SEK finansierar klimatomstallningen bade i Sverige och globalt i linje med Parisavtalet.
+Mer information om SEK:s arbete med hallbar finan siering redovisas i hallbarhetsnot 11.
+Strategi och styrning av klimatpaverkan En viktig del i SEK:s klimatrelaterade strategi ar att minska utslappen av vaxthusgaser.
+I enlighet med SEK:s policy for hallbar finansiering ska SEK successivt upphora med finansiering av fossila branslen.
+SEK finansierar inte kolgruvor kolkraft koltransporter eller nya oljekraft verk sedan 2019.
+Efter sista december 2022 finansieras inte heller pro spektering och utvinning av olja och gas.
+SEK kan finansiera projekt och verksamheter med hoga vaxthusgasutslapp dar fossilfria alternativ annu inte utvecklats sasom gruvor och fossila branslen for industriellt bruk under forutsattning att projektet over tiden bedoms bidra positivt till omstallningen.
+Vidare ska SEK i enlighet med policyn avsta fran att medverka i affarer dar miljopaverkan bedoms vara oacceptabel och inte forenlig med internationella riktlinjer.
+
+Under 2021 antog SEK langsiktiga mal for att vara en kraft i klimat omstallningen dar SEK:s balansrakning ska na nettonoll vaxthusgas utslapp senast 2045.
+Under 2024 har oversyn av strategiska mal skett vilket inneburit att mal avseende hallbarhetsklassad utlaning har juste rats till att na Skr 150 miljarder i hallbarhetsklassad utlaning till 2035.
+Genom att uttrycka malen i utlaningsvolym tydliggors nyttan av SEK:s utlaning och malkonflikter med tillvaxtmal undviks.
+SEK:s langsiktiga mal att oka andelen utlaning som bidrar till att na globala klimatmal innebar att stotta verksamheter och projekt som redan idag nar malen men aven verksamheter och projekt som har en robust och trovardig plan att stalla om till de nivaer av utslapp av vaxthusgaser som globala klimatmal kraver.
+For att konkretisera arbetet for att na de langsiktiga klimatmalen har SEK under 2024 arbetat med att integrera arbetet i affarsplanen.
+Komponenter i arbetet utgors av att satta mal och stra tegier se over kunderbjudanden och samarbetsformer sakerstalla uppfoljning genom matetal och rapportering samt tillse att det finns tillracklig kompetens i organisationen.
+Under 2025 kommer fortsatt arbete att ske i syfte att sakerstalla att aktiviteter genomfors i linje med kommande regelverkskrav som traffar SEK som en finansiell aktor.
+
+Under 2023 arbetade SEK tillsammans med Exportkreditnamnden (EKN) fram en metod for att kunna bedoma om verksamheter och pro jekt ar i linje med Parisavtalets 1,5 graders mal som har testats pa ett urval av affarer under 2024.
+Under 2023 gick EKN och SEK med i Zero ECA Alliance en av FN stodd sammanslutning av exportkreditaktorer som har atagit sig att na Parisavtalets klimatmal.
+Under 2024 har EKN och SEK varit med i en arbetsgrupp for att utarbeta en gemensam stan dard for att satta klimatmal hos exportkreditinstitut vilken lanserades i november 2024 pa COP29 i Baku.
+Under 2025 kommer SEK att satta avkarboniseringsmal i enlighet med NZECA Target Setting Protocol.
+I syfte att knyta klimatarbetet till vetenskaplig grund inrattade Svensk Exportkredit och Exportkreditnamnden 2021 ett klimatrad bestaende av professorer docenter och forskare fran svenska hogskolor univer sitet och forskningsinstitut.
+Klimatradet vagleder det svenska export kreditsystemet sa att det ligger i linje med Parisavtalets 1,5-graders mal.
+Radet har inte nagon operativ roll utan ar ett kunskapsstod och en diskussionspartner nar det galler principiella stallningstaganden.
+Klimatradet har haft tva moten under aret.
+Minnesanteckningar fran motena publiceras pa www.sek.se.
+
+I SEK:s egna verksamhet ar malet att na nettonoll vaxthus gasutslapp senast 2030.
+SEK:s Instruktion for resor utgor den ram bolaget anvan der for att styra en av sina storsta utslappsposter for egen verksam het Tjansteresor.
+Vid val av fardmedel for tjansteresor gors en samlad bedomning baserat pa bekvamlighet kostnadseffektivitet och miljo belastning.
+
+## Vd har ordet
+## Växande kundportfölj, nya affärer och rekordstarkt räntenetto
+
+2024 har varit ett framgangsrikt ar for SEK dar vi starkt var position som en langsiktig finansieringspartner for svenska exportforetag.
+Trots utmanande marknadsforhallanden har kundportfoljen vuxit och nu ar fler an 200 exportforetag kunder hos SEK.
+Vi ar stolta over att ha levererat vart hogsta rantenetto hittills och natt ett rekordhogt rorelseresultat.
+
+Under aret har SEK fortsatt att befasta sin roll som en langsik tig och stabil finansieringspartner for svenska exportforetag.
+Nya affarer har okat vi nadde vart hogsta rantenetto nagonsin och samtidigt ett historiskt hogt rorelseresultat.
+Den okade efterfragan pa kundfinansieringslosningar ar en bidragande faktor till att nya affarer har okat under aret.
+Samtidigt har ett avvaktande investeringsklimat i kombination med forfall och aterlosen av tidigare ingangna krediter bidragit till att den totala utlaningsportfoljen forblivit oforandrad under aret.
+Darfor ar det sarskilt gladjande att var kundbas fortsatte att vaxa och att vi nu har fler an 200 svenska exportforetag som kunder.
+Vi som arbetar pa SEK ar stolta over vart uppdrag att finansiera svensk export och bidra till svenska foretags framgangar pa den globala marknaden och samtidigt vara en drivande kraft i omstallningen.
+
+Det globala behovet av investeringar inom omraden som sakerhet forsvar transport infrastruktur och energi omstallning ar enormt.
+Dessa sektorer utgor viktiga delar av svensk exportindustri.
+Under 2024 har jag rest till bland annat Vietnam Japan Saudiarabien och inom Europa for att traffa kunder banker och investerare och kopare av svensk export.
+Pa dessa resor slas jag av konkurrenskraften i den svenska exportindustrin men ocksa av de mojligheter som de globala investeringsbehoven utgor for svenska foretag och svenskt kunnande.
+Ofta sker resorna tillsammans med vara kollegor inom Team Sweden med vilka vi har ett nara och hogt varderat samarbete som jag ser fram emot att fortsatta utveckla.
+Magnus Montan vd pa SEK"Det globala behovet av investeringar inom omraden som sakerhet och forsvar transport och infrastruktur samt energiomstallning ar enormt.
+Dessa sektorer utgor viktiga delar av svensk exportindustri” Var foretagskultur ar en avgorande framgangsfaktor for att uppna vara ambitiosa mal och jag ar stolt over hur vi tillsam mans utvecklats som organisation under de senaste aren med stort fokus pa resultat och att gora skillnad for exportnaringen.
+Under 2024 har vi bland annat haft uppskattade temaveckor med fokus pa vara varderingar proaktiva engagerade lag spelare.
+Vi har ocksa tagit fram en uppdaterad ledarprofil och genom utvardering och analys lagt grunden for att vidare utveckla vara ledare.
+Ett starkt ledarskap ar avgorande for att skapa engagemang bland vara medarbetare och for att driva kontinuerlig utveckling.
+
+aven om geopolitiska spanningar och ekonomisk osakerhet har paverkat omvarlden och dampat foretagens investeringsvilja ser vi mojligheter i den svenska ekonomins aterhamtning med sjunkande inflation och en lagre styrranta som kan stimulera tillvaxten framover.
+Med nojda kunder stark kapitalisering och en hog aktivitetsniva gar SEK in i 2025 med ett tydligt fokus pa att erbjuda langsiktiga och hallbara finansieringslosningar.
+Tillsammans med vara samarbetspart ners bade nordiska och internationella banker samt vara partners inom Team Sweden ser vi fram emot att starka svenska foretags internationella konkurrenskraft och befasta Sveriges roll som en ledande exportnation.
+
+Svenska exportforetag prioriterar klimatomstallningen och enligt var egen Exportkreditbarometer planerar sex av tio bolag att investera i minskad klimatpaverkan de kommande aren.
+Pa SEK har vi en nara dialog med vara kunder om deras omstallningsplaner och under aret har vi finansierat en rad investeringar och projekt som bidrar till minskad klimat paverkan och som stodjer en hallbar omstallning.
+Vi har aven finansierat socialt hallbara investeringar som exempel vis uppforandet av ett sjukhus i Guyana.
+
+
+<!-- PAGE: 5 -->
+
+### Klimatomställning och samhällsomvandling
+
+Utmaningarna kopplade till klimat och miljo innebar okade krav pa foretag och samhalle att hantera komplexa och kostsamma konsekvenser av otillrackliga atgarder.
+Forsk\xad ningen visar ocksa att den snabba forlusten av biologisk mangfald utgor ett minst lika allvarligt hot som klimat\xad forandringarna.
+Samtidigt kravs omfattande investeringar for att mojliggora omstallningen.
+
+Det finansiella systemet spelar en nyckelroll i att till\xad handahalla finansiering for omstallningen.
+For SEK innebar detta mojligheter att finansiera investeringar som framjar hallbar tillvaxt och att stodja branscher som ar avgorande for omstallningen.
+
+##### Riskupplysningar
+
+For en kompletterande och utokad redogorelse av den likviditets och finansieringsriskrelaterade informationen hanvisas till den separata riskrapporten"Capital Adequacy and Risk Management (Pillar 3) Report 2024” tillganglig pa bolagets webbplats.
+
+
+<!-- PAGE: 110 -->
+|  | 31 december 2024 |
+| --- | --- |
+| Skr mdr |  | Total | SKR | EUR | USD | Övrigt |
+| Värdepapper emitterade eller garanterade av stater, centralbanker | eller multilaterala utvecklingsbanker | 25,3 | 11,0 | 8,0 | 6,3 | – |
+| Värdepapper emitterade eller garanterade av kommuner | eller andra offentliga organ | 18,3 | 7,1 | 3,8 | 7,4 | – |
+| Säkerställda obligationer emitterade av institut |  | 13,1 | 13,1 | – | – | – |
+| Tillgodohavanden i Riksgäldskontoret |  | 1,0 | 1,0 | – | – | – |
+| Total likviditetsreserv |  | 57,7 | 32,2 | 11,8 | 13,7 | – |
+| 31 december 2023 |
+| Skr mdr |  | Total | SKR | EUR | USD | Övrigt |
+| Värdepapper emitterade eller garanterade av stater, centralbanker | eller multilaterala utvecklingsbanker | 24,1 | 8,0 | 3,9 | 11,9 | 0,3 |
+| Värdepapper emitterade eller garanterade av kommuner | eller andra offentliga organ | 16,5 | 5,0 | 4,7 | 6,8 | – |
+| Säkerställda obligationer emitterade av institut |  | 12,7 | 12,7 | – | – | – |
+| Tillgodohavanden i Riksgäldskontoret |  | 1,0 | 1,0 | – | – | – |
+| Total likviditetsreserv 1 Likviditetsreserven är en delmängd av SEK:s likviditetsplaceringar. |  | 54,3 | 26,7 | 8,6 | 18,7 | 0,3 |
+| Likviditetsplaceringar per återstående löptid | Likviditetsplaceringar per exponeringstyp |  |  |  |  |  |
+| Procent 31 dec 2024 31 dec 2023 | Procent |  |  |  | 31 dec 2024 | 31 dec 2023 |
+| < 1 år 78 82 | Stater och multilaterala utvecklingsbanker |  |  |  | 42 | 45 |
+| 1 år – 3 år 18 18 |  |  |  |  |  |  |
+|  | Kommuner och offentliga organ |  |  |  | 29 | 29 |
+| > 3 år 4 – |  |  |  |  |  |  |
+|  | Säkerställda obligationer |  |  |  | 21 | 22 |
+|  Nyckeltal för likviditetsrisk | Finansiella institutioner |  |  |  | 7 | 3 |
+|  | Företag |  |  |  | 1 | – |
+![table image]({page: 110, x: 385}, {y: 137, {width: 221}, {height: 8})
+
+| Procent | 31 dec 2024 | 31 dec 2023 |
+| --- | --- | --- |
+| LCR | 583 | 494 |
+| NSFR | 129 | 131 |
+![table image]({page: 110, x: 67}, {y: 473, {width: 221}, {height: 8})
+
+
+<!-- PAGE: 111 -->
+Kontraktuella floden
+
+| Skr mn | Förfall ≤ 1 månad | Förfall 1 månad ≤ 3 månader | Förfall 3 månader ≤ 1 år | Förfall 1 år ≤ 3 år | Förfall 3 år ≤ 5 år | Förfall > 5 år | Summa kassaflöde Diskon te- rings effekt | Bokfört värde |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+|  | 31 december 2024 | 31 december 2024 | 31 december 2024 | 31 december 2024 | 31 december 2024 |  |  |  |
+| Finansiella tillgångar |
+| Likvida medel | 5 221 | – | – | – | – | – | 5 221 -2 | 5 219 |
+| Statsskuldförbindelser/ Statsobligationer | 552 | 2 712 | 919 | – | – | – | 4 183 -33 | 4 150 |
+| Andra räntebärande värde papper än utlåning | 11 769 | 11 371 | 16 883 | 11 513 | 2 657 | – | 54 193 -1 350 | 52 843 |
+| Utlåning dokumenterad som värdepapper | 164 | 1 212 | 8 677 | 15 835 | 13 352 | 18 912 | 58 152 -9 426 | 48 726 |
+| Utlåning till kreditinstitut | 3 318 | 229 | 1 653 | 1 848 | 1 842 | 7 447 | 16 337 -2 808 | 13 529 |
+| Utlåning till allmänheten | 6 110 | 11 919 | 43 236 | 85 530 | 43 302 | 62 657 | 252 754 -28 400 | 224 354 |
+| Derivatinstrument | 924 | 480 | 2 795 | 3 799 | 2 109 | 2 616 | 12 723 -2 080 | 10 643 |
+| varav kassainflöde valutaderivat | 4 930 | 5 250 | 34 440 | 29 660 | 9 062 | 7 185 | 90 527 |  |
+| varav kassautflöde valutaderivat | \xad4 654 | \xad5 007 | \xad32 313 | \xad27 940 | \xad8 557 | \xad6 982 | \xad85 453 |  |
+| Aktier | – | – | – | – | – | 20 | 20 0 | 20 |
+| Summa | 28 058 | 27 923 | 74 163 | 118 525 | 63 262 | 91 652 | 403 583 -44 099 | 359 484 |
+| varav derivatinstrument i säkringssamband | \xad132 | \xad371 | \xad509 | 1 479 | 644 | 1 259 | 2 370 \xad397 | 1 973 |
+| 31 december 2024 |
+| Skr mn Finansiella skulder | Förfall ≤ 1 månad | Förfall 1 månad ≤ 3 månader | Förfall 3 månader ≤ 1 år | Förfall 1 år ≤ 3 år | Förfall 3 år ≤ 5 år | Förfall > 5 år | Summa kassaflöde Diskon te- rings effekt | Bokfört värde |
+| Skulder till kreditinstitut | -8 607 | – | – | – | – | – | -8 607 0 | -8 607 |
+| Emitterade värdepapper | -8 413 | -14 509 | -80 112 | -143 615 | -51 727 | -63 353 | -361 729 45 341 | -316 388 |
+| Derivatinstrument | 36 | -493 | -1 219 | -920 | -1 054 | -685 | -4 335 -892 | -5 227 |
+| varav kassainflöde valutaderivat | 131 | 6 485 | 8 671 | 5 125 | 5 615 | 1 783 | 27 810 |  |
+| varav kassautflöde valutaderivat | \xad220 | \xad6 958 | \xad9 782 | \xad5 933 | \xad6 638 | \xad2 188 | \xad31 719 |  |
+| Summa | -16 984 | -15 002 | -81 331 | -144 535 | -52 781 | -64 038 | -374 671 44 449 | -330 222 |
+| varav derivatinstrument i säkringssamband | \xad17 | \xad240 | \xad823 | \xad485 | \xad980 | \xad460 | \xad3 005 81 | \xad2 924 |
+| Åtaganden |
+| Avtalade, ej utbetalda krediter | -1 232 | -6 818 | -16 325 | -19 775 | 1 384 | 42 766 |  |  |
+| Likviditetsöverskott (+)/ | underskott (–) | 9 842 | 6 103 | -23 493 | -45 785 | 11 865 | 70 380 | 28 912 |
+| Ackumulerat likviditetsöverskott | (+)/underskott (–) | 9 842 | 15 945 | -7 548 | -53 333 | -41 468 | 28 912 | 28 912 |
+![table image]({page: 111, x: 326}, {y: 139, {width: 383}, {height: 17})
+
+Utover instrument i rapport over finansiell stallning och avtalade ej utbetalda krediter sa har SEK ytterligare tillgangliga medel bestaende av en laneram hos Riksgaldskontoret se not 27. Vad avser underskott med forfall mellan ett till tre ar och tre till fem ar sa avser bolaget att refinansiera dessa genom upplaning pa de finansiella marknaderna.
+
+Tillgangar som har flera losendatum antas innehas till slutforfallo datum.
+Derivat som har flera losendatum antas aterbetalas vid tid punkten for det forsta losendatumet oavsett om det ar SEK eller mot parten som har ratt att pakalla fortidslosen.
+Skulder dar endast SEK har ratt att fortidslosa antas innehas till slutforfall.
+Skulder med obligato risk fortidslosen antas aterbetalas vid forsta losentillfallet.
+Inbaddade derivat i finansiella tillgangar och skulder har hanterats enligt samma metodik som dess vardkontrakt.
+Det ar inte troligt att den tillampade forsiktighetsprincipen gallande kassaflodena pa derivat blir ett verk ligt utfall.
+Kontantsakerheter enligt sakerhetsavtal for derivatkontrakt antas forfalla inom det forsta loptidsintervallet.
+Skillnader mellan bok forda varden och framtida kassafloden pa samtliga finansiella tillgangar och skulder redovisas i kolumnen Diskonteringseffekt.
+
+Foljande tillgangar och skulder som inte ar finansiella instrument har en ungefarlig forvantat aterbetalningstid som ar kortare an 12 mana der ovriga tillgangar forutbetalda kostnader upplupna intakter ovriga skulder upplupna kostnader samt forutbetalda intakter.
+Alla andra till gangar och skulder som inte ar finansiella instrument har en ungefarlig forvantad aterbetalningstid som ar 12 manader eller langre.
+
+Samtliga belopp ovan innehaller ranta forutom avtalade ej utbe talda krediter.
+
+
+<!-- PAGE: 112 -->
+| Skr mn | Förfall ≤ 1 månad | Förfall 1 månad ≤ 3 månader | Förfall 3 månader ≤ 1 år | Förfall 1 år ≤ 3 år | Förfall 3 år ≤ 5 år | Förfall > 5 år | Summa kassaflöde Diskon te- rings effekt | Bokfört värde |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+|  | 31 december 2023 | 31 december 2023 | 31 december 2023 | 31 december 2023 | 31 december 2023 |  |  |  |
+| Finansiella tillgångar |
+| Likvida medel | 3 483 | – | – | – | – | – | 3 483 -1 | 3 482 |
+| Statsskuldförbindelser/ Statsobligationer | – | 9 364 | 2 277 | – | – | – | 11 641 -116 | 11 525 |
+| Andra räntebärande värde papper än utlåning | 11 646 | 12 476 | 7 826 | 10 590 | – | – | 42 538 -977 | 41 561 |
+| Utlåning dokumenterad som värdepapper | 309 | 2 003 | 7 822 | 22 951 | 10 926 | 16 338 | 60 349 -9 122 | 51 227 |
+| Utlåning till kreditinstitut | 11 681 | 135 | 1 717 | 1 777 | 944 | 4 389 | 20 643 -1 634 | 19 009 |
+| Utlåning till allmänheten | 7 672 | 9 948 | 42 957 | 86 141 | 43 403 | 63 114 | 253 235 -29 070 | 224 165 |
+| Derivatinstrument | 59 | -55 | -1 095 | 3 250 | 2 772 | 3 055 | 7 986 -1 554 | 6 432 |
+| varav kassainflöde valutaderivat | 364 | 5 406 | 2 927 | 8 798 | 10 098 | 9 828 | 37 421 |  |
+| varav kassautflöde valutaderivat | \xad344 | \xad5 363 | \xad2 885 | \xad8 151 | \xad8 970 | \xad9 000 | \xad34 713 |  |
+| Aktier | – | – | – | – | – | – | – – | – |
+| Summa | 34 850 | 33 871 | 61 504 | 124 709 | 58 045 | 86 896 | 399 875 -42 474 | 357 401 |
+| varav derivatinstrument i säkringssamband | \xad103 | \xad624 | \xad3 007 | 1 495 | 1 711 | 2 031 | 1 503 \xad697 | 806 |
+| 31 december 2023 |
+| Skr mn Finansiella skulder | Förfall ≤ 1 månad | Förfall 1 månad ≤ 3 månader | Förfall 3 månader ≤ 1 år | Förfall 1 år ≤ 3 år | Förfall 3 år ≤ 5 år | Förfall > 5 år | Summa kassaflöde Diskon te- rings effekt | Bokfört värde |
+| Skulder till kreditinstitut | -3 628 | – | – | – | – | – | -3 628 – | - 3 628 |
+| Emitterade värdepapper | -4 381 | -30 826 | -54 853 | -159 014 | -55 627 | -56 548 | -361 249 47 141 | - 314 108 |
+| Derivatinstrument | -1 543 | -1 919 | -3 165 | -2 805 | -618 | -1 372 | -11 422 -1 215 | - 12 637 |
+| varav kassainflöde valutaderivat | 8 391 | 12 358 | 39 175 | 29 220 | 3 285 | 2 237 | 94 666 |  |
+| varav kassautflöde valutaderivat | \xad9 283 | \xad13 803 | \xad42 143 | \xad31 770 | \xad3 577 | \xad2 866 | \xad103 442 |  |
+| Summa | -9 552 | -32 745 | -58 018 | -161 819 | -56 245 | -57 920 | -376 299 45 926 | - 330 373 |
+| varav derivatinstrument i säkringssamband | \xad37 | \xad250 | \xad1 014 | \xad1 125 | \xad189 | \xad817 | \xad3 432 264 | \xad 3 168 |
+| Åtaganden |
+| Avtalade, ej utbetalda krediter | -2 188 | -1 043 | -15 063 | -19 071 | -2 843 | 40 208 |  |  |
+| Likviditetsöverskott (+)/ | underskott (–) | 23 110 | 83 | -11 577 | -56 181 | -1 043 | 69 184 | 23 576 |
+| Ackumulerat likviditetsöverskott | (+)/underskott (–) | 23 110 | 23 193 | 11 616 | -44 565 | -45 608 | 23 576 | 23 576 |
+![table image]({page: 112, x: 326}, {y: 139, {width: 383}, {height: 17})
+
+SEK styr den operativa risken i verksamheten via sa kallade nyckel riskindikatorer.
+Nyckelriskindikatorerna identifieras av ansvariga funk tioner i samrad med Riskfunktionen utifran saval den lopande hante ringen av de operativa riskerna i organisationen som fran rapporterade incidenter.
+Nar ett gransvarde i en nyckelriskindikator overskrids ges en forvarning om en eventuellt okad operativ risk i verksamheten.
+Nar vardet i en nyckelriskindikator overstiger gransvardet genomfor risk ansvarig funktion en dokumenterad analys som konkluderar huruvida atgarder for att hantera en eventuell okad risk behovs och hur dessa i sa fall ser ut.
+
+Operativ risk For beskrivning av riskkategorin riskstrategi riskprofil och riskaptit se den detaljerade riskforklaringen i avsnittet for Risk och kapitalhantering.
+
+### Redovisningsprinciper
+
+I enlighet med GRI har SEK genomgaende for hallbarhetsredovisningen applicerat de redovisningsprinciper som galler for hallbarhetsrapporten.
+Nedan framgar information som inte framgar pa annat satt for att tillampa principerna.
+
+Hallbarhetsnot 5.
+Klimat och miljo SEK:s vaxthusgasutslapp redovisas enligt GHG protokollet.
+I tabell nedan redovisas vilka utslappskallor som ingar i respektive scope inom ramen for SEK:s systemgranser.
+Klimatredovisningen i sin helhet inkl.
+konsolideringsmetod avgransningar antaganden med mera aterfinns i separat Klimatredovisning pa www.sek.se Hallbarhetsnot 6.
+Egna medarbetare Informationen i avsnittet kommer fran SEK:s HR system.
+
+Hallbarhetsnot 7.
+Manskliga rattigheter och arbetsvillkor Data och resultat som beror manskliga rattigheter och arbetsvillkor i SEK:s utlaning kommer fran SEK:s system for finansiell rapportering och interna riskrapporter.
+
+Hallbarhetsnot 8.
+Affarsetik och anti-korruption Informationen i avsnittet kommer fran SEK:s system for finansiell rap portering och interna riskrapporter.
+
+Hallbarhetsnot 9.
+Motverkande av finansiell brottslighet Informationen i avsnittet kommer fran SEK:s policys och metoddoku ment kopplat till finansiell brottslighet.
+
+## Hållbarhetsnoter
+### Innehåll
+
+| Hållbarhetsnot 1. Information om hållbarhetsredovisningen | 117 |
+| Hållbarhetsnot 2. Intressenter | 118 |
+| Hållbarhetsnot 3. Väsentlighetsanalys | 120 |
+| Hållbarhetsnot 4. Information om strategi, styrning och riskhantering | 124 |
+| Hållbarhetsnot 5. Klimat och miljö | 126 |
+| Hållbarhetsnot 6. Egna medarbetare | 127 |
+| Hållbarhetsnot 7. Arbetsvillkor och mänskliga rättigheter | 130 |
+| Hållbarhetsnot 8. Affärsetik och anti-korruption | 131 |
+| Hållbarhetsnot 9. Motverkande av finansiell brottslighet | 132 |
+| Hållbarhetsnot 10. Informationssäkerhet | 133 |
+| Hållbarhetsnot 11. Hållbar finansiering | 134 |
+| Hållbarhetsnot 12. Projektrelaterad finansiering | 135 |
+| Hållbarhetsnot 13. Klimatrelaterade risker och möjligheter (TCFD) | 136 |
+![table image]({page: 116, x: 67}, {y: 140, {width: 249}, {height: 8})
+
+Hallbarhetsnot 1.
+Information om hallbarhetsredovisningen Information om hallbarhetsredovisningen och dess innehall omfattning och avgransning forandringar i hallbarhetsredovisningen riktlinjer for transparens principer for extern granskning samt kontaktinformation framgar nedan.
+Information om redovisningsprinciper aterfinns under Redovisningsprinciper.
+
+Hallbarhetsrapport enligt aRL SEK:s hallbarhetsrapport foljer arsredovisningslagen (1995:1554) och ar en del av foretagets arsredovisning och hallbarhetsinformationen har integrerats i hallbarhetsnoterna som aterfinns pa sid 117-143.
+For beskrivning av affarsmodell se sid 3 samt 14-15.
+
+Hallbarhetsredovisningens omfattning och avgransning Hallbarhetsredovisningen omfattar hela koncernen och har upprat tats i enlighet med Global Report ing Initiatives Standards 2021 (GRI).
+I rapporten appliceras ocksa for SEK relevanta delar av GRI sektorsupp lement for finansiella aktorer.
+SEK har rapporterat i enlighet med GRI Standards sedan 2007.
+I hallbarhetsnot 13 redovisas SEK:s klimatrelate rade risker och mojligheter i enlighet med rekommendationerna fran Task Force on Climate related Financial Disclosures (TCFD).
+
+Hallbarhetsredovisningen omfattar de fragor som har identifierats som vasentliga for SEK:s verksamhet.
+SEK:s metod for att identifiera vasentliga hallbarhetsfragor sa kallad vasentlighetsanalys foljer rekommendationerna fran GRI.
+Mer information om SEK:s vasentliga fragor aterfinns i hallbarhetsnot 3.
+I rapporten aterges de ataganden inom SEK:s vasentliga omraden som bolaget har atagit sig under raken skapsaret 2024 (1 januari 2024 - 31 december 2024) och gjordes publik 26 februari 2025.
+Den senaste foregaende hallbarhetsredovisningen for SEK avseende rakenskapsar 2023 publicerades 23 februari 2024.
+
+Forandringar i hallbarhetsredovisningen Under 2023 genomfordes ett antal anpassningar i den integrerade ars och hallbarhetsredovisningen for att aterspegla resultatet i den Dubbla vasentlighetsanalysen som genomfordes under 2023.
+and ringarna inkluderade integration mellan den finansiella och hallbar hetsrelaterade informationen samt andringar i struktur omfang och omfattning i hallbarhetsnoten.
+
+Under 2024 har analysen uppdateras i enlighet med riktlinjerna i ESRS.
+SEK har valt att inte presentera utfallet av den uppdaterade ana lysen i arets redovisning darmed har inte ytterligare storre andringar genomforts i hallbarhetsredovisningen.
+
+Riktlinjer for transparens Svensk lag om banksekretess reglerar redovisning av information som ror enskilda affarer.
+SEK tar aktiv del i utveckling av okad transparens for banksektorn avseende hallbarhetsfragor.
+SEK utgar fran interna tionella riktlinjer for okad transparens i utlaningen.
+De riktlinjer som framst ar relevanta for SEK ar Ekvatorprinciperna for projektrelate rad finansiering och TCFD for transparens avseende projektrelaterad finansiering och klimatrelaterade risker i utlaningen.
+
+Principer for extern granskning I enlighet med agarpolicy sker extern granskning av bolagets revisorer.
+Mer information aterfinns i Bestyrkanderapporten.
+
+### Organisationsschema
+#### Vd
+
+Regelefter levnad CFO CIO Strategi affars utveckling och kommunikation HRRisk
+
+######## Strategiska mål till 2035
+######### Nöjd kund-index: 90
+
+Utvardering av samhallsuppdraget 2,0
+
+###### (ix) Nedskrivning av finansiella tillgångar
+
+Nedskrivning av finansiella tillgangar baseras pa forvantade framtida kreditforluster (ECL).
+Alla tillgangar som varderas till upplupet anskaff ningsvarde liksom kreditataganden och finansiella garantier omfattas av provningen av nedskrivningsbehovet.
+
+SEK anvander bade modeller och expertbedomning for att berakna reserver for forvantade kreditforluster.
+Graden av expertbedomning beror pa modellernas resultat materialitet och tillganglig informa tion och kan anvandas for att ta hansyn till faktorer som inte fangas av modellerna.
+Modellen for ECL berakning utgar fran att en exponering kan aterfinnas i tre olika stadier.
+Samtliga exponeringar aterfinns fran borjan i stadie 1.
+I stadie 1 aterfinns ocksa exponeringar dar kreditrisken inte langre ar vasentligt forhojd och som darfor omklassificerats fran stadie 2.
+I stadie 1 ska ECL berakningen motsvara reserveringar base rade pa forvantade kreditforluster under de kommande 12 manaderna (12mECL).
+I de fall kreditrisken har okat vasentligt sedan det forsta redovisningstillfallet flyttas exponeringen till stadie 2.
+I stadie 2 ater finns ocksa exponeringar dar motparten/exponeringen inte langre ar i fallissemang och som darfor omklassificerats fran stadie 3 samt en mindre del exponeringar som saknar initial rating och dar ratingen ar under BBB.
+I stadie 2 baseras reserveringen pa forvantade kreditfor luster under tillgangens aterstaende loptid (LTECL).
+Ifall exponeringen fallerar flyttas exponeringen till stadie 3 dar ECL berakningen fortsatt baseras pa LTECL.
+12mECL utgors av den delen av LTECL som har stammar fran forvantade kreditforluster baserade pa sannolikheten for fallissemang (PD) inom 12 manader fran balansdagen.
+Bade LTECL och 12mECL beraknas pa individuell basis.
+
+Om nagon exponering mot en motpart anses fallerad anses samtliga exponeringar mot den motparten vara fallerade.
+I de fall en exponering eller motpart som tidigare klassificerats som fallerad inte langre upp fyller definitionen anses exponeringen eller motparten inte langre som fallerad.
+For att sakerstalla att det inte langre foreligger fallissemangs status tillampas en provotid efter att exponeringen eller motparten inte langre anses vara fallerad och darmed ska aterga till stadie 2.
+
+SEK:s modellval ar att anvanda kreditratingmodell for samtliga exponeringar d
+v
+s att berakna forvantade kreditforluster (ECL) genom anvandning av sannolikheten for fallissemang (PD) forlust vid fallisse mang (LGD) och kreditexponering vid fallissemang (EAD).
+
+Vasentlig okning av kreditrisk.
+En vasentlig okning av kreditrisk ar en relativ bedomning dar kreditkvaliteten pa balansdagen jamfors med kreditkvaliteten initialt da exponeringen redovisades.
+Utgangspunk ten vid bedomning av vad som ska utgora kriterier for bedomning av kreditrisk ar den befintliga processen for kreditriskuppfoljning och kreditriskhantering som tillampas av SEK.
+Kreditrisk foljs upp genom att samtliga motparter far en riskklassificering (rating) vilket medfor att risk klassificering ska vara grunden i uppfoljning ifall en vasentlig okning av kreditrisk har intraffat.
+Vidare anvands idag indikatorer som antal dagar forfallet anstandsatgarder och andra riskhojande faktorer sasom covenantavvikelser for att folja upp kreditrisken i exponeringar och hos motparter.
+Dessa indikatorer tillampas for att bedoma kredi trisken och huruvida en vasentlig okning av kreditrisk har intraffat.
+
+- • Riskklassificering. En väsentlig ökning av kreditrisk definieras utifrån ett visst antal stegs försämring av initial rating där en åtskillnad görs mellan exponeringar med initial rating AAA till A - och övriga.
+
+- • Antal dagar förfallet. SEK tillämpar den presumtion som speci- fikt anges i IFRS 9 och tillämpar mer än 30 dagar förfallen fordran som ett kriterium vid bedömning av väsentlig ökning av kreditrisk. Samtliga exponeringar som är mer än 30 dagar förfallet kommer därmed att återfinnas i stadie 2 och LTECL beräknas på dessa expo- neringar. För att säkerställa att det inte längre föreligger en väsentlig ökning av kreditrisk tillämpas en karenstid efter att betalning åter skett och det inte längre finns några förfallna fordringar för den exponeringen. Lämplig prövotid bedöms löpande för att vid var tid säkerställa att det är en rimlig prövotid givet SEK:s exponeringar och betalnings strukturer.
+
+- • Anståndsåtgärder. Exponeringar som omfattas av anståndsåtgärder har en bedömd förhöjd kreditrisk och kommer därmed även vid till- lämpning av IFRS 9 bedömas ha en väsentligt ökad kredit risk. I likhet med kriteriet förfallna dagar kommer en karenstid att tillämpas för att säkerställa att exponeringen inte längre har en förhöjd kreditrisk vid den tidpunkt då den flyttas tillbaka till stadie 1. Lämplig prövotid kommer löpande att bedömas för att vid var tid säkerställa att det är en rimlig prövotid givet SEK:s exponeringar och grunderna till att exponeringen markerades som anstånd.
+
+- • Andra riskhöjande faktorer. Det kan finnas andra faktorer som indikerar att exponeringen eller motparten har en förhöjd kredit- risk, vilket inte fångas av förändring i riskklassificering, förfallna dagar eller anståndsåtgärder. Exempel på detta är återkommande waivers med påverkan på kreditrisken, branschutveckling och extraordinära förändringar i ledning och/eller styrelse. För att fånga upp dessa riskhöjande faktorer kan ledningen göra en specifik kvali- tativ bedömning av väsentligt ökad kreditrisk hos en motpart. Då denna bedömning är en kvalitativ expertbedömning kommer prövo tiden för en eventuell förflyttning tillbaka till stadie 1 att beak- tas vid bedömningen och ingen extra prövotid kommer att tillämpas utöver det.
+
+Fallissemang.
+Ifall exponeringen fallerar flyttas exponeringen till sta die 3 dar ECL berakningen fortsatt baseras pa LTECL.
+I redovisningen vid tillampning av IFRS 9 definieras fallissemang som att
+
+- • SEK bedömer det som osannolikt att motparten kommer att betala sina låneförpliktelser fullt ut oaktat om säkerheter eller garantier tas i anspråk, oberoende av eventuella förfallna belopp eller antal kalenderdagar sedan de förfallit till betalning. Detta inkluderar även synnerliga skäl, som att riskmotpartens finansiella ställning eller motsvarande är sådan att motparten befinner sig i en situation som från borgenärssynpunkt motsvarar någon form av ackords- eller insolvensförfarande. Detta benämns ’unlikely to pay’.
+
+- • Riskmotparten är sen att betala en fordran med mer än 90 kalenderdagar.
+
+
+<!-- PAGE: 63 -->
+Berakning av forvantade kreditforluster (ECL).
+ECL baseras pa vad SEK objektivt forvantar sig forlora pa exponeringen givet kunskapen pa balansdagen och med beaktande av vad som kan komma att intraffa i framtiden.
+ECL ar ett sannolikhetsvagt belopp som bestams genom att utvardera utfall av flera mojliga scenarier dar data som ska beaktas ar bade information fran tidigare forhallanden nuvarande forhallan den och prognoser for framtida ekonomiska forutsattningar.
+Den for vantade kreditforlusten ska beraknas pa lantagaren vilket innebar att PD pa lantagare (och inte pa garant) anvands i modellen.
+
+Vidare ska LGD inkorporera aktuella forvantningar om fram tiden d
+v
+s alla kassafloden inklusive garantier.
+Berakningen av ECL ar Point in Time och ingaende parametrar PD LGD och EAD ar alla Point in Time och ska inte forvaxlas med motsvarande parametrar for kapital tackningen.
+
+Sannolikheten for fallissemang (PD).
+PD ar sannolikheten for att en motpart fallerar i en eller flera exponeringar inom 1 ars horisont (for stadie 1) eller under hela loptiden (for stadie 2 och 3).
+Vid berakning av forvantade kreditforluster under IFRS 9 representerar PD sannolikheten for fallissemang vid en specifik tidpunkt i en konjunkturcykel (Point-in Time PD).
+Da SEK inte har haft tillrackligt manga fallissemang bygger modellen pa extern data.
+Data hamtas fran flera olika kallor OECD Federal Reserve och Standard & Poor's. PD modellen delas in i tre olika geografiska segment Nordamerika Europa och Resten av varlden.
+SEK:s metodik innebar att tre scenarier tas fram for varje PD kurva ett basscenario ett downturn scenario och ett upturn scenario.
+
+De tre scenarierna definieras av en vikt tilldelat varje scenario vik terna ska summera till 1 det vill saga 100 procent.
+Vikterna utarbetas kvartalsvis av en tvarfunktionell grupp inom SEK och faststalls sedan av Vd.
+Genom att tilldela varje PD kurva en vikt definierar SEK sina forvantningar om framtida makroekonomisk utveckling.
+
+Forlust vid fallissemang (LGD).
+LGD ar det belopp uttryckt som procen tuell andel av kreditexponering vid fallissemang som SEK for vantas forlora fran en fallerad motpart.
+LGD segmentering gors med avseende pa en indelning i Large corporate Medium Enterprises och Bank & Financial Companies.
+Pa grund av den laga fallissemangshisto riken i SEK:s utlaning modelleras LGD genom tillgang till fallissemangs data fran Global Credit Data (GCD) med undantag for segmentet Sovereign dar LGD tas fram utifran kvalitativ bedomning.
+
+Vid bedomning av forvantade forluster i kassafloden ska sakerheter och andra kreditforstarkningar som ar en del av avtalsvillkoren beak tas under forutsattning att de inte sarredovisas av foretaget.
+Den LGD som anvands i ECL berakning ska beakta samtliga kassafloden som kan komma att flyta in vid ett eventuellt fallissemang.
+Detta inkluderar de kassafloden som SEK kan forvanta sig fran sakerheter och garantier som ar en del av avtalsvillkoren.
+Foljaktligen beaktas i LGD garantier dar exponeringen ar garanterad med en garanti som ar en del av avtals villkoren savida det inte bedoms finnas en okad korrelation mellan lan tagare och garantimotpart.
+
+Kreditexponering vid fallissemang (EAD).
+Nedskrivningskravet enligt IFRS 9 galler samtliga finansiella tillgangar som varderas till upplupet anskaffningsvarde.
+Vidare omfattas accepterat ej utbetalat bindande offerter och utstallda finansiella garanti avtal vilka redovisas utanfor balansrakningen tills de tas i ansprak.
+Nar det galler dessa ska en bedom ning goras av hur stort belopp som lantagare kommer att ha dragit vid fallissemang da det enbart ar det beloppet som ska inga i ECL berak ningen.
+Detta kallas vanligtvis kreditkonverteringsfaktor (CCF).
+
+SEK har faststallt att det ar svenska kronor (Skr) som ar foretagets funk tionella valuta under IFRS.
+En betydande del av foretagets tillgangar skulder och tillhorande derivat ar avtalade eller har uppkommit i utlandsk valuta.
+Avgorande faktorer for bedomningen ar att SEK:s eget kapital ar faststallt i svenska kronor och att en stor andel av SEK:s kost nader sarskilt personalkostnader ovriga kostnader och skatter redo visas i svenska kronor.
+SEK hanterar sin risk i utlandsk valuta genom att sakra exponeringen mellan svenska kronor och andra valutor.
+Se not 26 for upplysningar om SEK:s valutapositioner.
+
+ECL berakning ska goras utifran hur exponeringen ser ut vid tid punkten for fallissemang vilket medfor att amorteringsstruktur och eventuella forvantningar kring fortida aterbetalning eller forlang ningsklausuler i avtal behover tas i beaktande vid bedomning av EAD.
+Utifran genomforda analyser bedoms kontraktuella loptider med beaktande av amorteringsstruktur vara en bra approximation av de forvantade loptiderna utifran vilka berakning av ECL ska goras.
+Det har inte visat sig finnas nagot specifikt monster kring fortida aterbetalning vilket skulle kunna utgora basen for en annan ansats.
+
+For befintliga faciliteter (accepterat ej utbetalat) finns tva olika konverteringsfaktorer (CCF:er) beroende pa nar i tiden fallissemang sker (1) for fallissemang inom ett ar beraknat pa fallissemangsdata fran GCD (2) for fallissemang efter ett ar beraknat pa intern fallissemangs data.
+For bindande offerter av befintliga faciliteter ar CCF baserad pa intern historik for hur mycket av bindande offerter som utnyttjas.
+CCF:er anvands tillsammans med den preliminara amorteringsplanen for bade den utnyttjade och den outnyttjade delen av befintliga faci liteter for att modellera den framtida exponeringen vid fallissemang.
+For krediter i stadie 3 dar SEK har egen nettorisk beraknas inte ned skrivningsbehovet i ECL modellen utan affarsansvarig beraknar och foreslar nedskrivningsbehov utifran faststallda riktlinjer och metoder.
+Styrelsens kreditutskott faststaller nedskrivningsbehoven for stadie 3.
+Nedskrivning av en tillgangs redovisade varde sker mot reservkonto som i rapport over finansiell stallning reducerar den post till vilken den ar hanforlig.
+
+Bortbokning av nedskrivna tillgangar ur rapport over finansiell stallning gors nar en forlust ar konstaterad det vill saga nar det ar uppenbart att det ar hogst osannolikt att nagon ytterligare del av SEK:s fordran pa motparten kommer att erhallas inom overskadlig fram tid och nar det inte finns nagra garantier eller sakerheter som tacker fordringen.
+Bortbokning av nedskrivna tillgangar kan ocksa goras nar konkursforfarandet har avslutats och en slutlig forlust kan faststallas med beaktande av vardet av eventuella tillgangar som innehas av kon kursboet samt SEK:s andel av sadana tillgangar.
+atervinningar av tidigare bortbokade tillgangar redovisas endast om det ar hog sannolikhet for att atervinning kommer att ske sasom nar en konkurs haller pa att avslutas och betalningen som SEK har att fordra slutligen har faststallts.
+
+Med en omstrukturerad lanefordran avses en lanefordran dar SEK har beviljat lantagaren eftergifter till foljd av dennes forsamrade finan siella situation.
+Efter en omstrukturering betraktas lanefordran vanli gen inte langre som osaker om atagandena fullfoljs i enlighet med de nya villkoren.
+Eftergifter som har beviljats i samband med omstruktu reringen betraktas som kreditforluster.
+
+- (g) Kritiska redovisningsprinciper, bedömningar och uppskattningar
+
+Vid faststallande och tillampning av redovisningsprinciper maste ledningen i vissa fall gora bedomningar och antaganden som kan fa vasentlig betydelse pa redovisningen i den finansiella rapporteringen.
+Uppskattningarna ar baserade pa tidigare erfarenhet och antaganden som bolaget anser ar rattvisande.
+Dessa antaganden och bakom liggande beslut paverkar redovisningen av tillgangar skulder intakter och kostnader samt lamnade upplysningar.
+Verkligt utfall kan senare avvika fran de uppskattningar och antaganden som gjorts.
+
+Bolaget anser att bedomningar gjorda relaterade till foljande kritiska redovisningsprinciper ar den mest vasentliga
+
+- • Moderbolagets funktionella valuta.
+
+Vidare har foretaget identifierat foljande osakerhetsfaktorer vid till lampning av IFRS
+
+- • Värdering till verkligt värde av vissa finansiella instrument
+
+- • Avsättning för förväntade kreditförluster.
+
+### Finansiera omställning
+
+Omstallningen till ett samhalle med lagre klimatavtryck i linje med Paris avtalets 1,5 graders mal for med sig stora investe\xad ringsbehov.
+SEK ska vara en drivande kraft i finansieringen av omstallningsprojekt bade i Sverige och globalt.
+Med lang erfarenhet av komplexa projekt och hallbar finansiering kan SEK stodja omstallning for att minska vaxthusgasutslappen i varlden.
+Genom natverk och samarbetspartners som bland andra NZECA (Net\xadZero Export Credit Agencies Alliance) en av FN stodd sammanslutning av exportkreditaktorer dar SEK ar en av grundarna kan SEK bidra till att exportkredit\xad institut och andra aktorer i den finansiella sektorn tar hansyn till klimatfragan i sina verksamheter.
+Samarbetet inom NZECA syftar till att etablera en gemensam standard for att export\xad kreditinstitut och export\xadimportbanker ska arbeta strategiskt med att minska sina finansierade vaxthusgasutslapp.
+
+SEK vill oka finansieringen till projekt och foretag med tydliga trovardiga planer och konkreta mal for att minska klimatpaverkan Omstallningen skapar bade stora mojligheter och betydande utmaningar.
+SEK:s finansiering ska ske pa hallbara grunder och ambitionen ar att oka utlaningen till foretag som har trovardiga planer for att minska klimatpaverkan i linje med vetenskapligt baserade klimatmal.
+Mot bakgrund av SEK:s uppdrag och viljan att gora mer nytta for fler ar det viktigt att finansiera verksamheter som ar under omstallning och inte enbart akti\xad viteter som redan bedrivs i enlighet med globala klimatmal.
+Transport livsmedel avfallshantering och energisektorn star for en stor andel av de globala vaxthusgasutslappen.
+Att foretag inom dessa branscher far tillgang till finansiering for att stalla om sina verksamheter och minska klimatutslappen ar en viktig del for att begransa den globala uppvarmningen.
+Darutover bedoms tillvaxtmojligheterna inom finansiering av exempelvis fornybar energi samt foretag inom hela energi\xad omstallningens vardekedja vara stora.
+
+
+<!-- PAGE: 9 -->
+Olika lander har satt olika ambitionsnivaer for nar och hur globala klimatmal ska uppnas.
+SEK verkar i manga marknader och maste darmed forhalla sig till skiftande krav och mognad.
+Bolag som har utmaningar att stalla om kan innebara forhojd kreditrisk.
+SEK maste forsta och hantera riskerna som upp\xad star i samband med klimatforandringarna samt risker kopplat till omstallningen.
+Medarbetarnas kunskap inom hallbarhet utvecklas kontinuerligt integreras i hela verksamheten och adderar mervarde till kunderna genom dialog och engage\xad mang i deras omstallning.
+
+SEK:s riskkultur ar grunden for hela verksamheten och bygger pa kunskap trygghet agarskap och transparens
+
+#### Exportfinansieringssystemet
+
+SEK ar tillsammans med Exportkreditnamnden (EKN) en del av det svenska exportfinansieringssystemet.
+Exportfinansieringssystemet tillsammans med privata banker och investerare spelar en viktig roll som mojliggorare for klimatinvesteringar i produktion och fornybara energisystem pa hemmaplan samt finansiering av svenska exporter bjudanden till stora globala omstallningsprojekt.
+Exportfinansierings systemets agerande kan fungera som katalysator for att driva pa for andringar av bade internationella regelverk andra landers agerande och enskilda foretag.
+SEK och EKN har sedan nagra ar tillbaka paborjat det gemensamma arbetet att anpassa exportfinansieringssystemet till Paris avtalet.
+SEK:s kreditgivning och EKN:s garantigivning kan anpas sas till Parisavtalet genom att upphora med stod av export till utvinning av fossila branslen genom stimulans till affarer som bidrar till klimat omstallningen och genom att beakta inlasningsrisker och omstallnings mojligheter i exportaffarer.
+Som en del i det arbetade SEK och EKN under 2023 fram en metod for att kunna bedoma om projekt och verk samheter ar i linje med Parisavtalets 1,5 graders mal.
+Denna metod har testats pa ett urval av affarer under 2024.
+
+I slutet av 2023 lanserades NZECA Alliance dar SEK och EKN till sammans med en handfull andra exportkreditaktorer bildat den forsta koalitionen for hur publikt kapital ska forvaltas i linje med Parisavtalets mal.
+
+Under 2024 har EKN och SEK varit med i en arbetsgrupp for att utarbeta en gemensam standard for att satta klimatmal hos export kreditinstitut vilken lanserades i november 2024 pa COP29 i Baku.
+Under 2025 kommer SEK att satta avkarboniseringsmal i enlighet med NZECA Target Setting Protocol.
+
+SEK:s och EKN:s gemensamma vetenskapliga klimatrad For att hoja exportfinansieringssystemet kompetensniva kring klimat fragor och koppla det till vetenskapen har SEK och EKN sedan 2021 ett gemensamt vetenskapligt klimatrad bestaende av fyra klimatforskare.
+
+Klimatradet fungerar som ett radgivande expertorgan som syftar till att vagleda det svenska exportfinansieringssystemet i klimatrelate rade fragor.
+Under aret har Klimatradet haft tva moten som framst behandlat betydelsen av klimatkompensation samt rattvis energiom stallning for att na klimatmalen.
+Minnesanteckningar finns tillgangliga pa www.sek.se.
+Styrning av klimatrelaterade risker och mojligheter SEK:s arbete med klimatfragor ar en integrerad del av bolagsstyr ningen.
+Bolagets hallbarhetsarbete dar klimatrelaterade delar ingar styrs framst av statens agarpolicy och riktlinjer for statlig agda bolag samt agaranvisningen.
+Vagledande for bolagets hallbarhetsarbete dar klimatrelaterade delar ingar ar internationella regler och riktlinjer.
+
+Statens agarpolicy Av statens agarpolicy framgar att SEK som statligt agt bolag ska agera foredomligt inom hallbart foretagande vilket framforallt innebar att bolaget ska
+
+- • Arbeta strategiskt, integrera frågorna i sin affärsstrategi och fastställa strategiska hållbarhetsmål.
+
+- • Agera transparent i frågor som rör väsentliga risker och möjligheter och föra en aktiv dialog med bolagets intressenter i samhället.
+
+- • Samarbeta med andra bolag och relevanta organisationer, samt
+
+- • Arbeta aktivt för att följa internationella riktlinjer om miljö- och klimathänsyn, mänskliga rättigheter, arbetsvillkor, anti-korruption och affärsetik.
+
+Styrelsens oversyn av klimatrelaterade risker och mojligheter Det ar styrelsen som ar ytterst ansvarig for att ett aktivt och langsiktigt arbete for hallbar utveckling bedrivs inom SEK.
+Styrning av klimatrela terade fragor ar integrerat i SEK:s affarsplanering malsattning strategi riskramverk och kreditbeslut.
+Det ar styrelsen som ytterst beslutar om styrande dokument sasom Policy for hallbar finansiering Riskpolicy samt Kreditpolicy dar klimatrelaterade fragor direkt eller indirekt ingar.
+
+
+<!-- PAGE: 136 -->
+SEK:s klimatmal
+
+For att bidra till en tydlig omstallning och minskade utslapp av vaxthus gaser i linje med Parisavtalet samt for att minska bolagets finansiella klimatrelaterade risker har styrelsen antagit foljande overgripande langsiktiga verksamhetsmal
+
+- • SEK:s balansräkning ska nå nettonoll växthusgasutsläpp senast 2045.
+
+- • Hållbarhetsklassad utlåning ska uppgå till Skr 150 miljarder 2035.
+
+- • SEK ska nå nettonoll utsläpp i den egna verksamheten senast 2030.
+
+Se ytterligare beskrivning under avsnittet Mal och matetal.
+
+For att konkretisera arbetet for att na de langsiktiga klimatmalen har SEK under 2024 integrerat det i affarsplanen.
+Komponenter i arbetet utgors av att satta mal och strategier se over kunderbjudanden och samarbetsformer sakerstalla uppfoljning genom matetal och rappor tering samt tillse att det finns tillracklig kompetens i organisationen.
+Under 2025 kommer fortsatt arbete att ske i syfte att sakerstalla att aktiviteter genomfors i linje med kommande regelverkskrav.
+
+Policy for hallbar finansiering SEK:s Policy for hallbar finansiering anger grundlaggande hallbarhets relaterade principer och stallningstaganden for kreditgivning och likvi ditetsplaceringar.
+Princip 5 i policyn anger att SEK ska ha en restriktiv hallning till affarer med negativ paverkan pa klimatet.
+Princip 7 anger att SEK ska integrera ESG faktorer i kreditbedomningen av motparter och princip 8 anger att SEK ska arbeta proaktivt for att mojliggora affa rer som bidrar till att uppna FN:s globala mal for hallbar utveckling och Parisavtalet.
+Se ytterligare information i hallbarhetsnot 4.
+
+### Bruttosoliditetsgrad
+
+Primarkapitalet uttryckt i procent av ett exponeringsmatt beraknat i enlighet med CRR se not 25.
+
+##### Q4Q3Q2Q1Q4Q3Q2Q1
+
+20242023
+
+######### Utfall
+
+SEK har ersatt tidigare hallbarhetsmal som andel av laneportfoljen med mal som anger faktisk utlaning till omstallningen.
+Genom att uttrycka malen i kapitalvolym tydliggors nyttan av bolagets utlaning och undviks mal konflikter med tillvaxtmalen.
+Under aret har volymen hallbarhetsklassad utlaning okat med 18 procent.
+SEK arbetar med att ta fram en klimatfardplan inklusive meto der for att mata finansierade vaxthusgasutslapp.
+
+#### Riskhantering
+
+SEK genomfor en arlig bolagsovergripande riskbedomning avseende korruption som ligger till grund for SEK:s rutiner riktlinjer och ovriga riskreducerande atgarder baserat pa olika riskindikatorer.
+Forhojd hall barhetsrisk avseende korruption anses forekomma vid nagon av fol jande riskindikatorer
+
+- • Utlåning till byggindustrin i komplexa marknader;
+
+- • Finansiering av projekt med offentlig köpare i komplexa marknader;
+
+- • Exportör som använt mellanhänder i underliggande affärstransak- tion i komplexa marknader,
+
+- • Distributörer, EPC:r, eller exportörer som agerat mellanhand i komplexa marknader,
+
+- • Misstanke om kedja av affärstransaktioner när belopp/kvantitet ändrats i de olika delarna där SEK kan ha utlåning i en del av en större transaktionskedja,
+
+- • Affär med koppling till länder med särskilt hög korruptionsrisk,
+
+- • Utlåning till försvarsindustrin,
+
+- • Affärer i branscher förknippade med hög risk för finansiell brottslighet.
+
+Med komplex marknad avses lander med hog grad av korruption eller annan finansiell brottslighet.
+SEK:s riskaptit for korruptionsrisker vid utlaning i komplexa marknader innebar att exportor eller annan aktor som finansieringen avser ska ha kapacitet att hantera korruptionsris ker i enlighet med internationella riktlinjer.
+All utlaning ska utvarderas for korruptionsrisker och dar korruptionsrisk foreligger genomfors en bedomning av hallbarhetsanalytiker att kunden har kapacitet att han tera risken och vid forhojd risk gors en fordjupad analys av jurist.
+Se mer i hallbarhetsnot 4.
+
+| Resultat 2024 | Antal transaktioner |
+| --- | --- |
+| Initial screening | 971 |
+| Förhöjd hållbarhetsrisk | 92 |
+| varav med risker relaterade till korruption | 61 |
+![table image]({page: 130, x: 305}, {y: 273, {width: 213}, {height: 17})
+
+#### Bruttoexponering per region, 31 december 2024
+
+Sverige 42% (40) Vasteuropa utover Sverige 13% (16) Japan 0% (0) Asien utover Japan 1% (1) Mellanostern/Afrika/Turkiet 11% (11) Nordamerika 14% (16) Latinamerika 13% (13) Central och osteuropa 6% (3)
+
+###### Likviditetsplaceringar:
+
+| Likvida medel | 5 219 | 3 482 |
+| --- | --- | --- |
+| Statsskuldförbindelser/stats obligationer | 4 150 | 11 525 |
+| Andra räntebärande värdepapper än utlåning | 52 843 | 41 561 |
+| Totala likviditetsplaceringar | 62 212 | 56 568 |
+| varav emitterade av offentliga organ | 11 697 | 10 760 |
+![table image]({page: 80, x: 67}, {y: 286, {width: 213}, {height: 8})
+
+Mellanskillnad mellan bokfort varde och det belopp som ska infrias pa forfallodagen for rantebarande vardepapper som inte tas upp till sitt verkliga varde
+
+| Skr mn | 2024 | 2023 |
+| --- | --- | --- |
+| Summa av överstigande belopp | 74 | 51 |
+| Summa av underskridande belopp | -640 | -652 |
+![table image]({page: 80, x: 305}, {y: 181, {width: 221}, {height: 8})
+
+Utestaende utlaning per produktgrupp varav CIRR systemet Finansiella tillgangar fordelade pa redovisningskategorier
+
+| Skr mn | 31 dec 2024 | 31 dec 2023 | 31 dec 2024 | 31 dec 2023 |
+| --- | --- | --- | --- | --- |
+| Utlåning till svenska exportörer | 133 580 | 134 914 | – | – |
+| Utlåning till exportörernas kunder | 149 828 | 148 389 | 101 657 | 101 361 |
+| Total utlåningsportfölj1 | 283 408 | 283 303 | 101 657 | 101 361 |
+![table image]({page: 80, x: 67}, {y: 400, {width: 459}, {height: 8})
+
+1 Inklusive Skr 64 miljoner (174) gallande utvecklingskrediter.
+
+
+<!-- PAGE: 81 -->
+Not 12.
+Klassificering av finansiella tillgangar och skulder Not 13.
+Finansiella tillgangar och skulder till verkligt varde
+
+31 december 2024
+
+- Tillgångar värderade till verkligt värde
+
+- Upplupet anskaffningsvärde
+
+- Summa
+
+Skr mn
+
+| Likvida medel | – | – | 5 219 | 5 219 |
+| --- | --- | --- | --- | --- |
+| Obligatoriskt värderat till verkligt värde | Obligatoriskt värderat till verkligt värde | Derivat i säkrings- redovisning |  |  |
+| Statsskuldförbindelser/Statsobligationer | 4 150 | – | – | 4 150 |
+| Andra räntebärande värdepapper än utlåning | 52 843 | – | – | 52 843 |
+| Utlåning dokumenterad som räntebärande värdepapper | – | – | 48 726 | 48 726 |
+| Utlåning till kreditinstitut | – | – | 13 529 | 13 529 |
+| Utlåning till allmänheten | – | – | 224 354 | 224 354 |
+| Derivat | 8 674 | 1 969 | – | 10 643 |
+| Aktier | 20 | – | – | 20 |
+| Summa finansiella tillgångar | 65 687 | 1 969 | 291 828 | 359 484 |
+| 31 december 2023 |
+|  | Tillgångar värderade till verkligt värde |  | Upplupet anskaffningsvärde | Summa |
+![table image]({page: 81, x: 265}, {y: 194, {width: 183}, {height: 17})
+
+Skr mn
+
+| Likvida medel | – | – | 3 482 | 3 482 |
+| --- | --- | --- | --- | --- |
+| Obligatoriskt värderat till verkligt värde | Obligatoriskt värderat till verkligt värde | Derivat i säkrings- redovisning |  |  |
+| Statsskuldförbindelser/Statsobligationer | 11 525 | – | – | 11 525 |
+| Andra räntebärande värdepapper än utlåning | 41 561 | – | – | 41 561 |
+| Utlåning dokumenterad som räntebärande värdepapper | – | – | 51 227 | 51 227 |
+| Utlåning till kreditinstitut | – | – | 19 009 | 19 009 |
+| Utlåning till allmänheten | – | – | 224 165 | 224 165 |
+| Derivat | 5 686 | 746 | – | 6 432 |
+| Aktier | – | – | – | – |
+| Summa finansiella tillgångar | 58 772 | 746 | 297 883 | 357 401 |
+![table image]({page: 81, x: 265}, {y: 362, {width: 459}, {height: 8})
+
+Finansiella skulder fordelade pa redovisningskategorier
+
+|  | 31 december 2024 |
+| --- | --- |
+|  | Skulder värderade till verkligt värde | Skulder värderade till verkligt värde | Upplupet anskaffningsvärde | Upplupet anskaffningsvärde | Summa |
+| Skr mn | Obligatoriskt värderat till verkligt värde | Identifierad vid första redovisn. (VVO) | Derivat i säkrings- redovisning |
+| Skulder till kreditinstitut | – | – | – | 8 607 | 8 607 |
+| Emitterade (icke efterställda) värdepapper | – | 17 908 | – | 298 480 | 316 388 |
+| Derivat | 2 303 | – | 2 924 | – | 5 227 |
+| Summa finansiella skulder | 2 303 | 17 908 | 2 924 | 307 087 | 330 222 |
+| 31 december 2023 |
+|  | Skulder värderade till verkligt värde |  |  | Upplupet anskaffningsvärde | Summa |
+![table image]({page: 81, x: 338}, {y: 513, {width: 176}, {height: 17})
+
+| Skr mn | Obligatoriskt värderat till verkligt värde | Identifierad vid första redovisn. (VVO) | Derivat i säkrings- redovisning |
+| --- | --- | --- | --- |
+| Skulder till kreditinstitut | – | – | – | 3 628 | 3 628 |
+| Emitterade (icke efterställda) värdepapper | 0 | 20 499 | – | 293 609 | 314 108 |
+| Derivat | 9 469 | – | 3 168 | – | 12 637 |
+| Summa finansiella skulder | 9 469 | 20 499 | 3 168 | 297 237 | 330 373 |
+![table image]({page: 81, x: 67}, {y: 662, {width: 459}, {height: 8})
+
+
+<!-- PAGE: 82 -->
+|  | 31 december 2024 |
+| --- | --- |
+| Skr mn | Bokfört värde | Verkligt värde | Övervärde (+)/ undervärde (–) |
+| Likvida medel | 5 219 | 5 219 | – |
+| Statsskuldsförbindelser/Statsobligationer | 4 150 | 4 150 | – |
+| Andra räntebärande värdepapper än utlåning | 52 843 | 52 843 | – |
+| Utlåning dokumenterad som värdepapper | 48 726 | 49 951 | 1 225 |
+| Utlåning till kreditinstitut | 13 529 | 13 863 | 334 |
+| Utlåning till allmänheten | 224 354 | 223 945 | -409 |
+| Derivat | 10 643 | 10 643 | – |
+| Aktier | 20 | 20 | – |
+| Summa finansiella tillgångar | 359 484 | 360 634 | 1 150 |
+| Skulder till kreditinstitut | 8 607 | 8 607 | – |
+| Emitterade (icke efterställda) värdepapper | 316 388 | 316 375 | -13 |
+| Derivat | 5 227 | 5 227 | – |
+| Summa finansiella skulder | 330 222 | 330 209 | -13 |
+| 31 december 2023 |
+| Skr mn | Bokfört värde | Verkligt värde | Övervärde (+)/ undervärde (–) |
+| Likvida medel | 3 482 | 3 482 | – |
+| Statsskuldsförbindelser/Statsobligationer | 11 525 | 11 525 | – |
+| Andra räntebärande värdepapper än utlåning | 41 561 | 41 561 | – |
+| Utlåning dokumenterad som värdepapper | 51 227 | 52 519 | 1 292 |
+| Utlåning till kreditinstitut | 19 009 | 19 260 | 251 |
+| Utlåning till allmänheten | 224 165 | 223 759 | -406 |
+| Derivat | 6 432 | 6 432 | – |
+| Aktier | – | – | – |
+| Summa finansiella tillgångar | 357 401 | 358 538 | 1 137 |
+| Skulder till kreditinstitut | 3 628 | 3 628 | – |
+| Emitterade (icke efterställda) värdepapper | 314 108 | 313 931 | -177 |
+| Derivat | 12 637 | 12 637 | – |
+| Summa finansiella skulder | 330 373 | 330 196 | -177 |
+![table image]({page: 82, x: 378}, {y: 145, {width: 459}, {height: 8})
+
+Storre delen av de finansiella skulderna och till viss del de finansiella tillgangarna redovisas till verkligt varde eller till ett varde som repre senterar verkligt varde for komponenterna som sakrats i sakrings relation.
+Utlaning och Upplaning som inte ar foremal for sakrings redovisning eller klassificerade som VVO redovisas till upplupet anskaffningsvarde.
+
+Faststallande av verkligt varde pa finansiella instrument Det basta beviset pa verkligt varde ar publicerade prisnoteringar pa en aktiv marknad.
+Majoriteten av SEK:s finansiella instrument ar inte publikt handlade och noterade marknadspriser ar inte tillgangliga.
+
+Verkligt varde varderingen klassificeras enligt en verkligt varde hierarki.
+For finansiella instrument sker en uppdelning pa de tre niva erna i IFRS verkligt varde hierarkin vilka reflekterar betydelsen av indata.
+Instrumentens uppdelning baseras pa den lagsta nivans indata som ar vasentlig for verkligt varde varderingen i sin helhet.
+
+SEK utgar ifran foljande uppdelning for att faststalla metoder som anvants for framtagande av verkligt varde for finansiella instrument
+
+- • Nivå 1: noterade (ojusterade) priser på aktiv marknad för identiska tillgångar eller skulder;
+
+- • Nivå 2: värderingsmodeller där marknadsdata som har signifikant påverkan på verkligt värde är observerbar, antingen direkt eller indi- rekt; och
+
+- • Nivå 3: värderingsmodeller som använder observerbar marknads- data men där det finns inslag av egna uppskattningar där dessa upp- skattningar har en signifikant påverkan på verkligt värde.
+
+Mer information om faststallande av verkligt varde pa finansiella instrument finns i not 1 (f).
+
+Vid uppskattningen eller harledningen av verkliga varden for poster redovisade till upplupet anskaffningsvarde har vissa antaganden gjorts.
+I de fall da noterade marknadsvarden finns tillgangliga for posterna i fraga har sadana varden anvants.
+
+I foljande tabeller visas hur verkliga varden for poster redovisade till upplupet anskaffningsvarde respektive redovisade till verkligt varde fordelas enligt verkligt varde hierarkin.
+
+
+<!-- PAGE: 83 -->
+fortsattning not 13 fortsattning not 13
+
+Finansiella tillgangar redovisade till upplupet anskaffningsvarde fordelade i verkligt varde hierarki 31 december 2024 Finansiella skulder redovisade till verkligt varde fordelade i verkligt varde hierarki
+
+| Skr mn | Nivå 1 | Nivå 2 | Nivå 3 | Summa | Summa |
+| --- | --- | --- | --- | --- | --- |
+| Låne- och kundfordringar | Verkligt värde | Verkligt värde | Verkligt värde | Bokfört värde | Bokfört värde |
+| Likvida medel | 5 219 | – | – | 5 219 | 5 219 |
+| Utlåning dokumenterad som värdepapper | 648 | 49 303 | – | 49 951 | 48 726 |
+| Utlåning till kreditinstitut | – | 13 863 | – | 13 863 | 13 529 |
+| Utlåning till allmänheten | – | 223 945 | – | 223 945 | 224 354 |
+| Summa finansiella tillgångar i verkligt värde-hierarki | 5 867 | 287 111 | – | 292 978 | 291 828 |
+| 31 december 2023 |
+| Låne- och kundfordringar |  | Verkligt värde |  |  | Bokfört värde |
+| Skr mn | Nivå 1 | Nivå 2 | Nivå 3 | Summa | Summa |
+| Likvida medel | 3 482 | – | – | 3 482 | 3 482 |
+| Utlåning dokumenterad som värdepapper | 1 146 | 51 373 | – | 52 519 | 51 227 |
+| Utlåning till kreditinstitut | – | 19 260 | – | 19 260 | 19 009 |
+| Utlåning till allmänheten | – | 223 759 | – | 223 759 | 224 165 |
+| Summa finansiella tillgångar i verkligt värde-hierarki | 4 628 | 294 392 | – | 299 020 | 297 883 |
+| Finansiella skulder redovisade till upplupet anskaffningsvärde fördelade i verkligt värde-hierarki |
+| 31 december 2024 |
+| Övriga finansiella skulder |  | Verkligt värde |  |  | Bokfört värde |
+| Skr mn | Nivå 1 | Nivå 2 | Nivå 3 | Summa | Summa |
+| Skulder till kreditinstitut | – | 8 607 | – | 8 607 | 8 607 |
+| Emitterade värdepapper | – | 298 467 | – | 298 467 | 298 480 |
+| Summa finansiella skulder i verkligt värde-hierarki | – | 307 074 | – | 307 074 | 307 087 |
+| 31 december 2023 |
+| Övriga finansiella skulder |  | Verkligt värde |  |  | Bokfört värde |
+| Skr mn | Nivå 1 | Nivå 2 | Nivå 3 | Summa | Summa |
+| Skulder till kreditinstitut | – | 3 628 | – | 3 628 | 3 628 |
+| Emitterade värdepapper | – | 293 433 | – | 293 433 | 293 609 |
+| Summa finansiella skulder i verkligt värde-hierarki | – | 297 061 | – | 297 061 | 297 237 |
+| Finansiella tillgångar redovisade till verkligt värde fördelade i verkligt värde-hierarki |
+| 31 december 2024 |
+| Skr mn | Nivå 1 |  | Nivå 2 | Nivå 3 | Summa |
+| Statsskuldförbindelser/Statsobligationer | – |  | 4 150 | – | 4 150 |
+| Andra räntebärande värdepapper än utlåning | 22 628 |  | 30 215 | – | 52 843 |
+| Derivat | – |  | 10 604 | 39 | 10 643 |
+| Aktier | 20 |  | – | – | 20 |
+| Summa finansiella tillgångar i verkligt värde-hierarki | 22 648 |  | 44 969 | 39 | 67 656 |
+| 31 december 2023 |
+| Skr mn | Nivå 1 |  | Nivå 2 | Nivå 3 | Summa |
+| Statsskuldförbindelser/Statsobligationer | 1 030 |  | 10 495 | – | 11 525 |
+| Andra räntebärande värdepapper än utlåning | 17 161 |  | 24 400 | – | 41 561 |
+| Derivat | – |  | 6 377 | 55 | 6 432 |
+| Aktier | – |  | – | – | – |
+| Summa finansiella tillgångar i verkligt värde-hierarki | 18 191 |  | 41 272 | 55 | 59 518 |
+![table image]({page: 83, x: 67}, {y: 151, {width: 459}, {height: 8})
+
+
+<!-- PAGE: 84 -->
+|  | 31 december 2024 |
+| --- | --- |
+| Skr mn | Nivå 1 | Nivå 2 | Nivå 3 | Summa |
+| Emitterade värdepapper | – | 14 456 | 3 452 | 17 908 |
+| Derivat | – | 3 737 | 1 490 | 5 227 |
+| Summa finansiella skulder i verkligt värde-hierarki | – | 18 193 | 4 942 | 23 135 |
+| 31 december 2023 |
+| Skr mn | Nivå 1 | Nivå 2 | Nivå 3 | Summa |
+| Emitterade värdepapper | – | 12 228 | 8 271 | 20 499 |
+| Derivat | – | 10 303 | 2 334 | 12 637 |
+| Summa finansiella skulder i verkligt värde-hierarki | – | 22 531 | 10 605 | 33 136 |
+![table image]({page: 84, x: 367}, {y: 139, {width: 459}, {height: 8})
+
+Inga flyttar har gjorts under perioden (2023 flytt fran niva 3 till niva 2 har gjorts med Skr 11 291 miljoner for emitterade vardepapper och Skr -27 miljoner for derivat).
+
+Finansiella tillgangar och skulder till verkligt varde i niva 3 Kanslighetsanalys i niva 3
+
+| Skr mn | 1 jan 2024 Förvärv/ emitterat | Förfall & av yttrat | Flytt till nivå 3 | Flytt från nivå 3 | Vinster (+) och förluster (–) via resultatet1 | Vinster (+) och förluster (-) via övrigt total resultat | Valuta- kurs- effekt | 31 dec 2024 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+|  | 31 december 2024 | 31 december 2024 | 31 december 2024 | 31 december 2024 | 31 december 2024 |  |  |  |
+| Emitterade värdepapper | -8 271 – | 4 870 | – | – | -81 | 3 | 27 | -3 452 |
+| Derivat, netto | -2 279 – | 1 176 | – | – | 92 | – | -440 | -1 451 |
+| Netto tillgångar och skulder | -10 550 – | 6 046 | – | – | 11 | 3 | -413 | -4 903 |
+| 31 december 2023 |
+| Skr mn | 1 jan 2023 Förvärv/ emitterat | Förfall & av yttrat | Flytt till nivå 3 | Flytt från nivå 3 | Vinster (+) och förluster (–) via resultatet1 | Vinster (+) och förluster (-) via övrigt total resultat | Valuta- kurs- effekt | 31 dec 2023 |
+| Emitterade värdepapper | -26 536 -180 | 10 202 | -1 912 | 11 291 | -1 927 | -207 | 998 | -8 271 |
+| Derivat, netto | -4 516 – | 1 416 | – | -27 | 1 419 | – | -571 | -2 279 |
+| Netto tillgångar och skulder | -31 052 -180 | 11 618 | -1 912 | 11 264 | -508 | -207 | 427 | -10 550 |
+![table image]({page: 84, x: 338}, {y: 318, {width: 459}, {height: 8})
+
+1 Vinster och forluster via resultatet inklusive valutakurspaverkan redovisas som rantenetto och nettoresultat av finansiella transaktioner.
+Den under perioden orealiserade vardeforandringen for tillgangar och skulder inklusive valutakurspaverkan som per 31 december 2024 uppgick till Skr 1 miljon i vinst (-27 miljoner i forlust) och redovisas som nettoresultat av finansiella transaktioner.
+
+Osakerhet i varderingen av Niva 3 instrument Bedomningen av parametrarna som ingar i modeller for att rakna mark nadsvarde pa niva 3 instrument ar forknippad med subjektivitet och osakerhet.
+SEK har darfor gjort en analys av skillnad i varderingen av niva 3 instrument under andra rimliga forhallanden.
+Instrumenten i niva 3 varderas med hjalp av modeller for optionsvardering och genom att diskontera instrumentets framtida kassafloden.
+For de niva 3 in strument som paverkas vasentligt av icke observerbar marknadsdata i form av korrelationer har en omvardering utforts dar korrelationerna skiftats.
+Korrelationen uttrycks som ett varde mellan 1 och -1 dar 0 anger inget samband 1 anger maximalt positivt samband och -1 anger maximalt negativt samband.
+Den maximala korrelationen i intervallet for icke observerbar indata kan saledes bli fran 1 till -1.
+Omvarderingen sker genom att justera korrelationerna med +/- 0,12 vilket motsvarar den niva som SEK anvander inom ramen for forsiktig vardering.
+For de niva 3 instrument som paverkas vasentligt av icke observerbar mark nadsdata i form av SEK:s egen kreditvardighet har en omvardering utforts dar kurvan har skiftats.
+Omvarderingen sker genom att justera kreditspreaden med +/- 10 baspunkter vilket har bedomts som rimliga forandringar av SEK:s kreditspread.
+Analysen visar paverkan av icke observerbar marknadsdata pa marknadsvardet.
+Utover detta paverkas marknadsvardet aven av observerbar marknadsdata.
+Resultatet av ana lysen stammer val overens med SEK:s affarsmodell dar emitterade var depapper som ar sammansatta med derivat sakras genom att anvanda derivat.
+Samma underliggande marknadsdata anvands i varderingen av bade det emitterade vardepappret och av derivatet som sakrar trans aktionen.
+Detta innebar att en vardeforandring pa det emitterade varde pappret exklusive paverkan av vardet i SEK:s egna kreditspread kom mer att motverkas av en motsvarande vardeforandring pa derivatet.
+
+
+<!-- PAGE: 85 -->
+fortsattning not 13
+
+| Tillgångar och skulder | 31 december 2024 |
+| --- | --- |
+| Skr mn | Verkligt värde | Icke observerbar indata | Intervall för icke observerbar indata | Värderings metod | Känslighet Max | Känslighet Min |
+| Aktie | -70 | Korrelation | 0,12 - (0,12) | Optionsmodell | 0 | 0 |
+| Ränta | 0 | Korrelation | 0,12 - (0,12) | Optionsmodell | 0 | 0 |
+| Valuta | -1 263 | Korrelation | 0,12 - (0,12) | Optionsmodell | -18 | 18 |
+| Övriga | -118 | Korrelation | 0,12 - (0,12) | Optionsmodell | 0 | 0 |
+| Summa derivat netto | -1 451 |  |  |  | -18 | 18 |
+| Aktie | -55 | Korrelation | 0,12 - (0,12) | Optionsmodell | 0 | 0 |
+|  |  | Kreditspread | 10BP - (10BP) | Diskonterade kassaflöden | 0 | 0 |
+| Ränta | 0 | Korrelation | 0,12 - (0,12) | Optionsmodell | 0 | 0 |
+|  |  | Kreditspread | 10BP - (10BP) | Diskonterade kassaflöden | 0 | 0 |
+| Valuta | -3 272 | Korrelation | 0,12 - (0,12) | Optionsmodell | 18 | -18 |
+|  |  | Kreditspread | 10BP - (10BP) | Diskonterade kassaflöden | 16 | -16 |
+| Övriga | -125 | Korrelation | 0,12 - (0,12) | Optionsmodell | 0 | 0 |
+|  |  | Kreditspread | 10BP - (10BP) | Diskonterade kassaflöden | 0 | 0 |
+| Summa emitterade värdepapper | -3 452 |  |  |  | 34 | -34 |
+| Total påverkan på total resultatet |  |  |  |  | 16 | -16 |
+| Tillgångar och skulder |  |  | 31 december 2023 |  |  |  |
+| Skr mn | Verkligt värde | Icke observerbar indata | Intervall för icke observerbar indata | Värderings metod | Känslighet Max | Känslighet Min |
+| Aktie | -997 | Korrelation | 0,12 - (0,12) | Optionsmodell | 0 | 0 |
+| Ränta | 0 | Korrelation | 0,12 - (0,12) | Optionsmodell | 0 | 0 |
+| Valuta | -1 156 | Korrelation | 0,12 - (0,12) | Optionsmodell | -22 | 22 |
+| Övriga | -126 | Korrelation | 0,12 - (0,12) | Optionsmodell | 0 | 0 |
+| Summa derivat netto | -2 279 |  |  |  | -22 | 22 |
+| Aktie | -3 594 | Korrelation | 0,12 - (0,12) | Optionsmodell | 0 | 0 |
+|  |  | Kreditspread | 10BP - (10BP) | Diskonterade kassaflöden | 1 | -1 |
+| Ränta | 0 | Korrelation | 0,12 - (0,12) | Optionsmodell | 0 | 0 |
+|  |  | Kreditspread | 10BP - (10BP) | Diskonterade kassaflöden | 0 | 0 |
+| Valuta | -4 529 | Korrelation | 0,12 - (0,12) | Optionsmodell | 23 | -23 |
+|  |  | Kreditspread | 10BP - (10BP) | Diskonterade kassaflöden | 22 | -22 |
+| Övriga | -148 | Korrelation | 0,12 - (0,12) | Optionsmodell | 0 | 0 |
+|  |  | Kreditspread | 10BP - (10BP) | Diskonterade kassaflöden | 1 | -1 |
+| Summa emitterade värdepapper | -8 271 |  |  |  | 47 | -47 |
+| Total påverkan på total resultatet |  |  |  |  | 25 | -25 |
+![table image]({page: 85, x: 67}, {y: 145, {width: 459}, {height: 17})
+
+Kanslighetsanalysen visar den effekt en forskjutning av korrelationer samt SEK:s egen kreditspread har pa det verkliga vardet av niva 3 instrument.
+Tabellen visar maximal positiv och negativ vardeforand ring da korrelationer samt kreditspread skiftas med +/- 0,12 respektive +/- 10 baspunkter.
+Vid sammanstallning av total maximal och minimal paverkan pa totalresultatet anvands det mest gynnsamma respektive ogynnsamma skiftet for varje korrelation vid beaktande av den totala exponering som uppstar fran emitterade vardepapper tillsammans med sakrande derivat.
+
+
+<!-- PAGE: 86 -->
+fortsattning not 13 fortsattning not 14
+
+Verkligt varde relaterat till kreditrisk Redovisade vardet av sakrad post i verkligt varde samband och den ackumulerade verkligt varde justeringen som ingar i det redovisade vardet
+
+| Skr mn | 31 december 2024 | 31 december 2023 | 2024 | 2023 |
+| --- | --- | --- | --- | --- |
+|  | Verkligt värde som härrör från kreditrisk (- skulder ökar/ + skulder minskar) | Verkligt värde som härrör från kreditrisk (- skulder ökar/ + skulder minskar) | Periodens förändring i verkligt värde som härrör från kreditrisk (+ intäkt/ - förlust) | Periodens förändring i verkligt värde som härrör från kreditrisk (+ intäkt/ - förlust) |
+| Netto CVA/DVA1 | -17 | -39 | 22 | 11 |
+| OCA2 | 265 | -55 | 320 | -23 |
+![table image]({page: 86, x: 226}, {y: 139, {width: 459}, {height: 8})
+
+1 Credit value adjustment (CVA) och Debt value adjustment (DVA) speglar hur motpartens kreditrisk respektive SEK:s egen kreditvardighet paverkar derivatets verkliga varde.
+
+2 Own credit adjustment (OCA) speglar hur forandringar i SEK:s egen kreditvardighet paverkar det verkliga vardet for finansiella skulder klassificerade till verkligt varde via resultatet.
+
+Not 14.
+Derivat och sakringsredovisning Derivat fordelade pa kategorier
+
+|  | 31 december 2024 | 31 december 2023 |
+| --- | --- | --- |
+| Skr mn | Tillgångar verkligt värde | Skulder verkligt värde | Nominellt värde1 | Tillgångar verkligt värde | Skulder verkligt värde | Nominellt värde1 |
+| Ränterelaterade kontrakt | 5 066 | 919 | 531 122 | 3 918 | 1 720 | 483 545 |
+| varav i verkligt värdesäkring | 525 | 358 | 261 126 | -980 | 486 | 258 157 |
+| varav i kassaflödessäkring | -4 | – | 5 000 | -60 | – | 5 000 |
+| Valutarelaterade kontrakt | 5 577 | 4 120 | 154 836 | 2 509 | 9 789 | 158 019 |
+| varav i verkligt värdesäkring | 1 448 | 2 566 | 35 260 | 1 786 | 2 682 | 36 236 |
+| Aktierelaterade kontrakt | – | 70 | 90 | 5 | 1 002 | 3 722 |
+| Kontrakt relaterade till råvaror, kreditrisk m m | – | 118 | 4 648 | – | 126 | 5 533 |
+| Summa derivatinstrument2 1 Avser nominellt värde innan kvittning av derivat. 2 Samtliga derivat används för ekonomisk säkring. | 10 643 | 5 227 | 690 696 | 6 432 | 12 637 | 650 819 |
+| Löptidsanalys nominellt värde för säkringsinstrument 31 december 2024 |
+| Skr mn | < 1 år |  | 1 år < 5 år | > 5 år | Nominellt värde |  |
+| Ränterelaterade kontrakt |
+| Säkring av fasträntad tillgång | 70 503 |  | 148 112 | 37 929 |  | 256 544 |
+| Säkring av fasträntad skuld | 5 000 |  | – | – |  | 5 000 |
+| Säkring av tillgång med rörlig ränta | 1 155 |  | 1 194 | 2 233 |  | 4 582 |
+| Valutarelaterade kontrakt |
+| Säkring av fasträntad tillgång | 452 |  | 11 936 | 6 062 |  | 18 450 |
+| Säkring av fasträntad skuld | 8 199 |  | 7 966 | 646 |  | 16 811 |
+| 31 december 2023 |
+| Skr mn | < 1 år |  | 1 år < 5 år | > 5 år | Nominellt värde |  |
+| Ränterelaterade kontrakt |
+| Säkring av fasträntad tillgång | 58 119 |  | 168 837 | 25 436 |  | 252 392 |
+| Säkring av fasträntad skuld | – |  | 2 301 | 3 464 |  | 5 765 |
+| Säkring av tillgång med rörlig ränta | – |  | 5 000 | – |  | 5 000 |
+| Valutarelaterade kontrakt |
+| Säkring av fasträntad tillgång | 152 |  | 13 371 | 5 777 |  | 19 300 |
+| Säkring av fasträntad skuld | 2 583 |  | 12 908 | 1 445 |  | 16 936 |
+![table image]({page: 86, x: 287}, {y: 291, {width: 459}, {height: 8})
+
+
+<!-- PAGE: 87 -->
+|  | 31 december 2024 | 31 december 2023 |
+| --- | --- | --- |
+| Skr mn | Bokfört värde | Verkligt värde- justering | Bokfört värde | Verkligt värde- justering |
+| Tillgångar |
+| Utlåning dokumenterad som räntebärande värdepapper | 15 979 | -598 | 12 852 | -648 |
+| Utlåning till kreditinstitut | 1 058 | – | 1 002 | -15 |
+| Utlåning till allmänheten | 12 315 | -44 | 12 612 | -127 |
+| Summa | 29 352 | -642 | 26 466 | -790 |
+|  | 31 december 2024 |  | 31 december 2023 |  |
+| Skulder |
+| Skr mn | Bokfört värde | Verkligt värde- justering | Bokfört värde | Verkligt värde- justering |
+| Emitterade värdepapper | 256 459 | 378 | 256 561 | -1 622 |
+| Summa | 256 459 | 378 | 256 561 | -1 622 |
+![table image]({page: 87, x: 293}, {y: 148, {width: 459}, {height: 8})
+
+For upplysning om sakringsineffektivitet av verkligt vardesakringar se not 4.
+Kassaflodessakringens effektivitet SEK:s riskhanteringsstrategi och syfte ar att identifiera vasentliga valu takurs och ranteexponeringar och hantera dessa riskexponeringar med lampliga derivatinstrument eller alternativ till dessa.
+SEK har mal sattningen att sa langt som mojligt uppna verkligt varde sakringsredo visning for transaktioner som anvands for ekonomisk sakring.
+
+| Skr mn | 2024 | 2023 |
+| --- | --- | --- |
+| Förändringar i verkligt värde för säkringsinstrument | 56 | 63 |
+| Förändringar i värde för säkrade poster som används för redovisning av säkringsineffektivitet | -58 | -60 |
+| Säkringsineffektivitet redovisad i resultaträkningen1 | – | – |
+| Vinster/förluster från säkringar som redovisats under övrigt totalresultat | 56 | 63 |
+![table image]({page: 87, x: 67}, {y: 340, {width: 459}, {height: 8})
+
+1 Redovisat under posten nettoresultat av finansiella transaktioner.
+
+Reserv for kassaflodessakring
+
+| Skr mn | 2024 | 2023 |
+| --- | --- | --- |
+| Ingående balans 1 januari | -47 | -97 |
+| Värdeförändringar | 126 | 122 |
+| Skatt på värdeförändringar | -26 | -25 |
+| Omklassificering till resultaträkningen | -71 | -59 |
+| Skatt på omklassificering till resultaträkningen | 15 | 12 |
+| Övrigt totalresultat, netto efter skatt | 44 | 50 |
+| Totalresultat | 44 | 50 |
+| Utgående balans 31 december | -3 | -47 |
+| varav fortlöpande säkringar för vilka säkringsredovisning tillämpas | -3 | -47 |
+| varav säkringsförhållande för vilka säkringsredovisning inte längre tillämpas | – | – |
+![table image]({page: 87, x: 67}, {y: 437, {width: 451}, {height: 8})
+
+
+<!-- PAGE: 88 -->
+fortsattning not 14
+
+SEK satter rantevillkor primart baserat pa olika behov och preferen ser for lantagare och motparter.
+Tillgangar och skulder kan darfor ha olika fasta ranteloptider vilket leder till ranterisk.
+Genom att anvanda derivat omvandlas den ursprungliga ranterisken i tillgangar och skul der fran fast till rorliga rantevillkor i valutor pa val fungerande markna der sasom EUR USD och Skr.
+
+Det ar SEK:s malsattning att mitigera risken for forandringar i verk ligt varde for den sakrade posten pa grund av forandringar i referens ranta genom att omvandla en fast ranta for en finansiell tillgang eller skuld till en rorlig ranta.
+SEK anvander ranteswappar eller delar av dessa for att sakra fast till rorlig ranta.
+
+SEK utlaning och upplaning sker i olika valutor baserade pa onske mal fran lantagare och investorer.
+Utlaning och upplaning sker darfor sallan i samma valuta och motverkar darfor inte varandra.
+Valutaex poneringen mellan olika transaktioner ar fullt matchade genom olika valutaderivat.
+Det ar SEK:s malsattning att mitigera risken for forand ring i verkligt varde pa grund av forandringar i valutakurs och referens ranta genom att omvandla en fast ranta for en finansiell tillgang eller skuld till en tillgang eller skuld i svenska kronor med rorlig ranta.
+SEK anvander valutaranteswappar for dessa sakringar.
+
+ovriga upplysningar avseende SEK:s sakringsredovisning aterfinns i avsnittet om Risk och kapitalhantering Rapport over forandring i eget kapital not 1 samt not 4.
+
+Inom ramarna for SEK:s policy med avseende pa motparts rante valuta och ovriga risker anvander sig SEK av och ar SEK part i olika slag av derivat huvudsakligen rante och valuta kurs relaterade avtal.
+Dessa instrument redovisas till verkligt varde i rapport over finansiell stallning baserat pa vardet per kontrakt.
+
+SEK anvander avtal for att sakra riskexponering hanforlig till finan siella tillgangar och skulder.
+Derivat ar varderade till verkligt varde med hjalp av noterade marknadspriser om sadana finns att tillga.
+Om marknadspriser inte ar tillgangliga anvands varderingsmodeller.
+SEK anvander modeller for att justera nettoexponeringens verkliga varde for forandringar i motpartens kreditkvalitet.
+De modeller som anvands omfattar bade direkt observerbara och harledda marknadsparametrar.
+
+Majoriteten av SEK:s derivatkontrakt ar sa kallade OTC derivat det vill saga derivatkontrakt for vilka avslut ej sker pa en bors.
+SEK:s derivattransaktioner som inte gors pa en bors sker under ISDA Mas teravtal.
+Under sadana avtal aggregeras alla positiva och negativa var den med en och samma motpart inom varje valuta till ett nettobelopp som ska betalas fran en motpart till en annan.
+Vid specifika handelser sasom vid en utebliven betalning avslutas alla utestaende transaktio ner som omfattas av avtalet en vardering sker och samtliga transaktio ner regleras netto.
+SEK har for avsikt att enbart inga derivattransaktio ner med motparter i jurisdiktioner dar det finns en legal ratt att kvitta de redovisade beloppen vid betalning nar sadana handelser intraffar.
+
+De ovan namnda ISDA Masteravtalen uppfyller inte kriterierna for kvittning i rapporten over finansiell stallning pa grund av att den legala kvittningsratten av redovisade belopp galler enbart i handelse av en angiven typ av betalningsinstallelse insolvens eller konkurs av SEK eller motparten.
+Darutover sa har inte SEK och dess motparter for avsikt att reglera posterna med ett nettobelopp eller samtidigt reali sera tillgangen och reglera skulden.
+
+ISDA Masteravtalet kompletteras med tillaggsavtal som reglerar mot partsrisken med sakerheter.
+SEK tar emot och accepterar saker heter i form av kontanta medel.
+Sadana sakerheter ar foremal for standardise rade avtalskonstruktioner genom ISDA Credit Support Annex.
+
+Upplysningarna i tabellerna nedan inkluderar finansiella tillgangar och finansiella skulder som ar foremal for ett rattsligt bindande ram avtal om nettning eller liknande avtal som tacker finansiella instru ment.
+SEK har enbart derivattransaktioner som ar foremal for rattsligt bindande ramavtal om nettning eller liknande avtal.
+Derivattillgangar och derivatskulder gentemot centrala motparter for clearing kvittas i rapport over finansiell stallning.
+
+Finansiella tillgangar som ar foremal for kvittning ratts ligt bindande ramavtal om nettning och liknande avtal
+
+| Skr mn | 31 dec 2024 | 31 dec 2023 |
+| --- | --- | --- |
+| Bruttobelopp för finansiella tillgångar | 13 328 | 10 705 |
+| Belopp som kvittas i rapporten över finansiell ställning | -2 685 | -4 273 |
+| Nettobelopp för finansiella till- gångar som presenteras i rapporten över finansiell ställning | 10 643 | 6 432 |
+| Belopp som omfattas av rättsligt | bindande avtal om nettning eller | liknande avtal relaterade till: |
+| Finansiella instrument | -1 881 | -2 049 |
+| Mottagna kontantsäkerheter | -7 997 | -3 573 |
+| Nettobelopp | 765 | 810 |
+| Finansiella skulder som är föremål för kvittning, rättsligt bindande ramavtal om nettning och liknande avtal |
+| Skr mn | 31 dec 2024 | 31 dec 2023 |
+| Bruttobelopp för finansiella skulder | 7 912 | 16 910 |
+| Belopp som kvittas i rapporten över finansiell ställning | -2 685 | -4 273 |
+| Nettobelopp för finansiella skulder som presenteras i rapporten över finansiell ställning | 5 227 | 12 637 |
+| Belopp som omfattas av rättsligt | bindande avtal om nettning eller | liknande avtal relaterade till: |
+| Finansiella instrument | -1 881 | -2 049 |
+| Erlagda kontantsäkerheter | -3 170 | -10 353 |
+| Nettobelopp | 176 | 235 |
+![table image]({page: 88, x: 305}, {y: 257, {width: 221}, {height: 8})
+
+
+<!-- PAGE: 89 -->
+
+#### Skattekostnader
+
+Skattekostnaderna uppgick till Skr -438 miljoner (-324) varav Skr -436 miljoner (-323) utgjorde aktuell skatt och Skr -2 mil joner (-1) utgjordes av uppskjuten skatt.
+Den effektiva skatte satsen uppgick till 20,7 procent (20,7) att jamfora med den nominella skattesatsen for 2024 pa 20,6 procent (20,6).
+
+ovrigt totalresultat
+
+| Skr mn | 2024 | 2023 |  |  |  |  |
+| --- | --- | --- | --- | --- | --- | --- |
+| Poster som kommer att omklassifice- ras till rörelseresultatet | 56 | 63 |  |  |  |  |
+| varav derivat i kassaflödessäkring | 56 | 63 |  |  |  |  |
+| Poster som inte kommer att omklassi- ficeras till rörelseresultatet | 311 | -29 |  |  |  |  |
+| varav egen kreditrisk | 320 | -23 |  |  |  |  |
+| varav omvärdering av förmåns- bestämda pensionsplaner | -9 | -6 |  |  |  |  |
+| Övrigt totalresultat före skatt | 367 | 34 |  |  |  |  |
+| Posten övrigt totalresultat före skatt uppgick till Skr 367 mil joner (34). Resultatet förklaras främst av positivt resul- tat kopplat till förändring i egen kreditrisk drivet av ökade kreditspreadar på långa löptider i euro. Därutöver påverkas resultatet positivt från derivat i kassaflödessäkring till följd av minskande återstående löptid. |
+| Avkastning på eget kapital Avkastningen efter skatt på eget kapital uppgick till 7,1 pro- cent (5,6). |
+| Rapport över finansiell ställning Totala tillgångar och likviditet Totala tillgångar ökade med 1 procent jämfört med års skiftet 2023. En ökad volym likviditetsplaceringar drev ökningen i bolagets tillgångar. |
+|  |  |  | Skr mdr | 2024 | 2023 | För ändring |
+|  |  |  | Totala tillgångar | 368,1 | 365,9 | 1% |
+|  |  |  | Likviditetsplaceringar | 62,2 | 56,6 | 10% |
+|  |  |  | Total utlåningsportfölj | 283,4 | 283,3 | 0% |
+|  |  |  | varav hållbarhets- klassad utlåning | 53,4 | 44,6 | 20% |
+|  |  |  | varav CIRR-krediter | 101,7 | 101,4 | 0% |
+![table image]({page: 27, x: 67}, {y: 346, {width: 210}, {height: 9})
+
+####### Hållbarhetsklassad utlåning
+######## KULTUR
+######### Strategiska mål
+
+Hallbarhetsklassad utlaning Na Skr 150 miljarder (2035) Nettonoll vaxthusgasutslapp (2045)
+
+######### Varför?
+
+Den globala uppvarmningen ar en av samtidens storsta utmaningar.
+SEK har ett stort ansvar att mojliggora kapital floden till mer hallbara investeringar.
+Under aret har SEK fortsatt arbetet med att stotta bolagets kunder i en klimat omstallning i linje med Parisavtalets 1,5-gradersmal.
+
+53
+
+45
+
+2023 20242022 33
+
+SEK ar en attraktiv arbetsgivare
+
+###### Riskkontroll
+
+SEK:s ramverk for internkontroll foljer COSO regelverkets principer och baseras pa fem huvudkomponenter Styr och kontrollmiljon Riskbedomning Information och Kommunikation samt overvakande aktiviteter.
+Syftet med SEK:s ramverk for internkontroll ar att tillse att saval verksamheten som kontrollfunktionerna ar effektiva och anda malsenliga att verksamheten bedrivs pa ett ansvarsfullt satt att den finansiella och icke finansiella informationen som rapporteras ar till forlitlig samt att interna och externa regler efterlevs • Affar i) Projekt och projektrelaterad finansiering klassificeras ut ifran potentiell social och miljomassig paverkan enligt OECD:s riktlinjer for social och miljomassig hansyn vid statsstodda export krediter eller Ekvatorprinciperna.
+Kategori A-projekt innebar risk for pataglig potentiell paverkan kategori B-projekt innebar viss potentiell paverkan och kategori C-projekt ingen eller liten poten tiell paverkan.
+ii) ovriga affarer analyseras for att bedoma risker for korruption negativ miljo eller klimat paverkan negativ paverkan pa manskliga rattigheter och arbetsvillkor samt risk for penningtvatt finansiering av terrorism och icke transparent skattejurisdiktion.
+
+###### Sociala1
+
+| Arbetsvillkor | Utlåningsportföljens exponering mot projekt och verk- samheter med betydande potentiell negativ påverkan; till exempel gruvor och olika infrastrukturprojekt. |  |  |
+| --- | --- | --- | --- |
+| SEK har en direkt påverkan på samtliga arbetstagare som är anställda av SEK samt även externa konsulter som vistas på SEK:s arbetsplatser. |
+| samhällen inklusive i vissa fall även ursprungsbefolkningar; till exempel stora infrastrukturprojekt. |
+| Utlåningsportföljens exponering mot projekt och verk- | samheter med betydande potentiell negativ påverkan på | konsumenter och slutanvändare; till exempel telekom, | försvarsindustri samt medicinsk utrustning. |
+| SEK:s affärsmodell är beroende av kompetent och engagerad personal. Kompetensförsörj- ningen kan både underlättas och försvåras, beroende på befintliga och potentiella arbets- tagares uppfattning om SEK:s hantering. |
+| Kreditrisk och Finansieringsrisk, se beskrivning för de miljömässiga frågorna ovan. |
+| Se hållbar- hetsnot 6. Egna medar- betare samt hållbarhetsnot |
+| 7. Arbets- | villkor och | mänskliga | rättigheter. |
+| Jämlikhet | SEK har en direkt påverkan på samtliga arbetstagare som är anställda av SEK samt även externa konsulter som vistas på SEK:s arbetsplatser. | SEK:s affärsmodell är beroende av kompetent och engagerad personal. Kompetensförsörj- ningen kan både underlättas och försvåras, beroende på befintliga och potentiella arbets- tagares uppfattning om SEK:s hantering. | Se hållbar- hetsnot 6. Egna medar- betare. |
+| Påverkade samhällen | Utlåningsportföljens exponering mot projekt och verk- samheter med betydande potentiell negativ påverkan på | Kreditrisk och Finansieringsrisk, se beskrivning för de miljömässiga frågorna ovan. | Se hållbar- hetsnot 7. Arbetsvillkor och mänskliga rättigheter. |
+![table image]({page: 121, x: 70}, {y: 385, {width: 421}, {height: 42})
+
+Konsumenter och slutanvandare 1 Fragorna inkluderar manskliga rattigheter.
+
+
+<!-- PAGE: 122 -->
+| Väsentlig fråga | Varför väsentlig ur ett påverkansperspektiv | Varför väsentlig ur ett finansiellt perspektiv | Hänvisning |
+| --- | --- | --- | --- |
+| Bolagsstyrning |
+| Affärsetik | SEK:s agerande i hela värdekedjan har en påverkan då affärsetik inom internationell handel och exportfinansiering är viktiga komponenter för att stoppa finansiell brottslighet och skapa förutsättningar för en rättvis klimatomställning och en hållbar utveckling. | God affärsetik en förutsättning för bankers affärsmodell. Bristande affärsetik riskerar skada förtroendet för SEK bland investerare, kunder, affärspartners med flera. | Se hållbar- hetsnot 8. Affärsetik och anti-korrup- tion. |
+| Finansiell brottslighet | SEK:s roll inom det finansiella systemet är begränsad till finansiering, med företag och stater som motparter. Som aktör i det finansiella systemet finns risk att SEK:s infrastruktur utnyttjas för korruption, penningtvätt, finan- siering av terrorism samt för att kringgå internationella sanktioner. Risk för korruption är särskilt hög i offentliga upphandlingar med komplexa affärsstrukturer samt vid finansiering till länder med bristande lagstiftning och uppföljning inom området. | Aktivt arbete för att motverka finansiell brotts- lighet en förutsättning för bankers affärsmodell. Bristande hantering riskerar skada förtroendet för SEK bland investerare, kunder, affärspartners med flera. | Se hållbar- hetsnot 9. Motverka finansiell brottslighet samt hållbar- hetsnot 8. Affärsetik och anti-korrup- tion. |
+| Sektorspecifika frågor Hållbar finansiering | SEK har möjlighet att rikta utlåning till finansiella produkter som direkt eller indirekt adresserar miljömässiga och sociala utmaningar. | Strategisk risk eller möjlighet hur SEK lyckas tillvarata de affärsmöjligheter som uppstår under omställningen till en mer hållbar utveckling. | Se hållbar- hetsnot 11. Hållbar finan- siering. |
+| Informationssäkerhet SEK har begränsad tillgång till konfidentiell information om medarbetare och kunder. Ej bedömts väsentlig ur ett påverkansperspektiv. |  | Förtroendet för informationshantering och infor- mationssystem är en förutsättning för bankers affärsmodell. Bristande hantering riskerar skada förtroendet för SEK bland investerare, kunder, affärspartners med flera. | Se hållbar- hetsnot 10. Informations- säkerhet. |
+![table image]({page: 122, x: 70}, {y: 113, {width: 440}, {height: 42})
+
+
+<!-- PAGE: 123 -->
+Hallbarhetsnot 4.
+Information om strategi styrning och riskhantering
+
+Nedan redovisas information om SEK:s strategi styrning och riskhan tering kring hallbarhet.
+Strategi styrning riskhantering samt mal och matetal for SEK:s klimatrelaterade risker och mojligheter redovisas i enlighet med rekommendationerna fran TCFD i hallbarhetsnot 13.
+
+####### Riskstyrning
+
+I Policy for hallbar finansiering och vd:s instruktion for hantering av hallbarhetsrisker regleras hantering av hallbarhetsrisker enligt gal lande interna och externa regelverk.
+
+I Policy mot korruption ges riktlinjer i arbetet mot korruption.
+I Instruk tion avseende atgarder mot penningtvatt och finansiering av terrorism samt hantering av internationella sanktioner regleras hantering av ris ker relaterat till finansiell brottslighet enligt gallande interna och externa regelverk.
+
+SEK styr verksamhetens utveckling och utnyttjar aktivt riskreduce rande mojligheter samt har kontroll pa riskernas utveckling over tid for att sakerstalla att verksamheten halls inom faststalld riskaptit for hall barhets samt styrningsrisker.
+Malkonflikter mellan ekonomiska soci ala och miljomal ska hanteras efter basta formaga utan att vasentligt skada nagot av malen.
+
+Riskidentifiering och matning SEK genomfor arligen overgripande riskbedomningar inom hallbar hets och styrningsriskomradet.
+SEK:s hallbarhets samt styrningsrisker aterfinns framfor allt i utlaningen men finns aven inom upplaningen likviditetsplaceringar inkopsprocessen samt i den egna verksamheten.
+
+Vid bedomning av riskerna i enskilda affarer och transaktioner till lampar SEK ett riskbaserat forhallningssatt.
+Det innebar att analys och riskreducerande atgarder anpassas till riskbilden och ar mer detaljerad for affarer som bedoms ha en hogre inneboende risk oavsett kopare land storlek pa affar kredittid och typ av finansiell produkt.
+Huvud fokus for bedomning av hallbarhetsrisker ar den verksamhet dar varan eller tjansten ska anvandas.
+Vid hoga hallbarhetsrisker genomfors bedomning av parternas kapacitet att hantera riskerna.
+Vid projekt relaterad finansiering utvarderas darmed i forekommande fall pro jektbolagets respektive slutanvandarens formaga att hantera hallbar hets och styrningsrisker.
+SEK staller krav pa att aktuell part agerar pa hallbara grunder i enlighet med internationella riktlinjer.
+
+Den potentiella risken att SEK finansierar verksamheter och projekt med negativ paverkan pa hallbarhetsfragor identifieras pa lands mot parts och affarsniva.
+
+- • Land – Länder klassificeras utifrån risk för korruption, negativ påver- kan på mänskliga rättigheter inklusive arbetsvillkor samt risk för penningtvätt, finansiering av terrorism och icke transparent skatte- jurisdiktion.
+
+- • Motpart – Kontroller görs avseende kundkännedom, inklusive ägarförhållanden och kontroll mot internationella sanktionslistor samt om motparten har varit involverad i incidenter inom hållbar- hetsområdet. Hållbarhetsrisker identifieras och bedöms utifrån bransch inklusive finansierad vara eller tjänst.
+
+
+<!-- PAGE: 114 -->
+
+##### Ägaren
+
+agarens styrning av SEK:s hallbarhetsarbete sker genom statens agar policy och principer for bolag med statligt agande 2020 svensk kod for bolagsstyrning agaranvisningen bolagsordningen bolagsstam man styrelsen och vd.
+
+Av statens agarpolicy framgar att SEK som statligt agt bolag ska agera foredomligt inom hallbart foretagande.
+Detta innebar att verk samheten ska bedrivas pa hallbara grunder.
+Hallbara grunder innebar att projekt och verksamheter som SEK finansierar efterlever lokal lag stiftning samt internationella riktlinjer avseende miljohansyn antikor ruption manskliga rattigheter arbetsvillkor och affarsetik.
+
+Ytterligare anger agarpolicyn att SEK ska
+
+- • Arbeta strategiskt, integrera frågorna i sin affärsstrategi och fastställa strategiska hållbarhetsmål.
+
+- • Agera transparent i frågor som rör väsentliga risker och möjligheter och föra en aktiv dialog med bolagets intressenter i samhället.
+
+- • Samarbeta med andra bolag och relevanta organisationer.
+
+Enligt agaranvisningen ska SEK:"…arbeta for efterlevnad av de internationella riktlinjer som finns inom omradet for hallbart foretagande kring miljohansyn anti-korruption manskliga rattigheter arbetsvillkor och affarsetik.
+I sina kreditbedom ningar dar det ar relevant folja internationella ramverk sasom OECD:s"Common Approaches for Officially Supported Export Credits and environmental and social due diligence” eller Ekvatorprinciperna samt beakta OECD:s riktlinjer for hallbar langivning (Sustainable Lending) vid export till laginkomstlander.”
+Styrelse revisionsutskott och vd Styrelsen ar ytterst ansvarig for att ett aktivt och langsiktigt arbete for hallbar utveckling bedrivs inom foretaget.
+Styrelsen beslutar om stra tegi och mal i samband med affarsplanen inklusive riskstrategin dar hantering av hallbarhetsrisker ingar.
+Uppfoljning av maluppfyllelse av hallbarhetsmal sker kvartalsvis och lopande i vd rapport.
+Vd ar ansva rig for att skota den lopande forvaltningen enligt styrelsens riktlinjer och anvisningar.
+Styrelsens inrattade revisionsutskott overvakar bola gets hallbarhetsrapportering samt lamnar rekommendationer och forslag.
+Under 2024 har revisionsutskottet agnat tid at att folja upp bolagets arbete med att forbereda verksamheten for CSRD.
+
+Organisation och ansvarsfordelning avseende hallbarhet Hallbarhetschefen med helhetsansvar for hallbarhetsfragor rappor terar direkt till vd.
+Vidare ansvarar Chief Financial Officer for hallbar hetsredovisningen och tillhorande regelverk och rapporterar direkt till vd.
+Styrdokument inom hallbarhet Hallbarhetsregler relevanta och aktuella for SEK:s verksamhet inkor poreras i SEK:s interna regler genom policys och instruktioner.
+For att underlatta det operativa dagliga arbetet finns vagledande riktlinjer och rekommendationer i ovriga styrdokument i form av rutiner och metod dokument.
+Risk och regelefterlevnad foljer upp efterlevnaden av kra ven genom kontroller och uppfoljning.
+Styrelsen utfardar policyer och instruktioner till funktioner och ar ytterst ansvarig for godkannande av SEK:s styrdokument.
+Vd utfardar instruktioner for olika omraden.
+
+Policys och instruktioner som vagleder SEK:s hallbarhetsarbete ar
+
+- • Policy för hållbar finansiering
+
+- • Riskpolicy
+
+- • Policy mot korruption
+
+- • Personalpolicy (inkl. arbetsmiljö-, mångfald-, och ersättningspolicy)
+
+- • Informationssäkerhetspolicy
+
+- • Uppförandekod
+
+- • Uppförandekod för leverantörer
+
+- • Personalinstruktion
+
+- • Instruktion för resor
+
+- • Instruktion för hantering av hållbarhetsrisk
+
+- • Instruktion avseende penningtvätt, finansiering av terrorism och internationella sanktioner
+
+Internationella riktlinjer inom hallbarhet De internationella riktlinjer inom hallbarhet som ar styrande for SEK:s verksamhet ar foljande
+
+- • Ekvatorprinciperna
+
+- • UN Global Compacts Tio Principer
+
+- • FN:s vägledande principer för företagande och mänskliga rättigheter
+
+- • FN:s konvention om barns rättigheter
+
+- • OECD:s riktlinjer för multinationella företag
+
+- • OECD:s konvention och riktlinjer inom anti-korruption
+
+- • OECD:s riktlinjer för social och miljömässig hänsyn vid statsstödda exportkrediter
+
+- • OECD:s riktlinjer för hållbar långivning (Sustainable lending) vid export till låg inkomstländer
+
+Samarbete och natverk inom hallbarhet Kunskapsutbyte och samarbete med kunder banker och samarbets parter ar en viktig komponent for att hitta losningar.
+Det handlar dels om att forsta och mota kundernas behov av klimatomstallning dels att samverka med syftet att kunna gora mer nytta for fler foretag.
+
+Genom samarbete med olika organisationer kan SEK dela erfaren heter och diskutera utmaningar och losningar for olika hallbarhets relaterade fragor.
+
+SEK deltar i foljande samarbeten och natverk inom hallbarhet
+
+- • Hållbart företagande i statligt ägda företag
+
+- • Ekvatorprinciperna
+
+- • OECD:s arbetsgrupper för social och miljömässig hänsyn vid statsstödda exportkrediter
+
+- • Svenska ICC:s referensgrupp inom CSR
+
+- • UN Global Compacts svenska nätverk
+
+- • Enact, nätverk för hållbarhetsredovisning
+
+- • Mistra BIOPATH, forskningsprogram med fokus på biologisk mångfald
+
+- • Fossilfritt Sverige, vilket syftar till att samarbeta för att lösa klimat- utmaningen och uppnå målet om ett fossilfritt samhälle
+
+- • Net Zero ECA Alliance (NZECA)
+
+- • Export Finance for Future (E3F) arbetsgrupp
+
+- • Svenska Bankföreningens hållbarhetsrapporteringsgrupp
+
+- • Svenska Bankföreningens taxonomitolkningsgrupp
+
+
+<!-- PAGE: 124 -->
+Hallbarhetsrisk och styrningsrisk
+
+Hallbarhetsrisk som innefattar miljo och klimatrisk samt social risk ur ett paverkansperspektiv definieras av SEK som risken att SEK:s utla ningsverksamhet eller likviditetsinvesteringar direkt eller indirekt paverkar sin omgivning negativt inom miljo och klimat samt sociala fra gor Exempel pa omraden som inkluderas ar miljo och klimat manskliga rattigheter och arbetsvillkor.
+I manskliga rattigheter ingar barnrattsper spektivet i arbetsvillkor ingar jamstalldhet och mangfald och i etik ingar skattetransparens.
+
+Styrningsrisk definieras av SEK som risken for att SEK direkt eller indirekt paverkar eller paverkas av styrningsrelaterade fragor.
+Exempel pa omraden som inkluderas ar affarsetik finansiell brottslighet inklu sive korruption samt skattetransparens.
+
+Bedomningen ar att paverkan utifran hallbarhets och styrningsrisk i dagslaget framst sker pa kreditrisk och risken hanteras darmed inom kreditriskhanteringen.
+Se narmare beskrivning i not 26.
+
+###### Finansieringsrisk
+
+SEK:s investerare samt de kreditratinginstitut och ESG ratingbolag som foljer bolaget vager in ESG faktorer i sina bedomningar av SEK.
+Individuella investerares fokus och intresse for specifika faktorer varierar men SEK bedomer givet okade regelverks och rapporteringskrav att de langsiktiga finansieringsmojligheterna bade kan forbattras och forsamras beroende pa intressenternas uppfattning om SEK:s hantering.
+
+Biologisk mangfald och ekosystem
+
+Resursanvandning och cirkular ekonomi Utlaningsportfoljens exponering mot projekt och verk samheter med betydande potentiell negativ paverkan till exempel gruvor land och havsbaserad vindkraft papper & skog samt vagar och jarnvagar.
+
+Utlaningsportfoljens exponering mot projekt och verk samheter med betydande potentiell negativ paverkan till exempel gruvor olika infrastrukturprojekt som exempelvis sjukhus.
+
+##### Affärsrisk och strategisk risk
+
+Affars och strategisk risk definieras som risken for att en handelse intraf far som paverkar verksamhetens formaga att na uppsatta mal.
+
+Affars och strategisk risk inkluderar omvarldsrisk uppdragsrisk samt risker relaterat till organisatorisk resiliens.
+Den overgripande strategin ar att reducera affars och strategiska risker genom strategiprocessen som resulterar i affarsplanen.
+SEK:s strategiska risker uppstar huvudsakligen genom forandringar i den omvarld dar bolaget verkar till exempel forandringar i mark nadsforhallanden som kan resultera i begransade mojligheter till utla ning och regelverksreformer som antingen paverkar affarsmodellen eller staller vasentligt storre krav pa organisationen beroende pa okad komplexitet.
+
+ovriga risker ar relaterade till SEK:s offentliga uppdrag och SEK:s for maga att skapa en motstandskraftig organisation som har formaga att anpassa sig till forandrade affarsmil joer for att kunna na sina affarsmal.
+
+SEK har inte en sarskild riskaptit for affars och strategisk risk.
+
+
+<!-- PAGE: 36 -->
+| Riskkategori | Riskstrategi | Riskprofil | Riskaptit |
+| --- | --- | --- | --- |
+| Miljö- och Social risk (påverkan) (”Hållbarhetsrisk”) |
+| Miljö- samt social risk ur ett påver- kansperspektiv (“Hållbarhetsrisk”) definieras av SEK som risken för att SEK:s verksamhet direkt eller indirekt påverkar sin omgivning negativt inom miljö- och sociala frågor, till exempel relaterade till mänskliga rättigheter och arbets- villkor. I mänskliga rättigheter ingår barnrättsperspektivet. I arbetsvillkor ingår jämställdhet och mångfald. Det är främst genom SEK:s utlå- ningsverksamhet som verksamheten har en väsentlig påverkan (brutto) på miljö- och sociala frågor. | Den övergripande strategin är att reducera de miljö- och sociala risker som uppstår av affärsstrategin. SEK ska hantera målkonflikter mellan ekonomiska, sociala och miljömål efter bästa förmåga utan att väsent- ligt skada något av målen. Riskreducering sker främst genom- effektiva och väldokumenterade interna processer för riskhantering samt en effektiv kontrollmiljö, ett ansvarsfullt förhållningssätt till mil- jörisker under hela kreditens löptid samt fortlöpande utbildning av rele- vant personal för att säkerställa en grundläggande förståelse av miljö- & klimatrisker samt sociala risker i riskramverket. | SEK är indirekt exponerade mot miljö- och sociala risker i samband med utlåningen. Hög bruttorisk kan uppstå vid finansiering av större pro- jekt eller verksamheter i länder och/ eller branscher med hög hållbar- hetsrisk. Länder bedöms utifrån risk för negativ påverkan på mänskliga rättigheter inklusive arbetsvillkor. | SEK accepterar inte affärer som inte lever upp till de internationella rikt- linjer som SEK har åtagit sig att följa och som specificeras i SEK:s policy för hållbar finansiering. SEK kan ingå affärer med höga bruttorisker under förutsättning att riskerna reduceras till en acceptabel nivå under kre- ditens löptid. För affärer med höga bruttorisker ska det genomföras en regelbunden uppföljning av utveck- lingen av riskprofilen i jämförelse med de krav som ställts vid ingåen- det av affären. |
+![table image]({page: 36, x: 70}, {y: 131, {width: 544}, {height: 127})
+
+###### Riskupplysningar
+
+For en kompletterande och utokad redogorelse av operativ riskrela terad information hanvisas till den separata riskrapporten ”Capital Adequacy and Risk Management (Pillar 3) Report 2024” tillganglig pa bolagets webbplats.
+
+Miljo och Social risk (paverkans perspektiv) (”Hallbarhetsrisk”) samt Styrningsrisk For beskrivning av riskkategorierna riskstrategi riskprofil och riskaptit se den detaljerade riskforklaringen i avsnittet for Risk och kapitalhan tering.
+
+#### Riskutveckling 2024
+
+Under 2024 praglades den globala makroekonomin av vax ande geopolitiska spanningar och marknadsmassiga skiften.
+I USA indikerar den nya administrationen en fornyad protek tionistisk agenda med okade tullar vilket ytterligare pressar globala handelssystem.
+Samtidigt holl Federal Reserve ran torna hoga for att bekampa en ihallande inflation.
+Kina stod infor strukturella obalanser med overproduktion i strategiska industrier sarskilt elfordon och svag inhemsk efterfragan vilket intensifierade exportberoendet.
+Handelskonflikterna eskalerade med tullar fran EU och USA vilket mottes av kine siska restriktioner pa export av sallsynta jordartsmetaller.
+Kinas overgang till en ”lampligt los” penningpolitik den forsta pa 14 ar signalerade ett skifte i fokus mot tillvaxtstimulans.
+Trots oroligheter i Mellanostern och attacker pa Roda havets trans portleder forblev raoljepriserna stabila inom ett smalt inter vall.
+Aktiemarknaderna visade fortsatt styrka med stigande index for andra aret i rad och minskade kreditspreadar trots okande geopolitiska och handelsrelaterade risker.
+Sammanta get speglade aret en forhojd riskmiljo med strukturella utma ningar protektionism och divergerande policyer som spar potentiell framtida instabilitet i de finansiella marknaderna.
+
+Under 2024 hade SEK netto kreditforluster om Skr 93 mil joner som var en signifikant nedgang fran 2023 (585) huvud sakligen pa grund av minskade exponeringar i stadie 3.
+
+Total kapitalrelation uppgick vid utgangen av aret till 22,2 procent (21,3) varav primarkapitalrelationen och karnprimar kapitalrelationen uppgick till 22,2 procent (21,3).
+okningen av kapitalrelationen beror pa en omkalibrering av pd estimat och okningen i balanserade vinstmedel.
+
+Bruttosoliditetsgraden uppgick till 9,6 procent (9,3) vid arsskiftet.
+Att bruttosoliditetsgraden okar fran foregaende ar beror huvudsakligen pa okat Tier 1 kapital vilket delvis mot verkades av nagot hogre totalt exponeringsbelopp.
+
+SEK:s storsta finansiella risker ar kreditrisk med Skr 7,2 miljarder (7,4) marknadsrisk med Skr 1,0 miljarder (1,1) och operativ risk med Skr 0,4 miljarder (0,4) i enlighet med internt bedomt kapitalbehov.
+
+Riksgaldskontoret (Riksgalden) har fattat beslut om reso lutionsplan och krav pa kapitalbas och kvalificerade skulder i enlighet med MREL regelverket.
+SEK bedoms kunna avveck las genom ett normalt insolvensforfarande utan att detta skulle leda till betydande negativa effekter pa den finansiella stabiliteten.
+MREL kravet begransas darmed till summan av SEK:s pelare 1 och pelare 2-krav.
+
+Under 2024 har SEK:s likviditetssituation varit god med en god kapacitet for hantering av kort och langsiktig likviditets risk.
+Likviditetstackningsgraden (LCR) uppgick till 583 procent (494) vid arsskiftet.
+Stabil nettofinansiering (NSFR) uppgick till 129 procent (131) vid arsskiftet.
+
+Inom omradet operativa risker och specifikt IKT och infor mationssakerhetsrisker bedoms cybersakerhetshotet fortsatt hogt.
+Det forandrade geopolitiska laget med Sveriges intrade i NATO och stod till Ukraina konflikt i Mellanostern och hot fran statsstodda aktorer har forstarkt cybersakerhetshoten mot SEK.
+For att mota dessa utmaningar har SEK starkt sin resiliens enligt EU:s Digitala Operational Resilience Act (DORA) genom forbattrade sakerhetsprocesser incident hantering kontinuerliga systemtester och starkt tredjeparts hantering.
+Trots forsok till attacker har inga vasentliga inci denter rapporterats under aret.
+SEK har genomfort lopande sarbarhetsatgarder och effektiv omvarldsbevakning for att skydda verksamheten och sakerstalla operativ resiliens i en foranderlig global miljo.
+
+##### Moderbolaget
+
+|  | 31 december 2024 | 31 december 2023 |
+| --- | --- | --- |
+| Skr mn | EAD1 | Risk expone- rings belopp | Minimi- kapitalkrav | EAD1 | Risk expone- rings belopp | Minimi- kapitalkrav |
+| Kreditrisk enligt schablonmetoden |
+| Företag | 5 532 | 5 528 | 442 | 4 219 | 4 206 | 337 |
+| Aktieexponeringar | 20 | 30 | 2 | – | – | – |
+| Fallerade exponeringar | 6 | 6 | 1 | 77 | 77 | 6 |
+| Summa kreditrisk schablon metoden | 5 558 | 5 564 | 445 | 4 296 | 4 283 | 343 |
+| Kreditrisk enligt IRK-metoden |
+| Stater | 211 834 | 9 159 | 733 | 211 650 | 9 416 | 753 |
+| Finansiella institut2 | 34 067 | 6 153 | 492 | 33 236 | 6 580 | 526 |
+| Företag3 | 147 820 | 75 541 | 6 043 | 144 559 | 76 038 | 6 083 |
+| Motpartslösa tillgångar | 213 | 213 | 17 | 284 | 284 | 23 |
+| Summa kredit risk IRK- metoden | 393 934 | 91 066 | 7 285 | 389 729 | 92 318 | 7 385 |
+| Kredit värdighets justerings risk | e.t. | 1 936 | 154 | e.t. | 2 490 | 199 |
+| Valutakursrisk | e.t. | 1 498 | 120 | e.t. | 1 174 | 94 |
+| Råvarurisk | e.t. | 7 | 1 | e.t. | 7 | 1 |
+| Operativ risk | e.t. | 5 395 | 432 | e.t. | 4 442 | 355 |
+| Summa | 399 492 | 105 466 | 8 437 | 394 025 | 104 714 | 8 377 |
+![table image]({page: 94, x: 268}, {y: 424, {width: 459}, {height: 8})
+
+1 Exposure at default (EAD) visar storleken pa den utestaende exponeringen vid fallissemang.
+2 Varav motpartrisk i derivatkontrakt EAD Skr 5 899 miljoner (7 127) riskexponeringsbelopp Skr 1 513 miljoner (2 167) och kapitalkrav Skr 121 miljoner (173).
+3 Varav relaterad till Specialutlaning EAD Skr 7 322 miljoner (7 315) riskexponeringsbelopp Skr 5 019 miljoner (5 757) och kapitalkrav Skr 402 miljoner (461).
+
+
+<!-- PAGE: 95 -->
+fortsattning not 25
+
+Kreditrisk fordelad pa PD niva Tabellen illustrerar exponering vid fallissemang (EAD) andel av expo neringen som gar forlorad givet ett fallissemang (LGD) samt sannolik heten for att motparten ska fallera eller stalla in betalningarna (PD) for de exponeringsklasser dar SEK internt estimerat PD.
+Genom snittlig PD ar beraknad utan hansyn till PD golv.
+Genomsnittligt PD och LGD ar viktat med EAD genomsnittlig riskvikt ar kvoten mellan riskexponerings belopp och EAD.
+
+31 december 2024 31 december 2023
+
+### Nya regelverk
+
+Det finns manga regelverk som styr finanssektorn.
+Kraven skarps genom EU:s nya regelverk CSRD:s fokus pa hall\xad barhetsrapportering.
+Dartill kommer EU:s bankpaket som inkluderar Basel 4\xadoverenskommelsen och kapitaltacknings\xad direktivet CRD 6 med nya kapitaltackningsregler som till stor del galler fran och med 1 januari 2025.
+Europeiska bank\xad myndigheten EBA:s riktlinjer for hantering av miljo\xad sociala och styrningsrisker staller i sin tur krav pa vilka interna processer som bor finnas pa plats enligt CRD och CRR.
+En annan ny reglering ar EU\xadforordningen DORA som innebar att finansiella aktorer ska sakerstalla motstandskraft mot digitala angrepp och storningar.
+
+SEK har under aret arbetat med att anpassa processer starka kapitalstrategier och investera i digitala losningar for att mota nya krav.
+
+
+<!-- PAGE: 7 -->
+SEK ska bidra till okad svensk export fler arbetstillfallen och tillvaxt i Sverige och till en hallbar och rattvis omstallning globalt.
+Genom okad kannedom och utvecklade erbjudan\xad den ska fler foretag i Sverige ges mojlighet att anvanda det svenska exportkreditsystemet.
+Fler utlandska kopare ska ocksa erbjudas finansiering for kop av svenska varor och tjanster.
+SEK ska fordjupa relationen och bredda affaren med befintliga kunder och kontinuerligt arbeta for att utveckla affaren med nya och potentiella kunder.
+Fortsatt utveckling av samarbetet med Team Sweden banker och andra partners i SEK:s eko\xad system ar avgorande for skapandet av nya affarsmojligheter.
+Med avstamp i strategiska fokusmarknader och fokussektorer ska SEK verka for att vara en mojliggorare mojliggorare for svensk export internationaliseringen och tillvaxten for svenska foretag och for Sveriges varumarke.
+
+SEK finansierar klimatomstallningen i Sverige och globalt och bidrar till att svenska foretag starker sin konkurrenskraft genom tillgang till finansiering for bland annat samhallsviktig infrastruktur och utveckling av ny teknik for minskad negativ paverkan pa klimat och natur.
+Genom konkurrens kraftig och stabil finansiering pa hallbara grunder ska SEK bidra till bade svensk tillvaxt och omstallning samt en hallbar utveckling pa exportmarknader internationellt.
+
+#### Låntagare: Guyana
+
+
+<!-- PAGE: 21 -->
+Fyra fokusomraden definierar och styr SEK mot ett framgangsrikt och hallbart vardeskapande.
+Utvecklingen inom respektive omrade foljs upp och redovisas genom ett antal utvalda nyckeltal for att sakerstalla att de langsiktiga malen nas.
+
+## Framgångsrik etablering i Sydamerika: sjukhusprojekt i Guyana Övergripande mål och utfall
+
+Under aret genomforde SEK bolagets forsta EPC affar i Syd amerika genom att finansiera ett sjukhusprojekt i Guyana en av varldens snabbast vaxande ekonomier.
+Guyana ar ett litet land pa varldskartan med stora oljefyndigheter som skapar mojligheter for nya investeringar inom bade social infrastruk tur och energiomstallningsprojekt.
+
+Projektet omfattar ett toppmodernt allmansjukhus med 150 sangplatser tre nya operationssalar moderna rontgenlosningar samt laboratorier och apotek.
+Sjukhuset ska ersatta en befint\xad lig omodern anlaggning och hoja standarden for sjukvarden i Guyana till internationell niva.
+For SEK var det gladjande och viktigt att finansieringen av sjukhuset som ar en tillgang for hela befolkningen klassificerades som ett socialt lan.
+Detta ar en viktig del av SEK:s uppdrag att bidra till hallbar utveckling.
+
+Ett svenskt fotavtryck genom samarbete Projektet ar ett exempel pa hur SEK kan kombinera bolagets expertis med svenska foretags konkurrenskraft for att skapa langsiktigt varde internationellt.
+CIRR\xadrantan var avgorande for att sakerstalla en fast och forutsagbar finansiering for Guyanas finansdepartement och med stod av EKN kunde SEK ocksa koppla in svenska underleverantorer.
+
+###### Riskidentifiering
+
+Huvudfunktionscheferna ar ansvariga for att personalen inom den egna funktionen ar uppmarksam pa och identifierar risker aven fram vaxande risker sa kallade ”emerging risks”.
+
+SEK genomfor aterkommande risk och kontrollsjalvutvarderingar (RCSA) for att identifiera risker i till exempel produkter tjanster funk tionen processer IKT tillgangar samt vid arrangemang med tredje parter oavsett om dessa arrangemang ar utkontrakteringslosningar eller inte.
+Riskerna identifieras utifran orsak handelse och paverkan samt mappas och kategoriseras i enlighet med de risktyper som finns definierade i SEK:s risktaxonomi.
+Risker identifieras baserat pa kunskap och erfarenhet over vad som kan ga fel i en process.
+Som stod for riski dentifiering anvands bl.a.
+interna observationer omvarldsbevakningar incidentrapporter och revisionsrapporter.
+
+Exempel pa orsaker och faktorer som kan leda till operativa risker ar personberoenden resursbrist bristande cybersakerhet okade saker hetshot IKT sarbarheter eller sarbarheter i eller fran ej supporterade system.
+aven miljo och klimat sociala och styrningsrelaterade fak torer (”ESG-faktorer”) kan leda till operativa risker exempelvis genom att orsaka (driva) legala risker eller rapporteringsrisker.
+
+Samtliga medarbetare inom SEK ar ansvariga for att intraffade inci denter rapporteras.
+Rapporterade incidenter foljs regelbundet upp och granskas av Riskfunktionen alternativt av funktionen for regelef terlevnad.
+Om en incident leder till allvarliga storningar som innebar forlust av operativ formaga i nagon av SEK:s vasentliga processer eller kritiska eller viktiga formagor hanteras den i enlighet med framtagen kontinuitetsplan.
+Om en incident eller handelse intraffar som definie ras som en kris hanteras den i enlighet med SEK:s krisplan.
+Eventuella handelser av vasentlig betydelse inklusive kritiska IKT incidenter rap porteras till Finansinspektionen inom faststallda tidsramar.
+
+Riskidentifiering sker aven genom SEK:s produktgodkannandepro cess (New Product Approval Process ”NPAP”). NPAP anvands vid godkannande av nya eller vasentligt forandrade produkter tjanster marknader processer IKT system och storre forandringar i bolagets verksamhet och organisation.
+Genom NPAP forhindrar SEK att bola get omedvetet tar pa sig risk som inte kan hanteras.
+
+##### Låntagare: HMS Networks AB
+
+
+<!-- PAGE: 20 -->
+
+### Upplåning
+
+SEK motte under aret framgangsrikt sitt upplaningsbehov genom framfor allt en aktiv narvaro pa de publika markna derna.
+Den totala upplaningen uppgick till Skr 53 miljarder med loptider over ett ar vilket kan jamforas med Skr 126 mil jarder under foregaende ar.
+
+Publika obligationsemissioner i USD och EUR fortsatte att utgora basen for SEK:s upplaning.
+Dessutom spelade kortare upplaningsprogram en viktig roll under aret.
+Totalt genom fordes tva obligationsemissioner i USD till fast ranta.
+SEK genomforde ocksa en uppmarksammad emission av grona obligationer i EUR med loptid pa sju ar.
+Under fjarde kvartalet genomforde SEK en transaktion i USD SOFR.
+Den senaste SOFR transaktionen dessforinnan skedde 2022.
+
+Skr mdr 50 45,8
+
+SEK stravar efter en bred geografisk fordelning i sin uppla ning.
+Under 2024 saldes 51 procent av alla obligationerna till investerare i Europa Mellanostern och Afrika 33 procent till Nord och Sydamerika och 16 procent till Asien Australien och ovriga varlden.
+
+|  | 40,1 |  |  |
+| --- | --- | --- | --- |
+|  | 40 34,3 |  |  |
+| 30 |
+| På den svenska marknaden lånade SEK 2024 totalt Skr 6,1 miljarder, vilket är en minskning från Skr 6,5 miljarder 2023. |
+| SEK:s upplåning |
+|  | Skr mdr | 2024 | 2023 |
+|  | Utestående upplåning | 325,0 | 317,7 |
+|  | varav grön | 35,0 | 23,7 |
+|  | Långfristig nyupplåning | 52,5 | 126,2 |
+|  | Kortfristig nyupplåning | 77,6 | 50,1 |
+|  | Återköp och inlösen av egen skuld | 7,4 | 12,2 |
+![table image]({page: 25, x: 375}, {y: 288, {width: 221}, {height: 9})
+
+#### Hur har de europeiska affärs möjligheterna utvecklats under året?
+
+- Under det gångna året har många länder fortsatt genomgått en snabb energiomställning, driven av klimatutmaningar, politiska regleringar och en växande global befolkning. Detta har lett till en kraftigt ökad efterfrågan på förnybar energi, särskilt sol\xad och vindkraft i Europa. Samtidigt görs stora satsningar på energieffektiv infrastruktur i både Europa och USA, vilket skapar starkare förutsättningar för en lång\xad siktigt hållbar framtid. Dessa förändringar handlar inte bara om energi, utan innebär också en samhällsomvandling där ny infrastruktur och hållbara lösningar omdefinierar hur samhällen och marknader fungerar.
+
+## Nyckeltal
+
+| Skr mn (om inte annat anges) | 2024 | 2023 | 2022 | 2021 | 2020 |
+| --- | --- | --- | --- | --- | --- |
+| Resultat |
+| Räntenetto | 3 058 | 2 895 | 2 179 | 1 907 | 1 946 |
+| Rörelseresultat | 2 121 | 1 568 | 1 471 | 1 305 | 1 238 |
+| Nettoresultat | 1 683 | 1 244 | 1 166 | 1 034 | 968 |
+| K/I-tal | 25% | 25% | 33% | 36% | 31% |
+| Avkastning på eget kapital efter skatt | 7,1% | 5,6% | 5,5% | 5,1% | 4,9% |
+| Avkastning på tillgångar efter skatt | 0,5% | 0,3% | 0,3% | 0,3% | 0,3% |
+| Resultat per aktie före och efter utspädning (Skr) | 422 | 312 | 292 | 259 | 243 |
+| Föreslagen ordinarie utdelning | 673 | 248 | – | 414 | 290 |
+| Rapport över finansiell ställning Totala tillgångar | 368 094 | 365 929 | 375 474 | 333 647 | 335 399 |
+| Totala skulder | 343 522 | 343 083 | 353 899 | 312 839 | 315 335 |
+| Totalt eget kapital | 24 572 | 22 846 | 21 575 | 20 808 | 20 064 |
+| Utlåning |
+| Total utlåningsportfölj | 283 408 | 283 303 | 273 448 | 237 224 | 231 678 |
+| varav CIRR-krediter | 101 657 | 101 361 | 94 241 | 87 872 | 69 163 |
+| varav hållbarhetsklassad utlåning1 | 53 362 | 44 610 | 32 649 | 19 539 | – |
+| klassad som grön utlåning | 37 422 | 31 202 | 25 900 | 17 993 | – |
+| klassad som social utlåning | 2 228 | 1 482 | 1 095 | 0 | – |
+| klassad som hållbarhetslänkad utlåning | 13 712 | 11 926 | 5 654 | 1 546 | – |
+| Utestående samt avtalade, ej utbetalda krediter | 340 295 | 338 278 | 348 817 | 291 095 | 288 891 |
+| Nya kredit- och garantiavtal2 | 90 334 | 80 159 | 133 181 | 76 988 | 125 470 |
+| varav till svenska exportörer | 40 663 | 29 788 | 50 307 | 25 075 | 62 148 |
+| varav till exportörernas kunder | 49 671 | 50 371 | 82 874 | 51 913 | 63 322 |
+| Kundtillväxt1 | 3% | 3% | 14% | 11% | – |
+| Upplåning |
+| Utestående upplåning | 324 995 | 317 736 | 326 270 | 295 000 | 287 462 |
+| varav grön1 | 34 990 | 23 652 | 19 109 | 12 032 | – |
+| Ny långfristig upplåning | 52 552 | 126 214 | 88 472 | 81 103 | 123 156 |
+| Ny kortfristig upplåning | 77 561 | 50 051 | 71 338 | 6 409 | 27 550 |
+| Kapitalsituation |
+| Kärnprimärkapitalrelation | 22,2% | 21,3% | 20,6% | 21,6% | 21,8% |
+| Primärkapitalrelation | 22,2% | 21,3% | 20,6% | 21,6% | 21,8% |
+| Total kapitalrelation | 22,2% | 21,3% | 20,6% | 21,6% | 21,8% |
+| Bruttosoliditetsgrad3 | 9,6% | 9,3% | 8,4% | 9,3% | 5,8% |
+| Likviditetstäckningsgrad | 583% | 494% | 311% | 463% | 447% |
+| Stabil nettofinansieringskvot | 129% | 131% | 119% | 139% | 135% |
+| Riskexponeringsbelopp | 105 466 | 104 714 | 100 926 | 92 140 | 89 202 |
+| Hållbarhet |
+| Totala växthusgasutsläpp4 i ton CO2e | 695 | 492 | 325 | 129 | 165 |
+![table image]({page: 29, x: 67}, {y: 128, {width: 459}, {height: 9})
+
+1 Nyckeltal saknar fullstandiga historiska upplysningar.
+2 Nyckeltalet benamndes tidigare Nyutlaning.
+Definitionen av nyckeltalet ar oforandrad.
+3 Per 2021 har SEK andrat berakningsmetod for bruttosoliditetsgrad som en anpassning till nya regelverkskrav.
+Jamforelsetal har inte raknats om.
+4 Redovisas med marknadsbaserad metod och innefattar inte SEK:s finansierade vaxthusgasutslapp.
+
+Se definitioner pa sid 151.
+For information om Alternative Performance Measures (APM) se www.sek.se.
+
+
+<!-- PAGE: 30 -->

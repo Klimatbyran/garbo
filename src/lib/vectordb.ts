@@ -1,10 +1,15 @@
 import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
+import OpenAI from 'openai'
 
 import config from '../config/chromadb'
-import openai from '../config/openai'
+import openaiConfig from '../config/openai'
 
 const client = new ChromaClient(config)
-const embedder = new OpenAIEmbeddingFunction(openai)
+const embedder = new OpenAIEmbeddingFunction({
+  ...openaiConfig,
+  openai_model: config.embeddingModel,
+})
+const openaiClient = new OpenAI({ apiKey: openaiConfig.apiKey })
 
 const collection = await client.getOrCreateCollection({
   name: 'emission_reports',
@@ -13,6 +18,30 @@ const collection = await client.getOrCreateCollection({
 
 // this is our own type to be able to filter in the future if needed
 const reportMetadataType = 'company_sustainability_report'
+
+// Limit concurrent ChromaDB queries to prevent HNSW searches from overwhelming
+// the server. Under K8s CPU limits all 10+ follow-up workers fire simultaneously;
+// without this they all queue in ChromaDB's thread pool, starve each other of
+// CPU, and time out before any response is sent.
+const CHROMA_CONCURRENCY = config.concurrency
+let activeChromaQueries = 0
+const chromaQueryWaiters: (() => void)[] = []
+
+async function withChromaLimit<T>(fn: () => Promise<T>): Promise<T> {
+  if (activeChromaQueries >= CHROMA_CONCURRENCY) {
+    console.debug(
+      `ChromaDB at capacity (${activeChromaQueries}/${CHROMA_CONCURRENCY}), queuing request...`
+    )
+    await new Promise<void>((resolve) => chromaQueryWaiters.push(resolve))
+  }
+  activeChromaQueries++
+  try {
+    return await fn()
+  } finally {
+    activeChromaQueries--
+    chromaQueryWaiters.shift()?.()
+  }
+}
 
 async function addReport(url: string, markdown: string) {
   const overlapSize = 200
@@ -53,19 +82,29 @@ async function addReport(url: string, markdown: string) {
     }
   })
 
-  const ids = documentChunks.map((_, i) => `${url}#${i}`)
-  const metadatas = documentChunks.map(({ paragraph }) => ({
-    source: url,
-    paragraph,
-    type: reportMetadataType,
-    parsed: new Date().toISOString(),
-  }))
+  // Process in batches of 50 chunks to avoid token limit issues
+  const batchSize = 50
+  for (let i = 0; i < documentChunks.length; i += batchSize) {
+    const batchChunks = documentChunks.slice(i, i + batchSize)
+    const batchIds = batchChunks.map((_, j) => `${url}#${i + j}`)
+    const batchMetadatas = batchChunks.map(({ paragraph }) => ({
+      source: url,
+      paragraph,
+      type: reportMetadataType,
+      parsed: new Date().toISOString(),
+    }))
 
-  await collection.add({
-    ids,
-    metadatas,
-    documents: documentChunks.map(({ chunk }) => chunk),
-  })
+    await collection.add({
+      ids: batchIds,
+      metadatas: batchMetadatas,
+      documents: batchChunks.map(({ chunk }) => chunk),
+    })
+
+    // Optional: Add a small delay between batches to avoid rate limiting
+    if (i + batchSize < documentChunks.length) {
+      await new Promise((resolve) => setTimeout(resolve, 100))
+    }
+  }
 }
 
 async function hasReport(url: string) {
@@ -80,32 +119,34 @@ async function hasReport(url: string) {
 async function getRelevantMarkdown(
   url: string,
   queryTexts: string[],
-  nResults = 10
+  nResults = 10,
+  log: (msg: string) => void = console.log
 ) {
-  /* might get better results if we query for imaginary results from a query instead of the actual query
-  const query = await ask([
-    {
-      role: 'user',
-      content:
-        'Please give me some example data from this prompt that I can use as search query in a vector database indexed from PDFs. OK?'
-    },
-    {role: 'assistant', content: 'OK sure, give '},
-        prompt,
-    },
-  ])*/
-  const result = await collection.query({
-    nResults,
-    where: {
-      source: url,
-    },
-    queryTexts,
+  log(`Generating embeddings (${queryTexts.length} query texts)`)
+  const embeddingResponse = await openaiClient.embeddings.create({
+    model: config.embeddingModel,
+    input: queryTexts,
   })
+  const queryEmbeddings = embeddingResponse.data.map((e) => e.embedding)
 
-  const metadatas = result.metadatas.flat()
-  const paragraphs = metadatas.map((metadata) => metadata?.paragraph || '')
-  const uniqueParagraphs = Array.from(new Set(paragraphs))
+  log(
+    `Waiting for ChromaDB slot (concurrency=${CHROMA_CONCURRENCY}, active=${activeChromaQueries})...`
+  )
+  return withChromaLimit(async () => {
+    log(`Querying ChromaDB`)
+    const result = await collection.query({
+      nResults,
+      where: { source: url },
+      queryEmbeddings,
+    })
+    log(`ChromaDB query complete`)
 
-  return uniqueParagraphs.join('\n\n')
+    const metadatas = result.metadatas.flat()
+    const paragraphs = metadatas.map((metadata) => metadata?.paragraph || '')
+    const uniqueParagraphs = Array.from(new Set(paragraphs))
+
+    return uniqueParagraphs.join('\n\n')
+  })
 }
 
 /**

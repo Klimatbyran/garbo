@@ -1,7 +1,6 @@
 import { z } from 'zod'
 import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi'
-import { wikidataIdSchema } from './common'
-import baseYear from '../../prompts/followUp/baseYear'
+import { emissionUnitSchemaGarbo, wikidataIdSchema } from './common'
 
 extendZodWithOpenApi(z)
 
@@ -13,6 +12,14 @@ const dateStringSchema = z.union([
 ])
 
 export const okResponseSchema = z.object({ ok: z.boolean() })
+export const redirectResponseSchema = z.object({ location: z.string() })
+
+export const tagOptionSchema = z.object({
+  id: z.string(),
+  slug: z.string(),
+  label: z.string().nullable(),
+})
+export const tagOptionListResponseSchema = z.array(tagOptionSchema)
 export const emptyBodySchema = z.undefined()
 
 export const MetadataSchema = z.object({
@@ -42,29 +49,42 @@ export const MinimalMetadataSchema = MetadataSchema.pick({ verifiedBy: true })
 const CompanyBaseSchema = z.object({
   wikidataId: wikidataIdSchema,
   name: z.string(),
-  description: z
-    .string()
-    .nullable()
-    .openapi({ description: 'Company description' }),
+  lei: z.string().optional().nullable(),
+  logoUrl: z.string().url().optional().nullable(),
 })
 
 export const StatedTotalEmissionsSchema = z.object({
   id: z.string(),
-  total: z.number().openapi({ description: 'Total emissions value' }),
+  total: z
+    .number()
+    .nullable()
+    .openapi({ description: 'Total emissions value' }),
   unit: z.string().openapi({ description: 'Unit of measurement' }),
   metadata: MetadataSchema,
 })
 
+export const ResponseDescriptionSchema = z.object({
+  id: z.string(),
+  language: z.enum(['SV', 'EN']),
+  text: z.string(),
+})
+
 export const BiogenicSchema = z.object({
   id: z.string(),
-  total: z.number().openapi({ description: 'Total biogenic emissions' }),
+  total: z
+    .number()
+    .nullable()
+    .openapi({ description: 'Total biogenic emissions' }),
   unit: z.string().openapi({ description: 'Unit of measurement' }),
   metadata: MetadataSchema,
 })
 
 export const Scope1Schema = z.object({
   id: z.string(),
-  total: z.number().openapi({ description: 'Total scope 1 emissions' }),
+  total: z
+    .number()
+    .nullable()
+    .openapi({ description: 'Total scope 1 emissions' }),
   unit: z.string().openapi({ description: 'Unit of measurement' }),
   metadata: MetadataSchema,
 })
@@ -87,6 +107,7 @@ export const Scope2BaseSchema = z.object({
   metadata: MetadataSchema,
   calculatedTotalEmissions: z
     .number()
+    .nullable()
     .openapi({ description: 'Calculated total scope 2 emissions' }),
 })
 
@@ -114,24 +135,26 @@ export const Scope3CategorySchema = z.object({
     .openapi({ description: 'Scope 3 category number (1-16)' }),
   total: z
     .number()
+    .nullable()
     .openapi({ description: 'Total emissions for this category' }),
-  unit: z.string().openapi({ description: 'Unit of measurement' }),
+  unit: emissionUnitSchemaGarbo.openapi({ description: 'Unit of measurement' }),
   metadata: MetadataSchema,
 })
 
 export const Scope3Schema = z.object({
   id: z.string(),
   categories: z.array(Scope3CategorySchema),
-  statedTotalEmissions: StatedTotalEmissionsSchema.nullable(),
+  statedTotalEmissions: StatedTotalEmissionsSchema.nullable().optional(),
   calculatedTotalEmissions: z
     .number()
+    .nullable()
     .openapi({ description: 'Calculated total scope 3 emissions' }),
   metadata: MetadataSchema,
 })
 
 export const Scope1And2Schema = z.object({
   id: z.string(),
-  total: z.number(),
+  total: z.number().nullable(),
   unit: z.string(),
   metadata: MetadataSchema,
 })
@@ -146,6 +169,7 @@ export const EmissionsSchema = z.object({
   statedTotalEmissions: StatedTotalEmissionsSchema.nullable(),
   calculatedTotalEmissions: z
     .number()
+    .nullable()
     .openapi({ description: 'Total calculated emissions across all scopes' }),
 })
 
@@ -248,6 +272,12 @@ export const ReportingPeriodSchema = z.object({
     .openapi({ description: 'URL to the report' }),
   emissions: EmissionsSchema.nullable(),
   economy: EconomySchema.nullable(),
+  emissionsChangeLastTwoYears: z
+    .object({
+      absolute: z.number().nullable(),
+      adjusted: z.number().nullable(),
+    })
+    .optional(),
 })
 
 const MinimalTurnoverSchema = TurnoverSchema.omit({
@@ -327,7 +357,7 @@ const MinimalEmissionsSchema = EmissionsSchema.omit({
   statedTotalEmissions: MinimalStatedTotalEmissionsSchema.nullable(),
 })
 
-const MinimalReportingPeriodSchema = ReportingPeriodSchema.omit({
+export const MinimalReportingPeriodSchema = ReportingPeriodSchema.omit({
   id: true,
   emissions: true,
   economy: true,
@@ -336,26 +366,63 @@ const MinimalReportingPeriodSchema = ReportingPeriodSchema.omit({
   economy: MinimalEconomySchema.nullable(),
 })
 
-const MinimalCompanyBase = CompanyBaseSchema.extend({
+export const MinimalCompanyBase = CompanyBaseSchema.extend({
+  description: z.string().optional().nullable(),
+  descriptions: z.array(ResponseDescriptionSchema).optional(),
   reportingPeriods: z.array(MinimalReportingPeriodSchema),
+  futureEmissionsTrendSlope: z.number().nullable(),
   industry: MinimalIndustrySchema.nullable(),
+  baseYear: BaseYearSchema.nullable().optional(),
+  logoUrl: z.string().url().optional().nullable(),
   tags: z.array(z.string()),
 })
 
 const CompanyBase = CompanyBaseSchema.extend({
+  description: z.string().optional().nullable(),
+  descriptions: z.array(ResponseDescriptionSchema).optional(),
   reportingPeriods: z.array(ReportingPeriodSchema),
+  futureEmissionsTrendSlope: z.number().nullable(),
   industry: IndustrySchema.nullable(),
-  baseYear: BaseYearSchema.nullable(),
+  baseYear: BaseYearSchema.nullable().optional(),
+  logoUrl: z.string().url().optional().nullable(),
 })
 
 export const CompanyList = z.array(MinimalCompanyBase)
+
+export const ReportsReportingPeriodSchema = ReportingPeriodSchema.omit({
+  emissions: true,
+  economy: true,
+})
+
+export const ReportsCompanyList = z.array(
+  z.object({
+    name: z.string(),
+    wikidataId: wikidataIdSchema,
+    reportingPeriods: z.array(ReportsReportingPeriodSchema),
+  })
+)
+
+export const RegistryList = z.array(
+  z.object({
+    id: z.string(),
+    url: z.string().url(),
+    companyName: z.string().optional().nullable(),
+    wikidataId: z.string().optional().nullable(),
+    reportYear: z.string().optional().nullable(),
+  })
+)
 
 export const CompanyDetails = CompanyBase.extend({
   goals: z.array(GoalSchema).nullable(),
   initiatives: z.array(InitiativeSchema).nullable(),
 })
 
-const ClimatePlanYearEnumSchema = z.enum(['Saknar plan'])
+/**
+ * Internal company details include tags (used by internal tools like Validate).
+ */
+export const InternalCompanyDetails = CompanyDetails.extend({
+  tags: z.array(z.string()),
+})
 
 function transformYearlyData(
   yearlyData: Record<string, number>
@@ -366,10 +433,12 @@ function transformYearlyData(
   }))
 }
 
-const YearlyDataSchema = z.object({
-  year: z.string(),
-  value: z.number(),
-})
+const YearlyDataSchema = z
+  .object({
+    year: z.string(),
+    value: z.number(),
+  })
+  .nullable()
 
 const InputYearlyDataSchema = z
   .record(z.string(), z.number())
@@ -381,43 +450,208 @@ const InputYearlyDataSchema = z
 export const InputMunicipalitySchema = z.object({
   name: z.string(),
   region: z.string(),
+  logoUrl: z.string().nullable(),
   emissions: InputYearlyDataSchema,
-  budget: z.number(),
-  emissionBudget: InputYearlyDataSchema,
+  totalTrend: z.number(),
+  totalCarbonLaw: z.number(),
   approximatedHistoricalEmission: InputYearlyDataSchema,
-  totalApproximatedHistoricalEmission: z.number(),
   trend: InputYearlyDataSchema,
-  trendEmission: z.number(),
   historicalEmissionChangePercent: z.number(),
-  neededEmissionChangePercent: z.number(),
-  hitNetZero: z.string(),
-  budgetRunsOut: z.string(),
   electricCarChangePercent: z.number(),
-  electricCarChangeYearly: InputYearlyDataSchema,
-  climatePlanLink: z.string(),
-  climatePlanYear: z.union([ClimatePlanYearEnumSchema, z.number()]),
-  climatePlanComment: z.string(),
+  climatePlanLink: z.string().nullable(),
+  climatePlanYear: z.number().nullable(),
+  climatePlanComment: z.string().nullable(),
   bicycleMetrePerCapita: z.number(),
   totalConsumptionEmission: z.number(),
-  electricVehiclePerChargePoints: z.number(),
-  procurementScore: z.string(),
-  procurementLink: z.string(),
+  electricVehiclePerChargePoints: z.number().nullable(),
+  procurementScore: z.number(),
+  procurementLink: z.string().nullable(),
+  politicalRule: z.array(z.string()),
+  politicalKSO: z.string(),
 })
 
 export const InputMunicipalitiesSchema = z.array(InputMunicipalitySchema)
 
 export const MunicipalitySchema = InputMunicipalitySchema.omit({
   emissions: true,
-  emissionBudget: true,
   approximatedHistoricalEmission: true,
   trend: true,
-  electricCarChangeYearly: true,
 }).extend({
   emissions: z.array(YearlyDataSchema),
-  emissionBudget: z.array(YearlyDataSchema),
   approximatedHistoricalEmission: z.array(YearlyDataSchema),
   trend: z.array(YearlyDataSchema),
-  electricCarChangeYearly: z.array(YearlyDataSchema),
 })
 
 export const MunicipalitiesSchema = z.array(MunicipalitySchema)
+
+export const MunicipalitySectorEmissionsSchema = z.object({
+  sectors: z.record(z.string(), z.record(z.string(), z.number())),
+})
+
+/**
+ * Regional data schemas
+ */
+export const RegionalSectorEmissionsSchema = z.object({
+  sectors: z.record(z.string(), z.record(z.string(), z.number())),
+})
+
+/**
+ * Regional data schemas
+ */
+export const InputRegionalDataSchema = z.array(
+  z
+    .object({
+      region: z.string(),
+      logoUrl: z.string().nullable().optional(),
+      emissions: InputYearlyDataSchema,
+      total_trend: z.number(),
+      emissions_slope: z.number().optional(),
+      totalCarbonLaw: z.number(),
+      approximatedHistoricalEmission: InputYearlyDataSchema,
+      trend: InputYearlyDataSchema,
+      historicalEmissionChangePercent: z.number(),
+      meetsParis: z.string().transform((val) => val === 'True'),
+      municipalities: z.array(z.string()),
+    })
+    .transform((data) => ({
+      ...data,
+      totalTrend: data.total_trend,
+      total_trend: undefined,
+      emissions_slope: undefined,
+    }))
+)
+
+export const RegionalDataSchema = z.object({
+  region: z.string(),
+  logoUrl: z.string().nullable().optional(),
+  emissions: z.array(YearlyDataSchema),
+  totalTrend: z.number(),
+  totalCarbonLaw: z.number(),
+  approximatedHistoricalEmission: z.array(YearlyDataSchema),
+  trend: z.array(YearlyDataSchema),
+  historicalEmissionChangePercent: z.number(),
+  meetsParis: z.boolean(),
+  municipalities: z.array(z.string()),
+})
+
+export const RegionalDataListSchema = z.array(RegionalDataSchema)
+
+export const RegionalKpiSchema = z.object({
+  region: z.string(),
+  meetsParis: z.boolean(),
+  historicalEmissionChangePercent: z.number(),
+})
+
+export const AuthentificationResponseScheme = z.object({
+  token: z.string(),
+  client: z.string().optional(),
+  redirect_uri: z.string().url().optional(),
+})
+
+export const RegionalKpiListSchema = z.array(RegionalKpiSchema)
+
+/**
+ * National data schemas
+ */
+export const NationalSectorEmissionsSchema = z.object({
+  sectors: z.record(z.string(), z.record(z.string(), z.number())),
+})
+
+export const InputNationalDataSchema = z.array(
+  z.object({
+    country: z.string(),
+    logoUrl: z.string().nullable().optional(),
+    emissions: InputYearlyDataSchema,
+    totalTrend: z.number(),
+    totalCarbonLaw: z.number(),
+    approximatedHistoricalEmission: InputYearlyDataSchema,
+    trend: InputYearlyDataSchema,
+    historicalEmissionChangePercent: z.number(),
+    meetsParis: z.string().transform((val) => val === 'True'),
+  })
+)
+
+export const NationDataSchema = z.object({
+  country: z.string(),
+  logoUrl: z.string().nullable().optional(),
+  emissions: z.array(YearlyDataSchema),
+  totalTrend: z.number(),
+  totalCarbonLaw: z.number(),
+  approximatedHistoricalEmission: z.array(YearlyDataSchema),
+  trend: z.array(YearlyDataSchema),
+  historicalEmissionChangePercent: z.number(),
+  meetsParis: z.boolean(),
+})
+
+export const NationalDataListSchema = z.array(NationDataSchema)
+
+export const ReportingPeriodYearsSchema = z.array(z.string())
+
+export const ValidationClaimsSchema = z.record(wikidataIdSchema, z.string())
+
+export const ReportsListSchema = z.array(
+  z.object({
+    companyName: z.string(),
+    results: z.array(
+      z.object({
+        url: z.string().url().optional(),
+        title: z.string().optional(),
+        description: z.string().optional(),
+        position: z.number().optional(),
+      })
+    ),
+  })
+)
+
+export const saveReportsListResponseSchema = z.object({
+  message: z.string(),
+  successes: z.array(
+    z.object({
+      id: z.string(),
+      companyName: z.string().nullable().optional(),
+      wikidataId: z.string().nullable().optional(),
+      reportYear: z.string().nullable().optional(),
+      url: z.string().url(),
+    })
+  ),
+  failed: z.array(
+    z.object({
+      error: z.enum(['duplicate', 'unknown']),
+      companyName: z.string().optional().nullable(),
+      reportYear: z.string().optional().nullable(),
+      message: z.string(),
+    })
+  ),
+})
+
+export const ReportsListResponseSchema = ReportsListSchema
+
+// Preview endpoint schemas
+export const previewResponseSchema = z.object({
+  previewUrl: z.string().nullable(),
+})
+
+export const errorResponseSchema = z.object({
+  message: z.string(),
+})
+
+export const registryUpdateResponseSchema = z.object({
+  id: z.string(),
+  companyName: z.string().nullable(),
+  wikidataId: z.string().nullable(),
+  reportYear: z.string().nullable(),
+  url: z.string().url(),
+})
+
+export const registryDeleteResponseSchema = z.object({
+  message: z.string(),
+  deletedReports: z.array(
+    z.object({
+      id: z.string(),
+      companyName: z.string().nullable(),
+      wikidataId: z.string().nullable(),
+      reportYear: z.string().nullable(),
+      url: z.string().url(),
+    })
+  ),
+})

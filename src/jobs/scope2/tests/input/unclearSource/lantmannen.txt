@@ -1,0 +1,1334 @@
+### Energianvändning i scope 1 och 2
+
+| Energianvandning producerande anlaggningar | 2024 GWh | % | 2023 GWh | % | Basar 2019 GWh | % |
+| --- | --- | --- | --- | --- | --- | --- |
+| Scope 1 (Direkt energi) | 674 |  | 771 |  | 569 | 
+| Fossila branslen | 273 |  | 269 |  | 323 | 
+| varav kol och kolprodukter | 0 |  | 0 |  | 0 | 
+| varav eldningsolja | 26 |  | 41 |  | 26 | 
+| varav naturgas | 177 |  | 169 |  | 273 | 
+| varav LPG | 70 |  | 59 |  | 25 | 
+| Fornybara branslen | 401 |  | 502 |  | 246 | 
+| Scope 2 (Indirekt energi) | 1 407 |  | 1 309 |  | 1 265 | 
+| Varme/kyla | 701 |  | 663 |  | 673 | 
+| varav icke fornybar | 52 |  | 19 |  | 71 | 
+| varav fossil | 52 |  | - |  | - | 
+| varav karnkraft | 0 |  | - |  | - | 
+| varav fornybar | 648 |  | 644 |  | 603 | 
+| El | 707 |  | 647 |  | 592 | 
+| varav icke fornybar | 69 |  | 18 |  | 37 | 
+| varav fossil | 15 |  |  |  |  | 
+| varav karnkraft | 54 |  |  |  |  | 
+| varav fornybar | 638 |  | 629 |  | 554 | 
+| Total energianvandning | 2 081 |  | 2 081 |  | 1 834 | 
+| varav icke fornybar | 394 | 19 % | 306 | 15 % | 431 | 24 %
+| varav fossil | 340 | 16 % |  | - |  | -
+| varav karnkraft | 54 | 3 % |  | - |  | -
+| varav fornybar 1) | 1 687 | 81 % | 1 774 | 85 % | 1 403 | 76 %
+| Sald energi | 79 |  | 90 |  | 150 | 
+| Anvand egenproducerad fornybar energi (ej bransle) | 0 |  | 0 |  | 1 | 
+![table image]({page: 147, x: 57}, {y: 437, {width: 434}, {height: 7})
+
+- 1) Inkluderar både kärnkraft och förnybart, men separeras för första gången 2024.
+
+
+<!-- PAGE: 148 -->
+I primarproduktionen ska vi skapa forutsattningar for halv erad klimatpaverkan vart tionde ar och klimatneutralitet till 2050.
+Genom Lantmannens odlingsprogram Klimat & Natur infors successivt kriterier for minskad klimatpaverkan i spannmalsvardekedjan.
+Programmet ar skalbart och vaxer kontinuerligt med fler kunder.
+Malet for egen produktion ar att minska klimatpaverkan med 50 procent till 2030 jamfort med basaret 2019.
+Malet ska nas genom fortsatt omstallning till fossilfri produktion energieffektivisering och overgang till gron el.
+Delmalet ar en fossilfri egen produktion i Sverige och Norge till 2025.
+For ovriga nordiska lander ar malet 2030 och resterade Europa senast 2040. som bidrar till losningar.
+Lantmannen driver aven klimatfra gorna i externa initiativ som Hagainitiativet och Hallbar Livs medelskedja och arbetar med vetenskapliga mal som Science Based Targets.
+Lantmannen Unibake och Lantmannen Cere alia har fatt sina klimatmal godkanda av SBTi.
+Affarsomrade Swecon och affarsomrade Scan har paborjat processen med att satta vetenskapliga mal med ambitionen att fa dem godkanda av SBTi.
+
+Lantmannen ligger i linje med de antagna malen for egen produktion och utslapp fran primarproduktionen.
+Malet om 100 procent fossilfritt i vara egna anlaggningar i Sverige och Norge till 2025 ar inom rackhall med arets utfall pa 95 procent respektive 92 procent.
+Andelen fossil fritt for hela koncernen minskar fran 85 procent 2023 till 84 procent 2024.
+Utfallet forklaras framst av sankt reduk tionsplikt i Sverige att Scandbio avyttrades i november och att delar av avfallet fran och med 2024 klassas som fossilt i fjarrvarmemixen.
+Den totala energianvandningen ligger i linje med foregaende ars rapportering.
+
+For kopta transporter ska klimatpaverkan halveras fran transporter relativ omsattning till 2030 med 2019 som basar.
+
+Programmet Framtidens Jordbruk driver omstallningen och skapar forutsattningar for en hallbar primarproduktion.
+Lantmannen anvander forskning och innovation for att utveckla ny teknik och kunskap for erbjudanden och tjanster Minskad klimatpaverkan av odling enligt Klimat & Natur Klimatpaverkan CO e % 100 Skordeutveckling % 50 40 30
+
+2
+
+48 % 75
+
+-20 % -45 %
+
+38 %
+
+-30 %
+
+2 e/MSEK for 2024 vilket ar 50 Utslappen fran kopta transporter har okat jamfort med foregaende ar vilket var vantat pa grund av sankt reduk tionsplikt.
+Utfallet visar att andel biobaserat drivmedel har minskat fran 44 procent 2023 till 21 procent 2024 baserat pa faktiskt inrapporterad data dar schabloner har exklu derats.
+Klimatutslapp fran egen produktion i relation till omsattning uppgar till 1,67 CO en minskning med 44 procent jamfort med basar 2019.
+Inom Klimat & Natur uppgick besparingen till 11 400 ton koldioxidekvivalenter for 2024 baserat pa bestallda volymer vilket ar en okning jamfort med 9 300 ton 2023.
+Utfallet for 2023 har justerats fran bestallda volymer till faktiska volymer.
+Se Rapporteringsprinciper.
+
+25
+
+0 20 10 0
+
+|  | 2050 |
+| --- | --- |
+| Minskad klimatpaverkan fran veteodlingen inom |
+![table image]({page: 148, x: 284}, {y: 446, {width: 463}, {height: 6})
+
+Uppnadd minskning av klimatpaverkan fran odling och uppskattad minskning vid kommande introduktion av fossilfri godsel beraknat per ton hostvete samt den minskningstakt som kravs for att na internationella klimatmal vilket ar att halvera utslapp vart tionde ar.
+
+Utslapp av vaxthusgaser scope 1 2 och delar av scope 3
+
+|  | Basar 2019Utslapp CO |
+| --- | --- |
+| 2 |
+| Scope 1 (Branslen inklusive egna transporter) | 59,6 | 59,6 | 69,4
+| Scope 2 (El och varme) | 24,4 | 19,5 | 47,0
+| Scope 3.3 Bransle och energirelaterade aktiviteter som inte inkluderas i scope 1 eller 2 | 29,7 | 27,6 | 28,5
+| Scope 3.4 Uppstroms transport och distribution (kopta gods transporter) | 148 | 134 | 99
+| Scope 3.6 Tjansteresor | 5,7 | 4,9 | 6,7
+| Totalt inklusive ursprungs markning (market based) | 267 | 245 | 251
+| Totalt exklusive ursprungs markning (location based) | 475 | 419 | 401
+| For avgransningar se Rapporteringsprinciper. |  |  | 
+![table image]({page: 148, x: 533}, {y: 503, {width: 140}, {height: 7})
+
+Klimatutslapp egen produktion och kopta godstransporter i relation till omsattning
+
+Procent CO e/MSEK omsattning relativt basar 2019 2 120
+
+100 80 60 40 20
+
+| 0 | 203020292028202720262025202420232022202120202019 |
+| --- | --- |
+| Utslapp relativt basar godstransporter | Utslapp relativt basar totalt
+| Utslapp relativt basar egen produktion | Mal
+| Klimatutslapp fran scope 1 2 3.3 och 3.4 i relation till omsattning ska minska med 50 procent fran basar 2019 till 2030. For information om tillampade rapporterings principer och andring av tidigare ars utfall sid 165. | Lantmannen anvander inte klimatkompensation. Ett internt arbete har initierats for intern koldioxidprissattning dock har resultatet inte implementerats.
+![table image]({page: 148, x: 78}, {y: 656, {width: 373}, {height: 33})
+
+
+<!-- PAGE: 149 -->
+
+## Page 148:
+                ```markdown
+| Utsläpp CO₂, tusenton  | 2024  | Basår 2019 |
+|-----------------------|-------|------------|
+| Scope 1 (Bränsle inklusive egen transporter) | 59.6  | 69.4       |
+| Scope 2 (El och värme) | 24.4  | 19.5       |
+| Scope 3.3 Bränsle- och energi-relaterade aktiviteter som inte inkluderats i scope 1 eller 2 | 29.7  | 27.6       |
+| Scope 3.4 Utsläpps transport och distribution (köpta godstransporter) | 148.3 | 149.9      |
+| Scope 3.6 Tjänsteresor  | 5.7   | 4.9        |
+| Totalt, inklusive ursprungsmarkering (markett bas) | 267   | 245        |
+| Totalt, exklusive ursprungsmarkering (location bas) | 475   | 419        |
+```
+
+## Scope 3
+## Definitioner
+
+En beskrivning av de definitioner som tillampas for de nyckeltal och begrepp som omfattas av hallbarhetsredovis ningen finns pa sid 167-168.
+Utover den finns fordjupad information om de principer och berakningsmetoder som har tillampats for berakningen av vaxthusgasutslapp se nedan.
+I scope 3 redovisas utslapp fran kopta godstransporter tjansteresor samt produktionen och distributionen av bransle och energi som inte ingar i scope 1 eller 2.
+Utslapp fran odling av spannmal och andra ravaror ingar inte i redovisningen.
+Spannmal odlad inom odlingsprogram met Klimat & Natur foljs dock upp bade avseende volym och klimatprestanda.
+Lantmannen redovisar nyckeltal for utslappsintensitet i procent relativt ton CO 2 e/MSEK med Redovisningsprinciper klimatutslapp Lantmannen redovisar utslapp av vaxthusgaser.
+Vid berak ning av klimatutslapp finns alltid inneboende osakerhets faktorer.
+Har redogors for de principer som Lantmannen anvander.
+Redovisningen ar i CO 2 saknas exempelvis for tjanstere sor i scope 3.
+2 -ekvivalenter och dar dataunderlag finns ingar samtliga vaxthusgaser.
+I vissa fall kan andra utslapp an CO basar 2019.
+Berakningen av utslappsintensiteten for egen produktion omfattar totala omsattningen.
+For scope 3 inkopta godstransporter och tjansteresor har Lantmannen mal for utslapp fran kopta godstransporter.
+Dar ingar last bilar och ovriga transporter som till exempel sjotransport.
+Vid berakning av klimatutslapp fran godstransporter finns inneboende osakerhetsfaktorer.
+Utslapp fran kopta god stransporter beraknas enligt modellen TRIM som baseras pa transportarbete i ton km inkopsbelopp i SEK och emis sionsfaktorer.
+Berakningarna bygger pa basta tillgangliga data dar schablonberakningar i vissa fall anvants.
+Senast 2022 forbattrades metod for berakning genom en storre andel transportarbetsbaserat underlag storre scope samt uppdaterad berakning av emissionsfaktor for utslapp baserat pa inkopsdata.
+Uppdateringen paverkade utfallet for 2022 och aven 2019 ars resultat da emissionsfaktorn inkluderar atgarder som reduktionsplikt.
+Ett basar for 2019 har tagits fram med samma metod.
+Den ligger till grund for uppfoljning mot mal.
+Rapporteringen baseras pa internt registrerat transportarbete i ton kilometer som motsvarar cirka 70 procent samt schablonberaknade uppgifter base rade pa inkopsdata.
+Vi arbetar kontinuerligt for forbattrad berakning fran transportarbete.
+
+
+<!-- PAGE: 167 -->
+For emissionsfaktorer (per tonkilometer) anvands bransleforbrukning fran transportorer samt beraknade varden fran NTM Natverket for Transporter och Miljo.
+I scope 3 i kategorin tjansteresor ingar affarsresor med flyg och tag i Norden samt hyrbil i Sverige bokade via resebyra.
+For tjansteresor med flyg och tag utgors rapporteringen av resor utforda under perioden 1 december 2023 - 30 november 2024.
+Resor och hyrbil i Norden bokade utanfor resebyraer samtliga buss bat och taxiresor flyg och tagre sor samt hyrbil i lander utanfor Norden ingar inte da data saknas.
+Tjansteresor som inte ingar uppskattas uppga till cirka 20 procent.
+Utslapp fran tjanstebilar omfattar hela Lantmannen utom verksamheter i Australien och det nyfor varvade bolaget Entrack.
+Tjansteresors utslapp beraknas pa uppgifter fran leverantoren det vill saga resebyraer och billeasingbolagens rapporter om korda kilometer och fak tisk bransleforbrukning samt emissionsfaktor for bransle enligt EU standard och biltillverkares uppgifter om utslapp per bilmodell.
+
+Avfall Lantmannen redovisar avfall fran och med 2024.
+Restfloden som uppstar i vara verksamheter och som genererar andra produkter sasom foder och etanol exkluderas fran rappor teringen samt floden som saljs till externa parter.
+
+## Page 173:
+                ```markdown
+| Tabellnummer | Titel                                 | Sid  |
+|--------------|---------------------------------------|------|
+| 305-1        | Direkta utsläpp av växthusgaser, scope 1 | 146-147 |
+| 305-2        | Indirekta utsläpp av växthusgaser, scope 2 | 146-147 |
+| 305-3        | Andra indirekta utsläpp av växthusgaser, scope 3 | 146-147 |
+| 306-1        | Avfallshantering och betydande avfallrelaterade effekter | 151-152 |
+| 306-2        | Hantering av betydande avfallrelaterade effekter | 151-152 |
+| 403-1        | Ledningssystem för hälsa och säkerhet | 156  |
+| 403-2        | Identifiering av faror, risker och handlingsutredning | 155-156 |
+| 403-3        | Hälsoförhållanden                       | 155  |
+| 403-4        | Medarbetares deltagande, samtid och kommunikation i hälso- och säkerhetsfrågor | 155 |
+| 403-5        | Utbildning för medarbetare i hälso och säkerhet | 156  |
+| 403-6        | Främjande av medarbetares hälsa       | 156-157 |
+| 403-7        | Förhindrande och begränsning av påverkan på hälsa och säkerhet kopplad till affärsrelationer | 156  |
+| 405-1        | Mångfald i styrelsen, ledning samt medarbetare | 156  |
+```
+
+# Hållbarhetsredovisning
+Rapporteringsprinciper
+# Rapportens omfattning
+
+Scope 1 och 2
+
+Redovisningen omfattar kalenderar 2024 dar inget annat anges.
+Redovisningen ges ut arligen och avser Lantmannen koncernen sa som den ar definierad pa sid 81.
+Bolag/ verksamheter som forvarvats under aret och som ar med i den finansiella redovisningen omfattas av hallbarhets redovisningen.
+Intresseforetag och joint ventures ar inte inkluderade.
+Redovisning per segment sker for relevanta nyckeltal som koldioxidutslapp sjukfranvaro och fordel ning kvinnor/man.
+
+## Utsläpp CO
+
+- 1) Inklusive koncernintern omsättning.
+
+
+<!-- PAGE: 42 -->
+Hallbarhet i fokus
+
+Division Energi producerar etanol med varldsledande klimat prestanda foderravaror och produkter till livsmed elsindustrin samt marknadsfor miljoanpassade petroleum produkter.
+Arbetet har fortsatt med utveckling av cirkulara affarsmodeller effektiv produktion och transporter med lag klimatpaverkan saker arbetsmiljo samt ansvarsfulla inkop och affarsrelationer.
+I etanolproduktionen atervinns restpro dukter fran livsmedelsindustrin.
+
+## Utsläpp CO
+
+- 1) Inklusive koncernintern omsättning.
+
+
+<!-- PAGE: 54 -->
+Hallbarhet i fokus
+
+Swecons vision ar att vara ledande inom hallbarhet bland aterforsaljare av tunga fordon.
+Swecon har identifierat fyra fokusomraden Jamstalldhet Kundnojdhet Leveran torsuppfoljning och Swecons klimatutslapp.
+Fokusomra dena foljs upp regelbundet.
+Swecons hallbarhetsarbete drivs i linje med Lantmannens och Volvo CE:s langsiktiga hallbarhetsmal.
+
+Fokus ligger fortsatt pa digitala losningar och tjanster med ambitionen att systematiskt minska koldioxidutslap pen for vara kunder.
+
+Under aret har Swecon atagit sig att satta vetenskap ligt baserade mal enligt Science Based Targets initiative (SBTi) for en vardekedja med nettonollutslapp senast 2045 och betydande utslappsminskningar redan till 2030.
+Flera workshops har genomforts tillsammans med medarbetare inom olika verksamheter som mynnat ut i konkreta aktivite ter for att uppna malen.
+For att oka forstaelsen av Swecons cirkulara affar i Sverige och Estland har en livscykelanalys med brett miljoperspektiv gjorts av forsaljningen av begag nade och renoverade reservdelar.
+
+Swecons verksamhet
+
+## Page 147:
+                ```markdown
+| Energianvändning        | 2024  |       | 2023  |       | Basår 2019 |       |
+|-------------------------|-------|-------|-------|-------|------------|-------|
+|                         | GWh   | %     | GWh   | %     | GWh        | %     |
+| Scope 1 (Direkt energi) |       |       |       |       |            |       |
+| Fossila bränslen        | 674   |       | 771   |       | 569        |       |
+| varav kol och kolprodukter | 273 |       | 269   |       | 323        |       |
+| varav eldningsolja      | 0     |       | 0     |       | 0          |       |
+| varav naturgas          | 26    |       | 41    |       | 26         |       |
+| varav LPG               | 177   |       | 169   |       | 273        |       |
+| Förnybar bränslen       | 70    |       | 59    |       | 25         |       |
+|                         | 401   |       | 502   |       | 246        |       |
+| Scope 2 (Indirekt energi) |     |       |       |       |            |       |
+| Värme/kyla             | 1 407 |       | 1 309 |       | 1 265      |       |
+| varav icke förnybar     | 701   |       | 663   |       | 673        |       |
+| varav fossilt           | 52    |       | 19    |       | 71         |       |
+| varav kärnkraft        | 0     |       | –     |       | –          |       |
+| varav förnybart         | 648   |       | 644   |       | 603        |       |
+|                         | 707   |       | 647   |       | 592        |       |
+| varav icke förnybar     | 69    | 18    | 37    |       |            |       |
+| varav fossilt           | 15    |       |       |       |            |       |
+| varav kärnkraft        | 54    |       |       |       |            |       |
+| varav förnybart         | 638   | 629   | 554   |       |            |       |
+| Total energianvändning   | 2 081 |       | 2 081 |       | 1 834      |       |
+| varav icke förnybar     | 394   | 19 %  | 306   | 15 %  | 431        | 24 %  |
+| varav fossilt           | 340   | 16 %  | 306   | 15 %  |            | –     |
+| varav kärnkraft        | 54    | 3 %   |       |       |            | –     |
+| varav förnybart         | 1 687 | 81 %  | 1 774 | 85 %  | 1 403      | 76 %  |
+| Såld energi             | 79    |       | 90    |       | 150        |       |
+| Använd egenproducerad förnybar energi (ej bränsle) | 0 |       | 0 |       | 1 |
+```
+
+## Utsläpp CO
+
+- 1) Inklusive koncernintern omsättning.
+
+| Exkl. jamforelsestorande poster | 2024 | 2023 |
+| --- | --- | --- |
+| Rorelseresultat MSEK | 1 037 | 730
+| Rorelsemarginal % | 4,8 | 3,3
+| Avkastning pa operativt kapital % | 5,5 | 3,9
+![table image]({page: 45, x: 311}, {y: 591, {width: 231}, {height: 8})
+
+| Omsattning per marknad | 2024 | 2023 |
+| --- | --- | --- |
+| Norden | 58 % | 60 %
+| ovriga Europa | 33 % | 32 %
+| ovriga varlden | 9 % | 8 %
+![table image]({page: 45, x: 311}, {y: 665, {width: 231}, {height: 8})
+
+
+<!-- PAGE: 46 -->
+Hallbarhet i fokus
+
+Division Livsmedel arbetar for att uppna resurseffektiv produktion mer hallbara forpackningslosningar transpor ter med lag klimatpaverkan saker arbetsmiljo ansvars fulla inkop och affarsrelationer.
+Bra mat fran Lantmannen anvands for att kommunicera ansvarsfull livsmedelsproduk tion fran jord till bord.
+
+Lantmannen Unibake och Lantmannen Cerealia ar anslutna till Science Based Targets initiative (SBTi) ett globalt program for foretag att minska utslappen i linje med Parisavtalet.
+Under aret godkandes Cerealias klimatmal i programmet och Unibakes mal godkandes redan 2023.
+
+## Datainsamling
+
+Insamling av miljo och energidata sker via det digitala verktyget TM1.
+Uppgifter om leverantorsuppfoljning enligt leverantorsuppforandekoden kommer fran Contract Mana gement System (CMS) ett system for att hantera inkopsavtal och SPEND ett egenutvecklat system for uppfoljning av inkop.
+HR relaterade data kommer fran HR:s lonesystem och Smartday.
+Arbetsolyckor skador och incidenter rappor teras i arbetsmiljorapporteringssystemet IA ett webbaserat system som tillhandahalls av AFA Forsakring forutom Lantbruk som anvander ett eget inrapporteringssystem varifran data laggs in i Lantmannens arbetsmiljorappor tering.
+Antal medarbetare som genomgatt olika e-utbild ningar hamtas direkt fran Smartday learning.
+Uppgifter om lagefterlevnad hamtas fran verksamheten via LUPP samt fran avdelning Juridik & Compliance och HR.
+I scope 1 ingar enligt WBCSD GHG Protocol utslapp fran energianvandning i egna anlaggningar.
+Utslapp fran lackage av koldmedia ingar inte i berakningen av scope 1 pa grund av avsaknad av data.
+I scope 2 redovisas indirekta utslapp fran elanvandning kyla och fjarrvarme.
+For information om vilka delar inom Lantmannen som omfattas av rappor teringen sid 167-168.
+For inkopt el och varme redovisas utslapp bade med sa kallad marknadsbaserad och plats baserad metod.
+Platsbaserade utslapp beraknas med med elvarde for det aktuella natet oberoende av om det finns ursprungsgarantier.
+Berakningen baseras pa emissions faktorer for el i Sverige och kommer fran IEA (Internatio nal Energy Agency) samt finns med i Hagainitiativet.
+For ursprungsmarkt el tas faktorer fran produktspecifikationen.
+Fran 2019 har effekter av distributionsforluster tagits med i emissionsberakningen.
+For lander i Norden beraknas utslapp baserat pa nordisk residual el och uppgifter hamtas fran svenska Energimarknadsinspektionen.
+For el i andra lander beraknas emissioner utifran nationell elmix och uppgifter hamtas fran Association of Issuing Bodies.
+Emis sionsfaktorer for fjarrvarme hamtas fran Energiforetagen Finnish energy eller respektive varmeleverantor.
+Fran 2024 beraknas fjarrvarme med en uppdaterad emissionsfaktor dar avfall klassas som fossilt.
+Emissionsfaktor har inham tats fran Naturvardsverket.
+
+GRI-index
+
+Lantmannen redovisar sedan flera ar enligt Global Reporting Initiatives riktlinjer.
+Mer om GRI pa globalreporting.org Nedanstaende korsreferensindex anger de obligatoriska och valda GRI indikatorer som ingar i Lantmannens hallbarhetsredovisning samt var informationen finns redovisad.
+For vissa indikatorer lamnas upplysning och/eller kommentar direkt i indextabellen.
+For definitioner se Rapporterings principer.
+
+Generella upplysningar
+
+| Uttalande om redovisningen | Lantmannen rapporterar i enlighet med GRI Standards for perioden 1 januari 2024 - 31 december 2024. |
+| --- | --- |
+| Organisationen och redovisningsprinciper |
+| 2-1 | Information om organisationen |  | Sid 62-23 not 4 183
+| 2-2 | Enheter som omfattas av hallbarhetsredovisningen |  | Sid 63 165 not 33
+| 2-3 | Redovisningsperiod frekvens och kontaktperson | arlig redovisning. Publicering februari 2025. | Sid 165 170
+| 2-4 | Forandringar i tidigare rapporterade upplysningar |  | Sid 166
+| 2-5 | Externt bestyrkande |  | Sid 174
+| Aktiviteter och medarbetare |
+| 2-6 | Aktiviteter vardekedja och andra affarsforbindelser | For beskrivning av respektive division och affarers respektive vardekedja se beskrivningar pa sid 34-57. | Sid 9 14 19-20 140-141
+| 2-7 | Medarbetare | Rapporteringsprinciper. Avsteg for antal som inte ar tillsvidareanstallda data saknas. | Not 6 sid 67-68 168
+| 2-8 | Medarbetare som inte ar anstallda | Rapporteringsprinciper. Avsteg for antal data saknas. | Sid 168
+| 2-9 | Sammansattning och struktur for styrning |  | Sid 138-140
+| 2-10 | Nominering och val av hogsta styrande organ |  | Sid 183-189
+| 2-11 | Ordforande for hogsta styrande organ | Ordforande ar inte del av koncernledning | Sid 194
+| 2-12 | Hogsta styrande organets roll i arbetet med oversyn och hantering av paverkan |  | Sid 138-140
+| 2-13 | Delegering av beslutsfattande for att hantera paverkan |  | Sid 138-140
+| 2-14 | Hogsta styrande organets roll i relation till hallbarhetsredovis ningen |  | Sid 138-140
+| 2-15 | Intressekonflikter |  | Sid 161-163
+| 2-16 | Kommunikation av kritiska fragestallningar |  | Sid 161-163
+| 2-17 | Samlad kunskap hos det hogsta styrande organet | Lopande forankring av programmet Framtidens Jord bruk kunskapsgenerering vid strategiska investeringar kopplade till energi och livsmedelsvardekedjans hallbara omstallning. | 
+![table image]({page: 171, x: 58}, {y: 357, {width: 269}, {height: 31})
+
+
+<!-- PAGE: 172 -->
+Generella upplysningar
+
+| Upplysning | Beskrivning | Kommentar | Hanvisning |
+| --- | --- | --- | --- |
+| Styrning |
+| 2-18 | Utvardering av det hogsta styrande organets arbete | Sjalvutvardering vartannat ar och extern utvardering vartannat ar vilket resulterar i att utvecklingsarbete genomfors. | Sid 138
+| 2-19 | Ersattningspolicy | Ersattningspolicyns koppling till hallbarhet ar under utveckling och kommer att implementeras stegvis. | Not 6
+| 2-20 | Process for att faststalla ersattningar |  | Not 6 samt sid 189- 190
+| 2-21 | arlig total ersattning | Ersattningsration for 2024 uppgick till 31 jamfort med 24 for | 
+| 2023. Forandringen forklaras framst av att datakvaliteten hojts dar felaktiga loner har identifierats och exkluderats samt att fler medarbetare inkluderas dar det tidigare saknades data. Forandringsration ar darav inte representativt mellan 2024 och 2023 och redovisas fran 2025. |
+| I berakningen av ersattningsration ingar tillsvidareanstallda i Lantmannen. Total ersattning definieras som fast lon och i forekommande fall koncerngemensam kort och langsiktig rorlig lon. Tillagg och pensioner har inte inkluderats i ersatt ningsration pa grund av avsaknad av data gallande pensioner och lokala tillagg i det globala HR systemet. Lonerna har konverterats till heltid samt svenska kronor. |
+| Lonespridningen mellan Lantmannens medarbetare varierar fran land till land. Lonespridning ar beroende av lokala ersatt ningsstrukturer som speglar landsspecifika forutsattningar och socialforsakringssystem i respektive land. Majoriteten av medarbetare som ingar i berakningen har fast lon som sin huvudsakliga ersattningskomponent. |
+| 2-22 | Uttalande om strategi for hallbar utveckling |  | Sid 4-7
+| 2-23 | Varderingar principer standarder och normer gallande uppforande |  | Sid 138-140 162
+| 2-24 | Forankring av varderingar principer standarder och normer gallande uppforande |  | Sid 161-163
+| 2-25 | Processer for att atgarda negativ paverkan |  | Sid 138-140
+| 2-26 | Mekanismer for radgivning och rapportering av angelagenheter for organisationen |  | Sid 139 155 162
+| 2-27 | Efterlevnad av lagar och forordningar | 0 (1) betydande boter eller icke monetara sanktioner under 2024. | Se sid 163 och 167 for definition
+| 2-28 | Medlemskap i organisationer |  | Sid 32
+| 2-29 | Metod for intressentengagemang |  | Sid 32 141-143
+| 2-30 | Kollektivavtal | Inom Lantmannen tillampas flera olika kollektivavtal. I Sverige omfattas 100 procent av de anstallda. Totalt for koncernen omfat tas 74 procent (70,5). Da medarbetare star utanfor kollektivavtal | 
+| tillampas som princip motsvarande arbets och anstallningsvillkor som galler for foretagets kollektivavtalsanslutna anstallda med undantag for vissa lander dar vi bevakar fragan. |
+| 3-1 | Process for att faststalla vasentliga fragor |  | Sid 142-143
+| 3-2 | Lista pa vasentliga fragor |  | GRI index samt sid 24-25 142
+| Ekonomiskt resultat Omfattar Lantmannens egen verksamhet leverantorer kunder medlemmar och samhalle |
+| 3-3 | Styrning av vasentliga fragor |  | Sid 19-20 66-67 138-140
+| 201-2 | Finansiell paverkan samt andra risker och mojligheter for organisationen kopplat till klimatforandringar | Kvantifiering av paverkan och risker data saknas. | Sid 145-146
+![table image]({page: 172, x: 74}, {y: 99, {width: 448}, {height: 15})
+
+Foretags specifik arlig investering i forskning och innovation
+
+
+<!-- PAGE: 173 -->
+Vasentliga fragor
+
+| Upplysning | Beskrivning | Avsteg och forklaring | Hanvisning |
+| --- | --- | --- | --- |
+| Antikorruption Omfattar Lantmannens egen verksamhet samt leverantorer och andra affarspartners |
+| 3-3 | Styrning av vasentliga fragor |  | Sid 161-163
+| 205-1 | Verksamheter som bedomts utifran risk for korruption |  | Sid 163
+| 205-2 | Kommunikation och utbildning i policyer avseende antikorruption | Redovisar inte per anstallningsform da det inte registreras och ut | 
+| bildningen ar obligatorisk. Redovisar inte affarspartners de signerar Leverantorsuppforandekoden och detta redovisas pa sid 157-158. |
+| Sid 163 |
+| 205-3 | Korruptionsincidenter och vidtagna atgarder |  | Sid 163
+| Material Omfattar Lantmannens egen verksamhet |
+| 3-3 | Styrning av vasentliga fragor |  | Sid 151-152
+| 301-1 | Material | Redovisar betydande materialfloden. | Sid 152
+| Energi Omfattar Lantmannens egen verksamhet |
+| 3-3 | Styrning av vasentliga fragor |  | Sid 145-146
+| 302-1 | Energianvandning inom organisationen |  | Sid 146
+| Biologisk mangfald Omfattar Lantmannens egen verksamhet och leverantorer |
+| 3-3 | Styrning av vasentliga fragor |  | Sid 149
+| 304-2 | Betydande paverkan pa biologisk mangfald fran aktiviteter produkter och tjanster |  | Sid 149
+| Foretagsspecifik | Ekologiska erbjudanden |  | Sid 150
+| Utslapp till luft Omfattar Lantmannens egen verksamhet och leverantorer |
+| 3-3 | Styrning av vasentliga fragor |  | Sid 145-146
+| 305-1 | Direkta utslapp av vaxthusgaser scope 1 | For omfattning och avsteg se Rapporteringsprinciper samt sid 169. | Sid 146-147
+| 305-2 | Indirekta utslapp av vaxthusgaser scope 2 | For omfattning och avsteg se Rapporteringsprinciper samt sid 169. | Sid 146-147
+| 305-3 | Andra indirekta utslapp av vaxthusgaser scope 3 | For omfattning och avsteg se Rapporteringsprinciper samt sid 169. | Sid 147
+| 305-4 | Utslappsintensitet Koldioxidutslapp i relation till omsattning | For omfattning och avsteg se Rapporteringsprinciper. | Sid 147
+| Foretagsspecifik | Minskning av klimatpaverkan fran odlingsprogrammet Klimat & Natur |  | Sid 147
+| Avfall Omfattar Lantmannens egen verksamhet |
+| 3-3 | Styrning av vasentliga fragor |  | Sid 151-152
+| 306-1 | Avfallsgenerering och betydande avfallsrelaterade effekter |  | Sid 151-152
+| 306-2 | Hantering av betydande avfallsrelaterade effekter |  | Sid 151-152
+| 306-3 | Avfall genererat |  | Sid 152
+| Arbetsmiljo halsa och sakerhet Omfattar Lantmannens egen verksamhet |
+| 3-3 | Styrning av vasentliga fragor |  | Sid 154-155
+| 403-1 | Ledningssystem for halsa och sakerhet |  | Sid 156
+| 403-2 | Identifiering av faror risker och handelseutredning |  | Sid 155-156
+| 403-3 | Halsovard |  | Sid 155
+| 403-4 | Medarbetares deltagande samrad och kommunikation i halso och sakerhetsfragor |  | Sid 155
+| 403-5 | Utbildning for medarbetare i halsa och sakerhet |  | Sid 156
+| 403-6 | Framjande av medarbetares halsa |  | Sid 154-156
+| 403-7 | Forhindrande och begransning av paverkan pa halsa och sakerhet kopplad till affarsrelationer |  | Sid 157-158
+| 403-8 | Medarbetare som tacks av ledningssystem for halsa och sakerhet |  | Sid 156
+| 403-9 | Arbetsrelaterade skador och olyckor | Avsteg for nyckeltal for forlorade dagar data saknas. Avsteg for konsulter och arbetsledda konsulter se sid 168. | Sid 156
+| Mangfald och likabehandling Omfattar Lantmannens egen verksamhet |
+| 3-3 | Styrning av vasentliga fragor |  | Sid 155-156
+| 405-1 | Mangfald i styrelse ledning samt bland medarbetare | Avsteg for fordelning utifran medarbetarkategorier data saknas samt avsteg for minoritetstillhorighet eller andra mangfalds indikatorer data har inte samlats in. | 
+![table image]({page: 173, x: 60}, {y: 99, {width: 342}, {height: 23})
+
+
+<!-- PAGE: 174 -->
+Vasentliga fragor
+
+| Upplysning | Beskrivning | Avsteg och forklaring | Hanvisning |
+| --- | --- | --- | --- |
+| Kunders och konsumenters halsa och sakerhet Omfattar Lantmannens egen verksamhet samt leverantorer kunder samt konsumenter |
+| 3-3 | Styrning av vasentliga fragor |  | Sid 158-159
+| FP5 | Andel produktionsvolym som tillverkats i anlaggningar certifierade for livsmedelssakerhet | Redovisar inte volym data saknas. Redovisar andel anlaggningar. | Sid 159
+| Foretagsspecifik | Kadmium i fosforgodsel |  | Sid 148
+| Egen fraga Hallbara produkter Omfattar Lantmannens egen verksamhet leverantorer kunder samt konsumenter |
+| 3-3 | Styrning av vasentliga fragor |  | Sid 149-150
+| Foretagsspecifik | Volym fran hallbara odlingsprogram |  | Sid 150
+| Omvandling av naturliga ekosystem |
+| 3-3 | Styrning av vasentliga fragor |  | Sid 149-150
+| Jordhalsa |
+| 3-3 | Styrning av vasentliga fragor |  | Sid 149-150
+| Livsmedelsberedskap |
+| 3-3 | Styrning av vasentliga fragor |  | Sid 19-20 151-152
+| Livsmedelssakerhet |
+| 3-3 | Styrning av vasentliga fragor |  | Sid 19-20 151-152
+| 416-2 | Incidenter avseende halso och sakerhetseffekter av produkter och tjanster | Inga incidenter intraffade under 2024 | 
+| Djurvalfard och djurhalsa |
+| 3-3 | Styrning av vasentliga fragor |  | Sid 162
+| Tvangsarbete |
+| 3-3 | Styrning av vasentliga fragor |  | Sid 140 158 159
+| 409-1 | Verksamheter och leverantorer med betydande risk for tvangsarbete |  | Sid 158 159
+| Barnarbete |
+| 3-3 | Styrning av vasentliga fragor |  | Sid 140 158 159
+| 408-1 | Verksamheter och leverantorer med betydande risk for barnarbete |  | Sid 158 159
+| Foreningsfrihet och kollektivforhandling |
+| 3-3 | Styrning av vasentliga fragor |  | Sid 140 158 159
+| 407-1 | Ratten till foreningsfrihet och kollektivforhandlingar |  | Sid 158 159
+| Levnadslon |
+| 3-3 | Styrning av vasentliga fragor |  | Sid 140 158 159
+| Sparbarhet i leveranskedjan |
+| 3-3 | Styrning av vasentliga fragor |  | Sid 140 158 159
+| Samhallspolitik |
+| 3-3 | Styrning av vasentliga fragor |  | Sid 161-163
+| 415-1 | Politiska donationer |  | Sid 163
+![table image]({page: 174, x: 74}, {y: 99, {width: 423}, {height: 7})
+
+Icke vasentliga fragor Hallbarhetsamnen som exkluderats Motivering
+
+Anvandning av bekampningsmedel
+
+Hallbarhetsamnena som listas till vanster har inte bedomts som betydande eller kritiska baserat pa negativ eller positiv inverkan samt finansiell paverkan.
+Dessa fragor bevakas dock lopande och beskrivs tills viss del under avsnitten Biologisk mangfald Klimatforandringar Fororeningar och Affarsetik.
+Las mer om var vasentlighetsbedomning pa sida 24-25.
+
+Vatten och avloppsvatten Lokala samhallen Mark och resursrattigheter Rattigheter for ursprungsbefolkningar Ekonomisk inkludering
+
+
+<!-- PAGE: 175 -->
+
+## Handel med emissionsinsatser
+
+Emissionsinsatserna ar ett av manga bra skal att vara med lem i Lantmannen.
+Emissionsinsatserna bygger pa den del av vinsten fran Lantmannens industriverksamhet som fordelas till medlemmarna.
+
+Lantmannens 20 distrikt ar basen for medlemmarnas inflytande och en viktig lank mellan medlemmarna och Lantmannen.
+Distriktsstyrelserna arbetar regionalt med medlemmarna i nara samarbete med Lantmannens med lemsansvariga och Lantmannen Lantbruk och Lantmannen Maskin.
+Las vidare i foreningsstyrningsrapporten sid 183-197.
+
+### Division Energi
+
+Efterfragan pa Lantmannens hallbara etanol forvantas vara fortsatt hog pa den europeiska marknaden och det juste rade forslaget avseende svensk reduktionsplikt kan oka den inhemska efterfragan pa etanol med hog klimatprestanda.
+Lantmannen Aspens affar forvantas ha fortsatt god tillvaxt dock med fortsatt stor paverkan av vadret samt konjunktu ren inom bygg och fordonsindustrin.
+
+## Association of Beet and Cane Growers,
+
+Viking Malt Oy.
+Emissionsinsatser 2 081 761 SEK* Inbetalda insatser 2 349 697 SEK*
+
+# Science Based Targets initiative
+
+Lantmannen Cerealias ambitiosa klimatmal for att minska utslapp fran bade den egna verksamheten och fran inkopta varor och tjanster ar i linje med vad som kravs for att begransa den global uppvarmningen i enlighet med paris avtalets malsattning.
+Science Based Targets initiative har nu godkant Lantmannen Cerealias mal.
+17 juni 2024
+
+### introduceras i odlingspro- grammet Klimat & Natur
+
+- Lantmännen
+
+## Mål och mått
+
+Lantmannens klimatmal ar utformade for att minska utslappen i linje med Parisavtalet med malet att halvera utslappen vart tionde ar och na nollutslapp 2050.
+Malen omfattar primarproduktion av spannmal egen produktion och transporter.
+
+### FÖRVÄRV
+#### Kalmar Lantmäns maskinverksamhet
+#### Dataväxt
+#### Frozen Bakery Products
+
+2016
+
+Global Compact FN initiativ for ansvarsfullt foretagande.
+Ett inter nationellt ramverk med tio principer for manskliga rattigheter arbets ratt miljo samt anti korruption.
+
+Hallbart etanolbransle Etanolbransle som tillverkats i enlighet med EU:s direktiv om framjande av anvandningen av energi fran fornybara energikallor RED.
+
+IFRS International Financial Reporting Standards ett regelverk for redovisning.
+Las mer pa ifrs.com ISDA avtal Ett standardiserat avtal for finansiell handel.
+
+Leverantorsrevision Annonserad eller oannonserad tredjeparts granskning av leverantor med uppfoljning av krav i Leverantorsupp forandekoden.
+
+Manskliga rattigheter Internationellt deklarerade manskliga rat tigheter som FN:s allmanna forklaring om manskliga rattigheter och ILO:s konventioner.
+
+Palmkarneexpeller Palmkarneexpeller rester fran pressade palm karnor som anvands for djurfoderproduktion.
+
+R&D Research and Development.
+Forskning och utveckling.
+
+RCP Representative Concentration Pathways (RCP) ar scenarier over hur vaxthuseffekten kommer att forstarkas i framtiden.
+
+RSPO Round Table on Sustainable Palm Oil.
+Internationell runda bordsprocess for att ta fram kriterier for hallbar palmolja.
+For mer om RSPO:s certifieringsnivaer Book & Claim Mass Balance och Segrega ted se rspo.org CO2e koldioxidekvivalenter Matt pa utslapp av vaxthusgaser.
+For att fa alla vaxthusgaser jamforbara multipliceras alla utslapp for utom koldioxid med en global uppvarmningspotential (GWP).
+
+CSA avtal Sidoavtal till ISDA.
+Reglerar hur part med utestaende skuld maste stalla sakerhet i form av likvida medel eller vardepapper.
+
+CSRD Corporate Sustainability Reporting Directive ar ett EU direktiv for att standardisera och forbattra hallbarhetsrapporteringen.
+Direkti vet kraver att stora foretag och borsnoterade foretag rapporterar om sin paverkan pa miljo sociala fragor och styrning (ESG).
+
+Due diligence Process for att samla in och analysera information infor ett foretagsforvarv eller andra strategiska forandringar.
+
+EFRAG (European Financial Reporting Advisory Group) utvecklar och framjar standarder for finansiell rapportering inom EU.
+
+ERM process (Enterprise Risk Management) en strukturerad och proaktiv riskhanteringsprocess.
+
+ESRS (European Sustainability Reporting Standards) ramverk for hallbarhetsrapportering som utvecklats av EFRAG for att uppfylla kraven i EU:s Corporate Sustainability Reporting Directive (CSRD).
+
+FLAG (Forest Land and Agriculture) ett ramverk inom SBTi for foretag att satta vetenskapligt baserade mal for att minska utslapp och oka upptag av vaxthusgaser fran markanvandning.
+Malen galler utslapp fran skogsbruk jordbruk och annan markanvandning for att minska utslapp och begransa global uppvarmning till 1,5°C.
+
+Fossilfri godsel Mineralgodsel producerad med gron ammoniak baserad pa fornybar energi.
+
+Functional foods Livsmedel med dokumenterade halsoeffekter.
+
+Green Deal Den europeiska grona given ar ett paket med politiska initiativ med syftet att uppna klimatneutralitet inom EU senast 2050.
+
+### NEDSKRIVNINGSTEST
+
+arets tester av vardet pa goodwill och immateriella tillgangar med obestambar nyttjandeperiod i de fordefinierade kassagenererande enheterna resulterade inte i nagra nedskrivningar.
+2023 gjordes en nedskrivning av goodwill hanforlig till ovrig verksamhet med 15 MSEK och en nedskrivning av ett enskilt varumarke inom division livsmedel med 7 MSEK.
+Berakningarna i arets tester grundar sig pa beslutad budget for 2025 beslutade strategiska planer for aren 2026 och 2027 samt ett antagande om en tillvaxt pa 2 procent (2) per ar efter 2027 for merparten av verksamheterna.
+Diskonteringsrantan fore skatt vid dessa nedskrivningstester var mellan 8 och 11 procent (8 och 10).
+
+Totala av och nedskrivningar
+
+| MSEK | 2024 | 2023 |
+| --- | --- | --- |
+| Byggnader och mark | 543 | 517
+| Maskiner och andra tekniska anlaggningar | 1 281 | 1 258
+| Inventarier verktyg och installationer | 415 | 281
+| Forvaltningsfastigheter | 35 | 26
+| Goodwill | - | 15
+| Varumarken med obestambar nyttjandetid | - | 7
+| ovriga immateriella tillgangar | 289 | 308
+| Summa | 2 563 | 2 412
+![table image]({page: 94, x: 324}, {y: 351, {width: 231}, {height: 7})
+
+Nedskrivningarna fordelade per division
+
+| MSEK | 2024 | 2023 |
+| --- | --- | --- |
+| Division Lantbruk fran arlig provning av nedskrivningsbehov | - | 13
+| Division Livsmedel fran arlig provning av nedskrivningsbehov | 2 | 29
+| ovrig verksamhet fran arlig provning av nedskrivningsbehov | 13 | 64
+| Summa | 15 | 106
+| For ytterligare detaljer not 13 14 och 15. |  | 
+![table image]({page: 94, x: 324}, {y: 461, {width: 113}, {height: 6})
+
+och 18 procent (18) ar hanforligt till affarsomradet Lantmannen Cerealia.
+Vid nedskrivningstesterna av de kassagenererande enheterna Lantmannen Unibake och Lantmannen Cerealia uppgick diskonteringsrantan fore skatt till 8 procent (8) for Lantmannen Unibake och 8 (8) procent for Lantmannen Cerealia.
+
+Totalt varde pa koncernens goodwill och ovriga immateriella tillgangar uppgick vid arets utgang till 10 234 MSEK (9 742) vilket motsvarar 40 procent (42) av koncernens eget kapital.
+Av dessa utgjorde 8 692 MSEK (8 099) goodwill och ovriga tillgangar med obestambar nyttjandeperiod varav 70 procent (72) ar hanforligt till affarsomradet Lantmannen Unibake En okning av diskonteringsrantan fore skatt med 1 procentenhet hade minskat det beraknade nyttjandevardet for Lantmannen Unibake med 3 035 MSEK (2 987) vilket anda inte hade medfort ett nedskrivningsbehov alla andra anta ganden oforandrade.
+For Lantmannen Cerealia medfor en okning av diskonte ringsrantan fore skatt med 1 procentenhet att det beraknade nyttjandevardet hade minskat med 692 MSEK (678) vilket hade medfort ett nedskrivningsbe hov om 282 MSEK (404) alla andra antaganden oforandrade.
+En minskning i antagandet om tillvaxttakt for aren efter prognosperioden med 0,5 procent enheter hade inte medfort nagot nedskrivningsbehov for Lantmannen Unibake eller Lantmannen Cerealia.
+
+
+<!-- PAGE: 95 -->
+Med revisionsuppdrag avses granskning av arsredovisning koncernredovisning bokforing och styrelsens och vd:s forvaltning samt ovriga arbetsuppgifter som det ankommer pa foretagets revisorer att utfora.
+I revisionsuppdraget ingar aven radgivning och annat bitrade som ar en foljd av de iakttagelser som gjorts vid granskningen eller inom ramen fore de ovriga arbetsuppgifter som ingar under revisionsuppdraget.
+
+Not 9 Finansiella intakter och kostnader
+
+| MSEK | Intakter | 2024 Kostnader | Summa | Intakter | 2023 Kostnader | Summa |
+| --- | --- | --- | --- | --- | --- | --- |
+| Finansiella tillgangar varderade till upplupet anskaffningsvarde |
+| Rantor fordringar medlemmar | 79 | - | 79 | 73 | - | 73
+| Rantor ovriga | 51 | - | 51 | 34 | - | 34
+| Finansiella tillgangar varderade till verkligt varde via ovrigt totalresultat |  |  | 130 |  |  | 107
+| Utdelning | 18 | - | 18 | 9 | - | 9
+| Derivat som anvands i sakringsredovisning |  |  | 18 |  |  | 9
+| Rantor valutaterminer och -swapar | 42 | -21 | 21 | 48 | -21 | 27
+| ovriga finansiella skulder |  |  | 21 |  |  | 27
+| Rantor pensionsplaner | - | -1 | -1 | 13 | - | 13
+| Rantekostnader skulder till medlemmar | - | -153 | -153 | - | -128 | -128
+| Rantekostnader skulder till allmanheten | - | -76 | -76 | - | -62 | -62
+| Rantekostnader upplaning | - | -323 | -323 | - | -238 | -238
+| Rantekostnader leasingskulder | - | -97 | -97 | - | -66 | -66
+| ovriga kostnader upplaning | - | -44 | -44 | - | -36 | -36
+| Valutaeffekter | 13 | - | 13 | 16 | - | 16
+|  |  |  | -681 |  |  | -501
+| Summa | 203 | -715 | -511 | 193 | -551 | -358
+![table image]({page: 95, x: 57}, {y: 410, {width: 484}, {height: 7})
+
+Lantmannens arsredovisning med Hallbarhetsredovisning 202494
+
+Not 8 ovriga rorelsekostnader och arvode till revisorer Specifikation ovriga rorelsekostnader
+
+| MSEK | 2024 | 2023 |
+| --- | --- | --- |
+| Hyror och fastighetskostnader | -1 106 | -1 055
+| Energikostnader | -1 472 | -1 721
+| Reparation och underhall | -1 007 | -843
+| Transporter | -2 889 | -2 739
+| ovriga kostnader | -4 049 | -4 377
+| Summa | -10 523 | -10 735
+![table image]({page: 95, x: 57}, {y: 121, {width: 231}, {height: 7})
+
+Arvode till revisorer
+
+| MSEK | 2024 | 2023 |
+| --- | --- | --- |
+| Ernst & Young |
+| Revisionsuppdrag | 24 | 23
+| Skatteradgivning | 1 | 1
+| ovriga tjanster | 0 | 1
+| Summa | 25 | 25
+| ovriga revisorer |
+| Revisionsuppdrag | 4 | 5
+| Andra uppdrag | 0 | -
+| Fortroendevalda |
+| Revisionsuppdrag | 1 | 1
+![table image]({page: 95, x: 57}, {y: 213, {width: 231}, {height: 7})
+
+
+<!-- PAGE: 96 -->
+
+Hållbarhetsredovisning
+
+| ALLMaNNA UPPLYSNINGAR | 138 | RAPPORTERINGSPRINCIPER | 165 |
+| --- | --- | --- | --- |
+| MILJo | 145 | ICKE FINANSIELLA NYCKELTAL | 167
+| Klimatforandringar | 145 |  | 
+| Fororeningar | 148 |  | 
+|  |  | GRI INDEX | 170
+| Biologisk mangfald och ekosystem | 149 |  | 
+|  |  | REVISORNS RAPPORT | 174
+| Resursanvandning och cirkular ekonomi | 151 |  | 
+| SAMHaLLSANSVAR | 154 | LANTMaNNEN OCH EU:S TAXONOMIFoRORDNING | 176
+| Den egna arbetskraften | 154 |  | 
+| Arbetskraft i vardekedjan | 157 |  | 
+| Konsumenter och slutanvandare | 159 |  | 
+| ANSVARSFULLT FoRETAGANDE | 161 |  | 
+| Affarsetik | 161 |  | 
+![table image]({page: 138, x: 84}, {y: 295, {width: 193}, {height: 9})
+
+
+<!-- PAGE: 139 -->
+
+Koncernens tioårsöversikt
+
+Resultatrakningar i sammandrag
+
+| MSEK | 2024 | 2023 | 2022 | 2021 | 2020 | 2019 | 2018 1) | 2017 1) | 2016 1) | 2015 1) |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Nettoomsattning | 67 977 | 65 212 | 60 612 | 48 183 | 45 990 | 48 523 | 43 962 | 39 686 | 37 244 | 35 660
+| Resultat fore avskrivningar | 5 501 | 4 648 | 5 460 | 4 399 | 4 274 | 4 046 | 2 806 | 2 919 | 2 771 | 2 573
+| Av och nedskrivningar | -2 563 | -2 412 | -3 153 | -2 097 | -2 051 | -2 063 | -1 363 | -1 242 | -1 165 | -1 222
+| Rorelseresultat | 2 938 | 2 236 | 2 307 | 2 302 | 2 223 | 1 983 | 1 443 | 1 677 | 1 606 | 1 351
+| Finansiella intakter och kostnader | -511 | -358 | -179 | -121 | -182 | -210 | -193 | -156 | -149 | -105
+| Resultat efter finansiella poster | 2 426 | 1 878 | 2 128 | 2 181 | 2 041 | 1 773 | 1 250 | 1 521 | 1 457 | 1 246
+| Skatt | -364 | -318 | -337 | -294 | -244 | -222 | -68 | -216 | -183 | -156
+| arets resultat | 2 062 | 1 560 | 1 791 | 1 887 | 1 797 | 1 551 | 1 182 | 1 305 | 1 274 | 1 090
+![table image]({page: 207, x: 57}, {y: 140, {width: 479}, {height: 8})
+
+Balansrakningar i sammandrag
+
+| MSEK | 2024 | 2023 | 2022 | 2021 | 2020 | 2019 | 2018 1) | 2017 1) | 2016 1) | 2015 1) |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Materiella anlaggningstillgangar | 18 859 | 16 203 | 14 758 | 13 769 | 13 288 | 13 927 | 10 673 | 10 030 | 9 098 | 7 699
+| Goodwill | 6 429 | 6 151 | 6 186 | 5 619 | 5 461 | 5 724 | 5 350 | 5 238 | 4 611 | 4 424
+| ovriga immateriella anlaggningstillgangar | 3 805 | 3 591 | 3 845 | 3 378 | 3 370 | 3 620 | 3 451 | 3 327 | 2 980 | 2 782
+| ovriga anlaggningstillgangar | 5 855 | 4 852 | 5 942 | 3 662 | 3 496 | 3 499 | 3 233 | 3 204 | 2 825 | 2 780
+| Summa anlaggningstillgangar | 34 949 | 30 798 | 30 731 | 26 428 | 25 615 | 26 770 | 22 707 | 21 799 | 19 514 | 17 685
+| Varulager | 9 200 | 9 464 | 9 957 | 6 610 | 6 077 | 6 561 | 6 943 | 5 948 | 5 270 | 5 545
+| ovriga omsattningstillgangar | 9 622 | 9 685 | 10 056 | 7 605 | 6 224 | 6 680 | 6 725 | 5 866 | 5 933 | 5 599
+| Likvida medel | 963 | 632 | 355 | 2 704 | 1 415 | 1 183 | 720 | 927 | 1 773 | 1 252
+| Summa omsattningstillgangar | 19 785 | 19 781 | 20 368 | 16 919 | 13 716 | 14 424 | 14 388 | 12 741 | 12 976 | 12 396
+| Summa tillgangar | 54 734 | 50 579 | 51 099 | 43 347 | 39 331 | 41 194 | 37 095 | 34 540 | 32 490 | 30 081
+| Eget kapital moderforetagets medlemmar | 25 606 | 23 371 | 22 831 | 19 990 | 17 901 | 17 411 | 15 935 | 14 859 | 13 795 | 12 660
+| Eget kapital minoritetens andel | 68 | 101 | 101 | 108 | 105 | 94 | 92 | 89 | 88 | 21
+| Summa eget kapital | 25 674 | 23 472 | 22 932 | 20 098 | 18 006 | 17 505 | 16 027 | 14 948 | 13 883 | 12 681
+| Langfristiga skulder | 9 955 | 7 321 | 6 206 | 6 595 | 7 029 | 7 190 | 7 005 | 5 983 | 6 219 | 6 135
+| Kortfristiga skulder | 19 104 | 19 786 | 21 961 | 16 654 | 14 296 | 16 499 | 14 063 | 13 609 | 12 388 | 11 265
+| Summa eget kapital och skulder | 54 734 | 50 579 | 51 099 | 43 347 | 39 331 | 41 194 | 37 095 | 34 540 | 32 490 | 30 081
+| Nettolaneskuld | 10 989 | 10 056 | 9 761 | 6 673 | 7 761 | 10 165 | 8 719 | 7 274 | 6 289 | 6 476
+| aterbaring och efterlikvid 2) 3) | 252 | 324 | 374 | 341 | 305 | 208 | 156 | 245 | 231 | 188
+| Insatsutdelning och insatsemission 3) | 873 | 876 | 706 | 659 | 597 | 525 | 463 | 322 | 277 | 243
+| Extra vinstutdelning | - | - | - | - | - | - | - | 133 | - | -
+![table image]({page: 207, x: 57}, {y: 289, {width: 479}, {height: 8})
+
+- 1) Enligt tidigare tillämpade redovisningsprinciper för leasing.
+
+- 2) Redovisat belopp kan inkludera justering jämfört mot tidigare års förslag.
+
+- 3) Enligt styrelsens förslag 2024.
+
+
+<!-- PAGE: 208 -->
+| Finansiella nyckeltal | 2024 | 2023 | 2022 | 2021 | 2020 | 2019 | 2018 1) | 2017 1) | 2016 1) | 2015 1) |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Rorelsemarginal % | 4,3 | 3,4 | 3,8 | 4,8 | 4,8 | 4,1 | 3,3 | 4,2 | 4,3 | 3,8
+| Avkastning pa operativt kapital % | 7,9 | 6,4 | 7,2 | 8,4 | 8,1 | 6,8 | 6,0 | 7,8 | 8,0 | 7,5
+| Avkastning pa eget kapital % | 8,4 | 6,6 | 8,3 | 10,0 | 10,2 | 9,1 | 7,6 | 9,0 | 9,6 | 8,9
+| Soliditet % | 46,9 | 46,4 | 44,9 | 46,4 | 45,8 | 42,5 | 43,2 | 43,3 | 42,7 | 42,2
+| Net debt/EBITDA | 1,9 | 1,9 | 1,9 | 1,3 | 1,6 | 2,3 | 3,2 | 2,7 | 2,5 | 2,8
+| Nettoskuldsattningsgrad ggr | 0,4 | 0,4 | 0,4 | 0,3 | 0,4 | 0,6 | 0,5 | 0,5 | 0,5 | 0,5
+![table image]({page: 208, x: 71}, {y: 139, {width: 479}, {height: 8})
+
+Finansiella nyckeltal exklusive
+
+| jamforelsestorande poster | 2024 | 2023 | 2022 | 2021 | 2020 | 2019 | 2018 1) | 2017 1) | 2016 1) | 2015 1) |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Rorelseresultat MSEK | 2 868 | 2 820 | 2 715 | 2 323 | 2 223 | 2 087 | 1 580 | 1 708 | 1 697 | 1 351
+| Rorelsemarginal % | 4,2 | 4,3 | 4,5 | 4,8 | 4,8 | 4,3 | 3,6 | 4,3 | 4,6 | 3,8
+| Resultat efter finansiella poster MSEK | 2 356 | 2 462 | 2 536 | 2 202 | 2 041 | 1 877 | 1 387 | 1 552 | 1 548 | 1 246
+| arets resultat MSEK | 1 992 | 2 071 | 2 157 | 1 904 | 1 797 | 1 652 | 1 289 | 1 353 | 1 457 | 1 066
+| Avkastning pa operativt kapital % | 7,7 | 8,0 | 8,4 | 8,5 | 8,1 | 7,2 | 6,6 | 7,9 | 8,4 | 7,5
+| Avkastning pa eget kapital % | 8,1 | 8,7 | 10,1 | 10,1 | 10,2 | 9,7 | 8,2 | 9,4 | 11,0 | 8,7
+| Kassaflodesanalys i sammandrag MSEK | 2024 | 2023 | 2022 | 2021 | 2020 | 2019 | 2018 1) | 2017 1) | 2016 1) | 2015 1)
+| Kassaflode fran den lopande verksamheten fore forandring av rorelsekapital | 4 123 | 3 874 | 4 049 | 3 944 | 3 811 | 3 637 | 2 268 | 2 453 | 2 571 | 2 159
+| Kassaflode fran den lopande verksamheten Kassaflode fran investering och forsaljning i immateriella och materiella anlaggningstillgangar netto | 4 212 -2 919 -3 057 | 3 775 | 1 359 -2 688 | 3 927 -2 199 | 4 503 -1 608 | 4 226 -1 929 | 1 023 -1 626 | 2 398 -2 274 | 3 136 -1 884 | 2 167 -811
+| Kassaflode fran forvarv och avyttring av verksamheter netto 2) | -1 106 | 322 | -761 | -5 | -54 | -473 | -333 | -852 | -357 | -4 154
+| Kassaflode fore finansieringsverksamheten | 245 | 921 | -2 468 | 1 704 | 2 803 | 1 837 | -824 | -703 | 826 | -2 674
+| arets kassaflode | 329 | 274 | -2 372 | 1 280 | 254 | 454 | -219 | -852 | 489 | -1 775
+| Likvida medel vid arets slut | 963 | 632 | 355 | 2 704 | 1 415 | 1 183 | 720 | 927 | 1 773 | 1 252
+| Icke finansiella nyckeltal | 2024 | 2023 | 2022 | 2021 | 2020 | 2019 | 2018 | 2017 | 2016 | 2015
+| Antal medlemmar | 17 324 | 17 907 | 18 256 | 18 726 | 19 172 | 19 690 | 24 798 | 25 021 | 25 159 | 27 032
+| Medelantal anstallda | 11 586 | 10 339 | 10 356 | 10 092 | 10 017 | 10 250 | 9 940 | 9 850 | 9 880 | 8 911
+| varav kvinnor/man | 34/66 | 35/65 | 35/65 | 35/65 | 34/66 | 35/65 | 34/66 | 34/66 | 30/70 | 27/73
+| Medarbetarindex/Ledarskapsindex 3) | 73/78 | 73/78 | 70/76 | 70/76 | 71/75 | 71/75 | 70/74 | 70/74 | 68/72 | 68/72
+| Sjukfranvaro | 4,5 | 4,6 | 5,2 | 4,4 | 4,3 | 4,3 | 4,5 | 4,4 | 4,8 | 4,4
+| Olycksfallsfrekvens | 10,2 | 10,8 | 13,5 | 14,3 | 13,7 | 12,8 | 13,4 | 13,9 | 14,5 | 15,2
+| Utslapp ton CO 2 e/MSEK omsattning egen produktion | 1,67 | 1,64 | 2,01 | 2,75 | 2,71 | 2,98 | 3,43 | 4,63 | 5,38 | 4,68
+| Klimat & Natur volym tusen ton | 147 | 145 | 118 | 94 | 61 | 34 | 33 | 78 | 70 | 55
+![table image]({page: 208, x: 71}, {y: 249, {width: 479}, {height: 8})
+
+- 1) Enligt tidigare tillämpade redovisningsprinciper för leasing.
+
+- 2) 2024 förvärv av Scan Sverige och Entrack samt avyttring av Scandbio och Lantmännen Cerealias färdigmatsverksamhet med varumärket Gooh. 2023 avyttring av den ryska verksamheten. 2022 förvärv av Coryton Advanced Fuels, Scandbio, Kewab Rental, Myllyn Paras, 30 procent i KG:s Ägg och avyttring av Agrovärme. 2020 förvärv av en bageriverksamhet i Norge. 2019 förvärv av Bakery Du Jour och Tate & Lyles havreverksamhet. 2018 förvärv av Raisios nötfoderaffär och ThermoSeed Global. 2017 förvärv av Anderson Bakery, K-maatalous, Orient Products och Marline samt försäljning av LMB Danmark och 50 procent i Akershus Traktor. 2016 förvärv av Kalmar Lantmäns maskinverksamhet, Dataväxt och Frozen Bakery Products. 2015 förvärv av Vaasan samt försäljning av Lantmännen Doggy.
+
+- 3) Undersökningen genomförs vartannat år.
+
+
+<!-- PAGE: 209 -->
+Ordlista For beskrivning av finansiella nyckeltal se sid 135 och for icke finansiella nyckeltal se sid 135 och for icke finansiella nyckeltal se sid 135 och for icke finansiella nyckeltal se sid 167.
+
+Agenda 2030 FN:s 17 hallbarhetsmal i Agenda 2030 ar en av FN landerna i september 2015 beslutad gemensam vision med mal for att na en hallbar utveckling for alla.
+GRI Global Reporting Initiative.
+Ger ut riktlinjer for hallbarhetsredo visning som pa frivillig basis kan anvandas av organisationer for att redovisa miljomassiga sociala och ekonomiska aspekter av deras verksamhet produkter och tjanster.
+
+Agrodrank Proteinrik foderravara som produceras pa Agro etanol.
+
+Aminosyror Aminosyror ar byggstenar i proteiner.
+
+B2B Business to business forsaljning mellan foretag.
+
+Carbon Law Takten som kravs for att minska klimatpaverkan enligt Parisavtalet for att begransa den globala temperaturhoj ningen till val under 2°C med sikte pa maximalt 1,5°C.
+Minsknings takten enligt Carbon Law ar en halvering av koldioxidutslapp vart tionde ar fran 2020.
+
+RTRS Round Table on Responsible Soy.
+Internationell runda bordsprocess for att ta fram kriterier for hallbar soja.
+
+Science Based Targets initiative SBTi ar ett partnerskap mellan overstatliga och ideella organisationer.
+SBTi arbetar for ambitiosa klimatatgarder i den privata sektorn genom att driva och stotta orga nisationer mot vetenskapligt baserade klimatmal.
+
+Sinkostall Nar mjolken sinat och bonden slutat mjolka kallas kon en sinko.
+Sinkostall ar ett stall for kor som star i sin.
+
+Trindsad Odlade storfroiga artvaxter arter vicker lupiner och bonor.
+
+Uppforandekod Fran det engelska begreppet Code of Conduct.
+Riktlinjer for hur ett foretag eller organisation ska bedriva sin verk samhet pa ett etiskt och ansvarstagande satt.
+
+Innehåll
+# LAGSTADGAD HÅLLBARHETSRAPPORT
+## Lagstadgad hållbarhetsrapport, se sid 24-32, 137-181
+
+och 199-202.
+
+##### T3T2
+
+1 000 800 600 400 200 0
+
+## Utsläpp CO
+
+- 1) Inklusive koncernintern omsättning.
+
+| Exkl. jamforelsestorande poster | 2024 | 2023 |
+| --- | --- | --- |
+| Rorelseresultat MSEK | 302 | 477
+| Rorelsemarginal % | 1,1 | 1,6
+| Avkastning pa operativt kapital % | 4,4 | 5,1
+![table image]({page: 35, x: 310}, {y: 568, {width: 231}, {height: 8})
+
+
+<!-- PAGE: 36 -->
+innovation och utveckling av smarta fodersorter teknisk och digital utveckling odlingskoncept precisionsodling och vaxtforadling.
+Viktigt ar ocksa att mota framtida krav kopp lade till hallbarhetsfragan bade i den egna och narliggande branscher.
+
+## Utsläpp CO
+
+- 1) Avser perioden april-december. 2) Inklusive koncernintern omsättning.
+
+
+<!-- PAGE: 52 -->
+Hallbarhet i fokus
+
+Scan Sverige arbetar med hallbar utveckling i vardekedjan.
+Det storsta klimatavtrycket sker inom primarproduktionen darfor sker nara samverkan med gardarna for att uppna netto noll klimatavtryck i hela vardekedjan till ar 2050.
+
+Marknad och utsikter Starkt sjalvforsorjning och inhemsk livsmedelsproduktion har varit i fokus for svenska beslutsfattare samtidigt som flera lander genomfor atgarder for att minska sin animalie produktion till foljd av lokala miljoproblem.
+okad forstaelse for en stark inhemsk produktion i kombination med minskad global och europeisk tillgang vantas ge starkt sjalvforsorjning och minskad import.
+
+Ett viktigt verktyg for att na netto noll ar Gardsinitiativet ett samarbete med Scan Sveriges leverantorer for att minska utslapp och skapa positiva naturvarden utifran varje gards for utsattningar.
+2024 utvecklades samarbetet till att inkludera alla leverantorer och Scan inforde som forsta svenska kottforetag ett hallbarhetstillagg for not och grisleverantorer.
+Satsningen om 75 MSEK under forsta aret utgor ett ekonomiskt incitament for att stimulera den grona omstallningen pa gard.
+
+”Vi tror pa det svenska ursprunget och arbetar engagerat for att standigt sakra att de hoga forvantningar som stalls pa svensk kottkvalitet alltid infrias.
+
+Scan Sverige har behallit sin position i samtliga katego rier och ser inga tecken pa minskad konsumtion av rott kott.
+Ett av de viktigaste strategiska malen ar att fortsatta oka efterfragan pa svenskt kott och att driva tillvaxt genom prio riterade kategorier kanaler och kunder.
+For att mojliggora en okad kottproduktion och sakra tillgangen pa svenskt kott ska Scan vara en konkurrenskraftig partner for vara leve rantorer.
+
+Scan Sveriges produktionsanlaggningar Skara Kristianstad Halmstad Linkoping
+
+Till 2025 ska alla Scan Sveriges forpackningar vara 100 pro cent atervinningsbara med mindre och battre plast samt forny elsebara material.
+Arbete genomfors for att halvera mat svinnet till 2030 jamfort med basaret 2019 genom att ta vara pa hela djuret.
+atgarderna minskar miljopaverkan och bidrar till okad lonsamhet med en tryggare livsmedelsforsorjning.
+
+## Utsläpp CO
+
+- 1) Inklusive koncernintern omsättning.
+
+| Exkl. jamforelsestorande poster | 2024 | 2023 |
+| --- | --- | --- |
+| Rorelseresultat justerat for jamforelsestorande poster MSEK | 379 | 251
+| Avkastning pa operativt kapital justerat for jamforelsestorande poster % | 9,2 | 6,6
+![table image]({page: 57, x: 310}, {y: 537, {width: 231}, {height: 19})
+
+Affarsomrade Fastigheter ytfordelning Produktionslokaler 47 % (48) Verkstader 11 % (10)Lager 25 % (25) Butiker 8 % (8) Kontor 9 % (9)
+
+Fastigheterna motsvarar en sammanlagd lokalyta pa cirka 1 200 000 m2.
+
+
+<!-- PAGE: 58 -->
+”Ett systematiskt effektiviseringsabete pagar for att framtidssakra fastighets bestandet.
+
+Hallbarhet i fokus Lantmannen Fastigheters omfattande hallbarhetsstrategi inkluderar initiativ for okad energieffektivitet och klimat smarta satsningar.
+Under 2024 har samverkan med olika samarbetspartners fortsatt i syfte att oka etableringen av solenergi och laddstolpar vid Lantmannens anlaggningar i Sverige.
+
+Lantmannen Fastigheter har arbetat med aterbruk av material och inredning i samband med renovering rivning och flytt av Lantmannens kontor i Malmo.
+Hallbarhetsar betet innefattar aven regelefterlevnad avseende uppfo randekod och ansvarsfulla inkop for samtliga leverantorer och samarbetspartners.
+
+## Klimat & Natur
+
+Berakning av mangd spannmal som odlats enligt Klimat & Natur baseras pa bestallda volymer for rapporteringsaret.
+Faktiska volymer avser det som levererats under aret och justeras nastkommande ar.
+Foregaende ar rapporterades 146 ton i bestallda volymer och har justerats till 145 ton.
+Foljaktligen har besparade koldioxidekvivalenter justerats fran 11 400 ton till 9 300 ton for 2023.
+Utfall kopplat till Kli mat & Natur redovisas pa sidorna 3 147 och 150.
+
+##### Andel av CapEx/total CapEx
+
+|  | Taxonomiforenlighet per mal | Mal som omfattas av taxonomin |
+| --- | --- | --- |
+| CCM | 1 % | 4 %
+| CCA | 0 % | 0 %
+| WTR | 0 % | 0 %
+| CE | 0 % | 0 %
+| PPC | 0 % | 0 %
+| BIO | 0 % | 0 %
+![table image]({page: 181, x: 181}, {y: 536, {width: 294}, {height: 6})
+
+### Kapitalutgifter (CapEx)
+
+|  | 2024 | Kriterier for vasentligt bidrag | Kriterier avseende att inte orsaka betydande skada |
+| --- | --- | --- | --- |
+| Ekonomiska verksamheter (1) |
+| A. Verksamheter som omfattas av Taxonomin A.1. Miljomassigt hallbara (taxonomiforenliga) verksamheter Framstallning av biogas och biobranslen for transportandamal samt av flytande biobranslen CCM 4.13 | 6 | 0 % | J | N | N/EL | N/EL | N/EL | N/EL | - | J | J | J | - | J | J | 0 % | - | -
+| Insamling och transport av ofarligt avfall i kallsorterade fraktioner CCM 5.5 | 1 | 0 % | J | N | N/EL | N/EL | N/EL | N/EL | - | J | - | - | J | - | J | 0 % | - | -
+| Materialatervinning av ofarligt avfall CCM 5.9 | 9 | 0 % | J | N | N/EL | N/EL | N/EL | N/EL | - | J | - | - | - | J | J | 0 % | - | -
+| Installation underhall och reparation av energi effektiv utrustning CCM 7.3 | 12 | 0 % | J | N | N/EL | N/EL | N/EL | N/EL | - | J | - | J | - | - | J | 1 % | E | -
+| Installation underhall och reparation av laddsta tioner for elfordon i byggnader (och parkerings platser i anslutning till byggnader) CCM 7.4 | 1 | 0 % | J | N | N/EL | N/EL | N/EL | N/EL | - | J | - | - | - | - | J | 0 % | E | -
+| Installation underhall och reparation av instru ment och anordningar for matning reglering och kontroll av byggnaders energiprestanda CCM 7.5 | 0 | 0 % | J | N | N/EL | N/EL | N/EL | N/EL | - | J | - | - | - | - | J | 0 % | E | -
+| Installation underhall och reparation av fornybar energiteknik CCM 7.6 | 9 | 0 % | J | N | N/EL | N/EL | N/EL | N/EL | - | J | - | - | - | - | J | 0 % | E | -
+| Kapitalutgifter for de miljomassigt hallbara (taxonomiforenliga) verksamheterna (A.1) | 38 | 1 % | 1 % | - | - | - | - | - |  |  |  |  |  |  |  | 1 % |  | 
+| Varav mojliggorande verksamheter | 22 | 0 % | 0 % | - | - | - | - | - |  |  |  |  |  |  |  | 1 % | E | 
+| Varav omstallningsverksamheter | 0 | 0 % | 0 % |  |  |  |  |  |  |  |  |  |  |  |  | 0 % |  | T
+![table image]({page: 181, x: 189}, {y: 76, {width: 508}, {height: 6})
+
+### Driftsutgifter (OpEx)
+#### Ekonomiska verksamheter (1)
+
+|  | MSEK | % | J N N/EL | J N N/EL | J N N/EL | J N N/EL | J N N/EL | J N N/EL | J/N | J/N | J/N | J/N | J/N | J/N | J/N | % | E | T |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| A. Verksamheter som omfattas av Taxonomin |
+| A.1. Miljomassigt hallbara (taxonomiforenliga) verksamheter |
+| Produktion av varme/kyla med hjalp av restvarme CCM 4.25 | 3 | 0 % | J | N | N/EL | N/EL | N/EL | N/EL | - | J | - | J | J | J | J | 0 % | - | -
+| Materialatervinning av ofarligt avfall CCM 5.9 | 3 | 0 % | J | N | N/EL | N/EL | N/EL | N/EL | - | J | - | - | - | J | J | 0 % | - | -
+| Driftsutgifter for de miljomassigt hallbara (taxonomiforenliga) verksamheterna (A.1) | 18 | 1 % | 1 % | - | - | - | - | - |  |  |  |  |  |  |  | 2 % |  | 
+| Varav mojliggorande verksamheter | 0 | 0 % | 0 % | - | - | - | - | - |  |  |  |  |  |  |  | 0 % | E | 
+| Varav omstallningsverksamheter | 0 | 0 % | 0 % |  |  |  |  |  |  |  |  |  |  |  |  | 0 % |  | T
+![table image]({page: 182, x: 204}, {y: 169, {width: 514}, {height: 6})
+
+##### Andel av OpEx/total OpEx
+
+|  | Taxonomiforenlighet per mal | Mal som omfattas av taxonomin |
+| --- | --- | --- |
+| CCM | 1 % | 7 %
+| CCA | 0 % | 0 %
+| WTR | 0 % | 0 %
+| CE | 0 % | 0 %
+| PPC | 0 % | 0 %
+| BIO | 0 % | 0 %
+![table image]({page: 182, x: 193}, {y: 536, {width: 294}, {height: 6})
+
+##### Euro/ton
+###### Euro/m3
+
+500
+
+2 000 ovriga xx % (16) Norge xx % (3)
+
+400
+
+1 500 Storbritannien xx % (4)
+
+300
+
+Sverige xx % (44) Danmark xx % (7) 1 000
+
+200
+
+Tyskland xx % (12) 500
+
+100
+
+Finland xx % (14) 0
+
+0 20242023202220212020
+
+20242023202220212020
+
+# Omräkning av data från tidigare år
+## Energianvändning
+
+Fel i rapporterad energianvandning och koldioxidutslapp for 2019-2023 har identifierats men inga andringar har gjorts eftersom felen inte bedoms paverka utfallet vasentligt.
+
+## Lantmännens dubbla väsentlighetsanalys
+### Kritisk
+### Betydande/kritiska ämnen 1)
+#### A
+##### Klimatförändringar
+##### Föroreningar
+#### B
+
+Biologisk mangfald och ekosystem
+
+#### Hållbarhet och klimatfrågor i fokus
+
+For att sakra en okad svensk spannmals och livsmedelspro duktion behovs stora infrastrukturella investeringar i klimat anpassning.
+Primarproduktionen industrin och politiken har ett gemensamt ansvar att sakerstalla detta det handlar i slutandan om att skapa forutsattningar for svenskt lantbruk svensk livs medelsproduktion och om att starka den svenska beredskapen.
+Langsiktigt starks Lantmannens ambitioner da fler bolag i var vardekedja ansluter sig till Science Based Targets initiative (SBTi) ett globalt program for foretag att minska utslappen i linje med Parisavtalet.
+Lantmannen erbjuder odlingskonceptet Klimat & Natur for att minska klimatpaverkan och gynna den biologiska mangfalden i odlingslandskapet.
+
+
+<!-- PAGE: 19 -->
+Lantmannens arsredovisning med Hallbarhetsredovisning 202418
+
+### Affärsområde Scan
+
+okad forstaelse for en stark inhemsk produktion i kombi nation med minskad global och europeisk tillgang vantas ge starkt sjalvforsorjning och minskad import.
+Scan Sverige har behallit sin position i samtliga kategorier och ser inga tecken pa minskad konsumtion av rott kott.
+
+## B
+## A
+### Medel
+
+2-5 % av EBITDA
+
+#### G
+
+Arbetskraft i varde kedjan (ej anstallda)
+
+#### Ränterisk
+#### Refinansierings-/likviditetsrisk
+### C
+
+- H
+
+- G
+
+- E F
+
+- I JK L
+
+- D
+
+#### PÅVERKAN
+#### SANNOLIKHET
+
+Hantering For att hantera riskerna fortsatter vi med investeringar i sakerhet och optimerar befintliga kapaciteter.
+Vi okar insatserna for fysisk sakerhet och ser till att alla anstallda genomgar obligatorisk sakerhetsutbildning.
+GRC processen fortsatter for att identifiera och hantera IT risker och vi implementerar nya sakerhetsfunktioner.
+Vi investerar i fysisk sakerhet och overvakning samt starker Business Continuity Management.
+Penetrationstester utfors pa kritisk IT infrastruktur.
+Vi fortsatter med investeringar i IT och OT sakerhet inklusive natverkssegmentering och sakrar vara OT system genom OT sakerhetsprojektet.
+Fysisk sakerhet forbattras enligt Lantmannens riktlinjer och riskrekommendationer.
+
+### Framtidens Jordbruk: Mjölk & Nötkött
+
+- Grön obligation
+
+#### H
+### Övriga ämnen
+#### I
+
+Paverkade samhallen
+
+##### T3T2
+
+2024
+
+###### T3T2
+
+2024
+
+### Gårdsinitiativet
+
+Gardsinitiativet ar ett initiativ inom Scan med syfte att stimulera hallbar utveckling pa gard och bidra till att fram tidssakra svensk livsmedelsproduktion.
+Fran och med 2024 omfattas samtliga leverantorer av notkreatur och gris.
+Ett ekonomiskt hallbarhetstillagg ges till leverantorer for att finansiera atgarder.
+Uppfoljning av utfall inleds 2025.
+
+
+<!-- PAGE: 28 -->
+
+### väsentlighets- analys
+
+- Fossilfri gödsel
+
+# Förtroende hos allmänheten
+
+2024 hade i genomsnitt 78 procent av allmanheten fortro ende for Lantmannen vilket ar bland de hogsta resultaten av samtliga svenska foretag.
+Fortroende bidrar till affaren och skapar lojalitet bland kunder och konsumenter samt attraktionskraft som arbetsgivare och affarspartner.
+
+% 80
+
+70
+
+60
+
+50
+
+40
+
+Mal Fortroende hos allmanheten 20242023202220212020
+
+2050
+
+| Mal | 2023202120192017 Medarbetarindex Ledarskapsindex |
+| --- | --- |
+| Klimatpaverkan egen produktion |
+| Koncernens mal ar att minska klimatutslappen i egen produktion med 50 procent 2019-2030 raknat i ton CO | e
+![table image]({page: 24, x: 115}, {y: 348, {width: 203}, {height: 9})
+
+2
+
+per MSEK omsattning.
+Malet ska nas med fortsatt om stallning till fossilfri produktion och energieffektivisering.
+
+Fran 2019 till 2024 minskade de relativa utslappen med cirka 44 procent.
+
+| Mal -50 %/tio ar Utfall -44 % | Mal -50 %/tio ar Utfall upp till -45 % |
+| --- | --- |
+| Procent CO | e/MSEK omsattning relativt basar 2019 2 100 75 50 25 0 Klimatpaverkan odling
+| Genom att introducera fossilfri godsel i odlingsprogram |
+| met Klimat & Natur minskar utslappen fran odling av vete |
+| med ytterligare cirka 15 procent/kg mjol totalt upp till 45 |
+| procent jamfort med 2015. Programmet fortsatter ut |
+| vecklas i den takt Parisavtalet kraver avseende minskad |
+| klimatpaverkan fran spannmalsodlingen. |
+| Klimatpaverkan CO |
+![table image]({page: 24, x: 83}, {y: 537, {width: 53}, {height: 7})
+
+e % 100 75 50 25 0
+
+2 2
+
+-30 % -20 % -45 %
+
+203020242019 2015 2020 2025 2030 2035 2040 2045 Minskningstakt for klimatpaverkan enligt Parisavtalet Minskad klimatpaverkan fran veteodlingen inom odlingsprogrammet Klimat & Natur Mal Procent CO e/MSEK omsattning Beskrivning av nyckeltal sid 135 och 167-168.
+
+
+<!-- PAGE: 25 -->
+
+### Hantering av konsekvenser, risker och möjligheter
+
+Under aret har vi kartlagt Lantmannens vasentliga resursflo den i arbetet med var dubbla vasentlighetsanalys.
+Analysen av resursfloden baseras pa underlag om klimatpaverkan paverkan pa biologisk mangfald fororeningar och resurseffektiva floden.
+Lantmannens uppforandekod ar vart styrande doku ment for ansvarsfullt foretagande.
+Vart affarskoncept ar att skapa varde fran jordbruksresurser pa ett ansvarsfullt satt.
+Vi tar en aktiv del i att losa utmaningen att forse en vaxande befolkning med mat och energi samtidigt som vi skyddar biologisk mangfald bromsar klimatforandringar och minskar overgodning.
+Lantmannen bidrar till en bioba serad cirkular ekonomi sluter materialkretsloppet och okar energi och resurseffektiviteten.
+Respektive affar ansvarar for att optimera resursfloden och oka cirkular ekonomi i enlighet med lokala styrdokument.
+
+Lantmannens arbete for att mojliggora okad avkastning med mindre insats drivs genom vara Framtidsgardar.
+Pa Framtidsgardarna Viken Svalov och Bjertorp bedriver vi forskning tillsammans med nyckelintressenter sasom uni versitet och affarspartners for att bidra till ett ekonomiskt och miljomassigt hallbart jordbruk.
+Resultaten kan generera nya affarsmodeller och tjanster till vara kunder.
+
+
+<!-- PAGE: 153 -->
+Inom vara verksamhetsomraden maximerar vi vardet av avfall och bifloden.
+Under ett 18 manader langt program har Lantmannens forsknings och utvecklingsavdelning arbe tat for att oka nyttjandegraden av vara resurser och skapa cirkulara floden med bade interna och externa parter.
+Pro grammet avslutades 2024 men de projekt som identifierades och skapades under programmet fortsatter under 2025 och framat.
+Projekten omfattar bade nyttjande av resurser fran vara livsmedelsproducerande anlaggningar och tillverkning av foder.
+Lantmannen har industriella atervinningsanlagg ningar som omhandertar livsmedelsrester och avfall for att anvandas i produktionen av bioenergi.
+Rester fran bioen ergitillverkningen genererar i sin tur insatsvaror till foder starkelse och biogas.
+Bifloden som kli anvands direkt i fodertillverkningen.
+Vi foljer RED direktivet vilket saker staller att vi anvander insatsvaror som inte kan anvandas for mer langsiktiga produkter samt andra viktiga miljoskydds atgarder.
+
+Inom var animalieproduktion arbetar vi med att nyttja alla delar av djuret.
+De delar av djuren som inte blir livs medel gar till lakemedels och kemiindustrin anvandning inom mobeltillverkning hund och kattfoder.
+Det spill som hamnar pa golvet vid styckning eller som inte gar att avsatta inom annan industri gar vidare till produktion av biogas eller biobransle.
+For att nyttja biprodukter effektivare i framtiden samarbetar vi med Mistra Future Food for att ta fram nya innovativa produkter.
+For att minska matsvinnet av de produkter vi inte kunnat salja har vi bland annat ett sam arbete med Matmissionen.
+
+Inom affarsomrade Swecon hyrs maskiner ut repareras och saljs vidare.
+Swecon arbetar kontinuerligt med att for battra atervinningen och minska beroendet av icke forny bara resurser.
+Vi fokuserar ocksa pa att forlanga livslangden pa vara maskiner genom regelbundet underhall och repara tioner.
+
+Inom Lantmannens fastighetsverksamhet ar forvaltning det primara verksamhetsomradet.
+
+Lantmannen har en gemensam plaststrategi som gar ut pa att effektivisera mangden plast och oka andelen atervinningsbar och atervunnen plast i forpackningar och plastprodukter till kunder.
+Utfasningen av engangsplast for livsmedelskonsumtion har genomforts for de vasentliga pro duktionerna och kontoren.
+Anvandning av jungfrulig fossil plast foljs annu inte upp men ar del av var plaststrategi.
+Under aret emitterade Lantmannen en gron obligation for att finansiera projekt som framjar miljomassig hall barhet.
+Obligationen ar en del av Lantmannens strategi att stodja overgangen till en mer resurseffektiv ekonomi och minska klimatpaverkan genom investeringar i fornybar energi energieffektivisering och hallbara jordbruksmetoder.
+Obligationen motsvarar over halften av Lantmannens totala upplaning for 2024.
+
+### Odling i Balans, Stiftelsen Lantbruks-
+
+forskning Forlagsandelar 100 000 SEK Jamstalldhetsakademin.
+Emissionsinsatser 5 350 442 SEK* Inbetalda insatser 716 000 SEK* Forlagsandelar 1 500 000 SEK
+
+## Introduktion
+
+| EU kommissionen har tagit fram en handlingsplan for att bli en klimatneutral kontinent 2050. For att na detta beho ver kapital allokeras till den grona omstallningen. En del av denna handlingsplan ar Taxonomiforordningen ett system som klassificerar hallbara aktiviteter utifran EU:s klimat och | miljomal och innebar rapporteringskrav for foretag. Lantman nen omfattas av arsredovisningslagens krav pa rapportering i enlighet med Taxonomiforordningen som icke finansiellt fore tag. I enlighet med Taxonomiforordningen redovisas informa tionen som en del av den lagstadgade hallbarhetsrapporten. |
+| --- | --- |
+| Taxonomins miljomal | Lantmannens omfattning
+![table image]({page: 177, x: 57}, {y: 288, {width: 181}, {height: 9})
+
+Lantmannens verksamheter inom Energi och Fastighet omfattas av Taxonomiforordningens mal om klimatforandringar.
+
+|  |
+|  |
+| 1 | Begransning av klimatforandringar
+| 2 | Anpassning till klimatforandringar
+| 3 | Hallbar anvandning och skydd av vatten och marina resurser
+| 4 | overgang till en cirkular ekonomi
+| 5 | Forebyggande och begransning av fororeningar
+| 6 | Skydd och aterstallande av biologisk mangfald och ekosystem
+![table image]({page: 177, x: 69}, {y: 405, {width: 51}, {height: 21})
+
+######### Fossilgasrelaterade verksamheter
+
+| 4. | Foretaget utfor finansierar eller ar exponerat mot uppforande eller drift av elproduktionsanlaggningar som producerar el med hjalp av fossila gasformiga branslen. | Nej |
+| --- | --- | --- |
+| 5. | Foretaget utfor finansierar eller ar exponerat mot uppforande renovering och drift av anlaggningar for kombinerad produktion av varme/kyla och el med hjalp av fossila gasformiga branslen. | Nej
+![table image]({page: 181, x: 54}, {y: 695, {width: 494}, {height: 6})
+
+- 6. Företaget utför, finansierar eller är exponerat mot uppförande, renovering och drift av värmeproduktionsanläggningar som producerar värme/kyla med hjälp av fossila gasformiga bränslen.
+
+
+<!-- PAGE: 182 -->
+2024 Kriterier for vasentligt bidrag Kriterier avseende att inte orsaka betydande skada
+
+Affärsområde Fastigheter
+
+e i egen produktion tusen ton 0,2 0,3
+
+2
+
+Lantmannen Fastigheters uppdrag ar att forse koncernens verksamheter med andamalsenliga fastigheter och lokaler samt optimera avkastningen pa externt uthyrda fastigheter.
+Affarsomradet svarar for cirka 1 procent av koncernens omsattning.
+
+|  |
+| --- |
+| Fastighetsmarknaden har langsamt borjat aterhamta sig tack vare lagre finansieringskostnader. Hyresmarknaden for kontor ar till viss del anstrangd medan marknaden for ovriga lokaler ar stabil. Pa transaktionsmarknaden ar aktiviteten hogre an 2023 och avkastningskraven stabila. Den ekono miska aterhamtningen gor att produktionen av bostadsfastig heter till viss del okade under aret. | Lantmannen Fastigheter forvaltar fastighetsbestandet at Lantmannens Pensionsstiftelse Grodden. Renoveringen av siloanlaggningen i ahus har fortsatt och ar nu inne pa etapp 4 med fokus pa tegelfasaden och byte av fonster. Utover fastighetsunderhall har fler nybyggnationer uppforts for Lantmannen Maskin i Vaxjo och Kristianstad samt for Swecon i Skelleftea med inflyttning i samtliga anlaggningar under fjarde kvartalet.
+| Under 2024 har arbetet med att sakerstalla framtida drift av koncernens strategiska fastigheter fortsatt. Exempelvis har Lantmannen Fastigheter i dialog med Norrkopings kom mun sakrat fortsatt drift av sina produktionsanlaggningar i staden vilket ocksa bidragit till utvecklingsmojligheter av den inre delen av hamnen dar Lantmannen Fastigheter nu deltar i arbetet med att utveckla en helt ny stadsdel. Parallellt har lopande forvaltning och projektutveckling pagatt och fastighetstransaktioner genomforts tack vare det gynnsamma investeringsklimatet. Investeringar i exploateringsfastigheter gors for att maxi mera utvecklingspotentialen och oka vardet pa fastigheterna. Exempel pa det ar Lantmannen Fastigheters omfattande utveckling av fastigheter i Malmo orebro och Norrkoping. Det delagda fastighetsbolaget Lanthem har fattat beslut gallande bygget av en skola i orebro pa en fastighet dar Scan tidigare hade verksamhet. | av koncernens strategiska fastigheter fortsatt. Exempelvis har Lantmannen Fastigheter i dialog med Norrkopings kom mun sakrat fortsatt drift av sina produktionsanlaggningar i staden vilket ocksa bidragit till utvecklingsmojligheter av den inre delen av hamnen dar Lantmannen Fastigheter nu deltar i arbetet med att utveckla en helt ny stadsdel. Parallellt har lopande forvaltning och projektutveckling pagatt och fastighetstransaktioner genomforts tack vare det gynnsamma investeringsklimatet. Investeringar i exploateringsfastigheter gors for att maxi mera utvecklingspotentialen och oka vardet pa fastigheterna. Exempel pa det ar Lantmannen Fastigheters omfattande utveckling av fastigheter i Malmo orebro och Norrkoping. Det delagda fastighetsbolaget Lanthem har fattat beslut gallande bygget av en skola i orebro pa en fastighet dar Scan tidigare hade verksamhet. Avseende forvarv och fastighetsutveckling har en livs medelsfastighet i Falun en lager och logistikfastighet i Eslov samt Bilprovningar i Avesta och Hedemora forvarvats. Dartill har ett joint venture bolag Lantstaden AB bildats for att utveckla den inre hamnen i Norrkoping.
+| Det langsiktiga hallbarhetsarbetet har fortsatt genom flera initiativ daribland ett avtal om installation av batterilagring vid en fastighet i orebro dar batterilagringen ar kopplad till tidigare installerade solpaneler. Fokus har lagts pa att for battra rapporteringen och uppfoljningen av utslapp som till storsta delen kommer fran el varme och vatten. Detta genom investeringar for enklare atkomst av matdata till rapportering. Dessutom har en kartlaggning av klimatrisker genomforts i samarbete med SMHI. |
+![table image]({page: 57, x: 57}, {y: 198, {width: 231}, {height: 105})
+
+| Affarsomrade Fastigheter nyckeltal | 2024 | 2023 |
+| --- | --- | --- |
+| Nettoomsattning MSEK 1) | 689 | 611
+| Rorelseresultat MSEK | 379 | 309
+| Totala fastighetsforsaljningar | 82 | 69
+| Avkastning pa operativt kapital % | 9,2 | 8,2
+| Investeringar i anlaggningstillgangar MSEK | 523 | 519
+| Medelantal anstallda | 43 | 40
+| varav kvinnor/man % | 49/51 | 46/54
+| Andel kvinnor/man i ledningsgruppen % | 44/56 | 38/62
+| Olycksfallsfrekvens | - | -
+| Sjukfranvaro % | 3,0 | 0,7
+![table image]({page: 57, x: 57}, {y: 537, {width: 231}, {height: 8})
+
+### Compact signeras
+### Klimatmål antas
+
+- Rapport
+
+## Hållbar affärsutveckling
+
+Med verksamhet och kunskap genom hela spannmalsvarde kedjan har Lantmannen en unik mojlighet att driva hallbar affarsutveckling som ocksa ligger till grund for Lantmannens och vara medlemmars langsiktiga lonsamhet.
+Hallbar affars utveckling ar en central del i Lantmannens koncernstrategi och har fokus pa akermarkens resurser.
+Arbetet ar aven en del av hanteringen av risker.
+Lantmannen utvecklar och erbjuder produkter med lagre klimatpaverkan okad resursef fektivitet och som bidrar till battre halsa.
+
+Lantmannens klimatmal utgar fran att minska utslappen i linje med Parisavtalet.
+Tillsammans med kunder och leve rantorer finns potential att vasentligt minska klimatutslappen och framja biologisk mangfald samt generera lonsam tillvaxt fran nya och befintliga affarer som svarar mot omvarldens och marknadens behov av ansvarsfullt producerade livs medel bioenergi och biobaserade material.
+
+Ansvar och hallbara affarer Lantmannens styrelse ar ytterst ansvarig for hallbarhetsar betet for Lantmannens uppforandekod och dess implemente ring samt att affarerna utvecklas i hallbar riktning.
+Styrelsens roll ar att styra overvaka och sakerstalla att uppfoljning av hallbarhetsarbetet utfors.
+Koncernledningen driver ansvars fragor och hallbar affarsutveckling som en del av strategisk verksamhetsplanering.
+Respektive affar ansvarar for att verksamheten foljer uppforandekod policyer och arbetar for hallbara affarer mal och strategier.
+
+Hallbarhetsarbetet tar sin utgangspunkt i Lantmannens uppforandekod som galler alla verksamheter och medarbetare styrelsemedlemmar och fortroendevalda i medlemsorga nisationen samt for styrelseledamoter som representerar Lantmannen i delagda innehav.
+Uppforandekoden beskriver hur Lantmannen ska upptrada och fatta beslut for att ta ansvar ur ett miljomassigt socialt och affarsetiskt perspek tiv.
+Lantmannens uppforandekod utgor aven ett underlag vid utvardering av potentiella forvarv och samarbetsavtal.
+
+Ansvarstagande och hallbar affarsutveckling ar inte grerade i vara processer.
+Lantmannens ramverk for hallbar affarsutveckling med koncernovergripande mal visar rikt ningen och ett flertal strategier och program operationalise rar ramverket.
+Divisioner och affarsomraden driver specifika hallbarhetsfragor som ar relevanta for verksamheten.
+Kon cernens gemensamma funktioner har ett stodjande styrande och koordinerande uppdrag for koncernens och affarernas arbete med att utveckla strategier och driva arbetet inom hallbara affarer for att skydda och starka Lantmannens varu marke och bidra till affarsnytta pa kort och lang sikt.
+
+Lantmannens koncernovergripande klimatmal ar uppde lade pa primarproduktionen av spannmal egen produktion och kopta transporter.
+Malen har fokus pa fossilfri produk tion och fossilfria transporter fortsatt energieffektivisering samt investeringar och atgarder for minskad klimatpaverkan i vardekedjan.
+Ambitionen ar att ta ledarskap for att driva utvecklingen av framtidens jordbruk genom forskningsverk samhet naringspolitiskt arbete och affarsutveckling.
+Lant mannen ser partnerskap och samverkan som avgorande for att hitta losningar.
+
+Lantmannens affarsetiska compliance program omfattar efterlevnad av konkurrens och antikorruptionslagstiftning.
+
+
+<!-- PAGE: 68 -->
+Inom ramen for programmet genomfors regelbundna risk analyser kommunikation kontroll och uppfoljning samt utbildning.
+Lantmannen har aven en riskbaserad process for tillborlig aktsamhet (due diligence) for att hantera hallbar hetsrisker med sarskilt fokus pa korruption.
+For var egen arbetskraft verkar Lantmannen proaktivt och systematiskt for god arbetsmiljo och sakerhetsarbete.
+De ar en forutsatt ning for en hallbar arbetsmiljo och del av strategin for att na uppsatta affarsmal.
+For att sakerstalla ansvar i leverantors kedjan ar implementering och uppfoljning av Lantmannens leverantorsuppforandekod en integrerad del av inkops processen.
+Den galler for alla leverantorer och foljs upp kontinuerligt baserat pa bedomd risk.
+Lantmannens leveran torsuppforandekod innehaller overgripande riktlinjer for att sakerstalla god arbetsmiljo och sociala villkor miljoansvar god affarsetik samt sakra och ansvarsfullt producerade produkter.
+I leverantorsuppforandekoden understryks sar skilt nolltolerans mot brott mot antikorruptions eller kon kurrenslagstiftning.
+Medarbetare kan rapportera eventuella avvikelser gentemot uppforandekoden via ett visselblasar system.
+
+Efterlevnad och uppfoljning Koncernens CSRD rad som leds av vice vd har ett overgri pande ansvar for att organisationen har forutsattningar att implementera och folja upp uppforandekoden och de omra den som koden omfattar.
+I koncernledningens tertialuppfolj ning med respektive affarsledning ingar en genomgang av ansvarsfragorna i affaren sa kallad Sustainability Business Review som baseras pa uppfoljning av nyckeltal sa kallade Minimum Responsibility Requirements.
+Rapportering av detta sker regelbundet till koncernledningen och arligen till styrelsen.
+
+For Lantmannens produktion i livsmedelskedjan gors arligen en intern uppfoljning av de ataganden som Lantman nen har kopplat till ravaror ansvarsfull produktion och kvali tet.
+Uppfoljningen rapporteras till koncernledningen.
+
+Lantmannens Group Compliance funktion rapporterar lopande efterlevnad identifierade risker samt status for arbe tet med det affarsetiska compliance programmet till styrelse och koncernledning.
+
+Tillstands och anmalningspliktig verksamhet enligt den svenska miljobalken I Sverige bedriver Lantmannen tillstandspliktig verksamhet i 19 anlaggningar och anmalningspliktig verksamhet i cirka 70 anlaggningar i enlighet med miljobalken.
+Verksamheterna utgors bland annat av kvarnar verkstader och anlaggningar for tillverkning av foder etanol samt livsmedel.
+
+Direkt miljopaverkan sker framst genom buller utslapp till luft och vatten samt mellanlagring av farligt avfall.
+Tillver kande enheter i andra lander anpassar verksamheten anso ker om nodvandiga tillstand och rapporterar till myndigheter i enlighet med lokal lagstiftning.
+
+Redovisning enligt lag och GRI I enlighet med arsredovisningslagen (aRL) 6 kap 11 § har Lantmannen ek for valt att uppratta den lagstadgade hallbar hetsrapporten som en fran den lagstadgade arsredovisningen avskild rapport.
+Denna hallbarhetsrapport omfattar Lantman nen ek for och dess dotterforetag.
+Hallbarhetsrapporten har overlamnats till koncernens externa revisorer samtidigt som arsredovisningen.
+Hallbarhetsrapporten finns pa sid 24-32 137-181 och 199-201.
+
+Lantmannen omfattas av aRL:s krav pa rapportering i enlighet med Taxonomiforordningen som icke finansiellt foretag och uppfyller rapporteringskrav avseende redovis ning av taxonomiforenlig andel respektive icke forenlig andel for 2024.
+Taxonomirapporteringen utgor en del av den lag stadgade hallbarhetsrapporten.
+
+Lantmannen redovisar sitt hallbarhetsarbete arligen och tillampar Global Reporting Initiatives (GRI) riktlinjer Universal Standards.
+Styrelsen avger hallbarhetsredovisningen och den lagstadgade hallbarhetsrapporten.
+Lantmannen stodjer FN:s Agenda 2030 och de globala malen for hallbar utveckling och har analyserat vad de innebar for verksamheten och affarerna.
+
+Lantmannen omfattas av EU direktivet avseende hallbar hetsredovisning CSRD (Corporate Sustainability Reporting Directive) fran och med verksamhetsaret 2025 och ett arbete pagar for att successivt anpassa hallbarhetsredovisningen till de nya upplysningskraven.

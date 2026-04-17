@@ -1,9 +1,10 @@
-import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
-import { defaultMetadata, diffChanges } from '../lib/saveUtils'
-import saveToAPI from './saveToAPI'
+import apiConfig from '../config/api'
+import { DiffJob, ChangeDescription, DiffWorker } from '../lib/DiffWorker'
+import { diffChanges } from '../lib/saveUtils'
+import { QUEUE_NAMES } from '../queues'
 
-export class DiffIndustryJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+export class DiffIndustryJob extends DiffJob {
+  declare data: DiffJob['data'] & {
     existingCompany: any
     companyName: string
     wikidata: { node: string }
@@ -11,40 +12,45 @@ export class DiffIndustryJob extends DiscordJob {
   }
 }
 
-const diffIndustry = new DiscordWorker<DiffIndustryJob>(
-  'diffIndustry',
+const diffIndustry = new DiffWorker<DiffIndustryJob>(
+  QUEUE_NAMES.DIFF_INDUSTRY,
   async (job) => {
-    const { url, companyName, existingCompany, industry } = job.data
-    const metadata = defaultMetadata(url)
+    const { wikidata, companyName, existingCompany, industry } = job.data
 
-    const body = {
-      industry,
-      metadata,
+    if (job.isDataApproved()) {
+      await job.enqueueSaveToAPI(
+        'industry',
+        companyName,
+        wikidata,
+        job.getApprovedBody()
+      )
+      return
     }
 
-    const { diff, requiresApproval } = await diffChanges({
-      existingCompany,
-      before: existingCompany?.industry,
-      after: industry,
-    })
-
-    job.log('Diff:' + diff)
-
-    // Only save if we detected any meaningful changes
-    if (diff) {
-      await saveToAPI.queue.add(companyName + ' industry', {
-        ...job.data,
-        body,
-        diff,
-        requiresApproval,
-        apiSubEndpoint: 'industry',
-
-        // Remove duplicated job data that should be part of the body from now on
-        industry: undefined,
+    if (!job.hasApproval()) {
+      const { diff, requiresApproval } = await diffChanges({
+        existingCompany,
+        before: existingCompany?.industry,
+        after: industry,
       })
+
+      const change: ChangeDescription = {
+        type: 'industry',
+        oldValue: { industry: existingCompany?.industry },
+        newValue: { industry: industry },
+      }
+
+      await job.handleDiff(
+        'industry',
+        diff,
+        change,
+        typeof requiresApproval == 'boolean' ? requiresApproval : false
+      )
     }
 
-    return { body, diff, requiresApproval }
+    if (job.hasApproval() && !job.isDataApproved()) {
+      await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+    }
   }
 )
 

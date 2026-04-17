@@ -1,0 +1,412 @@
+NYCKELTAL
+
+|                                                                       | Mål                                                                                       | 2024   | 2023   | 2022   | 2021   | 2020   |
+|-----------------------------------------------------------------------|-------------------------------------------------------------------------------------------|--------|--------|--------|--------|--------|
+| CO ² e-utsläpp (ton)                                                  | Klimatneutralitet (Scope 1, 2, 3) år 2040                                                 | 858 2  | 690 3  | 250    | 279    | 246    |
+| Andel elektricitet från fossilfria källor i den egna verksamheten (%) | All elektricitet i koncernens verksamhetslokaler ska komma från fossilfria källor år 2025 | 75     | 81     | 92     | -      | -      |
+| Energianvändning elektricitet och värme (MWh)                         |                                                                                           | 3649   | 3 777  | 3 140  | 3 321  | 3 058  |
+| Vattenförbrukning                                                     |                                                                                           | 5651   | 7 838  | 4 274  | -      | -      |
+
+1.   Utsläppsintensitet mäts som ett bolags koldioxidekvivalenter (CO 2 e) i förhållande till portföljbolagets intäkter. Siffrorna för utsläppsintensiteten (årlig CO 2 e i ton/bolagets årliga intäkter i miljoner USD) syftar i första hand till att göra det möjligt med relevanta jämförelser oavsett bolagens storlek.
+2.   2024 användes naturgas i Sverige för värme (Fr.o.m 2025 gäller avtal med biogas igen). Samtidigt har GARO Polen helt frångått gas för uppvärmning, till förmån för värmepumpar vilket ger en totalt sett lägre energianvändning.
+3.   Scope 1 och 2 under 2023. Ökningen för 2023 inkluderar tillfälligt två produktionsanläggningar i Polen, vilken den tidigare avyttrades under fjärde kvartalet, samt ägda och leasade fordon, vilket tidigare år inte rapporterats.
+
+<!-- image -->
+
+UTFALL 2024:
+
+-  690 ton CO ² e utsläpp (Scope 1 och 2).
+-  81% elektricitet från fossilfria källor i den egna verksamheten.
+
+TABELL 3: ANDEL AV 2024/uniF6BAÅRS DRIFTUTGIFTER FRÅN PRODUKTER ELLER TJÄNSTER FÖRKNIPPADE MED EKONOMISKA VERKSAMHETER SOM ÄR FÖRENLIGA MED TAXONOMIKRAVEN
+
+|                                                                                                                                  | År           | År                          | År                                   | Kriterier för väsentligt bidrag**          | Kriterier för väsentligt bidrag**           | Kriterier för väsentligt bidrag**   | Kriterier för väsentligt bidrag**   | Kriterier för väsentligt bidrag**   | Kriterier för väsentligt bidrag**   | Kriterier avseende att inte orsaka betydande skada (DNSH)**   | Kriterier avseende att inte orsaka betydande skada (DNSH)**   | Kriterier avseende att inte orsaka betydande skada (DNSH)**   | Kriterier avseende att inte orsaka betydande skada (DNSH)**   | Kriterier avseende att inte orsaka betydande skada (DNSH)**   | Kriterier avseende att inte orsaka betydande skada (DNSH)**      |                                                                                  |                                                                               |
+|----------------------------------------------------------------------------------------------------------------------------------|--------------|-----------------------------|--------------------------------------|--------------------------------------------|---------------------------------------------|-------------------------------------|-------------------------------------|-------------------------------------|-------------------------------------|---------------------------------------------------------------|---------------------------------------------------------------|---------------------------------------------------------------|---------------------------------------------------------------|---------------------------------------------------------------|------------------------------------------------------------------|----------------------------------------------------------------------------------|-------------------------------------------------------------------------------|
+| GAROGROUP                                                                                                                        | Kod* (2)     | Absolut omsättning (3) MSEK | Andel av omsättningen, år 2024 (4) % | Begränsning av klimatförändringar (5) J;N; | Anpassning till klimatförändringar (6) J;N; | Vatten (7) J;N;                     | Föroreningar (8) J;N;               | Cirkulär ekonomi (9) J;N;           | Biologisk mångfald (10) J;N;        | Begränsning av klimatförändringar (1 1) J/N                   | Anpassning till klimatförändringar (1 2) J/N                  | Vatten (13) J/N                                               | Föroreningar (14) Cirkulär ekonomi (15) J/N J/N               | Biologisk mångfald (16) J/N                                   | Minimiskyddsåtgärder (17) (A.2) driftsutgifter, år 2023 (18) J/N | Andel förenlig med taxonomikraven (A.1) eller som omfattas av taxonomi- kraven % | Kategori möjliggörande verksamhet (19) Kategori omställningsverksamhet (20) E |
+| A. Verksamheter som omfattas av taxonomin A.1 Miljömässigt hållbara (taxonomiförenliga)                                          |              |                             |                                      |                                            |                                             |                                     |                                     |                                     |                                     |                                                               |                                                               |                                                               |                                                               |                                                               |                                                                  |                                                                                  |                                                                               |
+| Tillverkning, installation och service av hög-, mellan- och lågspänningsutrustning för elektrisk transmission och distribution   | CCM 3.20     | 12                          | 21%                                  | J                                          | J                                           | N/EL                                | N/EL                                | N/EL                                | N/EL J                              | J                                                             | J                                                             | J                                                             | J                                                             | J                                                             | J                                                                | 9%                                                                               | E                                                                             |
+| Tillverkning av annan koldioxidsnål teknik                                                                                       | CCM 3.5, 3.6 |                             |                                      | J                                          | J                                           | N/EL                                | N/EL                                | N/EL                                | N/EL                                | J J                                                           | J                                                             | J                                                             | J                                                             | J                                                             | J                                                                |                                                                                  | E                                                                             |
+| De miljömässigt hållbara (taxonomiförenliga) verksamheternas omsättning (A.1)                                                    |              | 12                          | 21%                                  | J                                          | J                                           | N/EL                                | N/EL                                | N/EL                                | N/EL                                | J                                                             | J                                                             | J J                                                           | J                                                             | J                                                             | J                                                                | 9%                                                                               | E                                                                             |
+| A.2 Verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga)                          |              |                             |                                      |                                            |                                             |                                     |                                     |                                     |                                     |                                                               |                                                               |                                                               |                                                               |                                                               |                                                                  |                                                                                  |                                                                               |
+| Tillverkning, installation och service av hög-, mellan- och lågspänningsutrustning för elek-                                     | CCM 3.20     | 40                          | 73%                                  | N                                          | N                                           | N/EL                                | N/EL                                | N/EL                                | N/EL                                |                                                               |                                                               |                                                               |                                                               |                                                               | J                                                                | 0%                                                                               | E                                                                             |
+| Tillverkning av annan koldioxidsnål teknik                                                                                       | CCM 3.5, 3.6 |                             |                                      | N                                          | N                                           | N/EL                                | N/EL                                | N/EL                                | N/EL                                |                                                               |                                                               |                                                               |                                                               |                                                               | J                                                                | 82%                                                                              | E                                                                             |
+| Uppförande av nya byggnader                                                                                                      | CCM7.1       | 2                           | 4%                                   | N                                          | N                                           | N/EL                                | N/EL                                | N/EL                                | N/EL                                |                                                               |                                                               |                                                               |                                                               |                                                               | J                                                                | 5%                                                                               | E                                                                             |
+| Driftutgifter hos de verk- samheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga) (A.2) |              | 42 54                       | 77% 98%                              |                                            |                                             |                                     |                                     |                                     |                                     |                                                               |                                                               |                                                               |                                                               |                                                               |                                                                  | 87% 97%                                                                          |                                                                               |
+| Totalt (A.1+A.2) B. Verksamheter som inte                                                                                        |              |                             |                                      |                                            |                                             |                                     |                                     |                                     |                                     |                                                               |                                                               |                                                               |                                                               |                                                               |                                                                  |                                                                                  |                                                                               |
+| Driftutgifter hos verksamheter som inte omfattas av taxonomin (B)                                                                |              | 1                           | 2%                                   |                                            |                                             |                                     |                                     |                                     |                                     |                                                               |                                                               |                                                               |                                                               |                                                               |                                                                  | 3%                                                                               |                                                                               |
+| Totalt (A+B)                                                                                                                     |              | 55                          | 100%                                 |                                            |                                             |                                     |                                     |                                     |                                     |                                                               |                                                               |                                                               |                                                               |                                                               |                                                                  | 100%                                                                             |                                                                               |
+
+GARO Groups driftutgifter omfattas till 98% av taxonomin (A). Det är endast en viss andel som är taxonomiförenlig 9% (A1). GARO Group rapporterar därför under både A1 och A2.
+
+TABELL 2: ANDEL AV KAPITALUTGIFTERNA FRÅN PRODUKTER ELLER TJÄNSTER FÖRKNIPPADE MED EKONOMISKA VERKSAMHETER SOM ÄR FÖRENLIGA MED TAXONOMIKRAVEN /uniF6BAUPPLYSNINGAR SOM OMFATTAR ÅR 2024
+
+|                                                                                                                                    | År           | År                          | År                                   | Kriterier för väsentligt bidrag**          | Kriterier för väsentligt bidrag**           | Kriterier för väsentligt bidrag**   | Kriterier för väsentligt bidrag**   | Kriterier för väsentligt bidrag**   | Kriterier för väsentligt bidrag**   | Kriterier avseende att inte orsaka          | Kriterier avseende att inte orsaka           | Kriterier avseende att inte orsaka   | Kriterier avseende att inte orsaka              | Kriterier avseende att inte orsaka   | Kriterier avseende att inte orsaka                                                                                   |                                                                               |    |
+|------------------------------------------------------------------------------------------------------------------------------------|--------------|-----------------------------|--------------------------------------|--------------------------------------------|---------------------------------------------|-------------------------------------|-------------------------------------|-------------------------------------|-------------------------------------|---------------------------------------------|----------------------------------------------|--------------------------------------|-------------------------------------------------|--------------------------------------|----------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------|----|
+| GAROGROUP                                                                                                                          | Kod* (2)     | Absolut omsättning (3) MSEK | Andel av omsättningen, år 2024 (4) % | Begränsning av klimatförändringar (5) J;N; | Anpassning till klimatförändringar (6) J;N; | Vatten (7) J;N;                     | Föroreningar (8) J;N;               | Cirkulär ekonomi (9) J;N;           | Biologisk mångfald (10) J;N;        | Begränsning av klimatförändringar (1 1) J/N | Anpassning till klimatförändringar (1 2) J/N | Vatten (13) J/N                      | Föroreningar (14) Cirkulär ekonomi (15) J/N J/N | Biologisk mångfald (16) J/N          | Andel förenlig med taxonomikraven (A.1) eller som omfattas av taxonomikraven (A.2) kapitalutgifterna, år 2023 (18) % | Kategori möjliggörande verksamhet (19) Kategori omställningsverksamhet (20) E |    |
+| A. Verksamheter som omfattas av taxonomin A.1 Miljömässigt hållbara (taxonomiförenliga)                                            |              |                             |                                      |                                            |                                             |                                     |                                     |                                     |                                     |                                             |                                              |                                      |                                                 |                                      |                                                                                                                      |                                                                               |    |
+| Tillverkning, installation och service av hög-, mellan- och lågspänningsutrustning för elektrisk transmission och distribution     | CCM 3.20     | 1 1                         | 58%                                  | J                                          | J                                           | N/EL                                | N/EL                                | N/EL                                | N/EL J                              | J                                           | J                                            | J                                    | J                                               | J                                    | 0%                                                                                                                   | E                                                                             |    |
+| Tillverkning av annan koldioxidsnål teknik                                                                                         | CCM3.6 , 3.5 |                             |                                      | J                                          | J                                           | N/EL                                | N/EL                                | N/EL                                | N/EL                                | J                                           | J J                                          | J                                    | J                                               | J                                    | 6%                                                                                                                   | E                                                                             |    |
+| De miljömässigt hållbara (taxonomiförenliga) verksamheternas kapitalutgifter (A.1)                                                 |              | 1 1                         | 58%                                  | J                                          | J                                           | N/EL                                | N/EL                                | N/EL                                | N/EL                                | J                                           | J                                            | J J                                  | J                                               | J                                    | 6%                                                                                                                   |                                                                               |    |
+| A.2 Verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga)                            |              |                             |                                      |                                            |                                             |                                     |                                     |                                     |                                     |                                             |                                              |                                      |                                                 |                                      |                                                                                                                      |                                                                               |    |
+| Tillverkning av annan koldiox- idsnål teknik                                                                                       | CCM 3.20     | 8                           | 42%                                  | N                                          | N                                           | N/EL                                | N/EL                                | N/EL                                | N/EL                                |                                             |                                              |                                      |                                                 |                                      | 0%                                                                                                                   | E                                                                             |    |
+| Tillverkning av energieffektiv utrustning för byggnader                                                                            | CCM3.6 , 3.5 |                             |                                      | N                                          | N                                           | N/EL                                | N/EL                                | N/EL                                | N/EL                                |                                             |                                              |                                      |                                                 |                                      | 70%                                                                                                                  | E                                                                             |    |
+| Uppförande av nya byggnader                                                                                                        | CCM7.1       | 0                           | 0,0%                                 | N                                          | N                                           | N/EL                                | N/EL                                | N/EL                                | N/EL                                |                                             |                                              |                                      |                                                 |                                      | 0%                                                                                                                   | E                                                                             |    |
+| Kapitalutgifter hos de verk- samheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga) (A.2) |              | 8                           | 42%                                  |                                            |                                             |                                     |                                     |                                     |                                     |                                             |                                              |                                      |                                                 |                                      | 70%                                                                                                                  |                                                                               |    |
+| Totalt (A.1+A.2) B. Verksamheter som inte                                                                                          |              | 19                          | 100%                                 |                                            |                                             |                                     |                                     |                                     |                                     |                                             |                                              |                                      |                                                 |                                      | 76%                                                                                                                  |                                                                               |    |
+| omfattas av taxonomin Kapitalutgifter hos verksam- heter som inte omfattas av                                                      |              | 0                           | 0%                                   |                                            |                                             |                                     |                                     |                                     |                                     |                                             |                                              |                                      |                                                 |                                      | 24%                                                                                                                  |                                                                               |    |
+| Totalt (A+B)                                                                                                                       |              | 19                          | 100%                                 |                                            |                                             |                                     |                                     |                                     |                                     |                                             |                                              |                                      |                                                 |                                      | 100%                                                                                                                 |                                                                               |    |
+
+GARO Groups kapitalutgifter omfattas till 100% av taxonomin (A), varav taxonomiförenlig andel 58% (A1). GARO Group rapporterar därför under både A1 och A2.
+
+GAROS TAXONOMIRAPPORTERING 2024
+
+GAROs ekonomiska aktiviteter har bedömts utifrån alla sex miljömål, utifrån bästa förmåga och i enlighet med den utökade rapporteringsskyldigheten som trädde i kraft i juni 2023. Detta innebär en vidareutveckling från 2022 och 2023 års rapporteringar. Framförallt har taxonomikategori 3.20 applicerats på stora delar av GAROs verksamhet från 2024, vilket haft en betydande positiv effekt - läs mer under rubriken 'VERKSAMHETER SOM OMFATTAS AV TAXONOMIN'.
+
+Tekniska granskningskriterier (Technical Screening Criteria - TSC) fastställs i sekundär lagstiftning genom Delegated Acts och används för att avgöra om en aktivitet uppfyller kraven för väsentligt bidrag och DNSH-bedömning.
+
+TABELL 1: ANDEL AV OMSÄTTNINGEN FRÅN PRODUKTER ELLER TJÄNSTER FÖRKNIPPADE MED EKO/uniF6BA NOMISKA VERKSAMHETER SOM ÄR FÖRENLIGA MED TAXONOMIKRAVEN /uniF6BA UPPLYSNINGAR SOM OMFATTAR ÅR 2024
+
+|                                                                                                                                  | År           | År                     | År                                 | Kriterier för väsentligt bidrag**          | Kriterier för väsentligt bidrag**      | Kriterier för väsentligt bidrag**   | Kriterier för väsentligt bidrag**   | Kriterier för väsentligt bidrag**   | Kriterier för väsentligt bidrag**   | Kriterier avseende att inte orsaka betydande skada (DNSH)**   | Kriterier avseende att inte orsaka betydande skada (DNSH)**   | Kriterier avseende att inte orsaka betydande skada (DNSH)**   | Kriterier avseende att inte orsaka betydande skada (DNSH)**   | Kriterier avseende att inte orsaka betydande skada (DNSH)**   | Kriterier avseende att inte orsaka betydande skada (DNSH)**                                                   |                                                                             |    |
+|----------------------------------------------------------------------------------------------------------------------------------|--------------|------------------------|------------------------------------|--------------------------------------------|----------------------------------------|-------------------------------------|-------------------------------------|-------------------------------------|-------------------------------------|---------------------------------------------------------------|---------------------------------------------------------------|---------------------------------------------------------------|---------------------------------------------------------------|---------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|----|
+| GAROGROUP                                                                                                                        | Kod* (2)     | Absolut omsättning (3) | Andel av omsättningen, år 2024 (4) | Begränsning av klimatförändringar (5) J;N; | Anpassning till klimatförändringar (6) | Vatten (7) J;N;                     | Föroreningar (8) J;N; N/EL          | Cirkulär ekonomi (9) J;N; N/EL      | Biologisk mångfald (10) J;N;        | Begränsning av klimatförändringar (1 1)                       | Anpassning till klimatförändringar (1 2)                      | Vatten (13)                                                   | Föroreningar (14) Cirkulär ekonomi (15) J/N                   | Biologisk mångfald (16)                                       | Andel förenlig med taxonomikraven (A.1) eller som omfattas av taxonomi- kraven (A.2) omsättning, år 2023 (18) | Kategori möjliggörande verksamhet (19) Kategori omställningsverksamhet (20) |    |
+|                                                                                                                                  |              | MSEK                   | %                                  | N/EL                                       | J;N; N/EL                              | N/EL                                |                                     |                                     | N/EL                                | J/N                                                           | J/N                                                           | J/N                                                           | J/N                                                           | J/N                                                           | %                                                                                                             | E                                                                           |    |
+| A. Verksamheter som omfattas av taxonomin A.1 Miljömässigt hållbara (taxonomiförenliga)                                          |              |                        |                                    |                                            |                                        |                                     |                                     |                                     |                                     |                                                               |                                                               |                                                               |                                                               |                                                               |                                                                                                               |                                                                             |    |
+| Tillverkning, installation och service av hög-, mellan- och lågspänningsutrustning för elektrisk transmission och distribution   | CCM 3.20     | 138                    | 12%                                | J                                          | J                                      | N/EL                                | N/EL                                | N/EL N/EL                           | J                                   | J                                                             | J                                                             | J                                                             | J                                                             | J                                                             | 0%                                                                                                            | E                                                                           |    |
+| Tillverkning av energieffektiv utrustning för byggnader                                                                          | CCM 3.5, 3.6 | 395                    | 34%                                | J                                          | J                                      | N/EL                                | N/EL                                | N/EL                                | N/EL J                              | J                                                             | J                                                             | J                                                             | J                                                             | J                                                             | 13%                                                                                                           | E                                                                           |    |
+| De miljömässigt hållbara (taxonomiförenliga) verksamheternas omsättning (A.1)                                                    |              | 532                    | 46%                                | J                                          | J                                      | N/EL                                | N/EL                                | N/EL                                | N/EL                                | J                                                             | J J                                                           | J                                                             | J                                                             | J                                                             | 13%                                                                                                           | E                                                                           |    |
+| Varav möjliggörande verksamheter                                                                                                 |              | 532                    | 46%                                |                                            |                                        |                                     |                                     |                                     |                                     |                                                               |                                                               |                                                               |                                                               |                                                               |                                                                                                               |                                                                             |    |
+| Varav omställningsverksamheter A.2 Verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara                  | CCM 3.20     | 0 379                  | 0% 33%                             | N                                          | N                                      | N/EL                                | N/EL                                | N/EL                                | N/EL                                |                                                               |                                                               |                                                               |                                                               |                                                               | 0%                                                                                                            | E                                                                           |    |
+| Tillverkning, installation och service av hög-, mellan- och lågspänningsutrustning för elek- trisk transmission och distribution | CCM 3.5, 3.6 | 2                      | 0%                                 |                                            |                                        |                                     |                                     |                                     |                                     |                                                               |                                                               |                                                               |                                                               |                                                               | 67%                                                                                                           | E                                                                           |    |
+| Tillverkning av energieffektiv utrustning för byggnader                                                                          | CCM7.1       | 38                     | 3%                                 | N                                          | N                                      | N/EL                                | N/EL                                | N/EL                                | N/EL                                |                                                               |                                                               |                                                               |                                                               |                                                               | 3%                                                                                                            | E                                                                           |    |
+| Uppförande av nya byggnader                                                                                                      |              | 419                    | 36%                                |                                            |                                        |                                     |                                     |                                     |                                     |                                                               |                                                               |                                                               |                                                               |                                                               | 71%                                                                                                           |                                                                             |    |
+| Omsättningen hos de verk- samheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga) (A.2)  |              |                        |                                    |                                            |                                        |                                     |                                     |                                     |                                     |                                                               |                                                               |                                                               |                                                               |                                                               |                                                                                                               |                                                                             |    |
+| Totalt (A.1+A.2)                                                                                                                 |              | 952                    | /uniF6402%                         |                                            |                                        |                                     |                                     |                                     |                                     |                                                               |                                                               |                                                               |                                                               |                                                               | 82%                                                                                                           |                                                                             |    |
+| B. Verksamheter som inte omfattas av taxonomin Omsättningen hos verksam-                                                         |              | 200                    | 18%                                |                                            |                                        |                                     |                                     |                                     |                                     |                                                               |                                                               |                                                               |                                                               |                                                               | 18%                                                                                                           |                                                                             |    |
+| Totalt (A+B)                                                                                                                     |              | 1 152                  | 100%                               |                                            |                                        |                                     |                                     |                                     |                                     |                                                               |                                                               |                                                               |                                                               |                                                               | 100%                                                                                                          |                                                                             |    |
+
+GARO Group omfattas till 82% av taxonomin (A), varav taxonomiförenlig andel 46% (A1). GARO Group rapporterar därför under både A1 och A2.
+
+MÅL  :
+
+-  Driftrelaterade utsläpp från GAROs lokaler ska senast år 2025 vara enbart från fossilfria källor för el- och värmeproduktion.
+-  All elektricitet i koncernens verksamhetslokaler ska komma från fossilfria källor år 2025.
+
+HÅLLBARHETSFUNDAMENT
+
+1. Klimat
+2. Cirkulär ekonomi
+3. Etisk och ansvarsfull verksamhet
+
+<!-- image -->
+
+Miljötransporter
+
+Störningar i distributionsledet kan påverka kunderna negativt och ökade fraktvolymer innebär större koldioxid- och partikelutsläpp. Distributionskanalerna kontrolleras löpande. Rutiner finns för uppföljning, effektivt nyttjande och eventuella åtgärder.
+
+LIVSCYKELANALYS (LCA) &amp; ENVIRONMENTAL   PRODUCT DECLARATION (EPD)
+
+En uppdaterad LCA för LS4 kartlägger produktens miljöpåverkan och möjligheter till utsläppsminskningar, vilket stärker EU-taxonomianpassningen och optimerar kostnader inom material, logistik och energi. GARO Entity har genomgått LCA och verifierats enligt EPD under 2024, vilket säkerställer transparens, höga redovisningskrav och stärker GAROs position som ett hållbart val inom elektrifiering.
+
+Andel av driftsutgifter
+
+*Koden är en förkortning av det relevanta mål till vilket den ekonomiska verksamheten kan ge ett väsentligt bidrag, liksom verksamhetens avsnittsnummer i den relevanta bilagan som omfattar målet. CCM: Begränsning av klimatförändringar **J - Ja, verksamheten omfattas av och är förenlig med taxonomin för det relevanta miljömålet
+
+N - Nej, verksamheten omfattas av men är inte förenlig med taxonomin för det relevanta miljömålet
+
+N/EL - Omfattas ej, verksamheten omfattas inte taxonomin för det relevanta miljmålet
+
+|     | Taxonomiförenlighet per mål (aligned)   | Mål som omfattas av taxonomin (eligible)   |
+|-----|-----------------------------------------|--------------------------------------------|
+| CCM | 21%                                     | 21%+77%=100%                               |
+| CCA |                                         |                                            |
+| WTR |                                         |                                            |
+| CE  |                                         |                                            |
+| PPC |                                         |                                            |
+| BIO |                                         |                                            |
+
+Rubrik
+
+NY PRISMODELL FÖR ELANVÄNDNING
+
+Regleringar och politiska initiativ från EU och den svenska regeringen styr marknaden mot mer hållbara lösningar. I Sverige införs nu en ny prismodell för elanvändning, där kostnaden baseras på hur mycket el som förbrukas vid hög belastning i
+
+Prismodellen införs med anledning av den ökande elanvändningen och den begränsade kapaciteten i elnäten, vilket kan påverka möjligheterna för företag och kommuner att växa. En möjlig väg är att bygga ut elnäten, men detta är tidskrävande och kostsamt. Ett annat alternativ är att använda de befintliga elnäten mer effektivt genom att sprida ut och flytta elanvändning till tider med lägre efterfrågan. Detta skulle minska belastningen på elsystemet och på sikt bidra till lägre genomsnittliga elnätstariffer.
+
+Effektavgifter är redan etablerade för exempelvis industrier men nu anser Energimarknadsinspektionen (Ei) att det är dags att även hushållen bidrar till en mer effektiv användning av elnäten. Den nya prismodellen ger elanvändare möjlighet att påverka sina kostnader genom att anpassa elanvändningen och syftar samtidigt till att skapa mer rättvisa avgifter för hushållen. Den nya elprismodellen leder till ökad efterfrågan på standardprodukter från GARO för att hantera de utmaningar som villaägare står inför.
+
+Andel av omsättning/total omsättning
+
+*Koden är en förkortning av det relevanta mål till vilket den ekonomiska verksamheten kan ge ett väsentligt bidrag, liksom verksamhetens avsnittsnummer i den relevanta bilagan som omfattar målet. CCM: Begränsning av klimatförändringar **J - Ja, verksamheten omfattas av och är förenlig med taxonomin för det relevanta
+
+- miljömålet
+
+N - Nej, verksamheten omfattas av men är inte förenlig med taxonomin för det relevanta miljömålet
+
+N/EL - Omfattas ej, verksamheten omfattas inte taxonomin för det relevanta miljmålet
+
+|     | Taxonomiförenlighet per mål (aligned)   | Mål som omfattas av taxonomin (eligible)   |
+|-----|-----------------------------------------|--------------------------------------------|
+| CCM | 46%                                     | 46%+36%=82%                                |
+| CCA |                                         |                                            |
+| WTR |                                         |                                            |
+| CE  |                                         |                                            |
+| PPC |                                         |                                            |
+| BIO |                                         |                                            |
+
+Rubrik
+
+GARO E/uniF6BAMOBILITY
+
+Från 2024 tillämpar GARO E-Mobility taxonomikod 3.20, vilket ökar andelen taxonomiförenlig verksamhet jämfört med tidigare klassificering under 3.5 och 3.6. Denna uppdatering speglar vårt bidrag till elektrifiering av transportsektorn genom laddstationer och stödjande infrastruktur.
+
+INTERNATIONELLA STANDARDER
+
+GAROs hållbarhetsrapport omfattar samtliga bolag där vi har operativ kontroll och följer svensk årsredovisningslag samt EU:s taxonomiförordning. Arbetet vägleds av internationella ramverk såsom FN:s vägledande principer för företag och mänskliga rättigheter, ILO:s kärnkonventioner och FN:s Global Compact.
+
+För att säkerställa att våra rapporter speglar både vår påverkan och våra ambitioner samlar vi data från hela koncernen, inkluderande BI-rapporter, IT- och ekonomisystem samt externa stödsystem för energi, avfall och vatten. Livscykelanalyser, klimatanalyser och interna bedömningar utgör viktiga underlag för rapporteringen.
+
+GARO SOM BOLAG
+
+-  Den svenska kemikalieinspektionen (KEMI) genomförde ett tillsynsbesök på GARO AB som en del av ett industriprojekt. Inspektionen fokuserade på efterlevnad av regler för begränsning av farliga ämnen i varor, inklusive:
+-  Reach-förordningen
+-  RoHS-direktivet
+-  Rapportering till SCIP-databasen
+-  Fördjupning av leverantörsgranskning har fortsatt med fokus på GARO:s fem strategiska områden (se sida 1 3).
+
+PROJEKTDIALOGER UNDER 2024
+Universitets-, forsknings-, och studentdialog
+
+Under året har fyra strategiska insatser genomförts:
+
+1. Forskningssamverkan - Samarbete med forskare vid Jönköping University och Örebro Universitet med fokus på att stärka hållbara värdekedjor. En projektansökan skickades till KKS-Hög under ledning av Örebro Universitet, där GARO är ett av ett fåtal utvalda bolag som deltar. Målet är att bidra till en mer hållbar framtid genom att utveckla effektiva och transparenta värdekedjor.
+2. Praktik och uppsatsskrivning - En masterstudent från programmet 'Global Studies Sustainable Societies and Social Change', Communication vid Jönköping University genomförde en 6 månader lång praktik för att förstärka GAROs due diligence i värdekedjan. Arbetet har hjälpt GARO att identifiera risker och möjligheter för att integrera hållbarhet ännu djupare i sina leverantörsled.
+3. Studentarbeten - GARO deltog i en organisationsgenomlysning med fokus på CSRD, Taxonomin och CSDDD. Över 60 masterstudenter från programmet Managing Responsibly for Corporate Sustainability, Global Management vid
+4. produktionsprocesserna år 2025 för samtliga komponenter och tjänster som levereras till GARO. Måluppfyllelsen för 2024 var 19%.
+-  GARO har intensifierat dialogerna med leverantörer för att säkerställa att de redovisar miljöpåverkan genom livscykelbedömningar (LCA) på produkter och material som levereras till GARO. Detta arbete syftar bland annat till att minska andelen fossila utsläpp i produktens värdekedja.
+-  Påbörjat det omfattande arbetet med att kartlägga och planera hur GARO fullt ut ska hantera och integrera leverantörers klimatdata i GAROs dubbla materialitetsanalys.
+-  Inlett arbetet med att definiera en strategi och utarbeta en plan för hur GARO ska hantera, mäta och rapportera fullständiga Scope 3-utsläpp i hela värdekedjan.
+8. Jönköping University deltog i detta arbete, vilket resulterade i nya insikter om hur GARO kan stärka sin hållbarhetsstrategi och anpassa sig till framtida regelverk.
+4. Kompetensutbyte - Den 15 oktober deltog GARO i ett forskningsnätverk i Stockholm med fokus på hållbar samverkan. Deltagarna presenterade och diskuterade hur organisationer kan samarbeta för att maximera hållbarhetsvärden och utveckla kompetens inom detta område. Genom nätverket fick koncernen möjlighet att knyta viktiga kontakter och förstärka sin kompetens inom hållbar utveckling och forskning.
+
+Fokus låg på en fallstudie som utforskade hur industrin, inklusive GARO, kan bidra till det nya flexibla elsystemet och de ekonomiska möjligheterna detta kan skapa.
+
+EU:s taxonomiförordning
+
+GAROs hållbarhetsrapportering för 2024 omfattar samtliga bolag inom koncernen där GARO AB har operationell kontroll, det vill säga där koncernen har ett majoritetsägande.
+
+Den primära målgruppen för rapporteringen är investerare, aktieägare och andra finansiella intressenter, men rapporten används också som ett verktyg för att säkerställa transparens och affärsstrategisk anpassning till EU:s taxonomiförordning, CSRD och ESRS.
+
+För att ge en helhetssyn på koncernens påverkan, strategier och arbetssätt inom hållbarhetsområdet har rapporten utformats utifrån de mest relevanta delarna för GAROs verksamhet och intressenter. Rapporteringen omfattar både den ekologiska och sociala dimensionen av GAROs påverkan, inklusive resurseffektivitet, energianvändning och tillgång till kompetens.
+
+Strategi GARO Group
+
+- 10 Omvärld och trender
+
+- 12 Affärsstrategier
+
+- 16 Finansiella mål och måluppfyllelse
+
+REDOVISNINGSPRINCIPER
+OMFATTNING OCH NYCKELTAL
+
+Taxonomirapporteringen inkluderar bolag där GARO har bestämmande inflytande. Icke-finansiella bolag redovisar enligt taxonomin tre nyckeltal: Omsättning, Kapitalutgifter (CapEx) och Driftsutgifter (OpEx).
+
+KLASSIFICERING OCH BEDÖMNING GAROs verksamhet har analyserats enligt EU:s klassificeringsmetod:
+
+Rubrik
+
+Rubrik
+
+1. Eligible - Omfattas av taxonomin.
+2. Aligned - Uppfyller tekniska granskningskriterierna.
+
+Klimat
+Uppnå klimatneutralitet
+
+Klimatförändringarna är en global fråga som kan få allvarliga konsekvenser. GAROs övergripande mål är att bli klimatneutrala i hela värdekedjan senast år 2040. Koncernen vill vara en möjliggörare som bidrar till att FN:s Agenda 2030, EU:s Green Deal, Fit for 55 samt att Parisavtalets mål uppnås.
+
+målen är betydande, där GAROs ambition och målsättning är att tillsammans med leverantörer och samarbetspartners vidareutveckla lösningar och produkter som krävs.
+
+Koncernens produkter och tjänster integreras på hela lågspänningssidan, exempelvis i bostäder, kontorsbyggnader och industrier, vilket bidrar och möjliggör effektiv energianvändning med låg klimatpåverkan.
+
+Utmaningarna att uppnå klimatneutralitet och de globala
+
+FOSSILFRI ENERGI I EGNA VERKSAMHETEN
+
+<!-- image -->
+
+VÄXTHUSGAS/uniF6BA UTSLÄPP
+
+TJÄNSTEBILAR MED ELDRIFT FROM 2025
+
+UTSLÄPPS/uniF6BA INTENSITET 1
+
+<!-- image -->
+
+75 %
+
+<!-- image -->
+
+858 ton
+
+100 %
+
+<!-- image -->
+
+7,8 ton
+
+<!-- image -->
+
+GARO ser möjligheter i att minska bolagets driftrelaterade utsläpp till år 2030 genom att:
+
+-  öka andelen fossilfri energi för uppvärmning och kyla genom att, där det är möjligt, avveckla gas till förmån för energi, kostnads- och utsläppsminskade värmepumpar.
+-  öka produktionen av solel med lägre elkostnader, minskade överföringskostnader och effektivare energianvändning som positiv konsekvens.
+-  öka användningen av eldrivna fordon för tjänsteresor, arbetsfordon och logistiktransporter, vilket minskar bolagets beroende av bränslen och minskar GAROs klimatutsläpp ytterligare.
+
+NOT 12. INKOMSTSKATT
+
+|                                      | 2024   | 2023   |
+|--------------------------------------|--------|--------|
+| Redovisad skatt                      |        |        |
+| Aktuell skatt på årets resultat      | -10,2  | -16,4  |
+| Förändring uppskjuten skatt (not 25) | 17,0   | -0,1   |
+| Summa skatt på årets resultat        | 6,8    | -16,5  |
+
+Koncernen har tidigare haft sin polska verksamhet i en så kallad skattefri zon i Polen, men där bara vissa delar av den polska verksamheten omfattats av skattelättnader. Under 2024 har koncernen valt att avsluta tillståndet för skattefri zon.
+
+Inkomstskatten på resultatet före skatt skiljer sig från det teoretiska belopp som skulle ha framkommit vid användning av skattesatsen i Sverige för resultaten i de konsoliderade bolagen enligt följande:
+
+|                                                           | 2024   | 2023   |
+|-----------------------------------------------------------|--------|--------|
+| Resultat före skatt                                       | -66,9  | 47,8   |
+| Inkomstskatt beräknad enligt skattesats i Sverige (20,6%) | 13,8   | -9,8   |
+| Effekt av utländska skattesatser                          | 2,0    | 1,4    |
+| Skatteeffekter av:                                        |        |        |
+| - Ej avdragsgilla kostnader                               | -7,2   | -7,0   |
+| - Ej skattepliktiga intäkter                              | 0,6    | 2,9    |
+| - Utnyttjande av förlustavdrag, ej uppskjuten skatt       | 0      | 0      |
+| - Skatt hänförlig till tidigare års redovisade resultat   | 0      | -1,9   |
+| - Underskott                                              | -1,7   | -2,3   |
+| - Övrigt                                                  | -0,6   | 0,4    |
+| Skattekostnad                                             | 6,8    | -16,5  |
+| Effektiv skattesats%                                      | 10,0   | 34,5   |
+
+-1 %
+JUSTERAD RÖRELSE/uniF6BA MARGINAL
+NETTOOMSÄTTNINGENS FÖRDELNING per geografiskt område 2024
+
+<!-- image -->
+
+Klimat
+UPPNÅ KLIMATNEUTRALITET
+
+GARO strävar för att bli klimatneutrala i hela värde  kedjan senast år 2040. Detta i enlighet med Parisavtalet som syftar till att begränsa den globala temperaturökningen till 1,5°C.
+
+1. Identifiering av påverkan
+
+Vi samlar kontinuerligt in information från externa och interna källor, såsom branschtrender, intressentdialoger,
+
+<!-- image -->
+
+riskanalyser och hållbarhetsrevisioner. Med hjälp av vetenskapliga principer och FSSD säkerställer vi en helhetssyn på vår påverkan i värdekedjan.
+
+Kvalitet och miljöledningssystem
+
+ISO 9001:2015
+
+ISO 14001:2015
+
+Läs mer på sid 30.
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+övergripande klimatmålen är att bli klimatneutrala till år 2040 och utvecklas till ett cirkulärt företag.
+
+GARO förhåller sig till FN:s globala mål för hållbar utveckling. Av dessa har koncernen valt ut sex mål där man anser sig kunna skapa mest värde och bidra till störst skillnad.
+
+Då olika väsentlighetsområden har varierande påverkansgrad, vilka dessutom kan ändras över tid, anpassar koncernen stegvis åtgärder, handlingsplaner och resurser. Rapportering och uppföljning av KPIer involverar bred samverkan och kontinuerlig dialog för att säkerställa ansvarsfull och effektiv framstegsmätning för hållbarhetsmålen.
+
+<!-- image -->
+
+2.3 SEGMENTSRAPPORTERING
+
+Segment (GAROs affärsområde, AO) rapporteras på ett sätt som överensstämmer med den interna rapportering som lämnas till den högste verkställande beslutsfattaren. Den högste verkställande beslutsfattaren är den funktion som ansvarar för tilldelning av resurser och bedömning av segmentens resultat. I koncernen har denna funktion identifierats som den verkställande direktören i moderbolaget. Koncernens segment (AO) utgörs av GARO Electrification samt GARO E-mobility. För ytterligare information se not K5.
+
+RESULTAT KPI:ER
+
+|                 | Andel ekonomiska verksamheter som omfattas av taxonomin   | Andel ekonomiska verksamheter som omfattas av taxonomin   | Andel ekonomiska verksamheter som inte omfattas av taxonomin   | Andel ekonomiska verksamheter som inte omfattas av taxonomin   |
+|-----------------|-----------------------------------------------------------|-----------------------------------------------------------|----------------------------------------------------------------|----------------------------------------------------------------|
+|                 | 2024                                                      | 2023                                                      | 2024                                                           | 2023                                                           |
+| Omsättning      | 82%                                                       | 83%                                                       | 18%                                                            | 17%                                                            |
+| Kapitalutgifter | 100%                                                      | 76%                                                       | 0%                                                             | 24%                                                            |
+| Driftsutgifter  | 98%                                                       | 97%                                                       | 2%                                                             | 3%                                                             |
+
+Rubrik
+
+Andel av kapitalutgifterna
+
+*Koden är en förkortning av det relevanta mål till vilket den ekonomiska verksamheten kan ge ett väsentligt bidrag, liksom verksamhetens avsnittsnummer i den relevanta bilagan som omfattar målet. CCM: Begränsning av klimatförändringar
+
+**J - Ja, verksamheten omfattas av och är förenlig med taxonomin för det
+
+relevanta miljömålet
+
+N - Nej, verksamheten omfattas av men är inte förenlig med taxonomin för det relevanta miljömålet
+
+N/EL - Omfattas ej, verksamheten omfattas inte taxonomin för det relevanta miljmålet
+
+|     | Taxonomiförenlighet per mål (aligned)   | Mål som omfattas av taxonomin (eligible)   |
+|-----|-----------------------------------------|--------------------------------------------|
+| CCM | 58%                                     | 58%+42%=100%                               |
+| CCA |                                         |                                            |
+| WTR |                                         |                                            |
+| CE  |                                         |                                            |
+| PPC |                                         |                                            |
+| BIO |                                         |                                            |
+
+Rubrik
+
+MATERIALITETSPROCESS
+
+På GARO använder vi en strukturerad femstegsprocess för att identifiera, validera och prioritera våra mest väsentliga hållbarhetsfrågor:
+
+POLICYER OCH RIKTLINJER
+
+GARO har en tydlig och integrerad policy för hållbarhetsfrågor som genomsyrar affärsbeslut och verksamhet. Policyn är baserad på GAROs åtagande att minska koncernens miljöpåverkan och främja hållbarhet. Den vägleder GAROs medarbetare och partners i de uppsatta hållbarhetsinitiativen. Koncernens policyer, uppförandekoder, riktlinjer och tillhörande åtgärdsplan finns väl implementerade som vägledning för medarbetare, företagskultur och samhällsansvar.
+
+Produkter, tjänster och system som möjliggör det nya flexibla, decentraliserade och hållbara energi- och transportsystemet
+
+GARO designar och tillverkar produkter och helhetslösningar för eldistribution och elfordonsladdning med fokus på säkerhet, styrning och mätning samt hållbarhet.
+
+GARO ELECTRIFICATION
+
+LÄNDER I EUROPA MED ETABLERADE BOLAG
+
+UTÖKAT HÅLLBARHETSARBETE
+
+Under 2024 har GARO förstärkt sitt arbete med att identifiera och hantera väsentliga risker och möjligheter inom resursanvändning och cirkulär ekonomi. Genom att integrera ramverket Framework for Strategic Sustainable Development (FSSD) i vår strategi har vi fått en tydlig struktur för att prioritera och hantera de mest kritiska aspekterna av hållbarhet.
+
+Antikorruption
+
+Korruption kan innebära stora kostnader och rättsprocesser samt rent allmänt sänka förtroende för GARO. Anställda i koncernen genomgår en utbildning i anti-korruption. Affärspartners skriver på en anti-korruptionsklausul som en del av samarbetsavtalet. Goda affärsprinciper ger en stabil verksamhet och bygger förtroende hos anställda, kunder och myndigheter. En etisk och pålitlig image skapar konkurrensfördelar.
+
+Fossilfri energi - en konkurrensfördel för hela värdekedjan
+
+GARO arbetar aktivt för att säkerställa att komponenter och tjänster som levereras till företaget tillverkas med 100 % fossilfri energi. Centralt för att minska koldioxidavtrycket i vår värdekedja, driva på våra affärspartners i omställningen samt svara upp mot ökade kund- och samhällskrav.
+
+CSRD OCH RAPPORTERING
+
+GARO har under 2024 intensifierat sitt arbete med att uppfylla kraven enligt Corporate Sustainability Reporting Directive (CSRD) och dess tillhörande European Sustainability Reporting Standards (ESRS). Denna process inkluderar:
+
+-  Koncernövergripande implementering där samtliga affärsenheter har involverats.
+-  Ett förstärkt systemstöd genom Aaro, vilket underlättar datainsamling och analys för hållbarhetsrapporteringen.
+-  Dialog med intressenter och revisorer för att säkerställa transparens och hög kvalitet i rapporteringen.
+-  Styrelsens engagemang, vilket har säkerställt att hållbarhet är förankrat på högsta nivå.
+
+Dessutom har samtliga koncernens policyer blivit publika från och med 2024, vilket ökar transparensen gentemot intressenter och stärker företagets hållbarhetsarbete.

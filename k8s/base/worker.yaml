@@ -3,7 +3,6 @@ kind: Deployment
 metadata:
   name: worker
 spec:
-  replicas: 2
   selector:
     matchLabels:
       app: worker
@@ -15,12 +14,9 @@ spec:
       containers:
         - image: ghcr.io/klimatbyran/garbo
           resources:
-            limits:
-              cpu: 500m
-              memory: 512Mi
             requests:
-              cpu: 250m
-              memory: 256Mi
+              cpu: 800m
+              memory: 1Gi
           command: ['npm', 'run', 'workers']
           name: worker
           ports:
@@ -28,6 +24,11 @@ spec:
           env:
             - name: WORKER
               value: 'true'
+            - name: NODE_ENV
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: NODE_ENV
             - name: DISCORD_APPLICATION_ID
               valueFrom:
                 secretKeyRef:
@@ -43,6 +44,11 @@ spec:
                 secretKeyRef:
                   name: env
                   key: DISCORD_TOKEN
+            - name: DISCORD_CHANNEL_ID
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: DISCORD_CHANNEL_ID
             - name: API_TOKENS
               valueFrom:
                 secretKeyRef:
@@ -50,6 +56,11 @@ spec:
                   key: API_TOKENS
             - name: API_BASE_URL
               value: http://garbo/api
+            - name: API_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: API_PORT
             - name: OPENAI_API_KEY
               valueFrom:
                 secretKeyRef:
@@ -60,15 +71,41 @@ spec:
                 secretKeyRef:
                   name: env
                   key: OPENAI_ORG_ID
+            - name: OPENAPI_PREFIX
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: OPENAPI_PREFIX
+            - name: CACHE_MAX_AGE
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: CACHE_MAX_AGE
             # - name: CHROMA_TOKEN
             #   valueFrom:
             #     secretKeyRef:
             #       name: chromadb-auth
             #       key: token
             - name: CHROMA_HOST
-              value: http://chromadb:8000
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: CHROMA_HOST
+            - name: CHROMA_CHUNK_SIZE
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: CHROMA_CHUNK_SIZE
             - name: REDIS_HOST
-              value: redis-master
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: REDIS_HOST
+            - name: REDIS_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: REDIS_PORT
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -79,6 +116,129 @@ spec:
                 secretKeyRef:
                   name: postgresql
                   key: postgres-password
+            - name: DOCLING_URL
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: DOCLING_URL
             - name: NLM_INGESTOR_URL
-              value: http://nlm:5001
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: NLM_INGESTOR_URL
+            - name: BERGET_AI_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: BERGET_AI_TOKEN
+            - name: GITHUB_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: GITHUB_CLIENT_ID
+            - name: GITHUB_ORG
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: GITHUB_ORG
+            - name: GITHUB_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: GITHUB_CLIENT_SECRET
+            - name: GITHUB_REDIRECT_URI
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: GITHUB_REDIRECT_URI
+            - name: FRONTEND_URL
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: FRONTEND_URL
+            - name: API_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: API_SECRET
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: JWT_SECRET
+            - name: JWT_EXPIRES_IN
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: JWT_EXPIRES_IN
+            - name: WIKI_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: WIKI_PASSWORD
+            - name: WIKI_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: WIKI_USERNAME
+            - name: GOOGLE_SCREENSHOT_BUCKET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: GOOGLE_SCREENSHOT_BUCKET_KEY
+            - name: DOCLING_USE_LOCAL
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: DOCLING_USE_LOCAL
+            - name: USE_BACKUP_API
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: USE_BACKUP_API
+            - name: BACKUP_API_URL
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: BACKUP_API_URL
+            - name: BACKUP_API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: BACKUP_API_TOKEN
+            - name: BACKUP_API_AUTH_HEADER
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: BACKUP_API_AUTH_HEADER
           imagePullPolicy: Always
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: worker-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: worker
+  minReplicas: 1
+  maxReplicas: 15
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 300
+    scaleUp:
+      stabilizationWindowSeconds: 60

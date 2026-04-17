@@ -1,4 +1,5 @@
 import { Prisma } from '@prisma/client'
+import { TurnoverSchema } from './schemas'
 
 export const emissionsArgs = {
   include: {
@@ -26,7 +27,7 @@ export const reportingPeriodArgs = {
   },
 } satisfies Prisma.ReportingPeriodDefaultArgs
 
-const metadataArgs = {
+export const metadataArgs = {
   orderBy: {
     updatedAt: 'desc' as const,
   },
@@ -67,7 +68,17 @@ export const detailedCompanyArgs = {
   select: {
     wikidataId: true,
     name: true,
+    logoUrl: true,
     description: true,
+    descriptions: {
+      select: {
+        id: true,
+        text: true,
+        language: true,
+      },
+    },
+    lei: true,
+    tags: true,
     reportingPeriods: {
       select: {
         id: true,
@@ -224,7 +235,19 @@ export const companyListArgs = {
   select: {
     wikidataId: true,
     name: true,
+    logoUrl: true,
     description: true,
+    descriptions: {
+      select: {
+        id: true,
+        language: true,
+        text: true,
+      },
+    },
+    lei: true,
+    baseYear: {
+      select: { id: true, year: true, metadata: metadataArgs },
+    },
     tags: true,
     reportingPeriods: {
       select: {
@@ -326,3 +349,119 @@ export const companyListArgs = {
     },
   },
 } satisfies Prisma.CompanyDefaultArgs
+
+export const companyExportArgs = (year?) => {
+  return {
+    select: {
+      wikidataId: true,
+      name: true,
+      description: true,
+      descriptions: {
+        select: {
+          language: true,
+          text: true,
+        },
+      },
+      baseYear: {
+        select: { id: true, year: true },
+      },
+      tags: true,
+      reportingPeriods: {
+        select: {
+          startDate: true,
+          endDate: true,
+          reportURL: true,
+          economy: {
+            select: {
+              turnover: {
+                select: {
+                  value: true,
+                  currency: true,
+                },
+              },
+              employees: {
+                select: {
+                  value: true,
+                  unit: true,
+                },
+              },
+            },
+          },
+          emissions: {
+            select: {
+              scope1: {
+                select: {
+                  total: true,
+                  unit: true,
+                },
+              },
+              scope2: {
+                select: {
+                  lb: true,
+                  mb: true,
+                  unknown: true,
+                  unit: true,
+                },
+              },
+              scope3: {
+                select: {
+                  statedTotalEmissions: {
+                    select: {
+                      total: true,
+                      unit: true,
+                    },
+                  },
+                  categories: {
+                    select: {
+                      category: true,
+                      total: true,
+                      unit: true,
+                    },
+                    orderBy: {
+                      category: 'asc',
+                    },
+                  },
+                },
+              },
+              scope1And2: {
+                select: {
+                  total: true,
+                  unit: true,
+                },
+              },
+              statedTotalEmissions: {
+                select: {
+                  total: true,
+                  unit: true,
+                },
+              },
+            },
+          },
+        },
+        ...(year && {
+          where: {
+            endDate: {
+              lte: new Date(`${year}-12-31`),
+              gte: new Date(`${year}-01-01`),
+            },
+          },
+        }),
+        orderBy: {
+          startDate: 'desc',
+        },
+      },
+      industry: {
+        select: {
+          industryGics: {
+            select: {
+              sectorCode: true,
+              groupCode: true,
+              industryCode: true,
+              subIndustryCode: true,
+            },
+          },
+        },
+      },
+    },
+  } satisfies Prisma.CompanyDefaultArgs
+}

@@ -1,0 +1,3110 @@
+[
+  {
+    "name": "Blekinge län",
+    "sectors": {
+      "1990": {
+        "Arbetsmaskiner": 52552.11,
+        "Avfall (inkl.avlopp)": 95969.68,
+        "Egen uppvärmning av bostäder och lokaler": 215719.36,
+        "El och fjärrvärme": 16523.59,
+        "Industri (energi + processer)": 154291.81,
+        "Jordbruk": 128834.79,
+        "Produktanvändning (inkl. lösningsmedel)": 6917.95,
+        "Transporter": 299180.82,
+        "Utrikes transporter": 0.0
+      },
+      "2000": {
+        "Arbetsmaskiner": 50805.02,
+        "Avfall (inkl.avlopp)": 81975.67,
+        "Egen uppvärmning av bostäder och lokaler": 154351.22,
+        "El och fjärrvärme": 58940.09,
+        "Industri (energi + processer)": 154086.86,
+        "Jordbruk": 121877.73,
+        "Produktanvändning (inkl. lösningsmedel)": 19995.54,
+        "Transporter": 308257.66,
+        "Utrikes transporter": 0.0
+      },
+      "2005": {
+        "Arbetsmaskiner": 47177.04,
+        "Avfall (inkl.avlopp)": 66883.94,
+        "Egen uppvärmning av bostäder och lokaler": 83242.95,
+        "El och fjärrvärme": 102463.64,
+        "Industri (energi + processer)": 118089.58,
+        "Jordbruk": 114269.99,
+        "Produktanvändning (inkl. lösningsmedel)": 27033.2,
+        "Transporter": 328807.03,
+        "Utrikes transporter": 0.0
+      },
+      "2010": {
+        "Arbetsmaskiner": 44681.63,
+        "Avfall (inkl.avlopp)": 48538.0,
+        "Egen uppvärmning av bostäder och lokaler": 61986.84,
+        "El och fjärrvärme": 158439.19,
+        "Industri (energi + processer)": 98486.94,
+        "Jordbruk": 107753.96,
+        "Produktanvändning (inkl. lösningsmedel)": 27273.39,
+        "Transporter": 306442.72,
+        "Utrikes transporter": 0.0
+      },
+      "2015": {
+        "Arbetsmaskiner": 37393.98,
+        "Avfall (inkl.avlopp)": 33053.07,
+        "Egen uppvärmning av bostäder och lokaler": 34514.17,
+        "El och fjärrvärme": 9169.61,
+        "Industri (energi + processer)": 62591.07,
+        "Jordbruk": 111574.93,
+        "Produktanvändning (inkl. lösningsmedel)": 23934.06,
+        "Transporter": 258420.04,
+        "Utrikes transporter": 0.0
+      },
+      "2016": {
+        "Arbetsmaskiner": 34812.26,
+        "Avfall (inkl.avlopp)": 31459.86,
+        "Egen uppvärmning av bostäder och lokaler": 33076.19,
+        "El och fjärrvärme": 16371.65,
+        "Industri (energi + processer)": 52280.97,
+        "Jordbruk": 109833.06,
+        "Produktanvändning (inkl. lösningsmedel)": 24426.92,
+        "Transporter": 238906.58,
+        "Utrikes transporter": 0.0
+      },
+      "2017": {
+        "Arbetsmaskiner": 36059.83,
+        "Avfall (inkl.avlopp)": 29368.68,
+        "Egen uppvärmning av bostäder och lokaler": 29798.14,
+        "El och fjärrvärme": 16507.76,
+        "Industri (energi + processer)": 41482.05,
+        "Jordbruk": 110598.53,
+        "Produktanvändning (inkl. lösningsmedel)": 24702.51,
+        "Transporter": 243003.44,
+        "Utrikes transporter": 0.0
+      },
+      "2018": {
+        "Arbetsmaskiner": 35821.56,
+        "Avfall (inkl.avlopp)": 27722.9,
+        "Egen uppvärmning av bostäder och lokaler": 28151.63,
+        "El och fjärrvärme": 17321.38,
+        "Industri (energi + processer)": 68177.6,
+        "Jordbruk": 107922.52,
+        "Produktanvändning (inkl. lösningsmedel)": 22327.75,
+        "Transporter": 238105.94,
+        "Utrikes transporter": 0.0
+      },
+      "2019": {
+        "Arbetsmaskiner": 35848.43,
+        "Avfall (inkl.avlopp)": 25242.67,
+        "Egen uppvärmning av bostäder och lokaler": 30522.0,
+        "El och fjärrvärme": 8628.59,
+        "Industri (energi + processer)": 36151.6,
+        "Jordbruk": 107077.2,
+        "Produktanvändning (inkl. lösningsmedel)": 20671.07,
+        "Transporter": 241487.09,
+        "Utrikes transporter": 0.0
+      },
+      "2020": {
+        "Arbetsmaskiner": 35276.4,
+        "Avfall (inkl.avlopp)": 22252.72,
+        "Egen uppvärmning av bostäder och lokaler": 30009.23,
+        "El och fjärrvärme": 14575.26,
+        "Industri (energi + processer)": 28835.34,
+        "Jordbruk": 105829.87,
+        "Produktanvändning (inkl. lösningsmedel)": 19118.66,
+        "Transporter": 217696.17,
+        "Utrikes transporter": 0.0
+      },
+      "2021": {
+        "Arbetsmaskiner": 37677.18,
+        "Avfall (inkl.avlopp)": 20038.3,
+        "Egen uppvärmning av bostäder och lokaler": 29550.43,
+        "El och fjärrvärme": 89830.71,
+        "Industri (energi + processer)": 31624.1,
+        "Jordbruk": 100839.34,
+        "Produktanvändning (inkl. lösningsmedel)": 15630.02,
+        "Transporter": 218059.4,
+        "Utrikes transporter": 0.0
+      },
+      "2022": {
+        "Arbetsmaskiner": 32369.74,
+        "Avfall (inkl.avlopp)": 18986.02,
+        "Egen uppvärmning av bostäder och lokaler": 26529.57,
+        "El och fjärrvärme": 167538.67,
+        "Industri (energi + processer)": 36839.49,
+        "Jordbruk": 104447.76,
+        "Produktanvändning (inkl. lösningsmedel)": 15217.49,
+        "Transporter": 196753.36,
+        "Utrikes transporter": 0.0
+      },
+      "2023": {
+        "Arbetsmaskiner": 31729.03,
+        "Avfall (inkl.avlopp)": 17840.24,
+        "Egen uppvärmning av bostäder och lokaler": 27181.02,
+        "El och fjärrvärme": 15331.21,
+        "Industri (energi + processer)": 38063.59,
+        "Jordbruk": 100263.07,
+        "Produktanvändning (inkl. lösningsmedel)": 13897.28,
+        "Transporter": 197310.6,
+        "Utrikes transporter": 0.0
+      }
+    }
+  },
+  {
+    "name": "Dalarnas län",
+    "sectors": {
+      "1990": {
+        "Arbetsmaskiner": 126361.61,
+        "Avfall (inkl.avlopp)": 101219.36,
+        "Egen uppvärmning av bostäder och lokaler": 361872.25,
+        "El och fjärrvärme": 71696.22,
+        "Industri (energi + processer)": 805356.93,
+        "Jordbruk": 167326.78,
+        "Produktanvändning (inkl. lösningsmedel)": 82349.29,
+        "Transporter": 687535.94,
+        "Utrikes transporter": 0.0
+      },
+      "2000": {
+        "Arbetsmaskiner": 119035.08,
+        "Avfall (inkl.avlopp)": 90232.1,
+        "Egen uppvärmning av bostäder och lokaler": 255548.34,
+        "El och fjärrvärme": 45436.11,
+        "Industri (energi + processer)": 959013.25,
+        "Jordbruk": 159824.48,
+        "Produktanvändning (inkl. lösningsmedel)": 54188.78,
+        "Transporter": 711375.7,
+        "Utrikes transporter": 0.0
+      },
+      "2005": {
+        "Arbetsmaskiner": 120695.44,
+        "Avfall (inkl.avlopp)": 77856.96,
+        "Egen uppvärmning av bostäder och lokaler": 126096.18,
+        "El och fjärrvärme": 54874.65,
+        "Industri (energi + processer)": 1064477.56,
+        "Jordbruk": 144481.29,
+        "Produktanvändning (inkl. lösningsmedel)": 62861.0,
+        "Transporter": 757662.23,
+        "Utrikes transporter": 0.0
+      },
+      "2010": {
+        "Arbetsmaskiner": 134209.64,
+        "Avfall (inkl.avlopp)": 56951.44,
+        "Egen uppvärmning av bostäder och lokaler": 56205.44,
+        "El och fjärrvärme": 111656.34,
+        "Industri (energi + processer)": 728419.29,
+        "Jordbruk": 130738.66,
+        "Produktanvändning (inkl. lösningsmedel)": 59351.11,
+        "Transporter": 710438.81,
+        "Utrikes transporter": 0.0
+      },
+      "2015": {
+        "Arbetsmaskiner": 114357.52,
+        "Avfall (inkl.avlopp)": 42033.14,
+        "Egen uppvärmning av bostäder och lokaler": 31690.95,
+        "El och fjärrvärme": 81169.07,
+        "Industri (energi + processer)": 645032.86,
+        "Jordbruk": 130970.66,
+        "Produktanvändning (inkl. lösningsmedel)": 50510.76,
+        "Transporter": 634125.87,
+        "Utrikes transporter": 0.0
+      },
+      "2016": {
+        "Arbetsmaskiner": 114294.63,
+        "Avfall (inkl.avlopp)": 39522.6,
+        "Egen uppvärmning av bostäder och lokaler": 29055.02,
+        "El och fjärrvärme": 91366.83,
+        "Industri (energi + processer)": 667503.8,
+        "Jordbruk": 127838.98,
+        "Produktanvändning (inkl. lösningsmedel)": 52359.05,
+        "Transporter": 604438.38,
+        "Utrikes transporter": 0.0
+      },
+      "2017": {
+        "Arbetsmaskiner": 107718.98,
+        "Avfall (inkl.avlopp)": 35740.66,
+        "Egen uppvärmning av bostäder och lokaler": 29408.32,
+        "El och fjärrvärme": 94098.64,
+        "Industri (energi + processer)": 663862.29,
+        "Jordbruk": 130168.97,
+        "Produktanvändning (inkl. lösningsmedel)": 47080.98,
+        "Transporter": 562417.02,
+        "Utrikes transporter": 0.0
+      },
+      "2018": {
+        "Arbetsmaskiner": 103355.27,
+        "Avfall (inkl.avlopp)": 34428.25,
+        "Egen uppvärmning av bostäder och lokaler": 24487.64,
+        "El och fjärrvärme": 89843.91,
+        "Industri (energi + processer)": 635855.84,
+        "Jordbruk": 130430.42,
+        "Produktanvändning (inkl. lösningsmedel)": 43246.39,
+        "Transporter": 521175.85,
+        "Utrikes transporter": 0.0
+      },
+      "2019": {
+        "Arbetsmaskiner": 109987.04,
+        "Avfall (inkl.avlopp)": 32664.31,
+        "Egen uppvärmning av bostäder och lokaler": 22122.49,
+        "El och fjärrvärme": 94629.44,
+        "Industri (energi + processer)": 614962.96,
+        "Jordbruk": 129939.11,
+        "Produktanvändning (inkl. lösningsmedel)": 40676.2,
+        "Transporter": 518989.18,
+        "Utrikes transporter": 0.0
+      },
+      "2020": {
+        "Arbetsmaskiner": 113308.38,
+        "Avfall (inkl.avlopp)": 31684.35,
+        "Egen uppvärmning av bostäder och lokaler": 20757.44,
+        "El och fjärrvärme": 90130.93,
+        "Industri (energi + processer)": 570820.88,
+        "Jordbruk": 130831.79,
+        "Produktanvändning (inkl. lösningsmedel)": 36036.28,
+        "Transporter": 483356.11,
+        "Utrikes transporter": 0.0
+      },
+      "2021": {
+        "Arbetsmaskiner": 111794.27,
+        "Avfall (inkl.avlopp)": 29873.93,
+        "Egen uppvärmning av bostäder och lokaler": 23120.59,
+        "El och fjärrvärme": 97955.87,
+        "Industri (energi + processer)": 605400.75,
+        "Jordbruk": 129137.82,
+        "Produktanvändning (inkl. lösningsmedel)": 31206.95,
+        "Transporter": 485236.55,
+        "Utrikes transporter": 0.0
+      },
+      "2022": {
+        "Arbetsmaskiner": 101951.21,
+        "Avfall (inkl.avlopp)": 28993.11,
+        "Egen uppvärmning av bostäder och lokaler": 21264.4,
+        "El och fjärrvärme": 97095.41,
+        "Industri (energi + processer)": 599028.52,
+        "Jordbruk": 130193.91,
+        "Produktanvändning (inkl. lösningsmedel)": 29348.56,
+        "Transporter": 431583.49,
+        "Utrikes transporter": 0.0
+      },
+      "2023": {
+        "Arbetsmaskiner": 104670.33,
+        "Avfall (inkl.avlopp)": 27657.78,
+        "Egen uppvärmning av bostäder och lokaler": 21070.19,
+        "El och fjärrvärme": 105691.91,
+        "Industri (energi + processer)": 595697.95,
+        "Jordbruk": 127587.59,
+        "Produktanvändning (inkl. lösningsmedel)": 26754.67,
+        "Transporter": 427728.08,
+        "Utrikes transporter": 0.0
+      }
+    }
+  },
+  {
+    "name": "Gotlands län",
+    "sectors": {
+      "1990": {
+        "Arbetsmaskiner": 66724.07,
+        "Avfall (inkl.avlopp)": 30291.1,
+        "Egen uppvärmning av bostäder och lokaler": 76659.75,
+        "El och fjärrvärme": 4758.35,
+        "Industri (energi + processer)": 1682047.93,
+        "Jordbruk": 264925.28,
+        "Produktanvändning (inkl. lösningsmedel)": 2265.06,
+        "Transporter": 187216.34,
+        "Utrikes transporter": 0.0
+      },
+      "2000": {
+        "Arbetsmaskiner": 54625.1,
+        "Avfall (inkl.avlopp)": 25900.06,
+        "Egen uppvärmning av bostäder och lokaler": 55326.89,
+        "El och fjärrvärme": 4641.32,
+        "Industri (energi + processer)": 1774971.16,
+        "Jordbruk": 265242.47,
+        "Produktanvändning (inkl. lösningsmedel)": 7349.71,
+        "Transporter": 200627.26,
+        "Utrikes transporter": 0.0
+      },
+      "2005": {
+        "Arbetsmaskiner": 49085.77,
+        "Avfall (inkl.avlopp)": 21235.57,
+        "Egen uppvärmning av bostäder och lokaler": 32931.93,
+        "El och fjärrvärme": 4281.32,
+        "Industri (energi + processer)": 1788082.21,
+        "Jordbruk": 256208.01,
+        "Produktanvändning (inkl. lösningsmedel)": 10014.53,
+        "Transporter": 214324.22,
+        "Utrikes transporter": 0.0
+      },
+      "2010": {
+        "Arbetsmaskiner": 47464.12,
+        "Avfall (inkl.avlopp)": 14947.48,
+        "Egen uppvärmning av bostäder och lokaler": 28262.23,
+        "El och fjärrvärme": 5176.44,
+        "Industri (energi + processer)": 1733095.15,
+        "Jordbruk": 252066.59,
+        "Produktanvändning (inkl. lösningsmedel)": 10189.03,
+        "Transporter": 222311.97,
+        "Utrikes transporter": 0.0
+      },
+      "2015": {
+        "Arbetsmaskiner": 36626.38,
+        "Avfall (inkl.avlopp)": 11108.4,
+        "Egen uppvärmning av bostäder och lokaler": 16360.92,
+        "El och fjärrvärme": 2104.07,
+        "Industri (energi + processer)": 1987249.64,
+        "Jordbruk": 252962.94,
+        "Produktanvändning (inkl. lösningsmedel)": 8757.64,
+        "Transporter": 206223.92,
+        "Utrikes transporter": 0.0
+      },
+      "2016": {
+        "Arbetsmaskiner": 33768.62,
+        "Avfall (inkl.avlopp)": 10432.76,
+        "Egen uppvärmning av bostäder och lokaler": 16111.83,
+        "El och fjärrvärme": 1160.38,
+        "Industri (energi + processer)": 1926871.13,
+        "Jordbruk": 252506.29,
+        "Produktanvändning (inkl. lösningsmedel)": 8878.41,
+        "Transporter": 204747.49,
+        "Utrikes transporter": 0.0
+      },
+      "2017": {
+        "Arbetsmaskiner": 34151.25,
+        "Avfall (inkl.avlopp)": 10178.96,
+        "Egen uppvärmning av bostäder och lokaler": 14544.34,
+        "El och fjärrvärme": 1924.14,
+        "Industri (energi + processer)": 1792186.61,
+        "Jordbruk": 258667.5,
+        "Produktanvändning (inkl. lösningsmedel)": 8971.48,
+        "Transporter": 217353.02,
+        "Utrikes transporter": 0.0
+      },
+      "2018": {
+        "Arbetsmaskiner": 31768.5,
+        "Avfall (inkl.avlopp)": 10171.15,
+        "Egen uppvärmning av bostäder och lokaler": 13088.32,
+        "El och fjärrvärme": 5868.12,
+        "Industri (energi + processer)": 1901314.43,
+        "Jordbruk": 247721.12,
+        "Produktanvändning (inkl. lösningsmedel)": 8262.74,
+        "Transporter": 169918.02,
+        "Utrikes transporter": 0.0
+      },
+      "2019": {
+        "Arbetsmaskiner": 30771.07,
+        "Avfall (inkl.avlopp)": 10098.49,
+        "Egen uppvärmning av bostäder och lokaler": 14516.6,
+        "El och fjärrvärme": 2802.52,
+        "Industri (energi + processer)": 1714938.0,
+        "Jordbruk": 241623.67,
+        "Produktanvändning (inkl. lösningsmedel)": 7705.7,
+        "Transporter": 170743.44,
+        "Utrikes transporter": 0.0
+      },
+      "2020": {
+        "Arbetsmaskiner": 33170.39,
+        "Avfall (inkl.avlopp)": 10464.08,
+        "Egen uppvärmning av bostäder och lokaler": 14173.2,
+        "El och fjärrvärme": 2512.94,
+        "Industri (energi + processer)": 1621345.5,
+        "Jordbruk": 246855.52,
+        "Produktanvändning (inkl. lösningsmedel)": 7169.93,
+        "Transporter": 153506.05,
+        "Utrikes transporter": 0.0
+      },
+      "2021": {
+        "Arbetsmaskiner": 31320.27,
+        "Avfall (inkl.avlopp)": 8967.46,
+        "Egen uppvärmning av bostäder och lokaler": 13904.14,
+        "El och fjärrvärme": 7372.23,
+        "Industri (energi + processer)": 1577284.05,
+        "Jordbruk": 238243.48,
+        "Produktanvändning (inkl. lösningsmedel)": 5948.83,
+        "Transporter": 148355.18,
+        "Utrikes transporter": 0.0
+      },
+      "2022": {
+        "Arbetsmaskiner": 28080.99,
+        "Avfall (inkl.avlopp)": 8689.29,
+        "Egen uppvärmning av bostäder och lokaler": 13052.18,
+        "El och fjärrvärme": 3269.49,
+        "Industri (energi + processer)": 1527540.73,
+        "Jordbruk": 240284.17,
+        "Produktanvändning (inkl. lösningsmedel)": 5705.97,
+        "Transporter": 141133.76,
+        "Utrikes transporter": 0.0
+      },
+      "2023": {
+        "Arbetsmaskiner": 28080.02,
+        "Avfall (inkl.avlopp)": 8422.67,
+        "Egen uppvärmning av bostäder och lokaler": 13352.89,
+        "El och fjärrvärme": 1514.98,
+        "Industri (energi + processer)": 1496139.71,
+        "Jordbruk": 238753.14,
+        "Produktanvändning (inkl. lösningsmedel)": 5322.31,
+        "Transporter": 135421.79,
+        "Utrikes transporter": 0.0
+      }
+    }
+  },
+  {
+    "name": "Gävleborgs län",
+    "sectors": {
+      "1990": {
+        "Arbetsmaskiner": 126547.61,
+        "Avfall (inkl.avlopp)": 139666.62,
+        "Egen uppvärmning av bostäder och lokaler": 257057.99,
+        "El och fjärrvärme": 209904.46,
+        "Industri (energi + processer)": 544811.87,
+        "Jordbruk": 166081.77,
+        "Produktanvändning (inkl. lösningsmedel)": 13895.04,
+        "Transporter": 730583.61,
+        "Utrikes transporter": 0.0
+      },
+      "2000": {
+        "Arbetsmaskiner": 120036.22,
+        "Avfall (inkl.avlopp)": 119551.61,
+        "Egen uppvärmning av bostäder och lokaler": 178879.69,
+        "El och fjärrvärme": 173443.18,
+        "Industri (energi + processer)": 602562.27,
+        "Jordbruk": 155635.86,
+        "Produktanvändning (inkl. lösningsmedel)": 38675.48,
+        "Transporter": 763357.43,
+        "Utrikes transporter": 0.0
+      },
+      "2005": {
+        "Arbetsmaskiner": 111612.11,
+        "Avfall (inkl.avlopp)": 98044.96,
+        "Egen uppvärmning av bostäder och lokaler": 90433.49,
+        "El och fjärrvärme": 207850.91,
+        "Industri (energi + processer)": 523272.12,
+        "Jordbruk": 145366.34,
+        "Produktanvändning (inkl. lösningsmedel)": 52184.86,
+        "Transporter": 819474.41,
+        "Utrikes transporter": 0.0
+      },
+      "2010": {
+        "Arbetsmaskiner": 138849.87,
+        "Avfall (inkl.avlopp)": 71866.35,
+        "Egen uppvärmning av bostäder och lokaler": 42073.46,
+        "El och fjärrvärme": 92644.36,
+        "Industri (energi + processer)": 579602.13,
+        "Jordbruk": 137518.52,
+        "Produktanvändning (inkl. lösningsmedel)": 52610.29,
+        "Transporter": 824000.14,
+        "Utrikes transporter": 0.0
+      },
+      "2015": {
+        "Arbetsmaskiner": 127641.89,
+        "Avfall (inkl.avlopp)": 51242.81,
+        "Egen uppvärmning av bostäder och lokaler": 24303.95,
+        "El och fjärrvärme": 63592.39,
+        "Industri (energi + processer)": 280702.04,
+        "Jordbruk": 145084.33,
+        "Produktanvändning (inkl. lösningsmedel)": 43889.79,
+        "Transporter": 719365.39,
+        "Utrikes transporter": 0.0
+      },
+      "2016": {
+        "Arbetsmaskiner": 118942.94,
+        "Avfall (inkl.avlopp)": 46828.61,
+        "Egen uppvärmning av bostäder och lokaler": 22815.29,
+        "El och fjärrvärme": 75461.37,
+        "Industri (energi + processer)": 299393.34,
+        "Jordbruk": 144926.39,
+        "Produktanvändning (inkl. lösningsmedel)": 44666.05,
+        "Transporter": 689775.96,
+        "Utrikes transporter": 0.0
+      },
+      "2017": {
+        "Arbetsmaskiner": 114698.5,
+        "Avfall (inkl.avlopp)": 43369.35,
+        "Egen uppvärmning av bostäder och lokaler": 23002.48,
+        "El och fjärrvärme": 75060.82,
+        "Industri (energi + processer)": 290891.01,
+        "Jordbruk": 146244.77,
+        "Produktanvändning (inkl. lösningsmedel)": 44379.87,
+        "Transporter": 618685.75,
+        "Utrikes transporter": 0.0
+      },
+      "2018": {
+        "Arbetsmaskiner": 108299.13,
+        "Avfall (inkl.avlopp)": 40787.03,
+        "Egen uppvärmning av bostäder och lokaler": 18487.15,
+        "El och fjärrvärme": 77296.02,
+        "Industri (energi + processer)": 284274.38,
+        "Jordbruk": 142796.58,
+        "Produktanvändning (inkl. lösningsmedel)": 40626.03,
+        "Transporter": 597106.87,
+        "Utrikes transporter": 0.0
+      },
+      "2019": {
+        "Arbetsmaskiner": 121073.81,
+        "Avfall (inkl.avlopp)": 37764.75,
+        "Egen uppvärmning av bostäder och lokaler": 16920.93,
+        "El och fjärrvärme": 71305.42,
+        "Industri (energi + processer)": 260524.98,
+        "Jordbruk": 142516.57,
+        "Produktanvändning (inkl. lösningsmedel)": 37777.3,
+        "Transporter": 593091.39,
+        "Utrikes transporter": 0.0
+      },
+      "2020": {
+        "Arbetsmaskiner": 118422.9,
+        "Avfall (inkl.avlopp)": 34568.18,
+        "Egen uppvärmning av bostäder och lokaler": 15689.7,
+        "El och fjärrvärme": 66752.6,
+        "Industri (energi + processer)": 224937.58,
+        "Jordbruk": 140819.67,
+        "Produktanvändning (inkl. lösningsmedel)": 34993.94,
+        "Transporter": 546061.56,
+        "Utrikes transporter": 0.0
+      },
+      "2021": {
+        "Arbetsmaskiner": 115636.5,
+        "Avfall (inkl.avlopp)": 33509.48,
+        "Egen uppvärmning av bostäder och lokaler": 17430.11,
+        "El och fjärrvärme": 46338.65,
+        "Industri (energi + processer)": 245839.45,
+        "Jordbruk": 140077.87,
+        "Produktanvändning (inkl. lösningsmedel)": 28832.68,
+        "Transporter": 547599.92,
+        "Utrikes transporter": 0.0
+      },
+      "2022": {
+        "Arbetsmaskiner": 101874.84,
+        "Avfall (inkl.avlopp)": 32210.52,
+        "Egen uppvärmning av bostäder och lokaler": 16796.87,
+        "El och fjärrvärme": 40874.94,
+        "Industri (energi + processer)": 233951.19,
+        "Jordbruk": 142246.85,
+        "Produktanvändning (inkl. lösningsmedel)": 27581.73,
+        "Transporter": 490618.12,
+        "Utrikes transporter": 0.0
+      },
+      "2023": {
+        "Arbetsmaskiner": 110947.22,
+        "Avfall (inkl.avlopp)": 30542.89,
+        "Egen uppvärmning av bostäder och lokaler": 16602.31,
+        "El och fjärrvärme": 46342.04,
+        "Industri (energi + processer)": 208687.9,
+        "Jordbruk": 142767.14,
+        "Produktanvändning (inkl. lösningsmedel)": 25683.56,
+        "Transporter": 486743.61,
+        "Utrikes transporter": 0.0
+      }
+    }
+  },
+  {
+    "name": "Hallands län",
+    "sectors": {
+      "1990": {
+        "Arbetsmaskiner": 106591.18,
+        "Avfall (inkl.avlopp)": 72973.8,
+        "Egen uppvärmning av bostäder och lokaler": 402080.45,
+        "El och fjärrvärme": 35861.63,
+        "Industri (energi + processer)": 542214.98,
+        "Jordbruk": 388982.69,
+        "Produktanvändning (inkl. lösningsmedel)": 11477.97,
+        "Transporter": 732889.4,
+        "Utrikes transporter": 0.0
+      },
+      "2000": {
+        "Arbetsmaskiner": 95294.1,
+        "Avfall (inkl.avlopp)": 63807.52,
+        "Egen uppvärmning av bostäder och lokaler": 286917.88,
+        "El och fjärrvärme": 56224.81,
+        "Industri (energi + processer)": 396639.48,
+        "Jordbruk": 372741.18,
+        "Produktanvändning (inkl. lösningsmedel)": 33776.7,
+        "Transporter": 769479.19,
+        "Utrikes transporter": 0.0
+      },
+      "2005": {
+        "Arbetsmaskiner": 109039.57,
+        "Avfall (inkl.avlopp)": 53841.59,
+        "Egen uppvärmning av bostäder och lokaler": 153212.78,
+        "El och fjärrvärme": 58282.01,
+        "Industri (energi + processer)": 402866.21,
+        "Jordbruk": 358618.56,
+        "Produktanvändning (inkl. lösningsmedel)": 45786.89,
+        "Transporter": 826222.57,
+        "Utrikes transporter": 0.0
+      },
+      "2010": {
+        "Arbetsmaskiner": 95283.23,
+        "Avfall (inkl.avlopp)": 46698.44,
+        "Egen uppvärmning av bostäder och lokaler": 108366.61,
+        "El och fjärrvärme": 101924.87,
+        "Industri (energi + processer)": 315168.68,
+        "Jordbruk": 356681.36,
+        "Produktanvändning (inkl. lösningsmedel)": 46381.8,
+        "Transporter": 871936.52,
+        "Utrikes transporter": 0.0
+      },
+      "2015": {
+        "Arbetsmaskiner": 83940.96,
+        "Avfall (inkl.avlopp)": 29219.78,
+        "Egen uppvärmning av bostäder och lokaler": 60292.63,
+        "El och fjärrvärme": 83437.93,
+        "Industri (energi + processer)": 110571.53,
+        "Jordbruk": 353656.67,
+        "Produktanvändning (inkl. lösningsmedel)": 48460.13,
+        "Transporter": 757378.95,
+        "Utrikes transporter": 0.0
+      },
+      "2016": {
+        "Arbetsmaskiner": 74949.27,
+        "Avfall (inkl.avlopp)": 27373.16,
+        "Egen uppvärmning av bostäder och lokaler": 57579.32,
+        "El och fjärrvärme": 96434.72,
+        "Industri (energi + processer)": 116598.87,
+        "Jordbruk": 351438.44,
+        "Produktanvändning (inkl. lösningsmedel)": 49581.19,
+        "Transporter": 729754.43,
+        "Utrikes transporter": 0.0
+      },
+      "2017": {
+        "Arbetsmaskiner": 78263.21,
+        "Avfall (inkl.avlopp)": 25934.28,
+        "Egen uppvärmning av bostäder och lokaler": 52236.87,
+        "El och fjärrvärme": 95398.46,
+        "Industri (energi + processer)": 114941.25,
+        "Jordbruk": 352939.97,
+        "Produktanvändning (inkl. lösningsmedel)": 50141.38,
+        "Transporter": 731447.08,
+        "Utrikes transporter": 0.0
+      },
+      "2018": {
+        "Arbetsmaskiner": 72515.56,
+        "Avfall (inkl.avlopp)": 24277.26,
+        "Egen uppvärmning av bostäder och lokaler": 48750.38,
+        "El och fjärrvärme": 95002.81,
+        "Industri (energi + processer)": 115972.39,
+        "Jordbruk": 345639.36,
+        "Produktanvändning (inkl. lösningsmedel)": 46282.58,
+        "Transporter": 720312.31,
+        "Utrikes transporter": 0.0
+      },
+      "2019": {
+        "Arbetsmaskiner": 79209.14,
+        "Avfall (inkl.avlopp)": 23584.36,
+        "Egen uppvärmning av bostäder och lokaler": 52467.62,
+        "El och fjärrvärme": 91366.51,
+        "Industri (energi + processer)": 102411.74,
+        "Jordbruk": 352100.2,
+        "Produktanvändning (inkl. lösningsmedel)": 43439.16,
+        "Transporter": 717495.38,
+        "Utrikes transporter": 0.0
+      },
+      "2020": {
+        "Arbetsmaskiner": 77114.49,
+        "Avfall (inkl.avlopp)": 25057.66,
+        "Egen uppvärmning av bostäder och lokaler": 51414.93,
+        "El och fjärrvärme": 81540.98,
+        "Industri (energi + processer)": 91685.88,
+        "Jordbruk": 357137.45,
+        "Produktanvändning (inkl. lösningsmedel)": 40525.45,
+        "Transporter": 669013.46,
+        "Utrikes transporter": 0.0
+      },
+      "2021": {
+        "Arbetsmaskiner": 78560.69,
+        "Avfall (inkl.avlopp)": 23251.91,
+        "Egen uppvärmning av bostäder och lokaler": 50902.75,
+        "El och fjärrvärme": 94863.92,
+        "Industri (energi + processer)": 106841.21,
+        "Jordbruk": 345031.52,
+        "Produktanvändning (inkl. lösningsmedel)": 33581.84,
+        "Transporter": 672192.82,
+        "Utrikes transporter": 0.0
+      },
+      "2022": {
+        "Arbetsmaskiner": 70477.85,
+        "Avfall (inkl.avlopp)": 22484.21,
+        "Egen uppvärmning av bostäder och lokaler": 45943.48,
+        "El och fjärrvärme": 116789.69,
+        "Industri (energi + processer)": 97345.4,
+        "Jordbruk": 349716.05,
+        "Produktanvändning (inkl. lösningsmedel)": 32411.01,
+        "Transporter": 598307.28,
+        "Utrikes transporter": 0.0
+      },
+      "2023": {
+        "Arbetsmaskiner": 76067.4,
+        "Avfall (inkl.avlopp)": 21222.94,
+        "Egen uppvärmning av bostäder och lokaler": 46990.68,
+        "El och fjärrvärme": 99759.27,
+        "Industri (energi + processer)": 105213.99,
+        "Jordbruk": 344493.92,
+        "Produktanvändning (inkl. lösningsmedel)": 30398.93,
+        "Transporter": 593168.2,
+        "Utrikes transporter": 0.0
+      }
+    }
+  },
+  {
+    "name": "Jämtlands län",
+    "sectors": {
+      "1990": {
+        "Arbetsmaskiner": 99371.53,
+        "Avfall (inkl.avlopp)": 98850.79,
+        "Egen uppvärmning av bostäder och lokaler": 147809.3,
+        "El och fjärrvärme": 118152.98,
+        "Industri (energi + processer)": 28788.63,
+        "Jordbruk": 125256.46,
+        "Produktanvändning (inkl. lösningsmedel)": 5886.54,
+        "Transporter": 481122.14,
+        "Utrikes transporter": 0.0
+      },
+      "2000": {
+        "Arbetsmaskiner": 95596.49,
+        "Avfall (inkl.avlopp)": 85483.14,
+        "Egen uppvärmning av bostäder och lokaler": 104992.32,
+        "El och fjärrvärme": 34948.87,
+        "Industri (energi + processer)": 30030.95,
+        "Jordbruk": 126750.8,
+        "Produktanvändning (inkl. lösningsmedel)": 17790.97,
+        "Transporter": 496573.4,
+        "Utrikes transporter": 0.0
+      },
+      "2005": {
+        "Arbetsmaskiner": 86560.08,
+        "Avfall (inkl.avlopp)": 70935.09,
+        "Egen uppvärmning av bostäder och lokaler": 55849.61,
+        "El och fjärrvärme": 42484.87,
+        "Industri (energi + processer)": 17849.65,
+        "Jordbruk": 118762.21,
+        "Produktanvändning (inkl. lösningsmedel)": 24184.07,
+        "Transporter": 530024.43,
+        "Utrikes transporter": 0.0
+      },
+      "2010": {
+        "Arbetsmaskiner": 107569.66,
+        "Avfall (inkl.avlopp)": 50258.07,
+        "Egen uppvärmning av bostäder och lokaler": 27299.38,
+        "El och fjärrvärme": 37504.9,
+        "Industri (energi + processer)": 14450.2,
+        "Jordbruk": 110038.77,
+        "Produktanvändning (inkl. lösningsmedel)": 24478.92,
+        "Transporter": 431654.77,
+        "Utrikes transporter": 0.0
+      },
+      "2015": {
+        "Arbetsmaskiner": 100709.14,
+        "Avfall (inkl.avlopp)": 34012.8,
+        "Egen uppvärmning av bostäder och lokaler": 16455.0,
+        "El och fjärrvärme": 27017.59,
+        "Industri (energi + processer)": 11939.4,
+        "Jordbruk": 107214.41,
+        "Produktanvändning (inkl. lösningsmedel)": 19823.4,
+        "Transporter": 377616.72,
+        "Utrikes transporter": 0.0
+      },
+      "2016": {
+        "Arbetsmaskiner": 100449.44,
+        "Avfall (inkl.avlopp)": 32922.91,
+        "Egen uppvärmning av bostäder och lokaler": 15829.05,
+        "El och fjärrvärme": 24278.74,
+        "Industri (energi + processer)": 10928.17,
+        "Jordbruk": 107247.0,
+        "Produktanvändning (inkl. lösningsmedel)": 20091.97,
+        "Transporter": 360770.8,
+        "Utrikes transporter": 0.0
+      },
+      "2017": {
+        "Arbetsmaskiner": 82790.73,
+        "Avfall (inkl.avlopp)": 30466.14,
+        "Egen uppvärmning av bostäder och lokaler": 15933.63,
+        "El och fjärrvärme": 25467.1,
+        "Industri (energi + processer)": 10644.49,
+        "Jordbruk": 107447.45,
+        "Produktanvändning (inkl. lösningsmedel)": 20162.22,
+        "Transporter": 341995.48,
+        "Utrikes transporter": 0.0
+      },
+      "2018": {
+        "Arbetsmaskiner": 87007.76,
+        "Avfall (inkl.avlopp)": 28750.74,
+        "Egen uppvärmning av bostäder och lokaler": 12077.34,
+        "El och fjärrvärme": 29553.79,
+        "Industri (energi + processer)": 10016.71,
+        "Jordbruk": 105984.23,
+        "Produktanvändning (inkl. lösningsmedel)": 18433.78,
+        "Transporter": 216760.35,
+        "Utrikes transporter": 0.0
+      },
+      "2019": {
+        "Arbetsmaskiner": 92586.63,
+        "Avfall (inkl.avlopp)": 26156.42,
+        "Egen uppvärmning av bostäder och lokaler": 11602.57,
+        "El och fjärrvärme": 18215.49,
+        "Industri (energi + processer)": 10023.3,
+        "Jordbruk": 104203.32,
+        "Produktanvändning (inkl. lösningsmedel)": 17131.96,
+        "Transporter": 215771.65,
+        "Utrikes transporter": 0.0
+      },
+      "2020": {
+        "Arbetsmaskiner": 90933.16,
+        "Avfall (inkl.avlopp)": 24408.92,
+        "Egen uppvärmning av bostäder och lokaler": 10748.1,
+        "El och fjärrvärme": 9130.69,
+        "Industri (energi + processer)": 8519.73,
+        "Jordbruk": 104900.75,
+        "Produktanvändning (inkl. lösningsmedel)": 15918.46,
+        "Transporter": 197695.96,
+        "Utrikes transporter": 0.0
+      },
+      "2021": {
+        "Arbetsmaskiner": 87344.75,
+        "Avfall (inkl.avlopp)": 22646.01,
+        "Egen uppvärmning av bostäder och lokaler": 11839.97,
+        "El och fjärrvärme": 9856.96,
+        "Industri (energi + processer)": 9489.54,
+        "Jordbruk": 104255.11,
+        "Produktanvändning (inkl. lösningsmedel)": 13164.21,
+        "Transporter": 197889.63,
+        "Utrikes transporter": 0.0
+      },
+      "2022": {
+        "Arbetsmaskiner": 78517.38,
+        "Avfall (inkl.avlopp)": 21674.14,
+        "Egen uppvärmning av bostäder och lokaler": 11934.48,
+        "El och fjärrvärme": 4736.19,
+        "Industri (energi + processer)": 10070.78,
+        "Jordbruk": 105810.27,
+        "Produktanvändning (inkl. lösningsmedel)": 12684.1,
+        "Transporter": 176470.24,
+        "Utrikes transporter": 0.0
+      },
+      "2023": {
+        "Arbetsmaskiner": 79806.73,
+        "Avfall (inkl.avlopp)": 20479.91,
+        "Egen uppvärmning av bostäder och lokaler": 11869.18,
+        "El och fjärrvärme": 5172.42,
+        "Industri (energi + processer)": 7883.04,
+        "Jordbruk": 104311.26,
+        "Produktanvändning (inkl. lösningsmedel)": 11865.39,
+        "Transporter": 175632.13,
+        "Utrikes transporter": 0.0
+      }
+    }
+  },
+  {
+    "name": "Jönköpings län",
+    "sectors": {
+      "1990": {
+        "Arbetsmaskiner": 104318.11,
+        "Avfall (inkl.avlopp)": 210466.88,
+        "Egen uppvärmning av bostäder och lokaler": 391351.77,
+        "El och fjärrvärme": 86153.17,
+        "Industri (energi + processer)": 175378.79,
+        "Jordbruk": 398280.74,
+        "Produktanvändning (inkl. lösningsmedel)": 16860.34,
+        "Transporter": 775405.95,
+        "Utrikes transporter": 0.0
+      },
+      "2000": {
+        "Arbetsmaskiner": 99721.43,
+        "Avfall (inkl.avlopp)": 179734.0,
+        "Egen uppvärmning av bostäder och lokaler": 271834.83,
+        "El och fjärrvärme": 33674.34,
+        "Industri (energi + processer)": 187520.77,
+        "Jordbruk": 391871.29,
+        "Produktanvändning (inkl. lösningsmedel)": 43955.27,
+        "Transporter": 823447.04,
+        "Utrikes transporter": 0.0
+      },
+      "2005": {
+        "Arbetsmaskiner": 142311.51,
+        "Avfall (inkl.avlopp)": 146849.39,
+        "Egen uppvärmning av bostäder och lokaler": 140574.44,
+        "El och fjärrvärme": 83513.0,
+        "Industri (energi + processer)": 115787.97,
+        "Jordbruk": 389719.01,
+        "Produktanvändning (inkl. lösningsmedel)": 58816.81,
+        "Transporter": 894358.59,
+        "Utrikes transporter": 0.0
+      },
+      "2010": {
+        "Arbetsmaskiner": 111733.65,
+        "Avfall (inkl.avlopp)": 102899.28,
+        "Egen uppvärmning av bostäder och lokaler": 68317.26,
+        "El och fjärrvärme": 169556.64,
+        "Industri (energi + processer)": 93016.98,
+        "Jordbruk": 376338.69,
+        "Produktanvändning (inkl. lösningsmedel)": 59274.69,
+        "Transporter": 965286.24,
+        "Utrikes transporter": 0.0
+      },
+      "2015": {
+        "Arbetsmaskiner": 93799.96,
+        "Avfall (inkl.avlopp)": 72910.61,
+        "Egen uppvärmning av bostäder och lokaler": 38503.68,
+        "El och fjärrvärme": 112701.24,
+        "Industri (energi + processer)": 94153.57,
+        "Jordbruk": 382265.46,
+        "Produktanvändning (inkl. lösningsmedel)": 54098.72,
+        "Transporter": 837154.01,
+        "Utrikes transporter": 0.0
+      },
+      "2016": {
+        "Arbetsmaskiner": 86759.92,
+        "Avfall (inkl.avlopp)": 67715.57,
+        "Egen uppvärmning av bostäder och lokaler": 36161.65,
+        "El och fjärrvärme": 107818.51,
+        "Industri (energi + processer)": 85298.15,
+        "Jordbruk": 381810.04,
+        "Produktanvändning (inkl. lösningsmedel)": 55148.75,
+        "Transporter": 801811.78,
+        "Utrikes transporter": 0.0
+      },
+      "2017": {
+        "Arbetsmaskiner": 92166.45,
+        "Avfall (inkl.avlopp)": 64501.0,
+        "Egen uppvärmning av bostäder och lokaler": 35802.26,
+        "El och fjärrvärme": 112573.89,
+        "Industri (energi + processer)": 74792.39,
+        "Jordbruk": 387719.52,
+        "Produktanvändning (inkl. lösningsmedel)": 55531.89,
+        "Transporter": 809379.63,
+        "Utrikes transporter": 0.0
+      },
+      "2018": {
+        "Arbetsmaskiner": 88945.69,
+        "Avfall (inkl.avlopp)": 60525.15,
+        "Egen uppvärmning av bostäder och lokaler": 29904.28,
+        "El och fjärrvärme": 112439.37,
+        "Industri (energi + processer)": 62236.0,
+        "Jordbruk": 381349.24,
+        "Produktanvändning (inkl. lösningsmedel)": 51138.15,
+        "Transporter": 794161.28,
+        "Utrikes transporter": 0.0
+      },
+      "2019": {
+        "Arbetsmaskiner": 92940.44,
+        "Avfall (inkl.avlopp)": 55110.28,
+        "Egen uppvärmning av bostäder och lokaler": 27764.51,
+        "El och fjärrvärme": 108895.85,
+        "Industri (energi + processer)": 65985.24,
+        "Jordbruk": 375983.93,
+        "Produktanvändning (inkl. lösningsmedel)": 47786.54,
+        "Transporter": 789663.93,
+        "Utrikes transporter": 0.0
+      },
+      "2020": {
+        "Arbetsmaskiner": 91421.05,
+        "Avfall (inkl.avlopp)": 53771.62,
+        "Egen uppvärmning av bostäder och lokaler": 25847.66,
+        "El och fjärrvärme": 112342.44,
+        "Industri (energi + processer)": 57152.8,
+        "Jordbruk": 375330.32,
+        "Produktanvändning (inkl. lösningsmedel)": 44437.52,
+        "Transporter": 728571.81,
+        "Utrikes transporter": 0.0
+      },
+      "2021": {
+        "Arbetsmaskiner": 99774.76,
+        "Avfall (inkl.avlopp)": 48697.54,
+        "Egen uppvärmning av bostäder och lokaler": 28080.34,
+        "El och fjärrvärme": 122592.39,
+        "Industri (energi + processer)": 58496.8,
+        "Jordbruk": 369625.26,
+        "Produktanvändning (inkl. lösningsmedel)": 36746.51,
+        "Transporter": 727516.97,
+        "Utrikes transporter": 0.0
+      },
+      "2022": {
+        "Arbetsmaskiner": 81056.22,
+        "Avfall (inkl.avlopp)": 46911.33,
+        "Egen uppvärmning av bostäder och lokaler": 26774.37,
+        "El och fjärrvärme": 126284.39,
+        "Industri (energi + processer)": 53534.02,
+        "Jordbruk": 369916.38,
+        "Produktanvändning (inkl. lösningsmedel)": 35417.71,
+        "Transporter": 647905.14,
+        "Utrikes transporter": 0.0
+      },
+      "2023": {
+        "Arbetsmaskiner": 96266.37,
+        "Avfall (inkl.avlopp)": 44422.25,
+        "Egen uppvärmning av bostäder och lokaler": 26500.42,
+        "El och fjärrvärme": 118006.04,
+        "Industri (energi + processer)": 55406.14,
+        "Jordbruk": 366806.65,
+        "Produktanvändning (inkl. lösningsmedel)": 33146.6,
+        "Transporter": 642769.52,
+        "Utrikes transporter": 0.0
+      }
+    }
+  },
+  {
+    "name": "Kalmar län",
+    "sectors": {
+      "1990": {
+        "Arbetsmaskiner": 121885.41,
+        "Avfall (inkl.avlopp)": 172231.26,
+        "Egen uppvärmning av bostäder och lokaler": 338282.71,
+        "El och fjärrvärme": 61708.8,
+        "Industri (energi + processer)": 330866.78,
+        "Jordbruk": 484241.28,
+        "Produktanvändning (inkl. lösningsmedel)": 12959.05,
+        "Transporter": 558592.62,
+        "Utrikes transporter": 0.0
+      },
+      "2000": {
+        "Arbetsmaskiner": 107645.48,
+        "Avfall (inkl.avlopp)": 147094.06,
+        "Egen uppvärmning av bostäder och lokaler": 237184.14,
+        "El och fjärrvärme": 54183.14,
+        "Industri (energi + processer)": 524317.2,
+        "Jordbruk": 490924.75,
+        "Produktanvändning (inkl. lösningsmedel)": 34471.76,
+        "Transporter": 585619.23,
+        "Utrikes transporter": 0.0
+      },
+      "2005": {
+        "Arbetsmaskiner": 107078.82,
+        "Avfall (inkl.avlopp)": 120108.98,
+        "Egen uppvärmning av bostäder och lokaler": 122943.25,
+        "El och fjärrvärme": 69880.9,
+        "Industri (energi + processer)": 500518.15,
+        "Jordbruk": 496109.02,
+        "Produktanvändning (inkl. lösningsmedel)": 47407.03,
+        "Transporter": 625881.06,
+        "Utrikes transporter": 0.0
+      },
+      "2010": {
+        "Arbetsmaskiner": 107751.5,
+        "Avfall (inkl.avlopp)": 83458.92,
+        "Egen uppvärmning av bostäder och lokaler": 64761.5,
+        "El och fjärrvärme": 89417.56,
+        "Industri (energi + processer)": 438457.51,
+        "Jordbruk": 513025.2,
+        "Produktanvändning (inkl. lösningsmedel)": 43733.59,
+        "Transporter": 604495.17,
+        "Utrikes transporter": 0.0
+      },
+      "2015": {
+        "Arbetsmaskiner": 88609.69,
+        "Avfall (inkl.avlopp)": 56107.26,
+        "Egen uppvärmning av bostäder och lokaler": 36247.35,
+        "El och fjärrvärme": 40611.04,
+        "Industri (energi + processer)": 343291.39,
+        "Jordbruk": 523290.43,
+        "Produktanvändning (inkl. lösningsmedel)": 36829.7,
+        "Transporter": 545409.95,
+        "Utrikes transporter": 0.0
+      },
+      "2016": {
+        "Arbetsmaskiner": 81031.32,
+        "Avfall (inkl.avlopp)": 53574.67,
+        "Egen uppvärmning av bostäder och lokaler": 34107.71,
+        "El och fjärrvärme": 59272.57,
+        "Industri (energi + processer)": 345575.13,
+        "Jordbruk": 519726.14,
+        "Produktanvändning (inkl. lösningsmedel)": 37828.9,
+        "Transporter": 527477.58,
+        "Utrikes transporter": 0.0
+      },
+      "2017": {
+        "Arbetsmaskiner": 84058.47,
+        "Avfall (inkl.avlopp)": 51306.24,
+        "Egen uppvärmning av bostäder och lokaler": 33091.97,
+        "El och fjärrvärme": 59256.69,
+        "Industri (energi + processer)": 336189.07,
+        "Jordbruk": 528894.17,
+        "Produktanvändning (inkl. lösningsmedel)": 37654.46,
+        "Transporter": 504857.97,
+        "Utrikes transporter": 0.0
+      },
+      "2018": {
+        "Arbetsmaskiner": 81505.27,
+        "Avfall (inkl.avlopp)": 47526.38,
+        "Egen uppvärmning av bostäder och lokaler": 28500.48,
+        "El och fjärrvärme": 55387.35,
+        "Industri (energi + processer)": 315720.15,
+        "Jordbruk": 512832.07,
+        "Produktanvändning (inkl. lösningsmedel)": 34566.47,
+        "Transporter": 489430.91,
+        "Utrikes transporter": 0.0
+      },
+      "2019": {
+        "Arbetsmaskiner": 82699.45,
+        "Avfall (inkl.avlopp)": 43530.62,
+        "Egen uppvärmning av bostäder och lokaler": 27496.29,
+        "El och fjärrvärme": 61183.7,
+        "Industri (energi + processer)": 131895.38,
+        "Jordbruk": 508382.96,
+        "Produktanvändning (inkl. lösningsmedel)": 32157.44,
+        "Transporter": 482267.12,
+        "Utrikes transporter": 0.0
+      },
+      "2020": {
+        "Arbetsmaskiner": 77884.82,
+        "Avfall (inkl.avlopp)": 40859.99,
+        "Egen uppvärmning av bostäder och lokaler": 26022.25,
+        "El och fjärrvärme": 59668.34,
+        "Industri (energi + processer)": 58890.09,
+        "Jordbruk": 516336.29,
+        "Produktanvändning (inkl. lösningsmedel)": 29815.67,
+        "Transporter": 438298.84,
+        "Utrikes transporter": 0.0
+      },
+      "2021": {
+        "Arbetsmaskiner": 86006.15,
+        "Avfall (inkl.avlopp)": 36644.08,
+        "Egen uppvärmning av bostäder och lokaler": 27562.13,
+        "El och fjärrvärme": 73142.05,
+        "Industri (energi + processer)": 56995.7,
+        "Jordbruk": 508140.93,
+        "Produktanvändning (inkl. lösningsmedel)": 24641.2,
+        "Transporter": 440424.91,
+        "Utrikes transporter": 0.0
+      },
+      "2022": {
+        "Arbetsmaskiner": 72777.92,
+        "Avfall (inkl.avlopp)": 35186.15,
+        "Egen uppvärmning av bostäder och lokaler": 25756.11,
+        "El och fjärrvärme": 72371.48,
+        "Industri (energi + processer)": 51937.41,
+        "Jordbruk": 512103.91,
+        "Produktanvändning (inkl. lösningsmedel)": 23671.06,
+        "Transporter": 402594.37,
+        "Utrikes transporter": 0.0
+      },
+      "2023": {
+        "Arbetsmaskiner": 76302.96,
+        "Avfall (inkl.avlopp)": 33298.51,
+        "Egen uppvärmning av bostäder och lokaler": 25734.83,
+        "El och fjärrvärme": 73492.58,
+        "Industri (energi + processer)": 53601.05,
+        "Jordbruk": 511673.37,
+        "Produktanvändning (inkl. lösningsmedel)": 22079.1,
+        "Transporter": 400356.76,
+        "Utrikes transporter": 0.0
+      }
+    }
+  },
+  {
+    "name": "Kronobergs län",
+    "sectors": {
+      "1990": {
+        "Arbetsmaskiner": 69672.45,
+        "Avfall (inkl.avlopp)": 141684.37,
+        "Egen uppvärmning av bostäder och lokaler": 228220.17,
+        "El och fjärrvärme": 127727.61,
+        "Industri (energi + processer)": 145621.0,
+        "Jordbruk": 229630.82,
+        "Produktanvändning (inkl. lösningsmedel)": 8675.53,
+        "Transporter": 518873.7,
+        "Utrikes transporter": 0.0
+      },
+      "2000": {
+        "Arbetsmaskiner": 65940.41,
+        "Avfall (inkl.avlopp)": 120627.29,
+        "Egen uppvärmning av bostäder och lokaler": 160765.04,
+        "El och fjärrvärme": 39358.95,
+        "Industri (energi + processer)": 103336.84,
+        "Jordbruk": 217805.04,
+        "Produktanvändning (inkl. lösningsmedel)": 24014.77,
+        "Transporter": 547018.06,
+        "Utrikes transporter": 0.0
+      },
+      "2005": {
+        "Arbetsmaskiner": 178825.92,
+        "Avfall (inkl.avlopp)": 98056.41,
+        "Egen uppvärmning av bostäder och lokaler": 83716.02,
+        "El och fjärrvärme": 52548.83,
+        "Industri (energi + processer)": 50411.67,
+        "Jordbruk": 217530.05,
+        "Produktanvändning (inkl. lösningsmedel)": 32188.02,
+        "Transporter": 591527.98,
+        "Utrikes transporter": 0.0
+      },
+      "2010": {
+        "Arbetsmaskiner": 65127.34,
+        "Avfall (inkl.avlopp)": 68282.92,
+        "Egen uppvärmning av bostäder och lokaler": 40809.4,
+        "El och fjärrvärme": 114361.42,
+        "Industri (energi + processer)": 35549.79,
+        "Jordbruk": 208247.31,
+        "Produktanvändning (inkl. lösningsmedel)": 32303.85,
+        "Transporter": 574922.45,
+        "Utrikes transporter": 0.0
+      },
+      "2015": {
+        "Arbetsmaskiner": 57162.03,
+        "Avfall (inkl.avlopp)": 45399.37,
+        "Egen uppvärmning av bostäder och lokaler": 23234.23,
+        "El och fjärrvärme": 48822.72,
+        "Industri (energi + processer)": 26668.75,
+        "Jordbruk": 203357.88,
+        "Produktanvändning (inkl. lösningsmedel)": 29737.52,
+        "Transporter": 486244.36,
+        "Utrikes transporter": 0.0
+      },
+      "2016": {
+        "Arbetsmaskiner": 50799.92,
+        "Avfall (inkl.avlopp)": 42878.59,
+        "Egen uppvärmning av bostäder och lokaler": 21885.47,
+        "El och fjärrvärme": 57247.59,
+        "Industri (energi + processer)": 31060.51,
+        "Jordbruk": 202107.32,
+        "Produktanvändning (inkl. lösningsmedel)": 30462.84,
+        "Transporter": 466211.22,
+        "Utrikes transporter": 0.0
+      },
+      "2017": {
+        "Arbetsmaskiner": 52037.4,
+        "Avfall (inkl.avlopp)": 40634.68,
+        "Egen uppvärmning av bostäder och lokaler": 21779.34,
+        "El och fjärrvärme": 50118.62,
+        "Industri (energi + processer)": 26673.45,
+        "Jordbruk": 202919.7,
+        "Produktanvändning (inkl. lösningsmedel)": 30695.76,
+        "Transporter": 467779.21,
+        "Utrikes transporter": 0.0
+      },
+      "2018": {
+        "Arbetsmaskiner": 51845.64,
+        "Avfall (inkl.avlopp)": 37846.16,
+        "Egen uppvärmning av bostäder och lokaler": 17639.29,
+        "El och fjärrvärme": 51231.47,
+        "Industri (energi + processer)": 29281.44,
+        "Jordbruk": 200440.53,
+        "Produktanvändning (inkl. lösningsmedel)": 28309.83,
+        "Transporter": 444729.56,
+        "Utrikes transporter": 0.0
+      },
+      "2019": {
+        "Arbetsmaskiner": 55820.58,
+        "Avfall (inkl.avlopp)": 35358.43,
+        "Egen uppvärmning av bostäder och lokaler": 16597.5,
+        "El och fjärrvärme": 46807.32,
+        "Industri (energi + processer)": 27163.93,
+        "Jordbruk": 199962.77,
+        "Produktanvändning (inkl. lösningsmedel)": 26457.87,
+        "Transporter": 440799.68,
+        "Utrikes transporter": 0.0
+      },
+      "2020": {
+        "Arbetsmaskiner": 52995.28,
+        "Avfall (inkl.avlopp)": 33165.19,
+        "Egen uppvärmning av bostäder och lokaler": 15415.83,
+        "El och fjärrvärme": 28018.04,
+        "Industri (energi + processer)": 26023.35,
+        "Jordbruk": 200507.67,
+        "Produktanvändning (inkl. lösningsmedel)": 24607.57,
+        "Transporter": 405069.08,
+        "Utrikes transporter": 0.0
+      },
+      "2021": {
+        "Arbetsmaskiner": 53524.56,
+        "Avfall (inkl.avlopp)": 30744.67,
+        "Egen uppvärmning av bostäder och lokaler": 16791.76,
+        "El och fjärrvärme": 30694.45,
+        "Industri (energi + processer)": 27036.77,
+        "Jordbruk": 197557.01,
+        "Produktanvändning (inkl. lösningsmedel)": 20346.49,
+        "Transporter": 407723.65,
+        "Utrikes transporter": 0.0
+      },
+      "2022": {
+        "Arbetsmaskiner": 46005.75,
+        "Avfall (inkl.avlopp)": 29534.86,
+        "Egen uppvärmning av bostäder och lokaler": 16319.26,
+        "El och fjärrvärme": 32146.03,
+        "Industri (energi + processer)": 24716.72,
+        "Jordbruk": 200338.67,
+        "Produktanvändning (inkl. lösningsmedel)": 19608.14,
+        "Transporter": 363707.46,
+        "Utrikes transporter": 0.0
+      },
+      "2023": {
+        "Arbetsmaskiner": 47607.3,
+        "Avfall (inkl.avlopp)": 27966.68,
+        "Egen uppvärmning av bostäder och lokaler": 16188.88,
+        "El och fjärrvärme": 30119.06,
+        "Industri (energi + processer)": 22969.83,
+        "Jordbruk": 197167.56,
+        "Produktanvändning (inkl. lösningsmedel)": 18311.44,
+        "Transporter": 361984.87,
+        "Utrikes transporter": 0.0
+      }
+    }
+  },
+  {
+    "name": "Norrbottens län",
+    "sectors": {
+      "1990": {
+        "Arbetsmaskiner": 274221.54,
+        "Avfall (inkl.avlopp)": 209478.87,
+        "Egen uppvärmning av bostäder och lokaler": 255588.59,
+        "El och fjärrvärme": 1598611.06,
+        "Industri (energi + processer)": 1831620.53,
+        "Jordbruk": 148830.9,
+        "Produktanvändning (inkl. lösningsmedel)": 13576.39,
+        "Transporter": 782228.1,
+        "Utrikes transporter": 0.0
+      },
+      "2000": {
+        "Arbetsmaskiner": 285118.92,
+        "Avfall (inkl.avlopp)": 180115.03,
+        "Egen uppvärmning av bostäder och lokaler": 175058.65,
+        "El och fjärrvärme": 1783690.29,
+        "Industri (energi + processer)": 2006394.31,
+        "Jordbruk": 132157.38,
+        "Produktanvändning (inkl. lösningsmedel)": 35559.42,
+        "Transporter": 811525.42,
+        "Utrikes transporter": 0.0
+      },
+      "2005": {
+        "Arbetsmaskiner": 280542.28,
+        "Avfall (inkl.avlopp)": 148298.74,
+        "Egen uppvärmning av bostäder och lokaler": 86024.38,
+        "El och fjärrvärme": 2445997.09,
+        "Industri (energi + processer)": 2052835.07,
+        "Jordbruk": 128324.41,
+        "Produktanvändning (inkl. lösningsmedel)": 47796.42,
+        "Transporter": 866394.62,
+        "Utrikes transporter": 0.0
+      },
+      "2010": {
+        "Arbetsmaskiner": 306198.54,
+        "Avfall (inkl.avlopp)": 105312.08,
+        "Egen uppvärmning av bostäder och lokaler": 35950.07,
+        "El och fjärrvärme": 2233567.26,
+        "Industri (energi + processer)": 2379626.03,
+        "Jordbruk": 119189.67,
+        "Produktanvändning (inkl. lösningsmedel)": 47887.04,
+        "Transporter": 721436.58,
+        "Utrikes transporter": 0.0
+      },
+      "2015": {
+        "Arbetsmaskiner": 288161.44,
+        "Avfall (inkl.avlopp)": 72456.58,
+        "Egen uppvärmning av bostäder och lokaler": 20526.77,
+        "El och fjärrvärme": 1697893.83,
+        "Industri (energi + processer)": 1704261.42,
+        "Jordbruk": 114758.75,
+        "Produktanvändning (inkl. lösningsmedel)": 39061.89,
+        "Transporter": 659700.48,
+        "Utrikes transporter": 0.0
+      },
+      "2016": {
+        "Arbetsmaskiner": 265450.51,
+        "Avfall (inkl.avlopp)": 68425.46,
+        "Egen uppvärmning av bostäder och lokaler": 18906.28,
+        "El och fjärrvärme": 2005415.71,
+        "Industri (energi + processer)": 2438451.69,
+        "Jordbruk": 112655.23,
+        "Produktanvändning (inkl. lösningsmedel)": 39516.81,
+        "Transporter": 641692.09,
+        "Utrikes transporter": 0.0
+      },
+      "2017": {
+        "Arbetsmaskiner": 250921.39,
+        "Avfall (inkl.avlopp)": 65111.45,
+        "Egen uppvärmning av bostäder och lokaler": 18996.83,
+        "El och fjärrvärme": 2332760.0,
+        "Industri (energi + processer)": 2272207.51,
+        "Jordbruk": 112188.56,
+        "Produktanvändning (inkl. lösningsmedel)": 39287.6,
+        "Transporter": 655768.57,
+        "Utrikes transporter": 0.0
+      },
+      "2018": {
+        "Arbetsmaskiner": 255317.61,
+        "Avfall (inkl.avlopp)": 60124.95,
+        "Egen uppvärmning av bostäder och lokaler": 15778.41,
+        "El och fjärrvärme": 2283983.97,
+        "Industri (energi + processer)": 2015846.56,
+        "Jordbruk": 111579.72,
+        "Produktanvändning (inkl. lösningsmedel)": 35771.25,
+        "Transporter": 580188.28,
+        "Utrikes transporter": 0.0
+      },
+      "2019": {
+        "Arbetsmaskiner": 282414.94,
+        "Avfall (inkl.avlopp)": 54896.4,
+        "Egen uppvärmning av bostäder och lokaler": 14302.51,
+        "El och fjärrvärme": 1624483.26,
+        "Industri (energi + processer)": 2703396.59,
+        "Jordbruk": 110364.15,
+        "Produktanvändning (inkl. lösningsmedel)": 33148.34,
+        "Transporter": 576303.12,
+        "Utrikes transporter": 0.0
+      },
+      "2020": {
+        "Arbetsmaskiner": 287997.07,
+        "Avfall (inkl.avlopp)": 49040.11,
+        "Egen uppvärmning av bostäder och lokaler": 13417.15,
+        "El och fjärrvärme": 2028769.94,
+        "Industri (energi + processer)": 2137586.2,
+        "Jordbruk": 110993.49,
+        "Produktanvändning (inkl. lösningsmedel)": 30689.53,
+        "Transporter": 526849.64,
+        "Utrikes transporter": 0.0
+      },
+      "2021": {
+        "Arbetsmaskiner": 298850.11,
+        "Avfall (inkl.avlopp)": 44681.26,
+        "Egen uppvärmning av bostäder och lokaler": 14901.79,
+        "El och fjärrvärme": 2018869.72,
+        "Industri (energi + processer)": 2157777.7,
+        "Jordbruk": 109853.11,
+        "Produktanvändning (inkl. lösningsmedel)": 25334.91,
+        "Transporter": 522473.51,
+        "Utrikes transporter": 0.0
+      },
+      "2022": {
+        "Arbetsmaskiner": 262140.09,
+        "Avfall (inkl.avlopp)": 42701.55,
+        "Egen uppvärmning av bostäder och lokaler": 13763.75,
+        "El och fjärrvärme": 1728083.5,
+        "Industri (energi + processer)": 2471431.52,
+        "Jordbruk": 111613.64,
+        "Produktanvändning (inkl. lösningsmedel)": 24266.76,
+        "Transporter": 470375.12,
+        "Utrikes transporter": 0.0
+      },
+      "2023": {
+        "Arbetsmaskiner": 279070.38,
+        "Avfall (inkl.avlopp)": 40383.36,
+        "Egen uppvärmning av bostäder och lokaler": 13635.18,
+        "El och fjärrvärme": 1728175.27,
+        "Industri (energi + processer)": 2400561.29,
+        "Jordbruk": 109447.13,
+        "Produktanvändning (inkl. lösningsmedel)": 22712.0,
+        "Transporter": 470551.61,
+        "Utrikes transporter": 0.0
+      }
+    }
+  },
+  {
+    "name": "Skåne län",
+    "sectors": {
+      "1990": {
+        "Arbetsmaskiner": 483821.91,
+        "Avfall (inkl.avlopp)": 540519.99,
+        "Egen uppvärmning av bostäder och lokaler": 1092535.2,
+        "El och fjärrvärme": 876936.4,
+        "Industri (energi + processer)": 1937980.94,
+        "Jordbruk": 1244883.44,
+        "Produktanvändning (inkl. lösningsmedel)": 48859.05,
+        "Transporter": 2319718.91,
+        "Utrikes transporter": 0.0
+      },
+      "2000": {
+        "Arbetsmaskiner": 394134.63,
+        "Avfall (inkl.avlopp)": 471324.1,
+        "Egen uppvärmning av bostäder och lokaler": 774752.51,
+        "El och fjärrvärme": 706430.82,
+        "Industri (energi + processer)": 1734165.88,
+        "Jordbruk": 1161800.54,
+        "Produktanvändning (inkl. lösningsmedel)": 141015.92,
+        "Transporter": 2420624.44,
+        "Utrikes transporter": 0.0
+      },
+      "2005": {
+        "Arbetsmaskiner": 392303.7,
+        "Avfall (inkl.avlopp)": 394605.99,
+        "Egen uppvärmning av bostäder och lokaler": 423350.43,
+        "El och fjärrvärme": 761824.32,
+        "Industri (energi + processer)": 1143877.18,
+        "Jordbruk": 1074112.96,
+        "Produktanvändning (inkl. lösningsmedel)": 190738.1,
+        "Transporter": 2595611.86,
+        "Utrikes transporter": 0.0
+      },
+      "2010": {
+        "Arbetsmaskiner": 318764.85,
+        "Avfall (inkl.avlopp)": 284902.55,
+        "Egen uppvärmning av bostäder och lokaler": 329513.24,
+        "El och fjärrvärme": 1580189.86,
+        "Industri (energi + processer)": 1097007.76,
+        "Jordbruk": 1044940.98,
+        "Produktanvändning (inkl. lösningsmedel)": 192605.28,
+        "Transporter": 2494835.06,
+        "Utrikes transporter": 0.0
+      },
+      "2015": {
+        "Arbetsmaskiner": 321044.16,
+        "Avfall (inkl.avlopp)": 201348.23,
+        "Egen uppvärmning av bostäder och lokaler": 183369.29,
+        "El och fjärrvärme": 752285.29,
+        "Industri (energi + processer)": 907264.17,
+        "Jordbruk": 1059397.18,
+        "Produktanvändning (inkl. lösningsmedel)": 199264.76,
+        "Transporter": 2239899.6,
+        "Utrikes transporter": 0.0
+      },
+      "2016": {
+        "Arbetsmaskiner": 296649.44,
+        "Avfall (inkl.avlopp)": 192612.03,
+        "Egen uppvärmning av bostäder och lokaler": 176686.09,
+        "El och fjärrvärme": 694937.71,
+        "Industri (energi + processer)": 925923.92,
+        "Jordbruk": 1067414.38,
+        "Produktanvändning (inkl. lösningsmedel)": 203478.41,
+        "Transporter": 2152118.24,
+        "Utrikes transporter": 0.0
+      },
+      "2017": {
+        "Arbetsmaskiner": 296490.26,
+        "Avfall (inkl.avlopp)": 184344.5,
+        "Egen uppvärmning av bostäder och lokaler": 157566.0,
+        "El och fjärrvärme": 587450.25,
+        "Industri (energi + processer)": 847493.93,
+        "Jordbruk": 1099924.29,
+        "Produktanvändning (inkl. lösningsmedel)": 205017.16,
+        "Transporter": 2120246.99,
+        "Utrikes transporter": 0.0
+      },
+      "2018": {
+        "Arbetsmaskiner": 289868.46,
+        "Avfall (inkl.avlopp)": 165143.34,
+        "Egen uppvärmning av bostäder och lokaler": 149133.77,
+        "El och fjärrvärme": 557474.84,
+        "Industri (energi + processer)": 889247.38,
+        "Jordbruk": 1029380.88,
+        "Produktanvändning (inkl. lösningsmedel)": 189856.97,
+        "Transporter": 2026868.1,
+        "Utrikes transporter": 0.0
+      },
+      "2019": {
+        "Arbetsmaskiner": 304970.65,
+        "Avfall (inkl.avlopp)": 151765.2,
+        "Egen uppvärmning av bostäder och lokaler": 164153.34,
+        "El och fjärrvärme": 525219.16,
+        "Industri (energi + processer)": 832063.21,
+        "Jordbruk": 1072166.6,
+        "Produktanvändning (inkl. lösningsmedel)": 177899.11,
+        "Transporter": 2013489.23,
+        "Utrikes transporter": 0.0
+      },
+      "2020": {
+        "Arbetsmaskiner": 314226.36,
+        "Avfall (inkl.avlopp)": 150589.5,
+        "Egen uppvärmning av bostäder och lokaler": 161461.58,
+        "El och fjärrvärme": 451285.27,
+        "Industri (energi + processer)": 825923.28,
+        "Jordbruk": 1084092.94,
+        "Produktanvändning (inkl. lösningsmedel)": 165721.38,
+        "Transporter": 1870631.01,
+        "Utrikes transporter": 0.0
+      },
+      "2021": {
+        "Arbetsmaskiner": 312461.98,
+        "Avfall (inkl.avlopp)": 137192.07,
+        "Egen uppvärmning av bostäder och lokaler": 157627.61,
+        "El och fjärrvärme": 503377.69,
+        "Industri (energi + processer)": 873618.99,
+        "Jordbruk": 1053317.22,
+        "Produktanvändning (inkl. lösningsmedel)": 137015.73,
+        "Transporter": 1866658.5,
+        "Utrikes transporter": 0.0
+      },
+      "2022": {
+        "Arbetsmaskiner": 277924.89,
+        "Avfall (inkl.avlopp)": 131537.73,
+        "Egen uppvärmning av bostäder och lokaler": 142549.04,
+        "El och fjärrvärme": 483179.12,
+        "Industri (energi + processer)": 782311.58,
+        "Jordbruk": 1068179.29,
+        "Produktanvändning (inkl. lösningsmedel)": 132337.74,
+        "Transporter": 1663818.89,
+        "Utrikes transporter": 0.0
+      },
+      "2023": {
+        "Arbetsmaskiner": 292578.5,
+        "Avfall (inkl.avlopp)": 122597.16,
+        "Egen uppvärmning av bostäder och lokaler": 146301.14,
+        "El och fjärrvärme": 489453.54,
+        "Industri (energi + processer)": 660889.16,
+        "Jordbruk": 1040483.2,
+        "Produktanvändning (inkl. lösningsmedel)": 124266.49,
+        "Transporter": 1649228.15,
+        "Utrikes transporter": 0.0
+      }
+    }
+  },
+  {
+    "name": "Stockholms län",
+    "sectors": {
+      "1990": {
+        "Arbetsmaskiner": 483002.9,
+        "Avfall (inkl.avlopp)": 523653.78,
+        "Egen uppvärmning av bostäder och lokaler": 1448063.69,
+        "El och fjärrvärme": 1166950.8,
+        "Industri (energi + processer)": 524907.66,
+        "Jordbruk": 180439.09,
+        "Produktanvändning (inkl. lösningsmedel)": 65876.15,
+        "Transporter": 2862677.97,
+        "Utrikes transporter": 0.0
+      },
+      "2000": {
+        "Arbetsmaskiner": 394794.87,
+        "Avfall (inkl.avlopp)": 455228.57,
+        "Egen uppvärmning av bostäder och lokaler": 981331.12,
+        "El och fjärrvärme": 906036.37,
+        "Industri (energi + processer)": 484194.97,
+        "Jordbruk": 164426.71,
+        "Produktanvändning (inkl. lösningsmedel)": 221157.15,
+        "Transporter": 2953594.74,
+        "Utrikes transporter": 0.0
+      },
+      "2005": {
+        "Arbetsmaskiner": 381137.82,
+        "Avfall (inkl.avlopp)": 381086.07,
+        "Egen uppvärmning av bostäder och lokaler": 478333.37,
+        "El och fjärrvärme": 1276667.19,
+        "Industri (energi + processer)": 347218.59,
+        "Jordbruk": 143425.94,
+        "Produktanvändning (inkl. lösningsmedel)": 288538.48,
+        "Transporter": 3125291.54,
+        "Utrikes transporter": 0.0
+      },
+      "2010": {
+        "Arbetsmaskiner": 335767.01,
+        "Avfall (inkl.avlopp)": 271514.46,
+        "Egen uppvärmning av bostäder och lokaler": 211246.3,
+        "El och fjärrvärme": 1677768.75,
+        "Industri (energi + processer)": 307498.98,
+        "Jordbruk": 138107.83,
+        "Produktanvändning (inkl. lösningsmedel)": 293139.05,
+        "Transporter": 2885888.2,
+        "Utrikes transporter": 0.0
+      },
+      "2015": {
+        "Arbetsmaskiner": 347459.49,
+        "Avfall (inkl.avlopp)": 191291.89,
+        "Egen uppvärmning av bostäder och lokaler": 110266.41,
+        "El och fjärrvärme": 1183999.29,
+        "Industri (energi + processer)": 227521.62,
+        "Jordbruk": 139066.7,
+        "Produktanvändning (inkl. lösningsmedel)": 335420.44,
+        "Transporter": 2639521.37,
+        "Utrikes transporter": 0.0
+      },
+      "2016": {
+        "Arbetsmaskiner": 318520.99,
+        "Avfall (inkl.avlopp)": 180589.47,
+        "Egen uppvärmning av bostäder och lokaler": 99301.97,
+        "El och fjärrvärme": 1085349.37,
+        "Industri (energi + processer)": 240278.97,
+        "Jordbruk": 135473.89,
+        "Produktanvändning (inkl. lösningsmedel)": 342490.99,
+        "Transporter": 2566376.81,
+        "Utrikes transporter": 0.0
+      },
+      "2017": {
+        "Arbetsmaskiner": 314400.69,
+        "Avfall (inkl.avlopp)": 172822.46,
+        "Egen uppvärmning av bostäder och lokaler": 97407.77,
+        "El och fjärrvärme": 1014153.11,
+        "Industri (energi + processer)": 204020.19,
+        "Jordbruk": 139351.74,
+        "Produktanvändning (inkl. lösningsmedel)": 345599.19,
+        "Transporter": 2465190.87,
+        "Utrikes transporter": 0.0
+      },
+      "2018": {
+        "Arbetsmaskiner": 302906.98,
+        "Avfall (inkl.avlopp)": 161476.39,
+        "Egen uppvärmning av bostäder och lokaler": 91036.04,
+        "El och fjärrvärme": 1171342.24,
+        "Industri (energi + processer)": 201354.16,
+        "Jordbruk": 132680.87,
+        "Produktanvändning (inkl. lösningsmedel)": 321648.6,
+        "Transporter": 2372247.15,
+        "Utrikes transporter": 0.0
+      },
+      "2019": {
+        "Arbetsmaskiner": 307325.7,
+        "Avfall (inkl.avlopp)": 148846.29,
+        "Egen uppvärmning av bostäder och lokaler": 79669.26,
+        "El och fjärrvärme": 1015169.29,
+        "Industri (energi + processer)": 163807.62,
+        "Jordbruk": 133004.72,
+        "Produktanvändning (inkl. lösningsmedel)": 301784.06,
+        "Transporter": 2356262.5,
+        "Utrikes transporter": 0.0
+      },
+      "2020": {
+        "Arbetsmaskiner": 310353.15,
+        "Avfall (inkl.avlopp)": 143754.25,
+        "Egen uppvärmning av bostäder och lokaler": 74899.26,
+        "El och fjärrvärme": 611985.37,
+        "Industri (energi + processer)": 141158.53,
+        "Jordbruk": 135138.57,
+        "Produktanvändning (inkl. lösningsmedel)": 279999.64,
+        "Transporter": 2155875.92,
+        "Utrikes transporter": 0.0
+      },
+      "2021": {
+        "Arbetsmaskiner": 327107.87,
+        "Avfall (inkl.avlopp)": 132477.94,
+        "Egen uppvärmning av bostäder och lokaler": 81646.57,
+        "El och fjärrvärme": 705964.35,
+        "Industri (energi + processer)": 149120.04,
+        "Jordbruk": 132988.02,
+        "Produktanvändning (inkl. lösningsmedel)": 230529.69,
+        "Transporter": 2157557.79,
+        "Utrikes transporter": 0.0
+      },
+      "2022": {
+        "Arbetsmaskiner": 302856.45,
+        "Avfall (inkl.avlopp)": 128346.11,
+        "Egen uppvärmning av bostäder och lokaler": 70880.7,
+        "El och fjärrvärme": 739720.23,
+        "Industri (energi + processer)": 137630.79,
+        "Jordbruk": 134631.31,
+        "Produktanvändning (inkl. lösningsmedel)": 222836.31,
+        "Transporter": 1958905.04,
+        "Utrikes transporter": 0.0
+      },
+      "2023": {
+        "Arbetsmaskiner": 311199.23,
+        "Avfall (inkl.avlopp)": 122634.73,
+        "Egen uppvärmning av bostäder och lokaler": 69743.58,
+        "El och fjärrvärme": 659315.92,
+        "Industri (energi + processer)": 126333.41,
+        "Jordbruk": 131290.66,
+        "Produktanvändning (inkl. lösningsmedel)": 209044.73,
+        "Transporter": 1938183.25,
+        "Utrikes transporter": 0.0
+      }
+    }
+  },
+  {
+    "name": "Södermanlands län",
+    "sectors": {
+      "1990": {
+        "Arbetsmaskiner": 91713.56,
+        "Avfall (inkl.avlopp)": 200597.56,
+        "Egen uppvärmning av bostäder och lokaler": 275995.75,
+        "El och fjärrvärme": 186045.3,
+        "Industri (energi + processer)": 2482120.62,
+        "Jordbruk": 307518.05,
+        "Produktanvändning (inkl. lösningsmedel)": 11533.42,
+        "Transporter": 656734.47,
+        "Utrikes transporter": 0.0
+      },
+      "2000": {
+        "Arbetsmaskiner": 85949.18,
+        "Avfall (inkl.avlopp)": 170732.92,
+        "Egen uppvärmning av bostäder och lokaler": 191072.35,
+        "El och fjärrvärme": 51951.9,
+        "Industri (energi + processer)": 2619428.0,
+        "Jordbruk": 274082.23,
+        "Produktanvändning (inkl. lösningsmedel)": 33780.88,
+        "Transporter": 685140.74,
+        "Utrikes transporter": 0.0
+      },
+      "2005": {
+        "Arbetsmaskiner": 92990.24,
+        "Avfall (inkl.avlopp)": 138778.79,
+        "Egen uppvärmning av bostäder och lokaler": 97908.5,
+        "El och fjärrvärme": 28254.54,
+        "Industri (energi + processer)": 2663789.92,
+        "Jordbruk": 244866.86,
+        "Produktanvändning (inkl. lösningsmedel)": 45749.73,
+        "Transporter": 734170.22,
+        "Utrikes transporter": 0.0
+      },
+      "2010": {
+        "Arbetsmaskiner": 86989.85,
+        "Avfall (inkl.avlopp)": 98028.39,
+        "Egen uppvärmning av bostäder och lokaler": 47147.34,
+        "El och fjärrvärme": 61237.07,
+        "Industri (energi + processer)": 2313360.99,
+        "Jordbruk": 239214.86,
+        "Produktanvändning (inkl. lösningsmedel)": 46285.21,
+        "Transporter": 737717.89,
+        "Utrikes transporter": 0.0
+      },
+      "2015": {
+        "Arbetsmaskiner": 86140.27,
+        "Avfall (inkl.avlopp)": 65405.24,
+        "Egen uppvärmning av bostäder och lokaler": 26202.35,
+        "El och fjärrvärme": 13372.27,
+        "Industri (energi + processer)": 2312791.24,
+        "Jordbruk": 249445.08,
+        "Produktanvändning (inkl. lösningsmedel)": 43609.84,
+        "Transporter": 645091.61,
+        "Utrikes transporter": 0.0
+      },
+      "2016": {
+        "Arbetsmaskiner": 82630.72,
+        "Avfall (inkl.avlopp)": 60215.86,
+        "Egen uppvärmning av bostäder och lokaler": 24483.42,
+        "El och fjärrvärme": 17195.46,
+        "Industri (energi + processer)": 1640000.1,
+        "Jordbruk": 240261.58,
+        "Produktanvändning (inkl. lösningsmedel)": 44540.31,
+        "Transporter": 613848.44,
+        "Utrikes transporter": 0.0
+      },
+      "2017": {
+        "Arbetsmaskiner": 87170.55,
+        "Avfall (inkl.avlopp)": 57602.45,
+        "Egen uppvärmning av bostäder och lokaler": 24213.38,
+        "El och fjärrvärme": 14633.87,
+        "Industri (energi + processer)": 1636601.36,
+        "Jordbruk": 245646.07,
+        "Produktanvändning (inkl. lösningsmedel)": 44871.62,
+        "Transporter": 625425.92,
+        "Utrikes transporter": 0.0
+      },
+      "2018": {
+        "Arbetsmaskiner": 81397.75,
+        "Avfall (inkl.avlopp)": 54253.25,
+        "Egen uppvärmning av bostäder och lokaler": 20602.34,
+        "El och fjärrvärme": 15363.86,
+        "Industri (energi + processer)": 1566442.27,
+        "Jordbruk": 233590.27,
+        "Produktanvändning (inkl. lösningsmedel)": 41352.85,
+        "Transporter": 603411.19,
+        "Utrikes transporter": 0.0
+      },
+      "2019": {
+        "Arbetsmaskiner": 88944.1,
+        "Avfall (inkl.avlopp)": 49944.19,
+        "Egen uppvärmning av bostäder och lokaler": 18924.45,
+        "El och fjärrvärme": 13513.54,
+        "Industri (energi + processer)": 2185081.47,
+        "Jordbruk": 232322.37,
+        "Produktanvändning (inkl. lösningsmedel)": 38679.46,
+        "Transporter": 598446.96,
+        "Utrikes transporter": 0.0
+      },
+      "2020": {
+        "Arbetsmaskiner": 95349.88,
+        "Avfall (inkl.avlopp)": 46726.99,
+        "Egen uppvärmning av bostäder och lokaler": 17644.7,
+        "El och fjärrvärme": 11430.92,
+        "Industri (energi + processer)": 1586713.23,
+        "Jordbruk": 238770.41,
+        "Produktanvändning (inkl. lösningsmedel)": 35999.76,
+        "Transporter": 543573.14,
+        "Utrikes transporter": 0.0
+      },
+      "2021": {
+        "Arbetsmaskiner": 96375.35,
+        "Avfall (inkl.avlopp)": 41880.36,
+        "Egen uppvärmning av bostäder och lokaler": 19197.13,
+        "El och fjärrvärme": 23290.46,
+        "Industri (energi + processer)": 1716002.6,
+        "Jordbruk": 240026.93,
+        "Produktanvändning (inkl. lösningsmedel)": 29778.13,
+        "Transporter": 542989.44,
+        "Utrikes transporter": 0.0
+      },
+      "2022": {
+        "Arbetsmaskiner": 92244.91,
+        "Avfall (inkl.avlopp)": 39874.15,
+        "Egen uppvärmning av bostäder och lokaler": 18037.95,
+        "El och fjärrvärme": 22372.76,
+        "Industri (energi + processer)": 1723956.23,
+        "Jordbruk": 245516.15,
+        "Produktanvändning (inkl. lösningsmedel)": 28606.65,
+        "Transporter": 489244.15,
+        "Utrikes transporter": 0.0
+      },
+      "2023": {
+        "Arbetsmaskiner": 93232.66,
+        "Avfall (inkl.avlopp)": 37800.17,
+        "Egen uppvärmning av bostäder och lokaler": 17837.84,
+        "El och fjärrvärme": 23410.09,
+        "Industri (energi + processer)": 1669637.46,
+        "Jordbruk": 239310.78,
+        "Produktanvändning (inkl. lösningsmedel)": 26710.37,
+        "Transporter": 485667.03,
+        "Utrikes transporter": 0.0
+      }
+    }
+  },
+  {
+    "name": "Uppsala län",
+    "sectors": {
+      "1990": {
+        "Arbetsmaskiner": 95024.11,
+        "Avfall (inkl.avlopp)": 57692.64,
+        "Egen uppvärmning av bostäder och lokaler": 305053.3,
+        "El och fjärrvärme": 487568.21,
+        "Industri (energi + processer)": 149876.05,
+        "Jordbruk": 339367.8,
+        "Produktanvändning (inkl. lösningsmedel)": 12187.73,
+        "Transporter": 729234.0,
+        "Utrikes transporter": 0.0
+      },
+      "2000": {
+        "Arbetsmaskiner": 90038.87,
+        "Avfall (inkl.avlopp)": 51456.3,
+        "Egen uppvärmning av bostäder och lokaler": 210340.64,
+        "El och fjärrvärme": 501981.69,
+        "Industri (energi + processer)": 165226.73,
+        "Jordbruk": 309285.88,
+        "Produktanvändning (inkl. lösningsmedel)": 36927.56,
+        "Transporter": 757077.06,
+        "Utrikes transporter": 0.0
+      },
+      "2005": {
+        "Arbetsmaskiner": 93281.82,
+        "Avfall (inkl.avlopp)": 44615.63,
+        "Egen uppvärmning av bostäder och lokaler": 108168.13,
+        "El och fjärrvärme": 523266.3,
+        "Industri (energi + processer)": 144799.18,
+        "Jordbruk": 270336.37,
+        "Produktanvändning (inkl. lösningsmedel)": 50129.6,
+        "Transporter": 820395.67,
+        "Utrikes transporter": 0.0
+      },
+      "2010": {
+        "Arbetsmaskiner": 111611.7,
+        "Avfall (inkl.avlopp)": 34920.06,
+        "Egen uppvärmning av bostäder och lokaler": 52505.76,
+        "El och fjärrvärme": 603335.79,
+        "Industri (energi + processer)": 102209.04,
+        "Jordbruk": 273827.1,
+        "Produktanvändning (inkl. lösningsmedel)": 50835.79,
+        "Transporter": 838120.82,
+        "Utrikes transporter": 0.0
+      },
+      "2015": {
+        "Arbetsmaskiner": 98459.51,
+        "Avfall (inkl.avlopp)": 26281.9,
+        "Egen uppvärmning av bostäder och lokaler": 29313.74,
+        "El och fjärrvärme": 334834.01,
+        "Industri (energi + processer)": 66035.57,
+        "Jordbruk": 273225.54,
+        "Produktanvändning (inkl. lösningsmedel)": 54089.07,
+        "Transporter": 768444.74,
+        "Utrikes transporter": 0.0
+      },
+      "2016": {
+        "Arbetsmaskiner": 94658.16,
+        "Avfall (inkl.avlopp)": 26163.63,
+        "Egen uppvärmning av bostäder och lokaler": 27457.57,
+        "El och fjärrvärme": 371757.75,
+        "Industri (energi + processer)": 62002.5,
+        "Jordbruk": 268400.49,
+        "Produktanvändning (inkl. lösningsmedel)": 55465.95,
+        "Transporter": 740805.64,
+        "Utrikes transporter": 0.0
+      },
+      "2017": {
+        "Arbetsmaskiner": 97011.46,
+        "Avfall (inkl.avlopp)": 24264.09,
+        "Egen uppvärmning av bostäder och lokaler": 27104.46,
+        "El och fjärrvärme": 303278.26,
+        "Industri (energi + processer)": 52685.37,
+        "Jordbruk": 271735.77,
+        "Produktanvändning (inkl. lösningsmedel)": 56376.52,
+        "Transporter": 732881.86,
+        "Utrikes transporter": 0.0
+      },
+      "2018": {
+        "Arbetsmaskiner": 89555.97,
+        "Avfall (inkl.avlopp)": 24192.41,
+        "Egen uppvärmning av bostäder och lokaler": 23156.71,
+        "El och fjärrvärme": 410740.53,
+        "Industri (energi + processer)": 54102.72,
+        "Jordbruk": 259011.11,
+        "Produktanvändning (inkl. lösningsmedel)": 52432.71,
+        "Transporter": 720027.85,
+        "Utrikes transporter": 0.0
+      },
+      "2019": {
+        "Arbetsmaskiner": 92984.75,
+        "Avfall (inkl.avlopp)": 22863.52,
+        "Egen uppvärmning av bostäder och lokaler": 21273.88,
+        "El och fjärrvärme": 304439.48,
+        "Industri (energi + processer)": 51316.37,
+        "Jordbruk": 264791.57,
+        "Produktanvändning (inkl. lösningsmedel)": 49505.72,
+        "Transporter": 707392.68,
+        "Utrikes transporter": 0.0
+      },
+      "2020": {
+        "Arbetsmaskiner": 97494.01,
+        "Avfall (inkl.avlopp)": 21160.13,
+        "Egen uppvärmning av bostäder och lokaler": 19843.13,
+        "El och fjärrvärme": 186267.79,
+        "Industri (energi + processer)": 46508.13,
+        "Jordbruk": 279746.84,
+        "Produktanvändning (inkl. lösningsmedel)": 46285.34,
+        "Transporter": 635179.29,
+        "Utrikes transporter": 0.0
+      },
+      "2021": {
+        "Arbetsmaskiner": 101130.07,
+        "Avfall (inkl.avlopp)": 20824.71,
+        "Egen uppvärmning av bostäder och lokaler": 21542.37,
+        "El och fjärrvärme": 208987.68,
+        "Industri (energi + processer)": 46197.26,
+        "Jordbruk": 268414.63,
+        "Produktanvändning (inkl. lösningsmedel)": 38530.47,
+        "Transporter": 636874.19,
+        "Utrikes transporter": 0.0
+      },
+      "2022": {
+        "Arbetsmaskiner": 89915.61,
+        "Avfall (inkl.avlopp)": 20192.25,
+        "Egen uppvärmning av bostäder och lokaler": 20223.99,
+        "El och fjärrvärme": 179578.28,
+        "Industri (energi + processer)": 48936.99,
+        "Jordbruk": 273143.24,
+        "Produktanvändning (inkl. lösningsmedel)": 37410.9,
+        "Transporter": 580418.75,
+        "Utrikes transporter": 0.0
+      },
+      "2023": {
+        "Arbetsmaskiner": 90502.12,
+        "Avfall (inkl.avlopp)": 19407.75,
+        "Egen uppvärmning av bostäder och lokaler": 19987.04,
+        "El och fjärrvärme": 185873.42,
+        "Industri (energi + processer)": 47803.67,
+        "Jordbruk": 266573.08,
+        "Produktanvändning (inkl. lösningsmedel)": 35283.41,
+        "Transporter": 575349.85,
+        "Utrikes transporter": 0.0
+      }
+    }
+  },
+  {
+    "name": "Värmlands län",
+    "sectors": {
+      "1990": {
+        "Arbetsmaskiner": 104839.79,
+        "Avfall (inkl.avlopp)": 147675.82,
+        "Egen uppvärmning av bostäder och lokaler": 504252.11,
+        "El och fjärrvärme": 107581.33,
+        "Industri (energi + processer)": 522886.93,
+        "Jordbruk": 202383.12,
+        "Produktanvändning (inkl. lösningsmedel)": 13443.75,
+        "Transporter": 649992.97,
+        "Utrikes transporter": 0.0
+      },
+      "2000": {
+        "Arbetsmaskiner": 99590.34,
+        "Avfall (inkl.avlopp)": 126750.34,
+        "Egen uppvärmning av bostäder och lokaler": 355148.05,
+        "El och fjärrvärme": 30107.87,
+        "Industri (energi + processer)": 733979.91,
+        "Jordbruk": 195300.35,
+        "Produktanvändning (inkl. lösningsmedel)": 37723.06,
+        "Transporter": 679352.86,
+        "Utrikes transporter": 0.0
+      },
+      "2005": {
+        "Arbetsmaskiner": 102776.51,
+        "Avfall (inkl.avlopp)": 104350.68,
+        "Egen uppvärmning av bostäder och lokaler": 173765.94,
+        "El och fjärrvärme": 54065.6,
+        "Industri (energi + processer)": 568327.11,
+        "Jordbruk": 180381.28,
+        "Produktanvändning (inkl. lösningsmedel)": 50931.36,
+        "Transporter": 728151.0,
+        "Utrikes transporter": 0.0
+      },
+      "2010": {
+        "Arbetsmaskiner": 127508.45,
+        "Avfall (inkl.avlopp)": 84901.32,
+        "Egen uppvärmning av bostäder och lokaler": 74694.26,
+        "El och fjärrvärme": 123800.82,
+        "Industri (energi + processer)": 304424.27,
+        "Jordbruk": 174404.72,
+        "Produktanvändning (inkl. lösningsmedel)": 51336.6,
+        "Transporter": 708910.17,
+        "Utrikes transporter": 0.0
+      },
+      "2015": {
+        "Arbetsmaskiner": 102432.0,
+        "Avfall (inkl.avlopp)": 56504.13,
+        "Egen uppvärmning av bostäder och lokaler": 40922.23,
+        "El och fjärrvärme": 63309.28,
+        "Industri (energi + processer)": 204359.07,
+        "Jordbruk": 172589.08,
+        "Produktanvändning (inkl. lösningsmedel)": 42813.53,
+        "Transporter": 617501.05,
+        "Utrikes transporter": 0.0
+      },
+      "2016": {
+        "Arbetsmaskiner": 95817.76,
+        "Avfall (inkl.avlopp)": 52450.35,
+        "Egen uppvärmning av bostäder och lokaler": 37001.39,
+        "El och fjärrvärme": 75731.96,
+        "Industri (energi + processer)": 194052.85,
+        "Jordbruk": 176240.08,
+        "Produktanvändning (inkl. lösningsmedel)": 43659.17,
+        "Transporter": 596760.34,
+        "Utrikes transporter": 0.0
+      },
+      "2017": {
+        "Arbetsmaskiner": 96209.35,
+        "Avfall (inkl.avlopp)": 48313.91,
+        "Egen uppvärmning av bostäder och lokaler": 37274.91,
+        "El och fjärrvärme": 70483.09,
+        "Industri (energi + processer)": 207632.2,
+        "Jordbruk": 179776.19,
+        "Produktanvändning (inkl. lösningsmedel)": 43485.82,
+        "Transporter": 585589.14,
+        "Utrikes transporter": 0.0
+      },
+      "2018": {
+        "Arbetsmaskiner": 92815.36,
+        "Avfall (inkl.avlopp)": 45423.51,
+        "Egen uppvärmning av bostäder och lokaler": 31164.14,
+        "El och fjärrvärme": 70548.31,
+        "Industri (energi + processer)": 218956.68,
+        "Jordbruk": 175056.83,
+        "Produktanvändning (inkl. lösningsmedel)": 39854.82,
+        "Transporter": 540755.18,
+        "Utrikes transporter": 0.0
+      },
+      "2019": {
+        "Arbetsmaskiner": 97986.65,
+        "Avfall (inkl.avlopp)": 42995.88,
+        "Egen uppvärmning av bostäder och lokaler": 28279.4,
+        "El och fjärrvärme": 69350.06,
+        "Industri (energi + processer)": 207721.75,
+        "Jordbruk": 178322.09,
+        "Produktanvändning (inkl. lösningsmedel)": 37067.61,
+        "Transporter": 536601.77,
+        "Utrikes transporter": 0.0
+      },
+      "2020": {
+        "Arbetsmaskiner": 96821.26,
+        "Avfall (inkl.avlopp)": 38697.71,
+        "Egen uppvärmning av bostäder och lokaler": 26461.78,
+        "El och fjärrvärme": 65862.34,
+        "Industri (energi + processer)": 186894.47,
+        "Jordbruk": 177925.83,
+        "Produktanvändning (inkl. lösningsmedel)": 34369.73,
+        "Transporter": 501792.41,
+        "Utrikes transporter": 0.0
+      },
+      "2021": {
+        "Arbetsmaskiner": 103325.05,
+        "Avfall (inkl.avlopp)": 37717.15,
+        "Egen uppvärmning av bostäder och lokaler": 29331.76,
+        "El och fjärrvärme": 78035.86,
+        "Industri (energi + processer)": 193643.65,
+        "Jordbruk": 171789.81,
+        "Produktanvändning (inkl. lösningsmedel)": 28315.84,
+        "Transporter": 507134.99,
+        "Utrikes transporter": 0.0
+      },
+      "2022": {
+        "Arbetsmaskiner": 95941.71,
+        "Avfall (inkl.avlopp)": 36271.97,
+        "Egen uppvärmning av bostäder och lokaler": 26993.39,
+        "El och fjärrvärme": 80540.67,
+        "Industri (energi + processer)": 165732.53,
+        "Jordbruk": 175285.63,
+        "Produktanvändning (inkl. lösningsmedel)": 27223.69,
+        "Transporter": 449632.43,
+        "Utrikes transporter": 0.0
+      },
+      "2023": {
+        "Arbetsmaskiner": 101255.65,
+        "Avfall (inkl.avlopp)": 34123.67,
+        "Egen uppvärmning av bostäder och lokaler": 26780.71,
+        "El och fjärrvärme": 92167.04,
+        "Industri (energi + processer)": 178323.3,
+        "Jordbruk": 171590.44,
+        "Produktanvändning (inkl. lösningsmedel)": 25464.27,
+        "Transporter": 445836.83,
+        "Utrikes transporter": 0.0
+      }
+    }
+  },
+  {
+    "name": "Västerbottens län",
+    "sectors": {
+      "1990": {
+        "Arbetsmaskiner": 161229.5,
+        "Avfall (inkl.avlopp)": 87525.83,
+        "Egen uppvärmning av bostäder och lokaler": 215814.17,
+        "El och fjärrvärme": 171746.7,
+        "Industri (energi + processer)": 418531.13,
+        "Jordbruk": 201381.22,
+        "Produktanvändning (inkl. lösningsmedel)": 11373.9,
+        "Transporter": 579911.69,
+        "Utrikes transporter": 0.0
+      },
+      "2000": {
+        "Arbetsmaskiner": 142591.21,
+        "Avfall (inkl.avlopp)": 75759.87,
+        "Egen uppvärmning av bostäder och lokaler": 148400.67,
+        "El och fjärrvärme": 110886.07,
+        "Industri (energi + processer)": 381550.32,
+        "Jordbruk": 182414.16,
+        "Produktanvändning (inkl. lösningsmedel)": 32905.68,
+        "Transporter": 606192.57,
+        "Utrikes transporter": 0.0
+      },
+      "2005": {
+        "Arbetsmaskiner": 138405.36,
+        "Avfall (inkl.avlopp)": 63174.28,
+        "Egen uppvärmning av bostäder och lokaler": 78346.31,
+        "El och fjärrvärme": 154138.77,
+        "Industri (energi + processer)": 330471.16,
+        "Jordbruk": 177122.54,
+        "Produktanvändning (inkl. lösningsmedel)": 44504.29,
+        "Transporter": 650619.44,
+        "Utrikes transporter": 0.0
+      },
+      "2010": {
+        "Arbetsmaskiner": 168671.79,
+        "Avfall (inkl.avlopp)": 46022.39,
+        "Egen uppvärmning av bostäder och lokaler": 38439.47,
+        "El och fjärrvärme": 167355.43,
+        "Industri (energi + processer)": 326189.12,
+        "Jordbruk": 172661.29,
+        "Produktanvändning (inkl. lösningsmedel)": 44958.53,
+        "Transporter": 647860.77,
+        "Utrikes transporter": 0.0
+      },
+      "2015": {
+        "Arbetsmaskiner": 151015.46,
+        "Avfall (inkl.avlopp)": 33047.29,
+        "Egen uppvärmning av bostäder och lokaler": 23499.85,
+        "El och fjärrvärme": 136155.19,
+        "Industri (energi + processer)": 347088.56,
+        "Jordbruk": 165558.52,
+        "Produktanvändning (inkl. lösningsmedel)": 40541.23,
+        "Transporter": 589600.72,
+        "Utrikes transporter": 0.0
+      },
+      "2016": {
+        "Arbetsmaskiner": 142666.74,
+        "Avfall (inkl.avlopp)": 31293.93,
+        "Egen uppvärmning av bostäder och lokaler": 22662.8,
+        "El och fjärrvärme": 139392.54,
+        "Industri (energi + processer)": 348279.76,
+        "Jordbruk": 163001.74,
+        "Produktanvändning (inkl. lösningsmedel)": 41154.97,
+        "Transporter": 570740.08,
+        "Utrikes transporter": 0.0
+      },
+      "2017": {
+        "Arbetsmaskiner": 137419.86,
+        "Avfall (inkl.avlopp)": 30107.21,
+        "Egen uppvärmning av bostäder och lokaler": 22704.67,
+        "El och fjärrvärme": 129359.65,
+        "Industri (energi + processer)": 341681.31,
+        "Jordbruk": 161810.78,
+        "Produktanvändning (inkl. lösningsmedel)": 41396.25,
+        "Transporter": 610985.58,
+        "Utrikes transporter": 0.0
+      },
+      "2018": {
+        "Arbetsmaskiner": 131142.39,
+        "Avfall (inkl.avlopp)": 28565.33,
+        "Egen uppvärmning av bostäder och lokaler": 17892.11,
+        "El och fjärrvärme": 151507.92,
+        "Industri (energi + processer)": 355089.65,
+        "Jordbruk": 162217.46,
+        "Produktanvändning (inkl. lösningsmedel)": 38037.81,
+        "Transporter": 559782.6,
+        "Utrikes transporter": 0.0
+      },
+      "2019": {
+        "Arbetsmaskiner": 138334.57,
+        "Avfall (inkl.avlopp)": 27112.84,
+        "Egen uppvärmning av bostäder och lokaler": 16800.0,
+        "El och fjärrvärme": 127371.04,
+        "Industri (energi + processer)": 337440.56,
+        "Jordbruk": 158200.55,
+        "Produktanvändning (inkl. lösningsmedel)": 35433.05,
+        "Transporter": 547847.52,
+        "Utrikes transporter": 0.0
+      },
+      "2020": {
+        "Arbetsmaskiner": 139202.2,
+        "Avfall (inkl.avlopp)": 26134.83,
+        "Egen uppvärmning av bostäder och lokaler": 15616.09,
+        "El och fjärrvärme": 100050.14,
+        "Industri (energi + processer)": 338913.29,
+        "Jordbruk": 158151.18,
+        "Produktanvändning (inkl. lösningsmedel)": 32967.01,
+        "Transporter": 485712.65,
+        "Utrikes transporter": 0.0
+      },
+      "2021": {
+        "Arbetsmaskiner": 137131.44,
+        "Avfall (inkl.avlopp)": 23701.63,
+        "Egen uppvärmning av bostäder och lokaler": 17159.92,
+        "El och fjärrvärme": 115094.88,
+        "Industri (energi + processer)": 356514.32,
+        "Jordbruk": 152759.36,
+        "Produktanvändning (inkl. lösningsmedel)": 27192.45,
+        "Transporter": 486504.79,
+        "Utrikes transporter": 0.0
+      },
+      "2022": {
+        "Arbetsmaskiner": 123685.49,
+        "Avfall (inkl.avlopp)": 22918.24,
+        "Egen uppvärmning av bostäder och lokaler": 16891.69,
+        "El och fjärrvärme": 99898.11,
+        "Industri (energi + processer)": 311294.27,
+        "Jordbruk": 153467.09,
+        "Produktanvändning (inkl. lösningsmedel)": 26237.11,
+        "Transporter": 441567.0,
+        "Utrikes transporter": 0.0
+      },
+      "2023": {
+        "Arbetsmaskiner": 122276.32,
+        "Avfall (inkl.avlopp)": 21906.02,
+        "Egen uppvärmning av bostäder och lokaler": 16712.75,
+        "El och fjärrvärme": 109935.11,
+        "Industri (energi + processer)": 324004.87,
+        "Jordbruk": 153434.16,
+        "Produktanvändning (inkl. lösningsmedel)": 24744.43,
+        "Transporter": 442133.85,
+        "Utrikes transporter": 0.0
+      }
+    }
+  },
+  {
+    "name": "Västernorrlands län",
+    "sectors": {
+      "1990": {
+        "Arbetsmaskiner": 129572.02,
+        "Avfall (inkl.avlopp)": 96933.79,
+        "Egen uppvärmning av bostäder och lokaler": 292064.66,
+        "El och fjärrvärme": 99299.38,
+        "Industri (energi + processer)": 1624685.8,
+        "Jordbruk": 121699.24,
+        "Produktanvändning (inkl. lösningsmedel)": 12463.5,
+        "Transporter": 611635.48,
+        "Utrikes transporter": 0.0
+      },
+      "2000": {
+        "Arbetsmaskiner": 113026.49,
+        "Avfall (inkl.avlopp)": 83382.25,
+        "Egen uppvärmning av bostäder och lokaler": 203430.88,
+        "El och fjärrvärme": 146693.85,
+        "Industri (energi + processer)": 1238301.2,
+        "Jordbruk": 110592.2,
+        "Produktanvändning (inkl. lösningsmedel)": 34927.91,
+        "Transporter": 638633.53,
+        "Utrikes transporter": 0.0
+      },
+      "2005": {
+        "Arbetsmaskiner": 98544.66,
+        "Avfall (inkl.avlopp)": 68957.45,
+        "Egen uppvärmning av bostäder och lokaler": 101945.84,
+        "El och fjärrvärme": 202288.62,
+        "Industri (energi + processer)": 1024683.72,
+        "Jordbruk": 106287.38,
+        "Produktanvändning (inkl. lösningsmedel)": 47142.63,
+        "Transporter": 683865.46,
+        "Utrikes transporter": 0.0
+      },
+      "2010": {
+        "Arbetsmaskiner": 132342.94,
+        "Avfall (inkl.avlopp)": 49423.86,
+        "Egen uppvärmning av bostäder och lokaler": 46300.07,
+        "El och fjärrvärme": 250556.13,
+        "Industri (energi + processer)": 703069.8,
+        "Jordbruk": 101698.87,
+        "Produktanvändning (inkl. lösningsmedel)": 47482.18,
+        "Transporter": 625606.67,
+        "Utrikes transporter": 0.0
+      },
+      "2015": {
+        "Arbetsmaskiner": 112013.95,
+        "Avfall (inkl.avlopp)": 35123.7,
+        "Egen uppvärmning av bostäder och lokaler": 26601.95,
+        "El och fjärrvärme": 117185.2,
+        "Industri (energi + processer)": 492993.98,
+        "Jordbruk": 94325.9,
+        "Produktanvändning (inkl. lösningsmedel)": 37827.96,
+        "Transporter": 548482.4,
+        "Utrikes transporter": 0.0
+      },
+      "2016": {
+        "Arbetsmaskiner": 101998.75,
+        "Avfall (inkl.avlopp)": 33040.29,
+        "Egen uppvärmning av bostäder och lokaler": 24792.92,
+        "El och fjärrvärme": 137724.63,
+        "Industri (energi + processer)": 539003.54,
+        "Jordbruk": 93155.06,
+        "Produktanvändning (inkl. lösningsmedel)": 38304.89,
+        "Transporter": 530002.61,
+        "Utrikes transporter": 0.0
+      },
+      "2017": {
+        "Arbetsmaskiner": 103592.89,
+        "Avfall (inkl.avlopp)": 31611.04,
+        "Egen uppvärmning av bostäder och lokaler": 25006.92,
+        "El och fjärrvärme": 135794.0,
+        "Industri (energi + processer)": 560532.63,
+        "Jordbruk": 90975.28,
+        "Produktanvändning (inkl. lösningsmedel)": 38082.17,
+        "Transporter": 489965.08,
+        "Utrikes transporter": 0.0
+      },
+      "2018": {
+        "Arbetsmaskiner": 94722.03,
+        "Avfall (inkl.avlopp)": 29918.58,
+        "Egen uppvärmning av bostäder och lokaler": 20256.86,
+        "El och fjärrvärme": 144224.27,
+        "Industri (energi + processer)": 599737.7,
+        "Jordbruk": 90965.62,
+        "Produktanvändning (inkl. lösningsmedel)": 34734.72,
+        "Transporter": 449401.43,
+        "Utrikes transporter": 0.0
+      },
+      "2019": {
+        "Arbetsmaskiner": 100222.51,
+        "Avfall (inkl.avlopp)": 27921.29,
+        "Egen uppvärmning av bostäder och lokaler": 18503.41,
+        "El och fjärrvärme": 140374.03,
+        "Industri (energi + processer)": 564252.09,
+        "Jordbruk": 90328.18,
+        "Produktanvändning (inkl. lösningsmedel)": 32173.61,
+        "Transporter": 448020.95,
+        "Utrikes transporter": 0.0
+      },
+      "2020": {
+        "Arbetsmaskiner": 100508.33,
+        "Avfall (inkl.avlopp)": 26654.78,
+        "Egen uppvärmning av bostäder och lokaler": 17213.12,
+        "El och fjärrvärme": 115386.01,
+        "Industri (energi + processer)": 548468.12,
+        "Jordbruk": 89066.78,
+        "Produktanvändning (inkl. lösningsmedel)": 29714.0,
+        "Transporter": 412472.81,
+        "Utrikes transporter": 0.0
+      },
+      "2021": {
+        "Arbetsmaskiner": 95476.63,
+        "Avfall (inkl.avlopp)": 24326.66,
+        "Egen uppvärmning av bostäder och lokaler": 19121.59,
+        "El och fjärrvärme": 159529.53,
+        "Industri (energi + processer)": 541382.84,
+        "Jordbruk": 85584.57,
+        "Produktanvändning (inkl. lösningsmedel)": 24400.46,
+        "Transporter": 413213.13,
+        "Utrikes transporter": 0.0
+      },
+      "2022": {
+        "Arbetsmaskiner": 87934.18,
+        "Avfall (inkl.avlopp)": 23500.75,
+        "Egen uppvärmning av bostäder och lokaler": 18220.44,
+        "El och fjärrvärme": 145642.81,
+        "Industri (energi + processer)": 557824.6,
+        "Jordbruk": 89734.2,
+        "Produktanvändning (inkl. lösningsmedel)": 23329.33,
+        "Transporter": 370976.16,
+        "Utrikes transporter": 0.0
+      },
+      "2023": {
+        "Arbetsmaskiner": 93005.24,
+        "Avfall (inkl.avlopp)": 22566.9,
+        "Egen uppvärmning av bostäder och lokaler": 18025.42,
+        "El och fjärrvärme": 167112.79,
+        "Industri (energi + processer)": 554651.51,
+        "Jordbruk": 91064.28,
+        "Produktanvändning (inkl. lösningsmedel)": 21753.07,
+        "Transporter": 368983.97,
+        "Utrikes transporter": 0.0
+      }
+    }
+  },
+  {
+    "name": "Västmanlands län",
+    "sectors": {
+      "1990": {
+        "Arbetsmaskiner": 90890.77,
+        "Avfall (inkl.avlopp)": 140491.87,
+        "Egen uppvärmning av bostäder och lokaler": 197845.62,
+        "El och fjärrvärme": 618556.48,
+        "Industri (energi + processer)": 700546.49,
+        "Jordbruk": 180291.92,
+        "Produktanvändning (inkl. lösningsmedel)": 11854.48,
+        "Transporter": 527668.28,
+        "Utrikes transporter": 0.0
+      },
+      "2000": {
+        "Arbetsmaskiner": 80933.79,
+        "Avfall (inkl.avlopp)": 124023.65,
+        "Egen uppvärmning av bostäder och lokaler": 132120.54,
+        "El och fjärrvärme": 539306.19,
+        "Industri (energi + processer)": 690859.56,
+        "Jordbruk": 169001.42,
+        "Produktanvändning (inkl. lösningsmedel)": 32686.55,
+        "Transporter": 551448.88,
+        "Utrikes transporter": 0.0
+      },
+      "2005": {
+        "Arbetsmaskiner": 75302.97,
+        "Avfall (inkl.avlopp)": 105272.56,
+        "Egen uppvärmning av bostäder och lokaler": 67757.81,
+        "El och fjärrvärme": 586781.12,
+        "Industri (energi + processer)": 717281.12,
+        "Jordbruk": 145502.84,
+        "Produktanvändning (inkl. lösningsmedel)": 44056.11,
+        "Transporter": 591527.68,
+        "Utrikes transporter": 0.0
+      },
+      "2010": {
+        "Arbetsmaskiner": 86325.9,
+        "Avfall (inkl.avlopp)": 71994.74,
+        "Egen uppvärmning av bostäder och lokaler": 32701.43,
+        "El och fjärrvärme": 668017.71,
+        "Industri (energi + processer)": 573395.26,
+        "Jordbruk": 136730.04,
+        "Produktanvändning (inkl. lösningsmedel)": 44358.68,
+        "Transporter": 577561.34,
+        "Utrikes transporter": 0.0
+      },
+      "2015": {
+        "Arbetsmaskiner": 72633.4,
+        "Avfall (inkl.avlopp)": 52392.03,
+        "Egen uppvärmning av bostäder och lokaler": 18288.29,
+        "El och fjärrvärme": 246820.22,
+        "Industri (energi + processer)": 299366.02,
+        "Jordbruk": 144730.66,
+        "Produktanvändning (inkl. lösningsmedel)": 40773.08,
+        "Transporter": 499505.65,
+        "Utrikes transporter": 0.0
+      },
+      "2016": {
+        "Arbetsmaskiner": 65741.82,
+        "Avfall (inkl.avlopp)": 50433.7,
+        "Egen uppvärmning av bostäder och lokaler": 17243.62,
+        "El och fjärrvärme": 258268.32,
+        "Industri (energi + processer)": 333777.52,
+        "Jordbruk": 140700.12,
+        "Produktanvändning (inkl. lösningsmedel)": 41559.44,
+        "Transporter": 479828.36,
+        "Utrikes transporter": 0.0
+      },
+      "2017": {
+        "Arbetsmaskiner": 67139.76,
+        "Avfall (inkl.avlopp)": 44623.05,
+        "Egen uppvärmning av bostäder och lokaler": 16909.96,
+        "El och fjärrvärme": 267732.13,
+        "Industri (energi + processer)": 305574.32,
+        "Jordbruk": 146901.17,
+        "Produktanvändning (inkl. lösningsmedel)": 41710.36,
+        "Transporter": 464127.99,
+        "Utrikes transporter": 0.0
+      },
+      "2018": {
+        "Arbetsmaskiner": 62913.26,
+        "Avfall (inkl.avlopp)": 41753.27,
+        "Egen uppvärmning av bostäder och lokaler": 14621.44,
+        "El och fjärrvärme": 283608.77,
+        "Industri (energi + processer)": 265458.4,
+        "Jordbruk": 138873.2,
+        "Produktanvändning (inkl. lösningsmedel)": 38507.04,
+        "Transporter": 464264.48,
+        "Utrikes transporter": 0.0
+      },
+      "2019": {
+        "Arbetsmaskiner": 69577.88,
+        "Avfall (inkl.avlopp)": 38095.08,
+        "Egen uppvärmning av bostäder och lokaler": 13265.78,
+        "El och fjärrvärme": 250616.94,
+        "Industri (energi + processer)": 257160.33,
+        "Jordbruk": 142216.52,
+        "Produktanvändning (inkl. lösningsmedel)": 35946.56,
+        "Transporter": 462883.89,
+        "Utrikes transporter": 0.0
+      },
+      "2020": {
+        "Arbetsmaskiner": 71185.85,
+        "Avfall (inkl.avlopp)": 34311.91,
+        "Egen uppvärmning av bostäder och lokaler": 12303.92,
+        "El och fjärrvärme": 174552.5,
+        "Industri (energi + processer)": 224535.16,
+        "Jordbruk": 151854.55,
+        "Produktanvändning (inkl. lösningsmedel)": 33413.48,
+        "Transporter": 430207.76,
+        "Utrikes transporter": 0.0
+      },
+      "2021": {
+        "Arbetsmaskiner": 71606.55,
+        "Avfall (inkl.avlopp)": 31685.15,
+        "Egen uppvärmning av bostäder och lokaler": 13334.23,
+        "El och fjärrvärme": 206254.69,
+        "Industri (energi + processer)": 244744.08,
+        "Jordbruk": 146877.63,
+        "Produktanvändning (inkl. lösningsmedel)": 27609.89,
+        "Transporter": 431947.89,
+        "Utrikes transporter": 0.0
+      },
+      "2022": {
+        "Arbetsmaskiner": 67238.19,
+        "Avfall (inkl.avlopp)": 30500.42,
+        "Egen uppvärmning av bostäder och lokaler": 12575.91,
+        "El och fjärrvärme": 166167.71,
+        "Industri (energi + processer)": 221858.94,
+        "Jordbruk": 150641.99,
+        "Produktanvändning (inkl. lösningsmedel)": 26617.43,
+        "Transporter": 384390.8,
+        "Utrikes transporter": 0.0
+      },
+      "2023": {
+        "Arbetsmaskiner": 71474.92,
+        "Avfall (inkl.avlopp)": 29118.52,
+        "Egen uppvärmning av bostäder och lokaler": 12365.45,
+        "El och fjärrvärme": 191039.84,
+        "Industri (energi + processer)": 186069.34,
+        "Jordbruk": 148344.07,
+        "Produktanvändning (inkl. lösningsmedel)": 24904.96,
+        "Transporter": 379848.56,
+        "Utrikes transporter": 0.0
+      }
+    }
+  },
+  {
+    "name": "Västra Götalands län",
+    "sectors": {
+      "1990": {
+        "Arbetsmaskiner": 583797.27,
+        "Avfall (inkl.avlopp)": 515675.19,
+        "Egen uppvärmning av bostäder och lokaler": 1505862.25,
+        "El och fjärrvärme": 710453.95,
+        "Industri (energi + processer)": 4381674.37,
+        "Jordbruk": 1265568.08,
+        "Produktanvändning (inkl. lösningsmedel)": 64510.91,
+        "Transporter": 2904750.31,
+        "Utrikes transporter": 0.0
+      },
+      "2000": {
+        "Arbetsmaskiner": 480049.89,
+        "Avfall (inkl.avlopp)": 447425.41,
+        "Egen uppvärmning av bostäder och lokaler": 1048374.31,
+        "El och fjärrvärme": 557186.13,
+        "Industri (energi + processer)": 4901294.32,
+        "Jordbruk": 1183567.62,
+        "Produktanvändning (inkl. lösningsmedel)": 271617.15,
+        "Transporter": 3041449.82,
+        "Utrikes transporter": 0.0
+      },
+      "2005": {
+        "Arbetsmaskiner": 465806.71,
+        "Avfall (inkl.avlopp)": 374323.19,
+        "Egen uppvärmning av bostäder och lokaler": 546954.36,
+        "El och fjärrvärme": 598498.99,
+        "Industri (energi + processer)": 4835056.88,
+        "Jordbruk": 1080899.05,
+        "Produktanvändning (inkl. lösningsmedel)": 309113.73,
+        "Transporter": 3246050.84,
+        "Utrikes transporter": 0.0
+      },
+      "2010": {
+        "Arbetsmaskiner": 481266.11,
+        "Avfall (inkl.avlopp)": 275424.53,
+        "Egen uppvärmning av bostäder och lokaler": 320398.89,
+        "El och fjärrvärme": 1297321.48,
+        "Industri (energi + processer)": 4933543.35,
+        "Jordbruk": 1049275.98,
+        "Produktanvändning (inkl. lösningsmedel)": 270156.05,
+        "Transporter": 3293393.34,
+        "Utrikes transporter": 0.0
+      },
+      "2015": {
+        "Arbetsmaskiner": 414730.14,
+        "Avfall (inkl.avlopp)": 200665.77,
+        "Egen uppvärmning av bostäder och lokaler": 178172.24,
+        "El och fjärrvärme": 553055.5,
+        "Industri (energi + processer)": 4628762.23,
+        "Jordbruk": 1073910.04,
+        "Produktanvändning (inkl. lösningsmedel)": 261650.64,
+        "Transporter": 2958716.37,
+        "Utrikes transporter": 0.0
+      },
+      "2016": {
+        "Arbetsmaskiner": 397814.46,
+        "Avfall (inkl.avlopp)": 190517.27,
+        "Egen uppvärmning av bostäder och lokaler": 168540.07,
+        "El och fjärrvärme": 777755.82,
+        "Industri (energi + processer)": 4729141.27,
+        "Jordbruk": 1067697.37,
+        "Produktanvändning (inkl. lösningsmedel)": 266544.79,
+        "Transporter": 2865701.16,
+        "Utrikes transporter": 0.0
+      },
+      "2017": {
+        "Arbetsmaskiner": 405825.4,
+        "Avfall (inkl.avlopp)": 187532.59,
+        "Egen uppvärmning av bostäder och lokaler": 158323.68,
+        "El och fjärrvärme": 577175.46,
+        "Industri (energi + processer)": 4749197.43,
+        "Jordbruk": 1096719.15,
+        "Produktanvändning (inkl. lösningsmedel)": 267454.29,
+        "Transporter": 2839662.64,
+        "Utrikes transporter": 0.0
+      },
+      "2018": {
+        "Arbetsmaskiner": 396131.04,
+        "Avfall (inkl.avlopp)": 174449.89,
+        "Egen uppvärmning av bostäder och lokaler": 142676.84,
+        "El och fjärrvärme": 680047.52,
+        "Industri (energi + processer)": 5020711.14,
+        "Jordbruk": 1072036.37,
+        "Produktanvändning (inkl. lösningsmedel)": 247454.96,
+        "Transporter": 2889260.08,
+        "Utrikes transporter": 0.0
+      },
+      "2019": {
+        "Arbetsmaskiner": 428078.78,
+        "Avfall (inkl.avlopp)": 163005.55,
+        "Egen uppvärmning av bostäder och lokaler": 143943.42,
+        "El och fjärrvärme": 652463.0,
+        "Industri (energi + processer)": 4387060.41,
+        "Jordbruk": 1094448.18,
+        "Produktanvändning (inkl. lösningsmedel)": 229720.09,
+        "Transporter": 2877391.71,
+        "Utrikes transporter": 0.0
+      },
+      "2020": {
+        "Arbetsmaskiner": 414556.32,
+        "Avfall (inkl.avlopp)": 157990.51,
+        "Egen uppvärmning av bostäder och lokaler": 138383.81,
+        "El och fjärrvärme": 484899.7,
+        "Industri (energi + processer)": 3827049.71,
+        "Jordbruk": 1107593.05,
+        "Produktanvändning (inkl. lösningsmedel)": 213666.63,
+        "Transporter": 2670614.7,
+        "Utrikes transporter": 0.0
+      },
+      "2021": {
+        "Arbetsmaskiner": 427927.57,
+        "Avfall (inkl.avlopp)": 146588.13,
+        "Egen uppvärmning av bostäder och lokaler": 141747.01,
+        "El och fjärrvärme": 653363.43,
+        "Industri (energi + processer)": 4667533.58,
+        "Jordbruk": 1101811.73,
+        "Produktanvändning (inkl. lösningsmedel)": 172791.51,
+        "Transporter": 2652222.13,
+        "Utrikes transporter": 0.0
+      },
+      "2022": {
+        "Arbetsmaskiner": 389460.55,
+        "Avfall (inkl.avlopp)": 142525.04,
+        "Egen uppvärmning av bostäder och lokaler": 129893.27,
+        "El och fjärrvärme": 632562.94,
+        "Industri (energi + processer)": 4369845.01,
+        "Jordbruk": 1118189.84,
+        "Produktanvändning (inkl. lösningsmedel)": 165070.11,
+        "Transporter": 2385985.12,
+        "Utrikes transporter": 0.0
+      },
+      "2023": {
+        "Arbetsmaskiner": 402245.12,
+        "Avfall (inkl.avlopp)": 137105.04,
+        "Egen uppvärmning av bostäder och lokaler": 130991.13,
+        "El och fjärrvärme": 645114.92,
+        "Industri (energi + processer)": 4271014.28,
+        "Jordbruk": 1100475.98,
+        "Produktanvändning (inkl. lösningsmedel)": 154991.64,
+        "Transporter": 2372379.63,
+        "Utrikes transporter": 0.0
+      }
+    }
+  },
+  {
+    "name": "Örebro län",
+    "sectors": {
+      "1990": {
+        "Arbetsmaskiner": 91218.21,
+        "Avfall (inkl.avlopp)": 208581.54,
+        "Egen uppvärmning av bostäder och lokaler": 322286.73,
+        "El och fjärrvärme": 378336.62,
+        "Industri (energi + processer)": 427445.78,
+        "Jordbruk": 230360.32,
+        "Produktanvändning (inkl. lösningsmedel)": 13061.82,
+        "Transporter": 613578.43,
+        "Utrikes transporter": 0.0
+      },
+      "2000": {
+        "Arbetsmaskiner": 86579.12,
+        "Avfall (inkl.avlopp)": 185975.88,
+        "Egen uppvärmning av bostäder och lokaler": 222388.89,
+        "El och fjärrvärme": 281507.16,
+        "Industri (energi + processer)": 297702.5,
+        "Jordbruk": 221420.04,
+        "Produktanvändning (inkl. lösningsmedel)": 36158.66,
+        "Transporter": 642725.17,
+        "Utrikes transporter": 0.0
+      },
+      "2005": {
+        "Arbetsmaskiner": 80168.01,
+        "Avfall (inkl.avlopp)": 215428.42,
+        "Egen uppvärmning av bostäder och lokaler": 110786.45,
+        "El och fjärrvärme": 302320.35,
+        "Industri (energi + processer)": 221785.58,
+        "Jordbruk": 199400.64,
+        "Produktanvändning (inkl. lösningsmedel)": 48754.51,
+        "Transporter": 691294.39,
+        "Utrikes transporter": 0.0
+      },
+      "2010": {
+        "Arbetsmaskiner": 103689.72,
+        "Avfall (inkl.avlopp)": 186573.53,
+        "Egen uppvärmning av bostäder och lokaler": 50004.59,
+        "El och fjärrvärme": 299628.21,
+        "Industri (energi + processer)": 150063.91,
+        "Jordbruk": 190921.74,
+        "Produktanvändning (inkl. lösningsmedel)": 49134.18,
+        "Transporter": 706453.98,
+        "Utrikes transporter": 0.0
+      },
+      "2015": {
+        "Arbetsmaskiner": 94027.6,
+        "Avfall (inkl.avlopp)": 179695.33,
+        "Egen uppvärmning av bostäder och lokaler": 27682.76,
+        "El och fjärrvärme": 80852.68,
+        "Industri (energi + processer)": 150177.12,
+        "Jordbruk": 195902.99,
+        "Produktanvändning (inkl. lösningsmedel)": 45020.13,
+        "Transporter": 620644.38,
+        "Utrikes transporter": 0.0
+      },
+      "2016": {
+        "Arbetsmaskiner": 85704.87,
+        "Avfall (inkl.avlopp)": 180462.58,
+        "Egen uppvärmning av bostäder och lokaler": 25488.11,
+        "El och fjärrvärme": 147965.22,
+        "Industri (energi + processer)": 156461.5,
+        "Jordbruk": 194716.79,
+        "Produktanvändning (inkl. lösningsmedel)": 45941.99,
+        "Transporter": 591655.77,
+        "Utrikes transporter": 0.0
+      },
+      "2017": {
+        "Arbetsmaskiner": 81529.23,
+        "Avfall (inkl.avlopp)": 187290.76,
+        "Egen uppvärmning av bostäder och lokaler": 25388.29,
+        "El och fjärrvärme": 108982.5,
+        "Industri (energi + processer)": 155880.33,
+        "Jordbruk": 197720.2,
+        "Produktanvändning (inkl. lösningsmedel)": 46047.56,
+        "Transporter": 567481.54,
+        "Utrikes transporter": 0.0
+      },
+      "2018": {
+        "Arbetsmaskiner": 76394.99,
+        "Avfall (inkl.avlopp)": 179776.56,
+        "Egen uppvärmning av bostäder och lokaler": 21567.21,
+        "El och fjärrvärme": 125151.48,
+        "Industri (energi + processer)": 142519.58,
+        "Jordbruk": 191009.16,
+        "Produktanvändning (inkl. lösningsmedel)": 42532.44,
+        "Transporter": 553891.81,
+        "Utrikes transporter": 0.0
+      },
+      "2019": {
+        "Arbetsmaskiner": 82190.58,
+        "Avfall (inkl.avlopp)": 168227.16,
+        "Egen uppvärmning av bostäder och lokaler": 19550.49,
+        "El och fjärrvärme": 113585.04,
+        "Industri (energi + processer)": 142632.03,
+        "Jordbruk": 194030.13,
+        "Produktanvändning (inkl. lösningsmedel)": 39762.75,
+        "Transporter": 547653.67,
+        "Utrikes transporter": 0.0
+      },
+      "2020": {
+        "Arbetsmaskiner": 81739.64,
+        "Avfall (inkl.avlopp)": 158408.15,
+        "Egen uppvärmning av bostäder och lokaler": 18231.99,
+        "El och fjärrvärme": 72936.62,
+        "Industri (energi + processer)": 129768.08,
+        "Jordbruk": 201354.19,
+        "Produktanvändning (inkl. lösningsmedel)": 36893.39,
+        "Transporter": 504451.21,
+        "Utrikes transporter": 0.0
+      },
+      "2021": {
+        "Arbetsmaskiner": 84418.07,
+        "Avfall (inkl.avlopp)": 169379.04,
+        "Egen uppvärmning av bostäder och lokaler": 20017.34,
+        "El och fjärrvärme": 123777.29,
+        "Industri (energi + processer)": 147429.1,
+        "Jordbruk": 191476.5,
+        "Produktanvändning (inkl. lösningsmedel)": 30411.91,
+        "Transporter": 505946.54,
+        "Utrikes transporter": 0.0
+      },
+      "2022": {
+        "Arbetsmaskiner": 75843.59,
+        "Avfall (inkl.avlopp)": 152759.6,
+        "Egen uppvärmning av bostäder och lokaler": 18584.89,
+        "El och fjärrvärme": 84923.75,
+        "Industri (energi + processer)": 139881.58,
+        "Jordbruk": 192528.97,
+        "Produktanvändning (inkl. lösningsmedel)": 29233.72,
+        "Transporter": 450375.01,
+        "Utrikes transporter": 0.0
+      },
+      "2023": {
+        "Arbetsmaskiner": 76779.49,
+        "Avfall (inkl.avlopp)": 154429.93,
+        "Egen uppvärmning av bostäder och lokaler": 18363.07,
+        "El och fjärrvärme": 69936.46,
+        "Industri (energi + processer)": 119971.73,
+        "Jordbruk": 188336.62,
+        "Produktanvändning (inkl. lösningsmedel)": 27375.51,
+        "Transporter": 446626.52,
+        "Utrikes transporter": 0.0
+      }
+    }
+  },
+  {
+    "name": "Östergötlands län",
+    "sectors": {
+      "1990": {
+        "Arbetsmaskiner": 154824.57,
+        "Avfall (inkl.avlopp)": 76910.33,
+        "Egen uppvärmning av bostäder och lokaler": 398075.19,
+        "El och fjärrvärme": 653782.44,
+        "Industri (energi + processer)": 344931.62,
+        "Jordbruk": 489875.83,
+        "Produktanvändning (inkl. lösningsmedel)": 18445.1,
+        "Transporter": 917425.72,
+        "Utrikes transporter": 0.0
+      },
+      "2000": {
+        "Arbetsmaskiner": 131946.25,
+        "Avfall (inkl.avlopp)": 68075.96,
+        "Egen uppvärmning av bostäder och lokaler": 270589.91,
+        "El och fjärrvärme": 376349.25,
+        "Industri (energi + processer)": 435847.92,
+        "Jordbruk": 480812.47,
+        "Produktanvändning (inkl. lösningsmedel)": 53433.58,
+        "Transporter": 960603.79,
+        "Utrikes transporter": 0.0
+      },
+      "2005": {
+        "Arbetsmaskiner": 126575.42,
+        "Avfall (inkl.avlopp)": 58726.17,
+        "Egen uppvärmning av bostäder och lokaler": 140464.4,
+        "El och fjärrvärme": 483864.37,
+        "Industri (energi + processer)": 301162.76,
+        "Jordbruk": 461754.79,
+        "Produktanvändning (inkl. lösningsmedel)": 72285.43,
+        "Transporter": 1029712.51,
+        "Utrikes transporter": 0.0
+      },
+      "2010": {
+        "Arbetsmaskiner": 130605.21,
+        "Avfall (inkl.avlopp)": 47185.77,
+        "Egen uppvärmning av bostäder och lokaler": 68993.35,
+        "El och fjärrvärme": 700034.27,
+        "Industri (energi + processer)": 234308.11,
+        "Jordbruk": 467051.89,
+        "Produktanvändning (inkl. lösningsmedel)": 73085.08,
+        "Transporter": 1067579.86,
+        "Utrikes transporter": 0.0
+      },
+      "2015": {
+        "Arbetsmaskiner": 129681.62,
+        "Avfall (inkl.avlopp)": 35769.78,
+        "Egen uppvärmning av bostäder och lokaler": 38610.71,
+        "El och fjärrvärme": 481642.86,
+        "Industri (energi + processer)": 151883.58,
+        "Jordbruk": 473285.27,
+        "Produktanvändning (inkl. lösningsmedel)": 68619.44,
+        "Transporter": 945201.09,
+        "Utrikes transporter": 0.0
+      },
+      "2016": {
+        "Arbetsmaskiner": 119750.82,
+        "Avfall (inkl.avlopp)": 34293.31,
+        "Egen uppvärmning av bostäder och lokaler": 36442.03,
+        "El och fjärrvärme": 560654.01,
+        "Industri (energi + processer)": 148103.36,
+        "Jordbruk": 467804.81,
+        "Produktanvändning (inkl. lösningsmedel)": 69973.4,
+        "Transporter": 910816.07,
+        "Utrikes transporter": 0.0
+      },
+      "2017": {
+        "Arbetsmaskiner": 118687.63,
+        "Avfall (inkl.avlopp)": 33473.59,
+        "Egen uppvärmning av bostäder och lokaler": 35782.64,
+        "El och fjärrvärme": 547983.55,
+        "Industri (energi + processer)": 147817.86,
+        "Jordbruk": 480455.56,
+        "Produktanvändning (inkl. lösningsmedel)": 70202.66,
+        "Transporter": 839360.06,
+        "Utrikes transporter": 0.0
+      },
+      "2018": {
+        "Arbetsmaskiner": 108854.88,
+        "Avfall (inkl.avlopp)": 32087.83,
+        "Egen uppvärmning av bostäder och lokaler": 30461.82,
+        "El och fjärrvärme": 551257.53,
+        "Industri (energi + processer)": 155100.13,
+        "Jordbruk": 468217.26,
+        "Produktanvändning (inkl. lösningsmedel)": 64699.49,
+        "Transporter": 832405.55,
+        "Utrikes transporter": 0.0
+      },
+      "2019": {
+        "Arbetsmaskiner": 120101.34,
+        "Avfall (inkl.avlopp)": 31789.05,
+        "Egen uppvärmning av bostäder och lokaler": 28074.72,
+        "El och fjärrvärme": 540062.19,
+        "Industri (energi + processer)": 129414.92,
+        "Jordbruk": 443408.58,
+        "Produktanvändning (inkl. lösningsmedel)": 60430.28,
+        "Transporter": 827620.29,
+        "Utrikes transporter": 0.0
+      },
+      "2020": {
+        "Arbetsmaskiner": 117501.89,
+        "Avfall (inkl.avlopp)": 31654.25,
+        "Egen uppvärmning av bostäder och lokaler": 26063.72,
+        "El och fjärrvärme": 506542.0,
+        "Industri (energi + processer)": 113992.3,
+        "Jordbruk": 483853.77,
+        "Produktanvändning (inkl. lösningsmedel)": 56073.6,
+        "Transporter": 759635.16,
+        "Utrikes transporter": 0.0
+      },
+      "2021": {
+        "Arbetsmaskiner": 120848.68,
+        "Avfall (inkl.avlopp)": 29827.8,
+        "Egen uppvärmning av bostäder och lokaler": 28174.09,
+        "El och fjärrvärme": 586995.18,
+        "Industri (energi + processer)": 122599.78,
+        "Jordbruk": 469702.15,
+        "Produktanvändning (inkl. lösningsmedel)": 46252.13,
+        "Transporter": 761460.48,
+        "Utrikes transporter": 0.0
+      },
+      "2022": {
+        "Arbetsmaskiner": 104727.42,
+        "Avfall (inkl.avlopp)": 29272.97,
+        "Egen uppvärmning av bostäder och lokaler": 26834.42,
+        "El och fjärrvärme": 577862.94,
+        "Industri (energi + processer)": 116265.44,
+        "Jordbruk": 477076.51,
+        "Produktanvändning (inkl. lösningsmedel)": 44527.65,
+        "Transporter": 685716.57,
+        "Utrikes transporter": 0.0
+      },
+      "2023": {
+        "Arbetsmaskiner": 114305.81,
+        "Avfall (inkl.avlopp)": 28193.66,
+        "Egen uppvärmning av bostäder och lokaler": 26477.07,
+        "El och fjärrvärme": 544909.06,
+        "Industri (energi + processer)": 112567.3,
+        "Jordbruk": 464566.3,
+        "Produktanvändning (inkl. lösningsmedel)": 41656.16,
+        "Transporter": 681813.56,
+        "Utrikes transporter": 0.0
+      }
+    }
+  }
+]

@@ -1,5 +1,9 @@
 import { z } from 'zod'
-import { emissionUnitSchemaWithDefault, wikidataIdSchema } from './common'
+import {
+  emissionUnitSchemaWithDefault,
+  emissionUnitSchemaGarbo,
+  wikidataIdSchema,
+} from './common'
 
 const createMetadataSchema = z.object({
   metadata: z
@@ -8,16 +12,53 @@ const createMetadataSchema = z.object({
       comment: z.string().optional(),
     })
     .optional(),
+  verified: z.boolean().optional(),
 })
 
-export const postCompanyBodySchema = z.object({
-  wikidataId: wikidataIdSchema,
-  name: z.string(),
-  description: z.string().optional(),
-  url: z.string().url().optional(),
-  internalComment: z.string().optional(),
-  tags: z.array(z.string()).optional(),
+export const descriptionSchema = z.object({
+  id: z.string().optional(),
+  language: z.enum(['SV', 'EN']),
+  text: z.string(),
 })
+
+const tagOptionSlugSchema = z
+  .string()
+  .min(1)
+  .regex(
+    /^[a-z0-9-]+$/,
+    'Slug must be lowercase letters, numbers and hyphens only'
+  )
+
+export const createTagOptionBodySchema = z.object({
+  slug: tagOptionSlugSchema,
+  label: z.string().optional(),
+})
+
+export const updateTagOptionBodySchema = z.object({
+  slug: tagOptionSlugSchema.optional(),
+  label: z.string().optional().nullable(),
+})
+
+export const tagOptionIdParamSchema = z.object({
+  id: z.string().cuid(),
+})
+
+export const patchCompanyTagsBodySchema = z.object({
+  tags: z.array(z.string()),
+})
+
+export const postCompanyBodySchema = z
+  .object({
+    wikidataId: wikidataIdSchema,
+    name: z.string(),
+    descriptions: z.array(descriptionSchema).optional(),
+    url: z.string().url().optional(),
+    logoUrl: z.string().url().optional().nullable(),
+    internalComment: z.string().optional(),
+    tags: z.array(z.string()).optional(),
+    lei: z.string().optional(),
+  })
+  .merge(createMetadataSchema)
 
 export const reportingPeriodBodySchema = z
   .object({
@@ -74,59 +115,106 @@ export const postIndustrySchema = z
   .merge(createMetadataSchema)
 
 export const statedTotalEmissionsSchema = z
-  .object({ total: z.number(), unit: emissionUnitSchemaWithDefault })
-  .optional()
+  .object({
+    total: z.number().nullable().optional(),
+    unit: emissionUnitSchemaWithDefault,
+    verified: z.boolean().optional(),
+  })
+  .nullish()
 
 export const emissionsSchema = z
   .object({
     scope1: z
       .object({
-        total: z.number(),
+        total: z.number().nullable().optional(),
         unit: emissionUnitSchemaWithDefault,
+        verified: z.boolean().optional(),
       })
+      .nullable()
       .optional(),
     scope2: z
       .object({
         mb: z
           .number({ description: 'Market-based scope 2 emissions' })
+          .nullable()
           .optional(),
         lb: z
           .number({ description: 'Location-based scope 2 emissions' })
+          .nullable()
           .optional(),
         unknown: z
           .number({ description: 'Unspecified Scope 2 emissions' })
+          .nullable()
           .optional(),
-        unit: emissionUnitSchemaWithDefault,
+        unit: emissionUnitSchemaGarbo.optional(),
+        verified: z.boolean().optional(),
       })
       .refine(
-        ({ mb, lb, unknown }) =>
-          mb !== undefined || lb !== undefined || unknown !== undefined,
+        ({ mb, lb, unknown, verified }) =>
+          mb !== undefined ||
+          lb !== undefined ||
+          unknown !== undefined ||
+          verified !== undefined,
         {
           message:
             'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',
         }
       )
-      .optional(),
+      .refine(
+        ({ mb, lb, unknown, unit }) => {
+          // If all values are null or undefined, unit can be null
+          const allValuesNull =
+            (mb === null || mb === undefined) &&
+            (lb === null || lb === undefined) &&
+            (unknown === null || unknown === undefined)
+
+          if (allValuesNull) {
+            return true // unit can be null when all values are null
+          }
+
+          // If any value is not null, unit must be provided (not null)
+          return unit !== null && unit !== undefined
+        },
+        {
+          message:
+            'Unit must be provided when any emission value (mb, lb, or unknown) is not null',
+          path: ['unit'],
+        }
+      )
+      .optional()
+      .nullable(),
     scope3: z
       .object({
         categories: z
           .array(
             z.object({
               category: z.number().int().min(1).max(16),
-              total: z.number(),
-              unit: emissionUnitSchemaWithDefault,
+              total: z.number().nullable().optional(),
+              unit: emissionUnitSchemaGarbo,
+              verified: z.boolean().optional(),
             })
           )
           .optional(),
         statedTotalEmissions: statedTotalEmissionsSchema,
       })
+      .nullable()
       .optional(),
     biogenic: z
-      .object({ total: z.number(), unit: emissionUnitSchemaWithDefault })
+      .object({
+        total: z.number().nullable().optional(),
+        unit: emissionUnitSchemaWithDefault,
+        verified: z.boolean().optional(),
+      })
+      .nullable()
       .optional(),
     statedTotalEmissions: statedTotalEmissionsSchema,
     scope1And2: z
-      .object({ total: z.number(), unit: emissionUnitSchemaWithDefault })
+      .object({
+        total: z.number().nullable().optional(),
+        unit: emissionUnitSchemaWithDefault,
+        verified: z.boolean().optional(),
+      })
+      .nullable()
       .optional(),
   })
   .optional()
@@ -137,12 +225,14 @@ export const economySchema = z
       .object({
         value: z.number().optional(),
         currency: z.string().optional(),
+        verified: z.boolean().optional(),
       })
       .optional(),
     employees: z
       .object({
         value: z.number().optional(),
         unit: z.string().optional(),
+        verified: z.boolean().optional(),
       })
       .optional(),
   })
@@ -181,6 +271,7 @@ export const reportingPeriodSchema = z
 export const postReportingPeriodsSchema = z
   .object({
     reportingPeriods: z.array(reportingPeriodSchema),
+    replaceAllEmissions: z.boolean().optional(),
   })
   .merge(createMetadataSchema)
 
@@ -189,3 +280,95 @@ export const MunicipalityNameSchema = z.string()
 export const MunicipalityNameParamSchema = z.object({
   name: MunicipalityNameSchema,
 })
+
+export const RegionalNameSchema = z.string()
+
+export const RegionalNameParamSchema = z.object({
+  name: RegionalNameSchema,
+})
+
+export const userAuthenticationBodySchema = z.object({
+  code: z.string(),
+  state: z.string().optional(),
+})
+
+export const postWikidataBodySchema = z.object({
+  wikidataId: wikidataIdSchema,
+})
+
+export const serviceAuthenticationBodySchema = z.object({
+  client_id: z.string(),
+  client_secret: z.string(),
+})
+
+export const exportQuerySchema = z.object({
+  type: z.enum(['csv', 'json', 'xlsx']).optional(),
+  year: z.string().optional(),
+})
+
+export const claimValidationSchema = z.object({
+  steal: z.boolean(),
+})
+
+export const companyReport = z.object({
+  name: z.string(),
+  reportYear: z.string().optional(),
+  country: z.string().optional(),
+})
+
+export const companyReports = z.array(companyReport)
+
+export const postReportsBodySchema = companyReports
+
+export const postReportsBody = companyReports
+export const saveReportsBodySchema = z.array(
+  z.object({
+    companyName: z.string().min(1, 'companyName is required'),
+    wikidataId: z.string().nullable().optional(),
+    reportYear: z
+      .string()
+      .regex(/^\d{4}$/, 'reportYear must be a 4-digit year')
+      .refine((year) => {
+        const n = Number(year)
+        return n >= 1900 && n <= 2100
+      }, 'reportYear must be between 1900 and 2100'),
+    url: z.string().url('Invalid URL').min(1, 'url is required'),
+  })
+)
+
+export const previewQuerySchema = z.object({
+  pdfUrl: z.string().url(),
+})
+
+export const registryUpdateRequestBodySchema = z
+  .object({
+    id: z.string().min(1, 'id is required'),
+    companyName: z.string().min(1).optional(),
+    wikidataId: z.string().min(1).optional(),
+    reportYear: z
+      .string()
+      .regex(/^\d{4}$/, 'reportYear must be a 4-digit year')
+      .refine((year) => {
+        const n = Number(year)
+        return n >= 1900 && n <= 2100
+      }, 'reportYear must be between 1900 and 2100')
+      .optional(),
+    url: z.string().url('Invalid URL').optional(),
+  })
+  .refine(
+    ({ companyName, wikidataId, reportYear, url }) =>
+      companyName !== undefined ||
+      wikidataId !== undefined ||
+      reportYear !== undefined ||
+      url !== undefined,
+    {
+      message:
+        'At least one field to update must be provided: companyName, wikidataId, reportYear, or url',
+    }
+  )
+
+export const registryDeleteRequestBodySchema = z.array(
+  z.object({
+    id: z.string().min(1, 'id is required'),
+  })
+)

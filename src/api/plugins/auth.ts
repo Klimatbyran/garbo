@@ -1,9 +1,7 @@
 import { FastifyInstance, RouteGenericInterface } from 'fastify'
 import fp from 'fastify-plugin'
 import { User } from '@prisma/client'
-
-import apiConfig from '../../config/api'
-import { prisma } from '../../lib/prisma'
+import { authService } from '../services/authService'
 
 declare module 'fastify' {
   export interface FastifyRequest {
@@ -23,29 +21,27 @@ const unauthorizedError = {
 async function authPlugin(app: FastifyInstance) {
   app.decorateRequest('user')
   app.addHook('onRequest', async (request, reply) => {
+    // Let CORS handle preflight; browsers don't send Authorization on OPTIONS.
+    if (request.method === 'OPTIONS') {
+      return
+    }
     try {
       const token = request.headers['authorization']?.replace('Bearer ', '')
 
-      if (!token || !apiConfig.tokens?.includes(token)) {
+      if (!token) {
+        request.log.error('No token provided')
         return reply.status(401).send(unauthorizedError)
       }
 
-      const [username] = token.split(':')
-      const userEmail =
-        username === 'garbo'
-          ? apiConfig.authorizedUsers.garbo
-          : apiConfig.authorizedUsers.alex
+      const { user, newToken } = authService.verifyToken(token)
 
-      const user = await prisma.user.findFirst({
-        where: { email: userEmail },
-      })
-
-      if (!user?.id) {
-        return reply.status(401).send(unauthorizedError)
+      if (newToken !== undefined) {
+        reply.headers['x-auth-token'] = newToken
       }
-
       request.user = user
-    } catch (error) {
+    } catch (err) {
+      console.log(err)
+      request.log.error('Authentication failed:', err)
       return reply.status(401).send(unauthorizedError)
     }
   })

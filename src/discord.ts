@@ -11,32 +11,60 @@ import {
   Message,
   ThreadChannel,
   ChatInputCommandInteraction,
+  RESTPostAPIChatInputApplicationCommandsJSONBody,
+  BaseMessageOptions,
+  MessagePayload,
+  MessageCreateOptions,
 } from 'discord.js'
 import commands from './discord/commands'
 import config from './config/discord'
 import approve, { ApproveJob } from './discord/interactions/approve'
 import edit, { EditWikidataJob } from './discord/interactions/editWikidata'
-import saveToAPI from './workers/saveToAPI'
-import guessWikidata from './workers/guessWikidata'
+import editCompanyName, {
+  EditCompanyNameJob,
+} from './discord/interactions/inputCompanyName'
+import { queues } from './queues'
 import { DiscordJob } from './lib/DiscordWorker'
+import diffBaseYear from './workers/diffBaseYear'
 
 const queuesWithInteractions = {
-  saveToAPI: saveToAPI.queue,
-  guessWikidata: guessWikidata.queue,
+  saveToAPI: queues.saveToAPI,
+  guessWikidata: queues.guessWikidata,
+  precheck: queues.precheck,
+  diffReportingPeriods: queues.diffReportingPeriods,
+  diffGoals: queues.diffGoals,
+  diffLEI: queues.diffLEI,
+  diffTags: queues.diffTags,
+  diffInitiatives: queues.diffInitiatives,
+  diffIndustry: queues.diffIndustry,
+  diffDescriptions: queues.diffDescriptions,
+  diffBaseYear: queues.diffBaseYear,
 } as const
 
 // NOTE: Maybe find a way to define the valid keys in one place - ideally the lookup keys
-const queueNameSchema = z.enum(['saveToAPI', 'guessWikidata'])
+const queueNameSchema = z.enum([
+  'saveToAPI',
+  'guessWikidata',
+  'precheck',
+  'diffReportingPeriods',
+  'diffGoals',
+  'diffLEI',
+  'diffTags',
+  'diffInitiatives',
+  'diffIndustry',
+  'diffDescriptions',
+  'diffBaseYear',
+])
 
 const getJob = (
   queueName: keyof typeof queuesWithInteractions,
   jobId: string
-) => queuesWithInteractions[queueName].getJob(jobId)
+) => queuesWithInteractions[queueName].queue.getJob(jobId)
 
 export class Discord {
   client: Client<boolean>
   rest: REST
-  commands: Array<any>
+  commands: Array<RESTPostAPIChatInputApplicationCommandsJSONBody>
   token: string
   channelId: string
 
@@ -103,12 +131,20 @@ export class Discord {
                 else await edit.execute(interaction, job)
                 break
               }
+              case 'editCompanyName': {
+                const job = (await getJob(
+                  queueName,
+                  jobId
+                )) as EditCompanyNameJob
+                if (!job) await interaction.reply('Job not found')
+                else await editCompanyName.execute(interaction, job)
+                break
+              }
             }
           } catch (error) {
             console.error('Discord error:', error)
           }
-        } else if (interaction.isModalSubmit()) {
-        }
+        } //else if (interaction.isModalSubmit()) {}
       })
     } else {
       this.client.on('ready', () => {
@@ -123,7 +159,7 @@ export class Discord {
   }
 
   public createApproveButtonRow = (job: DiscordJob) => {
-    return new ActionRowBuilder().addComponents(
+    return new ActionRowBuilder<ButtonBuilder>().addComponents(
       new ButtonBuilder()
         .setCustomId(`approve~${job.queueName}~${job.id}`)
         .setLabel('Approve')
@@ -132,7 +168,7 @@ export class Discord {
   }
 
   public createEditWikidataButtonRow = (job: DiscordJob) => {
-    return new ActionRowBuilder().addComponents(
+    return new ActionRowBuilder<ButtonBuilder>().addComponents(
       new ButtonBuilder()
         .setCustomId(`approve~${job.queueName}~${job.id}`)
         .setLabel('Approve')
@@ -144,10 +180,16 @@ export class Discord {
     )
   }
 
-  async sendMessage(
-    { threadId }: { threadId: string },
-    msg: string | { files?: any[]; content: string; components?: any[] }
-  ) {
+  public createEditCompanyNameButtonRow = (job: DiscordJob) => {
+    return new ActionRowBuilder<ButtonBuilder>().addComponents(
+      new ButtonBuilder()
+        .setCustomId(`editCompanyName~${job.queueName}~${job.id}`)
+        .setLabel('Enter Company Name')
+        .setStyle(ButtonStyle.Primary)
+    )
+  }
+
+  async sendMessage(threadId: string, msg: string | BaseMessageOptions) {
     try {
       if (!threadId) throw new Error('Thread ID is required')
 
@@ -162,7 +204,7 @@ export class Discord {
     }
   }
 
-  async sendTyping({ threadId }: { threadId: string }) {
+  async sendTyping(threadId: string) {
     const thread = (await this.client.channels.fetch(threadId)) as ThreadChannel
     return thread.sendTyping()
   }
@@ -211,7 +253,7 @@ export class Discord {
 
   async sendMessageToChannel(
     channelId: string,
-    message: any
+    message: string | MessagePayload | MessageCreateOptions
   ): Promise<Message> {
     const channel = (await this.client.channels.fetch(channelId)) as TextChannel
     return await channel?.send(message)

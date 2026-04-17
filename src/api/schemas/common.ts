@@ -7,6 +7,8 @@ export const wikidataIdSchema = z.string().regex(/Q\d+/)
 
 export const wikidataIdParamSchema = z.object({ wikidataId: wikidataIdSchema })
 
+export const companySearchQuerySchema = z.object({ q: z.string() })
+
 export const garboEntityIdSchema = z.object({ id: z.string() })
 
 /**
@@ -22,15 +24,16 @@ export const errorSchema = z.object({
   details: z.any().optional(),
 })
 
-const errorCodes = [400, 404] as const
-
-type ErrorCode = (typeof errorCodes)[number]
+type ErrorCode = 400 | 401 | 404 | 409 | 500
 
 export function getErrorSchemas(...codes: ErrorCode[]) {
-  return codes.reduce((acc, code) => {
-    acc[code] = errorSchema
-    return acc
-  }, {} as Record<ErrorCode, typeof errorSchema>)
+  return codes.reduce(
+    (acc, code) => {
+      acc[code] = errorSchema
+      return acc
+    },
+    {} as Record<ErrorCode, typeof errorSchema>
+  )
 }
 
 const validEmissionsUnits = z.enum(['tCO2e', 'tCO2'])

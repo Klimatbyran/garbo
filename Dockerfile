@@ -21,8 +21,8 @@ RUN apk add --no-cache \
     graphicsmagick
 
 COPY package*.json /app/
-COPY prisma /app/
 WORKDIR /app
+COPY prisma /app/
 RUN npm ci --omit=dev
 RUN npx prisma generate
 

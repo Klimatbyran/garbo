@@ -19,8 +19,10 @@ model Company {
   wikidataId  String  @id
   name        String
   description String?
+  descriptions Description[]
   /// Company website URL
   url         String?
+  lei         String?
 
   /// TODO: Save Swedish org number, which might be the same as LEI or ISIN
   // swedishOrgNumber
@@ -36,8 +38,19 @@ model Company {
   /// A comment only visible for reviewers to help them work with the company data and remember important info about this company.
   internalComment String?
 
-  /// Tags to help categorize and filter companies
+  /// Tags to help categorize and filter companies. Each string must match TagOption.slug.
   tags String[]
+
+  logoUrl String?
+}
+
+/// Valid tag options for company tags. Company.tags[] may only contain values that exist as slug here.
+model TagOption {
+  id    String  @id @default(cuid())
+  slug  String  @unique
+  label String?
+
+  @@map("tag_options")
 }
 
 /// Explicitly stated base year for comparable data
@@ -235,7 +248,7 @@ model Scope3Category {
   // based on the composition for each scope 3 category. This would simplify the review process if we could automatically find errors.
   total    Float?
   scope3Id String
-  unit     String
+  unit     String?
 
   scope3   Scope3     @relation(fields: [scope3Id], references: [id], onDelete: Cascade)
   metadata Metadata[]
@@ -329,6 +342,7 @@ model Metadata {
   categoryId             String?
   turnoverId             String?
   employeesId            String?
+  descriptionId          String?
 
   goal                 Goal?                 @relation(fields: [goalId], references: [id])
   initiative           Initiative?           @relation(fields: [initiativeId], references: [id])
@@ -346,15 +360,45 @@ model Metadata {
   category             Scope3Category?       @relation(fields: [categoryId], references: [id])
   turnover             Turnover?             @relation(fields: [turnoverId], references: [id])
   employees            Employees?            @relation(fields: [employeesId], references: [id])
+  description          Description?          @relation(fields: [descriptionId], references: [id], onDelete: Cascade)
 }
 
 model User {
   id    String @id @default(cuid())
-  email String @unique
-  name  String
+  email String?
+  name  String @unique
+  displayName String?
+  githubId   String? @unique
+  githubImageUrl String?
+  bot   Boolean @default(false)
 
   // TODO: connect with github ID
   // TODO: store github profile image - or get it via API
   updated  Metadata[] @relation("metadata_user_id")
   verified Metadata[] @relation("metadata_verified_by")
+}
+
+// Follows the ISO 639 language codes
+enum Language {
+  SV
+  EN
+}
+
+model Description {
+  id          String @id() @default(cuid())
+  text        String
+  companyId   String
+  language  Language
+  @@unique([companyId, language])
+
+  company      Company      @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+  metadata  Metadata[]
+}
+
+model Report {
+  id          String  @id @default(cuid())
+  url         String  @unique
+  companyName String?
+  wikidataId  String?
+  reportYear  String?
 }

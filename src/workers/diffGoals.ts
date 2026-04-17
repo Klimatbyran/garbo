@@ -1,48 +1,59 @@
-import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
-import { defaultMetadata, diffChanges } from '../lib/saveUtils'
-import saveToAPI from './saveToAPI'
+import apiConfig from '../config/api'
+import { ChangeDescription, DiffJob, DiffWorker } from '../lib/DiffWorker'
+import { diffChanges } from '../lib/saveUtils'
+import { QUEUE_NAMES } from '../queues'
+import { Goal } from '../types'
 
-export class DiffGoalsJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+export class DiffGoalsJob extends DiffJob {
+  declare data: DiffJob['data'] & {
     companyName: string
     existingCompany: any
     wikidata: { node: string }
-    goals: any
+    goals: Goal[]
   }
 }
 
-const diffGoals = new DiscordWorker<DiffGoalsJob>('diffGoals', async (job) => {
-  const { url, companyName, existingCompany, goals } = job.data
-  const metadata = defaultMetadata(url)
+const diffGoals = new DiffWorker<DiffGoalsJob>(
+  QUEUE_NAMES.DIFF_GOALS,
+  async (job) => {
+    const { wikidata, companyName, existingCompany, goals } = job.data
+    if (job.isDataApproved()) {
+      await job.enqueueSaveToAPI(
+        'goals',
+        companyName,
+        wikidata,
+        job.getApprovedBody()
+      )
+      return
+    }
 
-  const body = {
-    goals,
-    metadata,
+    if (!job.hasApproval()) {
+      const { diff, requiresApproval } = await diffChanges({
+        existingCompany,
+        before: existingCompany?.goals,
+        after: goals,
+      })
+
+      const previousGoals = existingCompany?.goals ?? []
+
+      const change: ChangeDescription = {
+        type: 'goals',
+        oldValue: { goals: previousGoals },
+        newValue: { goals },
+      }
+
+      await job.handleDiff(
+        'goals',
+        diff,
+        change,
+        typeof requiresApproval == 'boolean' ? requiresApproval : false
+      )
+    }
+
+    if (job.hasApproval() && !job.isDataApproved()) {
+      await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+    }
   }
-
-  const { diff, requiresApproval } = await diffChanges({
-    existingCompany,
-    before: existingCompany?.goals,
-    after: goals,
-  })
-
-  job.log('Diff:' + diff)
-
-  // Only save if we detected any meaningful changes
-  if (diff) {
-    await saveToAPI.queue.add(companyName + ' goals', {
-      ...job.data,
-      body,
-      diff,
-      requiresApproval,
-      apiSubEndpoint: 'goals',
-
-      // Remove duplicated job data that should be part of the body from now on
-      goals: undefined,
-    })
-  }
-
-  return { body, diff, requiresApproval }
-})
+)
 
 export default diffGoals

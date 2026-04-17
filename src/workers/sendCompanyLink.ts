@@ -1,6 +1,7 @@
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { getCompanyURL } from '../lib/saveUtils'
 import { Wikidata } from '../prompts/wikidata'
+import { QUEUE_NAMES } from '../queues'
 
 export class SendCompanyLinkJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -11,7 +12,7 @@ export class SendCompanyLinkJob extends DiscordJob {
 }
 
 const sendCompanyLink = new DiscordWorker<SendCompanyLinkJob>(
-  'sendCompanyLink',
+  QUEUE_NAMES.SEND_COMPANY_LINK,
   async (job) => {
     const { companyName, wikidata, existingCompany } = job.data
     const wikidataId = wikidata.node
@@ -19,10 +20,10 @@ const sendCompanyLink = new DiscordWorker<SendCompanyLinkJob>(
 
     if (existingCompany) {
       await job.sendMessage(
-        `✅ Företaget har uppdaterats! Se resultatet här: ${url}`
+        `✅ The company has been updated! See the result here: ${url}`
       )
     } else {
-      await job.sendMessage(`✅ Se resultatet här: ${url}`)
+      await job.sendMessage(`✅ See the result here: ${url}`)
     }
 
     return { url }

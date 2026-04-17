@@ -1,18 +1,18 @@
 import { EntityId, SearchResult } from 'wikibase-sdk'
-
-import { getWikidataEntities, searchCompany } from '../lib/wikidata'
 import { ask } from '../lib/openai'
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import wikidata, { Wikidata } from '../prompts/wikidata'
 import discord from '../discord'
 import apiConfig from '../config/api'
+import { ChatCompletionMessageParam } from 'openai/resources'
+import { QUEUE_NAMES } from '../queues'
+import { getWikidataEntities, searchCompany } from '@/lib/wikidata/read'
 
 export class GuessWikidataJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string
     overrideWikidataId: EntityId
-    approved: boolean
     wikidata?: Wikidata
   }
 }
@@ -30,29 +30,168 @@ const insignificantWords = new Set([
   'aktiebolaget',
 ])
 
-const guessWikidata = new DiscordWorker<GuessWikidataJob>(
-  'guessWikidata',
-  async (job: GuessWikidataJob) => {
-    const {
-      companyName,
-      approved = false,
-      overrideWikidataId,
-      wikidata: approvedWikidata,
-    } = job.data
-    if (!companyName) throw new Error('No company name was provided')
+async function handleOverrideWikidataId(
+  job: GuessWikidataJob,
+  companyName: string,
+  overrideWikidataId: EntityId
+): Promise<string | null> {
+  const wikidataEntities = await getWikidataEntities([
+    overrideWikidataId as `Q${number}`,
+  ])
 
-    if (approved) {
+  if (!wikidataEntities.length) {
+    throw new Error(
+      `No Wikidata entity found for overrideWikidataId ${overrideWikidataId}`
+    )
+  }
+
+  const [{ id, labels, descriptions }] = wikidataEntities
+
+  const label =
+    labels?.sv?.value ??
+    labels?.en?.value ??
+    Object.values(labels ?? {})[0]?.value ??
+    companyName
+
+  const description =
+    descriptions?.sv?.value ??
+    descriptions?.en?.value ??
+    Object.values(descriptions ?? {})[0]?.value ??
+    ''
+
+  const wikidataForApproval = {
+    node: id,
+    url: `https://wikidata.org/wiki/${id}`,
+    label,
+    description,
+  } satisfies Wikidata
+
+  job.log('Using overrideWikidataId, requesting approval for verification')
+
+  const metadata = {
+    source: 'override-wikidata-id',
+    comment: 'Wikidata ID explicitly provided as override - please verify',
+  }
+
+  // Request approval (not auto-approved) so user can verify the override
+  await job.requestApproval(
+    'wikidata',
+    {
+      type: 'wikidata',
+      newValue: { wikidata: wikidataForApproval },
+    },
+    false, // requires manual approval
+    metadata,
+    `Wikidata override for ${companyName} - please verify`
+  )
+
+  const buttonRow = discord.createEditWikidataButtonRow(job)
+
+  await job.sendMessage({
+    content: `Override Wikidata ID provided. Please verify this is correct:
+\`\`\`md
+${JSON.stringify(wikidataForApproval, null, 2)}
+\`\`\``,
+    components: [buttonRow],
+  })
+
+  await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+  return null
+}
+
+const guessWikidata = new DiscordWorker<GuessWikidataJob>(
+  QUEUE_NAMES.GUESS_WIKIDATA,
+  async (job: GuessWikidataJob) => {
+    const { companyName, overrideWikidataId } = job.data
+    if (!companyName) throw new Error('No company name was provided')
+    job.log('Company name: ' + companyName)
+    job.log('Approval: ' + JSON.stringify(job.data.approval, null, 2))
+
+    // If approved, process the wikidata (takes precedence - don't override approved data)
+    if (job.isDataApproved()) {
+      const approvedWikidata = job.getApprovedBody().wikidata
       if (!approvedWikidata) {
         throw new Error('Missing approved wikidata: ' + approvedWikidata)
       }
+
+      const metadata = job.data.approval?.metadata
 
       job.editMessage({
         content: `Thanks for approving the wikidata for: ${companyName}`,
         components: [],
       })
 
-      return JSON.stringify({ wikidata: approvedWikidata }, null, 2)
+      return JSON.stringify(
+        {
+          status: 'approved',
+          wikidata: approvedWikidata,
+          message: `Wikidata approved for ${companyName}`,
+          metadata,
+        },
+        null,
+        2
+      )
     }
+
+    // If overrideWikidataId is provided (and not approved), fetch it and request approval
+    // This allows the user to verify the override is correct
+    if (overrideWikidataId) {
+      const result = await handleOverrideWikidataId(
+        job,
+        companyName,
+        overrideWikidataId
+      )
+      if (result) return result
+    }
+
+    // If approval exists but not approved, wait for approval
+    if (job.hasApproval() && !job.isDataApproved()) {
+      await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+      return
+    }
+
+    /* NOTE: Can be activated once the corresponding endpoint is ready in prod
+
+    const queryProductionRes = await fetch(apiConfig.prod_base_url + '/companies/search?q=' + companyName , {method: 'GET', headers: {'Content-Type': 'application/json'}});    
+    const queryProductionData = await queryProductionRes.json();
+    if(queryProductionData.length === 1) {
+      const [{ id, labels, descriptions }] = await getWikidataEntities([
+        queryProductionData[0].wikidataId,
+      ])
+      // NOTE: Maybe do a proper safe parse and check more languages than `sv` and `en`
+
+      const wikidata = {
+        node: id,
+        url: `https://wikidata.org/wiki/${id}`,
+        label: labels.sv?.value ?? labels.en.value,
+        description: descriptions.sv?.value ?? descriptions.en.value,
+      } satisfies Wikidata
+
+      job.log("auto approve");
+
+      // Auto-approve since company found in production by search
+      await job.requestApproval(
+        'wikidata',
+        {
+          type: 'wikidata',
+          newValue: { wikidata }
+        },
+        true, // auto-approved
+        {
+          source: 'production-search',
+          comment: 'Company found in production via search'
+        },
+        `Auto-approved wikidata for ${companyName} from production search`
+      )
+
+      job.sendMessage({
+        content: `Company with the same name found in production auto-approving the wikidata for: ${companyName}`,
+        components: [],
+      })
+
+      return JSON.stringify({ wikidata }, null, 2)
+    }
+    */
 
     async function getWikidataSearchResults({
       companyName,
@@ -96,7 +235,7 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
     if (!overrideWikidataId) {
       const searchResults = await getWikidataSearchResults({ companyName })
       const results = await getWikidataEntities(
-        searchResults.map((result) => result.id) as EntityId[]
+        searchResults.map((result) => result.id) as `Q${number}`[]
       )
 
       job.log('Results: ' + JSON.stringify(results, null, 2))
@@ -139,10 +278,10 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
           Array.isArray(job.stacktrace)
             ? { role: 'user', content: job.stacktrace.join('\n') }
             : undefined,
-        ].filter((m) => m && m.content?.length > 0) as any[],
-        {
-          response_format: zodResponseFormat(wikidata.schema, 'wikidata'),
-        }
+        ].filter(
+          (m) => m && m.content?.length > 0
+        ) as ChatCompletionMessageParam[],
+        { response_format: zodResponseFormat(wikidata.schema, 'wikidata') }
       )
 
       job.log('Response: ' + response)
@@ -156,19 +295,6 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
       }
 
       wikidataForApproval = data.wikidata
-    } else {
-      const [{ id, labels, descriptions }] = await getWikidataEntities([
-        overrideWikidataId,
-      ])
-
-      // NOTE: Maybe do a proper safe parse and check more languages than `sv` and `en`
-
-      wikidataForApproval = {
-        node: id,
-        url: `https://wikidata.org/wiki/${id}`,
-        label: labels.sv.value ?? labels.sv.value,
-        description: descriptions.sv.value ?? descriptions.sv.value,
-      } satisfies Wikidata
     }
 
     if (!wikidataForApproval?.node) {
@@ -177,7 +303,74 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
       )
     }
 
-    await job.updateData({ ...job.data, wikidata: wikidataForApproval })
+    try {
+      const checkIfWikidataExistInProductionRes = await fetch(
+        apiConfig.prodBaseURL + '/companies/' + wikidataForApproval.node,
+        { method: 'GET', headers: { 'Content-Type': 'application/json' } }
+      )
+      if (checkIfWikidataExistInProductionRes.ok) {
+        const checkIfWikidataExistInProduction =
+          await checkIfWikidataExistInProductionRes.json()
+        if (checkIfWikidataExistInProduction.wikidataId) {
+          // Auto-approve since company exists in production
+          const metadata = {
+            source: 'production-database',
+            comment: 'Company found in production database',
+          }
+
+          await job.requestApproval(
+            'wikidata',
+            {
+              type: 'wikidata',
+              newValue: { wikidata: wikidataForApproval },
+            },
+            true, // auto-approved
+            metadata,
+            `Auto-approved wikidata for ${companyName}`
+          )
+
+          job.sendMessage({
+            content: `🚀 Company found in production database, we will approve automatically: ${companyName}`,
+            components: [],
+          })
+          return JSON.stringify(
+            {
+              status: 'approved',
+              wikidata: wikidataForApproval,
+              message: `Auto-approved wikidata for ${companyName} (found in production database)`,
+              metadata,
+            },
+            null,
+            2
+          )
+        }
+      }
+    } catch (_error) {
+      job.sendMessage({
+        content: `😫 Could not find the company in the production database, we will have to as the human.`,
+        components: [],
+      })
+    }
+
+    job.log('Creating approval request for wikidata')
+
+    const metadata = {
+      source: 'wikidata-search',
+      comment: 'Wikidata found via search and LLM selection',
+    }
+
+    // Create approval request using standard pattern
+    await job.requestApproval(
+      'wikidata',
+      {
+        type: 'wikidata',
+        newValue: { wikidata: wikidataForApproval },
+      },
+      false, // requires manual approval
+      metadata,
+      `Wikidata selection for ${companyName}`
+    )
+
     const buttonRow = discord.createEditWikidataButtonRow(job)
 
     await job.sendMessage({

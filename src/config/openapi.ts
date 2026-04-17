@@ -1,15 +1,30 @@
 import 'dotenv/config'
+import { descriptions } from 'wikibase-sdk/dist/src/helpers/simplify'
 import { z } from 'zod'
 
 const envSchema = z.object({
-  OPENAPI_PREFIX: z.string().default('api'),
+  OPENAPI_PREFIX: z.string(),
 })
 
-const env = envSchema.parse(process.env)
+const parsedEnv = envSchema.safeParse(process.env)
+
+if (!parsedEnv.success) {
+  console.error('❌ Invalid initialization of OpenAPI environment variables:')
+  console.error(parsedEnv.error.format())
+
+  if (parsedEnv.error.errors.some((err) => err.path[0] === 'OPENAPI_PREFIX')) {
+    console.error('OPENAPI_PREFIX must be a prefix in the form of a string.')
+  }
+
+  throw new Error('Invalid initialization of OpenAPI environment variables')
+}
 
 const openAPITagDefinitions = {
   Companies: {
     description: 'Companies and related resources',
+  },
+  CompanyDescription: {
+    description: 'Description of a company',
   },
   Industry: {
     description: 'Company industry',
@@ -33,6 +48,37 @@ const openAPITagDefinitions = {
   Municipalities: {
     description: 'Climate data related to Swedish municipalities',
   },
+  Regions: {
+    description: 'Climate data related to Swedish regions',
+  },
+  Nation: {
+    description: 'Climate data related to Sweden as a nation',
+  },
+  Auth: {
+    descriptions: 'Authentification',
+  },
+  ReportValidations: {
+    description: 'Report validations',
+  },
+  TagOptions: {
+    description: 'Valid tag options for company tags',
+  },
+  Screenshots: {
+    description: 'Screenshots of PDF tables from reports',
+  },
+  Newsletters: {
+    description: 'Newsletters',
+  },
+  Reports: {
+    description: 'Company reports',
+  },
+  Registry: {
+    description:
+      'Registry of collected reports that have been saved in the database',
+  },
+  Internal: {
+    description: 'Internal endpoints for data assessment and management',
+  },
 } as const
 
 type TagName = keyof typeof openAPITagDefinitions
@@ -54,14 +100,14 @@ export function getTags(...tags: (keyof typeof openAPITags)[]) {
   return tags
 }
 
+const env = parsedEnv.data
+
 export default {
   prefix: env.OPENAPI_PREFIX,
   tags: openAPITags,
 
   title: 'Klimatkollen API Reference',
   description: `
-![Klimatkollen Logo](https://beta.klimatkollen.se/klimatkollen_logo.svg)
-
 The Klimatkollen API provides access to company emissions and economic data. This API allows you to retrieve, create and update information about companies' environmental impact and sustainability initiatives.
 
 ## Getting Started
@@ -86,7 +132,6 @@ All endpoints require authentication using a Bearer token. Include your API key 
 ## Resources
 
 * [Klimatkollen Website](https://klimatkollen.se)
-* [API Terms of Service](https://klimatkollen.se/terms)
 * [Contact Support](mailto:support@klimatkollen.se)
 
 ## Examples

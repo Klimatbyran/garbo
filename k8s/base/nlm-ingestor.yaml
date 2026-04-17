@@ -3,7 +3,6 @@ kind: Deployment
 metadata:
   name: nlm
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: nlm
@@ -15,12 +14,11 @@ spec:
       containers:
         - image: ghcr.io/nlmatics/nlm-ingestor
           resources:
-            limits:
+            requests:
               cpu: 500m
               memory: 1Gi
-            requests:
-              cpu: 250m
-              memory: 256Mi
+            limits:
+              memory: 4Gi
           name: nlm
           ports:
             - containerPort: 5001
@@ -36,3 +34,27 @@ spec:
       targetPort: 5001
   selector:
     app: nlm
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: nlm-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: nlm
+  minReplicas: 2
+  maxReplicas: 15
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 80
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 300 # Wait 5 minutes before scaling down
+    scaleUp:
+      stabilizationWindowSeconds: 60 # Wait 1 minute before scaling up
