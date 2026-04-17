@@ -12,7 +12,7 @@ export const createPipelineLogger = (job?: PipelineJob) => {
       await job.log(message)
       try {
         await job.sendMessage(`${message}`)
-      } catch (err) {
+      } catch (_error) {
         await job.log(`WARN: failed to send pipeline message: ${message}`)
       }
     },
@@ -20,7 +20,7 @@ export const createPipelineLogger = (job?: PipelineJob) => {
       await job.log(`ERROR: ${message}`)
       try {
         await job.editMessage(`❌ ${message}`)
-      } catch (err) {
+      } catch (_error) {
         await job.log(`WARN: failed to edit pipeline message: ${message}`)
       }
     },
