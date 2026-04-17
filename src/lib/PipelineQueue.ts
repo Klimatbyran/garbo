@@ -1,4 +1,4 @@
-import { Queue, QueueOptions } from 'bullmq'
+import { JobsOptions, Queue, QueueOptions } from 'bullmq'
 import redis from '../config/redis'
 
 export type PipelineJobData = {
@@ -20,7 +20,7 @@ export class PipelineQueue {
     })
   }
 
-  async add(name: string, data: PipelineJobData, options?: unknown) {
+  async add(name: string, data: PipelineJobData, options?: JobsOptions) {
     return this.queue.add(name, data, options)
   }
 
