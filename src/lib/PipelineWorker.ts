@@ -107,7 +107,7 @@ function addCustomMethods(job: PipelineJob) {
     )
   }
 
-  job.sendMessage = async (msg: string) => {
+  job.sendMessage = async (msg: string | BaseMessageOptions) => {
     if (!job.hasValidThreadId()) {
       console.log(
         'Invalid Discord threadId format in sendMessage:',

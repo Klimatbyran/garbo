@@ -3,11 +3,12 @@ import { ask } from '../lib/openai'
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import wikidata, { Wikidata } from '../prompts/wikidata'
+import discord from '../pipelineBridge'
 import apiConfig from '../config/api'
 import { ChatCompletionMessageParam } from 'openai/resources'
 import { QUEUE_NAMES } from '../queues'
 import { getWikidataEntities, searchCompany } from '@/lib/wikidata/read'
-import discord from '../pipelineBridge'
+
 export class GuessWikidataJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
     companyName: string
@@ -84,11 +85,14 @@ async function handleOverrideWikidataId(
     `Wikidata override for ${companyName} - please verify`
   )
 
+  const buttonRow = discord.createEditWikidataButtonRow(job)
+
   await job.sendMessage({
     content: `Override Wikidata ID provided. Please verify this is correct:
 \`\`\`md
 ${JSON.stringify(wikidataForApproval, null, 2)}
 \`\`\``,
+    components: [buttonRow],
   })
 
   await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
@@ -112,7 +116,10 @@ const guessWikidata = new PipelineWorker<GuessWikidataJob>(
 
       const metadata = job.data.approval?.metadata
 
-      job.editMessage(`Thanks for approving the wikidata for: ${companyName}`)
+      job.editMessage({
+        content: `Thanks for approving the wikidata for: ${companyName}`,
+        components: [],
+      })
 
       return JSON.stringify(
         {
@@ -322,9 +329,10 @@ const guessWikidata = new PipelineWorker<GuessWikidataJob>(
             `Auto-approved wikidata for ${companyName}`
           )
 
-          job.sendMessage(
-            `🚀 Company found in production database, we will approve automatically: ${companyName}`
-          )
+          job.sendMessage({
+            content: `🚀 Company found in production database, we will approve automatically: ${companyName}`,
+            components: [],
+          })
           return JSON.stringify(
             {
               status: 'approved',
@@ -338,9 +346,10 @@ const guessWikidata = new PipelineWorker<GuessWikidataJob>(
         }
       }
     } catch (_error) {
-      job.sendMessage(
-        `😫 Could not find the company in the production database, we will have to as the human.`
-      )
+      job.sendMessage({
+        content: `😫 Could not find the company in the production database, we will have to as the human.`,
+        components: [],
+      })
     }
 
     job.log('Creating approval request for wikidata')
@@ -369,6 +378,7 @@ const guessWikidata = new PipelineWorker<GuessWikidataJob>(
 \`\`\`md
 ${JSON.stringify(wikidataForApproval, null, 2)}
 \`\`\``,
+      components: [buttonRow],
     })
 
     await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
