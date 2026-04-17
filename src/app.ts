@@ -51,6 +51,7 @@ import { internalMunicipalityReadRoutes } from './api/routes/internal/internal.m
 import { registryReadRoutes } from './api/routes/internal/registry.read'
 import { registryDeleteRoutes } from './api/routes/internal/registry.delete'
 import { registryUpdateRoutes } from './api/routes/internal/registry.update'
+import { globalSearchReadRoutes } from './api/routes/internal/globalSearch.read'
 
 async function startApp() {
   const app = Fastify({
@@ -158,6 +159,7 @@ async function publicContext(app: FastifyInstance) {
   app.register(newsletterArchiveDownloadsRoute, {
     prefix: 'api/newsletters',
   })
+  app.register(globalSearchReadRoutes, { prefix: 'api/global-search' })
 }
 
 /**
