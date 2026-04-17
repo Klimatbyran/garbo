@@ -44,6 +44,7 @@ export class PipelineJob extends Job {
   sendMessage: (
     msg: string | BaseMessageOptions
   ) => Promise<Message<true> | undefined>
+  log: (row: string) => Promise<number>
   editMessage: (
     msg: string | BaseMessageOptions
   ) => Promise<

@@ -15,9 +15,14 @@ const indexMarkdown = new PipelineWorker(
     const { url } = job.data
 
     // Accept markdown from own data or from child job results (e.g., Docling parser)
-    const childEntries = await job.getChildrenEntries().catch(() => ({}))
-    const markdown: string | undefined =
-      job.data.markdown ?? childEntries.markdown
+    const childEntries: Record<string, unknown> = await job
+      .getChildrenEntries()
+      .catch((): Record<string, unknown> => ({}))
+    const childMarkdown =
+      typeof childEntries.markdown === 'string'
+        ? childEntries.markdown
+        : undefined
+    const markdown: string | undefined = job.data.markdown ?? childMarkdown
 
     if (!markdown || !markdown.trim()) {
       job.editMessage(
