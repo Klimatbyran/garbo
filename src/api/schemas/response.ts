@@ -559,7 +559,7 @@ export const NationalSectorEmissionsSchema = z.object({
 
 export const InputNationalDataSchema = z.array(
   z.object({
-    country: z.string(),
+    country: z.object({ sv: z.string(), en: z.string() }),
     logoUrl: z.string().nullable().optional(),
     emissions: InputYearlyDataSchema,
     totalTrend: z.number(),
@@ -572,7 +572,7 @@ export const InputNationalDataSchema = z.array(
 )
 
 export const NationDataSchema = z.object({
-  country: z.string(),
+  country: z.object({ sv: z.string(), en: z.string() }),
   logoUrl: z.string().nullable().optional(),
   emissions: z.array(YearlyDataSchema),
   totalTrend: z.number(),
