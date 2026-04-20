@@ -119,6 +119,7 @@ const checkDB = new DiscordWorker(
         existingCompany,
         companyName,
         url,
+        sourceUrl,
         fiscalYear,
         wikidata,
         threadId,
