@@ -6,6 +6,7 @@ import { vectorDB } from '../lib/vectordb'
 import { QUEUE_NAMES } from '../queues'
 
 const flow = new FlowProducer({ connection: redis })
+flow.on('error', (err) => console.error('FlowProducer connection error:', err))
 
 const parsePdf = new DiscordWorker(
   QUEUE_NAMES.PARSE_PDF,

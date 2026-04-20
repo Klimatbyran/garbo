@@ -88,3 +88,11 @@ export type SaveReportError = {
   message: string
 }
 export type SaveReportsResult = (SaveReportSuccess | SaveReportError)[]
+
+export type GlobalSearchResponse = z.infer<
+  typeof schemas.globalSearchResponseSchema
+>
+
+export type GlobalSearchRequest = z.infer<
+  typeof schemas.globalSearchRequestSchema
+>
