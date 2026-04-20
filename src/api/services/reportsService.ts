@@ -21,8 +21,7 @@ class ReportsService {
 
     for (const company of companies) {
       const year = company.reportYear ? `${company.reportYear}` : ''
-      const searchQuery = `"${company.name}" ${year} (sustainability report OR annual report) filetype:pdf Sweden`
-
+      const searchQuery = `${company.name} ${year} (sustainability report OR annual report) filetype:pdf ${company.country ? `${company.country}` : 'Sweden'}`
       const searchResult = await firecrawl.search(searchQuery, { limit: 5 })
 
       let companyResults: Array<{

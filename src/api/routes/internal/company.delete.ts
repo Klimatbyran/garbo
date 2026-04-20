@@ -24,7 +24,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       schema: {
         summary: 'Delete company',
         description: 'Delete a company by Wikidata ID',
-        tags: getTags('Companies'),
+        tags: getTags('Internal'),
         params: wikidataIdParamSchema,
         response: {
           204: emptyBodySchema,

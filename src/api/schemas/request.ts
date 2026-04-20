@@ -313,6 +313,7 @@ export const claimValidationSchema = z.object({
 export const companyReport = z.object({
   name: z.string(),
   reportYear: z.string().optional(),
+  country: z.string().optional(),
 })
 
 export const companyReports = z.array(companyReport)
@@ -337,4 +338,41 @@ export const saveReportsBodySchema = z.array(
 
 export const previewQuerySchema = z.object({
   pdfUrl: z.string().url(),
+})
+
+export const registryUpdateRequestBodySchema = z
+  .object({
+    id: z.string().min(1, 'id is required'),
+    companyName: z.string().min(1).optional(),
+    wikidataId: z.string().min(1).optional(),
+    reportYear: z
+      .string()
+      .regex(/^\d{4}$/, 'reportYear must be a 4-digit year')
+      .refine((year) => {
+        const n = Number(year)
+        return n >= 1900 && n <= 2100
+      }, 'reportYear must be between 1900 and 2100')
+      .optional(),
+    url: z.string().url('Invalid URL').optional(),
+  })
+  .refine(
+    ({ companyName, wikidataId, reportYear, url }) =>
+      companyName !== undefined ||
+      wikidataId !== undefined ||
+      reportYear !== undefined ||
+      url !== undefined,
+    {
+      message:
+        'At least one field to update must be provided: companyName, wikidataId, reportYear, or url',
+    }
+  )
+
+export const registryDeleteRequestBodySchema = z.array(
+  z.object({
+    id: z.string().min(1, 'id is required'),
+  })
+)
+
+export const globalSearchRequestSchema = z.object({
+  name: z.string().min(1, 'name is required'),
 })

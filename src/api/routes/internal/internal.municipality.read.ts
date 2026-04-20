@@ -77,7 +77,7 @@ export async function internalMunicipalityReadRoutes(app: FastifyInstance) {
         summary: 'Get one municipality',
         description:
           'Retrieve a one municipality with data about their emissions, carbon budget, climate plans, bike infrastructure, procurements and much more.',
-        tags: getTags('Municipalities'),
+        tags: getTags('Internal'),
         params: MunicipalityNameParamSchema,
         response: {
           200: MunicipalitySchema,
@@ -110,7 +110,7 @@ export async function internalMunicipalityReadRoutes(app: FastifyInstance) {
         summary: 'Get municipality sector emissions',
         description:
           'Retrieve sector emissions data for a specific municipality, broken down by different sectors over time.',
-        tags: getTags('Municipalities'),
+        tags: getTags('Internal'),
         params: MunicipalityNameParamSchema,
         response: {
           200: MunicipalitySectorEmissionsSchema,

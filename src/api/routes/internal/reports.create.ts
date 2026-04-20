@@ -1,4 +1,4 @@
-import { FastifyInstance, AuthenticatedFastifyRequest } from 'fastify'
+import { FastifyInstance, FastifyRequest } from 'fastify'
 import { getTags } from '@/config/openapi'
 import {
   postReportsBodySchema,
@@ -16,6 +16,8 @@ import {
   SaveReportSuccess,
 } from '../../types'
 import { reportsService } from '../../services/reportsService'
+import { redisCache } from '@/index'
+import { invalidateRegistryCache } from '@/api/services/registryCache'
 
 export async function reportsCreateRoutes(app: FastifyInstance) {
   app.post(
@@ -24,7 +26,7 @@ export async function reportsCreateRoutes(app: FastifyInstance) {
       schema: {
         summary: 'Scrape for reports',
         description:
-          'Scrape for company reports based on the provided company name(s). This endpoint is intended to be used for scraping reports from external sources.',
+          'Scrape for company reports based on the provided company name(s), year(s) and country. This endpoint is intended to be used for scraping reports from external sources.',
         tags: getTags('Reports'),
         body: postReportsBodySchema,
         response: {
@@ -34,7 +36,7 @@ export async function reportsCreateRoutes(app: FastifyInstance) {
       },
     },
     async (
-      request: AuthenticatedFastifyRequest<{
+      request: FastifyRequest<{
         Body: PostReportsBody
       }>,
       reply
@@ -68,7 +70,7 @@ export async function reportsCreateRoutes(app: FastifyInstance) {
       },
     },
     async (
-      request: AuthenticatedFastifyRequest<{
+      request: FastifyRequest<{
         Body: SaveReportsBody
       }>,
       reply
@@ -83,6 +85,10 @@ export async function reportsCreateRoutes(app: FastifyInstance) {
           (r: SaveReportError | SaveReportSuccess): r is SaveReportSuccess =>
             !('error' in r)
         )
+
+        if (successes.length > 0) {
+          await invalidateRegistryCache(redisCache, request.log)
+        }
 
         if (failed.length === 0) {
           return reply.send({

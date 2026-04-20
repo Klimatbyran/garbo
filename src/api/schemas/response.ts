@@ -634,3 +634,32 @@ export const previewResponseSchema = z.object({
 export const errorResponseSchema = z.object({
   message: z.string(),
 })
+
+export const registryUpdateResponseSchema = z.object({
+  id: z.string(),
+  companyName: z.string().nullable(),
+  wikidataId: z.string().nullable(),
+  reportYear: z.string().nullable(),
+  url: z.string().url(),
+})
+
+export const registryDeleteResponseSchema = z.object({
+  message: z.string(),
+  deletedReports: z.array(
+    z.object({
+      id: z.string(),
+      companyName: z.string().nullable(),
+      wikidataId: z.string().nullable(),
+      reportYear: z.string().nullable(),
+      url: z.string().url(),
+    })
+  ),
+})
+
+export const globalSearchResponseSchema = z.array(
+  z.object({
+    name: z.string(),
+    wikidataId: z.string().optional(),
+    type: z.enum(['company', 'municipality', 'region']),
+  })
+)

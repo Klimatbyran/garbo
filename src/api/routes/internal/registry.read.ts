@@ -4,7 +4,10 @@ import { cachePlugin } from '../../plugins/cache'
 import { RegistryList } from '../../schemas'
 import { registryService } from '@/api/services/registryService'
 import { redisCache } from '@/index'
-import { prisma } from '@/lib/prisma'
+import {
+  REGISTRY_DATA_KEY,
+  REGISTRY_ETAG_KEY,
+} from '@/api/services/registryCache'
 
 export async function registryReadRoutes(app: FastifyInstance) {
   app.register(cachePlugin)
@@ -23,29 +26,21 @@ export async function registryReadRoutes(app: FastifyInstance) {
       },
     },
     async (request, reply) => {
-      const cacheKey = 'registry:etag'
-      let currentEtag: string = await redisCache.get(cacheKey)
+      let [registry, etag] = await Promise.all([
+        redisCache.get(REGISTRY_DATA_KEY),
+        redisCache.get(REGISTRY_ETAG_KEY),
+      ])
 
-      const [registryCount] = await prisma.$transaction([prisma.report.count()])
-
-      // Create a unique fingerprint based on registry data
-      const databaseFingerprint = [registryCount].join('|')
-
-      if (!currentEtag || !currentEtag.startsWith(databaseFingerprint)) {
-        currentEtag = `${databaseFingerprint}-${new Date().toISOString()}`
-        await redisCache.set(cacheKey, JSON.stringify(currentEtag))
-      }
-
-      const dataCacheKey = `registry:data:${databaseFingerprint}`
-
-      let registry = await redisCache.get(dataCacheKey)
-
-      if (!registry) {
+      if (!registry || !etag) {
         registry = await registryService.getReportRegistry()
-        await redisCache.set(dataCacheKey, JSON.stringify(registry))
+        etag = new Date().toISOString()
+        await Promise.all([
+          redisCache.set(REGISTRY_DATA_KEY, JSON.stringify(registry)),
+          redisCache.set(REGISTRY_ETAG_KEY, JSON.stringify(etag)),
+        ])
       }
 
-      reply.header('ETag', currentEtag)
+      reply.header('ETag', `"${etag}"`)
       reply.send(registry)
     }
   )

@@ -2,7 +2,7 @@ import { FlowProducer } from 'bullmq'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { apiFetch } from '../lib/api'
 import redis from '../config/redis'
-import { getCompanyURL } from '../lib/saveUtils'
+import { canonicalPublicReportUrl, getCompanyURL } from '../lib/saveUtils'
 import { QUEUE_NAMES } from '../queues'
 import {
   extractScopeEntriesFromFollowUp,
@@ -12,6 +12,8 @@ import {
 export class CheckDBJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string
+    /** Original report URL when pipeline cached PDF to S3 (parsePdf). */
+    sourceUrl?: string
     wikidata: { node: string }
     fiscalYear: {
       startMonth: number
@@ -25,12 +27,22 @@ export class CheckDBJob extends DiscordJob {
 }
 
 const flow = new FlowProducer({ connection: redis })
+flow.on('error', (err) => console.error('FlowProducer connection error:', err))
 
 const checkDB = new DiscordWorker(
   QUEUE_NAMES.CHECK_DB,
   async (job: CheckDBJob) => {
-    const { companyName, url, fiscalYear, wikidata, threadId, channelId } =
-      job.data
+    const {
+      companyName,
+      url,
+      sourceUrl,
+      fiscalYear,
+      wikidata,
+      threadId,
+      channelId,
+    } = job.data
+
+    const canonicalSource = canonicalPublicReportUrl({ url, sourceUrl })
 
     const childrenEntries = await job.getChildrenEntries()
 
@@ -76,7 +88,7 @@ const checkDB = new DiscordWorker(
 
     if (!existingCompany) {
       const metadata = {
-        source: url,
+        source: canonicalSource,
         comment: 'Created by Garbo AI',
       }
 
@@ -108,6 +120,7 @@ const checkDB = new DiscordWorker(
         existingCompany,
         companyName,
         url,
+        sourceUrl,
         fiscalYear,
         wikidata,
         threadId,
