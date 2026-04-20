@@ -655,3 +655,11 @@ export const registryDeleteResponseSchema = z.object({
     })
   ),
 })
+
+export const globalSearchResponseSchema = z.array(
+  z.object({
+    name: z.string(),
+    wikidataId: z.string().optional(),
+    type: z.enum(['company', 'municipality', 'region']),
+  })
+)
