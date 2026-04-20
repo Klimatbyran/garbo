@@ -42,7 +42,7 @@
     "@fastify/cookie": "^11.0.2",
     "@fastify/cors": "^10.0.2",
     "@fastify/session": "^11.1.0",
-    "@fastify/static": "^8.0.4",
+    "@fastify/static": "^9.1.2",
     "@fastify/swagger": "^9.4.2",
     "@google-cloud/storage": "^7.19.0",
     "@mendable/firecrawl-js": "^4.13.0",
