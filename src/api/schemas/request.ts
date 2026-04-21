@@ -375,4 +375,5 @@ export const registryDeleteRequestBodySchema = z.array(
 
 export const globalSearchRequestSchema = z.object({
   name: z.string().min(1, 'name is required'),
+  currentLanguage: z.enum(['sv', 'en']),
 })
