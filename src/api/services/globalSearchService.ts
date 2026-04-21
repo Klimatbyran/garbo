@@ -1,6 +1,7 @@
 import { prisma } from '../../lib/prisma'
 import type { GlobalSearchResponse } from '../types'
 import { municipalityService } from './municipalityService'
+import { nationService } from './nationService'
 import { regionalService } from './regionalService'
 
 const MAX_CANDIDATES_PER_TYPE = 100
@@ -11,8 +12,8 @@ function normalizeSearchValue(value: string): string {
 }
 
 function compareByRelevance(
-  a: { name: string; type: 'company' | 'municipality' | 'region' },
-  b: { name: string; type: 'company' | 'municipality' | 'region' },
+  a: { name: string; type: 'company' | 'municipality' | 'region' | 'nation' },
+  b: { name: string; type: 'company' | 'municipality' | 'region' | 'nation' },
   normalizedQuery: string
 ) {
   const aName = normalizeSearchValue(a.name)
@@ -42,7 +43,10 @@ function compareByRelevance(
 }
 
 class GlobalSearchService {
-  async getGlobalSearchResults(name: string): Promise<GlobalSearchResponse> {
+  async getGlobalSearchResults(
+    name: string,
+    currentLanguage: 'sv' | 'en'
+  ): Promise<GlobalSearchResponse> {
     const normalizedQuery = normalizeSearchValue(name)
 
     if (!normalizedQuery) {
@@ -80,6 +84,16 @@ class GlobalSearchService {
       )
       .slice(0, MAX_CANDIDATES_PER_TYPE)
 
+    const nations = nationService
+      .getNations()
+      .filter((nation) => {
+        const countryNames = [nation.country?.sv, nation.country?.en]
+          .filter(Boolean)
+          .map((name) => name.toLocaleLowerCase('sv-SE'))
+        return countryNames.some((name) => name.includes(normalizedQuery))
+      })
+      .slice(0, MAX_CANDIDATES_PER_TYPE)
+
     return [
       ...companies.map((company) => ({
         name: company.name,
@@ -93,6 +107,10 @@ class GlobalSearchService {
       ...regions.map((region) => ({
         name: region.region,
         type: 'region' as const,
+      })),
+      ...nations.map((nation) => ({
+        name: nation.country?.[currentLanguage],
+        type: 'nation' as const,
       })),
     ]
       .sort((a, b) => compareByRelevance(a, b, normalizedQuery))

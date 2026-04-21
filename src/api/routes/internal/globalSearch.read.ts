@@ -27,8 +27,11 @@ export async function globalSearchReadRoutes(app: FastifyInstance) {
       },
     },
     async (request, reply) => {
-      const { name } = request.body as GlobalSearchRequest
-      const result = await globalSearchService.getGlobalSearchResults(name)
+      const { name, currentLanguage } = request.body as GlobalSearchRequest
+      const result = await globalSearchService.getGlobalSearchResults(
+        name,
+        currentLanguage
+      )
 
       reply.send(result)
     }
