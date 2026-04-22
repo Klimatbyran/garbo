@@ -44,9 +44,15 @@ class CompanyService {
   }
 
   async getAllCompaniesBySearchTerm(searchTerm: string) {
+    const normalizedSearchTerm = searchTerm.trim().toLocaleLowerCase('sv-SE')
     const companies = await prisma.company.findMany({
       ...companyListArgs,
-      where: { name: { contains: searchTerm } },
+      where: {
+        name: {
+          startsWith: normalizedSearchTerm,
+          mode: 'insensitive',
+        },
+      },
     })
     const transformedCompanies = companies.map(transformMetadata)
     const companiesWithCalculatedTotalEmissions =
