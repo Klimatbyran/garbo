@@ -26,13 +26,18 @@ async function fetchTagOptions(): Promise<
   }))
 }
 
-async function buildSchemaAndPrompt() {
+async function buildSchemaAndPrompt(): Promise<{
+  hasOptions: boolean
+  schema: z.ZodTypeAny
+  prompt: string
+}> {
   const tagOptions = await fetchTagOptions()
   const slugs = tagOptions.map((o) => o.slug).filter(Boolean)
   if (slugs.length === 0) {
     return {
+      hasOptions: false,
       schema: z.object({ tags: z.array(z.string()) }),
-      prompt: `Analyze the company information and determine which tags apply. No tag options are configured. Return {"tags": []}.`,
+      prompt: `No tag options are configured. Return {"tags": []}.`,
     }
   }
   const schema = z.object({
@@ -57,14 +62,21 @@ Only use the exact tags listed above. Do not add any other tags.
 Do not include explanatory text, only return the JSON.
 If you cannot determine any tags with certainty, return an empty array.
 `
-  return { schema, prompt }
+  return { hasOptions: true, schema, prompt }
 }
 
 const companyTags = new FollowUpWorker<FollowUpJob>(
   QUEUE_NAMES.FOLLOW_UP_COMPANY_TAGS,
   async (job) => {
     const { url, previousAnswer } = job.data
-    const { schema, prompt } = await buildSchemaAndPrompt()
+    const { hasOptions, schema, prompt } = await buildSchemaAndPrompt()
+
+    // If no tag options are configured, don't attempt extraction.
+    // Otherwise the model may hallucinate tags that the API will reject.
+    if (!hasOptions) {
+      return { tags: [] }
+    }
+
     const answer = await job.followUp(
       url,
       previousAnswer,
