@@ -402,3 +402,35 @@ model Report {
   wikidataId  String?
   reportYear  String?
 }
+
+model ReportRun {
+  id          String         @id @default(cuid())
+  threadId    String         @unique
+  pdfUrl      String
+  companyName String?
+  wikidataId  String?
+  status      String         @default("running") // 'running' | 'completed' | 'failed'
+  startedAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  jobs        ReportRunJob[]
+
+  @@index([pdfUrl])
+  @@index([wikidataId])
+}
+
+model ReportRunJob {
+  id           String    @id @default(cuid())
+  jobId        String
+  queueName    String
+  status       String    // 'completed' | 'failed'
+  failedReason String?
+  prompt       String?
+  queryTexts   Json?     // string[]
+  markdown     String?
+  startedAt    DateTime?
+  finishedAt   DateTime  @default(now())
+  reportRunId  String
+  reportRun    ReportRun @relation(fields: [reportRunId], references: [id])
+
+  @@index([reportRunId])
+}
