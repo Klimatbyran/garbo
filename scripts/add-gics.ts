@@ -1,9 +1,8 @@
-import { IndustryGics, PrismaClient } from '@prisma/client'
+import { IndustryGics } from '@prisma/client'
 import { mkdir, writeFile } from 'fs/promises'
 import { resolve } from 'path'
 import { isMainModule } from './utils'
-
-const prisma = new PrismaClient()
+import { prisma } from '../src/lib/prisma'
 
 // Definitions from https://github.com/bluealba/gics/blob/master/definitions/20230318.js
 const GICS_2023 = {
@@ -1284,11 +1283,15 @@ async function translateIndustryGicsStrings(
 }
 
 async function main() {
-  // const codes = prepareCodes()
-  // await addIndustryGicsCodesToDB(codes)
-  // await translateIndustryGicsStrings(codes)
+  await seedGicsCodes()
+  const count = await prisma.industryGics.count()
+  console.log(`Seeded IndustryGics rows: ${count}`)
 }
 
 if (isMainModule(import.meta.url)) {
-  await main()
+  try {
+    await main()
+  } finally {
+    await prisma.$disconnect()
+  }
 }
