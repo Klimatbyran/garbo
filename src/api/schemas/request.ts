@@ -333,6 +333,15 @@ export const saveReportsBodySchema = z.array(
         return n >= 1900 && n <= 2100
       }, 'reportYear must be between 1900 and 2100'),
     url: z.string().url('Invalid URL').min(1, 'url is required'),
+    sourceUrl: z.string().url('Invalid sourceUrl').nullable().optional(),
+    s3Url: z.string().url('Invalid s3Url').nullable().optional(),
+    s3Key: z.string().min(1).nullable().optional(),
+    s3Bucket: z.string().min(1).nullable().optional(),
+    sha256: z
+      .string()
+      .regex(/^[a-f0-9]{64}$/i, 'sha256 must be a 64-character hex string')
+      .nullable()
+      .optional(),
   })
 )
 
@@ -354,16 +363,27 @@ export const registryUpdateRequestBodySchema = z
       }, 'reportYear must be between 1900 and 2100')
       .optional(),
     url: z.string().url('Invalid URL').optional(),
+    sourceUrl: z.string().url('Invalid sourceUrl').optional(),
+    s3Url: z.string().url('Invalid s3Url').optional(),
+    s3Key: z.string().min(1).optional(),
+    s3Bucket: z.string().min(1).optional(),
+    sha256: z
+      .string()
+      .regex(/^[a-f0-9]{64}$/i, 'sha256 must be a 64-character hex string')
+      .optional(),
   })
   .refine(
-    ({ companyName, wikidataId, reportYear, url }) =>
+    ({ companyName, wikidataId, reportYear, url, sourceUrl, s3Url, sha256 }) =>
       companyName !== undefined ||
       wikidataId !== undefined ||
       reportYear !== undefined ||
-      url !== undefined,
+      url !== undefined ||
+      sourceUrl !== undefined ||
+      s3Url !== undefined ||
+      sha256 !== undefined,
     {
       message:
-        'At least one field to update must be provided: companyName, wikidataId, reportYear, or url',
+        'At least one field to update must be provided.',
     }
   )
 

@@ -85,6 +85,8 @@ export const detailedCompanyArgs = {
         startDate: true,
         endDate: true,
         reportURL: true,
+        reportS3Url: true,
+        reportSha256: true,
         economy: {
           select: {
             id: true,
@@ -254,6 +256,8 @@ export const companyListArgs = {
         startDate: true,
         endDate: true,
         reportURL: true,
+        reportS3Url: true,
+        reportSha256: true,
         economy: {
           select: {
             turnover: {
@@ -371,6 +375,8 @@ export const companyExportArgs = (year?) => {
           startDate: true,
           endDate: true,
           reportURL: true,
+          reportS3Url: true,
+          reportSha256: true,
           economy: {
             select: {
               turnover: {

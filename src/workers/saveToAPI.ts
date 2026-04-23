@@ -1,6 +1,12 @@
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { apiFetch } from '../lib/api'
 import { QUEUE_NAMES } from '../queues'
+import { registryService } from '../api/services/registryService'
+import { canonicalPublicReportUrl } from '../lib/saveUtils'
+import { createServerCache } from '../createCache'
+import { invalidateRegistryCache } from '../api/services/registryCache'
+
+const registryCache = createServerCache({ maxAge: 24 * 60 * 60 * 1000 })
 
 export interface SaveToApiJob extends DiscordJob {
   data: DiscordJob['data'] & {
@@ -8,6 +14,138 @@ export interface SaveToApiJob extends DiscordJob {
     body: any
     wikidata: { node: string }
     apiSubEndpoint: string
+    /** Original report URL when pipeline cached PDF to S3 (parsePdf). */
+    sourceUrl?: string
+    /** Cached/uploaded PDF storage metadata from pipeline-api (when available). */
+    pdfCache?: {
+      publicUrl?: string
+      sha256?: string
+    }
+  }
+}
+
+function isWikidataQId(wikidataId: string): boolean {
+  return /^Q\d+$/i.test(wikidataId.trim())
+}
+
+function pickRegistryPayloadFromReportingPeriodsSave(job: SaveToApiJob): null | {
+  companyName: string
+  wikidataId: string
+  reportYear?: string
+  url: string
+  sourceUrl?: string
+  s3Url?: string
+  sha256?: string
+} {
+  const companyName = job.data.companyName
+  if (!companyName) return null
+
+  const wikidataId = job.data.wikidata.node.trim()
+  if (!isWikidataQId(wikidataId)) return null
+
+  const url = typeof job.data.url === 'string' ? job.data.url.trim() : ''
+  const sourceUrl =
+    typeof job.data.sourceUrl === 'string' ? job.data.sourceUrl.trim() : undefined
+  const pdfCache = job.data.pdfCache
+
+  const reportingPeriods = job.data.body?.reportingPeriods
+  if (!Array.isArray(reportingPeriods) || reportingPeriods.length === 0) return null
+
+  const canonicalReportUrl = canonicalPublicReportUrl({ url, sourceUrl })
+
+  const sha256FromPdfCache =
+    typeof pdfCache?.sha256 === 'string' && pdfCache.sha256.trim()
+      ? pdfCache.sha256.trim()
+      : undefined
+
+  const s3UrlFromPdfCache =
+    typeof pdfCache?.publicUrl === 'string' && pdfCache.publicUrl.trim()
+      ? pdfCache.publicUrl.trim()
+      : undefined
+
+  const sourceIsHttp =
+    typeof sourceUrl === 'string' && /^https?:\/\//i.test(sourceUrl)
+
+  const s3UrlFromJobUrl =
+    url && (!sourceIsHttp || url !== sourceUrl) ? url : undefined
+
+  const expectedS3Url = s3UrlFromPdfCache || s3UrlFromJobUrl
+
+  const normalizeYear = (year: any): string | undefined => {
+    if (typeof year === 'number') return year.toString()
+    if (typeof year === 'string') return year
+    return undefined
+  }
+
+  const maxYear = reportingPeriods.reduce((max: number | null, rp: any) => {
+    const y = Number(rp?.year)
+    if (!Number.isFinite(y)) return max
+    if (max === null) return y
+    return Math.max(max, y)
+  }, null as number | null)
+
+  const chosen =
+    (sha256FromPdfCache
+      ? reportingPeriods.find(
+          (rp: any) =>
+            typeof rp?.reportSha256 === 'string' &&
+            rp.reportSha256.trim() === sha256FromPdfCache
+        )
+      : null) ||
+    (expectedS3Url
+      ? reportingPeriods.find(
+          (rp: any) =>
+            typeof rp?.reportS3Url === 'string' &&
+            rp.reportS3Url.trim() === expectedS3Url
+        )
+      : null) ||
+    reportingPeriods.find(
+      (rp: any) =>
+        typeof rp?.reportURL === 'string' &&
+        rp.reportURL.trim() === canonicalReportUrl
+    ) ||
+    reportingPeriods.find(
+      (rp: any) => typeof rp?.reportURL === 'string' && rp.reportURL.trim()
+    ) ||
+    reportingPeriods[0]
+
+  const reportYear =
+    normalizeYear(chosen?.year) ??
+    (maxYear !== null ? maxYear.toString() : undefined)
+
+  const reportURL =
+    typeof chosen?.reportURL === 'string' && chosen.reportURL.trim()
+      ? chosen.reportURL.trim()
+      : canonicalReportUrl
+
+  const reportS3Url =
+    typeof chosen?.reportS3Url === 'string' && chosen.reportS3Url.trim()
+      ? chosen.reportS3Url.trim()
+      : undefined
+
+  const reportSha256 =
+    typeof chosen?.reportSha256 === 'string' && chosen.reportSha256.trim()
+      ? chosen.reportSha256.trim()
+      : undefined
+
+  const trimmedUrl = url || reportURL
+  if (!trimmedUrl) return null
+
+  const s3Url =
+    reportS3Url ||
+    s3UrlFromPdfCache ||
+    (trimmedUrl && (!sourceIsHttp || trimmedUrl !== sourceUrl) ? trimmedUrl : undefined)
+
+  const sha256 = sha256FromPdfCache ?? reportSha256
+
+  return {
+    companyName,
+    wikidataId,
+    reportYear,
+    url: trimmedUrl,
+    sourceUrl: sourceIsHttp ? sourceUrl : undefined,
+    s3Url,
+    sha256,
   }
 }
 
@@ -87,18 +225,46 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
           ${JSON.stringify(sanitizedBody)}`)
 
       const method = apiSubEndpoint === 'tags' ? ('PATCH' as const) : undefined
+      const endpoint =
+        typeof apiSubEndpoint === 'string' && apiSubEndpoint.trim().length > 0
+          ? `/companies/${wikidataId}/${apiSubEndpoint}`
+          : `/companies/${wikidataId}`
+      const chunk =
+        typeof apiSubEndpoint === 'string' && apiSubEndpoint.trim().length > 0
+          ? apiSubEndpoint.trim()
+          : 'company'
       const result = await apiFetch(
-        `/companies/${wikidataId}/${apiSubEndpoint}`,
+        endpoint,
         {
           body: sanitizedBody,
           ...(method && { method }),
+          headers: {
+            'X-Garbo-Chunk': chunk,
+          },
         }
       )
 
       if (result === null) {
         throw new Error(
-          `API endpoint not found: /companies/${wikidataId}/${apiSubEndpoint}`
+          `API endpoint not found: ${endpoint}`
         )
+      }
+
+      if (apiSubEndpoint === 'reporting-periods') {
+        const registryPayload = pickRegistryPayloadFromReportingPeriodsSave(job)
+        if (registryPayload) {
+          try {
+            await registryService.upsertReportInRegistry(registryPayload)
+            await invalidateRegistryCache(registryCache, {
+              warn: (msg: string, ...args: unknown[]) =>
+                job.log(
+                  [msg, ...args.map((a) => JSON.stringify(a))].join(' ')
+                ),
+            })
+          } catch (e: any) {
+            job.log(`Registry upsert failed after save: ${e?.message ?? e}`)
+          }
+        }
       }
 
       return { success: true }
