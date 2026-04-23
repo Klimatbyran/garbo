@@ -1,0 +1,73 @@
+name: 🚨 Incident / Production Issue
+description: Track an active incident or production-impacting issue.
+title: '[Incident]: '
+labels: ['incident', 'priority:high']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this when there is ongoing or recent production impact.
+
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Environment
+      options:
+        - Production
+        - Staging
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - SEV-1 (critical outage / data loss)
+        - SEV-2 (major degradation)
+        - SEV-3 (minor degradation)
+    validations:
+      required: true
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What is happening? Who is affected?
+    validations:
+      required: true
+
+  - type: textarea
+    id: timeline
+    attributes:
+      label: Timeline (UTC)
+      description: Key events and actions taken.
+      placeholder: |
+        - 12:05 Detected elevated 5xx
+        - 12:10 Rolled back to vX.X.X
+    validations:
+      required: false
+
+  - type: textarea
+    id: mitigation
+    attributes:
+      label: Mitigation / Current Status
+      description: What’s been done so far? What’s the current state?
+    validations:
+      required: true
+
+  - type: textarea
+    id: links
+    attributes:
+      label: Links (dashboards, logs, runbooks)
+      description: Add relevant links or identifiers.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: followups
+    attributes:
+      label: Follow-ups
+      options:
+        - label: A rollback/release PR is linked (if applicable)
+        - label: A root-cause follow-up issue has been created (or is planned)
