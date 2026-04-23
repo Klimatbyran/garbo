@@ -336,6 +336,7 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
             result.reason
           )
           return reply.status(500).send({
+            code: 'INTERNAL_SERVER_ERROR',
             message: 'Creation or update of reporting periods failed.',
           })
         }
