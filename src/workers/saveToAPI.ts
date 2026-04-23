@@ -28,7 +28,9 @@ function isWikidataQId(wikidataId: string): boolean {
   return /^Q\d+$/i.test(wikidataId.trim())
 }
 
-function pickRegistryPayloadFromReportingPeriodsSave(job: SaveToApiJob): null | {
+function pickRegistryPayloadFromReportingPeriodsSave(
+  job: SaveToApiJob
+): null | {
   companyName: string
   wikidataId: string
   reportYear?: string
@@ -45,11 +47,14 @@ function pickRegistryPayloadFromReportingPeriodsSave(job: SaveToApiJob): null | 
 
   const url = typeof job.data.url === 'string' ? job.data.url.trim() : ''
   const sourceUrl =
-    typeof job.data.sourceUrl === 'string' ? job.data.sourceUrl.trim() : undefined
+    typeof job.data.sourceUrl === 'string'
+      ? job.data.sourceUrl.trim()
+      : undefined
   const pdfCache = job.data.pdfCache
 
   const reportingPeriods = job.data.body?.reportingPeriods
-  if (!Array.isArray(reportingPeriods) || reportingPeriods.length === 0) return null
+  if (!Array.isArray(reportingPeriods) || reportingPeriods.length === 0)
+    return null
 
   const canonicalReportUrl = canonicalPublicReportUrl({ url, sourceUrl })
 
@@ -77,12 +82,15 @@ function pickRegistryPayloadFromReportingPeriodsSave(job: SaveToApiJob): null | 
     return undefined
   }
 
-  const maxYear = reportingPeriods.reduce((max: number | null, rp: any) => {
-    const y = Number(rp?.year)
-    if (!Number.isFinite(y)) return max
-    if (max === null) return y
-    return Math.max(max, y)
-  }, null as number | null)
+  const maxYear = reportingPeriods.reduce(
+    (max: number | null, rp: any) => {
+      const y = Number(rp?.year)
+      if (!Number.isFinite(y)) return max
+      if (max === null) return y
+      return Math.max(max, y)
+    },
+    null as number | null
+  )
 
   const chosen =
     (sha256FromPdfCache
@@ -134,7 +142,9 @@ function pickRegistryPayloadFromReportingPeriodsSave(job: SaveToApiJob): null | 
   const s3Url =
     reportS3Url ||
     s3UrlFromPdfCache ||
-    (trimmedUrl && (!sourceIsHttp || trimmedUrl !== sourceUrl) ? trimmedUrl : undefined)
+    (trimmedUrl && (!sourceIsHttp || trimmedUrl !== sourceUrl)
+      ? trimmedUrl
+      : undefined)
 
   const sha256 = sha256FromPdfCache ?? reportSha256
 
@@ -233,21 +243,16 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
         typeof apiSubEndpoint === 'string' && apiSubEndpoint.trim().length > 0
           ? apiSubEndpoint.trim()
           : 'company'
-      const result = await apiFetch(
-        endpoint,
-        {
-          body: sanitizedBody,
-          ...(method && { method }),
-          headers: {
-            'X-Garbo-Chunk': chunk,
-          },
-        }
-      )
+      const result = await apiFetch(endpoint, {
+        body: sanitizedBody,
+        ...(method && { method }),
+        headers: {
+          'X-Garbo-Chunk': chunk,
+        },
+      })
 
       if (result === null) {
-        throw new Error(
-          `API endpoint not found: ${endpoint}`
-        )
+        throw new Error(`API endpoint not found: ${endpoint}`)
       }
 
       if (apiSubEndpoint === 'reporting-periods') {
@@ -257,9 +262,7 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
             await registryService.upsertReportInRegistry(registryPayload)
             await invalidateRegistryCache(registryCache, {
               warn: (msg: string, ...args: unknown[]) =>
-                job.log(
-                  [msg, ...args.map((a) => JSON.stringify(a))].join(' ')
-                ),
+                job.log([msg, ...args.map((a) => JSON.stringify(a))].join(' ')),
             })
           } catch (e: any) {
             job.log(`Registry upsert failed after save: ${e?.message ?? e}`)

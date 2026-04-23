@@ -63,15 +63,18 @@ describe('registryService', () => {
       s3Url: 'https://cdn.example/uploads/prod/abc.pdf',
     })
 
-    await registryService.upsertReportInRegistry({
-      companyName: 'NewNameIgnored',
-      wikidataId: 'Q1',
-      reportYear: '2024',
-      url: 'https://example.com/report.pdf',
-      sourceUrl: 'https://source.example/report.pdf',
-      s3Url: 'https://cdn.example/uploads/prod/abc.pdf',
-      sha256: 'a'.repeat(64),
-    }, mockPrisma)
+    await registryService.upsertReportInRegistry(
+      {
+        companyName: 'NewNameIgnored',
+        wikidataId: 'Q1',
+        reportYear: '2024',
+        url: 'https://example.com/report.pdf',
+        sourceUrl: 'https://source.example/report.pdf',
+        s3Url: 'https://cdn.example/uploads/prod/abc.pdf',
+        sha256: 'a'.repeat(64),
+      },
+      mockPrisma
+    )
 
     expect(mockPrisma.report.findUnique).toHaveBeenCalledWith({
       where: { sha256: 'a'.repeat(64) },
@@ -105,14 +108,17 @@ describe('registryService', () => {
       url: 'https://example.com/r.pdf',
     })
 
-    await registryService.upsertReportInRegistry({
-      companyName: 'Acme',
-      wikidataId: 'Q2',
-      reportYear: '2023',
-      url: 'https://example.com/r.pdf',
-      sourceUrl: 'https://source.example/r.pdf',
-      s3Url: 'https://cdn.example/uploads/prod/r.pdf',
-    }, mockPrisma)
+    await registryService.upsertReportInRegistry(
+      {
+        companyName: 'Acme',
+        wikidataId: 'Q2',
+        reportYear: '2023',
+        url: 'https://example.com/r.pdf',
+        sourceUrl: 'https://source.example/r.pdf',
+        s3Url: 'https://cdn.example/uploads/prod/r.pdf',
+      },
+      mockPrisma
+    )
 
     expect(mockPrisma.report.create).toHaveBeenCalledWith({
       data: expect.objectContaining({
@@ -123,4 +129,3 @@ describe('registryService', () => {
     })
   })
 })
-

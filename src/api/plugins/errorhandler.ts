@@ -26,7 +26,10 @@ export function errorHandler(
       message: fastifyError.message,
       details:
         apiConfig.nodeEnv === 'development'
-          ? { ...fastifyError, ...(garboChunkHeader && { garboChunk: garboChunkHeader }) }
+          ? {
+              ...fastifyError,
+              ...(garboChunkHeader && { garboChunk: garboChunkHeader }),
+            }
           : fastifyError.validation,
     })
   } else if (
@@ -36,9 +39,10 @@ export function errorHandler(
     reply.status(404).send({
       code: 'NOT_FOUND',
       message: 'The requested resource could not be found.',
-      details: apiConfig.nodeEnv === 'development'
-        ? { error, ...(garboChunkHeader && { garboChunk: garboChunkHeader }) }
-        : undefined,
+      details:
+        apiConfig.nodeEnv === 'development'
+          ? { error, ...(garboChunkHeader && { garboChunk: garboChunkHeader }) }
+          : undefined,
     })
   } else {
     reply.status(500).send({
@@ -47,9 +51,10 @@ export function errorHandler(
         apiConfig.nodeEnv === 'development'
           ? error.message
           : 'An unexpected error occurred.',
-      details: apiConfig.nodeEnv === 'development'
-        ? { error, ...(garboChunkHeader && { garboChunk: garboChunkHeader }) }
-        : undefined,
+      details:
+        apiConfig.nodeEnv === 'development'
+          ? { error, ...(garboChunkHeader && { garboChunk: garboChunkHeader }) }
+          : undefined,
     })
   }
 }

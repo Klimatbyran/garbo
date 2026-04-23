@@ -26,17 +26,20 @@ class RegistryService {
     return registry
   }
 
-  async upsertReportInRegistry(input: {
-    companyName: string
-    wikidataId?: string | null
-    reportYear?: string | null
-    url: string
-    sourceUrl?: string | null
-    s3Url?: string | null
-    s3Key?: string | null
-    s3Bucket?: string | null
-    sha256?: string | null
-  }, prismaClient = prisma) {
+  async upsertReportInRegistry(
+    input: {
+      companyName: string
+      wikidataId?: string | null
+      reportYear?: string | null
+      url: string
+      sourceUrl?: string | null
+      s3Url?: string | null
+      s3Key?: string | null
+      s3Bucket?: string | null
+      sha256?: string | null
+    },
+    prismaClient = prisma
+  ) {
     const { sha256, sourceUrl, url } = input
 
     const existing =
@@ -80,19 +83,21 @@ class RegistryService {
   }
 
   async updateReportInRegistry(
-    data: z.infer<typeof registryUpdateRequestBodySchema>
+    data: z.infer<typeof registryUpdateRequestBodySchema>,
+    prismaClient = prisma
   ) {
     const { id, ...fields } = data
-    const report = await prisma.report.findUnique({ where: { id } })
+    const report = await prismaClient.report.findUnique({ where: { id } })
     if (!report) return null
-    return prisma.report.update({
+    return prismaClient.report.update({
       where: { id },
       data: fields,
     })
   }
 
   async deleteReportFromRegistry(
-    reportsToDelete: z.infer<typeof registryDeleteRequestBodySchema>
+    reportsToDelete: z.infer<typeof registryDeleteRequestBodySchema>,
+    prismaClient = prisma
   ) {
     const deletedReports: Array<{
       id: string
@@ -104,7 +109,7 @@ class RegistryService {
 
     for (const { id } of reportsToDelete) {
       try {
-        const deleted = await prisma.report.delete({
+        const deleted = await prismaClient.report.delete({
           where: { id },
         })
         deletedReports.push(deleted)

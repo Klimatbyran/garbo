@@ -382,8 +382,7 @@ export const registryUpdateRequestBodySchema = z
       s3Url !== undefined ||
       sha256 !== undefined,
     {
-      message:
-        'At least one field to update must be provided.',
+      message: 'At least one field to update must be provided.',
     }
   )
 

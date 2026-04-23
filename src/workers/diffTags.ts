@@ -33,16 +33,20 @@ const diffTags = new DiscordWorker<DiffTagsJob>(
 
     // Only save if we detected any meaningful changes
     if (diff) {
-      await saveToAPI.queue.add(companyName + ' tags', {
-        ...job.data,
-        body,
-        diff,
-        requiresApproval,
-        apiSubEndpoint: 'tags',
+      await saveToAPI.queue.add(
+        companyName + ' tags',
+        {
+          ...job.data,
+          body,
+          diff,
+          requiresApproval,
+          apiSubEndpoint: 'tags',
 
-        // Remove duplicated job data that should be part of the body from now on
-        tags: undefined,
-      }, job.id ? { parent: { id: job.id, queue: job.queueName } } : undefined)
+          // Remove duplicated job data that should be part of the body from now on
+          tags: undefined,
+        },
+        job.id ? { parent: { id: job.id, queue: job.queueName } } : undefined
+      )
     }
 
     return { body, diff, requiresApproval }
