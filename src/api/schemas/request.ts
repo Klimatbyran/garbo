@@ -261,6 +261,8 @@ export const reportingPeriodSchema = z
     startDate: z.coerce.date(),
     endDate: z.coerce.date(),
     reportURL: z.string().optional(),
+    reportS3Url: z.string().optional().nullable(),
+    reportSha256: z.string().optional().nullable(),
     emissions: emissionsSchema,
     economy: economySchema,
   })

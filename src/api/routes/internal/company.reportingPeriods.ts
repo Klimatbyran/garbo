@@ -200,6 +200,8 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
             startDate,
             endDate,
             reportURL,
+            reportS3Url,
+            reportSha256,
           }) => {
             const year = endDate.getFullYear().toString()
             const createdMetadata = await metadataService.createMetadata({
@@ -220,6 +222,8 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
                   startDate,
                   endDate,
                   reportURL,
+                  reportS3Url: reportS3Url ?? undefined,
+                  reportSha256: reportSha256 ?? undefined,
                   year,
                 }
               )
