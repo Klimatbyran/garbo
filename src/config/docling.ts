@@ -2,9 +2,27 @@ import 'dotenv/config'
 import { z } from 'zod'
 
 const envSchema = z.object({
-  DOCLING_URL: z.string().nonempty(),
-  BERGET_AI_TOKEN: z.string().nonempty(),
-  DOCLING_USE_LOCAL: z.enum(['true', 'false']).transform((v) => v === 'true'),
+  /**
+   * Docling base URL. For local Docling, prefer `http://localhost:5001/v1`.
+   * When omitted, we fall back to the local default.
+   */
+  DOCLING_URL: z.string().optional().default('http://localhost:5001/v1'),
+  /**
+   * Token used for Berget Docling API format. Not required for local Docling.
+   */
+  BERGET_AI_TOKEN: z.string().optional().default(''),
+  /**
+   * Prefer `DOCLING_USE_LOCAL`. We also accept legacy `DOCLING_RUN_LOCAL`.
+   */
+  DOCLING_USE_LOCAL: z
+    .enum(['true', 'false'])
+    .optional()
+    .transform((v) => v === 'true')
+    .default('true'),
+  DOCLING_RUN_LOCAL: z
+    .enum(['true', 'false'])
+    .optional()
+    .transform((v) => v === 'true'),
   USE_BACKUP_API: z
     .enum(['true', 'false'])
     .transform((v) => v === 'true')
@@ -54,11 +72,14 @@ const {
   BACKUP_API_AUTH_HEADER,
 } = parsedEnv.data
 
-// DOCLING_USE_LOCAL now only controls format, not URL
-// To use localhost, just set DOCLING_URL=http://localhost:5001/v1
+const resolvedUseLocal =
+  parsedEnv.data.DOCLING_USE_LOCAL ?? parsedEnv.data.DOCLING_RUN_LOCAL ?? true
+
+// DOCLING_USE_LOCAL controls request format, not URL.
+// To use localhost, set DOCLING_URL=http://localhost:5001/v1 (default).
 const baseUrl = DOCLING_URL.replace(/\/+$/, '')
 
-if (!DOCLING_USE_LOCAL && (!baseUrl || !BERGET_AI_TOKEN)) {
+if (!resolvedUseLocal && (!baseUrl || !BERGET_AI_TOKEN)) {
   // When using Berget format, warn if config is incomplete
   console.warn(
     '⚠️ Docling configuration appears incomplete when using Berget format (DOCLING_URL and/or BERGET_AI_TOKEN missing).'
@@ -78,7 +99,7 @@ if (USE_BACKUP_API && (!BACKUP_API_URL || !BACKUP_API_TOKEN)) {
 export default {
   baseUrl,
   BERGET_AI_TOKEN,
-  DOCLING_USE_LOCAL,
+  DOCLING_USE_LOCAL: resolvedUseLocal,
   USE_BACKUP_API: USE_BACKUP_API || false,
   BACKUP_API_URL: BACKUP_API_URL || '',
   BACKUP_API_TOKEN: BACKUP_API_TOKEN || '',
