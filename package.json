@@ -1,10 +1,6 @@
 {
   "name": "garbo",
-<<<<<<< HEAD
-  "version": "5.7.3-rc.5",
-=======
   "version": "5.7.3-rc.6",
->>>>>>> main
   "description": "",
   "type": "module",
   "exports": {
