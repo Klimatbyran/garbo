@@ -45,7 +45,7 @@ function addCustomMethods(job: DiffJob) {
       wikidata,
       body,
       apiSubEndpoint,
-    })
+    }, job.id ? { parent: { id: job.id, queue: job.queueName } } : undefined)
   }
 
   job.handleDiff = async (apiSubEndpoint, diff, change, requiresApproval) => {

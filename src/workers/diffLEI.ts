@@ -75,7 +75,7 @@ const diffLEI = new DiscordWorker<DiffLEIJob>(
       diff: comparisonResult.reason,
       requiresApproval: false,
       apiSubEndpoint: '',
-    })
+    }, job.id ? { parent: { id: job.id, queue: job.queueName } } : undefined)
 
     job.log(`✅ Enqueued LEI update for '${companyName}' with LEI: '${lei}'.`)
   }

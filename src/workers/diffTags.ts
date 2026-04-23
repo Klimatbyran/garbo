@@ -42,7 +42,7 @@ const diffTags = new DiscordWorker<DiffTagsJob>(
 
         // Remove duplicated job data that should be part of the body from now on
         tags: undefined,
-      })
+      }, job.id ? { parent: { id: job.id, queue: job.queueName } } : undefined)
     }
 
     return { body, diff, requiresApproval }

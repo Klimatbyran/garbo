@@ -56,7 +56,7 @@ const diffDescriptions = new DiscordWorker<DiffDescriptionsJob>(
         body,
         diff,
         apiSubEndpoint: '',
-      })
+      }, job.id ? { parent: { id: job.id, queue: job.queueName } } : undefined)
     }
 
     return { body, diff }
