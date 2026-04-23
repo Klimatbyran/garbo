@@ -17,12 +17,11 @@ const envSchema = z.object({
   DOCLING_USE_LOCAL: z
     .enum(['true', 'false'])
     .optional()
-    .transform((v) => v === 'true')
-    .default('true'),
+    .transform((v) => (v === undefined ? undefined : v === 'true')),
   DOCLING_RUN_LOCAL: z
     .enum(['true', 'false'])
     .optional()
-    .transform((v) => v === 'true'),
+    .transform((v) => (v === undefined ? undefined : v === 'true')),
   USE_BACKUP_API: z
     .enum(['true', 'false'])
     .transform((v) => v === 'true')
