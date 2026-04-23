@@ -15,7 +15,25 @@ async function getApiToken(secret: string) {
     }),
   })
 
-  return (await response.json()).token
+  const raw = await response.text()
+
+  if (!response.ok) {
+    throw new Error(
+      `Failed to fetch API token (${response.status} ${response.statusText}): ${raw || '<empty response>'}`
+    )
+  }
+
+  try {
+    const parsed = JSON.parse(raw) as { token?: string }
+    if (!parsed?.token) {
+      throw new Error('Missing "token" in response JSON')
+    }
+    return parsed.token
+  } catch (e) {
+    throw new Error(
+      `Failed to parse API token response as JSON: ${raw || '<empty response>'}`
+    )
+  }
 }
 
 async function ensureToken() {
