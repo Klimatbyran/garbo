@@ -1,0 +1,24 @@
+name: 🗒 Other
+description: Basic template for other issues.
+title: '[Other]: '
+labels: ['enhancement']
+body:
+  - type: textarea
+    id: details
+    attributes:
+      label: Describe the task or request
+      description: Describe the task or request and the necessary details.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: Urgency
+      description: How urgent is this change?
+      options:
+        - Nice to have
+        - Important, but not urgent
+        - High (blocking release or critical for users)
+    validations:
+      required: false

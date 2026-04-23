@@ -1,6 +1,6 @@
 [
   {
-    "country": "Sverige",
+    "country": { "sv": "Sverige", "en": "Sweden" },
     "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e5/Great_coat_of_arms_of_Sweden.svg",
     "emissions": {
       "1990": 71377635.59,
