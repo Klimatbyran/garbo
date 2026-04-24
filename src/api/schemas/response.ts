@@ -484,6 +484,19 @@ export const MunicipalitySchema = InputMunicipalitySchema.omit({
 
 export const MunicipalitiesSchema = z.array(MunicipalitySchema)
 
+export const MunicipalityKpiSchema = z.object({
+  name: z.string(),
+  meetsParis: z.boolean(),
+  historicalEmissionChangePercent: z.number(),
+  electricVehiclePerChargePoints: z.number().nullable(),
+  bicycleMetrePerCapita: z.number(),
+  totalConsumptionEmission: z.number(),
+  electricCarChangePercent: z.number(),
+  climatePlan: z.boolean(),
+})
+
+export const MunicipalityKpiListSchema = z.array(MunicipalityKpiSchema)
+
 export const MunicipalitySectorEmissionsSchema = z.object({
   sectors: z.record(z.string(), z.record(z.string(), z.number())),
 })
