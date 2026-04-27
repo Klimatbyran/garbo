@@ -1,10 +1,10 @@
 import { parseArgs } from 'node:util'
+import { PrismaClient } from '@prisma/client'
 
 import startApp from './app'
 import apiConfig from './config/api'
 import openAPIConfig from './config/openapi'
 import { createServerCache } from './createCache'
-import { prisma } from './lib/prisma'
 
 export const redisCache = createServerCache({ maxAge: 24 * 60 * 60 * 1000 })
 
@@ -20,6 +20,7 @@ const { values } = parseArgs({
 const START_BOARD = !values['api-only']
 const port = apiConfig.port
 
+const prisma = new PrismaClient()
 const app = await startApp()
 
 async function main() {
