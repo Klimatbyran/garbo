@@ -44,7 +44,9 @@ type EmissionsDeletionTarget = {
   statedTotalEmissions: { id: string } | null
 }
 
-type BodyEmissions = PostReportingPeriodsBody['reportingPeriods'][number]['emissions']
+type BodyEmissions = NonNullable<
+  PostReportingPeriodsBody['reportingPeriods'][number]['emissions']
+>
 type Scope2UpsertInput = Parameters<typeof emissionsService.upsertScope2>[1]
 type Scope1UpsertInput = Omit<Scope1, 'id' | 'metadataId' | 'emissionsId'>
 type Scope1And2UpsertInput = Omit<
@@ -104,10 +106,10 @@ function buildScope1Promise(
   createdMetadata: Metadata,
   verifiedMetadata: Metadata
 ) {
-  const hasExistingScope1 = Boolean(dbEmissions.scope1?.id)
+  const existingScope1Id = dbEmissions.scope1?.id
 
-  if (scope1Payload === null && hasExistingScope1) {
-    return emissionsService.deleteScope1(dbEmissions.scope1.id)
+  if (scope1Payload === null && existingScope1Id) {
+    return emissionsService.deleteScope1(existingScope1Id)
   }
 
   if (scope1Payload === undefined || scope1Payload === null) {
@@ -132,10 +134,10 @@ function buildScope2Promise(
   createdMetadata: Metadata,
   verifiedMetadata: Metadata
 ) {
-  const hasExistingScope2 = Boolean(dbEmissions.scope2?.id)
+  const existingScope2Id = dbEmissions.scope2?.id
 
-  if (scope2Payload === null && hasExistingScope2) {
-    return emissionsService.deleteScope2(dbEmissions.scope2.id)
+  if (scope2Payload === null && existingScope2Id) {
+    return emissionsService.deleteScope2(existingScope2Id)
   }
 
   if (scope2Payload === undefined || scope2Payload === null) {
@@ -338,7 +340,10 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
                   statedTotalEmissions?.verified
                     ? verifiedMetadata
                     : createdMetadata,
-                  _.omit(statedTotalEmissions, 'verified') as StatedTotalUpsertInput
+                  _.omit(
+                    statedTotalEmissions,
+                    'verified'
+                  ) as StatedTotalUpsertInput
                 ),
               biogenic !== undefined &&
                 emissionsService.upsertBiogenic(

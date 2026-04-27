@@ -52,7 +52,7 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
 
     const reportS3UrlForPeriod =
       (typeof pdfCache?.publicUrl === 'string' && pdfCache.publicUrl.trim()) ||
-      (trimmedUrl && (!sourceIsHttp || trimmedUrl !== trimmedSourceUrl)
+      ((trimmedUrl && (!sourceIsHttp || trimmedUrl !== trimmedSourceUrl))
         ? trimmedUrl
         : undefined)
 
