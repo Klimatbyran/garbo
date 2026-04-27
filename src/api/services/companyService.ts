@@ -312,7 +312,7 @@ class CompanyService {
                     position: idx,
                   }
                 }
-              } catch (err) {
+              } catch {
                 // Fallback to original URL if ky fails
                 return {
                   url: result.url,
@@ -358,7 +358,7 @@ class CompanyService {
         .jpeg({ quality: 60 })
         .toBuffer()
       return jpegBuffer
-    } catch (err) {
+    } catch {
       return null
     }
   }

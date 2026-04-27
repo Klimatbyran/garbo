@@ -1,5 +1,4 @@
 import { Prisma } from '@prisma/client'
-import { TurnoverSchema } from './schemas'
 
 export const emissionsArgs = {
   include: {

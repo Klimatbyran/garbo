@@ -2,6 +2,7 @@ import Firecrawl, { SearchResultWeb } from '@mendable/firecrawl-js'
 import { CompanyReports, SaveReportsBody, SaveReportsResult } from '../types'
 import { pdf } from 'pdf-to-img'
 import ky from 'ky'
+import { Prisma } from '@prisma/client'
 import { prisma } from '../../lib/prisma'
 import sharp from 'sharp'
 import { ReportsListResponseSchema } from '../schemas/response'
@@ -46,7 +47,7 @@ class ReportsService {
                     position: idx,
                   }
                 }
-              } catch (err) {
+              } catch {
                 // Fallback to original URL if ky fails
                 return {
                   url: result.url,
@@ -91,7 +92,7 @@ class ReportsService {
         .jpeg({ quality: 60 })
         .toBuffer()
       return jpegBuffer
-    } catch (err) {
+    } catch {
       return null
     }
   }
@@ -142,8 +143,11 @@ class ReportsService {
           reportYear: saved.reportYear,
           url: saved.url,
         })
-      } catch (error: any) {
-        if (error?.code === 'P2002') {
+      } catch (error: unknown) {
+        if (
+          error instanceof Prisma.PrismaClientKnownRequestError &&
+          error.code === 'P2002'
+        ) {
           results.push({
             error: 'duplicate',
             companyName: report.companyName,

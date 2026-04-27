@@ -259,7 +259,7 @@ function logConfigurationOnce(job: DoclingParsePDFJob): void {
 const doclingParsePDF = new DiscordWorker(
   QUEUE_NAMES.DOCLING_PARSE_PDF,
   async (job: DoclingParsePDFJob) => {
-    const { url, doclingSettings, taskId } = job.data
+    const { url, taskId } = job.data
 
     // Log configuration once (first job only) - appears in BullMQ logs
     logConfigurationOnce(job)

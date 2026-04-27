@@ -1,6 +1,5 @@
 import { FastifyInstance, AuthenticatedFastifyRequest } from 'fastify'
 
-import { prisma } from '../../../lib/prisma'
 import { industryService } from '../../services/industryService'
 import { getErrorSchemas, postIndustrySchema } from '../../schemas'
 import { metadataService } from '../../services/metadataService'

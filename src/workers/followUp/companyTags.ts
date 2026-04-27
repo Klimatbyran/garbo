@@ -20,7 +20,7 @@ async function fetchTagOptions(): Promise<
 > {
   const options = await apiFetch('/tag-options')
   if (!Array.isArray(options)) return []
-  return options.map((o: any) => ({
+  return options.map((o: { slug?: string | null; label?: string | null }) => ({
     slug: o.slug ?? '',
     label: o.label ?? null,
   }))
