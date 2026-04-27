@@ -16,9 +16,9 @@ class ReportingPeriodService {
     }: {
       startDate: Date
       endDate: Date
-      reportURL?: string
-      reportS3Url?: string
-      reportSha256?: string
+      reportURL?: string | null
+      reportS3Url?: string | null
+      reportSha256?: string | null
       year: string
     }
   ) {

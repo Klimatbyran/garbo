@@ -73,11 +73,12 @@ class RegistryService {
         companyName: existing.companyName ?? input.companyName,
         wikidataId: existing.wikidataId ?? input.wikidataId ?? undefined,
         reportYear: existing.reportYear ?? input.reportYear ?? undefined,
-        sourceUrl: existing.sourceUrl ?? input.sourceUrl ?? undefined,
-        s3Url: existing.s3Url ?? input.s3Url ?? undefined,
-        s3Key: existing.s3Key ?? input.s3Key ?? undefined,
-        s3Bucket: existing.s3Bucket ?? input.s3Bucket ?? undefined,
-        sha256: existing.sha256 ?? input.sha256 ?? undefined,
+        // When provided (including explicit null), overwrite so callers can clear optional fields.
+        ...(input.sourceUrl !== undefined ? { sourceUrl: input.sourceUrl } : {}),
+        ...(input.s3Url !== undefined ? { s3Url: input.s3Url } : {}),
+        ...(input.s3Key !== undefined ? { s3Key: input.s3Key } : {}),
+        ...(input.s3Bucket !== undefined ? { s3Bucket: input.s3Bucket } : {}),
+        ...(input.sha256 !== undefined ? { sha256: input.sha256 } : {}),
       },
     })
   }

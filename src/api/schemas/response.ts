@@ -274,10 +274,12 @@ export const ReportingPeriodSchema = z.object({
     .string()
     .url()
     .nullable()
+    .optional()
     .openapi({ description: 'Public URL to cached/uploaded report PDF' }),
   reportSha256: z
     .string()
     .nullable()
+    .optional()
     .openapi({ description: 'SHA-256 hash for cached/uploaded report PDF' }),
   emissions: EmissionsSchema.nullable(),
   economy: EconomySchema.nullable(),

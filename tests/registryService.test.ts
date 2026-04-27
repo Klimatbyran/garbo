@@ -128,4 +128,48 @@ describe('registryService', () => {
       }),
     })
   })
+
+  it('upsert update clears sourceUrl/s3Url when input passes null', async () => {
+    const existing = {
+      id: 'r1',
+      url: 'https://example.com/a.pdf',
+      companyName: 'Acme',
+      wikidataId: 'Q1',
+      reportYear: '2024',
+      sourceUrl: 'https://source.example/old',
+      s3Url: 'https://cdn.example/old.pdf',
+      s3Key: 'k1',
+      s3Bucket: 'b1',
+      sha256: null as string | null,
+    }
+
+    // No sha256 / no string sourceUrl: only the url lookup runs.
+    mockPrisma.report.findUnique.mockResolvedValueOnce(existing)
+
+    mockPrisma.report.update.mockResolvedValueOnce({
+      ...existing,
+      sourceUrl: null,
+      s3Url: null,
+    })
+
+    await registryService.upsertReportInRegistry(
+      {
+        companyName: 'Acme',
+        wikidataId: 'Q1',
+        reportYear: '2024',
+        url: 'https://example.com/a.pdf',
+        sourceUrl: null,
+        s3Url: null,
+      },
+      mockPrisma
+    )
+
+    expect(mockPrisma.report.update).toHaveBeenCalledWith({
+      where: { id: 'r1' },
+      data: expect.objectContaining({
+        sourceUrl: null,
+        s3Url: null,
+      }),
+    })
+  })
 })
