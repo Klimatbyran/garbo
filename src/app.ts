@@ -52,6 +52,7 @@ import { registryReadRoutes } from './api/routes/internal/registry.read'
 import { registryDeleteRoutes } from './api/routes/internal/registry.delete'
 import { registryUpdateRoutes } from './api/routes/internal/registry.update'
 import { globalSearchReadRoutes } from './api/routes/internal/globalSearch.read'
+import { queueArchiveReadRoutes } from './api/routes/internal/queue.archive.read'
 
 async function startApp() {
   const app = Fastify({
@@ -188,6 +189,9 @@ async function authenticatedContext(app: FastifyInstance) {
   app.register(registryUpdateRoutes, { prefix: 'api/reports/registry' })
   app.register(reportsCreateRoutes, {
     prefix: 'api/internal-companies/reports',
+  })
+  app.register(queueArchiveReadRoutes, {
+    prefix: 'api/queue-archive',
   })
 }
 

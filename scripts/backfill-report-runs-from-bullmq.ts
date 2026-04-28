@@ -10,8 +10,14 @@
  *   npx tsx scripts/backfill-report-runs-from-bullmq.ts --dry-run
  *   npx tsx scripts/backfill-report-runs-from-bullmq.ts --queues=parsePdf,saveToAPI
  *   npx tsx scripts/backfill-report-runs-from-bullmq.ts --reconcile-only
+ *     (recomputes `ReportRun.status` and thread `startedAt` / `updatedAt` from `ReportRunJob`)
  *
  * Safe to re-run: skips rows that already exist for the same BullMQ `(queueName, jobId)`.
+ *
+ * Thread timestamps (`ReportRun.startedAt`, `ReportRun.updatedAt`): the upsert path does not
+ * set them, so Prisma would otherwise use `now()` / `@updatedAt` for every touch — i.e. backfill
+ * wall time, not pipeline history. After import, {@link reconcileReportRunTimestampsFromJobs}
+ * sets them from MIN/MAX of the persisted job rows.
  */
 
 import 'dotenv/config'
@@ -121,6 +127,11 @@ function companyNameFromData(data: Record<string, unknown> | undefined): string 
   return typeof n === 'string' && n.trim() ? n.trim() : null
 }
 
+function batchIdFromData(data: Record<string, unknown> | undefined): string | null {
+  const b = data?.batchId
+  return typeof b === 'string' && b.trim() ? b.trim() : null
+}
+
 async function persistJobIfNeeded(args: {
   job: Job
   queueName: string
@@ -146,6 +157,7 @@ async function persistJobIfNeeded(args: {
 
   const wikidataId = wikidataNodeFromData(data)
   const companyName = companyNameFromData(data)
+  const batchId = batchIdFromData(data)
   const returnValue = parseReturnValue(job)
   const { prompt, queryTexts, markdown } = metadataFromReturnValue(returnValue)
 
@@ -156,10 +168,15 @@ async function persistJobIfNeeded(args: {
 
   const startedAt =
     typeof job.processedOn === 'number' ? new Date(job.processedOn) : null
-  const finishedAt =
+  const finishedAtMs =
     typeof job.finishedOn === 'number'
-      ? new Date(job.finishedOn)
-      : new Date()
+      ? job.finishedOn
+      : typeof job.processedOn === 'number'
+        ? job.processedOn
+        : typeof job.timestamp === 'number'
+          ? job.timestamp
+          : Date.now()
+  const finishedAt = new Date(finishedAtMs)
 
   const queryTextsJson: Prisma.InputJsonValue | undefined =
     queryTexts === null || queryTexts === undefined
@@ -176,10 +193,11 @@ async function persistJobIfNeeded(args: {
   try {
     const reportRun = await prisma.reportRun.upsert({
       where: { threadId },
-      create: { threadId, pdfUrl, companyName, wikidataId },
+      create: { threadId, pdfUrl, companyName, wikidataId, batchId },
       update: {
         companyName: companyName ?? undefined,
         wikidataId: wikidataId ?? undefined,
+        ...(batchId ? { batchId } : {}),
       },
     })
 
@@ -280,6 +298,29 @@ async function reconcileReportRunStatuses(): Promise<void> {
   console.log(`[backfill] reconciled status for ${acc.size} report runs`)
 }
 
+/**
+ * Set each `ReportRun.startedAt` / `updatedAt` from persisted jobs so they reflect pipeline
+ * time (BullMQ-derived job rows), not backfill wall clock from upsert defaults / `@updatedAt`.
+ */
+async function reconcileReportRunTimestampsFromJobs(): Promise<void> {
+  const n = await prisma.$executeRaw`
+    UPDATE "ReportRun" AS r
+    SET
+      "startedAt" = s."first_ts",
+      "updatedAt" = s."last_ts"
+    FROM (
+      SELECT
+        "reportRunId",
+        MIN(COALESCE("startedAt", "finishedAt")) AS "first_ts",
+        MAX("finishedAt") AS "last_ts"
+      FROM "ReportRunJob"
+      GROUP BY "reportRunId"
+    ) AS s
+    WHERE r."id" = s."reportRunId"
+  `
+  console.log(`[backfill] reconciled thread startedAt/updatedAt from jobs (rows: ${n})`)
+}
+
 async function main() {
   const opts = parseArgs(process.argv.slice(2))
   const queuesToScan = ALL_QUEUE_NAMES.filter(
@@ -300,6 +341,7 @@ async function main() {
 
   if (opts.reconcileOnly) {
     await reconcileReportRunStatuses()
+    await reconcileReportRunTimestampsFromJobs()
     return
   }
 
@@ -322,8 +364,9 @@ async function main() {
 
   if (!opts.dryRun) {
     await reconcileReportRunStatuses()
+    await reconcileReportRunTimestampsFromJobs()
   } else {
-    console.log('[dry-run] skipping status reconciliation')
+    console.log('[dry-run] skipping status + thread timestamp reconciliation')
   }
 }
 

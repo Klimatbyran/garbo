@@ -26,6 +26,9 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
       const wikidataId = job.data?.wikidata?.node ?? null
       const companyName = job.data?.companyName ?? null
       const threadId = job.data?.threadId ?? null
+      const rawBatchId = (job.data as { batchId?: unknown } | undefined)?.batchId
+      const batchId =
+        typeof rawBatchId === 'string' && rawBatchId.trim() ? rawBatchId.trim() : null
 
       if (!threadId) {
         console.log(`[ReportRun] skipping job ${jobId} in ${queueName} — no threadId`)
@@ -36,10 +39,11 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
 
       const reportRun = await prisma.reportRun.upsert({
         where: { threadId },
-        create: { threadId, pdfUrl, companyName, wikidataId },
+        create: { threadId, pdfUrl, companyName, wikidataId, batchId },
         update: {
           companyName: companyName ?? undefined,
           wikidataId: wikidataId ?? undefined,
+          ...(batchId ? { batchId } : {}),
         },
       })
 

@@ -409,6 +409,8 @@ model ReportRun {
   pdfUrl      String
   companyName String?
   wikidataId  String?
+  /// Pipeline batch from job `data.batchId` (optional).
+  batchId     String?        @map("batch_id")
   status      String         @default("running") // 'running' | 'completed' | 'failed'
   startedAt   DateTime       @default(now())
   updatedAt   DateTime       @updatedAt
@@ -416,6 +418,7 @@ model ReportRun {
 
   @@index([pdfUrl])
   @@index([wikidataId])
+  @@index([batchId])
 }
 
 model ReportRunJob {
