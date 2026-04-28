@@ -10,7 +10,10 @@ const jobListSelect = {
   finishedAt: true,
 } as const
 
-function buildListWhere(q?: string, batchId?: string): Prisma.ReportRunWhereInput {
+function buildListWhere(
+  q?: string,
+  batchId?: string
+): Prisma.ReportRunWhereInput {
   const qTrim = q?.trim()
   const batchTrim = batchId?.trim()
 
@@ -38,7 +41,9 @@ function buildListWhere(q?: string, batchId?: string): Prisma.ReportRunWhereInpu
   return {}
 }
 
-export async function listArchivedReportRunBatchIds(limit = 400): Promise<string[]> {
+export async function listArchivedReportRunBatchIds(
+  limit = 400
+): Promise<string[]> {
   const cap = Math.min(2000, Math.max(1, limit))
   const rows = await prisma.reportRun.findMany({
     where: { batchId: { not: null } },

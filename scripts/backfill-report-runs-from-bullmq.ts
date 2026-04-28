@@ -47,7 +47,7 @@ function parseArgs(argv: string[]): CliOptions {
           .slice('--queues='.length)
           .split(',')
           .map((s) => s.trim())
-          .filter(Boolean),
+          .filter(Boolean)
       )
     : null
   const chunkArg = argv.find((a) => a.startsWith('--chunk='))
@@ -91,7 +91,7 @@ function metadataFromReturnValue(rv: Record<string, unknown> | null): {
 
 async function resolvePdfUrl(
   data: Record<string, unknown> | undefined,
-  threadId: string | null,
+  threadId: string | null
 ): Promise<string | null> {
   const raw = data?.url
   const direct = typeof raw === 'string' ? raw.trim() : ''
@@ -106,13 +106,15 @@ async function resolvePdfUrl(
   return null
 }
 
-function threadIdFromData(data: Record<string, unknown> | undefined): string | null {
+function threadIdFromData(
+  data: Record<string, unknown> | undefined
+): string | null {
   const t = data?.threadId
   return typeof t === 'string' && t.trim() ? t.trim() : null
 }
 
 function wikidataNodeFromData(
-  data: Record<string, unknown> | undefined,
+  data: Record<string, unknown> | undefined
 ): string | null {
   const w = data?.wikidata
   if (w && typeof w === 'object' && !Array.isArray(w)) {
@@ -122,12 +124,16 @@ function wikidataNodeFromData(
   return null
 }
 
-function companyNameFromData(data: Record<string, unknown> | undefined): string | null {
+function companyNameFromData(
+  data: Record<string, unknown> | undefined
+): string | null {
   const n = data?.companyName
   return typeof n === 'string' && n.trim() ? n.trim() : null
 }
 
-function batchIdFromData(data: Record<string, unknown> | undefined): string | null {
+function batchIdFromData(
+  data: Record<string, unknown> | undefined
+): string | null {
   const b = data?.batchId
   return typeof b === 'string' && b.trim() ? b.trim() : null
 }
@@ -185,7 +191,7 @@ async function persistJobIfNeeded(args: {
 
   if (dryRun) {
     console.log(
-      `[dry-run] would upsert run ${threadId} + job ${queueName}/${jobId} (${status})`,
+      `[dry-run] would upsert run ${threadId} + job ${queueName}/${jobId} (${status})`
     )
     return 'inserted'
   }
@@ -279,16 +285,26 @@ async function reconcileReportRunStatuses(): Promise<void> {
 
   const acc = new Map<string, { anyFailed: boolean; sendCompleted: boolean }>()
   for (const j of jobs) {
-    const cur = acc.get(j.reportRunId) ?? { anyFailed: false, sendCompleted: false }
+    const cur = acc.get(j.reportRunId) ?? {
+      anyFailed: false,
+      sendCompleted: false,
+    }
     if (j.status === 'failed') cur.anyFailed = true
-    if (j.queueName === QUEUE_NAMES.SEND_COMPANY_LINK && j.status === 'completed') {
+    if (
+      j.queueName === QUEUE_NAMES.SEND_COMPANY_LINK &&
+      j.status === 'completed'
+    ) {
       cur.sendCompleted = true
     }
     acc.set(j.reportRunId, cur)
   }
 
   for (const [reportRunId, { anyFailed, sendCompleted }] of acc) {
-    const status = anyFailed ? 'failed' : sendCompleted ? 'completed' : 'running'
+    const status = anyFailed
+      ? 'failed'
+      : sendCompleted
+        ? 'completed'
+        : 'running'
     await prisma.reportRun.update({
       where: { id: reportRunId },
       data: { status },
@@ -318,17 +334,21 @@ async function reconcileReportRunTimestampsFromJobs(): Promise<void> {
     ) AS s
     WHERE r."id" = s."reportRunId"
   `
-  console.log(`[backfill] reconciled thread startedAt/updatedAt from jobs (rows: ${n})`)
+  console.log(
+    `[backfill] reconciled thread startedAt/updatedAt from jobs (rows: ${n})`
+  )
 }
 
 async function main() {
   const opts = parseArgs(process.argv.slice(2))
   const queuesToScan = ALL_QUEUE_NAMES.filter(
-    (q) => !opts.queueFilter || opts.queueFilter.has(q),
+    (q) => !opts.queueFilter || opts.queueFilter.has(q)
   )
 
   if (opts.queueFilter) {
-    const unknown = [...opts.queueFilter].filter((q) => !ALL_QUEUE_NAMES.includes(q))
+    const unknown = [...opts.queueFilter].filter(
+      (q) => !ALL_QUEUE_NAMES.includes(q)
+    )
     if (unknown.length) {
       console.error('Unknown queue names:', unknown.join(', '))
       process.exit(1)
@@ -336,7 +356,7 @@ async function main() {
   }
 
   console.log(
-    `[backfill] queues=${queuesToScan.length} dryRun=${opts.dryRun} reconcileOnly=${opts.reconcileOnly} chunk=${opts.chunkSize}`,
+    `[backfill] queues=${queuesToScan.length} dryRun=${opts.dryRun} reconcileOnly=${opts.reconcileOnly} chunk=${opts.chunkSize}`
   )
 
   if (opts.reconcileOnly) {

@@ -9,7 +9,11 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
   const queueEvents = new QueueEvents(queueName, { connection: redis })
   const queue = new Queue(queueName, { connection: redis })
 
-  const saveRun = async (jobId: string, status: 'completed' | 'failed', failedReason?: string) => {
+  const saveRun = async (
+    jobId: string,
+    status: 'completed' | 'failed',
+    failedReason?: string
+  ) => {
     try {
       const job = await queue.getJob(jobId)
       if (!job) {
@@ -26,16 +30,23 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
       const wikidataId = job.data?.wikidata?.node ?? null
       const companyName = job.data?.companyName ?? null
       const threadId = job.data?.threadId ?? null
-      const rawBatchId = (job.data as { batchId?: unknown } | undefined)?.batchId
+      const rawBatchId = (job.data as { batchId?: unknown } | undefined)
+        ?.batchId
       const batchId =
-        typeof rawBatchId === 'string' && rawBatchId.trim() ? rawBatchId.trim() : null
+        typeof rawBatchId === 'string' && rawBatchId.trim()
+          ? rawBatchId.trim()
+          : null
 
       if (!threadId) {
-        console.log(`[ReportRun] skipping job ${jobId} in ${queueName} — no threadId`)
+        console.log(
+          `[ReportRun] skipping job ${jobId} in ${queueName} — no threadId`
+        )
         return
       }
 
-      console.log(`[ReportRun] saving job ${jobId} in ${queueName} for thread ${threadId}`)
+      console.log(
+        `[ReportRun] saving job ${jobId} in ${queueName} for thread ${threadId}`
+      )
 
       const reportRun = await prisma.reportRun.upsert({
         where: { threadId },
@@ -50,9 +61,10 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
       let returnValue: Record<string, any> | null = null
       if (job.returnvalue) {
         try {
-          returnValue = typeof job.returnvalue === 'string'
-            ? JSON.parse(job.returnvalue)
-            : job.returnvalue
+          returnValue =
+            typeof job.returnvalue === 'string'
+              ? JSON.parse(job.returnvalue)
+              : job.returnvalue
         } catch {
           // returnvalue is not JSON (e.g. precheck returns a plain string)
         }
@@ -91,7 +103,9 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
   }
 
   queueEvents.on('completed', ({ jobId }) => saveRun(jobId, 'completed'))
-  queueEvents.on('failed', ({ jobId, failedReason }) => saveRun(jobId, 'failed', failedReason))
+  queueEvents.on('failed', ({ jobId, failedReason }) =>
+    saveRun(jobId, 'failed', failedReason)
+  )
 }
 
 console.log('Starting workers...')
