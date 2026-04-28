@@ -66,6 +66,8 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
           startedAt: job.processedOn ? new Date(job.processedOn) : null,
           finishedAt: new Date(),
           reportRunId: reportRun.id,
+          wikidataId: wikidataId ?? undefined,
+          approved_timestamp: null, 
         },
       })
 
