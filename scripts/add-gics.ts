@@ -1284,11 +1284,15 @@ async function translateIndustryGicsStrings(
 }
 
 async function main() {
-  // const codes = prepareCodes()
-  // await addIndustryGicsCodesToDB(codes)
-  // await translateIndustryGicsStrings(codes)
+  await seedGicsCodes()
+  const count = await prisma.industryGics.count()
+  console.log(`Seeded IndustryGics rows: ${count}`)
 }
 
 if (isMainModule(import.meta.url)) {
-  await main()
+  try {
+    await main()
+  } finally {
+    await prisma.$disconnect()
+  }
 }

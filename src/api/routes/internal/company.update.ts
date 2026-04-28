@@ -85,9 +85,10 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
         return reply.send({ ok: true })
       } catch (error) {
         console.error('ERROR Creation or update of company failed:', error)
-        return reply
-          .status(500)
-          .send({ message: 'Creation or update of company failed.' })
+        return reply.status(500).send({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'Creation or update of company failed.',
+        })
       }
     }
   )
