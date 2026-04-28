@@ -95,7 +95,8 @@ await flow.add({
 flowchart TD
     A[parsePdf] -->|not cached| B[doclingParsePDF]
     B --> C[indexMarkdown]
-    C --> D[precheck]
+    C -->|no callbackUrl| D[precheck]
+    C -->|callbackUrl set| CB[POST callbackUrl\n'{url}']
     A -- cached? --> D
     D --> F[guessWikidata]
     D --> G[followUp-fiscalYear]
@@ -145,15 +146,17 @@ flowchart TD
     url: string
     threadId: string,
     autoApprove: boolean
+    forceReindex?: boolean
+    callbackUrl?: string
 }
 ```
 
-`url` defines the report URL, `threadId` references the Discord thread where the bot will respond, and `autoApprove` controls whether user approvals are required for data updates.
+`url` defines the report URL, `autoApprove` controls whether user approvals are required for data updates. `forceReindex` deletes any existing vector index before parsing so the PDF is re-processed from scratch. `callbackUrl` enables the [callback handover mode](#callback-handover-garbo-game-integration) described below.
 
 **Functionality:**
 
 - Checks if the report is already indexed in the VectorDB.
-- If cached, directly queues `precheck` with:
+- If cached (and `forceReindex` is not set), directly queues `precheck` with:
 
 ```typescript
 {
@@ -164,12 +167,13 @@ flowchart TD
 }
 ```
 
-- If not cached, creates a flow:
+- If not cached (or `forceReindex` is set), creates a flow. When `callbackUrl` is provided the flow terminates at `indexMarkdown` and fires the callback instead of continuing into the extraction pipeline:
 
 ```mermaid
 flowchart LR
     B[doclingParsePDF] --> C[indexMarkdown]
-    C --> D[precheck]
+    C -->|no callbackUrl| D[precheck]
+    C -->|callbackUrl set| CB[POST callbackUrl]
 ```
 
 Return Value: Job id when enqueuing `precheck` from the cache path; otherwise true after starting the flow.
@@ -213,15 +217,16 @@ Return Value: Job id when enqueuing `precheck` from the cache path; otherwise tr
     url: string
     threadId: string,
     autoApprove: boolean
+    callbackUrl?: string
 }
 ```
 
 The job receives the standard properties and awaits the `markdown` output from its child job [doclingParsePDF](#doclingparsepdf).
 
 **Functionality:**
-Indexes the parsed markdown into the VectorDB for downstream retrieval.
+Indexes the parsed markdown into the VectorDB for downstream retrieval. If `callbackUrl` is set, fires a `POST` request to that URL once indexing is complete (see [Callback Handover](#callback-handover-garbo-game-integration)).
 
-**Return Value:** _none_
+**Return Value:** `{ markdown: string }`
 
 ### precheck
 
@@ -801,6 +806,63 @@ The job checks if the companies url by querying the API with the wikidata id and
 ```
 
 The job returns the url to the company page.
+
+## Callback Handover (garbo-game integration)
+
+Garbo supports handing off to an external service — such as garbo-game — after a PDF has been parsed and indexed, instead of running the built-in extraction pipeline. This is controlled by the optional `callbackUrl` field on the `parsePdf` job.
+
+### How it works
+
+When `callbackUrl` is present, `parsePdf` builds a shorter flow that stops at `indexMarkdown`:
+
+```
+doclingParsePDF → indexMarkdown → POST callbackUrl { url }
+```
+
+The `precheck` step and everything downstream (extraction, diff, save) are **not** queued. Once `indexMarkdown` has stored the report in the vector database it fires a single `POST` request to the callback URL with the body:
+
+```json
+{ "url": "<report PDF url>" }
+```
+
+The receiving service can then query the vector database directly using the `url` as the key to retrieve the indexed markdown and run its own extraction logic.
+
+### Security: URL allowlist
+
+Callback URLs must be explicitly whitelisted. Set the `ALLOWED_CALLBACK_URLS` environment variable to a comma-separated list of allowed URL prefixes:
+
+```
+ALLOWED_CALLBACK_URLS=https://garbo-game.example.com,https://other-allowed-service.example.com
+```
+
+A callback URL is accepted if it starts with any of the listed prefixes. If the list is empty, all callbacks are rejected.
+
+### Triggering parsePdf with a callback
+
+Add a job to the `PARSE_PDF` queue with `callbackUrl` in the data:
+
+```typescript
+parsePdf.queue.add('parse', {
+  url: 'https://example.com/sustainability-report.pdf',
+  callbackUrl: 'https://garbo-game.example.com/api/pdf-ready',
+  autoApprove: true,
+})
+```
+
+Or via an HTTP request to whatever API endpoint enqueues the job, including the same fields in the request body.
+
+### What the callback receiver must do
+
+The endpoint at `callbackUrl` receives:
+
+```
+POST /your/endpoint
+Content-Type: application/json
+
+{ "url": "https://example.com/sustainability-report.pdf" }
+```
+
+It should respond with a 2xx status. A non-2xx response causes the `indexMarkdown` job to fail and retry according to its retry policy.
 
 ## Docling configuration
 

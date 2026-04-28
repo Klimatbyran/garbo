@@ -1,4 +1,4 @@
-import { DiscordWorker } from '../lib/DiscordWorker'
+import { DiscordWorker, DiscordJob } from '../lib/DiscordWorker'
 import { FlowProducer } from 'bullmq'
 import redis from '../config/redis'
 import precheck from './precheck'
@@ -8,13 +8,17 @@ import { QUEUE_NAMES } from '../queues'
 const flow = new FlowProducer({ connection: redis })
 flow.on('error', (err) => console.error('FlowProducer connection error:', err))
 
-const parsePdf = new DiscordWorker(
+class ParsePdfJob extends DiscordJob {
+  declare data: DiscordJob['data'] & {
+    forceReindex?: boolean
+    callbackUrl?: string
+  }
+}
+
+const parsePdf = new DiscordWorker<ParsePdfJob>(
   QUEUE_NAMES.PARSE_PDF,
   async (job) => {
-    const { url, forceReindex } = job.data as {
-      url: string
-      forceReindex?: boolean
-    }
+    const { url, forceReindex, callbackUrl } = job.data
     job.log(`forceReindex flag: ${Boolean(forceReindex)}`)
     job.opts.attempts = 1
 
@@ -48,26 +52,30 @@ const parsePdf = new DiscordWorker(
       if (!exists || forceReindex) {
         job.editMessage(`✅ PDF queued. Parsing via Docling and indexing...`)
 
-        const precheckFlow = await flow.add({
+        const indexMarkdownStep = {
           ...base,
-          name: 'precheck ' + name,
-          queueName: QUEUE_NAMES.PRECHECK,
+          name: 'indexMarkdown ' + name,
+          queueName: QUEUE_NAMES.INDEX_MARKDOWN,
           children: [
             {
               ...base,
-              name: 'indexMarkdown ' + name,
-              queueName: QUEUE_NAMES.INDEX_MARKDOWN,
-              children: [
-                {
-                  ...base,
-                  name: 'doclingParsePDF',
-                  queueName: QUEUE_NAMES.DOCLING_PARSE_PDF,
-                },
-              ],
+              name: 'doclingParsePDF',
+              queueName: QUEUE_NAMES.DOCLING_PARSE_PDF,
             },
           ],
-        })
-        job.log('flow started: ' + precheckFlow.job?.id)
+        }
+
+        const rootFlow = callbackUrl
+          ? indexMarkdownStep
+          : {
+              ...base,
+              name: 'precheck ' + name,
+              queueName: QUEUE_NAMES.PRECHECK,
+              children: [indexMarkdownStep],
+            }
+
+        const addedFlow = await flow.add(rootFlow)
+        job.log('flow started: ' + addedFlow.job?.id)
       } else {
         job.editMessage(`✅ PDF already interpreted and indexed. Continuing...`)
 
