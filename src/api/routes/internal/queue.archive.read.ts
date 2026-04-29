@@ -42,7 +42,9 @@ export async function queueArchiveReadRoutes(app: FastifyInstance) {
       },
     },
     async (request, reply) => {
-      const { batchName } = request.body as z.infer<typeof createBatchBodySchema>
+      const { batchName } = request.body as z.infer<
+        typeof createBatchBodySchema
+      >
       try {
         const batch = await upsertBatchByName(batchName)
         return reply.send({ batch })
@@ -52,7 +54,7 @@ export async function queueArchiveReadRoutes(app: FastifyInstance) {
           error: err instanceof Error ? err.message : 'Invalid batch',
         })
       }
-    },
+    }
   )
 
   app.get(
