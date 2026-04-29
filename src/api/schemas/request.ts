@@ -263,7 +263,7 @@ export const reportingPeriodSchema = z
     reportURL: z.string().optional().nullable(),
     reportS3Url: z.preprocess(
       (val) => (val === '' ? null : val),
-      z.union([z.string().url(), z.null()]).optional(),
+      z.union([z.string().url(), z.null()]).optional()
     ),
     reportSha256: z.string().optional().nullable(),
     emissions: emissionsSchema,
