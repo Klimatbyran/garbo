@@ -29,7 +29,8 @@ export async function queueArchiveReadRoutes(app: FastifyInstance) {
     '/batches',
     {
       schema: {
-        summary: 'List batches (stable id + batch name / pipeline batch id string)',
+        summary:
+          'List batches (stable id + batch name / pipeline batch id string)',
         tags: ['Internal'],
         querystring: queryBatches,
         hide: true,
@@ -39,7 +40,7 @@ export async function queueArchiveReadRoutes(app: FastifyInstance) {
       const q = queryBatches.parse(request.query)
       const data = await listArchivedBatches(q.limit)
       return reply.send(data)
-    },
+    }
   )
 
   app.get(
@@ -62,7 +63,7 @@ export async function queueArchiveReadRoutes(app: FastifyInstance) {
         batchName: q.batchName,
       })
       return reply.send(data)
-    },
+    }
   )
 
   app.get(
@@ -82,6 +83,6 @@ export async function queueArchiveReadRoutes(app: FastifyInstance) {
         return reply.status(404).send({ error: 'Run not found' })
       }
       return reply.send(run)
-    },
+    }
   )
 }
