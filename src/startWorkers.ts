@@ -66,6 +66,12 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
           jobId,
           queueName,
           status,
+          wikidataId: wikidataId ?? null,
+          approvedTimestamp:
+            status === 'completed' ? new Date().toISOString() : null,
+          autoApprove: Boolean(
+            (job.data as { autoApprove?: unknown } | undefined)?.autoApprove,
+          ),
           failedReason: failedReason ?? null,
           prompt: returnValue?.metadata?.prompt ?? null,
           queryTexts: returnValue?.metadata?.queryTexts ?? null,
@@ -73,10 +79,6 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
           startedAt: job.processedOn ? new Date(job.processedOn) : null,
           finishedAt: new Date(),
           reportRunId: reportRun.id,
-          wikidataId: wikidataId ?? null,
-          approved_timestamp:
-            status === 'completed' ? new Date().toISOString() : null,
-          auto_approve: job.data.autoApprove,
         },
       })
 

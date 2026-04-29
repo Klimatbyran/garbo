@@ -209,11 +209,21 @@ async function persistJobIfNeeded(args: {
       },
     })
 
+    const autoApprove = Boolean(
+      data && typeof data === 'object' && 'autoApprove' in data
+        ? (data as { autoApprove?: unknown }).autoApprove
+        : false,
+    )
+
     await prisma.reportRunJob.create({
       data: {
         jobId,
         queueName,
         status,
+        wikidataId: wikidataId ?? null,
+        approvedTimestamp:
+          status === 'completed' ? finishedAt.toISOString() : null,
+        autoApprove,
         failedReason,
         prompt,
         queryTexts: queryTextsJson,

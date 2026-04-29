@@ -4,7 +4,10 @@ import { prisma } from '../../lib/prisma'
 const jobListSelect = {
   jobId: true,
   queueName: true,
+  wikidataId: true,
   status: true,
+  approvedTimestamp: true,
+  autoApprove: true,
   failedReason: true,
   startedAt: true,
   finishedAt: true,

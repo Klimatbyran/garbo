@@ -1,5 +1,4 @@
--- Squashed: Batch, ReportRun, ReportRunJob (queue archive) in final form for local / pre-merge DBs.
--- Replaces the prior multi-step migration chain. Reset local DBs with `prisma migrate reset` if they applied the old migrations.
+-- Squashed: Batch, ReportRun, ReportRunJob (queue archive). Single migration replacing the prior chain.
 
 -- CreateTable
 CREATE TABLE "Batch" (
@@ -48,7 +47,10 @@ CREATE TABLE "ReportRunJob" (
     "id" TEXT NOT NULL,
     "jobId" TEXT NOT NULL,
     "queueName" TEXT NOT NULL,
+    "wikidataId" TEXT,
     "status" TEXT NOT NULL,
+    "approved_timestamp" TEXT,
+    "auto_approve" BOOLEAN NOT NULL DEFAULT false,
     "failedReason" TEXT,
     "prompt" TEXT,
     "queryTexts" JSONB,
