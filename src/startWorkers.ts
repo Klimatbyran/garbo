@@ -70,6 +70,8 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
         }
       }
 
+      console.log(job.data)
+
       await prisma.reportRunJob.create({
         data: {
           jobId,
@@ -82,6 +84,10 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
           startedAt: job.processedOn ? new Date(job.processedOn) : null,
           finishedAt: new Date(),
           reportRunId: reportRun.id,
+          wikidataId: wikidataId ?? null,
+          approved_timestamp:
+            status === 'completed' ? new Date().toISOString() : null,
+          auto_approve: job.data.autoApprove,
         },
       })
 
@@ -102,10 +108,16 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
     }
   }
 
-  queueEvents.on('completed', ({ jobId }) => saveRun(jobId, 'completed'))
-  queueEvents.on('failed', ({ jobId, failedReason }) =>
+  queueEvents.on('completed', ({ jobId }) => {
+    console.log(`[QueueEvents] Job completed: ${jobId} in queue ${queueName}`)
+    saveRun(jobId, 'completed')
+  })
+  queueEvents.on('failed', ({ jobId, failedReason }) => {
+    console.log(
+      `[QueueEvents] Job failed: ${jobId} in queue ${queueName}, reason: ${failedReason}`
+    )
     saveRun(jobId, 'failed', failedReason)
-  )
+  })
 }
 
 console.log('Starting workers...')

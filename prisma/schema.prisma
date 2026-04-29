@@ -430,18 +430,21 @@ model ReportRun {
 }
 
 model ReportRunJob {
-  id           String    @id @default(cuid())
-  jobId        String
-  queueName    String
-  status       String    // 'completed' | 'failed'
-  failedReason String?
-  prompt       String?
-  queryTexts   Json?     // string[]
-  markdown     String?
-  startedAt    DateTime?
-  finishedAt   DateTime  @default(now())
-  reportRunId  String
-  reportRun    ReportRun @relation(fields: [reportRunId], references: [id])
+  id                   String    @id @default(cuid())
+  jobId                String
+  wikidataId           String?
+  queueName            String
+  status               String    // 'completed' | 'failed'
+  approved_timestamp   String?
+  auto_approve         Boolean   @default(false)
+  failedReason         String?
+  prompt               String?
+  queryTexts           Json?     // string[]
+  markdown             String?
+  startedAt            DateTime?
+  finishedAt           DateTime  @default(now())
+  reportRunId          String
+  reportRun            ReportRun @relation(fields: [reportRunId], references: [id])
 
   @@index([reportRunId])
 }
