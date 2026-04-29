@@ -4,6 +4,7 @@ import {
   getArchivedReportRunByThreadId,
   listArchivedBatches,
   listArchivedReportRuns,
+  upsertBatchByName,
 } from '../../services/reportRunArchiveReadService'
 
 const queryList = z.object({
@@ -20,11 +21,40 @@ const queryBatches = z.object({
   limit: z.coerce.number().optional().default(400),
 })
 
+const createBatchBodySchema = z.object({
+  batchName: z.string().min(1).max(512),
+})
+
 /**
  * Postgres-backed BullMQ run archive (Jobbstatus history in Validate).
  * Requires auth; mounted at `api/queue-archive`.
  */
 export async function queueArchiveReadRoutes(app: FastifyInstance) {
+  app.post(
+    '/batches',
+    {
+      schema: {
+        summary:
+          'Create or return existing Garbo batch by human-readable name (Validate upload)',
+        tags: ['Internal'],
+        body: createBatchBodySchema,
+        hide: true,
+      },
+    },
+    async (request, reply) => {
+      const { batchName } = request.body as z.infer<typeof createBatchBodySchema>
+      try {
+        const batch = await upsertBatchByName(batchName)
+        return reply.send({ batch })
+      } catch (err) {
+        request.log.error({ err }, 'queue-archive POST /batches failed')
+        return reply.status(400).send({
+          error: err instanceof Error ? err.message : 'Invalid batch',
+        })
+      }
+    },
+  )
+
   app.get(
     '/batches',
     {

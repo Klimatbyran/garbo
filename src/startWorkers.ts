@@ -4,7 +4,7 @@ import { QueueEvents, Queue } from 'bullmq'
 import redis from './config/redis'
 import { QUEUE_NAMES } from './queues'
 import { prisma } from './lib/prisma'
-import { ensureReportBatch } from './lib/ensureReportBatch'
+import { resolveReportBatchDbId } from './lib/resolveReportBatchDbId'
 
 for (const queueName of Object.values(QUEUE_NAMES)) {
   const queueEvents = new QueueEvents(queueName, { connection: redis })
@@ -33,7 +33,7 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
       const threadId = job.data?.threadId ?? null
       const rawBatchId = (job.data as { batchId?: unknown } | undefined)
         ?.batchId
-      const batchDbId = await ensureReportBatch(
+      const batchDbId = await resolveReportBatchDbId(
         typeof rawBatchId === 'string' ? rawBatchId : null
       )
 

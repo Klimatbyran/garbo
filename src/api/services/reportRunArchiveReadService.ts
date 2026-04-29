@@ -76,6 +76,20 @@ export async function listArchivedBatches(limit = 400) {
   return { batches }
 }
 
+/** Upsert by `batchName`; used by Validate when creating a batch before enqueueing jobs. */
+export async function upsertBatchByName(batchName: string) {
+  const trimmed = batchName.trim()
+  if (!trimmed) {
+    throw new Error('batchName is required')
+  }
+  return prisma.batch.upsert({
+    where: { batchName: trimmed },
+    create: { batchName: trimmed },
+    update: {},
+    select: batchListSelect,
+  })
+}
+
 export async function listArchivedReportRuns(params: {
   page: number
   pageSize: number
