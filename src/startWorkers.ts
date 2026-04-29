@@ -9,7 +9,11 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
   const queueEvents = new QueueEvents(queueName, { connection: redis })
   const queue = new Queue(queueName, { connection: redis })
 
-  const saveRun = async (jobId: string, status: 'completed' | 'failed', failedReason?: string) => {
+  const saveRun = async (
+    jobId: string,
+    status: 'completed' | 'failed',
+    failedReason?: string
+  ) => {
     try {
       const job = await queue.getJob(jobId)
       if (!job) {
@@ -28,11 +32,15 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
       const threadId = job.data?.threadId ?? null
 
       if (!threadId) {
-        console.log(`[ReportRun] skipping job ${jobId} in ${queueName} — no threadId`)
+        console.log(
+          `[ReportRun] skipping job ${jobId} in ${queueName} — no threadId`
+        )
         return
       }
 
-      console.log(`[ReportRun] saving job ${jobId} in ${queueName} for thread ${threadId}`)
+      console.log(
+        `[ReportRun] saving job ${jobId} in ${queueName} for thread ${threadId}`
+      )
 
       const reportRun = await prisma.reportRun.upsert({
         where: { threadId },
@@ -46,13 +54,16 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
       let returnValue: Record<string, any> | null = null
       if (job.returnvalue) {
         try {
-          returnValue = typeof job.returnvalue === 'string'
-            ? JSON.parse(job.returnvalue)
-            : job.returnvalue
+          returnValue =
+            typeof job.returnvalue === 'string'
+              ? JSON.parse(job.returnvalue)
+              : job.returnvalue
         } catch {
           // returnvalue is not JSON (e.g. precheck returns a plain string)
         }
       }
+
+      console.log(job.data)
 
       await prisma.reportRunJob.create({
         data: {
@@ -66,8 +77,10 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
           startedAt: job.processedOn ? new Date(job.processedOn) : null,
           finishedAt: new Date(),
           reportRunId: reportRun.id,
-          wikidataId: wikidataId ?? undefined,
-          approved_timestamp: null, 
+          wikidataId: wikidataId ?? null,
+          approved_timestamp:
+            status === 'completed' ? new Date().toISOString() : null,
+          auto_approve: job.data.autoApprove,
         },
       })
 
@@ -88,8 +101,16 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
     }
   }
 
-  queueEvents.on('completed', ({ jobId }) => saveRun(jobId, 'completed'))
-  queueEvents.on('failed', ({ jobId, failedReason }) => saveRun(jobId, 'failed', failedReason))
+  queueEvents.on('completed', ({ jobId }) => {
+    console.log(`[QueueEvents] Job completed: ${jobId} in queue ${queueName}`)
+    saveRun(jobId, 'completed')
+  })
+  queueEvents.on('failed', ({ jobId, failedReason }) => {
+    console.log(
+      `[QueueEvents] Job failed: ${jobId} in queue ${queueName}, reason: ${failedReason}`
+    )
+    saveRun(jobId, 'failed', failedReason)
+  })
 }
 
 console.log('Starting workers...')

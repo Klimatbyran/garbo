@@ -421,10 +421,11 @@ model ReportRun {
 model ReportRunJob {
   id                   String    @id @default(cuid())
   jobId                String
-  wikidataId           String
+  wikidataId           String?
   queueName            String
   status               String    // 'completed' | 'failed'
   approved_timestamp   String?
+  auto_approve         Boolean   @default(false)
   failedReason         String?
   prompt               String?
   queryTexts           Json?     // string[]
