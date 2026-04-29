@@ -212,7 +212,7 @@ async function persistJobIfNeeded(args: {
     const autoApprove = Boolean(
       data && typeof data === 'object' && 'autoApprove' in data
         ? (data as { autoApprove?: unknown }).autoApprove
-        : false,
+        : false
     )
 
     await prisma.reportRunJob.create({

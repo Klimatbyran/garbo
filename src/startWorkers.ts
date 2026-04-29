@@ -70,7 +70,7 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
           approvedTimestamp:
             status === 'completed' ? new Date().toISOString() : null,
           autoApprove: Boolean(
-            (job.data as { autoApprove?: unknown } | undefined)?.autoApprove,
+            (job.data as { autoApprove?: unknown } | undefined)?.autoApprove
           ),
           failedReason: failedReason ?? null,
           prompt: returnValue?.metadata?.prompt ?? null,
