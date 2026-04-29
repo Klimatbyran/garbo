@@ -1,6 +1,5 @@
 import { Prisma } from '@prisma/client'
 import { registryService } from '../src/api/services/registryService'
-import { prisma } from '../src/lib/prisma'
 import { jest } from '@jest/globals'
 
 const p2025Error = new Prisma.PrismaClientKnownRequestError(
@@ -25,18 +24,38 @@ const sampleReport = {
   wikidataId: null,
   reportYear: '2024',
   url: 'https://example.com/volvo.pdf',
+  sourceUrl: null,
+  s3Url: null,
+  s3Key: null,
+  s3Bucket: null,
+  sha256: null,
 }
 
-let mockFindMany: jest.SpiedFunction<typeof prisma.report.findMany>
-let mockFindUnique: jest.SpiedFunction<typeof prisma.report.findUnique>
-let mockUpdate: jest.SpiedFunction<typeof prisma.report.update>
-let mockDelete: jest.SpiedFunction<typeof prisma.report.delete>
+// Keep this as `any` so TS doesn't infer `jest.fn()` as `never`.
+const mockPrisma: any = {
+  report: {
+    findMany: jest.fn(),
+    findUnique: jest.fn(),
+    update: jest.fn(),
+    delete: jest.fn(),
+  },
+}
+
+let mockFindMany: any
+let mockFindUnique: any
+let mockUpdate: any
+let mockDelete: any
 
 beforeEach(() => {
-  mockFindMany = jest.spyOn(prisma.report, 'findMany')
-  mockFindUnique = jest.spyOn(prisma.report, 'findUnique')
-  mockUpdate = jest.spyOn(prisma.report, 'update')
-  mockDelete = jest.spyOn(prisma.report, 'delete')
+  mockFindMany = mockPrisma.report.findMany
+  mockFindUnique = mockPrisma.report.findUnique
+  mockUpdate = mockPrisma.report.update
+  mockDelete = mockPrisma.report.delete
+
+  mockFindMany.mockReset()
+  mockFindUnique.mockReset()
+  mockUpdate.mockReset()
+  mockDelete.mockReset()
 })
 
 afterEach(() => {
@@ -47,7 +66,7 @@ describe('getReportRegistry', () => {
   test('returns all reports from prisma with the correct select and order', async () => {
     mockFindMany.mockResolvedValue([sampleReport])
 
-    const result = await registryService.getReportRegistry()
+    const result = await registryService.getReportRegistry(mockPrisma)
 
     expect(result).toEqual([sampleReport])
     expect(mockFindMany).toHaveBeenCalledWith({
@@ -58,6 +77,11 @@ describe('getReportRegistry', () => {
         wikidataId: true,
         reportYear: true,
         url: true,
+        sourceUrl: true,
+        s3Url: true,
+        s3Key: true,
+        s3Bucket: true,
+        sha256: true,
       },
     })
   })
@@ -65,7 +89,7 @@ describe('getReportRegistry', () => {
   test('returns an empty array when there are no reports', async () => {
     mockFindMany.mockResolvedValue([])
 
-    const result = await registryService.getReportRegistry()
+    const result = await registryService.getReportRegistry(mockPrisma)
 
     expect(result).toEqual([])
   })
@@ -75,10 +99,13 @@ describe('updateReportInRegistry', () => {
   test('returns null and skips update when report is not found', async () => {
     mockFindUnique.mockResolvedValue(null)
 
-    const result = await registryService.updateReportInRegistry({
-      id: 'nonexistent',
-      companyName: 'Test Corp',
-    })
+    const result = await registryService.updateReportInRegistry(
+      {
+        id: 'nonexistent',
+        companyName: 'Test Corp',
+      },
+      mockPrisma
+    )
 
     expect(result).toBeNull()
     expect(mockUpdate).not.toHaveBeenCalled()
@@ -88,10 +115,13 @@ describe('updateReportInRegistry', () => {
     mockFindUnique.mockResolvedValue(sampleReport)
     mockUpdate.mockResolvedValue({ ...sampleReport, companyName: 'New Name' })
 
-    await registryService.updateReportInRegistry({
-      id: 'cmnh123',
-      companyName: 'New Name',
-    })
+    await registryService.updateReportInRegistry(
+      {
+        id: 'cmnh123',
+        companyName: 'New Name',
+      },
+      mockPrisma
+    )
 
     expect(mockUpdate).toHaveBeenCalledWith({
       where: { id: 'cmnh123' },
@@ -103,10 +133,13 @@ describe('updateReportInRegistry', () => {
     mockFindUnique.mockResolvedValue(sampleReport)
     mockUpdate.mockResolvedValue(sampleReport)
 
-    await registryService.updateReportInRegistry({
-      id: 'cmnh123',
-      reportYear: '2025',
-    })
+    await registryService.updateReportInRegistry(
+      {
+        id: 'cmnh123',
+        reportYear: '2025',
+      },
+      mockPrisma
+    )
 
     const updateCall = mockUpdate.mock.calls[0][0] as {
       data: Record<string, unknown>
@@ -120,10 +153,13 @@ describe('updateReportInRegistry', () => {
     mockFindUnique.mockResolvedValue(sampleReport)
     mockUpdate.mockResolvedValue(updated)
 
-    const result = await registryService.updateReportInRegistry({
-      id: 'cmnh123',
-      url: 'https://example.com/new.pdf',
-    })
+    const result = await registryService.updateReportInRegistry(
+      {
+        id: 'cmnh123',
+        url: 'https://example.com/new.pdf',
+      },
+      mockPrisma
+    )
 
     expect(result).toEqual(updated)
   })
@@ -133,9 +169,10 @@ describe('deleteReportFromRegistry', () => {
   test('deletes a report and returns it', async () => {
     mockDelete.mockResolvedValue(sampleReport)
 
-    const result = await registryService.deleteReportFromRegistry([
-      { id: 'cmnh123' },
-    ])
+    const result = await registryService.deleteReportFromRegistry(
+      [{ id: 'cmnh123' }],
+      mockPrisma
+    )
 
     expect(result).toEqual([sampleReport])
     expect(mockDelete).toHaveBeenCalledWith({ where: { id: 'cmnh123' } })
@@ -144,9 +181,10 @@ describe('deleteReportFromRegistry', () => {
   test('returns an empty array when the report is not found (P2025)', async () => {
     mockDelete.mockRejectedValue(p2025Error)
 
-    const result = await registryService.deleteReportFromRegistry([
-      { id: 'nonexistent' },
-    ])
+    const result = await registryService.deleteReportFromRegistry(
+      [{ id: 'nonexistent' }],
+      mockPrisma
+    )
 
     expect(result).toEqual([])
   })
@@ -155,7 +193,7 @@ describe('deleteReportFromRegistry', () => {
     mockDelete.mockRejectedValue(p1001Error)
 
     await expect(
-      registryService.deleteReportFromRegistry([{ id: 'cmnh123' }])
+      registryService.deleteReportFromRegistry([{ id: 'cmnh123' }], mockPrisma)
     ).rejects.toThrow(p1001Error)
   })
 
@@ -164,16 +202,19 @@ describe('deleteReportFromRegistry', () => {
       .mockResolvedValueOnce(sampleReport)
       .mockRejectedValueOnce(p2025Error)
 
-    const result = await registryService.deleteReportFromRegistry([
-      { id: 'cmnh123' },
-      { id: 'missing' },
-    ])
+    const result = await registryService.deleteReportFromRegistry(
+      [{ id: 'cmnh123' }, { id: 'missing' }],
+      mockPrisma
+    )
 
     expect(result).toEqual([sampleReport])
   })
 
   test('returns an empty array when given an empty list', async () => {
-    const result = await registryService.deleteReportFromRegistry([])
+    const result = await registryService.deleteReportFromRegistry(
+      [],
+      mockPrisma
+    )
 
     expect(result).toEqual([])
     expect(mockDelete).not.toHaveBeenCalled()

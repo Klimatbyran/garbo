@@ -120,6 +120,46 @@ async function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
+async function assertDoclingHealthy(
+  job: DoclingParsePDFJob,
+  apiBaseUrl: string
+): Promise<void> {
+  // Docling serves API routes under `/v1`, but health is at `/health` (no `/v1`).
+  const baseForHealth = apiBaseUrl.replace(/\/+$/, '').replace(/\/v1$/, '')
+  const healthUrl = `${baseForHealth}/health`
+
+  try {
+    const res = await fetchWithRetry(
+      healthUrl,
+      { method: 'GET', headers: { 'Content-Type': 'application/json' } },
+      job,
+      1,
+      5_000
+    )
+
+    if (!res.ok) {
+      throw new Error(`Healthcheck returned ${res.status} ${res.statusText}`)
+    }
+  } catch (e) {
+    const err = e as { name?: string; message?: string; cause?: unknown }
+    job.log(
+      `Docling healthcheck failed: ${JSON.stringify(
+        {
+          healthUrl,
+          name: err?.name,
+          message: err?.message,
+          cause: err?.cause,
+        },
+        null,
+        2
+      )}`
+    )
+    throw new Error(
+      `Docling API is not reachable/healthy at ${healthUrl}. Check docker logs; the Docling container may have crashed (often OOM/exit 137).`
+    )
+  }
+}
+
 async function fetchWithRetry(
   url: string,
   options: RequestInit,
@@ -219,7 +259,7 @@ function logConfigurationOnce(job: DoclingParsePDFJob): void {
 const doclingParsePDF = new DiscordWorker(
   QUEUE_NAMES.DOCLING_PARSE_PDF,
   async (job: DoclingParsePDFJob) => {
-    const { url, doclingSettings, taskId } = job.data
+    const { url, taskId } = job.data
 
     // Log configuration once (first job only) - appears in BullMQ logs
     logConfigurationOnce(job)
@@ -269,6 +309,8 @@ const doclingParsePDF = new DiscordWorker(
         const apiToken = useBackupAPI
           ? docling.BACKUP_API_TOKEN
           : docling.BERGET_AI_TOKEN
+
+        await assertDoclingHealthy(job, apiBaseUrl)
 
         job.log(`Making request to: ${apiBaseUrl}`)
         job.log(`With payload: ${JSON.stringify(job.data.doclingSettings)}`)

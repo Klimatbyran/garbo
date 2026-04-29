@@ -1,6 +1,6 @@
 {
   "name": "garbo",
-  "version": "5.7.4-rc.0",
+  "version": "5.7.4-rc.1",
   "description": "",
   "type": "module",
   "exports": {
@@ -13,8 +13,9 @@
     "start": "node --import tsx src/index.ts",
     "migrate": "npx prisma migrate deploy",
     "seed:tags": "node --import tsx scripts/seed-tag-options.ts",
-    "workers": "node --import tsx src/startWorkers.ts",
-    "dev-workers": "node --import tsx --watch src/startWorkers.ts",
+    "seed:gics": "node --import dotenv/config --import tsx scripts/add-gics.ts",
+    "workers": "node --import dotenv/config --import tsx src/startWorkers.ts",
+    "dev-workers": "node --import dotenv/config --import tsx --watch src/startWorkers.ts",
     "dev-board": "node -r dotenv/config --import tsx --watch src/index.ts",
     "dev-api": "node --import tsx --watch src/index.ts --api-only",
     "dev": "concurrently \"npm run dev-board\" \"npm run dev-workers\"",

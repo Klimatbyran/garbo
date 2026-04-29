@@ -14,13 +14,55 @@ import {
   ReportingPeriodYearsSchema,
 } from '../../schemas'
 import { getTags } from '../../../config/openapi'
-import { WikidataIdParams, PostReportingPeriodsBody } from '../../types'
+import {
+  WikidataIdParams,
+  PostReportingPeriodsBody,
+  DefaultEmissions,
+} from '../../types'
 import { metadataService } from '../../services/metadataService'
 import _ from 'lodash'
 import { prisma } from '../../../lib/prisma'
+import type {
+  BiogenicEmissions,
+  Metadata,
+  Scope1,
+  Scope1And2,
+  StatedTotalEmissions,
+} from '@prisma/client'
+import type { OptionalNullable } from '../../../lib/type-utils'
+
+/** Shape of `emissions` when purging (see `replaceAllEmissions` prisma include). */
+type EmissionsDeletionTarget = {
+  scope3: {
+    id: string
+    categories: Array<{ id: string }>
+    statedTotalEmissions: { id: string } | null
+  } | null
+  scope1: { id: string } | null
+  scope2: { id: string } | null
+  scope1And2: { id: string } | null
+  statedTotalEmissions: { id: string } | null
+}
+
+type BodyEmissions = NonNullable<
+  PostReportingPeriodsBody['reportingPeriods'][number]['emissions']
+>
+type Scope2UpsertInput = Parameters<typeof emissionsService.upsertScope2>[1]
+type Scope1UpsertInput = Omit<Scope1, 'id' | 'metadataId' | 'emissionsId'>
+type Scope1And2UpsertInput = Omit<
+  Scope1And2,
+  'id' | 'metadataId' | 'emissionsId'
+>
+type StatedTotalUpsertInput = Omit<
+  StatedTotalEmissions,
+  'id' | 'metadataId' | 'scope3Id' | 'emissionsId'
+>
+type BiogenicUpsertInput = OptionalNullable<
+  Omit<BiogenicEmissions, 'id' | 'metadataId' | 'emissionsId'>
+>
 
 // Helper functions for emission deletion
-async function deleteScope3Emissions(emissions: any) {
+async function deleteScope3Emissions(emissions: EmissionsDeletionTarget) {
   if (!emissions.scope3) return
 
   for (const cat of emissions.scope3.categories) {
@@ -36,7 +78,7 @@ async function deleteScope3Emissions(emissions: any) {
   await emissionsService.deleteScope3(emissions.scope3.id)
 }
 
-async function deleteScope1And2Emissions(emissions: any) {
+async function deleteScope1And2Emissions(emissions: EmissionsDeletionTarget) {
   if (emissions.scope1?.id) {
     console.log('deleting scope1', emissions.scope1.id)
     await emissionsService.deleteScope1(emissions.scope1.id)
@@ -50,7 +92,7 @@ async function deleteScope1And2Emissions(emissions: any) {
   }
 }
 
-async function deleteStatedTotalEmissions(emissions: any) {
+async function deleteStatedTotalEmissions(emissions: EmissionsDeletionTarget) {
   if (emissions.statedTotalEmissions?.id) {
     await emissionsService.deleteStatedTotalEmissions(
       emissions.statedTotalEmissions.id
@@ -59,15 +101,15 @@ async function deleteStatedTotalEmissions(emissions: any) {
 }
 
 function buildScope1Promise(
-  scope1Payload: any,
-  dbEmissions: any,
-  createdMetadata: any,
-  verifiedMetadata: any
+  scope1Payload: BodyEmissions['scope1'],
+  dbEmissions: DefaultEmissions,
+  createdMetadata: Metadata,
+  verifiedMetadata: Metadata
 ) {
-  const hasExistingScope1 = Boolean(dbEmissions.scope1?.id)
+  const existingScope1Id = dbEmissions.scope1?.id
 
-  if (scope1Payload === null && hasExistingScope1) {
-    return emissionsService.deleteScope1(dbEmissions.scope1.id)
+  if (scope1Payload === null && existingScope1Id) {
+    return emissionsService.deleteScope1(existingScope1Id)
   }
 
   if (scope1Payload === undefined || scope1Payload === null) {
@@ -81,21 +123,21 @@ function buildScope1Promise(
 
   return emissionsService.upsertScope1(
     dbEmissions,
-    _.omit(scope1Payload, 'verified') as any,
+    _.omit(scope1Payload, 'verified') as Scope1UpsertInput,
     metadataForScope1
   )
 }
 
 function buildScope2Promise(
-  scope2Payload: any,
-  dbEmissions: any,
-  createdMetadata: any,
-  verifiedMetadata: any
+  scope2Payload: BodyEmissions['scope2'],
+  dbEmissions: DefaultEmissions,
+  createdMetadata: Metadata,
+  verifiedMetadata: Metadata
 ) {
-  const hasExistingScope2 = Boolean(dbEmissions.scope2?.id)
+  const existingScope2Id = dbEmissions.scope2?.id
 
-  if (scope2Payload === null && hasExistingScope2) {
-    return emissionsService.deleteScope2(dbEmissions.scope2.id)
+  if (scope2Payload === null && existingScope2Id) {
+    return emissionsService.deleteScope2(existingScope2Id)
   }
 
   if (scope2Payload === undefined || scope2Payload === null) {
@@ -109,7 +151,7 @@ function buildScope2Promise(
 
   return emissionsService.upsertScope2(
     dbEmissions,
-    _.omit(scope2Payload, 'verified') as any,
+    _.omit(scope2Payload, 'verified') as Scope2UpsertInput,
     metadataForScope2
   )
 }
@@ -200,6 +242,8 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
             startDate,
             endDate,
             reportURL,
+            reportS3Url,
+            reportSha256,
           }) => {
             const year = endDate.getFullYear().toString()
             const createdMetadata = await metadataService.createMetadata({
@@ -220,6 +264,8 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
                   startDate,
                   endDate,
                   reportURL,
+                  reportS3Url: reportS3Url ?? undefined,
+                  reportSha256: reportSha256 ?? undefined,
                   year,
                 }
               )
@@ -294,18 +340,21 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
                   statedTotalEmissions?.verified
                     ? verifiedMetadata
                     : createdMetadata,
-                  _.omit(statedTotalEmissions, 'verified') as any
+                  _.omit(
+                    statedTotalEmissions,
+                    'verified'
+                  ) as StatedTotalUpsertInput
                 ),
               biogenic !== undefined &&
                 emissionsService.upsertBiogenic(
                   dbEmissions,
-                  _.omit(biogenic, 'verified') as any,
+                  _.omit(biogenic, 'verified') as BiogenicUpsertInput,
                   biogenic?.verified ? verifiedMetadata : createdMetadata
                 ),
               scope1And2 !== undefined &&
                 emissionsService.upsertScope1And2(
                   dbEmissions,
-                  _.omit(scope1And2, 'verified') as any,
+                  _.omit(scope1And2, 'verified') as Scope1And2UpsertInput,
                   scope1And2?.verified ? verifiedMetadata : createdMetadata
                 ),
               turnover &&
@@ -336,6 +385,7 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
             result.reason
           )
           return reply.status(500).send({
+            code: 'INTERNAL_SERVER_ERROR',
             message: 'Creation or update of reporting periods failed.',
           })
         }

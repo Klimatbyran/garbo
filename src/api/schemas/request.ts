@@ -260,7 +260,12 @@ export const reportingPeriodSchema = z
   .object({
     startDate: z.coerce.date(),
     endDate: z.coerce.date(),
-    reportURL: z.string().optional(),
+    reportURL: z.string().optional().nullable(),
+    reportS3Url: z.preprocess(
+      (val) => (val === '' ? null : val),
+      z.union([z.string().url(), z.null()]).optional(),
+    ),
+    reportSha256: z.string().optional().nullable(),
     emissions: emissionsSchema,
     economy: economySchema,
   })
@@ -333,6 +338,15 @@ export const saveReportsBodySchema = z.array(
         return n >= 1900 && n <= 2100
       }, 'reportYear must be between 1900 and 2100'),
     url: z.string().url('Invalid URL').min(1, 'url is required'),
+    sourceUrl: z.string().url('Invalid sourceUrl').nullable().optional(),
+    s3Url: z.string().url('Invalid s3Url').nullable().optional(),
+    s3Key: z.string().min(1).nullable().optional(),
+    s3Bucket: z.string().min(1).nullable().optional(),
+    sha256: z
+      .string()
+      .regex(/^[a-f0-9]{64}$/i, 'sha256 must be a 64-character hex string')
+      .nullable()
+      .optional(),
   })
 )
 
@@ -354,16 +368,39 @@ export const registryUpdateRequestBodySchema = z
       }, 'reportYear must be between 1900 and 2100')
       .optional(),
     url: z.string().url('Invalid URL').optional(),
+    sourceUrl: z.string().url('Invalid sourceUrl').nullable().optional(),
+    s3Url: z.string().url('Invalid s3Url').nullable().optional(),
+    s3Key: z.string().min(1).nullable().optional(),
+    s3Bucket: z.string().min(1).nullable().optional(),
+    sha256: z
+      .string()
+      .regex(/^[a-f0-9]{64}$/i, 'sha256 must be a 64-character hex string')
+      .optional()
+      .nullable(),
   })
   .refine(
-    ({ companyName, wikidataId, reportYear, url }) =>
+    ({
+      companyName,
+      wikidataId,
+      reportYear,
+      url,
+      sourceUrl,
+      s3Url,
+      s3Key,
+      s3Bucket,
+      sha256,
+    }) =>
       companyName !== undefined ||
       wikidataId !== undefined ||
       reportYear !== undefined ||
-      url !== undefined,
+      url !== undefined ||
+      sourceUrl !== undefined ||
+      s3Url !== undefined ||
+      s3Key !== undefined ||
+      s3Bucket !== undefined ||
+      sha256 !== undefined,
     {
-      message:
-        'At least one field to update must be provided: companyName, wikidataId, reportYear, or url',
+      message: 'At least one field to update must be provided.',
     }
   )
 

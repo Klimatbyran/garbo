@@ -10,6 +10,14 @@ export function errorHandler(
 ) {
   request.log.error(error)
 
+  const garboChunkHeader =
+    typeof request.headers['x-garbo-chunk'] === 'string'
+      ? request.headers['x-garbo-chunk']
+      : undefined
+  if (garboChunkHeader) {
+    reply.header('X-Garbo-Chunk', garboChunkHeader)
+  }
+
   if ((error as FastifyError)?.validation) {
     const fastifyError = error as FastifyError
 
@@ -18,7 +26,10 @@ export function errorHandler(
       message: fastifyError.message,
       details:
         apiConfig.nodeEnv === 'development'
-          ? fastifyError
+          ? {
+              ...fastifyError,
+              ...(garboChunkHeader && { garboChunk: garboChunkHeader }),
+            }
           : fastifyError.validation,
     })
   } else if (
@@ -28,7 +39,10 @@ export function errorHandler(
     reply.status(404).send({
       code: 'NOT_FOUND',
       message: 'The requested resource could not be found.',
-      details: apiConfig.nodeEnv === 'development' ? error : undefined,
+      details:
+        apiConfig.nodeEnv === 'development'
+          ? { error, ...(garboChunkHeader && { garboChunk: garboChunkHeader }) }
+          : undefined,
     })
   } else {
     reply.status(500).send({
@@ -37,7 +51,10 @@ export function errorHandler(
         apiConfig.nodeEnv === 'development'
           ? error.message
           : 'An unexpected error occurred.',
-      details: apiConfig.nodeEnv === 'development' ? error : undefined,
+      details:
+        apiConfig.nodeEnv === 'development'
+          ? { error, ...(garboChunkHeader && { garboChunk: garboChunkHeader }) }
+          : undefined,
     })
   }
 }

@@ -10,11 +10,15 @@ class ReportingPeriodService {
       startDate,
       endDate,
       reportURL,
+      reportS3Url,
+      reportSha256,
       year,
     }: {
       startDate: Date
       endDate: Date
-      reportURL?: string
+      reportURL?: string | null
+      reportS3Url?: string | null
+      reportSha256?: string | null
       year: string
     }
   ) {
@@ -29,6 +33,8 @@ class ReportingPeriodService {
         startDate,
         endDate,
         reportURL,
+        reportS3Url,
+        reportSha256,
         metadata: {
           connect: {
             id: metadata.id,
@@ -39,6 +45,8 @@ class ReportingPeriodService {
         startDate,
         endDate,
         reportURL,
+        reportS3Url,
+        reportSha256,
         year,
         company: {
           connect: {

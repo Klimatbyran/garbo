@@ -62,7 +62,6 @@ if (!parsedEnv.success) {
 }
 
 const {
-  DOCLING_USE_LOCAL,
   BERGET_AI_TOKEN,
   DOCLING_URL,
   USE_BACKUP_API,

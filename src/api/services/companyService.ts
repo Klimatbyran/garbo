@@ -23,6 +23,7 @@ import ky from 'ky'
 import sharp from 'sharp'
 import { ReportsListResponseSchema } from '../schemas/response'
 import { z } from 'zod'
+import { registryService } from './registryService'
 import type { ReportingPeriod } from '@/types'
 
 const API_KEY = process.env.FIRECRAWL_API_KEY
@@ -311,7 +312,7 @@ class CompanyService {
                     position: idx,
                   }
                 }
-              } catch (err) {
+              } catch {
                 // Fallback to original URL if ky fails
                 return {
                   url: result.url,
@@ -357,7 +358,7 @@ class CompanyService {
         .jpeg({ quality: 60 })
         .toBuffer()
       return jpegBuffer
-    } catch (err) {
+    } catch {
       return null
     }
   }
@@ -373,6 +374,8 @@ class CompanyService {
             startDate: true,
             endDate: true,
             reportURL: true,
+            reportS3Url: true,
+            reportSha256: true,
           },
         },
       },
@@ -387,13 +390,16 @@ class CompanyService {
 
     for (const report of saveReportsBody) {
       try {
-        const saved = await prisma.report.create({
-          data: {
-            companyName: report.companyName,
-            wikidataId: report.wikidataId ?? undefined,
-            reportYear: report.reportYear,
-            url: report.url,
-          },
+        const saved = await registryService.upsertReportInRegistry({
+          companyName: report.companyName,
+          wikidataId: report.wikidataId ?? undefined,
+          reportYear: report.reportYear,
+          url: report.url,
+          sourceUrl: report.sourceUrl,
+          s3Url: report.s3Url,
+          s3Key: report.s3Key,
+          s3Bucket: report.s3Bucket,
+          sha256: report.sha256,
         })
 
         results.push({
