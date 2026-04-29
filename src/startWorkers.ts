@@ -18,13 +18,11 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
     try {
       const job = await queue.getJob(jobId)
       if (!job) {
-        console.log(`[ReportRun] job ${jobId} not found in ${queueName}`)
         return
       }
 
       const pdfUrl = job.data?.url
       if (!pdfUrl) {
-        console.log(`[ReportRun] no pdfUrl for job ${jobId} in ${queueName}`)
         return
       }
 
@@ -38,15 +36,8 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
       )
 
       if (!threadId) {
-        console.log(
-          `[ReportRun] skipping job ${jobId} in ${queueName} — no threadId`
-        )
         return
       }
-
-      console.log(
-        `[ReportRun] saving job ${jobId} in ${queueName} for thread ${threadId}`
-      )
 
       const reportRun = await prisma.reportRun.upsert({
         where: { threadId },
@@ -69,8 +60,6 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
           // returnvalue is not JSON (e.g. precheck returns a plain string)
         }
       }
-
-      console.log(job.data)
 
       await prisma.reportRunJob.create({
         data: {
@@ -108,27 +97,18 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
     }
   }
 
-  queueEvents.on('completed', ({ jobId }) => {
-    console.log(`[QueueEvents] Job completed: ${jobId} in queue ${queueName}`)
-    saveRun(jobId, 'completed')
-  })
-  queueEvents.on('failed', ({ jobId, failedReason }) => {
-    console.log(
-      `[QueueEvents] Job failed: ${jobId} in queue ${queueName}, reason: ${failedReason}`
-    )
+  queueEvents.on('completed', ({ jobId }) => saveRun(jobId, 'completed'))
+  queueEvents.on('failed', ({ jobId, failedReason }) =>
     saveRun(jobId, 'failed', failedReason)
-  })
+  )
 }
-
-console.log('Starting workers...')
 
 Promise.all(
   workers.map((worker) => {
     return worker.run()
   })
 )
-  .then((results) => results.join('\n'))
-  .then(console.log)
+  .then(() => {})
   .catch((error) => {
     console.error('Error starting workers:', error)
     process.exit(1)
@@ -144,10 +124,6 @@ async function connectWithRetry<T>(
       return await fn()
     } catch (err) {
       if (attempt === maxRetries) throw err
-      const error = err as Error
-      console.log(
-        `Connection attempt ${attempt} failed: ${error.message}. Retrying in ${delay}ms...`
-      )
       await new Promise((resolve) => setTimeout(resolve, delay))
       delay *= 2 // Exponential backoff
     }
@@ -157,7 +133,6 @@ async function connectWithRetry<T>(
 
 try {
   await connectWithRetry(() => discord.login())
-  console.log('Discord bot started')
 } catch (error) {
   console.error('Failed to start Discord bot:', error)
   process.exit(1)
