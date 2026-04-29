@@ -10,12 +10,21 @@ const jobListSelect = {
   finishedAt: true,
 } as const
 
-function buildListWhere(
-  q?: string,
-  batchId?: string
-): Prisma.ReportRunWhereInput {
+const batchListSelect = {
+  id: true,
+  batchName: true,
+} as const
+
+function buildListWhere(args: {
+  q?: string
+  batchDbId?: string
+  /** Exact match on `Batch.batchName` (same string as pipeline `job.data.batchId`). */
+  batchName?: string
+}): Prisma.ReportRunWhereInput {
+  const { q, batchDbId, batchName } = args
   const qTrim = q?.trim()
-  const batchTrim = batchId?.trim()
+  const batchDbTrim = batchDbId?.trim()
+  const batchNameTrim = batchName?.trim()
 
   const textWhere: Prisma.ReportRunWhereInput | null = qTrim
     ? {
@@ -24,49 +33,66 @@ function buildListWhere(
           { companyName: { contains: qTrim, mode: 'insensitive' } },
           { wikidataId: { contains: qTrim, mode: 'insensitive' } },
           { pdfUrl: { contains: qTrim, mode: 'insensitive' } },
-          { batchId: { contains: qTrim, mode: 'insensitive' } },
+          {
+            batch: {
+              is: {
+                OR: [
+                  { batchName: { contains: qTrim, mode: 'insensitive' } },
+                  { id: { contains: qTrim, mode: 'insensitive' } },
+                ],
+              },
+            },
+          },
         ],
       }
     : null
 
-  const batchWhere: Prisma.ReportRunWhereInput | null = batchTrim
-    ? { batchId: batchTrim }
+  const batchFkWhere: Prisma.ReportRunWhereInput | null = batchDbTrim
+    ? { batchDbId: batchDbTrim }
     : null
 
-  if (textWhere && batchWhere) {
-    return { AND: [textWhere, batchWhere] }
-  }
-  if (textWhere) return textWhere
-  if (batchWhere) return batchWhere
-  return {}
+  const batchNameWhere: Prisma.ReportRunWhereInput | null = batchNameTrim
+    ? { batch: { is: { batchName: batchNameTrim } } }
+    : null
+
+  const batchPick = batchFkWhere ?? batchNameWhere
+
+  const parts: Prisma.ReportRunWhereInput[] = []
+  if (textWhere) parts.push(textWhere)
+  if (batchPick) parts.push(batchPick)
+
+  if (parts.length === 0) return {}
+  if (parts.length === 1) return parts[0] as Prisma.ReportRunWhereInput
+  return { AND: parts }
 }
 
-export async function listArchivedReportRunBatchIds(
-  limit = 400
-): Promise<string[]> {
+export async function listArchivedBatches(limit = 400) {
   const cap = Math.min(2000, Math.max(1, limit))
-  const rows = await prisma.reportRun.findMany({
-    where: { batchId: { not: null } },
-    select: { batchId: true },
-    distinct: ['batchId'],
-    orderBy: { batchId: 'asc' },
+  const batches = await prisma.batch.findMany({
+    orderBy: { batchName: 'asc' },
     take: cap,
+    select: batchListSelect,
   })
-  return rows
-    .map((r) => r.batchId)
-    .filter((id): id is string => typeof id === 'string' && id.length > 0)
+  return { batches }
 }
 
 export async function listArchivedReportRuns(params: {
   page: number
   pageSize: number
   q?: string
-  batchId?: string
+  /** Stable Garbo `Batch.id` (cuid). */
+  batchDbId?: string
+  /** Exact pipeline batch string (`Batch.batchName`) when filtering without a known cuid. */
+  batchName?: string
 }) {
   const page = Math.max(1, params.page)
   const pageSize = Math.min(100, Math.max(1, params.pageSize))
   const skip = (page - 1) * pageSize
-  const where = buildListWhere(params.q, params.batchId)
+  const where = buildListWhere({
+    q: params.q,
+    batchDbId: params.batchDbId,
+    batchName: params.batchName,
+  })
 
   const [total, runs] = await Promise.all([
     prisma.reportRun.count({ where }),
@@ -76,6 +102,7 @@ export async function listArchivedReportRuns(params: {
       skip,
       take: pageSize,
       include: {
+        batch: { select: batchListSelect },
         jobs: {
           orderBy: { finishedAt: 'asc' },
           select: jobListSelect,
@@ -91,6 +118,7 @@ export async function getArchivedReportRunByThreadId(threadId: string) {
   const run = await prisma.reportRun.findUnique({
     where: { threadId },
     include: {
+      batch: { select: batchListSelect },
       jobs: { orderBy: { finishedAt: 'asc' } },
     },
   })

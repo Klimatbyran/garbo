@@ -2,7 +2,7 @@ import type { FastifyInstance } from 'fastify'
 import { z } from 'zod'
 import {
   getArchivedReportRunByThreadId,
-  listArchivedReportRunBatchIds,
+  listArchivedBatches,
   listArchivedReportRuns,
 } from '../../services/reportRunArchiveReadService'
 
@@ -10,11 +10,13 @@ const queryList = z.object({
   page: z.coerce.number().optional().default(1),
   pageSize: z.coerce.number().optional().default(50),
   q: z.string().optional(),
-  /** Exact match on `ReportRun.batch_id` (pipeline `data.batchId`). */
-  batchId: z.string().optional(),
+  /** Exact match on `ReportRun.batchDbId` (Garbo `Batch.id`). */
+  batchDbId: z.string().optional(),
+  /** Exact match on `Batch.batchName` (pipeline `job.data.batchId`). */
+  batchName: z.string().optional(),
 })
 
-const queryBatchIds = z.object({
+const queryBatches = z.object({
   limit: z.coerce.number().optional().default(400),
 })
 
@@ -23,6 +25,23 @@ const queryBatchIds = z.object({
  * Requires auth; mounted at `api/queue-archive`.
  */
 export async function queueArchiveReadRoutes(app: FastifyInstance) {
+  app.get(
+    '/batches',
+    {
+      schema: {
+        summary: 'List batches (stable id + batch name / pipeline batch id string)',
+        tags: ['Internal'],
+        querystring: queryBatches,
+        hide: true,
+      },
+    },
+    async (request, reply) => {
+      const q = queryBatches.parse(request.query)
+      const data = await listArchivedBatches(q.limit)
+      return reply.send(data)
+    },
+  )
+
   app.get(
     '/runs',
     {
@@ -39,26 +58,10 @@ export async function queueArchiveReadRoutes(app: FastifyInstance) {
         page: q.page,
         pageSize: q.pageSize,
         q: q.q,
-        batchId: q.batchId,
+        batchDbId: q.batchDbId,
+        batchName: q.batchName,
       })
       return reply.send(data)
-    },
-  )
-
-  app.get(
-    '/batch-ids',
-    {
-      schema: {
-        summary: 'Distinct batch ids present on archived runs',
-        tags: ['Internal'],
-        querystring: queryBatchIds,
-        hide: true,
-      },
-    },
-    async (request, reply) => {
-      const q = queryBatchIds.parse(request.query)
-      const batchIds = await listArchivedReportRunBatchIds(q.limit)
-      return reply.send({ batchIds })
     },
   )
 

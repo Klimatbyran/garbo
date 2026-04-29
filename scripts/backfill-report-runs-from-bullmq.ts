@@ -13,6 +13,7 @@
  *     (recomputes `ReportRun.status` and thread `startedAt` / `updatedAt` from `ReportRunJob`)
  *
  * Safe to re-run: skips rows that already exist for the same BullMQ `(queueName, jobId)`.
+ * New runs resolve `job.data.batchId` via `ensureReportBatch` into `ReportRun.batchDbId` (Garbo `Batch`).
  *
  * Thread timestamps (`ReportRun.startedAt`, `ReportRun.updatedAt`): the upsert path does not
  * set them, so Prisma would otherwise use `now()` / `@updatedAt` for every touch — i.e. backfill
@@ -26,6 +27,7 @@ import { Queue } from 'bullmq'
 import type { Prisma } from '@prisma/client'
 import redis from '../src/config/redis'
 import { prisma } from '../src/lib/prisma'
+import { ensureReportBatch } from '../src/lib/ensureReportBatch'
 import { QUEUE_NAMES } from '../src/queues'
 
 const ALL_QUEUE_NAMES = [...new Set(Object.values(QUEUE_NAMES))] as string[]
@@ -163,7 +165,7 @@ async function persistJobIfNeeded(args: {
 
   const wikidataId = wikidataNodeFromData(data)
   const companyName = companyNameFromData(data)
-  const batchId = batchIdFromData(data)
+  const batchDbId = await ensureReportBatch(batchIdFromData(data))
   const returnValue = parseReturnValue(job)
   const { prompt, queryTexts, markdown } = metadataFromReturnValue(returnValue)
 
@@ -199,11 +201,11 @@ async function persistJobIfNeeded(args: {
   try {
     const reportRun = await prisma.reportRun.upsert({
       where: { threadId },
-      create: { threadId, pdfUrl, companyName, wikidataId, batchId },
+      create: { threadId, pdfUrl, companyName, wikidataId, batchDbId },
       update: {
         companyName: companyName ?? undefined,
         wikidataId: wikidataId ?? undefined,
-        ...(batchId ? { batchId } : {}),
+        ...(batchDbId ? { batchDbId } : {}),
       },
     })
 

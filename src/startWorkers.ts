@@ -4,6 +4,7 @@ import { QueueEvents, Queue } from 'bullmq'
 import redis from './config/redis'
 import { QUEUE_NAMES } from './queues'
 import { prisma } from './lib/prisma'
+import { ensureReportBatch } from './lib/ensureReportBatch'
 
 for (const queueName of Object.values(QUEUE_NAMES)) {
   const queueEvents = new QueueEvents(queueName, { connection: redis })
@@ -32,10 +33,9 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
       const threadId = job.data?.threadId ?? null
       const rawBatchId = (job.data as { batchId?: unknown } | undefined)
         ?.batchId
-      const batchId =
-        typeof rawBatchId === 'string' && rawBatchId.trim()
-          ? rawBatchId.trim()
-          : null
+      const batchDbId = await ensureReportBatch(
+        typeof rawBatchId === 'string' ? rawBatchId : null
+      )
 
       if (!threadId) {
         console.log(
@@ -50,11 +50,11 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
 
       const reportRun = await prisma.reportRun.upsert({
         where: { threadId },
-        create: { threadId, pdfUrl, companyName, wikidataId, batchId },
+        create: { threadId, pdfUrl, companyName, wikidataId, batchDbId },
         update: {
           companyName: companyName ?? undefined,
           wikidataId: wikidataId ?? undefined,
-          ...(batchId ? { batchId } : {}),
+          ...(batchDbId ? { batchDbId } : {}),
         },
       })
 
