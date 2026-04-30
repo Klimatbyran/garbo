@@ -14,7 +14,7 @@ const {
   ARCHIVE_URL,
 } = wikidataConfig.properties
 
-async function fetchJsonWithRetries<T = any>(
+async function fetchJsonWithRetries<T = unknown>(
   url: string,
   {
     headers,
@@ -73,9 +73,9 @@ export async function getWikipediaTitle(id: EntityId): Promise<string> {
   const { entities }: WbGetEntitiesResponse = await fetch(url).then((res) =>
     res.json()
   )
-  const entity = entities[id] as any
-  const title =
-    entity?.sitelinks?.enwiki?.title ?? entity?.sitelinks?.svwiki?.title ?? null
+  const entity = entities[id]
+  const sitelinks = entity?.type === 'item' ? entity.sitelinks : undefined
+  const title = sitelinks?.enwiki?.title ?? sitelinks?.svwiki?.title ?? null
 
   if (!title) {
     throw new Error('No Wikipedia site link found')
@@ -99,7 +99,7 @@ export async function getLEINumber(
     return
   }
 
-  const claims = wikidataEntities[entity].claims
+  const { claims } = wikidataEntities[entity]
 
   if (
     claims === undefined ||
@@ -133,7 +133,7 @@ export async function searchCompany({
     'User-Agent': 'KlimatkollenGarboBot/1.0 (+https://klimatkollen.se)',
   }
 
-  const response = (await fetchJsonWithRetries<SearchResponse>(
+  const response = await fetchJsonWithRetries<SearchResponse>(
     searchEntitiesQuery,
     {
       headers,
@@ -141,10 +141,11 @@ export async function searchCompany({
       expectedContentType: 'application/json',
       context: 'Wikidata search',
     }
-  )) as SearchResponse
+  )
 
-  if ((response as any)?.error) {
-    throw new Error('Wikidata search failed: ' + (response as any).error)
+  if (response.error) {
+    const msg = response.error.info || response.error.code
+    throw new Error(`Wikidata search failed: ${msg}`)
   }
 
   return response.search
@@ -192,7 +193,7 @@ export async function getClaims(entity: ItemId): Promise<Claim[]> {
       return []
     }
 
-    const claims = wikidataEntities[entity].claims
+    const { claims } = wikidataEntities[entity]
     if (claims === undefined) {
       return []
     }
@@ -205,30 +206,42 @@ export async function getClaims(entity: ItemId): Promise<Claim[]> {
 
       const getQualifierValue = (
         propertyId: string,
-        transformFn?: (value: any) => any
+        transformFn?: (value: unknown) => unknown
       ) => {
-        if (!claim.qualifiers || !claim.qualifiers[propertyId]) return ''
-        const value = claim.qualifiers[propertyId][0].datavalue.value
+        const snaks = claim.qualifiers?.[propertyId]
+        if (!snaks?.length) return ''
+        const [
+          {
+            datavalue: { value },
+          },
+        ] = snaks
         return transformFn ? transformFn(value) : value
       }
 
-      const getReferenceValue = (propertyId) => {
+      const getReferenceValue = (propertyId: string) => {
         if (!references || !references[propertyId]) return undefined
         return references[propertyId][0].datavalue.value
       }
 
       return {
         startDate: getQualifierValue(START_TIME, (value) =>
-          transformFromWikidataDateStringToDate(value.time)
+          transformFromWikidataDateStringToDate(
+            (value as { time: string }).time
+          )
         ),
         endDate: getQualifierValue(END_TIME, (value) =>
-          transformFromWikidataDateStringToDate(value.time)
+          transformFromWikidataDateStringToDate(
+            (value as { time: string }).time
+          )
         ),
         value: claim.mainsnak.datavalue.value.amount,
-        category: getQualifierValue(APPLIES_TO_PART, (value) => value.id),
+        category: getQualifierValue(
+          APPLIES_TO_PART,
+          (value) => (value as { id: ItemId }).id
+        ),
         scope: getQualifierValue(
           OBJECT_OF_STATEMENT_HAS_ROLE,
-          (value) => value.id
+          (value) => (value as { id: ItemId }).id
         ),
         id: claim.id,
         referenceUrl: getReferenceValue(REFERENCE_URL),
