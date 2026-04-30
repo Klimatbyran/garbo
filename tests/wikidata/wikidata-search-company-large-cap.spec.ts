@@ -1,7 +1,6 @@
 import { describe, expect, it, jest } from '@jest/globals'
 import { searchCompany } from '../../src/lib/wikidata/read'
-import companyWikidata from '../../data/klimatkollen-company-wikidata.json'
-
+import companyWikidata from './data/klimatkollen-company-wikidata.json'
 /**
  * Wikidata entity search — large-cap cases (live API).
  */
@@ -48,15 +47,10 @@ const LARGE_CAP_SEARCH_SPECIAL_CASES: ReadonlyArray<{
   //   klimatkollenWikidataId: 'Q6460556',
   //   firstSearchHitId: undefined,
   // },
-  // {
-  //   companyName: 'Lundin Mining Corp.',
-  //   klimatkollenWikidataId: 'Q1537901',
-  //   firstSearchHitId: 'Q137125375',
-  // },
   {
-    companyName: 'Millicom Int. Cellular',
-    klimatkollenWikidataId: 'Q276345',
-    firstSearchHitId: undefined,
+    companyName: 'Lundin Mining Corp.',
+    klimatkollenWikidataId: 'Q1537901',
+    firstSearchHitId: 'Q1537901',
   },
   // {
   //   companyName: 'Mips',
@@ -108,10 +102,9 @@ describe('searchCompany (large cap)', () => {
   // })
 
   it.each(LARGE_CAP_SEARCH_SPECIAL_CASES)(
-    'special: $companyName — Klimatkollen $klimatkollenWikidataId, previousfirst hit $firstSearchHitId',
+    'special: $companyName — Klimatkollen $klimatkollenWikidataId, previous first hit $firstSearchHitId',
     async ({ companyName, klimatkollenWikidataId }) => {
       const results = await searchCompany({ companyName })
-      console.log(results)
       expect(results[0]?.id).toBe(klimatkollenWikidataId)
     }
   )
@@ -125,4 +118,5 @@ Known issues:
 
 - Naming
   - "OKQ8 Scandinavia" has to have Scandinavia removed from the name.
+  - "Millicom Int. Cellular" has to have Int. removed from the name.
 */
