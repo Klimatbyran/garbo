@@ -50,7 +50,7 @@ const LARGE_CAP_SEARCH_SPECIAL_CASES: ReadonlyArray<{
   {
     companyName: 'Lundin Mining Corp.',
     klimatkollenWikidataId: 'Q1537901',
-    firstSearchHitId: 'Q1537901',
+    firstSearchHitId: 'Q137125375',
   },
   // {
   //   companyName: 'Mips',
@@ -119,4 +119,7 @@ Known issues:
 - Naming
   - "OKQ8 Scandinavia" has to have Scandinavia removed from the name.
   - "Millicom Int. Cellular" has to have Int. removed from the name.
+
+- Several entities with very similar names
+  - "Lundin Mining Corp." and "Lundin Mining Corp. v. Markowich". We now prefer results that have industry prop set in Wikidata.
 */
