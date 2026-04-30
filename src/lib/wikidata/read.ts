@@ -122,6 +122,7 @@ const LEGAL_FORM_SUFFIXES = new Set([
   'corp',
   'corporation',
   'gmbh',
+  'group',
   'inc',
   'incorporated',
   'limited',
@@ -131,6 +132,7 @@ const LEGAL_FORM_SUFFIXES = new Set([
   'ltd',
   'nv',
   'oy',
+  'oyj',
   'plc',
   'company',
 ])
@@ -192,7 +194,6 @@ export async function searchCompany({
   companyName
   language?: SearchEntitiesOptions['language']
 }): Promise<SearchResponse['search']> {
-  // TODO: try to search in multiple languages. Maybe we can find a page in English if it doesn't exist in Swedish?
   let results = await searchWikidataEntities(companyName, language)
 
   if (results.length === 0) {
