@@ -39,13 +39,42 @@ function addCustomMethods(job: DiffJob) {
     wikidata,
     body
   ) => {
-    await saveToAPI.queue.add(companyName + ' ' + apiSubEndpoint, {
+    const name = companyName + ' ' + apiSubEndpoint
+    const data = {
       ...job.data,
       companyName,
       wikidata,
       body,
       apiSubEndpoint,
-    })
+    }
+
+    const parentOpts = job.id
+      ? { parent: { id: job.id, queue: job.queueName } }
+      : undefined
+
+    try {
+      await saveToAPI.queue.add(name, data, parentOpts)
+    } catch (error) {
+      const msg =
+        error instanceof Error
+          ? error.message
+          : typeof error === 'string'
+            ? error
+            : ''
+
+      // BullMQ may not find the parent job key in Redis (common locally when jobs
+      // are cleaned up or Redis state is inconsistent). Fallback to enqueuing
+      // without a parent link so the pipeline can still proceed.
+      if (msg.includes('Missing key for parent job')) {
+        job.log(
+          `saveToAPI enqueue: parent missing; retrying without parent. (${msg})`
+        )
+        await saveToAPI.queue.add(name, data)
+        return
+      }
+
+      throw error
+    }
   }
 
   job.handleDiff = async (apiSubEndpoint, diff, change, requiresApproval) => {

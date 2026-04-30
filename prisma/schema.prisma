@@ -106,6 +106,10 @@ model ReportingPeriod {
   /// This needs to be separate from the source URLs for each datapoint, since the data might be updated in a more recent report.
   /// At the same time, we also want to refer back to the actual reports from a given reporting period for comparisons.
   reportURL String?
+  /// Public URL to the cached/uploaded report PDF (e.g. S3/MinIO/CDN).
+  reportS3Url    String?
+  /// Content hash for the cached/uploaded report PDF when available.
+  reportSha256   String?
 
   companyId String
 
@@ -398,6 +402,15 @@ model Description {
 model Report {
   id          String  @id @default(cuid())
   url         String  @unique
+  /// Canonical web source URL when available (preferred for humans/UI).
+  sourceUrl   String? @unique
+  /// Public URL to the cached/uploaded PDF (e.g. S3/MinIO/CDN).
+  s3Url       String?
+  /// Stable storage identity for the cached/uploaded PDF.
+  s3Key       String?
+  s3Bucket    String?
+  /// Content hash for the cached/uploaded PDF when available.
+  sha256      String? @unique
   companyName String?
   wikidataId  String?
   reportYear  String?

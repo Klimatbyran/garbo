@@ -38,7 +38,7 @@ Garbo workers do not care who enqueued the job; they only need `job.data.tags` t
 4. **saveToAPI**
    - For `apiSubEndpoint === 'tags'` it uses **PATCH** and sends `body` (with `tags`) to the Garbo API. So the pipeline does not need to be changed on the Garbo API side; it already supports tags on create and PATCH tags.
 
-**Precedence:** User-provided `tags` on the run request override AI-extracted tags when both exist. If the request includes `tags`, those are used for company create and for diffTags; otherwise the AI-extracted tags from the **companyTags** follow-up are used.
+**Merging behavior:** User-provided `tags` on the run request are treated as a starting point and are **merged** with AI-extracted tags (de-duped) when both exist. The merged set is used for company create and for **diffTags**.
 
 ---
 

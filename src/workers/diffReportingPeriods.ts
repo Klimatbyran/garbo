@@ -9,6 +9,11 @@ export class DiffReportingPeriodsJob extends DiffJob {
     companyName: string
     /** Original report URL when pipeline cached PDF to S3 (parsePdf). */
     sourceUrl?: string
+    /** Cached/uploaded PDF storage metadata from pipeline-api (when available). */
+    pdfCache?: {
+      publicUrl?: string
+      sha256?: string
+    }
     existingCompany: any
     wikidata: { node: string }
     fiscalYear: any
@@ -26,6 +31,7 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
     const {
       url,
       sourceUrl,
+      pdfCache,
       wikidata,
       fiscalYear,
       companyName,
@@ -37,11 +43,21 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
     } = job.data
 
     const reportURLForPeriod = canonicalPublicReportUrl({ url, sourceUrl })
+    const trimmedUrl = typeof url === 'string' ? url.trim() : ''
+    const trimmedSourceUrl =
+      typeof sourceUrl === 'string' ? sourceUrl.trim() : undefined
+    const sourceIsHttp =
+      typeof trimmedSourceUrl === 'string' &&
+      /^https?:\/\//i.test(trimmedSourceUrl)
 
-    console.log(job.isDataApproved())
+    const reportS3UrlForPeriod =
+      (typeof pdfCache?.publicUrl === 'string' && pdfCache.publicUrl.trim()) ||
+      (trimmedUrl && (!sourceIsHttp || trimmedUrl !== trimmedSourceUrl)
+        ? trimmedUrl
+        : undefined)
 
     if (job.isDataApproved()) {
-      job.enqueueSaveToAPI('reporting-periods', companyName, wikidata, {
+      await job.enqueueSaveToAPI('reporting-periods', companyName, wikidata, {
         ...job.getApprovedBody(),
         ...(job.data.replaceAllEmissions && { replaceAllEmissions: true }),
       })
@@ -77,6 +93,14 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
             reportYear !== null && year === reportYear
               ? reportURLForPeriod
               : undefined,
+          reportS3Url:
+            reportYear !== null && year === reportYear
+              ? reportS3UrlForPeriod
+              : undefined,
+          reportSha256:
+            reportYear !== null && year === reportYear
+              ? pdfCache?.sha256
+              : undefined,
         }
       })
 
@@ -111,6 +135,12 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
             )
             if (existingPeriod?.reportURL) {
               reportingPeriod.reportURL = existingPeriod.reportURL
+            }
+            if (existingPeriod?.reportS3Url) {
+              reportingPeriod.reportS3Url = existingPeriod.reportS3Url
+            }
+            if (existingPeriod?.reportSha256) {
+              reportingPeriod.reportSha256 = existingPeriod.reportSha256
             }
           }
 

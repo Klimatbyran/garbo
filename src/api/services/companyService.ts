@@ -1,4 +1,10 @@
-import { Employees, Metadata, Turnover, Description } from '@prisma/client'
+import {
+  Employees,
+  Metadata,
+  Turnover,
+  Description,
+  Prisma,
+} from '@prisma/client'
 import { OptionalNullable } from '../../lib/type-utils'
 import { DefaultEconomyType } from '../types'
 import { prisma } from '../../lib/prisma'
@@ -17,6 +23,8 @@ import ky from 'ky'
 import sharp from 'sharp'
 import { ReportsListResponseSchema } from '../schemas/response'
 import { z } from 'zod'
+import { registryService } from './registryService'
+import type { ReportingPeriod } from '@/types'
 
 const API_KEY = process.env.FIRECRAWL_API_KEY
 
@@ -44,11 +52,38 @@ class CompanyService {
   }
 
   async getAllCompaniesBySearchTerm(searchTerm: string) {
+    const normalizedSearchTerm = searchTerm.trim().toLocaleLowerCase('sv-SE')
+    const likePattern = normalizedSearchTerm + '%'
+
+    const matches = await prisma.$queryRaw<{ wikidataId: string }[]>(
+      Prisma.sql`
+      SELECT "wikidataId"
+      FROM "Company"
+      WHERE lower(name) LIKE ${likePattern}
+         OR (
+              char_length(${normalizedSearchTerm}) >= 3
+              AND to_tsvector('simple', name) @@ websearch_to_tsquery('simple', ${normalizedSearchTerm})
+            )
+      ORDER BY
+        CASE WHEN lower(name) LIKE ${likePattern} THEN 0 ELSE 1 END,
+        ts_rank(to_tsvector('simple', name), websearch_to_tsquery('simple', ${normalizedSearchTerm})) DESC,
+        name ASC
+      LIMIT 30
+    `
+    )
+
+    const orderedIds = matches.map((m) => m.wikidataId)
+
     const companies = await prisma.company.findMany({
       ...companyListArgs,
-      where: { name: { contains: searchTerm } },
+      where: { wikidataId: { in: orderedIds } },
     })
-    const transformedCompanies = companies.map(transformMetadata)
+
+    const sorted = orderedIds
+      .map((wikidataId) => companies.find((c) => c.wikidataId === wikidataId))
+      .filter(Boolean)
+
+    const transformedCompanies = sorted.map(transformMetadata)
     const companiesWithCalculatedTotalEmissions =
       addCalculatedTotalEmissions(transformedCompanies)
     const companiesWithEmissionsChange = addCompanyEmissionChange(
@@ -277,7 +312,7 @@ class CompanyService {
                     position: idx,
                   }
                 }
-              } catch (err) {
+              } catch {
                 // Fallback to original URL if ky fails
                 return {
                   url: result.url,
@@ -323,7 +358,7 @@ class CompanyService {
         .jpeg({ quality: 60 })
         .toBuffer()
       return jpegBuffer
-    } catch (err) {
+    } catch {
       return null
     }
   }
@@ -339,6 +374,8 @@ class CompanyService {
             startDate: true,
             endDate: true,
             reportURL: true,
+            reportS3Url: true,
+            reportSha256: true,
           },
         },
       },
@@ -353,13 +390,16 @@ class CompanyService {
 
     for (const report of saveReportsBody) {
       try {
-        const saved = await prisma.report.create({
-          data: {
-            companyName: report.companyName,
-            wikidataId: report.wikidataId ?? undefined,
-            reportYear: report.reportYear,
-            url: report.url,
-          },
+        const saved = await registryService.upsertReportInRegistry({
+          companyName: report.companyName,
+          wikidataId: report.wikidataId ?? undefined,
+          reportYear: report.reportYear,
+          url: report.url,
+          sourceUrl: report.sourceUrl,
+          s3Url: report.s3Url,
+          s3Key: report.s3Key,
+          s3Bucket: report.s3Bucket,
+          sha256: report.sha256,
         })
 
         results.push({
@@ -480,10 +520,12 @@ export function addFutureEmissionsTrendSlope(companies: any[]) {
       }
 
       const transformedCompany = {
-        reportedPeriods: company.reportingPeriods.map((period) => ({
-          year: new Date(period.endDate).getFullYear(),
-          emissions: period.emissions,
-        })),
+        reportedPeriods: company.reportingPeriods.map(
+          (period: ReportingPeriod) => ({
+            year: new Date(period.endDate).getFullYear(),
+            emissions: period.emissions,
+          })
+        ),
         baseYear: company.baseYear,
       }
 

@@ -22,7 +22,7 @@ services:
   #   container_name: garbo_ingestor
   #   ports:
   #     - "5001:5001"
-  # docling: # Uncomment to for local Docling deployment
+  #docling: # Uncomment to for local Docling deployment
   #   image: quay.io/docling-project/docling-serve
   #   container_name: garbo_docling
   #   ports:

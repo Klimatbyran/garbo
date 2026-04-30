@@ -111,6 +111,22 @@ describe('registryUpdateRequestBodySchema', () => {
     })
     expect(result.success).toBe(true)
   })
+
+  test('accepts sourceUrl null as sole update to clear', () => {
+    const result = registryUpdateRequestBodySchema.safeParse({
+      id: 'report_123',
+      sourceUrl: null,
+    })
+    expect(result.success).toBe(true)
+  })
+
+  test('accepts s3Key null as sole update', () => {
+    const result = registryUpdateRequestBodySchema.safeParse({
+      id: 'report_123',
+      s3Key: null,
+    })
+    expect(result.success).toBe(true)
+  })
 })
 
 describe('registryDeleteRequestBodySchema', () => {

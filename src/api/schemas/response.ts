@@ -270,6 +270,17 @@ export const ReportingPeriodSchema = z.object({
     .string()
     .nullable()
     .openapi({ description: 'URL to the report' }),
+  reportS3Url: z
+    .string()
+    .url()
+    .nullable()
+    .optional()
+    .openapi({ description: 'Public URL to cached/uploaded report PDF' }),
+  reportSha256: z
+    .string()
+    .nullable()
+    .optional()
+    .openapi({ description: 'SHA-256 hash for cached/uploaded report PDF' }),
   emissions: EmissionsSchema.nullable(),
   economy: EconomySchema.nullable(),
   emissionsChangeLastTwoYears: z
@@ -406,6 +417,11 @@ export const RegistryList = z.array(
   z.object({
     id: z.string(),
     url: z.string().url(),
+    sourceUrl: z.string().url().nullable().optional(),
+    s3Url: z.string().url().nullable().optional(),
+    s3Key: z.string().nullable().optional(),
+    s3Bucket: z.string().nullable().optional(),
+    sha256: z.string().nullable().optional(),
     companyName: z.string().optional().nullable(),
     wikidataId: z.string().optional().nullable(),
     reportYear: z.string().optional().nullable(),
@@ -483,6 +499,19 @@ export const MunicipalitySchema = InputMunicipalitySchema.omit({
 })
 
 export const MunicipalitiesSchema = z.array(MunicipalitySchema)
+
+export const MunicipalityKpiSchema = z.object({
+  name: z.string(),
+  meetsParis: z.boolean(),
+  historicalEmissionChangePercent: z.number(),
+  electricVehiclePerChargePoints: z.number().nullable(),
+  bicycleMetrePerCapita: z.number(),
+  totalConsumptionEmission: z.number(),
+  electricCarChangePercent: z.number(),
+  climatePlan: z.boolean(),
+})
+
+export const MunicipalityKpiListSchema = z.array(MunicipalityKpiSchema)
 
 export const MunicipalitySectorEmissionsSchema = z.object({
   sectors: z.record(z.string(), z.record(z.string(), z.number())),

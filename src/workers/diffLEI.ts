@@ -69,13 +69,17 @@ const diffLEI = new DiscordWorker<DiffLEIJob>(
     job.log(
       `⚡ Detected changes for '${companyName}', enqueuing save operation...`
     )
-    await saveToAPI.queue.add(`${companyName} - LEI Update`, {
-      ...job.data,
-      body: body,
-      diff: comparisonResult.reason,
-      requiresApproval: false,
-      apiSubEndpoint: '',
-    })
+    await saveToAPI.queue.add(
+      `${companyName} - LEI Update`,
+      {
+        ...job.data,
+        body: body,
+        diff: comparisonResult.reason,
+        requiresApproval: false,
+        apiSubEndpoint: '',
+      },
+      job.id ? { parent: { id: job.id, queue: job.queueName } } : undefined
+    )
 
     job.log(`✅ Enqueued LEI update for '${companyName}' with LEI: '${lei}'.`)
   }

@@ -65,6 +65,19 @@ class MunicipalityService {
     )
   }
 
+  getMunicipalityKpis() {
+    return this.allMunicipalities.map((m) => ({
+      name: m.name,
+      meetsParis: m.totalTrend <= m.totalCarbonLaw,
+      historicalEmissionChangePercent: m.historicalEmissionChangePercent,
+      electricVehiclePerChargePoints: m.electricVehiclePerChargePoints,
+      bicycleMetrePerCapita: m.bicycleMetrePerCapita,
+      totalConsumptionEmission: m.totalConsumptionEmission,
+      electricCarChangePercent: m.electricCarChangePercent,
+      climatePlan: !!m.climatePlanLink,
+    }))
+  }
+
   getMunicipalitySectorEmissions(name: Municipality['name']) {
     const municipality = this.sectorEmissions.find(
       (m) => m.name.toLowerCase() === name.toLowerCase()

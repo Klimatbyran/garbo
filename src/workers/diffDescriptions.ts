@@ -51,12 +51,16 @@ const diffDescriptions = new DiscordWorker<DiffDescriptionsJob>(
 
     // Only save if we detected any meaningful changes
     if (!diff.includes('NO_CHANGES')) {
-      await saveToAPI.queue.add(companyName + ' descriptions', {
-        ...job.data,
-        body,
-        diff,
-        apiSubEndpoint: '',
-      })
+      await saveToAPI.queue.add(
+        companyName + ' descriptions',
+        {
+          ...job.data,
+          body,
+          diff,
+          apiSubEndpoint: '',
+        },
+        job.id ? { parent: { id: job.id, queue: job.queueName } } : undefined
+      )
     }
 
     return { body, diff }

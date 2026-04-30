@@ -69,9 +69,12 @@ const checkDB = new DiscordWorker(
       tags: extractedTags,
     } = root || {}
 
-    // User-provided tags (e.g. from run-report request) take precedence; otherwise use AI-extracted tags
-    const userTags = job.data.tags
-    const tags = userTags?.length ? userTags : extractedTags
+    // User-provided tags are a starting point; merge with AI-extracted tags when available.
+    const userTags = Array.isArray(job.data.tags) ? job.data.tags : []
+    const aiTags = Array.isArray(extractedTags) ? extractedTags : []
+    const tags = Array.from(new Set([...userTags, ...aiTags])).filter(
+      (t) => typeof t === 'string' && t.trim().length > 0
+    )
 
     const mergedScope12 = mergeScope1AndScope2Results(
       extractScopeEntriesFromFollowUp(scope1),
