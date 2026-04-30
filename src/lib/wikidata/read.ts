@@ -112,6 +112,79 @@ export async function getLEINumber(
   return claims['P1278'][0].mainsnak.datavalue.value
 }
 
+/** Trailing company legal forms often omitted from Wikidata labels (e.g. "… Group AB" vs "… Group"). */
+const LEGAL_FORM_SUFFIXES = new Set([
+  'ab',
+  'aktiebolag',
+  'ag',
+  'asa',
+  'bv',
+  'corp',
+  'corporation',
+  'gmbh',
+  'inc',
+  'incorporated',
+  'limited',
+  'llc',
+  'llp',
+  'lp',
+  'ltd',
+  'nv',
+  'oy',
+  'plc',
+  'company',
+])
+
+/**
+ * Removes one or more trailing legal-form tokens (e.g. AB, Ltd).
+ * Returns null if nothing was removed or the remainder would be empty.
+ */
+function stripLegalFormSuffixes(companyName: string): string | null {
+  let s = companyName.replace(/,/g, ' ').trim().replace(/\s+/g, ' ')
+  if (!s) return null
+  const original = s
+
+  while (s.length > 0) {
+    const match = s.match(/^(.+?)\s+([^\s]+)\.?$/i)
+    if (!match) break
+    const rest = match[1].trim()
+    const lastNorm = match[2].toLowerCase().replace(/\./g, '')
+    if (!LEGAL_FORM_SUFFIXES.has(lastNorm)) break
+    if (!rest) break
+    s = rest
+  }
+
+  return s !== original && s.length > 0 ? s : null
+}
+
+const WIKIDATA_SEARCH_HEADERS = {
+  Accept: 'application/json',
+  'User-Agent': 'KlimatkollenGarboBot/1.0 (+https://klimatkollen.se)',
+} as const
+
+async function searchWikidataEntities(
+  search: string,
+  language: SearchEntitiesOptions['language'] | undefined
+): Promise<SearchResponse['search']> {
+  const url = wbk.searchEntities({
+    search,
+    type: 'item',
+    language,
+    limit: 20,
+  })
+  const response = await fetchJsonWithRetries<SearchResponse>(url, {
+    headers: { ...WIKIDATA_SEARCH_HEADERS },
+    maxAttempts: 3,
+    expectedContentType: 'application/json',
+    context: 'Wikidata search',
+  })
+  if (response.error) {
+    const msg = response.error.info || response.error.code
+    throw new Error(`Wikidata search failed: ${msg}`)
+  }
+  return response.search ?? []
+}
+
 export async function searchCompany({
   companyName,
   language = 'sv',
@@ -120,35 +193,16 @@ export async function searchCompany({
   language?: SearchEntitiesOptions['language']
 }): Promise<SearchResponse['search']> {
   // TODO: try to search in multiple languages. Maybe we can find a page in English if it doesn't exist in Swedish?
-  const searchEntitiesQuery = wbk.searchEntities({
-    search: companyName,
-    type: 'item',
-    // IDEA: Maybe determine language based on report or company origin. Or maybe search in multiple languages.
-    language,
-    limit: 20,
-  })
+  let results = await searchWikidataEntities(companyName, language)
 
-  const headers = {
-    Accept: 'application/json',
-    'User-Agent': 'KlimatkollenGarboBot/1.0 (+https://klimatkollen.se)',
-  }
-
-  const response = await fetchJsonWithRetries<SearchResponse>(
-    searchEntitiesQuery,
-    {
-      headers,
-      maxAttempts: 3,
-      expectedContentType: 'application/json',
-      context: 'Wikidata search',
+  if (results.length === 0) {
+    const simplified = stripLegalFormSuffixes(companyName)
+    if (simplified) {
+      results = await searchWikidataEntities(simplified, language)
     }
-  )
-
-  if (response.error) {
-    const msg = response.error.info || response.error.code
-    throw new Error(`Wikidata search failed: ${msg}`)
   }
 
-  return response.search
+  return results
 }
 
 export async function getWikidataEntities(ids: `Q${number}`[]) {
