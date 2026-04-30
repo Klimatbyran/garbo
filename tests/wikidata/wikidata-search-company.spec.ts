@@ -15,7 +15,7 @@ const largeCap: [string, string][] = [
 ]
 
 const smallCap: [string, string][] = [
-  ['MOMENT GROUP', 'Q10397256'],
+  ['Anora', 'Q108180696'],
   ['Xspray Pharma', 'Q106640265'],
   ['Sensys Gatso Group AB', 'Q10665716'],
   ['VBG Group', 'Q10711820'],
