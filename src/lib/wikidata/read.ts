@@ -132,6 +132,7 @@ const LEGAL_FORM_SUFFIXES = new Set([
   'inc',
   'incorporated',
   'int',
+  'koncern',
   'limited',
   'llc',
   'llp',

@@ -42,15 +42,10 @@ const LARGE_CAP_SEARCH_SPECIAL_CASES: ReadonlyArray<{
   //   klimatkollenWikidataId: 'Q109773651',
   //   firstSearchHitId: undefined,
   // },
-  // {
-  //   companyName: 'Lundbergföretagen (koncern)',
-  //   klimatkollenWikidataId: 'Q6460556',
-  //   firstSearchHitId: undefined,
-  // },
   {
-    companyName: 'Lundin Mining Corp.',
-    klimatkollenWikidataId: 'Q1537901',
-    firstSearchHitId: 'Q137125375',
+    companyName: 'Lundbergföretagen (koncern)',
+    klimatkollenWikidataId: 'Q6460556',
+    firstSearchHitId: undefined,
   },
   // {
   //   companyName: 'Mips',
