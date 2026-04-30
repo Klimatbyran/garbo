@@ -11,8 +11,13 @@ const queryList = z.object({
   page: z.coerce.number().optional().default(1),
   pageSize: z.coerce.number().optional().default(50),
   q: z.string().optional(),
-  /** Exact match on `ReportRun.batchDbId` (Garbo `Batch.id`). */
+  /**
+   * Comma-separated Garbo `Batch.id` (cuid). Single id = exact match; multiple = OR (`IN`).
+   * @deprecated Prefer `batchDbIds`; kept for older clients.
+   */
   batchDbId: z.string().optional(),
+  /** Same as comma-separated `batchDbIds` (Validate archive multi-select). */
+  batchDbIds: z.string().optional(),
   /** Exact match on `Batch.batchName` (pipeline `job.data.batchId`). */
   batchName: z.string().optional(),
 })
@@ -87,11 +92,19 @@ export async function queueArchiveReadRoutes(app: FastifyInstance) {
     },
     async (request, reply) => {
       const q = queryList.parse(request.query)
+      const merged = new Set<string>()
+      for (const part of (q.batchDbIds ?? '').split(',')) {
+        const t = part.trim()
+        if (t) merged.add(t)
+      }
+      const single = q.batchDbId?.trim()
+      if (single) merged.add(single)
+      const batchDbIds = [...merged]
       const data = await listArchivedReportRuns({
         page: q.page,
         pageSize: q.pageSize,
         q: q.q,
-        batchDbId: q.batchDbId,
+        batchDbIds: batchDbIds.length > 0 ? batchDbIds : undefined,
         batchName: q.batchName,
       })
       return reply.send(data)

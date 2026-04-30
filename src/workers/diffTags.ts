@@ -1,7 +1,7 @@
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+import { enqueueSaveToAPIWithParentFallback } from '../lib/DiffWorker'
 import { defaultMetadata, diffChanges } from '../lib/saveUtils'
 import { QUEUE_NAMES } from '../queues'
-import saveToAPI from './saveToAPI'
 
 export class DiffTagsJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -33,20 +33,16 @@ const diffTags = new DiscordWorker<DiffTagsJob>(
 
     // Only save if we detected any meaningful changes
     if (diff) {
-      await saveToAPI.queue.add(
-        companyName + ' tags',
-        {
-          ...job.data,
-          body,
-          diff,
-          requiresApproval,
-          apiSubEndpoint: 'tags',
+      await enqueueSaveToAPIWithParentFallback(job, companyName + ' tags', {
+        ...job.data,
+        body,
+        diff,
+        requiresApproval,
+        apiSubEndpoint: 'tags',
 
-          // Remove duplicated job data that should be part of the body from now on
-          tags: undefined,
-        },
-        job.id ? { parent: { id: job.id, queue: job.queueName } } : undefined
-      )
+        // Remove duplicated job data that should be part of the body from now on
+        tags: undefined,
+      })
     }
 
     return { body, diff, requiresApproval }

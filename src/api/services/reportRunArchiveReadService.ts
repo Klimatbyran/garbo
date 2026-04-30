@@ -20,13 +20,14 @@ const batchListSelect = {
 
 function buildListWhere(args: {
   q?: string
-  batchDbId?: string
+  /** Garbo `Batch.id` values; OR match when more than one. */
+  batchDbIds?: string[]
   /** Exact match on `Batch.batchName` (same string as pipeline `job.data.batchId`). */
   batchName?: string
 }): Prisma.ReportRunWhereInput {
-  const { q, batchDbId, batchName } = args
+  const { q, batchDbIds, batchName } = args
   const qTrim = q?.trim()
-  const batchDbTrim = batchDbId?.trim()
+  const idList = (batchDbIds ?? []).map((s) => s.trim()).filter(Boolean)
   const batchNameTrim = batchName?.trim()
 
   const textWhere: Prisma.ReportRunWhereInput | null = qTrim
@@ -50,9 +51,12 @@ function buildListWhere(args: {
       }
     : null
 
-  const batchFkWhere: Prisma.ReportRunWhereInput | null = batchDbTrim
-    ? { batchDbId: batchDbTrim }
-    : null
+  const batchFkWhere: Prisma.ReportRunWhereInput | null =
+    idList.length > 1
+      ? { batchDbId: { in: idList } }
+      : idList.length === 1
+        ? { batchDbId: idList[0] }
+        : null
 
   const batchNameWhere: Prisma.ReportRunWhereInput | null = batchNameTrim
     ? { batch: { is: { batchName: batchNameTrim } } }
@@ -97,8 +101,8 @@ export async function listArchivedReportRuns(params: {
   page: number
   pageSize: number
   q?: string
-  /** Stable Garbo `Batch.id` (cuid). */
-  batchDbId?: string
+  /** Stable Garbo `Batch.id` (cuid); multiple IDs are OR-matched. */
+  batchDbIds?: string[]
   /** Exact pipeline batch string (`Batch.batchName`) when filtering without a known cuid. */
   batchName?: string
 }) {
@@ -107,7 +111,7 @@ export async function listArchivedReportRuns(params: {
   const skip = (page - 1) * pageSize
   const where = buildListWhere({
     q: params.q,
-    batchDbId: params.batchDbId,
+    batchDbIds: params.batchDbIds,
     batchName: params.batchName,
   })
 
