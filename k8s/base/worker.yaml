@@ -116,6 +116,8 @@ spec:
                 secretKeyRef:
                   name: postgresql
                   key: postgres-password
+            - name: DATABASE_URL
+              value: postgresql://postgres:$(POSTGRES_PASSWORD)@postgresql:5432/garbo
             - name: DOCLING_URL
               valueFrom:
                 secretKeyRef:
