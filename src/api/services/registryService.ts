@@ -74,7 +74,9 @@ class RegistryService {
         wikidataId: existing.wikidataId ?? input.wikidataId ?? undefined,
         reportYear: existing.reportYear ?? input.reportYear ?? undefined,
         // When provided (including explicit null), overwrite so callers can clear optional fields.
-        ...(input.sourceUrl !== undefined ? { sourceUrl: input.sourceUrl } : {}),
+        ...(input.sourceUrl !== undefined
+          ? { sourceUrl: input.sourceUrl }
+          : {}),
         ...(input.s3Url !== undefined ? { s3Url: input.s3Url } : {}),
         ...(input.s3Key !== undefined ? { s3Key: input.s3Key } : {}),
         ...(input.s3Bucket !== undefined ? { s3Bucket: input.s3Bucket } : {}),
