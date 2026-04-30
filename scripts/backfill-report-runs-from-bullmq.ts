@@ -183,7 +183,7 @@ async function persistJobIfNeeded(args: {
         ? job.processedOn
         : typeof job.timestamp === 'number'
           ? job.timestamp
-          : Date.now()
+          : null
   const finishedAt = new Date(finishedAtMs)
 
   const queryTextsJson: Prisma.InputJsonValue | undefined =
