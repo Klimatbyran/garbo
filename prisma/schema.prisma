@@ -415,3 +415,49 @@ model Report {
   wikidataId  String?
   reportYear  String?
 }
+
+model Batch {
+  id         String   @id @default(cuid())
+  /// Human-assigned batch label; same string as pipeline `job.data.batchId` on jobs.
+  batchName  String   @unique @map("batch_name")
+  createdAt  DateTime @default(now())
+  reportRuns ReportRun[]
+}
+
+model ReportRun {
+  id          String         @id @default(cuid())
+  threadId    String         @unique
+  pdfUrl      String
+  companyName String?
+  wikidataId  String?
+  batchDbId   String?        @map("batch_db_id")
+  batch       Batch?         @relation(fields: [batchDbId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  status      String         @default("running") // 'running' | 'completed' | 'failed'
+  startedAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  jobs        ReportRunJob[]
+
+  @@index([pdfUrl])
+  @@index([wikidataId])
+  @@index([batchDbId])
+}
+
+model ReportRunJob {
+  id                 String    @id @default(cuid())
+  jobId              String
+  queueName          String
+  wikidataId         String?
+  status             String // 'completed' | 'failed'
+  approvedTimestamp  String?   @map("approved_timestamp")
+  autoApprove        Boolean   @default(false) @map("auto_approve")
+  failedReason       String?
+  prompt             String?
+  queryTexts         Json? // string[]
+  markdown           String?
+  startedAt          DateTime?
+  finishedAt         DateTime  @default(now())
+  reportRunId        String
+  reportRun          ReportRun @relation(fields: [reportRunId], references: [id])
+
+  @@index([reportRunId])
+}

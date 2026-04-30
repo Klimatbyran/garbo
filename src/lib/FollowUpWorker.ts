@@ -115,6 +115,7 @@ function addCustomMethods(job: FollowUpJob) {
       metadata: {
         context: markdown,
         prompt: prompt,
+        queryTexts,
         schema: zodResponseFormat(schema, type.replace(/\//g, '-')),
       },
     }
