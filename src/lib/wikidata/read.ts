@@ -1,4 +1,10 @@
-import { Entity, EntityId, ItemId, SearchResponse } from 'wikibase-sdk'
+import {
+  Entity,
+  EntityId,
+  ItemId,
+  SearchResponse,
+  SearchResult,
+} from 'wikibase-sdk'
 import { Claim, transformFromWikidataDateStringToDate, wbk } from './util'
 import { WbGetEntitiesResponse } from 'wikibase-sdk/dist/src/helpers/parse_responses'
 import { SearchEntitiesOptions } from 'wikibase-sdk/dist/src/queries/search_entities'
@@ -134,11 +140,12 @@ const LEGAL_FORM_SUFFIXES = new Set([
   'oy',
   'oyj',
   'plc',
+  'publ',
   'company',
 ])
 
 /**
- * Removes one or more trailing legal-form tokens (e.g. AB, Ltd).
+ * Removes one or more trailing legal-form tokens (e.g. AB, Ltd, or "(AB)", "(publ)").
  * Returns null if nothing was removed or the remainder would be empty.
  */
 function stripLegalFormSuffixes(companyName: string): string | null {
@@ -147,6 +154,16 @@ function stripLegalFormSuffixes(companyName: string): string | null {
   const original = s
 
   while (s.length > 0) {
+    const parenMatch = s.match(/^(.+?)\s*\(([^)]+)\)\s*$/i)
+    if (parenMatch) {
+      const rest = parenMatch[1].trim()
+      const innerNorm = parenMatch[2].toLowerCase().replace(/\./g, '').trim()
+      if (rest && LEGAL_FORM_SUFFIXES.has(innerNorm)) {
+        s = rest
+        continue
+      }
+    }
+
     const match = s.match(/^(.+?)\s+([^\s]+)\.?$/i)
     if (!match) break
     const rest = match[1].trim()
@@ -163,6 +180,73 @@ const WIKIDATA_SEARCH_HEADERS = {
   Accept: 'application/json',
   'User-Agent': 'KlimatkollenGarboBot/1.0 (+https://klimatkollen.se)',
 } as const
+
+/**
+ * instance of (P31) object ids we treat as business/company-like for ranking.
+ * Subclasses are not expanded (no subclass-of traversal).
+ */
+const COMPANY_LIKE_INSTANCE_OF = new Set<string>([
+  'Q4830453', // business
+  'Q783794', // company
+  'Q6881511', // enterprise
+  'Q891723', // public company
+  'Q431289', // brand
+])
+
+function collectInstanceOfIds(entity: Entity | undefined): Set<string> {
+  const ids = new Set<string>()
+  if (!entity || entity.type !== 'item') return ids
+  const p31 = entity.claims?.P31
+  if (!p31) return ids
+  for (const claim of p31) {
+    if (claim.mainsnak.snaktype !== 'value' || !claim.mainsnak.datavalue) {
+      continue
+    }
+    const dv = claim.mainsnak.datavalue
+    if (dv.type === 'wikibase-entityid' && 'id' in dv.value) {
+      ids.add(dv.value.id)
+    }
+  }
+  return ids
+}
+
+async function fetchCompanyLikeBySearchResultId(
+  ids: string[]
+): Promise<Map<string, boolean>> {
+  const byId = new Map<string, boolean>()
+  if (ids.length === 0) return byId
+
+  const url = wbk.getEntities({
+    ids: ids as EntityId[],
+    props: ['claims'],
+    languages: ['en'],
+  })
+  const { entities } = await fetchJsonWithRetries<WbGetEntitiesResponse>(url, {
+    headers: { ...WIKIDATA_SEARCH_HEADERS },
+    maxAttempts: 3,
+    expectedContentType: 'application/json',
+    context: 'Wikidata entities (P31)',
+  })
+
+  for (const id of ids) {
+    const entity = entities[id]
+    const instanceOf = collectInstanceOfIds(entity)
+    const isCompanyLike = [...instanceOf].some((q) =>
+      COMPANY_LIKE_INSTANCE_OF.has(q)
+    )
+    byId.set(id, isCompanyLike)
+  }
+  return byId
+}
+
+function prioritizeCompanyLikeSearchResults(
+  results: SearchResult[],
+  companyLikeById: Map<string, boolean>
+): SearchResult[] {
+  const preferred = results.filter((r) => companyLikeById.get(r.id) === true)
+  const rest = results.filter((r) => companyLikeById.get(r.id) !== true)
+  return [...preferred, ...rest]
+}
 
 async function searchWikidataEntities(
   search: string,
@@ -201,6 +285,13 @@ export async function searchCompany({
     if (simplified) {
       results = await searchWikidataEntities(simplified, language)
     }
+  }
+
+  if (results.length > 0) {
+    const companyLikeById = await fetchCompanyLikeBySearchResultId(
+      results.map((r) => r.id)
+    )
+    results = prioritizeCompanyLikeSearchResults(results, companyLikeById)
   }
 
   return results
