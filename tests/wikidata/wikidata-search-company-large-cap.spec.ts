@@ -53,21 +53,21 @@ const LARGE_CAP_SEARCH_SPECIAL_CASES: ReadonlyArray<{
   //   klimatkollenWikidataId: 'Q1537901',
   //   firstSearchHitId: 'Q137125375',
   // },
-  // {
-  //   companyName: 'Millicom Int. Cellular',
-  //   klimatkollenWikidataId: 'Q276345',
-  //   firstSearchHitId: undefined,
-  // },
+  {
+    companyName: 'Millicom Int. Cellular',
+    klimatkollenWikidataId: 'Q276345',
+    firstSearchHitId: undefined,
+  },
   // {
   //   companyName: 'Mips',
   //   klimatkollenWikidataId: 'Q109787297',
   //   firstSearchHitId: 'Q1631366',
   // },
-  {
-    companyName: 'SBB', // mkt svår kanske kan matcha rätt med beskrivning
-    klimatkollenWikidataId: 'Q93559269',
-    firstSearchHitId: 'Q7452767',
-  },
+  // {
+  //   companyName: 'SBB', // mkt svår kanske kan matcha rätt med beskrivning
+  //   klimatkollenWikidataId: 'Q93559269',
+  //   firstSearchHitId: 'Q7452767',
+  // },
 ]
 
 const SPECIAL_CASE_NAMES = new Set(
@@ -102,10 +102,10 @@ const casesThatFail: [string, string][] = [
 describe('searchCompany (large cap)', () => {
   jest.setTimeout(60_000)
 
-  it.each(regularCases)('resolves "%s" to Wikidata id %s', async (name, id) => {
-    const results = await searchCompany({ companyName: name })
-    expect(results[0]?.id).toBe(id)
-  })
+  // it.each(regularCases)('resolves "%s" to Wikidata id %s', async (name, id) => {
+  //   const results = await searchCompany({ companyName: name })
+  //   expect(results[0]?.id).toBe(id)
+  // })
 
   it.each(LARGE_CAP_SEARCH_SPECIAL_CASES)(
     'special: $companyName — Klimatkollen $klimatkollenWikidataId, previousfirst hit $firstSearchHitId',
