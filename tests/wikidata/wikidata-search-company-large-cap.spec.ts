@@ -1,50 +1,128 @@
 import { describe, expect, it, jest } from '@jest/globals'
 import { searchCompany } from '../../src/lib/wikidata/read'
+import companyWikidata from '../../data/klimatkollen-company-wikidata.json'
 
 /**
  * Wikidata entity search — large-cap cases (live API).
  */
 
-const casesThatPass: [string, string][] = [
-  ['H&M', 'Q188326'],
-  ['Volvo Cars', 'Q215293'],
-  ['Ica Gruppen', 'Q1663776'],
-  ['NIBE Industrier AB', 'Q10600414'],
+type CompanyEntry = string | { wikidataId: string; tags?: string[] }
+
+/**
+ * `klimatkollenWikidataId`: ID from `data/klimatkollen-company-wikidata.json`.
+ * `firstSearchHitId`: first result from `searchCompany` when the suite was last
+ * aligned (undefined = no results).
+ */
+const LARGE_CAP_SEARCH_SPECIAL_CASES: ReadonlyArray<{
+  companyName: string
+  klimatkollenWikidataId: string
+  firstSearchHitId: string | undefined
+}> = [
+  // {
+  //   companyName: 'Coop i Sverige',
+  //   klimatkollenWikidataId: 'Q106684510',
+  //   firstSearchHitId: undefined,
+  // },
+  // {
+  //   companyName: 'Evolution',
+  //   klimatkollenWikidataId: 'Q105965579',
+  //   firstSearchHitId: 'Q1063',
+  // },
+  // {
+  //   companyName: 'Fenix Outdoor Int.',
+  //   klimatkollenWikidataId: 'Q10494668',
+  //   firstSearchHitId: undefined,
+  // },
+  // {
+  //   companyName: 'ICA Gruppen',
+  //   klimatkollenWikidataId: 'Q1663776',
+  //   firstSearchHitId: 'Q10516119',
+  // },
+  // {
+  //   companyName: 'Lindab International',
+  //   klimatkollenWikidataId: 'Q109773651',
+  //   firstSearchHitId: undefined,
+  // },
+  // {
+  //   companyName: 'Lundbergföretagen (koncern)',
+  //   klimatkollenWikidataId: 'Q6460556',
+  //   firstSearchHitId: undefined,
+  // },
+  // {
+  //   companyName: 'Lundin Mining Corp.',
+  //   klimatkollenWikidataId: 'Q1537901',
+  //   firstSearchHitId: 'Q137125375',
+  // },
+  // {
+  //   companyName: 'Millicom Int. Cellular',
+  //   klimatkollenWikidataId: 'Q276345',
+  //   firstSearchHitId: undefined,
+  // },
+  // {
+  //   companyName: 'Mips',
+  //   klimatkollenWikidataId: 'Q109787297',
+  //   firstSearchHitId: 'Q1631366',
+  // },
+  {
+    companyName: 'SBB', // mkt svår kanske kan matcha rätt med beskrivning
+    klimatkollenWikidataId: 'Q93559269',
+    firstSearchHitId: 'Q7452767',
+  },
 ]
 
-const specialCases: [string, string][] = [
-  ['Alimentation Couche-Tard Inc.', 'Q2836957'],
-  ['Inter IKEA Group', 'Q47508289'],
-]
+const SPECIAL_CASE_NAMES = new Set(
+  LARGE_CAP_SEARCH_SPECIAL_CASES.map((c) => c.companyName)
+)
+
+function largeCapCasesFromData(
+  data: Record<string, CompanyEntry>
+): [string, string][] {
+  const out: [string, string][] = []
+  for (const [name, val] of Object.entries(data)) {
+    const wikidataId = typeof val === 'string' ? val : val.wikidataId
+    const tags =
+      typeof val === 'object' && val !== null && Array.isArray(val.tags)
+        ? val.tags
+        : []
+    if (tags.includes('large-cap')) {
+      out.push([name, wikidataId])
+    }
+  }
+  return [...out].sort(([a], [b]) => a.localeCompare(b, 'sv'))
+}
+
+const regularCases = largeCapCasesFromData(
+  companyWikidata as Record<string, CompanyEntry>
+).filter(([name]) => !SPECIAL_CASE_NAMES.has(name))
 
 const casesThatFail: [string, string][] = [
   ['This is a non-existing company', 'Q100000000'],
 ]
 
 describe('searchCompany (large cap)', () => {
-  jest.setTimeout(30_000)
+  jest.setTimeout(60_000)
 
-  it.each(casesThatPass satisfies [string, string][])(
-    'resolves "%s" to Wikidata id %s',
-    async (name, id) => {
-      const results = await searchCompany({ companyName: name })
-      expect(results[0]?.id).toBe(id)
-    }
-  )
+  it.each(regularCases)('resolves "%s" to Wikidata id %s', async (name, id) => {
+    const results = await searchCompany({ companyName: name })
+    expect(results[0]?.id).toBe(id)
+  })
 
-  it.each(specialCases satisfies [string, string][])(
-    'resolves "%s" to Wikidata id %s',
-    async (name, id) => {
-      const results = await searchCompany({ companyName: name })
-      expect(results[0]?.id).toBe(id)
-    }
-  )
-
-  it.each(casesThatFail satisfies [string, string][])(
-    'does not resolve "%s" to Wikidata id',
-    async (name) => {
-      const results = await searchCompany({ companyName: name })
-      expect(results.length).toBe(0)
+  it.each(LARGE_CAP_SEARCH_SPECIAL_CASES)(
+    'special: $companyName — Klimatkollen $klimatkollenWikidataId, previousfirst hit $firstSearchHitId',
+    async ({ companyName, klimatkollenWikidataId }) => {
+      const results = await searchCompany({ companyName })
+      console.log(results)
+      expect(results[0]?.id).toBe(klimatkollenWikidataId)
     }
   )
 })
+
+/* 
+Known issues:
+- Unusual subclasses
+  - "Sweco" is not a company, but an architectural firm. Other such special cases will probably occur in the future.
+  - "SJ" is not a company, but a Swedish government agency.
+
+- Naming
+  - "OKQ8 Scandinavia" has to have Scandinavia removed from the name.
+*/

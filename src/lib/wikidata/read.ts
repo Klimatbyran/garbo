@@ -131,6 +131,7 @@ const LEGAL_FORM_SUFFIXES = new Set([
   'group',
   'inc',
   'incorporated',
+  'int',
   'limited',
   'llc',
   'llp',
@@ -141,6 +142,7 @@ const LEGAL_FORM_SUFFIXES = new Set([
   'oyj',
   'plc',
   'publ',
+  'scandinavia',
   'company',
 ])
 
@@ -156,7 +158,7 @@ function stripLegalFormSuffixes(companyName: string): string | null {
   while (s.length > 0) {
     const parenMatch = s.match(/^(.+?)\s*\(([^)]+)\)\s*$/i)
     if (parenMatch) {
-      const rest = parenMatch[1].trim()
+      const rest = parenMatch[1].trim().replace(/^\.+|\.+$/g, '')
       const innerNorm = parenMatch[2].toLowerCase().replace(/\./g, '').trim()
       if (rest && LEGAL_FORM_SUFFIXES.has(innerNorm)) {
         s = rest
@@ -166,7 +168,7 @@ function stripLegalFormSuffixes(companyName: string): string | null {
 
     const match = s.match(/^(.+?)\s+([^\s]+)\.?$/i)
     if (!match) break
-    const rest = match[1].trim()
+    const rest = match[1].trim().replace(/^\.+|\.+$/g, '')
     const lastNorm = match[2].toLowerCase().replace(/\./g, '')
     if (!LEGAL_FORM_SUFFIXES.has(lastNorm)) break
     if (!rest) break
@@ -191,6 +193,8 @@ const COMPANY_LIKE_INSTANCE_OF = new Set<string>([
   'Q6881511', // enterprise
   'Q891723', // public company
   'Q431289', // brand
+  'Q4387609', // architectural firm
+  'Q68295960', // Swedish government agency
 ])
 
 function collectInstanceOfIds(entity: Entity | undefined): Set<string> {
