@@ -10,6 +10,11 @@ import { WbGetEntitiesResponse } from 'wikibase-sdk/dist/src/helpers/parse_respo
 import { SearchEntitiesOptions } from 'wikibase-sdk/dist/src/queries/search_entities'
 import wikidataConfig from '../../config/wikidata'
 
+/** `wbgetentities` returns sitelinks; the SDK `Entity` type omits them. */
+type EntityWithSitelinks = Entity & {
+  sitelinks?: Record<string, { title?: string } | undefined>
+}
+
 const {
   CARBON_FOOTPRINT,
   START_TIME,
@@ -314,21 +319,112 @@ function collectItemIdsForProperty(
   return out
 }
 
+/** Country (P17) → Wikipedia site id for ranking with default search language `en`. */
+const P17_COUNTRY_TO_WIKI_SITE: Readonly<Record<string, string>> = {
+  Q34: 'svwiki', // Sweden
+  Q33: 'fiwiki', // Finland
+  Q20: 'nowiki', // Norway
+  Q35: 'dawiki', // Denmark
+  Q183: 'dewiki', // Germany
+  Q142: 'frwiki', // France
+  Q145: 'enwiki', // United Kingdom
+  Q30: 'enwiki', // United States
+  Q16: 'enwiki', // Canada
+  Q408: 'nlwiki', // Netherlands
+  Q38: 'itwiki', // Italy
+  Q29: 'eswiki', // Spain
+  Q211: 'lvwiki', // Latvia
+  Q191: 'eewiki', // Estonia
+  Q37: 'ltwiki', // Lithuania
+  Q36: 'huwiki', // Hungary
+  Q43: 'trwiki', // Turkey
+  Q148: 'zhwiki', // China
+  Q17: 'jawiki', // Japan
+  Q884: 'kowiki', // South Korea
+}
+
+const WIKI_SITES_EXCLUDED_FROM_NOTABILITY_COUNT = new Set([
+  'commonswiki',
+  'specieswiki',
+])
+
+function collectP17CountryIds(entity: Entity | undefined): string[] {
+  const out: string[] = []
+  if (!entity || entity.type !== 'item') return out
+  const p17 = entity.claims?.P17
+  if (!p17) return out
+  for (const claim of p17) {
+    if (claim.mainsnak.snaktype !== 'value' || !claim.mainsnak.datavalue) {
+      continue
+    }
+    const dv = claim.mainsnak.datavalue
+    if (dv.type === 'wikibase-entityid' && 'id' in dv.value) {
+      out.push(dv.value.id)
+    }
+  }
+  return out
+}
+
+function countEncyclopediaSitelinks(
+  sitelinks: EntityWithSitelinks['sitelinks'] | undefined
+): number {
+  if (!sitelinks) return 0
+  let n = 0
+  for (const key of Object.keys(sitelinks)) {
+    if (!key.endsWith('wiki')) continue
+    if (WIKI_SITES_EXCLUDED_FROM_NOTABILITY_COUNT.has(key)) continue
+    const e = sitelinks[key]
+    if (
+      e &&
+      typeof e === 'object' &&
+      'title' in e &&
+      (e as { title?: string }).title
+    )
+      n++
+  }
+  return n
+}
+
+/**
+ * Higher = stronger disambiguation signal among company-like hits.
+ * Tier gaps keep raw encyclopedia link counts below country/wiki tiers.
+ */
+function computeSitelinkPreferenceRank(
+  entity: Entity | undefined,
+  language: SearchEntitiesOptions['language'] | undefined
+): number {
+  if (!entity || entity.type !== 'item') return 0
+  const sl = (entity as EntityWithSitelinks).sitelinks
+  if (!sl) return 0
+
+  const hasSite = (site: string) => {
+    const e = sl[site]
+    return Boolean(
+      e &&
+        typeof e === 'object' &&
+        'title' in e &&
+        (e as { title?: string }).title
+    )
+  }
+
+  if (language && hasSite(`${language}wiki`)) return 1_000_000
+  if ((language === 'nb' || language === 'nn') && hasSite('nowiki'))
+    return 950_000
+
+  for (const c of collectP17CountryIds(entity)) {
+    const site = P17_COUNTRY_TO_WIKI_SITE[c]
+    if (site && hasSite(site)) return 800_000
+  }
+
+  if (hasSite('enwiki')) return 600_000
+
+  return countEncyclopediaSitelinks(sl)
+}
+
 type SearchHitAugmentation = {
   companyLike: boolean
   industryIds: ItemId[]
-  /** Present when the item links to `{language}wiki` (helps disambiguate duplicate company items). */
-  hasLanguageSitelink: boolean
-}
-
-function entityHasLanguageWikiSitelink(
-  entity: Entity | undefined,
-  language: SearchEntitiesOptions['language'] | undefined
-): boolean {
-  if (!entity || entity.type !== 'item' || !language) return false
-  const key = `${language}wiki`
-  const sl = entity.sitelinks?.[key]
-  return Boolean(sl && typeof sl === 'object' && 'title' in sl && sl.title)
+  sitelinkPreferenceRank: number
 }
 
 async function fetchSearchHitAugmentation(
@@ -357,25 +453,31 @@ async function fetchSearchHitAugmentation(
       COMPANY_LIKE_INSTANCE_OF.has(q)
     )
     const industryIds = collectItemIdsForProperty(entity, INDUSTRY)
-    const hasLanguageSitelink = entityHasLanguageWikiSitelink(entity, language)
-    byId.set(id, { companyLike, industryIds, hasLanguageSitelink })
+    const sitelinkPreferenceRank = computeSitelinkPreferenceRank(
+      entity,
+      language
+    )
+    byId.set(id, { companyLike, industryIds, sitelinkPreferenceRank })
   }
   return byId
 }
 
 function prioritizeCompanyLikeSearchResults(
   results: SearchResult[],
-  augmentation: Map<string, SearchHitAugmentation>,
-  language: SearchEntitiesOptions['language'] | undefined
+  augmentation: Map<string, SearchHitAugmentation>
 ): SearchResult[] {
   const isCo = (r: SearchResult) => augmentation.get(r.id)?.companyLike === true
-  const hasLangSite = (r: SearchResult) =>
-    Boolean(language && augmentation.get(r.id)?.hasLanguageSitelink === true)
+  const rankOf = (r: SearchResult) =>
+    augmentation.get(r.id)?.sitelinkPreferenceRank ?? 0
 
-  const withCompanyAndWiki = results.filter((r) => isCo(r) && hasLangSite(r))
-  const withCompanyOnly = results.filter((r) => isCo(r) && !hasLangSite(r))
+  const index = new Map(results.map((r, i) => [r.id, i]))
+  const companyHits = results.filter(isCo).sort((a, b) => {
+    const d = rankOf(b) - rankOf(a)
+    if (d !== 0) return d
+    return (index.get(a.id) ?? 0) - (index.get(b.id) ?? 0)
+  })
   const nonCompany = results.filter((r) => !isCo(r))
-  return [...withCompanyAndWiki, ...withCompanyOnly, ...nonCompany]
+  return [...companyHits, ...nonCompany]
 }
 
 export type CompanySearchResult = SearchResult & {
@@ -408,7 +510,8 @@ async function searchWikidataEntities(
 
 export async function searchCompany({
   companyName,
-  language = 'sv',
+  /** `wbsearchentities` UI language; default `en` suits international company names. Pass `sv`, `de`, etc. when you know the listing’s primary locale. */
+  language = 'en',
 }: {
   companyName
   language?: SearchEntitiesOptions['language']
@@ -477,11 +580,7 @@ export async function searchCompany({
       }
     }
 
-    results = prioritizeCompanyLikeSearchResults(
-      results,
-      augmentation,
-      language
-    )
+    results = prioritizeCompanyLikeSearchResults(results, augmentation)
     results = results.map((r) => {
       const industryIds = augmentation.get(r.id)?.industryIds ?? []
       const withIndustry: CompanySearchResult = { ...r }
