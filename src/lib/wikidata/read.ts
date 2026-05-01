@@ -317,24 +317,37 @@ function collectItemIdsForProperty(
 type SearchHitAugmentation = {
   companyLike: boolean
   industryIds: ItemId[]
+  /** Present when the item links to `{language}wiki` (helps disambiguate duplicate company items). */
+  hasLanguageSitelink: boolean
+}
+
+function entityHasLanguageWikiSitelink(
+  entity: Entity | undefined,
+  language: SearchEntitiesOptions['language'] | undefined
+): boolean {
+  if (!entity || entity.type !== 'item' || !language) return false
+  const key = `${language}wiki`
+  const sl = entity.sitelinks?.[key]
+  return Boolean(sl && typeof sl === 'object' && 'title' in sl && sl.title)
 }
 
 async function fetchSearchHitAugmentation(
-  ids: string[]
+  ids: string[],
+  language: SearchEntitiesOptions['language'] | undefined
 ): Promise<Map<string, SearchHitAugmentation>> {
   const byId = new Map<string, SearchHitAugmentation>()
   if (ids.length === 0) return byId
 
   const url = wbk.getEntities({
     ids: ids as EntityId[],
-    props: ['claims'],
+    props: ['claims', 'sitelinks'],
     languages: ['en'],
   })
   const { entities } = await fetchJsonWithRetries<WbGetEntitiesResponse>(url, {
     headers: { ...WIKIDATA_SEARCH_HEADERS },
     maxAttempts: 3,
     expectedContentType: 'application/json',
-    context: 'Wikidata entities (P31, P452)',
+    context: 'Wikidata entities (P31, P452, sitelinks)',
   })
 
   for (const id of ids) {
@@ -344,18 +357,25 @@ async function fetchSearchHitAugmentation(
       COMPANY_LIKE_INSTANCE_OF.has(q)
     )
     const industryIds = collectItemIdsForProperty(entity, INDUSTRY)
-    byId.set(id, { companyLike, industryIds })
+    const hasLanguageSitelink = entityHasLanguageWikiSitelink(entity, language)
+    byId.set(id, { companyLike, industryIds, hasLanguageSitelink })
   }
   return byId
 }
 
 function prioritizeCompanyLikeSearchResults(
   results: SearchResult[],
-  companyLikeById: Map<string, boolean>
+  augmentation: Map<string, SearchHitAugmentation>,
+  language: SearchEntitiesOptions['language'] | undefined
 ): SearchResult[] {
-  const preferred = results.filter((r) => companyLikeById.get(r.id) === true)
-  const rest = results.filter((r) => companyLikeById.get(r.id) !== true)
-  return [...preferred, ...rest]
+  const isCo = (r: SearchResult) => augmentation.get(r.id)?.companyLike === true
+  const hasLangSite = (r: SearchResult) =>
+    Boolean(language && augmentation.get(r.id)?.hasLanguageSitelink === true)
+
+  const withCompanyAndWiki = results.filter((r) => isCo(r) && hasLangSite(r))
+  const withCompanyOnly = results.filter((r) => isCo(r) && !hasLangSite(r))
+  const nonCompany = results.filter((r) => !isCo(r))
+  return [...withCompanyAndWiki, ...withCompanyOnly, ...nonCompany]
 }
 
 export type CompanySearchResult = SearchResult & {
@@ -411,7 +431,8 @@ export async function searchCompany({
 
   if (results.length > 0) {
     let augmentation = await fetchSearchHitAugmentation(
-      results.map((r) => r.id)
+      results.map((r) => r.id),
+      language
     )
 
     /** e.g. "Lundin Mining Corp." → only legal case Q137125375; stripped "Lundin Mining" finds Q1537901 */
@@ -425,7 +446,8 @@ export async function searchCompany({
         if (fromStrip.length > 0) {
           results = fromStrip
           augmentation = await fetchSearchHitAugmentation(
-            results.map((r) => r.id)
+            results.map((r) => r.id),
+            language
           )
         }
       }
@@ -440,7 +462,8 @@ export async function searchCompany({
           const fromLegal = await searchWikidataEntities(listingQuery, language)
           if (fromLegal.length === 0) continue
           const augLegal = await fetchSearchHitAugmentation(
-            fromLegal.map((r) => r.id)
+            fromLegal.map((r) => r.id),
+            language
           )
           const anyCompany = fromLegal.some(
             (r) => augLegal.get(r.id)?.companyLike
@@ -454,10 +477,11 @@ export async function searchCompany({
       }
     }
 
-    const companyLikeById = new Map(
-      [...augmentation].map(([id, a]) => [id, a.companyLike])
+    results = prioritizeCompanyLikeSearchResults(
+      results,
+      augmentation,
+      language
     )
-    results = prioritizeCompanyLikeSearchResults(results, companyLikeById)
     results = results.map((r) => {
       const industryIds = augmentation.get(r.id)?.industryIds ?? []
       const withIndustry: CompanySearchResult = { ...r }

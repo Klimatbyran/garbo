@@ -22,16 +22,11 @@ const LARGE_CAP_SEARCH_SPECIAL_CASES: ReadonlyArray<{
   //   klimatkollenWikidataId: 'Q106684510',
   //   firstSearchHitId: undefined,
   // },
-  // {
-  //   companyName: 'ICA Gruppen',
-  //   klimatkollenWikidataId: 'Q1663776',
-  //   firstSearchHitId: 'Q10516119',
-  // },
-  // {
-  //   companyName: 'Lindab International',  // finns två sidor för samma företag
-  //   klimatkollenWikidataId: 'Q109773651',
-  //   firstSearchHitId: undefined,
-  // },
+  {
+    companyName: 'Lindab International', // finns två sidor för samma företag
+    klimatkollenWikidataId: 'Q109773651',
+    firstSearchHitId: undefined,
+  },
   // {
   //   companyName: 'Mips',
   //   klimatkollenWikidataId: 'Q109787297',
@@ -105,4 +100,8 @@ Known issues:
 
 - Several entities with very similar names
   - "Lundin Mining Corp." and "Lundin Mining Corp. v. Markowich". We now prefer results that have industry prop set in Wikidata.
+
+
+ICA Gruppen: har fel wikidata id hos oss, koden ovan hittar rätt.
+Lindab International: finns två sidor för samma företag
 */
