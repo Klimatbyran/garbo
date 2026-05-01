@@ -421,6 +421,51 @@ function computeSitelinkPreferenceRank(
   return countEncyclopediaSitelinks(sl)
 }
 
+/**
+ * Wikidata search returns an item `label` per hit (often distinct from aliases).
+ * Prefer labels close to the query so "Mips" → **Mips AB** (Q109787297) ranks above
+ * **MIPS Technologies** (Q1631366), which only shares the first token.
+ */
+function searchLabelAffinityScore(
+  result: SearchResult,
+  companyName: string
+): number {
+  const q = normalizeCompanySearchName(companyName).toLowerCase()
+  const raw = (result.label ?? '').trim()
+  if (!q || !raw) return 0
+  const label = raw.toLowerCase().replace(/\s+/g, ' ')
+
+  if (label === q) return 500_000
+  if (label === `${q} ab`) return 450_000
+
+  const legalSecondToken = new Set([
+    'ab',
+    'ltd',
+    'plc',
+    'corp',
+    'inc',
+    'nv',
+    'ag',
+    'asa',
+    'oy',
+    'bv',
+    'gmbh',
+    'llc',
+    'oyj',
+    'lp',
+    'llp',
+  ])
+  const parts = label.split(/\s+/)
+  if (parts.length === 2 && parts[0] === q) {
+    const tail = parts[1].replace(/\./g, '')
+    if (legalSecondToken.has(tail)) return 440_000
+    return 85_000
+  }
+  if (parts.length >= 2 && parts[0] === q) return 45_000
+
+  return 0
+}
+
 type SearchHitAugmentation = {
   companyLike: boolean
   industryIds: ItemId[]
@@ -464,11 +509,13 @@ async function fetchSearchHitAugmentation(
 
 function prioritizeCompanyLikeSearchResults(
   results: SearchResult[],
-  augmentation: Map<string, SearchHitAugmentation>
+  augmentation: Map<string, SearchHitAugmentation>,
+  companyName: string
 ): SearchResult[] {
   const isCo = (r: SearchResult) => augmentation.get(r.id)?.companyLike === true
   const rankOf = (r: SearchResult) =>
-    augmentation.get(r.id)?.sitelinkPreferenceRank ?? 0
+    (augmentation.get(r.id)?.sitelinkPreferenceRank ?? 0) +
+    searchLabelAffinityScore(r, companyName)
 
   const index = new Map(results.map((r, i) => [r.id, i]))
   const companyHits = results.filter(isCo).sort((a, b) => {
@@ -580,7 +627,11 @@ export async function searchCompany({
       }
     }
 
-    results = prioritizeCompanyLikeSearchResults(results, augmentation)
+    results = prioritizeCompanyLikeSearchResults(
+      results,
+      augmentation,
+      companyName
+    )
     results = results.map((r) => {
       const industryIds = augmentation.get(r.id)?.industryIds ?? []
       const withIndustry: CompanySearchResult = { ...r }
