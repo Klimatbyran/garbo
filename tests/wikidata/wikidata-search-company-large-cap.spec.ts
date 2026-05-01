@@ -23,30 +23,15 @@ const LARGE_CAP_SEARCH_SPECIAL_CASES: ReadonlyArray<{
   //   firstSearchHitId: undefined,
   // },
   // {
-  //   companyName: 'Evolution',
-  //   klimatkollenWikidataId: 'Q105965579',
-  //   firstSearchHitId: 'Q1063',
-  // },
-  // {
-  //   companyName: 'Fenix Outdoor Int.',
-  //   klimatkollenWikidataId: 'Q10494668',
-  //   firstSearchHitId: undefined,
-  // },
-  // {
   //   companyName: 'ICA Gruppen',
   //   klimatkollenWikidataId: 'Q1663776',
   //   firstSearchHitId: 'Q10516119',
   // },
   // {
-  //   companyName: 'Lindab International',
+  //   companyName: 'Lindab International',  // finns två sidor för samma företag
   //   klimatkollenWikidataId: 'Q109773651',
   //   firstSearchHitId: undefined,
   // },
-  {
-    companyName: 'Lundbergföretagen (koncern)',
-    klimatkollenWikidataId: 'Q6460556',
-    firstSearchHitId: undefined,
-  },
   // {
   //   companyName: 'Mips',
   //   klimatkollenWikidataId: 'Q109787297',
@@ -114,6 +99,9 @@ Known issues:
 - Naming
   - "OKQ8 Scandinavia" has to have Scandinavia removed from the name.
   - "Millicom Int. Cellular" has to have Int. removed from the name.
+  - "Lundbergföretagen (koncern)" has to have koncern removed from the name.
+  - "Fenix Outdoor Int." has to have Int. removed from the name.
+  - "Evolution" has to have AB added to its name.
 
 - Several entities with very similar names
   - "Lundin Mining Corp." and "Lundin Mining Corp. v. Markowich". We now prefer results that have industry prop set in Wikidata.

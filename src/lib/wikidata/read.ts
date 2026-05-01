@@ -132,6 +132,7 @@ const LEGAL_FORM_SUFFIXES = new Set([
   'inc',
   'incorporated',
   'int',
+  'international',
   'koncern',
   'limited',
   'llc',
@@ -147,12 +148,16 @@ const LEGAL_FORM_SUFFIXES = new Set([
   'company',
 ])
 
+function normalizeCompanySearchName(companyName: string): string {
+  return companyName.replace(/,/g, ' ').trim().replace(/\s+/g, ' ')
+}
+
 /**
  * Removes one or more trailing legal-form tokens (e.g. AB, Ltd, or "(AB)", "(publ)").
  * Returns null if nothing was removed or the remainder would be empty.
  */
 function stripLegalFormSuffixes(companyName: string): string | null {
-  let s = companyName.replace(/,/g, ' ').trim().replace(/\s+/g, ' ')
+  let s = normalizeCompanySearchName(companyName)
   if (!s) return null
   const original = s
 
@@ -185,7 +190,7 @@ function stripLegalFormSuffixes(companyName: string): string | null {
  * (e.g. "Millicom Int. Cellular" → no hits; "Millicom International Cellular" → Q276345).
  */
 function expandInternationalAbbreviation(companyName: string): string | null {
-  const normalized = companyName.replace(/,/g, ' ').trim().replace(/\s+/g, ' ')
+  const normalized = normalizeCompanySearchName(companyName)
   if (!/\bInt\./i.test(normalized)) return null
   const expanded = normalized
     .replace(/\bInt\.\s*/gi, 'International ')
@@ -193,6 +198,61 @@ function expandInternationalAbbreviation(companyName: string): string | null {
     .trim()
     .replace(/\s+/g, ' ')
   return expanded !== normalized ? expanded : null
+}
+
+/**
+ * Wikidata often lists companies with a legal-form suffix ("Evolution AB", "Acme Ltd").
+ * Plain-name search can miss the item entirely (e.g. "Evolution" → biology). When every
+ * hit lacks a company-like P31, we probe {@link LEGAL_FORM_SUFFIXES} in order.
+ */
+function legalFormSuffixAppendLabel(norm: string): string {
+  const lowerShort: Record<string, string> = {
+    ltd: 'Ltd',
+    plc: 'plc',
+    corp: 'Corp',
+    inc: 'Inc',
+    gmbh: 'GmbH',
+    publ: '(publ)',
+    int: 'Int',
+  }
+  if (lowerShort[norm]) return lowerShort[norm]
+  if (norm.length >= 5) return norm.charAt(0).toUpperCase() + norm.slice(1)
+  return norm.toUpperCase()
+}
+
+function nameAlreadyHasTrailingLegalSuffix(
+  normalizedName: string,
+  norm: string
+): boolean {
+  const paren = normalizedName.match(/^(.+?)\s*\(([^)]+)\)\s*$/i)
+  if (paren) {
+    const inner = paren[2].toLowerCase().replace(/\./g, '').trim()
+    if (inner === norm) return true
+  }
+  const match = normalizedName.match(/^(.+?)\s+([^\s]+)\.?$/i)
+  if (!match) return false
+  const lastNorm = match[2].toLowerCase().replace(/\./g, '')
+  return lastNorm === norm
+}
+
+/** Priority order: common Stockholm-list style first, then rest A–z. */
+function legalFormNormsForSupplementarySearch(): string[] {
+  return [...LEGAL_FORM_SUFFIXES].sort((a, b) => {
+    if (a === 'ab') return -1
+    if (b === 'ab') return 1
+    return a.localeCompare(b)
+  })
+}
+
+function supplementaryLegalFormListingQueries(companyName: string): string[] {
+  const n = normalizeCompanySearchName(companyName)
+  if (!n) return []
+  const out: string[] = []
+  for (const norm of legalFormNormsForSupplementarySearch()) {
+    if (nameAlreadyHasTrailingLegalSuffix(n, norm)) continue
+    out.push(`${n} ${legalFormSuffixAppendLabel(norm)}`)
+  }
+  return out
 }
 
 const WIKIDATA_SEARCH_HEADERS = {
@@ -367,6 +427,29 @@ export async function searchCompany({
           augmentation = await fetchSearchHitAugmentation(
             results.map((r) => r.id)
           )
+        }
+      }
+
+      const stillEveryNonCompany = results.every(
+        (r) => !augmentation.get(r.id)?.companyLike
+      )
+      if (stillEveryNonCompany) {
+        for (const listingQuery of supplementaryLegalFormListingQueries(
+          companyName
+        )) {
+          const fromLegal = await searchWikidataEntities(listingQuery, language)
+          if (fromLegal.length === 0) continue
+          const augLegal = await fetchSearchHitAugmentation(
+            fromLegal.map((r) => r.id)
+          )
+          const anyCompany = fromLegal.some(
+            (r) => augLegal.get(r.id)?.companyLike
+          )
+          if (anyCompany) {
+            results = fromLegal
+            augmentation = augLegal
+            break
+          }
         }
       }
     }
