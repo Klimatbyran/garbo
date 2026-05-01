@@ -1,4 +1,5 @@
 import { EntityId, SearchResult } from 'wikibase-sdk'
+import type { SearchEntitiesOptions } from 'wikibase-sdk/dist/src/queries/search_entities'
 import { ask } from '../lib/openai'
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
@@ -14,6 +15,8 @@ export class GuessWikidataJob extends DiscordJob {
     companyName: string
     overrideWikidataId: EntityId
     wikidata?: Wikidata
+    /** Optional `wbsearchentities` language (e.g. `sv` for Swedish listings). Defaults to `searchCompany`’s `en`. */
+    wikidataSearchLanguage?: SearchEntitiesOptions['language']
   }
 }
 
@@ -102,7 +105,7 @@ ${JSON.stringify(wikidataForApproval, null, 2)}
 const guessWikidata = new DiscordWorker<GuessWikidataJob>(
   QUEUE_NAMES.GUESS_WIKIDATA,
   async (job: GuessWikidataJob) => {
-    const { companyName, overrideWikidataId } = job.data
+      const { companyName, overrideWikidataId, wikidataSearchLanguage } = job.data
     if (!companyName) throw new Error('No company name was provided')
     job.log('Company name: ' + companyName)
     job.log('Approval: ' + JSON.stringify(job.data.approval, null, 2))
@@ -203,7 +206,10 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
       if (retry > 3) return []
 
       job.log(`Searching for company name: ${companyName} (attempt ${retry})`)
-      const results = await searchCompany({ companyName })
+      const results = await searchCompany({
+        companyName,
+        ...(wikidataSearchLanguage != null ? { language: wikidataSearchLanguage } : {}),
+      })
 
       job.log('Wikidata search results: ' + JSON.stringify(results, null, 2))
       if (results.length) return results

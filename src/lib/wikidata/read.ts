@@ -1,8 +1,19 @@
-import { Entity, EntityId, ItemId, SearchResponse } from 'wikibase-sdk'
+import {
+  Entity,
+  EntityId,
+  ItemId,
+  SearchResponse,
+  SearchResult,
+} from 'wikibase-sdk'
 import { Claim, transformFromWikidataDateStringToDate, wbk } from './util'
 import { WbGetEntitiesResponse } from 'wikibase-sdk/dist/src/helpers/parse_responses'
 import { SearchEntitiesOptions } from 'wikibase-sdk/dist/src/queries/search_entities'
 import wikidataConfig from '../../config/wikidata'
+
+/** `wbgetentities` returns sitelinks; the SDK `Entity` type omits them. */
+type EntityWithSitelinks = Entity & {
+  sitelinks?: Record<string, { title?: string } | undefined>
+}
 
 const {
   CARBON_FOOTPRINT,
@@ -14,7 +25,7 @@ const {
   ARCHIVE_URL,
 } = wikidataConfig.properties
 
-async function fetchJsonWithRetries<T = any>(
+async function fetchJsonWithRetries<T = unknown>(
   url: string,
   {
     headers,
@@ -73,9 +84,9 @@ export async function getWikipediaTitle(id: EntityId): Promise<string> {
   const { entities }: WbGetEntitiesResponse = await fetch(url).then((res) =>
     res.json()
   )
-  const entity = entities[id] as any
-  const title =
-    entity?.sitelinks?.enwiki?.title ?? entity?.sitelinks?.svwiki?.title ?? null
+  const entity = entities[id]
+  const sitelinks = entity?.type === 'item' ? entity.sitelinks : undefined
+  const title = sitelinks?.enwiki?.title ?? sitelinks?.svwiki?.title ?? null
 
   if (!title) {
     throw new Error('No Wikipedia site link found')
@@ -99,7 +110,7 @@ export async function getLEINumber(
     return
   }
 
-  const claims = wikidataEntities[entity].claims
+  const { claims } = wikidataEntities[entity]
 
   if (
     claims === undefined ||
@@ -112,42 +123,526 @@ export async function getLEINumber(
   return claims['P1278'][0].mainsnak.datavalue.value
 }
 
+/** Trailing company legal forms often omitted from Wikidata labels (e.g. "… Group AB" vs "… Group"). */
+const LEGAL_FORM_SUFFIXES = new Set([
+  'ab',
+  'aktiebolag',
+  'ag',
+  'asa',
+  'bv',
+  'corp',
+  'corporation',
+  'gmbh',
+  'group',
+  'inc',
+  'incorporated',
+  'int',
+  'international',
+  'koncern',
+  'limited',
+  'llc',
+  'llp',
+  'lp',
+  'ltd',
+  'nv',
+  'oy',
+  'oyj',
+  'plc',
+  'publ',
+  'scandinavia',
+  'company',
+])
+
+function normalizeCompanySearchName(companyName: string): string {
+  return companyName.replace(/,/g, ' ').trim().replace(/\s+/g, ' ')
+}
+
+/**
+ * Removes one or more trailing legal-form tokens (e.g. AB, Ltd, or "(AB)", "(publ)").
+ * Returns null if nothing was removed or the remainder would be empty.
+ */
+function stripLegalFormSuffixes(companyName: string): string | null {
+  let s = normalizeCompanySearchName(companyName)
+  if (!s) return null
+  const original = s
+
+  while (s.length > 0) {
+    const parenMatch = s.match(/^(.+?)\s*\(([^)]+)\)\s*$/i)
+    if (parenMatch) {
+      const rest = parenMatch[1].trim().replace(/^\.+|\.+$/g, '')
+      const innerNorm = parenMatch[2].toLowerCase().replace(/\./g, '').trim()
+      if (rest && LEGAL_FORM_SUFFIXES.has(innerNorm)) {
+        s = rest
+        continue
+      }
+    }
+
+    const match = s.match(/^(.+?)\s+([^\s]+)\.?$/i)
+    if (!match) break
+    const rest = match[1].trim().replace(/^\.+|\.+$/g, '')
+    const lastNorm = match[2].toLowerCase().replace(/\./g, '')
+    if (!LEGAL_FORM_SUFFIXES.has(lastNorm)) break
+    if (!rest) break
+    s = rest
+  }
+
+  return s !== original && s.length > 0 ? s : null
+}
+
+/**
+ * Expands the common corporate abbreviation "Int." ("International") so
+ * Wikidata search can match labels like "Millicom" that omit the short form
+ * (e.g. "Millicom Int. Cellular" → no hits; "Millicom International Cellular" → Q276345).
+ */
+function expandInternationalAbbreviation(companyName: string): string | null {
+  const normalized = normalizeCompanySearchName(companyName)
+  if (!/\bInt\./i.test(normalized)) return null
+  const expanded = normalized
+    .replace(/\bInt\.\s*/gi, 'International ')
+    .replace(/\bInt\./gi, 'International ')
+    .trim()
+    .replace(/\s+/g, ' ')
+  return expanded !== normalized ? expanded : null
+}
+
+/**
+ * Wikidata often lists companies with a legal-form suffix ("Evolution AB", "Acme Ltd").
+ * Plain-name search can miss the item entirely (e.g. "Evolution" → biology). When every
+ * hit lacks a company-like P31, we probe {@link LEGAL_FORM_SUFFIXES} in order.
+ */
+function legalFormSuffixAppendLabel(norm: string): string {
+  const lowerShort: Record<string, string> = {
+    ltd: 'Ltd',
+    plc: 'plc',
+    corp: 'Corp',
+    inc: 'Inc',
+    gmbh: 'GmbH',
+    publ: '(publ)',
+    int: 'Int',
+  }
+  if (lowerShort[norm]) return lowerShort[norm]
+  if (norm.length >= 5) return norm.charAt(0).toUpperCase() + norm.slice(1)
+  return norm.toUpperCase()
+}
+
+function nameAlreadyHasTrailingLegalSuffix(
+  normalizedName: string,
+  norm: string
+): boolean {
+  const paren = normalizedName.match(/^(.+?)\s*\(([^)]+)\)\s*$/i)
+  if (paren) {
+    const inner = paren[2].toLowerCase().replace(/\./g, '').trim()
+    if (inner === norm) return true
+  }
+  const match = normalizedName.match(/^(.+?)\s+([^\s]+)\.?$/i)
+  if (!match) return false
+  const lastNorm = match[2].toLowerCase().replace(/\./g, '')
+  return lastNorm === norm
+}
+
+/** Priority order: common Stockholm-list style first, then rest A–z. */
+function legalFormNormsForSupplementarySearch(): string[] {
+  return [...LEGAL_FORM_SUFFIXES].sort((a, b) => {
+    if (a === 'ab') return -1
+    if (b === 'ab') return 1
+    return a.localeCompare(b)
+  })
+}
+
+function supplementaryLegalFormListingQueries(companyName: string): string[] {
+  const n = normalizeCompanySearchName(companyName)
+  if (!n) return []
+  const out: string[] = []
+  for (const norm of legalFormNormsForSupplementarySearch()) {
+    if (nameAlreadyHasTrailingLegalSuffix(n, norm)) continue
+    out.push(`${n} ${legalFormSuffixAppendLabel(norm)}`)
+  }
+  return out
+}
+
+const WIKIDATA_SEARCH_HEADERS = {
+  Accept: 'application/json',
+  'User-Agent': 'KlimatkollenGarboBot/1.0 (+https://klimatkollen.se)',
+} as const
+
+/** Industry (P452) — item-valued; exposed on {@link searchCompany} hits under `statements.P452`. */
+const INDUSTRY = 'P452' as const
+
+/**
+ * instance of (P31) object ids we treat as business/company-like for ranking.
+ * Subclasses are not expanded (no subclass-of traversal).
+ */
+const COMPANY_LIKE_INSTANCE_OF = new Set<string>([
+  'Q4830453', // business
+  'Q783794', // company
+  'Q6881511', // enterprise
+  'Q891723', // public company
+  'Q431289', // brand
+  'Q4387609', // architectural firm
+  'Q68295960', // Swedish government agency
+])
+
+function collectInstanceOfIds(entity: Entity | undefined): Set<string> {
+  const ids = new Set<string>()
+  if (!entity || entity.type !== 'item') return ids
+  const p31 = entity.claims?.P31
+  if (!p31) return ids
+  for (const claim of p31) {
+    if (claim.mainsnak.snaktype !== 'value' || !claim.mainsnak.datavalue) {
+      continue
+    }
+    const dv = claim.mainsnak.datavalue
+    if (dv.type === 'wikibase-entityid' && 'id' in dv.value) {
+      ids.add(dv.value.id)
+    }
+  }
+  return ids
+}
+
+function collectItemIdsForProperty(
+  entity: Entity | undefined,
+  property: string
+): ItemId[] {
+  const out: ItemId[] = []
+  if (!entity || entity.type !== 'item') return out
+  const claims = entity.claims?.[property]
+  if (!claims) return out
+  for (const claim of claims) {
+    if (claim.mainsnak.snaktype !== 'value' || !claim.mainsnak.datavalue) {
+      continue
+    }
+    const dv = claim.mainsnak.datavalue
+    if (dv.type === 'wikibase-entityid' && 'id' in dv.value) {
+      out.push(dv.value.id as ItemId)
+    }
+  }
+  return out
+}
+
+/** Country (P17) → Wikipedia site id for ranking with default search language `en`. */
+const P17_COUNTRY_TO_WIKI_SITE: Readonly<Record<string, string>> = {
+  Q34: 'svwiki', // Sweden
+  Q33: 'fiwiki', // Finland
+  Q20: 'nowiki', // Norway
+  Q35: 'dawiki', // Denmark
+  Q183: 'dewiki', // Germany
+  Q142: 'frwiki', // France
+  Q145: 'enwiki', // United Kingdom
+  Q30: 'enwiki', // United States
+  Q16: 'enwiki', // Canada
+  Q408: 'nlwiki', // Netherlands
+  Q38: 'itwiki', // Italy
+  Q29: 'eswiki', // Spain
+  Q211: 'lvwiki', // Latvia
+  Q191: 'eewiki', // Estonia
+  Q37: 'ltwiki', // Lithuania
+  Q36: 'huwiki', // Hungary
+  Q43: 'trwiki', // Turkey
+  Q148: 'zhwiki', // China
+  Q17: 'jawiki', // Japan
+  Q884: 'kowiki', // South Korea
+}
+
+const WIKI_SITES_EXCLUDED_FROM_NOTABILITY_COUNT = new Set([
+  'commonswiki',
+  'specieswiki',
+])
+
+function collectP17CountryIds(entity: Entity | undefined): string[] {
+  const out: string[] = []
+  if (!entity || entity.type !== 'item') return out
+  const p17 = entity.claims?.P17
+  if (!p17) return out
+  for (const claim of p17) {
+    if (claim.mainsnak.snaktype !== 'value' || !claim.mainsnak.datavalue) {
+      continue
+    }
+    const dv = claim.mainsnak.datavalue
+    if (dv.type === 'wikibase-entityid' && 'id' in dv.value) {
+      out.push(dv.value.id)
+    }
+  }
+  return out
+}
+
+function countEncyclopediaSitelinks(
+  sitelinks: EntityWithSitelinks['sitelinks'] | undefined
+): number {
+  if (!sitelinks) return 0
+  let n = 0
+  for (const key of Object.keys(sitelinks)) {
+    if (!key.endsWith('wiki')) continue
+    if (WIKI_SITES_EXCLUDED_FROM_NOTABILITY_COUNT.has(key)) continue
+    const e = sitelinks[key]
+    if (
+      e &&
+      typeof e === 'object' &&
+      'title' in e &&
+      (e as { title?: string }).title
+    )
+      n++
+  }
+  return n
+}
+
+/**
+ * Higher = stronger disambiguation signal among company-like hits.
+ * Tier gaps keep raw encyclopedia link counts below country/wiki tiers.
+ */
+function computeSitelinkPreferenceRank(
+  entity: Entity | undefined,
+  language: SearchEntitiesOptions['language'] | undefined
+): number {
+  if (!entity || entity.type !== 'item') return 0
+  const sl = (entity as EntityWithSitelinks).sitelinks
+  if (!sl) return 0
+
+  const hasSite = (site: string) => {
+    const e = sl[site]
+    return Boolean(
+      e &&
+        typeof e === 'object' &&
+        'title' in e &&
+        (e as { title?: string }).title
+    )
+  }
+
+  if (language && hasSite(`${language}wiki`)) return 1_000_000
+  if ((language === 'nb' || language === 'nn') && hasSite('nowiki'))
+    return 950_000
+
+  for (const c of collectP17CountryIds(entity)) {
+    const site = P17_COUNTRY_TO_WIKI_SITE[c]
+    if (site && hasSite(site)) return 800_000
+  }
+
+  if (hasSite('enwiki')) return 600_000
+
+  return countEncyclopediaSitelinks(sl)
+}
+
+/**
+ * Wikidata search returns an item `label` per hit (often distinct from aliases).
+ * Prefer labels close to the query so "Mips" → **Mips AB** (Q109787297) ranks above
+ * **MIPS Technologies** (Q1631366), which only shares the first token.
+ */
+function searchLabelAffinityScore(
+  result: SearchResult,
+  companyName: string
+): number {
+  const q = normalizeCompanySearchName(companyName).toLowerCase()
+  const raw = (result.label ?? '').trim()
+  if (!q || !raw) return 0
+  const label = raw.toLowerCase().replace(/\s+/g, ' ')
+
+  if (label === q) return 500_000
+  if (label === `${q} ab`) return 450_000
+
+  const legalSecondToken = new Set([
+    'ab',
+    'ltd',
+    'plc',
+    'corp',
+    'inc',
+    'nv',
+    'ag',
+    'asa',
+    'oy',
+    'bv',
+    'gmbh',
+    'llc',
+    'oyj',
+    'lp',
+    'llp',
+  ])
+  const parts = label.split(/\s+/)
+  if (parts.length === 2 && parts[0] === q) {
+    const tail = parts[1].replace(/\./g, '')
+    if (legalSecondToken.has(tail)) return 440_000
+    return 85_000
+  }
+  if (parts.length >= 2 && parts[0] === q) return 45_000
+
+  return 0
+}
+
+type SearchHitAugmentation = {
+  companyLike: boolean
+  industryIds: ItemId[]
+  sitelinkPreferenceRank: number
+}
+
+async function fetchSearchHitAugmentation(
+  ids: string[],
+  language: SearchEntitiesOptions['language'] | undefined
+): Promise<Map<string, SearchHitAugmentation>> {
+  const byId = new Map<string, SearchHitAugmentation>()
+  if (ids.length === 0) return byId
+
+  const url = wbk.getEntities({
+    ids: ids as EntityId[],
+    props: ['claims', 'sitelinks'],
+    languages: ['en'],
+  })
+  const { entities } = await fetchJsonWithRetries<WbGetEntitiesResponse>(url, {
+    headers: { ...WIKIDATA_SEARCH_HEADERS },
+    maxAttempts: 3,
+    expectedContentType: 'application/json',
+    context: 'Wikidata entities (P31, P452, sitelinks)',
+  })
+
+  for (const id of ids) {
+    const entity = entities[id]
+    const instanceOf = collectInstanceOfIds(entity)
+    const companyLike = [...instanceOf].some((q) =>
+      COMPANY_LIKE_INSTANCE_OF.has(q)
+    )
+    const industryIds = collectItemIdsForProperty(entity, INDUSTRY)
+    const sitelinkPreferenceRank = computeSitelinkPreferenceRank(
+      entity,
+      language
+    )
+    byId.set(id, { companyLike, industryIds, sitelinkPreferenceRank })
+  }
+  return byId
+}
+
+function prioritizeCompanyLikeSearchResults(
+  results: SearchResult[],
+  augmentation: Map<string, SearchHitAugmentation>,
+  companyName: string
+): SearchResult[] {
+  const isCo = (r: SearchResult) => augmentation.get(r.id)?.companyLike === true
+  const rankOf = (r: SearchResult) =>
+    (augmentation.get(r.id)?.sitelinkPreferenceRank ?? 0) +
+    searchLabelAffinityScore(r, companyName)
+
+  const index = new Map(results.map((r, i) => [r.id, i]))
+  const companyHits = results.filter(isCo).sort((a, b) => {
+    const d = rankOf(b) - rankOf(a)
+    if (d !== 0) return d
+    return (index.get(a.id) ?? 0) - (index.get(b.id) ?? 0)
+  })
+  const nonCompany = results.filter((r) => !isCo(r))
+  return [...companyHits, ...nonCompany]
+}
+
+export type CompanySearchResult = SearchResult & {
+  /** Item QIDs for industry (P452), when present on the entity. */
+  statements?: { P452?: ItemId[] }
+}
+
+async function searchWikidataEntities(
+  search: string,
+  language: SearchEntitiesOptions['language'] | undefined
+): Promise<SearchResponse['search']> {
+  const url = wbk.searchEntities({
+    search,
+    type: 'item',
+    language,
+    limit: 50,
+  })
+  const response = await fetchJsonWithRetries<SearchResponse>(url, {
+    headers: { ...WIKIDATA_SEARCH_HEADERS },
+    maxAttempts: 3,
+    expectedContentType: 'application/json',
+    context: 'Wikidata search',
+  })
+  if (response.error) {
+    const msg = response.error.info || response.error.code
+    throw new Error(`Wikidata search failed: ${msg}`)
+  }
+  return response.search ?? []
+}
+
 export async function searchCompany({
   companyName,
-  language = 'sv',
+  /** `wbsearchentities` UI language; default `en` suits international company names. Pass `sv`, `de`, etc. when you know the listing’s primary locale. */
+  language = 'en',
 }: {
   companyName
   language?: SearchEntitiesOptions['language']
-}): Promise<SearchResponse['search']> {
-  // TODO: try to search in multiple languages. Maybe we can find a page in English if it doesn't exist in Swedish?
-  const searchEntitiesQuery = wbk.searchEntities({
-    search: companyName,
-    type: 'item',
-    // IDEA: Maybe determine language based on report or company origin. Or maybe search in multiple languages.
-    language,
-    limit: 20,
-  })
+}): Promise<CompanySearchResult[]> {
+  let results = await searchWikidataEntities(companyName, language)
 
-  const headers = {
-    Accept: 'application/json',
-    'User-Agent': 'KlimatkollenGarboBot/1.0 (+https://klimatkollen.se)',
-  }
-
-  const response = (await fetchJsonWithRetries<SearchResponse>(
-    searchEntitiesQuery,
-    {
-      headers,
-      maxAttempts: 3,
-      expectedContentType: 'application/json',
-      context: 'Wikidata search',
+  if (results.length === 0) {
+    const simplified = stripLegalFormSuffixes(companyName)
+    if (simplified) {
+      results = await searchWikidataEntities(simplified, language)
     }
-  )) as SearchResponse
-
-  if ((response as any)?.error) {
-    throw new Error('Wikidata search failed: ' + (response as any).error)
   }
 
-  return response.search
+  if (results.length === 0) {
+    const expanded = expandInternationalAbbreviation(companyName)
+    if (expanded) {
+      results = await searchWikidataEntities(expanded, language)
+    }
+  }
+
+  if (results.length > 0) {
+    let augmentation = await fetchSearchHitAugmentation(
+      results.map((r) => r.id),
+      language
+    )
+
+    /** e.g. "Lundin Mining Corp." → only legal case Q137125375; stripped "Lundin Mining" finds Q1537901 */
+    const everyHitNonCompany = results.every(
+      (r) => !augmentation.get(r.id)?.companyLike
+    )
+    if (everyHitNonCompany) {
+      const simplified = stripLegalFormSuffixes(companyName)
+      if (simplified) {
+        const fromStrip = await searchWikidataEntities(simplified, language)
+        if (fromStrip.length > 0) {
+          results = fromStrip
+          augmentation = await fetchSearchHitAugmentation(
+            results.map((r) => r.id),
+            language
+          )
+        }
+      }
+
+      const stillEveryNonCompany = results.every(
+        (r) => !augmentation.get(r.id)?.companyLike
+      )
+      if (stillEveryNonCompany) {
+        for (const listingQuery of supplementaryLegalFormListingQueries(
+          companyName
+        )) {
+          const fromLegal = await searchWikidataEntities(listingQuery, language)
+          if (fromLegal.length === 0) continue
+          const augLegal = await fetchSearchHitAugmentation(
+            fromLegal.map((r) => r.id),
+            language
+          )
+          const anyCompany = fromLegal.some(
+            (r) => augLegal.get(r.id)?.companyLike
+          )
+          if (anyCompany) {
+            results = fromLegal
+            augmentation = augLegal
+            break
+          }
+        }
+      }
+    }
+
+    results = prioritizeCompanyLikeSearchResults(
+      results,
+      augmentation,
+      companyName
+    )
+    results = results.map((r) => {
+      const industryIds = augmentation.get(r.id)?.industryIds ?? []
+      const withIndustry: CompanySearchResult = { ...r }
+      if (industryIds.length > 0) {
+        withIndustry.statements = { P452: industryIds }
+      }
+      return withIndustry
+    })
+  }
+
+  return results
 }
 
 export async function getWikidataEntities(ids: `Q${number}`[]) {
@@ -192,7 +687,7 @@ export async function getClaims(entity: ItemId): Promise<Claim[]> {
       return []
     }
 
-    const claims = wikidataEntities[entity].claims
+    const { claims } = wikidataEntities[entity]
     if (claims === undefined) {
       return []
     }
@@ -205,30 +700,42 @@ export async function getClaims(entity: ItemId): Promise<Claim[]> {
 
       const getQualifierValue = (
         propertyId: string,
-        transformFn?: (value: any) => any
+        transformFn?: (value: unknown) => unknown
       ) => {
-        if (!claim.qualifiers || !claim.qualifiers[propertyId]) return ''
-        const value = claim.qualifiers[propertyId][0].datavalue.value
+        const snaks = claim.qualifiers?.[propertyId]
+        if (!snaks?.length) return ''
+        const [
+          {
+            datavalue: { value },
+          },
+        ] = snaks
         return transformFn ? transformFn(value) : value
       }
 
-      const getReferenceValue = (propertyId) => {
+      const getReferenceValue = (propertyId: string) => {
         if (!references || !references[propertyId]) return undefined
         return references[propertyId][0].datavalue.value
       }
 
       return {
         startDate: getQualifierValue(START_TIME, (value) =>
-          transformFromWikidataDateStringToDate(value.time)
+          transformFromWikidataDateStringToDate(
+            (value as { time: string }).time
+          )
         ),
         endDate: getQualifierValue(END_TIME, (value) =>
-          transformFromWikidataDateStringToDate(value.time)
+          transformFromWikidataDateStringToDate(
+            (value as { time: string }).time
+          )
         ),
         value: claim.mainsnak.datavalue.value.amount,
-        category: getQualifierValue(APPLIES_TO_PART, (value) => value.id),
+        category: getQualifierValue(
+          APPLIES_TO_PART,
+          (value) => (value as { id: ItemId }).id
+        ),
         scope: getQualifierValue(
           OBJECT_OF_STATEMENT_HAS_ROLE,
-          (value) => value.id
+          (value) => (value as { id: ItemId }).id
         ),
         id: claim.id,
         referenceUrl: getReferenceValue(REFERENCE_URL),

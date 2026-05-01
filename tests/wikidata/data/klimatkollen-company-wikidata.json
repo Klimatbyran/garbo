@@ -1,0 +1,3019 @@
+{
+  "AAK": {
+    "wikidataId": "Q10397786",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "AB Akola Group": {
+    "wikidataId": "Q131825039",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "AB KN ENERGIES": {
+    "wikidataId": "Q4042253",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "AB Pieno žvaigždės": {
+    "wikidataId": "Q2092661",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "ABB Ltd.": {
+    "wikidataId": "Q52825",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "AcadeMedia": {
+    "wikidataId": "Q10398203",
+    "tags": [
+      "mid-cap",
+      "split-year-reporting"
+    ]
+  },
+  "Achemos Grupė": {
+    "wikidataId": "Q1670375",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "Acrinova": {
+    "wikidataId": "Q138135683",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Actic Group AB": {
+    "wikidataId": "Q115167193",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Active Biotech": {
+    "wikidataId": "Q10400578",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Addlife": {
+    "wikidataId": "Q106627314",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Addnode Group": {
+    "wikidataId": "Q98602838",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Addtech": {
+    "wikidataId": "Q10400997",
+    "tags": [
+      "large-cap",
+      "split-year-reporting"
+    ]
+  },
+  "Africa Oil Corp.": {
+    "wikidataId": "Q115168501",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "AFRY": {
+    "wikidataId": "Q3429427",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Akademiska hus": {
+    "wikidataId": "Q10403939",
+    "tags": [
+      "large-cap",
+      "state-owned"
+    ]
+  },
+  "Aktsiaselts Infortar": {
+    "wikidataId": "Q25517692",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "Alfa Laval": {
+    "wikidataId": "Q686030",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Alimak Group": {
+    "wikidataId": "Q3385738",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Alimentation Couche-Tard": {
+    "wikidataId": "Q2836957",
+    "tags": []
+  },
+  "Alleima": {
+    "wikidataId": "Q115112945",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Alligator Bioscience AB": {
+    "wikidataId": "Q30254920",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Alligo": {
+    "wikidataId": "Q130366452",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Alma Media": {
+    "wikidataId": "Q1053610",
+    "tags": [
+      "csrd",
+      "finland",
+      "public",
+      "mid-cap"
+    ]
+  },
+  "Almi": {
+    "wikidataId": "Q10397672",
+    "tags": [
+      "mid-cap",
+      "state-owned"
+    ]
+  },
+  "Ambea": {
+    "wikidataId": "Q18287037",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Annehem Fastigheter AB": {
+    "wikidataId": "Q106625104",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Anora": {
+    "wikidataId": "Q108180696",
+    "tags": [
+      "csrd",
+      "denmark",
+      "estonia",
+      "finland",
+      "norway",
+      "public",
+      "sweden"
+    ]
+  },
+  "Anoto Group AB": {
+    "wikidataId": "Q4770417",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "APB Apranga": {
+    "wikidataId": "Q1974912",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "Apetit": {
+    "wikidataId": "Q5398274",
+    "tags": [
+      "csrd",
+      "finland",
+      "public",
+      "small-cap"
+    ]
+  },
+  "Apoteket": {
+    "wikidataId": "Q1785637",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "AQ Group": {
+    "wikidataId": "Q106627925",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Arco Vara": {
+    "wikidataId": "Q2860640",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "Arctic Paper": {
+    "wikidataId": "Q26794821",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Arion Bank": {
+    "wikidataId": "Q662664",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Arise": {
+    "wikidataId": "Q113465911",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Arjo": {
+    "wikidataId": "Q671398",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Arla": {
+    "wikidataId": "Q674575",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Arla Plast": {
+    "wikidataId": "Q2224566",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "AS Ekspress Grupp": {
+    "wikidataId": "Q11000563",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "AS Elenger Grupp": {
+    "wikidataId": "Q2077935",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "AS Merko Ehitus": {
+    "wikidataId": "Q4044031",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "AS Pro Kapital Grupp": {
+    "wikidataId": "Q25514660",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "AS Silvano Fashion Group": {
+    "wikidataId": "Q12000481",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "AS Tallink Grupp": {
+    "wikidataId": "Q1536909",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "AS Tallinna Sadam": {
+    "wikidataId": "Q980219",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "Ascelia Pharma": {
+    "wikidataId": "Q115167561",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Aspo": {
+    "wikidataId": "Q11775032",
+    "tags": [
+      "csrd",
+      "finland",
+      "public"
+    ]
+  },
+  "Assa Abloy": {
+    "wikidataId": "Q738421",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "AstraZeneca": {
+    "wikidataId": "Q731938",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Atlas Copco": {
+    "wikidataId": "Q757164",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Atria": {
+    "wikidataId": "Q11853290",
+    "tags": [
+      "csrd",
+      "finland",
+      "public"
+    ]
+  },
+  "Atrium Ljungberg": {
+    "wikidataId": "Q10422059",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Attendo": {
+    "wikidataId": "Q11853322",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Autoliv": {
+    "wikidataId": "Q787044",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Avanza Bank": {
+    "wikidataId": "Q4827724",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Axfood": {
+    "wikidataId": "Q792486",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "B3 Consulting Group": {
+    "wikidataId": "Q137909059",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Bactiguard Holding B": {
+    "wikidataId": "Q18287127",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Balco Group": {
+    "wikidataId": "Q106626209",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Balder": {
+    "wikidataId": "Q10425193",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "BE Group AB": {
+    "wikidataId": "Q10423898",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Beijer Alma": {
+    "wikidataId": "Q10427771",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Beijer Ref": {
+    "wikidataId": "Q60970803",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Bergman & Beving": {
+    "wikidataId": "Q10423854",
+    "tags": [
+      "mid-cap",
+      "split-year-reporting"
+    ]
+  },
+  "Berner Industrier AB": {
+    "wikidataId": "Q138135718",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Betsson": {
+    "wikidataId": "Q2723182",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Better Collective": {
+    "wikidataId": "Q111843935",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "BHG Group": {
+    "wikidataId": "Q96756335",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "BICO Group": {
+    "wikidataId": "Q24882789",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Bilia": {
+    "wikidataId": "Q10429580",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Billerud": {
+    "wikidataId": "Q862811",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "BioArctic": {
+    "wikidataId": "Q106564093",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "BioGaia": {
+    "wikidataId": "Q4914620",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "BioInvent International": {
+    "wikidataId": "Q30289762",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "BioInvent International AB": {
+    "wikidataId": "Q117352880",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Biotage": {
+    "wikidataId": "Q10429829",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Björn Borg Group": {
+    "wikidataId": "Q4919709",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Boliden": {
+    "wikidataId": "Q891345",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Bolt Operations OÜ": {
+    "wikidataId": "Q20529164",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "Bonava": {
+    "wikidataId": "Q25387724",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "BONESUPPORT": {
+    "wikidataId": "Q16427839",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Bong": {
+    "wikidataId": "Q18287289",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Boozt": {
+    "wikidataId": "Q65196792",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Boule Diagnostics AB": {
+    "wikidataId": "Q115167406",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Bravida Holding": {
+    "wikidataId": "Q10434929",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Brinova Fastigheter": {
+    "wikidataId": "Q106625326",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "BTS Group": {
+    "wikidataId": "Q4836728",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Bufab": {
+    "wikidataId": "Q106580668",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Bulten": {
+    "wikidataId": "Q10437687",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Bure Equity": {
+    "wikidataId": "Q4998333",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Byggmax Group": {
+    "wikidataId": "Q10438182",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Byggmästare Anders J Ahlström Holding": {
+    "wikidataId": "Q130366912",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "C-RAD": {
+    "wikidataId": "Q50038290",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Calliditas Therapeutics AB": {
+    "wikidataId": "Q106629013",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Camurus": {
+    "wikidataId": "Q5028809",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Cantargia AB": {
+    "wikidataId": "Q106632713",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "CapMan": {
+    "wikidataId": "Q11854911",
+    "tags": [
+      "finland",
+      "public",
+      "mid-cap"
+    ]
+  },
+  "Carasent": {
+    "wikidataId": "Q4781778",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Cargotec": {
+    "wikidataId": "Q977120",
+    "tags": [
+      "finland",
+      "csrd",
+      "large-cap",
+      "public",
+      "sweden"
+    ]
+  },
+  "Castellum": {
+    "wikidataId": "Q10443590",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Catella": {
+    "wikidataId": "Q10443838",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Catena": {
+    "wikidataId": "Q10443840",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Catena Media": {
+    "wikidataId": "Q27680773",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Cavotec SA": {
+    "wikidataId": "Q5055199",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "CellaVision": {
+    "wikidataId": "Q106634027",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Cibus Nordic Real Estate": {
+    "wikidataId": "Q115167139",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Cinclus Pharma": {
+    "wikidataId": "Q134580179",
+    "tags": []
+  },
+  "Cint Group": {
+    "wikidataId": "Q10453247",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Citycon": {
+    "wikidataId": "Q10453570",
+    "tags": [
+      "finland",
+      "csrd",
+      "public"
+    ]
+  },
+  "Clas Ohlson AB": {
+    "wikidataId": "Q3356220",
+    "tags": [
+      "mid-cap",
+      "split-year-reporting"
+    ]
+  },
+  "Cloetta": {
+    "wikidataId": "Q3437039",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "CoinShares International Limited": {
+    "wikidataId": "Q130366922",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Concejo": {
+    "wikidataId": "Q138135784",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Concentric": {
+    "wikidataId": "Q10457644",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Coop i Sverige": {
+    "wikidataId": "Q106684510",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Coop Pank AS": {
+    "wikidataId": "Q11220382",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "Coor Service Management Holding": {
+    "wikidataId": "Q115167261",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Corem Property Group": {
+    "wikidataId": "Q106625550",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Creades": {
+    "wikidataId": "Q10461247",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "CTEK": {
+    "wikidataId": "Q115167084",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "CTT Systems": {
+    "wikidataId": "Q28808759",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Dedicare": {
+    "wikidataId": "Q10467627",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "DelfinGroup": {
+    "wikidataId": "Q104428858",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "Digia": {
+    "wikidataId": "Q369897",
+    "tags": [
+      "csrd",
+      "finland",
+      "mid-cap",
+      "public",
+      "sweden"
+    ]
+  },
+  "Diös Fastigheter": {
+    "wikidataId": "Q10474816",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Dometic Group": {
+    "wikidataId": "Q5290243",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Doro": {
+    "wikidataId": "Q568229",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Duni": {
+    "wikidataId": "Q10477559",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Duroc AB": {
+    "wikidataId": "Q109830238",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Dustin Group AB": {
+    "wikidataId": "Q1141671",
+    "tags": [
+      "mid-cap",
+      "split-year-reporting"
+    ]
+  },
+  "Dynavox Group": {
+    "wikidataId": "Q5318875",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Eastnine": {
+    "wikidataId": "Q115167495",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Eesti Energia": {
+    "wikidataId": "Q1295560",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "EfTEN Real Estate Fund AS": {
+    "wikidataId": "Q106618620",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "Egetis Therapeutics AB": {
+    "wikidataId": "Q109838193",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Elanders": {
+    "wikidataId": "Q1324884",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Electrolux": {
+    "wikidataId": "Q505922",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Electrolux Professional": {
+    "wikidataId": "Q109974149",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Elekta": {
+    "wikidataId": "Q830608",
+    "tags": [
+      "large-cap",
+      "split-year-reporting"
+    ]
+  },
+  "Eleving Group": {
+    "wikidataId": "Q134437025",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "Elisa": {
+    "wikidataId": "Q965268",
+    "tags": [
+      "finland"
+    ]
+  },
+  "ELKO Group": {
+    "wikidataId": "Q5364357",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "Elon Group AB": {
+    "wikidataId": "Q18288802",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Eltel": {
+    "wikidataId": "Q821012",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Embracer Group": {
+    "wikidataId": "Q65083539",
+    "tags": [
+      "large-cap",
+      "split-year-reporting"
+    ]
+  },
+  "Emilshus": {
+    "wikidataId": "Q130366927",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Enad Global 7 AB (publ)": {
+    "wikidataId": "Q104903132",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Enea": {
+    "wikidataId": "Q1341066",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Engcon": {
+    "wikidataId": "Q10484125",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Eniro Group AB": {
+    "wikidataId": "Q202643",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Eolus Vind": {
+    "wikidataId": "Q10485218",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Ependion": {
+    "wikidataId": "Q130366928",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Epiroc": {
+    "wikidataId": "Q47498532",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Episurf Medical": {
+    "wikidataId": "Q109837255",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "EQL Pharma AB": {
+    "wikidataId": "Q137399896",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "EQT": {
+    "wikidataId": "Q1275733",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Ericsson": {
+    "wikidataId": "Q52618",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Essity": {
+    "wikidataId": "Q30938280",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Evolution": {
+    "wikidataId": "Q105965579",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Ework Group": {
+    "wikidataId": "Q10492869",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "F-Secure": {
+    "wikidataId": "Q522016",
+    "tags": [
+      "csrd",
+      "finland",
+      "public"
+    ]
+  },
+  "Fabege": {
+    "wikidataId": "Q1390136",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Fagerhult Group": {
+    "wikidataId": "Q4345789",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Fasadgruppen": {
+    "wikidataId": "Q101416961",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Fastator": {
+    "wikidataId": "Q115168502",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Fastpartner": {
+    "wikidataId": "Q10494308",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Fenix Outdoor Int.": {
+    "wikidataId": "Q10494668",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Ferronordic": {
+    "wikidataId": "Q106600140",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Fingerprint Cards": {
+    "wikidataId": "Q28492296",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Fiskars Group": {
+    "wikidataId": "Q1241369",
+    "tags": [
+      "csrd",
+      "finland",
+      "large-cap",
+      "public"
+    ]
+  },
+  "Flerie": {
+    "wikidataId": "Q130366931",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "FM Mattsson": {
+    "wikidataId": "Q30256485",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Folksam": {
+    "wikidataId": "Q5464603",
+    "tags": [
+      "csrd",
+      "sweden"
+    ]
+  },
+  "Formpipe": {
+    "wikidataId": "Q10497961",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Fortnox": {
+    "wikidataId": "Q60967616",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "G5 Entertainment": {
+    "wikidataId": "Q10501780",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Gaming Innovation Group": {
+    "wikidataId": "Q51581693",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Garo": {
+    "wikidataId": "Q110086919",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Genova Property Group": {
+    "wikidataId": "Q106625885",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Getinge": {
+    "wikidataId": "Q1337240",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Gofore": {
+    "wikidataId": "Q18688762",
+    "tags": [
+      "csrd",
+      "finland",
+      "public"
+    ]
+  },
+  "Green Cargo": {
+    "wikidataId": "Q1028092",
+    "tags": [
+      "large-cap",
+      "state-owned"
+    ]
+  },
+  "Green Landscaping Group": {
+    "wikidataId": "Q109815145",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Grigeo Group AB": {
+    "wikidataId": "Q1974994",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "Gränges": {
+    "wikidataId": "Q10509721",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "H&M": {
+    "wikidataId": "Q188326",
+    "tags": [
+      "large-cap",
+      "split-year-reporting"
+    ]
+  },
+  "HAKI Safety AB": {
+    "wikidataId": "Q10513026",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Handelsbanken": {
+    "wikidataId": "Q1421630",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Hansa Biopharma": {
+    "wikidataId": "Q30295686",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "HANZA": {
+    "wikidataId": "Q56300749",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Harju Elekter Group": {
+    "wikidataId": "Q1976140",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "Harvia PLC": {
+    "wikidataId": "Q18681771",
+    "tags": [
+      "csrd",
+      "finland",
+      "mid-cap",
+      "public"
+    ]
+  },
+  "Havsfrun Investment AB": {
+    "wikidataId": "Q109816174",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Heba": {
+    "wikidataId": "Q10513055",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Hemnet Group": {
+    "wikidataId": "Q10521828",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Hepsor AS": {
+    "wikidataId": "Q138573984",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "Hexagon": {
+    "wikidataId": "Q820970",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Hexatronic Group": {
+    "wikidataId": "Q106640661",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Hexpol": {
+    "wikidataId": "Q10523797",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "HKFoods": {
+    "wikidataId": "Q139591851",
+    "tags": [
+      "finland",
+      "csrd",
+      "public"
+    ]
+  },
+  "HMS Networks": {
+    "wikidataId": "Q1564880",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Hoist Finance": {
+    "wikidataId": "Q17102820",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Holmen": {
+    "wikidataId": "Q1467848",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Hufvudstaden": {
+    "wikidataId": "Q10526893",
+    "tags": [
+      "mid-cap",
+      "large-cap"
+    ]
+  },
+  "Humana": {
+    "wikidataId": "Q91016795",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Husqvarna": {
+    "wikidataId": "Q899356",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "I.A.R Systems Group": {
+    "wikidataId": "Q1059840",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "ICA Gruppen": {
+    "wikidataId": "Q1663776",
+    "tags": [
+      "csrd",
+      "large-cap",
+      "private",
+      "sweden"
+    ]
+  },
+  "Ignitis Group": {
+    "wikidataId": "Q583822",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "IKI": {
+    "wikidataId": "Q1653981",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "Image Systems": {
+    "wikidataId": "Q109831454",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Immunovia AB": {
+    "wikidataId": "Q30295741",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Incap": {
+    "wikidataId": "Q20736961",
+    "tags": [
+      "estonia",
+      "finland",
+      "public",
+      "mid-cap"
+    ]
+  },
+  "Industrivärden": {
+    "wikidataId": "Q11977084",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Indutrade": {
+    "wikidataId": "Q10535326",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Infant Bacterial Therapeutics AB": {
+    "wikidataId": "Q98437570",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Infranord": {
+    "wikidataId": "Q10535401",
+    "tags": [
+      "large-cap",
+      "state-owned"
+    ]
+  },
+  "Infrea": {
+    "wikidataId": "Q115167382",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Inission AB": {
+    "wikidataId": "Q138139493",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Instalco": {
+    "wikidataId": "Q106626934",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Inter IKEA Group": {
+    "wikidataId": "Q47508289",
+    "tags": [
+      "large-cap",
+      "split-year-reporting"
+    ]
+  },
+  "International Petroleum Corp.": {
+    "wikidataId": "Q106647141",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Intrum": {
+    "wikidataId": "Q1671623",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Investor": {
+    "wikidataId": "Q1671804",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "INVISIO": {
+    "wikidataId": "Q130367235",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Inwido": {
+    "wikidataId": "Q10536452",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "IPAS INDEXO": {
+    "wikidataId": "Q138841759",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "IRLAB THERAPEUTICS AB (PUBL)": {
+    "wikidataId": "Q106640890",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Isofol Medical AB (publ)": {
+    "wikidataId": "Q115167197",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "ITAB Shop Concept": {
+    "wikidataId": "Q106626770",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Jernhusen": {
+    "wikidataId": "Q3177392",
+    "tags": [
+      "mid-cap",
+      "state-owned"
+    ]
+  },
+  "JM": {
+    "wikidataId": "Q15702556",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "John Mattson": {
+    "wikidataId": "Q10540600",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "K-Fast Holding": {
+    "wikidataId": "Q106618377",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "K2A Knaust & Andersson Fastigheter AB": {
+    "wikidataId": "Q106618270",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "KABE Group": {
+    "wikidataId": "Q115167405",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Karnell Group AB": {
+    "wikidataId": "Q138140101",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Karnov Group": {
+    "wikidataId": "Q30086040",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Karolinska Development": {
+    "wikidataId": "Q30295298",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Kesko": {
+    "wikidataId": "Q1739782",
+    "tags": [
+      "finland"
+    ]
+  },
+  "KH Group": {
+    "wikidataId": "Q11893350",
+    "tags": [
+      "finland",
+      "public",
+      "sweden"
+    ]
+  },
+  "Kindred Group": {
+    "wikidataId": "Q63993633",
+    "tags": [
+      "large-cap",
+      "split-year-reporting"
+    ]
+  },
+  "Kinnevik": {
+    "wikidataId": "Q4994121",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "KlaraBo": {
+    "wikidataId": "Q115167534",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Knowit": {
+    "wikidataId": "Q10546722",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Kojamo": {
+    "wikidataId": "Q11899913",
+    "tags": [
+      "finland"
+    ]
+  },
+  "KONE": {
+    "wikidataId": "Q1146592",
+    "tags": [
+      "finland"
+    ]
+  },
+  "Konecranes": {
+    "wikidataId": "Q1781308",
+    "tags": [
+      "finland"
+    ]
+  },
+  "Lagercrantz": {
+    "wikidataId": "Q126366693",
+    "tags": [
+      "large-cap",
+      "split-year-reporting"
+    ]
+  },
+  "Lammhults Design Group": {
+    "wikidataId": "Q109806501",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Lantmännen": {
+    "wikidataId": "Q1805602",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Latour": {
+    "wikidataId": "Q6060753",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Latvenergo AS": {
+    "wikidataId": "Q3736450",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "Lernia": {
+    "wikidataId": "Q10559602",
+    "tags": [
+      "mid-cap",
+      "state-owned"
+    ]
+  },
+  "Lidl Lietuva": {
+    "wikidataId": "Q131830184",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "Lifco": {
+    "wikidataId": "Q65196379",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Lime Technologies AB (publ)": {
+    "wikidataId": "Q109780665",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Linc": {
+    "wikidataId": "Q124252447",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Lindab International": {
+    "wikidataId": "Q109773651",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "LKAB": {
+    "wikidataId": "Q52579",
+    "tags": [
+      "large-cap",
+      "state-owned"
+    ]
+  },
+  "Logistea": {
+    "wikidataId": "Q115167469",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Loomis": {
+    "wikidataId": "Q3121401",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Lucara Diamond Corp": {
+    "wikidataId": "Q6696047",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Lundbergföretagen (koncern)": {
+    "wikidataId": "Q6460556",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Lundbergs Fastigheter": {
+    "wikidataId": "Q126366671",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Lundin Mining Corp.": {
+    "wikidataId": "Q1537901",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Maha Energy": {
+    "wikidataId": "Q115167239",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Malmbergs": {
+    "wikidataId": "Q109835088",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Mangold": {
+    "wikidataId": "Q115168499",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "MAXIMA GROUP": {
+    "wikidataId": "Q1881222",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "MedCap": {
+    "wikidataId": "Q49095689",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Medicover": {
+    "wikidataId": "Q18541785",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Medivir": {
+    "wikidataId": "Q10579256",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "MEKO": {
+    "wikidataId": "Q130367254",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Mendus": {
+    "wikidataId": "Q138140858",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Metso Corporation": {
+    "wikidataId": "Q339318",
+    "tags": [
+      "finland"
+    ]
+  },
+  "Micro Systemation AB": {
+    "wikidataId": "Q10584019",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Midsona": {
+    "wikidataId": "Q10585102",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "MilDef Group": {
+    "wikidataId": "Q114221082",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Millicom Int. Cellular": {
+    "wikidataId": "Q276345",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Mips": {
+    "wikidataId": "Q109787297",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Moberg Pharma": {
+    "wikidataId": "Q10587142",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Modulight Corporation": {
+    "wikidataId": "Q30285189",
+    "tags": [
+      "finland",
+      "public",
+      "small-cap"
+    ]
+  },
+  "MOMENT GROUP": {
+    "wikidataId": "Q10397256",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Momentum Group": {
+    "wikidataId": "Q106508167",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "MTG": {
+    "wikidataId": "Q378944",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Munters Group": {
+    "wikidataId": "Q10590357",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Musti Group": {
+    "wikidataId": "Q11883558",
+    "tags": [
+      "finland"
+    ]
+  },
+  "Mycronic": {
+    "wikidataId": "Q10584597",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Mysafety Group AB": {
+    "wikidataId": "Q31890011",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Nanologica": {
+    "wikidataId": "Q30284892",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "NAXS AB (publ)": {
+    "wikidataId": "Q115167603",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "NCAB Group": {
+    "wikidataId": "Q115167363",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "NCC": {
+    "wikidataId": "Q558699",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Nederman": {
+    "wikidataId": "Q109790098",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Nelly": {
+    "wikidataId": "Q10438871",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Neste": {
+    "wikidataId": "Q616376",
+    "tags": [
+      "finland"
+    ]
+  },
+  "Net Insight": {
+    "wikidataId": "Q10599821",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Netel Holding AB": {
+    "wikidataId": "Q115167087",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "New Wave Group": {
+    "wikidataId": "Q10600264",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "NGS Group AB": {
+    "wikidataId": "Q109832692",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Nibe Industrier": {
+    "wikidataId": "Q10600414",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Nilörn": {
+    "wikidataId": "Q109806879",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Nivika": {
+    "wikidataId": "Q134691493",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Nobia": {
+    "wikidataId": "Q1657823",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Nokia": {
+    "wikidataId": "Q1418",
+    "tags": [
+      "finland"
+    ]
+  },
+  "Nolato": {
+    "wikidataId": "Q10601765",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Nordea Bank": {
+    "wikidataId": "Q1123823",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Nordecon AS": {
+    "wikidataId": "Q11117373",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "Nordic Paper": {
+    "wikidataId": "Q7050718",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Nordic Waterproofing Holding": {
+    "wikidataId": "Q115167526",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Nordisk Bergteknik AB": {
+    "wikidataId": "Q138141068",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Nordnet": {
+    "wikidataId": "Q3366005",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Norion Bank": {
+    "wikidataId": "Q49103488",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Norrhydro Group Plc": {
+    "wikidataId": "Q107548957",
+    "tags": [
+      "finland",
+      "public",
+      "small-cap"
+    ]
+  },
+  "Norva24": {
+    "wikidataId": "Q115167515",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Note": {
+    "wikidataId": "Q10603350",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "NOVATURAS AB": {
+    "wikidataId": "Q12667050",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "Novotek": {
+    "wikidataId": "Q7065079",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "NP3 Fastigheter": {
+    "wikidataId": "Q106625028",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "null": {
+    "wikidataId": "Q138144442",
+    "tags": []
+  },
+  "Nyfosa": {
+    "wikidataId": "Q115167358",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "OEM International": {
+    "wikidataId": "Q267558",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "OKQ8 Scandinavia": {
+    "wikidataId": "Q2789310",
+    "tags": [
+      "large-cap",
+      "split-year-reporting"
+    ]
+  },
+  "Olvi Group": {
+    "wikidataId": "Q4045735",
+    "tags": [
+      "finland",
+      "baltics",
+      "csrd",
+      "denmark",
+      "estonia",
+      "latvia",
+      "lithuania",
+      "public"
+    ]
+  },
+  "Optomed": {
+    "wikidataId": "Q88284118",
+    "tags": [
+      "finland",
+      "public",
+      "small-cap"
+    ]
+  },
+  "Orexo": {
+    "wikidataId": "Q10611363",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Orion Corporation": {
+    "wikidataId": "Q903328",
+    "tags": [
+      "finland"
+    ]
+  },
+  "Orrön Energy": {
+    "wikidataId": "Q253423",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Outokumpu": {
+    "wikidataId": "Q26694",
+    "tags": [
+      "csrd",
+      "finland",
+      "large-cap",
+      "public"
+    ]
+  },
+  "Ovzon": {
+    "wikidataId": "Q57419532",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "OX2": {
+    "wikidataId": "Q10605629",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Pandox": {
+    "wikidataId": "Q31884527",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Peab": {
+    "wikidataId": "Q4356297",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Pierce Group AB": {
+    "wikidataId": "Q138141234",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Pihlajalinna": {
+    "wikidataId": "Q18689068",
+    "tags": [
+      "finland"
+    ]
+  },
+  "PION Group AB": {
+    "wikidataId": "Q138141573",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Platzer Fastigheter": {
+    "wikidataId": "Q20164918",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "PostNord": {
+    "wikidataId": "Q3181430",
+    "tags": [
+      "large-cap",
+      "state-owned"
+    ]
+  },
+  "PowerCell Sweden": {
+    "wikidataId": "Q30292201",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Precise Biometrics": {
+    "wikidataId": "Q30295883",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Prevas AB": {
+    "wikidataId": "Q10686511",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Pricer": {
+    "wikidataId": "Q10638710",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Prisma Properties": {
+    "wikidataId": "Q10432209",
+    "tags": []
+  },
+  "Proact IT Group": {
+    "wikidataId": "Q11888870",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Probi": {
+    "wikidataId": "Q43895238",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "ProfilGruppen": {
+    "wikidataId": "Q109820818",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Profoto Holding": {
+    "wikidataId": "Q23044729",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Puuilo Plc": {
+    "wikidataId": "Q18689102",
+    "tags": [
+      "csrd",
+      "finland",
+      "public",
+      "split-year-reporting"
+    ]
+  },
+  "Q-linea": {
+    "wikidataId": "Q30291577",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Qliro": {
+    "wikidataId": "Q137782114",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Railcare Group AB": {
+    "wikidataId": "Q104649901",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Ratos": {
+    "wikidataId": "Q7295902",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Raute": {
+    "wikidataId": "Q11890279",
+    "tags": [
+      "csrd",
+      "finland",
+      "public",
+      "small-cap"
+    ]
+  },
+  "RaySearch Laboratories": {
+    "wikidataId": "Q28449044",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Rejlers": {
+    "wikidataId": "Q4356015",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Resurs Holding": {
+    "wikidataId": "Q10651354",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Revenio Group Corporation": {
+    "wikidataId": "Q11890629",
+    "tags": [
+      "finland"
+    ]
+  },
+  "RevolutionRace": {
+    "wikidataId": "Q130367275",
+    "tags": [
+      "mid-cap",
+      "split-year-reporting"
+    ]
+  },
+  "RISE": {
+    "wikidataId": "Q7315107",
+    "tags": [
+      "mid-cap",
+      "state-owned"
+    ]
+  },
+  "Rokiškio sūris AB": {
+    "wikidataId": "Q2162597",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "Rottneros": {
+    "wikidataId": "Q10657333",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Rusta": {
+    "wikidataId": "Q10658096",
+    "tags": [
+      "mid-cap",
+      "split-year-reporting"
+    ]
+  },
+  "Saab": {
+    "wikidataId": "Q219501",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "SAF Tehnika": {
+    "wikidataId": "Q7388547",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "Sagax": {
+    "wikidataId": "Q10660042",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Samhall": {
+    "wikidataId": "Q10660896",
+    "tags": [
+      "large-cap",
+      "state-owned"
+    ]
+  },
+  "Sampo": {
+    "wikidataId": "Q1640495",
+    "tags": [
+      "finland"
+    ]
+  },
+  "Sandvik": {
+    "wikidataId": "Q1753718",
+    "tags": [
+      "large-cap",
+      "split-year-reporting"
+    ]
+  },
+  "Saniona AB": {
+    "wikidataId": "Q30285110",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Sanoma": {
+    "wikidataId": "Q1540297",
+    "tags": [
+      "csrd",
+      "finland",
+      "public"
+    ]
+  },
+  "SAS": {
+    "wikidataId": "Q187854",
+    "tags": [
+      "large-cap",
+      "split-year-reporting"
+    ]
+  },
+  "SBAB": {
+    "wikidataId": "Q62233",
+    "tags": [
+      "large-cap",
+      "state-owned"
+    ]
+  },
+  "SBB": {
+    "wikidataId": "Q93559269",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "SCA": {
+    "wikidataId": "Q52601",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Scandi Standard": {
+    "wikidataId": "Q106574109",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Scandic Hotels Group": {
+    "wikidataId": "Q129391",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Scanfil": {
+    "wikidataId": "Q23894763",
+    "tags": [
+      "finland",
+      "public"
+    ]
+  },
+  "Sdiptech": {
+    "wikidataId": "Q61932343",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Seafire": {
+    "wikidataId": "Q138143154",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "SEB": {
+    "wikidataId": "Q975655",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Sectra": {
+    "wikidataId": "Q2264039",
+    "tags": [
+      "large-cap",
+      "split-year-reporting"
+    ]
+  },
+  "Securitas": {
+    "wikidataId": "Q662174",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Sedana Medical": {
+    "wikidataId": "Q38168829",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Sensys Gatso Group AB": {
+    "wikidataId": "Q10665716",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Senzime": {
+    "wikidataId": "Q30295802",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Šiaulių Bankas Group": {
+    "wikidataId": "Q391518",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "Sinch": {
+    "wikidataId": "Q22077794",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "SinterCast": {
+    "wikidataId": "Q26720431",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Sivers Semiconductors": {
+    "wikidataId": "Q138143077",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "SJ": {
+    "wikidataId": "Q52912",
+    "tags": [
+      "large-cap",
+      "state-owned"
+    ]
+  },
+  "Skanska": {
+    "wikidataId": "Q1537811",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "SKF": {
+    "wikidataId": "Q52846",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "SkiStar": {
+    "wikidataId": "Q4573584",
+    "tags": [
+      "mid-cap",
+      "split-year-reporting"
+    ]
+  },
+  "Sleep Cycle": {
+    "wikidataId": "Q115167328",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "SLP": {
+    "wikidataId": "Q134691531",
+    "tags": []
+  },
+  "Softronic": {
+    "wikidataId": "Q10673034",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Solid Försäkring": {
+    "wikidataId": "Q10673207",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "SOS Alarm": {
+    "wikidataId": "Q18370893",
+    "tags": [
+      "mid-cap",
+      "state-owned"
+    ]
+  },
+  "Specialfastigheter": {
+    "wikidataId": "Q10674550",
+    "tags": [
+      "mid-cap",
+      "state-owned"
+    ]
+  },
+  "SSAB": {
+    "wikidataId": "Q54075",
+    "tags": [
+      "csrd",
+      "finland",
+      "large-cap",
+      "public",
+      "state-owned",
+      "sweden"
+    ]
+  },
+  "Starbreeze": {
+    "wikidataId": "Q2298950",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Stendörren Fastigheter": {
+    "wikidataId": "Q115167277",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Stillfront Group": {
+    "wikidataId": "Q106282881",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Stockwik": {
+    "wikidataId": "Q138142885",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Stora Enso": {
+    "wikidataId": "Q747265",
+    "tags": [
+      "finland"
+    ]
+  },
+  "Storskogen Group": {
+    "wikidataId": "Q115167531",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Studsvik": {
+    "wikidataId": "Q3622799",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Sveaskog": {
+    "wikidataId": "Q1389894",
+    "tags": [
+      "large-cap",
+      "state-owned"
+    ]
+  },
+  "Svedbergs Group": {
+    "wikidataId": "Q109796634",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Svensk Exportkredit": {
+    "wikidataId": "Q10684798",
+    "tags": [
+      "mid-cap",
+      "state-owned"
+    ]
+  },
+  "Svenska Rymdaktiebolaget": {
+    "wikidataId": "Q3270281",
+    "tags": [
+      "mid-cap",
+      "state-owned",
+      "split-year-reporting"
+    ]
+  },
+  "Svenska spel": {
+    "wikidataId": "Q3924567",
+    "tags": [
+      "large-cap",
+      "state-owned"
+    ]
+  },
+  "Svevia": {
+    "wikidataId": "Q10686298",
+    "tags": [
+      "large-cap",
+      "state-owned"
+    ]
+  },
+  "Svolder": {
+    "wikidataId": "Q56301122",
+    "tags": [
+      "mid-cap",
+      "split-year-reporting"
+    ]
+  },
+  "Sweco": {
+    "wikidataId": "Q3377840",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Swedavia": {
+    "wikidataId": "Q1571428",
+    "tags": [
+      "large-cap",
+      "state-owned"
+    ]
+  },
+  "Swedbank": {
+    "wikidataId": "Q1145493",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Swedish Logistic Property": {
+    "wikidataId": "Q131426217",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Swedish Orphan Biovitrum": {
+    "wikidataId": "Q7654795",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "SynAct Pharma AB": {
+    "wikidataId": "Q117067610",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Synsam": {
+    "wikidataId": "Q12004589",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Systemair": {
+    "wikidataId": "Q2084093",
+    "tags": [
+      "large-cap",
+      "split-year-reporting"
+    ]
+  },
+  "Systembolaget": {
+    "wikidataId": "Q1476113",
+    "tags": [
+      "large-cap",
+      "state-owned"
+    ]
+  },
+  "Södra Skogsägarna": {
+    "wikidataId": "Q1142582",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Tallinna Kaubamaja Grupp": {
+    "wikidataId": "Q55673245",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "Tallinna Vesi": {
+    "wikidataId": "Q12005126",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "Tele2": {
+    "wikidataId": "Q309865",
+    "tags": [
+      "baltics",
+      "csrd",
+      "large-cap",
+      "public",
+      "sweden"
+    ]
+  },
+  "Telia Company": {
+    "wikidataId": "Q862303",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Telia Lietuva, AB": {
+    "wikidataId": "Q494274",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "Teracom": {
+    "wikidataId": "Q7476318",
+    "tags": [
+      "mid-cap",
+      "state-owned"
+    ]
+  },
+  "Terveystalo": {
+    "wikidataId": "Q11897034",
+    "tags": [
+      "csrd",
+      "finland",
+      "public",
+      "mid-cap",
+      "sweden"
+    ]
+  },
+  "Tethys Oil": {
+    "wikidataId": "Q115167486",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "TF Bank": {
+    "wikidataId": "Q109780258",
+    "tags": [
+      "csrd",
+      "mid-cap",
+      "public",
+      "sweden"
+    ]
+  },
+  "Thule Group": {
+    "wikidataId": "Q5362569",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Tietoevry": {
+    "wikidataId": "Q1423707",
+    "tags": [
+      "csrd",
+      "finland",
+      "large-cap",
+      "public",
+      "sweden",
+      "norway"
+    ]
+  },
+  "Tobii": {
+    "wikidataId": "Q2438127",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Tokmanni Group": {
+    "wikidataId": "Q13423470",
+    "tags": [
+      "csrd",
+      "finland",
+      "public",
+      "mid-cap",
+      "sweden",
+      "denmark"
+    ]
+  },
+  "Traction": {
+    "wikidataId": "Q106594863",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Tradedoubler": {
+    "wikidataId": "Q1783959",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Transtema Group AB": {
+    "wikidataId": "Q115167408",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Traton": {
+    "wikidataId": "Q28228137",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Trelleborg": {
+    "wikidataId": "Q1703203",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Trianon": {
+    "wikidataId": "Q106594396",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Troax Group": {
+    "wikidataId": "Q56300993",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Truecaller": {
+    "wikidataId": "Q126367344",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "UPM": {
+    "wikidataId": "Q1890664",
+    "tags": [
+      "csrd",
+      "finland",
+      "large-cap",
+      "public"
+    ]
+  },
+  "Valmet": {
+    "wikidataId": "Q1197161",
+    "tags": [
+      "finland",
+      "large-cap",
+      "public"
+    ]
+  },
+  "Vasakronan": {
+    "wikidataId": "Q7916311",
+    "tags": []
+  },
+  "Vattenfall": {
+    "wikidataId": "Q157675",
+    "tags": [
+      "large-cap",
+      "state-owned"
+    ]
+  },
+  "VBG Group": {
+    "wikidataId": "Q10711820",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "VEF": {
+    "wikidataId": "Q130367296",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Verkkokauppa.com": {
+    "wikidataId": "Q4411944",
+    "tags": [
+      "csrd",
+      "finland",
+      "public"
+    ]
+  },
+  "Vestum": {
+    "wikidataId": "Q134691475",
+    "tags": []
+  },
+  "Viaplay Group": {
+    "wikidataId": "Q55391931",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Vicore Pharma Holding AB": {
+    "wikidataId": "Q109840162",
+    "tags": [
+      "csrd",
+      "public",
+      "sweden"
+    ]
+  },
+  "VILVI Group": {
+    "wikidataId": "Q4052700",
+    "tags": [
+      "baltics"
+    ]
+  },
+  "Viscaria": {
+    "wikidataId": "Q130367306",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Vitec Software Group": {
+    "wikidataId": "Q108733347",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Vitrolife": {
+    "wikidataId": "Q28836696",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Vivesto": {
+    "wikidataId": "Q138145870",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "VNV Global": {
+    "wikidataId": "Q627577",
+    "tags": [
+      "csrd",
+      "mid-cap",
+      "public",
+      "sweden"
+    ]
+  },
+  "Volati": {
+    "wikidataId": "Q78584553",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Volvo AB": {
+    "wikidataId": "Q163810",
+    "tags": [
+      "csrd",
+      "large-cap",
+      "public",
+      "sweden"
+    ]
+  },
+  "Volvo Cars": {
+    "wikidataId": "Q215293",
+    "tags": [
+      "csrd",
+      "large-cap",
+      "public",
+      "sweden"
+    ]
+  },
+  "Wall to Wall Group AB": {
+    "wikidataId": "Q138144224",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Wallenstam": {
+    "wikidataId": "Q10719187",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Wihlborgs Fastigheter": {
+    "wikidataId": "Q10720019",
+    "tags": [
+      "large-cap"
+    ]
+  },
+  "Wise": {
+    "wikidataId": "Q7833987",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Wärtsilä Corporation": {
+    "wikidataId": "Q327429",
+    "tags": [
+      "finland"
+    ]
+  },
+  "Wästbygg Gruppen": {
+    "wikidataId": "Q10720765",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "XANO Industri": {
+    "wikidataId": "Q10720882",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "XBRANE BIOPHARMA AB": {
+    "wikidataId": "Q109839578",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Xspray Pharma": {
+    "wikidataId": "Q106640265",
+    "tags": [
+      "small-cap"
+    ]
+  },
+  "Xvivo Perfusion": {
+    "wikidataId": "Q28836462",
+    "tags": [
+      "mid-cap"
+    ]
+  },
+  "Öresund": {
+    "wikidataId": "Q6060751",
+    "tags": [
+      "mid-cap"
+    ]
+  }
+}
