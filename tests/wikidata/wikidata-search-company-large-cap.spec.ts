@@ -23,15 +23,10 @@ const LARGE_CAP_SEARCH_SPECIAL_CASES: ReadonlyArray<{
   //   firstSearchHitId: undefined,
   // },
   {
-    companyName: 'Lindab International', // finns två sidor för samma företag
-    klimatkollenWikidataId: 'Q109773651',
-    firstSearchHitId: undefined,
+    companyName: 'Mips',
+    klimatkollenWikidataId: 'Q109787297',
+    firstSearchHitId: 'Q1631366',
   },
-  // {
-  //   companyName: 'Mips',
-  //   klimatkollenWikidataId: 'Q109787297',
-  //   firstSearchHitId: 'Q1631366',
-  // },
   // {
   //   companyName: 'SBB', // mkt svår kanske kan matcha rätt med beskrivning
   //   klimatkollenWikidataId: 'Q93559269',
@@ -103,5 +98,5 @@ Known issues:
 
 
 ICA Gruppen: har fel wikidata id hos oss, koden ovan hittar rätt.
-Lindab International: finns två sidor för samma företag
+Lindab International: finns två sidor för samma företag, rättades till genom att söka på svenska länkar.
 */

@@ -493,7 +493,7 @@ async function searchWikidataEntities(
     search,
     type: 'item',
     language,
-    limit: 20,
+    limit: 50,
   })
   const response = await fetchJsonWithRetries<SearchResponse>(url, {
     headers: { ...WIKIDATA_SEARCH_HEADERS },
