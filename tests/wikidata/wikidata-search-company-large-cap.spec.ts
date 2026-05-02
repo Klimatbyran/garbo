@@ -72,13 +72,13 @@ const regularCases = largeCapCasesFromData(
 describe('searchCompany (large cap)', () => {
   jest.setTimeout(60_000)
 
-  // it.each(regularCases)(
-  //   `resolves "%s" so Wikidata id %s appears in top ${EXPECT_WIKIDATA_ID_IN_TOP}`,
-  //   async (name, id) => {
-  //     const results = await searchCompany({ companyName: name })
-  //     expectWikidataIdInTopResults(results, id)
-  //   }
-  // )
+  it.each(regularCases)(
+    `resolves "%s" so Wikidata id %s appears in top ${EXPECT_WIKIDATA_ID_IN_TOP}`,
+    async (name, id) => {
+      const results = await searchCompany({ companyName: name })
+      expectWikidataIdInTopResults(results, id)
+    }
+  )
 
   it.each(LARGE_CAP_SEARCH_SPECIAL_CASES)(
     'special: $companyName — Klimatkollen id $klimatkollenWikidataId in top ' +
