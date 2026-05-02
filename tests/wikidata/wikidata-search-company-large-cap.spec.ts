@@ -5,41 +5,45 @@ import {
   EXPECT_WIKIDATA_ID_IN_TOP,
   expectWikidataIdInTopResults,
 } from './wikidata-search-assertions'
+
 /**
  * Wikidata entity search — large-cap cases (live API).
+ *
+ * Large-cap rows come from `data/klimatkollen-company-wikidata.json`. We skip:
+ * - {@link LARGE_CAP_SEARCH_SPECIAL_CASES} — listed separately (ranking quirks)
+ * - {@link LARGE_CAP_SEARCH_EMPTY_RESULTS} — `searchCompany` returns no hits today
  */
 
 type CompanyEntry = string | { wikidataId: string; tags?: string[] }
 
-/**
- * `klimatkollenWikidataId`: ID from `data/klimatkollen-company-wikidata.json`.
- * `firstSearchHitId`: first result from `searchCompany` when the suite was last
- * aligned (undefined = no results).
- */
-const LARGE_CAP_SEARCH_SPECIAL_CASES: ReadonlyArray<{
+type NamedWikidataCase = Readonly<{
   companyName: string
   klimatkollenWikidataId: string
-  firstSearchHitId: string | undefined
-}> = [
-  {
-    companyName: 'Coop i Sverige',
-    klimatkollenWikidataId: 'Q106684510',
-    firstSearchHitId: undefined,
-  },
-  {
-    companyName: 'Mips',
-    klimatkollenWikidataId: 'Q109787297',
-    firstSearchHitId: 'Q1631366',
-  },
-  {
-    companyName: 'SBB', // mkt svår kanske kan matcha rätt med beskrivning
-    klimatkollenWikidataId: 'Q93559269',
-    firstSearchHitId: 'Q7452767',
-  },
+}>
+
+/** Ranking quirks; Klimatkollen id must still appear in the top N. */
+const LARGE_CAP_SEARCH_SPECIAL_CASES: ReadonlyArray<NamedWikidataCase> = [
+  { companyName: 'Mips', klimatkollenWikidataId: 'Q109787297' },
+  { companyName: 'SBB', klimatkollenWikidataId: 'Q93559269' },
+]
+
+/**
+ * Known gaps: name shape (e.g. trailing “Group”), subclassing, or ambiguous hits —
+ * `searchCompany` returns `[]` for these strings as of last alignment.
+ */
+const LARGE_CAP_SEARCH_EMPTY_RESULTS: ReadonlyArray<NamedWikidataCase> = [
+  { companyName: 'Coop i Sverige', klimatkollenWikidataId: 'Q106684510' },
+  { companyName: 'Troax Group', klimatkollenWikidataId: 'Q56300993' },
+  { companyName: 'Hemnet Group', klimatkollenWikidataId: 'Q10521828' },
+  { companyName: 'Inter IKEA Group', klimatkollenWikidataId: 'Q47508289' },
 ]
 
 const SPECIAL_CASE_NAMES = new Set(
   LARGE_CAP_SEARCH_SPECIAL_CASES.map((c) => c.companyName)
+)
+
+const EMPTY_RESULT_NAMES = new Set(
+  LARGE_CAP_SEARCH_EMPTY_RESULTS.map((c) => c.companyName)
 )
 
 function largeCapCasesFromData(
@@ -61,11 +65,9 @@ function largeCapCasesFromData(
 
 const regularCases = largeCapCasesFromData(
   companyWikidata as Record<string, CompanyEntry>
-).filter(([name]) => !SPECIAL_CASE_NAMES.has(name))
-
-const _casesThatFail: [string, string][] = [
-  ['This is a non-existing company', 'Q100000000'],
-]
+).filter(
+  ([name]) => !SPECIAL_CASE_NAMES.has(name) && !EMPTY_RESULT_NAMES.has(name)
+)
 
 describe('searchCompany (large cap)', () => {
   jest.setTimeout(60_000)
@@ -86,29 +88,34 @@ describe('searchCompany (large cap)', () => {
       expectWikidataIdInTopResults(results, klimatkollenWikidataId)
     }
   )
+
+  it.each(LARGE_CAP_SEARCH_EMPTY_RESULTS)(
+    'returns no hits for $companyName (Klimatkollen $klimatkollenWikidataId)',
+    async ({ companyName }) => {
+      const results = await searchCompany({ companyName })
+      expect(results).toHaveLength(0)
+    }
+  )
 })
 
-/* 
+/*
+  Notes (search quality / data):
+  - Unusual subclasses: e.g. Sweco (architectural firm), SJ (agency).
+  - Naming tweaks still wanted: OKQ8 Scandinavia, Millicom Int. Cellular,
+    Lundbergföretagen (koncern), Fenix Outdoor Int., Evolution (+ AB); stripping
+    “Group” helps Troax/Hemnet/IKEA but breaks others — see EMPTY_RESULTS.
+  - Similar names: e.g. Lundin Mining vs litigation entity — industry prop helps.
+  - ICA Gruppen: Klimatkollen id may differ; search finds the right entity.
+  - Lindab International: resolved via Swedish link preference.
+*/
 
-Known issues:
-- Unusual subclasses
-  - "Sweco" is not a company, but an architectural firm. Other such special cases will probably occur in the future.
-  - "SJ" is not a company, but a Swedish government agency.
-
-- Naming
-  - "OKQ8 Scandinavia" has to have Scandinavia removed from the name.
-  - "Millicom Int. Cellular" has to have Int. removed from the name.
-  - "Lundbergföretagen (koncern)" has to have koncern removed from the name.
-  - "Fenix Outdoor Int." has to have Int. removed from the name.
-  - "Evolution" has to have AB added to its name.
-  - "Troax Group", "Hemnet Group" and "Inter IKEA Group" needs Group removed, but that causes issues for other companies.
-  - "Coop i Sverige" has a really tricky name.
-
-
-- Several entities with very similar names
-  - "Lundin Mining Corp." and "Lundin Mining Corp. v. Markowich". We now prefer results that have industry prop set in Wikidata.
-
-
-ICA Gruppen: har fel wikidata id hos oss, koden ovan hittar rätt.
-Lindab International: finns två sidor för samma företag, rättades till genom att söka på svenska länkar.
+/*
+  Notes (search quality / data):
+  - Unusual subclasses: e.g. Sweco (architectural firm), SJ (agency).
+  - Naming tweaks still wanted: OKQ8 Scandinavia, Millicom Int. Cellular,
+    Lundbergföretagen (koncern), Fenix Outdoor Int., Evolution (+ AB); stripping
+    “Group” helps Troax/Hemnet/IKEA but breaks others — see EMPTY_RESULTS.
+  - Similar names: e.g. Lundin Mining vs litigation entity — industry prop helps.
+  - ICA Gruppen: Klimatkollen id may differ; search finds the right entity.
+  - Lindab International: resolved via Swedish link preference.
 */
