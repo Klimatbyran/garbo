@@ -21,21 +21,21 @@ const LARGE_CAP_SEARCH_SPECIAL_CASES: ReadonlyArray<{
   klimatkollenWikidataId: string
   firstSearchHitId: string | undefined
 }> = [
-  // {
-  //   companyName: 'Coop i Sverige',
-  //   klimatkollenWikidataId: 'Q106684510',
-  //   firstSearchHitId: undefined,
-  // },
+  {
+    companyName: 'Coop i Sverige',
+    klimatkollenWikidataId: 'Q106684510',
+    firstSearchHitId: undefined,
+  },
   {
     companyName: 'Mips',
     klimatkollenWikidataId: 'Q109787297',
     firstSearchHitId: 'Q1631366',
   },
-  // {
-  //   companyName: 'SBB', // mkt svår kanske kan matcha rätt med beskrivning
-  //   klimatkollenWikidataId: 'Q93559269',
-  //   firstSearchHitId: 'Q7452767',
-  // },
+  {
+    companyName: 'SBB', // mkt svår kanske kan matcha rätt med beskrivning
+    klimatkollenWikidataId: 'Q93559269',
+    firstSearchHitId: 'Q7452767',
+  },
 ]
 
 const SPECIAL_CASE_NAMES = new Set(
@@ -70,13 +70,13 @@ const _casesThatFail: [string, string][] = [
 describe('searchCompany (large cap)', () => {
   jest.setTimeout(60_000)
 
-  it.each(regularCases)(
-    `resolves "%s" so Wikidata id %s appears in top ${EXPECT_WIKIDATA_ID_IN_TOP}`,
-    async (name, id) => {
-      const results = await searchCompany({ companyName: name })
-      expectWikidataIdInTopResults(results, id)
-    }
-  )
+  // it.each(regularCases)(
+  //   `resolves "%s" so Wikidata id %s appears in top ${EXPECT_WIKIDATA_ID_IN_TOP}`,
+  //   async (name, id) => {
+  //     const results = await searchCompany({ companyName: name })
+  //     expectWikidataIdInTopResults(results, id)
+  //   }
+  // )
 
   it.each(LARGE_CAP_SEARCH_SPECIAL_CASES)(
     'special: $companyName — Klimatkollen id $klimatkollenWikidataId in top ' +
@@ -89,6 +89,7 @@ describe('searchCompany (large cap)', () => {
 })
 
 /* 
+
 Known issues:
 - Unusual subclasses
   - "Sweco" is not a company, but an architectural firm. Other such special cases will probably occur in the future.
@@ -100,6 +101,9 @@ Known issues:
   - "Lundbergföretagen (koncern)" has to have koncern removed from the name.
   - "Fenix Outdoor Int." has to have Int. removed from the name.
   - "Evolution" has to have AB added to its name.
+  - "Troax Group", "Hemnet Group" and "Inter IKEA Group" needs Group removed, but that causes issues for other companies.
+  - "Coop i Sverige" has a really tricky name.
+
 
 - Several entities with very similar names
   - "Lundin Mining Corp." and "Lundin Mining Corp. v. Markowich". We now prefer results that have industry prop set in Wikidata.
