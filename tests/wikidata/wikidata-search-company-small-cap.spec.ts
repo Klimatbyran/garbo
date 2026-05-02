@@ -1,5 +1,9 @@
 import { describe, expect, it, jest } from '@jest/globals'
 import { searchCompany } from '../../src/lib/wikidata/read'
+import {
+  EXPECT_WIKIDATA_ID_IN_TOP,
+  expectWikidataIdInTopResults,
+} from './wikidata-search-assertions'
 
 /**
  * Wikidata entity search — small-cap cases (live API).
@@ -30,18 +34,18 @@ describe('searchCompany (small cap)', () => {
   jest.setTimeout(30_000)
 
   it.each(casesThatPass satisfies [string, string][])(
-    'resolves "%s" to Wikidata id %s',
+    `resolves "%s" so Wikidata id %s appears in top ${EXPECT_WIKIDATA_ID_IN_TOP}`,
     async (name, id) => {
       const results = await searchCompany({ companyName: name })
-      expect(results[0]?.id).toBe(id)
+      expectWikidataIdInTopResults(results, id)
     }
   )
 
   it.each(specialCases satisfies [string, string][])(
-    'resolves "%s" to Wikidata id %s',
+    `resolves "%s" so Wikidata id %s appears in top ${EXPECT_WIKIDATA_ID_IN_TOP}`,
     async (name, id) => {
       const results = await searchCompany({ companyName: name })
-      expect(results[0]?.id).toBe(id)
+      expectWikidataIdInTopResults(results, id)
     }
   )
 

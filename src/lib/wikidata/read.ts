@@ -123,7 +123,7 @@ export async function getLEINumber(
   return claims['P1278'][0].mainsnak.datavalue.value
 }
 
-/** Trailing company legal forms often omitted from Wikidata labels (e.g. "… Group AB" vs "… Group"). */
+/** Trailing company legal forms often omitted from Wikidata labels (e.g. "… AB" vs "…"). */
 const LEGAL_FORM_SUFFIXES = new Set([
   'ab',
   'aktiebolag',
@@ -133,7 +133,6 @@ const LEGAL_FORM_SUFFIXES = new Set([
   'corp',
   'corporation',
   'gmbh',
-  'group',
   'inc',
   'incorporated',
   'int',
@@ -479,30 +478,37 @@ async function fetchSearchHitAugmentation(
   const byId = new Map<string, SearchHitAugmentation>()
   if (ids.length === 0) return byId
 
-  const url = wbk.getEntities({
-    ids: ids as EntityId[],
-    props: ['claims', 'sitelinks'],
-    languages: ['en'],
-  })
-  const { entities } = await fetchJsonWithRetries<WbGetEntitiesResponse>(url, {
-    headers: { ...WIKIDATA_SEARCH_HEADERS },
-    maxAttempts: 3,
-    expectedContentType: 'application/json',
-    context: 'Wikidata entities (P31, P452, sitelinks)',
-  })
+  const chunkSize = 50
+  for (let offset = 0; offset < ids.length; offset += chunkSize) {
+    const chunk = ids.slice(offset, offset + chunkSize)
+    const url = wbk.getEntities({
+      ids: chunk as EntityId[],
+      props: ['claims', 'sitelinks'],
+      languages: ['en'],
+    })
+    const { entities } = await fetchJsonWithRetries<WbGetEntitiesResponse>(
+      url,
+      {
+        headers: { ...WIKIDATA_SEARCH_HEADERS },
+        maxAttempts: 3,
+        expectedContentType: 'application/json',
+        context: 'Wikidata entities (P31, P452, sitelinks)',
+      }
+    )
 
-  for (const id of ids) {
-    const entity = entities[id]
-    const instanceOf = collectInstanceOfIds(entity)
-    const companyLike = [...instanceOf].some((q) =>
-      COMPANY_LIKE_INSTANCE_OF.has(q)
-    )
-    const industryIds = collectItemIdsForProperty(entity, INDUSTRY)
-    const sitelinkPreferenceRank = computeSitelinkPreferenceRank(
-      entity,
-      language
-    )
-    byId.set(id, { companyLike, industryIds, sitelinkPreferenceRank })
+    for (const id of chunk) {
+      const entity = entities[id]
+      const instanceOf = collectInstanceOfIds(entity)
+      const companyLike = [...instanceOf].some((q) =>
+        COMPANY_LIKE_INSTANCE_OF.has(q)
+      )
+      const industryIds = collectItemIdsForProperty(entity, INDUSTRY)
+      const sitelinkPreferenceRank = computeSitelinkPreferenceRank(
+        entity,
+        language
+      )
+      byId.set(id, { companyLike, industryIds, sitelinkPreferenceRank })
+    }
   }
   return byId
 }
@@ -555,6 +561,51 @@ async function searchWikidataEntities(
   return response.search ?? []
 }
 
+/**
+ * Merges two hit lists by alternating indices and skipping duplicate ids — keeps
+ * English crawl order while pulling in Swedish ranking (where Nordic listings
+ * such as MTG → Q378944 or SCA → Q52601 often rank #1).
+ */
+function interleaveDedupeSearchResults(
+  primary: SearchResult[],
+  secondary: SearchResult[]
+): SearchResult[] {
+  const seen = new Set<string>()
+  const out: SearchResult[] = []
+  const n = Math.max(primary.length, secondary.length)
+  for (let i = 0; i < n; i++) {
+    if (i < primary.length) {
+      const r = primary[i]
+      if (!seen.has(r.id)) {
+        seen.add(r.id)
+        out.push(r)
+      }
+    }
+    if (i < secondary.length) {
+      const r = secondary[i]
+      if (!seen.has(r.id)) {
+        seen.add(r.id)
+        out.push(r)
+      }
+    }
+  }
+  return out
+}
+
+/**
+ * When the UI language is English, also search in Swedish and interleave hits so
+ * short tickers and Swedish labels (MTG, SCA, …) are not lost to unrelated en matches.
+ */
+async function searchWikidataEntitiesForCompany(
+  search: string,
+  language: SearchEntitiesOptions['language'] | undefined
+): Promise<SearchResponse['search']> {
+  const primary = await searchWikidataEntities(search, language)
+  if (language !== 'en') return primary
+  const svHits = await searchWikidataEntities(search, 'sv')
+  return interleaveDedupeSearchResults(primary, svHits)
+}
+
 export async function searchCompany({
   companyName,
   /** `wbsearchentities` UI language; default `en` suits international company names. Pass `sv`, `de`, etc. when you know the listing’s primary locale. */
@@ -563,19 +614,19 @@ export async function searchCompany({
   companyName
   language?: SearchEntitiesOptions['language']
 }): Promise<CompanySearchResult[]> {
-  let results = await searchWikidataEntities(companyName, language)
+  let results = await searchWikidataEntitiesForCompany(companyName, language)
 
   if (results.length === 0) {
     const simplified = stripLegalFormSuffixes(companyName)
     if (simplified) {
-      results = await searchWikidataEntities(simplified, language)
+      results = await searchWikidataEntitiesForCompany(simplified, language)
     }
   }
 
   if (results.length === 0) {
     const expanded = expandInternationalAbbreviation(companyName)
     if (expanded) {
-      results = await searchWikidataEntities(expanded, language)
+      results = await searchWikidataEntitiesForCompany(expanded, language)
     }
   }
 
@@ -592,7 +643,10 @@ export async function searchCompany({
     if (everyHitNonCompany) {
       const simplified = stripLegalFormSuffixes(companyName)
       if (simplified) {
-        const fromStrip = await searchWikidataEntities(simplified, language)
+        const fromStrip = await searchWikidataEntitiesForCompany(
+          simplified,
+          language
+        )
         if (fromStrip.length > 0) {
           results = fromStrip
           augmentation = await fetchSearchHitAugmentation(
@@ -609,7 +663,10 @@ export async function searchCompany({
         for (const listingQuery of supplementaryLegalFormListingQueries(
           companyName
         )) {
-          const fromLegal = await searchWikidataEntities(listingQuery, language)
+          const fromLegal = await searchWikidataEntitiesForCompany(
+            listingQuery,
+            language
+          )
           if (fromLegal.length === 0) continue
           const augLegal = await fetchSearchHitAugmentation(
             fromLegal.map((r) => r.id),

@@ -1,21 +1,13 @@
-import { describe, expect, it, jest } from '@jest/globals'
+import { describe, it, jest } from '@jest/globals'
 import { searchCompany } from '../../src/lib/wikidata/read'
 import companyWikidata from './data/klimatkollen-company-wikidata.json'
+import {
+  EXPECT_WIKIDATA_ID_IN_TOP,
+  expectWikidataIdInTopResults,
+} from './wikidata-search-assertions'
 /**
  * Wikidata entity search — large-cap cases (live API).
  */
-
-/** Assert Klimatkollen’s id is present in this many best-ranked hits (not necessarily #1). */
-const EXPECT_WIKIDATA_ID_IN_TOP = 10
-
-function expectWikidataIdInTopResults(
-  results: Awaited<ReturnType<typeof searchCompany>>,
-  expectedId: string,
-  top = EXPECT_WIKIDATA_ID_IN_TOP
-): void {
-  const topIds = results.slice(0, top).map((r) => r.id)
-  expect(topIds).toContain(expectedId)
-}
 
 type CompanyEntry = string | { wikidataId: string; tags?: string[] }
 
@@ -86,13 +78,14 @@ describe('searchCompany (large cap)', () => {
     }
   )
 
-  // it.each(LARGE_CAP_SEARCH_SPECIAL_CASES)(
-  //   'special: $companyName — Klimatkollen $klimatkollenWikidataId, previous first hit $firstSearchHitId',
-  //   async ({ companyName, klimatkollenWikidataId }) => {
-  //     const results = await searchCompany({ companyName })
-  //     expect(results[0]?.id).toBe(klimatkollenWikidataId)
-  //   }
-  // )
+  it.each(LARGE_CAP_SEARCH_SPECIAL_CASES)(
+    'special: $companyName — Klimatkollen id $klimatkollenWikidataId in top ' +
+      String(EXPECT_WIKIDATA_ID_IN_TOP),
+    async ({ companyName, klimatkollenWikidataId }) => {
+      const results = await searchCompany({ companyName })
+      expectWikidataIdInTopResults(results, klimatkollenWikidataId)
+    }
+  )
 })
 
 /* 
