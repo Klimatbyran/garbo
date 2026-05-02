@@ -97,25 +97,3 @@ describe('searchCompany (large cap)', () => {
     }
   )
 })
-
-/*
-  Notes (search quality / data):
-  - Unusual subclasses: e.g. Sweco (architectural firm), SJ (agency).
-  - Naming tweaks still wanted: OKQ8 Scandinavia, Millicom Int. Cellular,
-    Lundbergföretagen (koncern), Fenix Outdoor Int., Evolution (+ AB); stripping
-    “Group” helps Troax/Hemnet/IKEA but breaks others — see EMPTY_RESULTS.
-  - Similar names: e.g. Lundin Mining vs litigation entity — industry prop helps.
-  - ICA Gruppen: Klimatkollen id may differ; search finds the right entity.
-  - Lindab International: resolved via Swedish link preference.
-*/
-
-/*
-  Notes (search quality / data):
-  - Unusual subclasses: e.g. Sweco (architectural firm), SJ (agency).
-  - Naming tweaks still wanted: OKQ8 Scandinavia, Millicom Int. Cellular,
-    Lundbergföretagen (koncern), Fenix Outdoor Int., Evolution (+ AB); stripping
-    “Group” helps Troax/Hemnet/IKEA but breaks others — see EMPTY_RESULTS.
-  - Similar names: e.g. Lundin Mining vs litigation entity — industry prop helps.
-  - ICA Gruppen: Klimatkollen id may differ; search finds the right entity.
-  - Lindab International: resolved via Swedish link preference.
-*/
