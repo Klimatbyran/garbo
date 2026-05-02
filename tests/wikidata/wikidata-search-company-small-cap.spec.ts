@@ -34,6 +34,18 @@ const SMALL_CAP_SEARCH_SPECIAL_CASES: ReadonlyArray<NamedWikidataCase> = [
   { companyName: 'Mendus', klimatkollenWikidataId: 'Q138140858' },
   { companyName: 'Nelly', klimatkollenWikidataId: 'Q10438871' },
   { companyName: 'Seafire', klimatkollenWikidataId: 'Q138143154' },
+  { companyName: 'Anoto Group AB', klimatkollenWikidataId: 'Q4770417' }, // Anoto
+  { companyName: 'Björn Borg Group', klimatkollenWikidataId: 'Q4919709' }, // björn borg
+  { companyName: 'Eniro Group AB', klimatkollenWikidataId: 'Q202643' }, // eniro
+  { companyName: 'EQL Pharma AB', klimatkollenWikidataId: 'Q137399896' }, // eql
+  { companyName: 'HAKI Safety AB', klimatkollenWikidataId: 'Q10513026' }, // har ingen titel, finns som haki på svenska wiki
+  { companyName: 'MOMENT GROUP', klimatkollenWikidataId: 'Q10397256' }, // 2e group
+  { companyName: 'Mysafety Group AB', klimatkollenWikidataId: 'Q31890011' }, // ingen titel, finns som mysafety på svenska wiki
+  {
+    companyName: 'Norrhydro Group Plc',
+    klimatkollenWikidataId: 'Q107548957',
+  }, // norrhydro
+  { companyName: 'Svedbergs Group', klimatkollenWikidataId: 'Q109796634' }, // svedbergs i daltorp, men svedbergs group på svenska wiki
 ]
 
 /**
@@ -41,24 +53,13 @@ const SMALL_CAP_SEARCH_SPECIAL_CASES: ReadonlyArray<NamedWikidataCase> = [
  * `searchCompany` returns `[]` for these strings as of last alignment.
  */
 const SMALL_CAP_SEARCH_EMPTY_RESULTS: ReadonlyArray<NamedWikidataCase> = [
-  { companyName: 'Anoto Group AB', klimatkollenWikidataId: 'Q4770417' },
   { companyName: 'B3 Consulting Group', klimatkollenWikidataId: 'Q137909059' },
-  { companyName: 'Björn Borg Group', klimatkollenWikidataId: 'Q4919709' },
-  { companyName: 'Eniro Group AB', klimatkollenWikidataId: 'Q202643' },
-  { companyName: 'EQL Pharma AB', klimatkollenWikidataId: 'Q137399896' },
   { companyName: 'Fastator', klimatkollenWikidataId: 'Q115168502' },
-  { companyName: 'HAKI Safety AB', klimatkollenWikidataId: 'Q10513026' },
   { companyName: 'Karnell Group AB', klimatkollenWikidataId: 'Q138140101' },
-  { companyName: 'MOMENT GROUP', klimatkollenWikidataId: 'Q10397256' },
-  { companyName: 'Mysafety Group AB', klimatkollenWikidataId: 'Q31890011' },
   { companyName: 'Nivika', klimatkollenWikidataId: 'Q134691493' },
   {
     companyName: 'Nordisk Bergteknik AB',
     klimatkollenWikidataId: 'Q138141068',
-  },
-  {
-    companyName: 'Norrhydro Group Plc',
-    klimatkollenWikidataId: 'Q107548957',
   },
   { companyName: 'Pierce Group AB', klimatkollenWikidataId: 'Q138141234' },
   { companyName: 'PION Group AB', klimatkollenWikidataId: 'Q138141573' },
@@ -67,7 +68,6 @@ const SMALL_CAP_SEARCH_EMPTY_RESULTS: ReadonlyArray<NamedWikidataCase> = [
     klimatkollenWikidataId: 'Q138143077',
   },
   { companyName: 'Stockwik', klimatkollenWikidataId: 'Q138142885' },
-  { companyName: 'Svedbergs Group', klimatkollenWikidataId: 'Q109796634' },
   { companyName: 'Vivesto', klimatkollenWikidataId: 'Q138145870' },
   {
     companyName: 'Wall to Wall Group AB',
