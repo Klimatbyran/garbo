@@ -26,19 +26,18 @@ type NamedWikidataCase = Readonly<{
  * When search improves and the id appears, this test fails — move the row back to {@link regularCases}.
  */
 const SMALL_CAP_SEARCH_SPECIAL_CASES: ReadonlyArray<NamedWikidataCase> = [
-  // { companyName: 'Nelly', klimatkollenWikidataId: 'Q10438871' },
-  // { companyName: 'Anoto Group AB', klimatkollenWikidataId: 'Q4770417' }, // Anoto
-  // { companyName: 'Björn Borg Group', klimatkollenWikidataId: 'Q4919709' }, // björn borg
-  // { companyName: 'Eniro Group AB', klimatkollenWikidataId: 'Q202643' }, // eniro
-  { companyName: 'EQL Pharma AB', klimatkollenWikidataId: 'Q137399896' }, // eql
+  { companyName: 'Nelly', klimatkollenWikidataId: 'Q10438871' },
+  { companyName: 'Anoto Group AB', klimatkollenWikidataId: 'Q4770417' }, // Anoto
+  { companyName: 'Björn Borg Group', klimatkollenWikidataId: 'Q4919709' }, // björn borg
+  { companyName: 'Eniro Group AB', klimatkollenWikidataId: 'Q202643' }, // eniro
   { companyName: 'HAKI Safety AB', klimatkollenWikidataId: 'Q10513026' }, // har ingen titel, finns som haki på svenska wiki
   { companyName: 'MOMENT GROUP', klimatkollenWikidataId: 'Q10397256' }, // 2e group
-  // { companyName: 'Mysafety Group AB', klimatkollenWikidataId: 'Q31890011' }, // ingen titel, finns som mysafety på svenska wiki
-  // {
-  //   companyName: 'Norrhydro Group Plc',
-  //   klimatkollenWikidataId: 'Q107548957',
-  // }, // norrhydro
-  // { companyName: 'Svedbergs Group', klimatkollenWikidataId: 'Q109796634' }, // svedbergs i daltorp, men svedbergs group på svenska wiki
+  { companyName: 'Mysafety Group AB', klimatkollenWikidataId: 'Q31890011' }, // ingen titel, finns som mysafety på svenska wiki
+  {
+    companyName: 'Norrhydro Group Plc',
+    klimatkollenWikidataId: 'Q107548957',
+  }, // norrhydro
+  { companyName: 'Svedbergs Group', klimatkollenWikidataId: 'Q109796634' }, // svedbergs i daltorp, men svedbergs group på svenska wiki
 ]
 
 /**
@@ -73,6 +72,7 @@ const SMALL_CAP_SEARCH_EMPTY_RESULTS: ReadonlyArray<NamedWikidataCase> = [
   { companyName: 'Inission AB', klimatkollenWikidataId: 'Q138139493' },
   { companyName: 'Mendus', klimatkollenWikidataId: 'Q138140858' },
   { companyName: 'Seafire', klimatkollenWikidataId: 'Q138143154' },
+  { companyName: 'EQL Pharma AB', klimatkollenWikidataId: 'Q137399896' }, // inkorrekt id, istället australiensiskt företag
 ]
 
 const SPECIAL_CASE_NAMES = new Set(
@@ -109,22 +109,22 @@ const regularCases = smallCapCasesFromData(
 describe('searchCompany (small cap)', () => {
   jest.setTimeout(60_000)
 
-  // it.each(regularCases)(
-  //   `resolves "%s" so Wikidata id %s appears in top ${EXPECT_WIKIDATA_ID_IN_TOP}`,
-  //   async (name, id) => {
-  //     const results = await searchCompany({ companyName: name })
-  //     expectWikidataIdInTopResults(results, id)
-  //   }
-  // )
-
-  it.each(SMALL_CAP_SEARCH_SPECIAL_CASES)(
-    'special: $companyName — hits exclude Klimatkollen id $klimatkollenWikidataId',
-    async ({ companyName, klimatkollenWikidataId }) => {
-      const results = await searchCompany({ companyName })
-      expect(results.length).toBeGreaterThan(0)
-      expect(results.map((r) => r.id)).toContain(klimatkollenWikidataId)
+  it.each(regularCases)(
+    `resolves "%s" so Wikidata id %s appears in top ${EXPECT_WIKIDATA_ID_IN_TOP}`,
+    async (name, id) => {
+      const results = await searchCompany({ companyName: name })
+      expectWikidataIdInTopResults(results, id)
     }
   )
+
+  // it.each(SMALL_CAP_SEARCH_SPECIAL_CASES)(
+  //   'special: $companyName — hits exclude Klimatkollen id $klimatkollenWikidataId',
+  //   async ({ companyName, klimatkollenWikidataId }) => {
+  //     const results = await searchCompany({ companyName })
+  //     expect(results.length).toBeGreaterThan(0)
+  //     expect(results.map((r) => r.id)).toContain(klimatkollenWikidataId)
+  //   }
+  // )
 
   // it.each(SMALL_CAP_SEARCH_EMPTY_RESULTS)(
   //   'returns no hits for $companyName (Klimatkollen $klimatkollenWikidataId)',

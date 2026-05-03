@@ -133,7 +133,6 @@ const LEGAL_FORM_SUFFIXES = new Set([
   'corp',
   'corporation',
   'gmbh',
-  'group',
   'inc',
   'incorporated',
   'int',
@@ -228,6 +227,7 @@ function legalFormSuffixAppendLabel(norm: string): string {
     corp: 'Corp',
     inc: 'Inc',
     gmbh: 'GmbH',
+    group: 'Group',
     publ: '(publ)',
     int: 'Int',
   }
