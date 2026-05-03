@@ -133,6 +133,7 @@ const LEGAL_FORM_SUFFIXES = new Set([
   'corp',
   'corporation',
   'gmbh',
+  'group',
   'inc',
   'incorporated',
   'int',
@@ -202,6 +203,17 @@ function expandInternationalAbbreviation(companyName: string): string | null {
     .trim()
     .replace(/\s+/g, ' ')
   return expanded !== normalized ? expanded : null
+}
+
+/**
+ * Many Wikidata items use a trailing “Group” while exchange listings drop it.
+ * Returns null when the name already ends with “Group” or is empty.
+ */
+function appendGroupSuffixForSearch(companyName: string): string | null {
+  const s = normalizeCompanySearchName(companyName)
+  if (!s) return null
+  if (/\bgroup$/i.test(s)) return null
+  return `${s} Group`
 }
 
 /**
@@ -623,10 +635,17 @@ export async function searchCompany({
     }
   }
 
-  if (results.length === 0) {
+  if (results.length === 0 && companyName.includes('Int')) {
     const expanded = expandInternationalAbbreviation(companyName)
     if (expanded) {
       results = await searchWikidataEntitiesForCompany(expanded, language)
+    }
+  }
+
+  if (results.length === 0 && !companyName.includes('Group')) {
+    const withGroup = appendGroupSuffixForSearch(companyName)
+    if (withGroup) {
+      results = await searchWikidataEntitiesForCompany(withGroup, language)
     }
   }
 
