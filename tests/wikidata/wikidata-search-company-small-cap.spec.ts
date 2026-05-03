@@ -26,14 +26,7 @@ type NamedWikidataCase = Readonly<{
  * When search improves and the id appears, this test fails — move the row back to {@link regularCases}.
  */
 const SMALL_CAP_SEARCH_SPECIAL_CASES: ReadonlyArray<NamedWikidataCase> = [
-  { companyName: 'Acrinova', klimatkollenWikidataId: 'Q138135683' },
-  { companyName: 'Berner Industrier AB', klimatkollenWikidataId: 'Q138135718' },
-  { companyName: 'Bong', klimatkollenWikidataId: 'Q18287289' },
-  { companyName: 'Concejo', klimatkollenWikidataId: 'Q138135784' },
-  { companyName: 'Inission AB', klimatkollenWikidataId: 'Q138139493' },
-  { companyName: 'Mendus', klimatkollenWikidataId: 'Q138140858' },
   // { companyName: 'Nelly', klimatkollenWikidataId: 'Q10438871' },
-  { companyName: 'Seafire', klimatkollenWikidataId: 'Q138143154' },
   // { companyName: 'Anoto Group AB', klimatkollenWikidataId: 'Q4770417' }, // Anoto
   // { companyName: 'Björn Borg Group', klimatkollenWikidataId: 'Q4919709' }, // björn borg
   // { companyName: 'Eniro Group AB', klimatkollenWikidataId: 'Q202643' }, // eniro
@@ -73,6 +66,13 @@ const SMALL_CAP_SEARCH_EMPTY_RESULTS: ReadonlyArray<NamedWikidataCase> = [
     companyName: 'Wall to Wall Group AB',
     klimatkollenWikidataId: 'Q138144224',
   },
+  { companyName: 'Acrinova', klimatkollenWikidataId: 'Q138135683' },
+  { companyName: 'Berner Industrier AB', klimatkollenWikidataId: 'Q138135718' },
+  { companyName: 'Bong', klimatkollenWikidataId: 'Q18287289' },
+  { companyName: 'Concejo', klimatkollenWikidataId: 'Q138135784' },
+  { companyName: 'Inission AB', klimatkollenWikidataId: 'Q138139493' },
+  { companyName: 'Mendus', klimatkollenWikidataId: 'Q138140858' },
+  { companyName: 'Seafire', klimatkollenWikidataId: 'Q138143154' },
 ]
 
 const SPECIAL_CASE_NAMES = new Set(
