@@ -109,22 +109,22 @@ const regularCases = smallCapCasesFromData(
 describe('searchCompany (small cap)', () => {
   jest.setTimeout(60_000)
 
-  it.each(regularCases)(
-    `resolves "%s" so Wikidata id %s appears in top ${EXPECT_WIKIDATA_ID_IN_TOP}`,
-    async (name, id) => {
-      const results = await searchCompany({ companyName: name })
-      expectWikidataIdInTopResults(results, id)
-    }
-  )
-
-  // it.each(SMALL_CAP_SEARCH_SPECIAL_CASES)(
-  //   'special: $companyName — hits exclude Klimatkollen id $klimatkollenWikidataId',
-  //   async ({ companyName, klimatkollenWikidataId }) => {
-  //     const results = await searchCompany({ companyName })
-  //     expect(results.length).toBeGreaterThan(0)
-  //     expect(results.map((r) => r.id)).toContain(klimatkollenWikidataId)
+  // it.each(regularCases)(
+  //   `resolves "%s" so Wikidata id %s appears in top ${EXPECT_WIKIDATA_ID_IN_TOP}`,
+  //   async (name, id) => {
+  //     const results = await searchCompany({ companyName: name })
+  //     expectWikidataIdInTopResults(results, id)
   //   }
   // )
+
+  it.each(SMALL_CAP_SEARCH_SPECIAL_CASES)(
+    'special: $companyName — hits exclude Klimatkollen id $klimatkollenWikidataId',
+    async ({ companyName, klimatkollenWikidataId }) => {
+      const results = await searchCompany({ companyName })
+      expect(results.length).toBeGreaterThan(0)
+      expect(results.map((r) => r.id)).toContain(klimatkollenWikidataId)
+    }
+  )
 
   // it.each(SMALL_CAP_SEARCH_EMPTY_RESULTS)(
   //   'returns no hits for $companyName (Klimatkollen $klimatkollenWikidataId)',
