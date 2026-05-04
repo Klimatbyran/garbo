@@ -1,7 +1,7 @@
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
-import { enqueueSaveToAPIWithParentFallback } from '../lib/DiffWorker'
 import { defaultMetadata } from '../lib/saveUtils'
 import { QUEUE_NAMES } from '../queues'
+import saveToAPI from './saveToAPI'
 import { Description } from '../api/types'
 import { askPrompt } from '../lib/openai'
 
@@ -51,15 +51,15 @@ const diffDescriptions = new DiscordWorker<DiffDescriptionsJob>(
 
     // Only save if we detected any meaningful changes
     if (!diff.includes('NO_CHANGES')) {
-      await enqueueSaveToAPIWithParentFallback(
-        job,
+      await saveToAPI.queue.add(
         companyName + ' descriptions',
         {
           ...job.data,
           body,
           diff,
           apiSubEndpoint: '',
-        }
+        },
+        job.id ? { parent: { id: job.id, queue: job.queueName } } : undefined
       )
     }
 
