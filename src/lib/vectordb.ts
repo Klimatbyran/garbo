@@ -61,6 +61,10 @@ function toSeconds(ms: number): number {
   return Math.max(1, Math.floor(ms / 1000))
 }
 
+function elapsedMs(start: number): number {
+  return Date.now() - start
+}
+
 function safeLog(log: (msg: string) => void, message: string) {
   try {
     log(message)
@@ -331,6 +335,7 @@ async function getRelevantMarkdown(
   nResults = 10,
   log: (msg: string) => void = console.log
 ) {
+  const totalStart = Date.now()
   const normalizedQueryTexts = normalizeQueryTexts(queryTexts)
   const reportVersion = await getReportVersion(url)
   const retrievalKey = buildRetrievalCacheKey({
@@ -342,10 +347,13 @@ async function getRelevantMarkdown(
     normalizedQueryTexts,
   })
 
+  const cacheReadStart = Date.now()
   const cached = await cacheGet(retrievalKey)
+  const cacheReadMs = elapsedMs(cacheReadStart)
   if (cached) {
     cacheStats.retrievalHits++
-    safeLog(log, 'Retrieval cache hit')
+    safeLog(log, `Retrieval cache hit (${cacheReadMs}ms)`)
+    safeLog(log, `VectorDB timing total=${elapsedMs(totalStart)}ms`)
     return cached
   }
 
@@ -355,17 +363,22 @@ async function getRelevantMarkdown(
   if (inFlight) {
     cacheStats.dedupWaits++
     safeLog(log, 'Waiting for in-flight retrieval result')
-    return inFlight
+    const result = await inFlight
+    safeLog(log, `VectorDB timing dedup_wait_total=${elapsedMs(totalStart)}ms`)
+    return result
   }
 
   const retrievalPromise = (async () => {
+    const embeddingStart = Date.now()
     const queryEmbeddings = await getQueryEmbeddings(normalizedQueryTexts, log)
+    const embeddingMs = elapsedMs(embeddingStart)
 
     safeLog(
       log,
       `Waiting for ChromaDB slot (concurrency=${CHROMA_CONCURRENCY}, active=${activeChromaQueries})...`
     )
 
+    const chromaStart = Date.now()
     const markdown = await withChromaLimit(async () => {
       safeLog(log, 'Querying ChromaDB')
       const result = await collection.query({
@@ -381,7 +394,9 @@ async function getRelevantMarkdown(
 
       return uniqueParagraphs.join('\n\n')
     })
+    const chromaMs = elapsedMs(chromaStart)
 
+    const cacheWriteStart = Date.now()
     if (shouldCachePayload(markdown, config.cacheMaxPayloadBytes)) {
       await cacheSet(retrievalKey, markdown, config.retrievalCacheTtlMs)
     } else {
@@ -392,6 +407,12 @@ async function getRelevantMarkdown(
         `Skipping retrieval cache write (${payloadBytes} bytes > max ${config.cacheMaxPayloadBytes})`
       )
     }
+    const cacheWriteMs = elapsedMs(cacheWriteStart)
+
+    safeLog(
+      log,
+      `VectorDB timing cache_read=${cacheReadMs}ms embedding=${embeddingMs}ms chroma=${chromaMs}ms cache_write=${cacheWriteMs}ms total=${elapsedMs(totalStart)}ms`
+    )
 
     return markdown
   })()
