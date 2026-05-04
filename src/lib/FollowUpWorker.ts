@@ -7,11 +7,12 @@ import {
 } from 'openai/resources'
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { vectorDB } from './vectordb'
-import { Queue } from 'bullmq'
+import { Queue, WorkerOptions } from 'bullmq'
 import redis from '../config/redis'
 import { z } from 'zod'
 import { FollowUpType } from '../types'
 import { defaultQueueJobOptions } from './queueRetention'
+import workersConfig from '../config/workers'
 
 export class FollowUpJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -131,12 +132,18 @@ export class FollowUpWorker<
   queue: Queue
   constructor(
     name: string,
-    callback: (job: T) => any,
+    callback: (job: T) => unknown | Promise<unknown>,
     options?: WorkerOptions
   ) {
     super(name, (job: T) => callback(addCustomMethods(job) as T), {
       connection: redis,
-      concurrency: 1,
+      concurrency: workersConfig.getFollowUpConcurrency(name),
+      limiter: workersConfig.followUpRateLimitEnabled
+        ? {
+            max: workersConfig.followUpRateLimitMax,
+            duration: workersConfig.followUpRateLimitDurationMs,
+          }
+        : undefined,
       ...options,
     })
 
