@@ -1,0 +1,76 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: bullmq-cleanup
+spec:
+  schedule: '15 * * * *'
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 3600
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: bullmq-cleanup
+              image: ghcr.io/klimatbyran/garbo
+              imagePullPolicy: Always
+              command:
+                [
+                  'npm',
+                  'run',
+                  'cleanup:bullmq',
+                  '--',
+                  '--completed-hours=24',
+                  '--failed-days=7',
+                  '--limit=2000',
+                ]
+              envFrom:
+                - secretRef:
+                    name: env
+              env:
+                - name: REDIS_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: redis
+                      key: redis-password
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: vector-cache-cleanup
+spec:
+  schedule: '45 */3 * * *'
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 3600
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: vector-cache-cleanup
+              image: ghcr.io/klimatbyran/garbo
+              imagePullPolicy: Always
+              command:
+                [
+                  'npm',
+                  'run',
+                  'cleanup:vector-cache',
+                  '--',
+                  '--mode=ctx',
+                  '--limit=5000',
+                ]
+              envFrom:
+                - secretRef:
+                    name: env
+              env:
+                - name: REDIS_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: redis
+                      key: redis-password
