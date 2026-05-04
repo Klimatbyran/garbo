@@ -1,8 +1,18 @@
 import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
 import OpenAI from 'openai'
+import { createClient, RedisClientType } from 'redis'
+import { gzipSync, gunzipSync } from 'node:zlib'
 
 import config from '../config/chromadb'
 import openaiConfig from '../config/openai'
+import redisConfig from '../config/redis'
+import {
+  buildEmbeddingCacheKey,
+  buildRetrievalCacheKey,
+  normalizeQueryTexts,
+  sha256,
+  shouldCachePayload,
+} from './vectorCacheKeys'
 
 const client = new ChromaClient(config)
 const embedder = new OpenAIEmbeddingFunction({
@@ -26,6 +36,205 @@ const reportMetadataType = 'company_sustainability_report'
 const CHROMA_CONCURRENCY = config.concurrency
 let activeChromaQueries = 0
 const chromaQueryWaiters: (() => void)[] = []
+
+const VECTOR_REDIS_PREFIX = 'redis_vdb/'
+const inFlightRetrievals = new Map<string, Promise<string>>()
+
+type EmbeddingVector = number[]
+type EmbeddingResponseData = { embedding: EmbeddingVector }[]
+
+let redis: RedisClientType | null = null
+
+const cacheStats = {
+  retrievalHits: 0,
+  retrievalMisses: 0,
+  embeddingHits: 0,
+  embeddingMisses: 0,
+  dedupWaits: 0,
+  compressedWrites: 0,
+  skippedByPayload: 0,
+  redisReadErrors: 0,
+  redisWriteErrors: 0,
+}
+
+function toSeconds(ms: number): number {
+  return Math.max(1, Math.floor(ms / 1000))
+}
+
+function safeLog(log: (msg: string) => void, message: string) {
+  try {
+    log(message)
+  } catch {
+    // Never let logging failures affect worker execution.
+  }
+}
+
+function encodeCacheValue(value: string): string {
+  const payloadBytes = Buffer.byteLength(value, 'utf8')
+  const shouldCompress =
+    config.cacheEnableCompression &&
+    payloadBytes >= config.cacheCompressionMinBytes
+
+  if (!shouldCompress) {
+    return value
+  }
+
+  const compressed = gzipSync(value)
+  cacheStats.compressedWrites++
+  return `gz:${compressed.toString('base64')}`
+}
+
+function decodeCacheValue(value: string): string {
+  if (!value.startsWith('gz:')) {
+    return value
+  }
+
+  const encoded = value.slice(3)
+  const decompressed = gunzipSync(Buffer.from(encoded, 'base64'))
+  return decompressed.toString('utf8')
+}
+
+async function getRedis(): Promise<RedisClientType | null> {
+  if (redis?.isOpen) {
+    return redis
+  }
+
+  try {
+    const password = redisConfig.password ?? ''
+    const auth = password ? `default:${password}@` : ''
+    const url = `redis://${auth}${redisConfig.host}:${redisConfig.port}`
+
+    redis = createClient({
+      url,
+      socket: {
+        connectTimeout: 1000,
+        reconnectStrategy: false,
+      },
+    })
+
+    redis.on('error', (err) => {
+      console.warn('Vector cache Redis error:', err.message)
+      redis = null
+    })
+
+    redis.on('end', () => {
+      redis = null
+    })
+
+    await redis.connect()
+    return redis
+  } catch (error) {
+    console.warn(
+      'Vector cache Redis unavailable, continuing uncached:',
+      (error as Error)?.message ?? String(error)
+    )
+    redis = null
+    return null
+  }
+}
+
+async function cacheGet(key: string): Promise<string | null> {
+  try {
+    const client = await getRedis()
+    if (!client) {
+      return null
+    }
+    const value = await client.get(`${VECTOR_REDIS_PREFIX}${key}`)
+    if (!value) {
+      return null
+    }
+    return decodeCacheValue(value)
+  } catch (error) {
+    cacheStats.redisReadErrors++
+    console.warn('Vector cache read failed:', (error as Error).message)
+    return null
+  }
+}
+
+async function cacheSet(
+  key: string,
+  value: string,
+  ttlMs: number
+): Promise<void> {
+  try {
+    const client = await getRedis()
+    if (!client) {
+      return
+    }
+    await client.set(`${VECTOR_REDIS_PREFIX}${key}`, encodeCacheValue(value), {
+      EX: toSeconds(ttlMs),
+    })
+  } catch (error) {
+    cacheStats.redisWriteErrors++
+    console.warn('Vector cache write failed:', (error as Error).message)
+  }
+}
+
+async function cacheDelete(key: string): Promise<void> {
+  try {
+    const client = await getRedis()
+    if (!client) {
+      return
+    }
+    await client.del(`${VECTOR_REDIS_PREFIX}${key}`)
+  } catch (error) {
+    console.warn('Vector cache delete failed:', (error as Error).message)
+  }
+}
+
+function reportVersionKey(url: string): string {
+  return `report-version:${sha256(url)}`
+}
+
+async function getReportVersion(url: string): Promise<string> {
+  const key = reportVersionKey(url)
+  const value = await cacheGet(key)
+  return value || '0'
+}
+
+async function setReportVersion(url: string, version: string): Promise<void> {
+  await cacheSet(reportVersionKey(url), version, 45 * 24 * 60 * 60 * 1000)
+}
+
+async function getQueryEmbeddings(
+  queryTexts: string[],
+  log: (msg: string) => void
+): Promise<EmbeddingVector[]> {
+  const normalizedQueryTexts = normalizeQueryTexts(queryTexts)
+  const embeddingCacheKey = buildEmbeddingCacheKey({
+    schemaVersion: config.cacheSchemaVersion,
+    embeddingModel: config.embeddingModel,
+    normalizedQueryTexts,
+  })
+
+  const cached = await cacheGet(embeddingCacheKey)
+  if (cached) {
+    cacheStats.embeddingHits++
+    safeLog(log, `Embedding cache hit (${queryTexts.length} query texts)`)
+    try {
+      const parsed = JSON.parse(cached) as EmbeddingResponseData
+      return parsed.map((e) => e.embedding)
+    } catch {
+      await cacheDelete(embeddingCacheKey)
+    }
+  }
+
+  cacheStats.embeddingMisses++
+
+  safeLog(log, `Generating embeddings (${queryTexts.length} query texts)`)
+  const embeddingResponse = await openaiClient.embeddings.create({
+    model: config.embeddingModel,
+    input: normalizedQueryTexts,
+  })
+
+  await cacheSet(
+    embeddingCacheKey,
+    JSON.stringify(embeddingResponse.data),
+    config.embeddingCacheTtlMs
+  )
+
+  return embeddingResponse.data.map((e) => e.embedding)
+}
 
 async function withChromaLimit<T>(fn: () => Promise<T>): Promise<T> {
   if (activeChromaQueries >= CHROMA_CONCURRENCY) {
@@ -122,31 +331,78 @@ async function getRelevantMarkdown(
   nResults = 10,
   log: (msg: string) => void = console.log
 ) {
-  log(`Generating embeddings (${queryTexts.length} query texts)`)
-  const embeddingResponse = await openaiClient.embeddings.create({
-    model: config.embeddingModel,
-    input: queryTexts,
+  const normalizedQueryTexts = normalizeQueryTexts(queryTexts)
+  const reportVersion = await getReportVersion(url)
+  const retrievalKey = buildRetrievalCacheKey({
+    schemaVersion: config.cacheSchemaVersion,
+    reportVersion,
+    url,
+    embeddingModel: config.embeddingModel,
+    nResults,
+    normalizedQueryTexts,
   })
-  const queryEmbeddings = embeddingResponse.data.map((e) => e.embedding)
 
-  log(
-    `Waiting for ChromaDB slot (concurrency=${CHROMA_CONCURRENCY}, active=${activeChromaQueries})...`
-  )
-  return withChromaLimit(async () => {
-    log(`Querying ChromaDB`)
-    const result = await collection.query({
-      nResults,
-      where: { source: url },
-      queryEmbeddings,
+  const cached = await cacheGet(retrievalKey)
+  if (cached) {
+    cacheStats.retrievalHits++
+    safeLog(log, 'Retrieval cache hit')
+    return cached
+  }
+
+  cacheStats.retrievalMisses++
+
+  const inFlight = inFlightRetrievals.get(retrievalKey)
+  if (inFlight) {
+    cacheStats.dedupWaits++
+    safeLog(log, 'Waiting for in-flight retrieval result')
+    return inFlight
+  }
+
+  const retrievalPromise = (async () => {
+    const queryEmbeddings = await getQueryEmbeddings(normalizedQueryTexts, log)
+
+    safeLog(
+      log,
+      `Waiting for ChromaDB slot (concurrency=${CHROMA_CONCURRENCY}, active=${activeChromaQueries})...`
+    )
+
+    const markdown = await withChromaLimit(async () => {
+      safeLog(log, 'Querying ChromaDB')
+      const result = await collection.query({
+        nResults,
+        where: { source: url },
+        queryEmbeddings,
+      })
+      safeLog(log, 'ChromaDB query complete')
+
+      const metadatas = result.metadatas.flat()
+      const paragraphs = metadatas.map((metadata) => metadata?.paragraph || '')
+      const uniqueParagraphs = Array.from(new Set(paragraphs))
+
+      return uniqueParagraphs.join('\n\n')
     })
-    log(`ChromaDB query complete`)
 
-    const metadatas = result.metadatas.flat()
-    const paragraphs = metadatas.map((metadata) => metadata?.paragraph || '')
-    const uniqueParagraphs = Array.from(new Set(paragraphs))
+    if (shouldCachePayload(markdown, config.cacheMaxPayloadBytes)) {
+      await cacheSet(retrievalKey, markdown, config.retrievalCacheTtlMs)
+    } else {
+      cacheStats.skippedByPayload++
+      const payloadBytes = Buffer.byteLength(markdown, 'utf8')
+      safeLog(
+        log,
+        `Skipping retrieval cache write (${payloadBytes} bytes > max ${config.cacheMaxPayloadBytes})`
+      )
+    }
 
-    return uniqueParagraphs.join('\n\n')
-  })
+    return markdown
+  })()
+
+  inFlightRetrievals.set(retrievalKey, retrievalPromise)
+
+  try {
+    return await retrievalPromise
+  } finally {
+    inFlightRetrievals.delete(retrievalKey)
+  }
 }
 
 /**
@@ -156,6 +412,10 @@ function deleteReport(url: string) {
   return collection.delete({ where: { source: url } })
 }
 
+async function invalidateReportCache(url: string) {
+  await setReportVersion(url, Date.now().toString())
+}
+
 /**
  * Clear all reports. Useful during development.
  */
@@ -163,10 +423,26 @@ function clearAllReports() {
   return collection.delete({ where: { type: reportMetadataType } })
 }
 
+function getVectorCacheStats() {
+  return {
+    ...cacheStats,
+    inFlightRetrievals: inFlightRetrievals.size,
+  }
+}
+
+function resetVectorCacheStats() {
+  for (const key of Object.keys(cacheStats) as (keyof typeof cacheStats)[]) {
+    cacheStats[key] = 0
+  }
+}
+
 export const vectorDB = {
   addReport,
   hasReport,
   deleteReport,
+  invalidateReportCache,
   getRelevantMarkdown,
   clearAllReports,
+  getVectorCacheStats,
+  resetVectorCacheStats,
 }

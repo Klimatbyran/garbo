@@ -11,6 +11,7 @@ import { Queue } from 'bullmq'
 import redis from '../config/redis'
 import { z } from 'zod'
 import { FollowUpType } from '../types'
+import { defaultQueueJobOptions } from './queueRetention'
 
 export class FollowUpJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -139,6 +140,9 @@ export class FollowUpWorker<
       ...options,
     })
 
-    this.queue = new Queue(name, { connection: redis })
+    this.queue = new Queue(name, {
+      connection: redis,
+      defaultJobOptions: defaultQueueJobOptions,
+    })
   }
 }

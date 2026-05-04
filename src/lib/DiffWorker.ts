@@ -4,6 +4,7 @@ import redis from '../config/redis'
 import saveToAPI from '../workers/saveToAPI'
 import { canonicalPublicReportUrl, defaultMetadata } from './saveUtils'
 import discord from '../discord'
+import { defaultQueueJobOptions } from './queueRetention'
 
 /**
  * Enqueue saveToAPI with a BullMQ parent link when possible. If the parent job
@@ -144,6 +145,9 @@ export class DiffWorker<T extends DiffJob> extends DiscordWorker<DiffJob> {
       ...options,
     })
 
-    this.queue = new Queue(name, { connection: redis })
+    this.queue = new Queue(name, {
+      connection: redis,
+      defaultJobOptions: defaultQueueJobOptions,
+    })
   }
 }
