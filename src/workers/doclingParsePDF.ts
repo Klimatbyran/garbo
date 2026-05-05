@@ -1,4 +1,5 @@
 import { DiscordWorker, DiscordJob } from '../lib/DiscordWorker'
+import { UnrecoverableError } from 'bullmq'
 import { QUEUE_NAMES } from '../queues'
 import docling from '../config/docling'
 import redis from '../config/redis'
@@ -182,7 +183,8 @@ async function fetchWithRetry(
       })
       clearTimeout(timeoutId)
 
-      if (retryOn5xx && response.status >= 500 && attempt < maxRetries) {
+      const isGatewayError = [502, 503, 504].includes(response.status)
+      if (retryOn5xx && isGatewayError && attempt < maxRetries) {
         const delayMs = 1000 * Math.pow(2, attempt - 1) + jitter
         job.log(
           `Server error ${response.status} on attempt ${attempt}/${maxRetries}. Retrying in ${delayMs}ms...`
@@ -362,18 +364,13 @@ const doclingParsePDF = new DiscordWorker(
         )
 
         if (!startResponse.ok) {
-          try {
-            const errorBody = await startResponse.text()
-            job.log(`Error response body: ${errorBody}`)
-            throw new Error(
-              `Docling API responded with status: ${startResponse.status}`
-            )
-          } catch (bodyError) {
-            job.log(`Failed to read error response body: ${bodyError.message}`)
-            throw new Error(
-              `Docling API responded with status: ${startResponse.status}`
-            )
+          const errorBody = await startResponse.text().catch(() => '')
+          job.log(`Error response body: ${errorBody}`)
+          const msg = `Docling API responded with status: ${startResponse.status}`
+          if ([502, 503, 504].includes(startResponse.status)) {
+            throw new Error(msg)
           }
+          throw new UnrecoverableError(msg)
         }
 
         const responseData = await startResponse.json()
@@ -413,6 +410,8 @@ const doclingParsePDF = new DiscordWorker(
           useBackupAPI
         )
       } catch (networkError) {
+        if (networkError instanceof UnrecoverableError) throw networkError
+
         job.log(
           `Network error details: ${JSON.stringify(
             {
@@ -503,9 +502,11 @@ async function pollTaskAndGetResult(
           throw new Error('Task not found on Docling (container may have restarted). Will resubmit on retry.')
         }
 
-        throw new Error(
-          `Status check failed with status: ${statusResponse.status}`
-        )
+        const msg = `Status check failed with status: ${statusResponse.status}`
+        if ([502, 503, 504].includes(statusResponse.status)) {
+          throw new Error(msg)
+        }
+        throw new UnrecoverableError(msg)
       }
 
       const statusData = await statusResponse.json()
@@ -515,7 +516,7 @@ async function pollTaskAndGetResult(
         job.log('Task complete, exiting polling loop')
         taskComplete = true
       } else if (statusData.task_status === 'failure') {
-        throw new Error(`Task failed: ${JSON.stringify(statusData)}`)
+        throw new UnrecoverableError(`Task failed: ${JSON.stringify(statusData)}`)
       } else {
         // Task is still pending or processing
         job.log(
@@ -542,9 +543,11 @@ async function pollTaskAndGetResult(
     if (!resultResponse.ok) {
       const errorText = await resultResponse.text()
       job.log(`Result fetch error: ${errorText}`)
-      throw new Error(
-        `Failed to fetch result with status: ${resultResponse.status}`
-      )
+      const msg = `Failed to fetch result with status: ${resultResponse.status}`
+      if ([502, 503, 504].includes(resultResponse.status)) {
+        throw new Error(msg)
+      }
+      throw new UnrecoverableError(msg)
     }
 
     const resultData = await resultResponse.json()
