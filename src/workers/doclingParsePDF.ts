@@ -165,13 +165,15 @@ async function fetchWithRetry(
   options: RequestInit,
   job: DoclingParsePDFJob,
   maxRetries: number = 3,
-  timeoutMs: number = 30000
+  timeoutMs: number = 30000,
+  retryOn5xx: boolean = false
 ): Promise<Response> {
   let lastError: Error | undefined
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     const controller = new AbortController()
     const timeoutId = setTimeout(() => controller.abort(), timeoutMs)
+    const jitter = Math.floor(Math.random() * 1000)
 
     try {
       const response = await fetch(url, {
@@ -179,6 +181,16 @@ async function fetchWithRetry(
         signal: controller.signal,
       })
       clearTimeout(timeoutId)
+
+      if (retryOn5xx && response.status >= 500 && attempt < maxRetries) {
+        const delayMs = 1000 * Math.pow(2, attempt - 1) + jitter
+        job.log(
+          `Server error ${response.status} on attempt ${attempt}/${maxRetries}. Retrying in ${delayMs}ms...`
+        )
+        await sleep(delayMs)
+        continue
+      }
+
       return response
     } catch (error) {
       clearTimeout(timeoutId)
@@ -186,8 +198,7 @@ async function fetchWithRetry(
       const isLastAttempt = attempt === maxRetries
 
       if (!isLastAttempt) {
-        // Exponential backoff: 1s, 2s, 4s
-        const delayMs = 1000 * Math.pow(2, attempt - 1)
+        const delayMs = 1000 * Math.pow(2, attempt - 1) + jitter
         job.log(
           `Network error on attempt ${attempt}/${maxRetries}: ${lastError.message}. Retrying in ${delayMs}ms...`
         )
@@ -232,7 +243,7 @@ const workerOptions = {
   lockDuration: 30 * 60 * 1000,
   ...(docling.USE_BACKUP_API && {
     limiter: {
-      max: 2, // Max 2 concurrent jobs across all worker instances
+      max: 1, // Max 1 concurrent job across all worker instances (Docling handles one at a time)
       duration: 1, // Per 1ms (essentially "at any given time")
     },
   }),
@@ -333,22 +344,18 @@ const doclingParsePDF = new DiscordWorker(
           `Using ${useBackupAPI ? 'backup' : 'primary'} API (${useLocalFormat ? 'local format' : 'Berget format'}): ${endpoint}`
         )
 
-        const controller = new AbortController()
-        const timeoutId = setTimeout(() => controller.abort(), 30000) // 30 second timeout for initial request
-
-        let startResponse
-        try {
-          startResponse = await fetch(endpoint, {
+        const startResponse = await fetchWithRetry(
+          endpoint,
+          {
             method: 'POST',
             headers,
             body: JSON.stringify(job.data.doclingSettings),
-            signal: controller.signal,
-          })
-          clearTimeout(timeoutId)
-        } catch (error) {
-          clearTimeout(timeoutId)
-          throw error
-        }
+          },
+          job,
+          3,
+          60000, // 60s timeout — Docling may be slow to accept when busy
+          true // retry on 5xx (covers 502 when container is temporarily unreachable)
+        )
 
         job.log(
           `Response status: ${startResponse.status} ${startResponse.statusText}`
@@ -488,6 +495,14 @@ async function pollTaskAndGetResult(
       if (!statusResponse.ok) {
         const errorText = await statusResponse.text()
         job.log(`Status check error: ${errorText}`)
+
+        if (statusResponse.status === 404) {
+          // Task no longer exists — Docling likely restarted and lost in-memory state.
+          // Clear taskId so the next BullMQ retry resubmits from scratch.
+          await job.updateData({ ...job.data, taskId: undefined, resultUrl: undefined })
+          throw new Error('Task not found on Docling (container may have restarted). Will resubmit on retry.')
+        }
+
         throw new Error(
           `Status check failed with status: ${statusResponse.status}`
         )
