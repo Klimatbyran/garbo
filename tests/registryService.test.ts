@@ -5,10 +5,11 @@ import { registryService } from '../src/api/services/registryService'
 const mockPrisma: any = {
   report: {
     findMany: jest.fn(),
-    findUnique: jest.fn(),
     create: jest.fn(),
     update: jest.fn(),
+    delete: jest.fn(),
   },
+  $transaction: jest.fn(),
 }
 
 describe('registryService', () => {
@@ -16,9 +17,13 @@ describe('registryService', () => {
 
   beforeEach(() => {
     mockPrisma.report.findMany.mockReset()
-    mockPrisma.report.findUnique.mockReset()
     mockPrisma.report.create.mockReset()
     mockPrisma.report.update.mockReset()
+    mockPrisma.report.delete.mockReset()
+    mockPrisma.$transaction.mockReset()
+    mockPrisma.$transaction.mockImplementation(async (fn: (tx: typeof mockPrisma) => unknown) =>
+      fn(mockPrisma)
+    )
   })
 
   it('getReportRegistry selects new S3/source fields', async () => {
@@ -38,7 +43,7 @@ describe('registryService', () => {
     )
   })
 
-  it('upserts by sha256 first and fills missing fields only', async () => {
+  it('upserts by OR match (sha256) and fills missing fields only', async () => {
     const existing = {
       id: 'r1',
       url: 'https://example.com/report.pdf',
@@ -52,11 +57,7 @@ describe('registryService', () => {
       sha256: 'a'.repeat(64),
     }
 
-    mockPrisma.report.findUnique
-      .mockResolvedValueOnce(existing) // sha256 lookup
-      .mockResolvedValueOnce(null) // sourceUrl lookup would be skipped (short-circuit)
-      .mockResolvedValueOnce(null) // url lookup would be skipped (short-circuit)
-
+    mockPrisma.report.findMany.mockResolvedValueOnce([existing])
     mockPrisma.report.update.mockResolvedValueOnce({
       ...existing,
       sourceUrl: 'https://source.example/report.pdf',
@@ -76,16 +77,18 @@ describe('registryService', () => {
       mockPrisma
     )
 
-    expect(mockPrisma.report.findUnique).toHaveBeenCalledWith({
-      where: { sha256: 'a'.repeat(64) },
-    })
+    expect(mockPrisma.report.findMany).toHaveBeenCalledWith(
+      expect.objectContaining({
+        where: expect.objectContaining({
+          OR: expect.arrayContaining([{ sha256: 'a'.repeat(64) }]),
+        }),
+      })
+    )
 
     expect(mockPrisma.report.update).toHaveBeenCalledWith({
       where: { id: 'r1' },
       data: expect.objectContaining({
-        // existing companyName is not overwritten
         companyName: 'Acme',
-        // missing fields get filled
         wikidataId: 'Q1',
         reportYear: '2024',
         sourceUrl: 'https://source.example/report.pdf',
@@ -94,11 +97,8 @@ describe('registryService', () => {
     })
   })
 
-  it('falls back to upsert by sourceUrl, then by url, then creates', async () => {
-    mockPrisma.report.findUnique
-      .mockResolvedValueOnce(null) // sha256 lookup
-      .mockResolvedValueOnce(null) // sourceUrl lookup
-      .mockResolvedValueOnce(null) // url lookup
+  it('creates when no OR matches', async () => {
+    mockPrisma.report.findMany.mockResolvedValueOnce([])
 
     mockPrisma.report.create.mockResolvedValueOnce({
       id: 'new',
@@ -143,8 +143,7 @@ describe('registryService', () => {
       sha256: null as string | null,
     }
 
-    // No sha256 / no string sourceUrl: only the url lookup runs.
-    mockPrisma.report.findUnique.mockResolvedValueOnce(existing)
+    mockPrisma.report.findMany.mockResolvedValueOnce([existing])
 
     mockPrisma.report.update.mockResolvedValueOnce({
       ...existing,
@@ -171,5 +170,69 @@ describe('registryService', () => {
         s3Url: null,
       }),
     })
+  })
+
+  it('merges multiple matching rows in a transaction', async () => {
+    const s3 = 'https://bucket.s3.amazonaws.com/x.pdf'
+    const rowA = {
+      id: 'a',
+      url: 'https://corp.example/2024/esg',
+      companyName: 'Corp',
+      wikidataId: 'Q9',
+      reportYear: '2024',
+      sourceUrl: null,
+      s3Url: s3,
+      s3Key: null,
+      s3Bucket: null,
+      sha256: null as string | null,
+    }
+    const rowB = {
+      id: 'b',
+      url: s3,
+      companyName: null,
+      wikidataId: null,
+      reportYear: null,
+      sourceUrl: 'https://source.example/page',
+      s3Url: s3,
+      s3Key: 'key1',
+      s3Bucket: 'bkt',
+      sha256: 'b'.repeat(64),
+    }
+
+    mockPrisma.report.findMany
+      .mockResolvedValueOnce([rowA, rowB])
+      .mockResolvedValueOnce([rowA, rowB])
+
+    mockPrisma.report.delete.mockResolvedValue({})
+    mockPrisma.report.update.mockResolvedValue({ ...rowB, ...rowA })
+
+    await registryService.upsertReportInRegistry(
+      {
+        companyName: 'Ignored',
+        wikidataId: 'Q9',
+        reportYear: '2024',
+        url: 'https://corp.example/2024/esg',
+        sourceUrl: undefined,
+        s3Url: s3,
+        sha256: 'b'.repeat(64),
+      },
+      mockPrisma
+    )
+
+    expect(mockPrisma.$transaction).toHaveBeenCalled()
+    expect(mockPrisma.report.delete).toHaveBeenCalledWith({ where: { id: 'a' } })
+    expect(mockPrisma.report.update).toHaveBeenCalledWith(
+      expect.objectContaining({
+        where: { id: 'b' },
+        data: expect.objectContaining({
+          url: 'https://corp.example/2024/esg',
+          sourceUrl: 'https://source.example/page',
+          s3Url: s3,
+          s3Key: 'key1',
+          s3Bucket: 'bkt',
+          sha256: 'b'.repeat(64),
+        }),
+      })
+    )
   })
 })
