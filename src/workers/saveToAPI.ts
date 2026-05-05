@@ -3,6 +3,7 @@ import { apiFetch } from '../lib/api'
 import { QUEUE_NAMES } from '../queues'
 import { registryService } from '../api/services/registryService'
 import { canonicalPublicReportUrl } from '../lib/saveUtils'
+import { isLikelyStoredObjectUrl } from '../api/services/registryReportIdentity'
 import { createServerCache } from '../createCache'
 import { invalidateRegistryCache } from '../api/services/registryCache'
 
@@ -121,10 +122,12 @@ function pickRegistryPayloadFromReportingPeriodsSave(
     normalizeYear(chosen?.year) ??
     (maxYear !== null ? maxYear.toString() : undefined)
 
-  const reportURL =
+  const chosenReportPageUrl =
     typeof chosen?.reportURL === 'string' && chosen.reportURL.trim()
       ? chosen.reportURL.trim()
-      : canonicalReportUrl
+      : ''
+
+  const reportURL = chosenReportPageUrl || canonicalReportUrl
 
   const reportS3Url =
     typeof chosen?.reportS3Url === 'string' && chosen.reportS3Url.trim()
@@ -136,15 +139,63 @@ function pickRegistryPayloadFromReportingPeriodsSave(
       ? chosen.reportSha256.trim()
       : undefined
 
-  const trimmedUrl = url || reportURL
-  if (!trimmedUrl) return null
+  const trimmedJobUrl = url.trim()
 
-  const s3Url =
+  const humanResolved =
+    [
+      chosenReportPageUrl &&
+      /^https?:\/\//i.test(chosenReportPageUrl) &&
+      !isLikelyStoredObjectUrl(chosenReportPageUrl)
+        ? chosenReportPageUrl
+        : undefined,
+      sourceIsHttp && sourceUrl && !isLikelyStoredObjectUrl(sourceUrl)
+        ? sourceUrl.trim()
+        : undefined,
+      canonicalReportUrl &&
+      /^https?:\/\//i.test(canonicalReportUrl) &&
+      !isLikelyStoredObjectUrl(canonicalReportUrl)
+        ? canonicalReportUrl
+        : undefined,
+    ].find(Boolean) ?? undefined
+
+  const assetResolved =
     reportS3Url ||
     s3UrlFromPdfCache ||
-    (trimmedUrl && (!sourceIsHttp || trimmedUrl !== sourceUrl)
-      ? trimmedUrl
+    (trimmedJobUrl && isLikelyStoredObjectUrl(trimmedJobUrl)
+      ? trimmedJobUrl
+      : undefined) ||
+    (s3UrlFromJobUrl && isLikelyStoredObjectUrl(s3UrlFromJobUrl)
+      ? s3UrlFromJobUrl
       : undefined)
+
+  const urlForUniqueRow =
+    humanResolved ||
+    reportURL.trim() ||
+    canonicalReportUrl ||
+    trimmedJobUrl ||
+    ''
+
+  if (!urlForUniqueRow) return null
+
+  let s3Url: string | undefined
+  if (assetResolved) {
+    if (
+      assetResolved !== urlForUniqueRow ||
+      isLikelyStoredObjectUrl(urlForUniqueRow)
+    ) {
+      s3Url = assetResolved
+    }
+  } else if (isLikelyStoredObjectUrl(urlForUniqueRow)) {
+    s3Url = urlForUniqueRow
+  }
+
+  const sourceUrlOut =
+    sourceIsHttp &&
+    sourceUrl &&
+    sourceUrl.trim() !== urlForUniqueRow &&
+    sourceUrl.trim() !== (s3Url ?? '')
+      ? sourceUrl.trim()
+      : undefined
 
   const sha256 = sha256FromPdfCache ?? reportSha256
 
@@ -152,8 +203,8 @@ function pickRegistryPayloadFromReportingPeriodsSave(
     companyName,
     wikidataId,
     reportYear,
-    url: trimmedUrl,
-    sourceUrl: sourceIsHttp ? sourceUrl : undefined,
+    url: urlForUniqueRow,
+    sourceUrl: sourceUrlOut,
     s3Url,
     sha256,
   }
