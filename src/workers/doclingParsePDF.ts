@@ -430,7 +430,9 @@ const doclingParsePDF = new DiscordWorker(
         )
       }
     } catch (error) {
-      job.log('Error: ' + error)
+      job.log(
+        `[${new Date().toISOString()}] attempt ${job.attemptsMade}/${job.opts.attempts} failed: ${error}`
+      )
       job.editMessage(
         `Failed to parse PDF: ${error.message || 'Unknown error'}`
       )
@@ -498,8 +500,14 @@ async function pollTaskAndGetResult(
         if (statusResponse.status === 404) {
           // Task no longer exists — Docling likely restarted and lost in-memory state.
           // Clear taskId so the next BullMQ retry resubmits from scratch.
-          await job.updateData({ ...job.data, taskId: undefined, resultUrl: undefined })
-          throw new Error('Task not found on Docling (container may have restarted). Will resubmit on retry.')
+          await job.updateData({
+            ...job.data,
+            taskId: undefined,
+            resultUrl: undefined,
+          })
+          throw new Error(
+            'Task not found on Docling (container may have restarted). Will resubmit on retry.'
+          )
         }
 
         const msg = `Status check failed with status: ${statusResponse.status}`
@@ -516,7 +524,9 @@ async function pollTaskAndGetResult(
         job.log('Task complete, exiting polling loop')
         taskComplete = true
       } else if (statusData.task_status === 'failure') {
-        throw new UnrecoverableError(`Task failed: ${JSON.stringify(statusData)}`)
+        throw new UnrecoverableError(
+          `Task failed: ${JSON.stringify(statusData)}`
+        )
       } else {
         // Task is still pending or processing
         job.log(

@@ -64,7 +64,7 @@ const parsePdf = new DiscordWorker(
                   queueName: QUEUE_NAMES.DOCLING_PARSE_PDF,
                   opts: {
                     attempts: 3,
-                    backoff: { type: 'fixed', delay: 30_000 },
+                    backoff: { type: 'fixed', delay: 120_000 },
                   },
                 },
               ],
