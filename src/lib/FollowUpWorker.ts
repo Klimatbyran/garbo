@@ -65,7 +65,9 @@ function addCustomMethods(job: FollowUpJob) {
       (msg) => job.log(msg)
     )
     const chromaDurationMs = Date.now() - chromaStart
-    job.log(`✅ Vector DB done for ${type} (${markdown.length} chars, ${chromaDurationMs}ms)`)
+    job.log(
+      `✅ Vector DB done for ${type} (${markdown.length} chars, ${chromaDurationMs}ms)`
+    )
     ensureValidFollowUpInputs(markdown, prompt, queryTexts, type)
 
     job.log(`Reflecting on: ${prompt}

@@ -16,13 +16,13 @@ model Company {
   // // We want to separate the company id from the URL slug
   // id          String  @id @default(cuid())
   /// wikidataId is our unique identifier to link to companies, also used to export to or import from wikidata
-  wikidataId  String  @id
-  name        String
-  description String?
+  wikidataId   String        @id
+  name         String
+  description  String?
   descriptions Description[]
   /// Company website URL
-  url         String?
-  lei         String?
+  url          String?
+  lei          String?
 
   /// TODO: Save Swedish org number, which might be the same as LEI or ISIN
   // swedishOrgNumber
@@ -97,19 +97,19 @@ model IndustryGics {
 
 /// A reporting period is a timespan for accounting emissions as well as financial data
 model ReportingPeriod {
-  id        String   @id @default(cuid())
-  startDate DateTime
-  endDate   DateTime
+  id           String   @id @default(cuid())
+  startDate    DateTime
+  endDate      DateTime
   /// The year needs to be the same year as the endDate.
-  year      String
+  year         String
   /// Save URLs to the sustainability- and potentially also the yearly report for this reporting period.
   /// This needs to be separate from the source URLs for each datapoint, since the data might be updated in a more recent report.
   /// At the same time, we also want to refer back to the actual reports from a given reporting period for comparisons.
-  reportURL String?
+  reportURL    String?
   /// Public URL to the cached/uploaded report PDF (e.g. S3/MinIO/CDN).
-  reportS3Url    String?
+  reportS3Url  String?
   /// Content hash for the cached/uploaded report PDF when available.
-  reportSha256   String?
+  reportSha256 String?
 
   companyId String
 
@@ -368,13 +368,13 @@ model Metadata {
 }
 
 model User {
-  id    String @id @default(cuid())
-  email String?
-  name  String @unique
-  displayName String?
-  githubId   String? @unique
+  id             String  @id @default(cuid())
+  email          String?
+  name           String  @unique
+  displayName    String?
+  githubId       String? @unique
   githubImageUrl String?
-  bot   Boolean @default(false)
+  bot            Boolean @default(false)
 
   // TODO: connect with github ID
   // TODO: store github profile image - or get it via API
@@ -389,14 +389,15 @@ enum Language {
 }
 
 model Description {
-  id          String @id() @default(cuid())
-  text        String
-  companyId   String
+  id        String   @id() @default(cuid())
+  text      String
+  companyId String
   language  Language
-  @@unique([companyId, language])
 
-  company      Company      @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
-  metadata  Metadata[]
+  company  Company    @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+  metadata Metadata[]
+
+  @@unique([companyId, language])
 }
 
 model Report {
@@ -417,10 +418,10 @@ model Report {
 }
 
 model Batch {
-  id         String   @id @default(cuid())
+  id         String      @id @default(cuid())
   /// Human-assigned batch label; same string as pipeline `job.data.batchId` on jobs.
-  batchName  String   @unique @map("batch_name")
-  createdAt  DateTime @default(now())
+  batchName  String      @unique @map("batch_name")
+  createdAt  DateTime    @default(now())
   reportRuns ReportRun[]
 }
 
@@ -443,23 +444,23 @@ model ReportRun {
 }
 
 model ReportRunJob {
-  id                 String    @id @default(cuid())
-  jobId              String
-  queueName          String
-  wikidataId         String?
-  status             String // 'completed' | 'failed'
-  approvedTimestamp  String?   @map("approved_timestamp")
-  autoApprove        Boolean   @default(false) @map("auto_approve")
-  failedReason       String?
-  prompt             String?
-  queryTexts         Json? // string[]
-  markdown           String?
-  startedAt          DateTime?
-  finishedAt         DateTime  @default(now())
-  chromaDurationMs   Int?      @map("chroma_duration_ms")
-  aiDurationMs       Int?      @map("ai_duration_ms")
-  reportRunId        String
-  reportRun          ReportRun @relation(fields: [reportRunId], references: [id])
+  id                String    @id @default(cuid())
+  jobId             String
+  queueName         String
+  wikidataId        String?
+  status            String // 'completed' | 'failed'
+  approvedTimestamp String?   @map("approved_timestamp")
+  autoApprove       Boolean   @default(false) @map("auto_approve")
+  failedReason      String?
+  prompt            String?
+  queryTexts        Json? // string[]
+  markdown          String?
+  startedAt         DateTime?
+  finishedAt        DateTime  @default(now())
+  chromaDurationMs  Int?      @map("chroma_duration_ms")
+  aiDurationMs      Int?      @map("ai_duration_ms")
+  reportRunId       String
+  reportRun         ReportRun @relation(fields: [reportRunId], references: [id])
 
   @@index([reportRunId])
 }
