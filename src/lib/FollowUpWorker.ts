@@ -57,20 +57,24 @@ function addCustomMethods(job: FollowUpJob) {
     type
   ) => {
     job.log(`🔍 Querying vector DB for ${type}...`)
+    const chromaStart = Date.now()
     const markdown = await vectorDB.getRelevantMarkdown(
       url,
       queryTexts,
       15,
       (msg) => job.log(msg)
     )
-    job.log(`✅ Vector DB done for ${type} (${markdown.length} chars)`)
+    const chromaDurationMs = Date.now() - chromaStart
+    job.log(
+      `✅ Vector DB done for ${type} (${markdown.length} chars, ${chromaDurationMs}ms)`
+    )
     ensureValidFollowUpInputs(markdown, prompt, queryTexts, type)
 
     job.log(`Reflecting on: ${prompt}
-    
+
     Context:
     ${markdown}
-    
+
     `)
 
     const streamMessages = [
@@ -104,9 +108,11 @@ function addCustomMethods(job: FollowUpJob) {
       .filter((message) => message !== undefined)
       .filter((message) => message?.content)
 
+    const aiStart = Date.now()
     const response = await askStream(streamMessages, {
       response_format: zodResponseFormat(schema, type.replace(/\//g, '-')),
     })
+    const aiDurationMs = Date.now() - aiStart
 
     job.log('Response: ' + response)
 
@@ -117,6 +123,8 @@ function addCustomMethods(job: FollowUpJob) {
         prompt: prompt,
         queryTexts,
         schema: zodResponseFormat(schema, type.replace(/\//g, '-')),
+        chromaDurationMs,
+        aiDurationMs,
       },
     }
 
