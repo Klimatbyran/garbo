@@ -456,6 +456,8 @@ model ReportRunJob {
   markdown           String?
   startedAt          DateTime?
   finishedAt         DateTime  @default(now())
+  chromaDurationMs   Int?      @map("chroma_duration_ms")
+  aiDurationMs       Int?      @map("ai_duration_ms")
   reportRunId        String
   reportRun          ReportRun @relation(fields: [reportRunId], references: [id])
 

@@ -76,6 +76,8 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
           prompt: returnValue?.metadata?.prompt ?? null,
           queryTexts: returnValue?.metadata?.queryTexts ?? null,
           markdown: returnValue?.metadata?.context ?? null,
+          chromaDurationMs: returnValue?.metadata?.chromaDurationMs ?? null,
+          aiDurationMs: returnValue?.metadata?.aiDurationMs ?? null,
           startedAt: job.processedOn ? new Date(job.processedOn) : null,
           finishedAt: new Date(),
           reportRunId: reportRun.id,
