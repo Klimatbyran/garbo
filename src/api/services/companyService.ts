@@ -192,7 +192,12 @@ class CompanyService {
     metadataId?: string
   }) {
     return prisma.description.upsert({
-      where: { id: description.id ?? '' },
+      where: {
+        companyId_language: {
+          companyId,
+          language: description.language,
+        },
+      },
       create: {
         text: description.text,
         language: description.language,
