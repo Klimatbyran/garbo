@@ -25,6 +25,7 @@ output/accuracy/*
 public/exports
 
 .claude
+CLAUDE.md
 
 # Ignore test files input markdown
 src/jobs/*/tests/results/*
