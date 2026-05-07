@@ -96,6 +96,11 @@ spec:
                 secretKeyRef:
                   name: env
                   key: CHROMA_CHUNK_SIZE
+            - name: CHROMA_CONCURRENCY
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: CHROMA_CONCURRENCY
             - name: REDIS_HOST
               valueFrom:
                 secretKeyRef:
