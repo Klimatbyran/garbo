@@ -76,7 +76,7 @@ const parsePdf = new DiscordWorker(
         job.editMessage(`✅ PDF already interpreted and indexed. Continuing...`)
 
         const markdown = await vectorDB.getRelevantMarkdown(url, [
-          'GHG accounting, tCO2e (location-based method), ton CO2e, scope, scope 1, scope 2, scope 3, co2, emissions, emissions, 2021, 2023, 2022, gri protocol, CO2, ghg, greenhouse, gas, climate, change, global, warming, carbon, växthusgaser, utsläpp, basår, koldioxidutsläpp, koldioxid, klimatmål',
+          'company name, annual report, about the company, introduction, company overview, who we are, our business, bolagets namn, årsredovisning, om bolaget',
         ])
 
         const added = await precheck.queue.add('precheck', {
