@@ -111,8 +111,9 @@ The simplest way to start the containers is to run the following docker commands
 docker-compose up
 ```
 
-````
+```
 You may want a graphical user interface to make it easier to manage your local containers. [Podman desktop](https://podman-desktop.io/) and [Rancher desktop](https://rancherdesktop.io/) are both good alternatives
+```
 
 ### Seeding the database for development
 
@@ -120,7 +121,7 @@ This applies migrations and seeding data needed for development. It also generat
 
 ```sh
 npm run prisma migrate dev
-````
+```
 
 ### Optional: Restoring a database backup with test data
 

@@ -1,0 +1,59 @@
+# One-off Job: merge duplicate Report registry rows + invalidate Redis cache.
+# NOT applied by Flux — use: kubectl create -f k8s/jobs/report-registry-dedupe.yaml
+#
+# Before create:
+# - Set metadata.namespace to garbo-stage or garbo
+# - For dry-run only, set args to: ["scripts/dedupe-report-registry.ts", "--dry-run"]
+# Image: same pattern as backfill-report-runs.yaml — unpinned repo default + Always pull.
+# Pin a tag only if you need a one-off to match an exact image digest (rare).
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: report-registry-dedupe-
+  namespace: garbo-stage
+  labels:
+    app: garbo
+    job-type: report-registry-dedupe
+spec:
+  ttlSecondsAfterFinished: 604800
+  backoffLimit: 0
+  activeDeadlineSeconds: 1800
+  template:
+    metadata:
+      labels:
+        app: garbo
+        job-type: report-registry-dedupe
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: dedupe
+          image: ghcr.io/klimatbyran/garbo
+          imagePullPolicy: Always
+          workingDir: /app
+          command: ["npx", "--yes", "tsx"]
+          args: ["scripts/dedupe-report-registry.ts"]
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              memory: "512Mi"
+          envFrom:
+            - secretRef:
+                name: env
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redis
+                  key: redis-password
+                  optional: true
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgresql
+                  key: postgres-password
+            - name: DATABASE_URL
+              value: postgresql://postgres:$(POSTGRES_PASSWORD)@postgresql:5432/garbo
