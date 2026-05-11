@@ -6,6 +6,7 @@ import { getTags } from '../../../config/openapi'
 import { CompanySearchQuery, WikidataIdParams } from '../../types'
 import { cachePlugin } from '../../plugins/cache'
 import { companyService } from '../../services/companyService'
+import { getCompaniesListCached } from '../../services/companyListReadThroughCache'
 import {
   CompanyList,
   wikidataIdParamSchema,
@@ -71,14 +72,7 @@ export async function internalCompanyReadRoutes(app: FastifyInstance) {
         await redisCache.set(cacheKey, JSON.stringify(currentEtag))
       }
 
-      const dataCacheKey = `companies:data:${databaseFingerprint}`
-
-      let companies = await redisCache.get(dataCacheKey)
-
-      if (!companies) {
-        companies = await companyService.getAllCompaniesWithMetadata()
-        await redisCache.set(dataCacheKey, JSON.stringify(companies))
-      }
+      const companies = await getCompaniesListCached(databaseFingerprint)
 
       reply.header('ETag', `${currentEtag}`)
 
