@@ -10,6 +10,7 @@
     "node": ">=22.0.0"
   },
   "scripts": {
+    "postinstall": "prisma generate",
     "start": "node --import tsx src/index.ts",
     "migrate": "npx prisma migrate deploy",
     "seed:tags": "node --import tsx scripts/seed-tag-options.ts",
@@ -99,7 +100,10 @@
   },
   "overrides": {
     "undici": ">=6.23.0",
-    "@tootallnate/once": ">=3.0.1"
+    "@tootallnate/once": ">=3.0.1",
+    "prisma-zod-generator": {
+      "@prisma/client": "5.22.0"
+    }
   },
   "prisma": {
     "seed": "node --import=tsx prisma/seed.ts"

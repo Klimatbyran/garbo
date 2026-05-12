@@ -7,8 +7,6 @@ import {
   jsonSchemaTransform,
 } from 'fastify-type-provider-zod'
 import fastifySwagger from '@fastify/swagger'
-import fastifyStatic from '@fastify/static'
-import { fastifySession } from '@fastify/session'
 import { fastifyCookie } from '@fastify/cookie'
 
 import scalarPlugin from '@scalar/fastify-api-reference'
@@ -17,42 +15,30 @@ import { resolve } from 'path'
 
 import apiConfig from './config/api'
 import openAPIConfig from './config/openapi'
-import { companyReadRoutes } from './api/routes/external/company.read'
 import { companyGoalsRoutes } from './api/routes/internal/company.goals'
 import authPlugin from './api/plugins/auth'
 import { companyIndustryRoutes } from './api/routes/internal/company.industry'
 import { companyInitiativesRoutes } from './api/routes/internal/company.initiatives'
 import {
-  companyPublicReportingPeriodsRoutes,
   companyReportingPeriodsRoutes,
 } from './api/routes/internal/company.reportingPeriods'
 import { companyUpdateRoutes } from './api/routes/internal/company.update'
 import { companyDeleteRoutes } from './api/routes/internal/company.delete'
 import { errorHandler } from './api/plugins/errorhandler'
 import { reportsCreateRoutes } from './api/routes/internal/reports.create'
-import { municipalityReadRoutes } from './api/routes/external/municipality.read'
-import { regionalReadRoutes } from './api/routes/external/regional.read'
-import { nationalReadRoutes } from './api/routes/external/national.read'
 import { companyBaseYearRoutes } from './api/routes/internal/company.baseYear'
-import { authentificationRoutes } from './api/routes/internal/auth'
-import { companyExportRoutes } from './api/routes/external/company.export'
-import { municipalityExportRoutes } from './api/routes/external/municipality.export'
-import { regionalExportRoutes } from './api/routes/external/regional.export'
-import { mailingListDownloadsRoute } from './api/routes/internal/mailing-list.downloads'
 import { validationsReadRoutes } from './api/routes/external/validation.read'
 import { validationsUpdateRoutes } from './api/routes/internal/validation.update'
 import { emissionsAssessmentRoutes } from './api/routes/internal/emissionsAssessment'
 import { industryGicsRoute } from './api/routes/external/industryGics.read'
 import { tagOptionsRoutes } from './api/routes/tagOptions'
-import { screenshotsReadRoutes } from './api/routes/external/screenshots.read'
-import { newsletterArchiveDownloadsRoute } from './api/routes/external/newsletter-archive.downloads'
-import { internalCompanyReadRoutes } from './api/routes/internal/internal.company.read'
-import { internalMunicipalityReadRoutes } from './api/routes/internal/internal.municipality.read'
 import { registryReadRoutes } from './api/routes/internal/registry.read'
 import { registryDeleteRoutes } from './api/routes/internal/registry.delete'
 import { registryUpdateRoutes } from './api/routes/internal/registry.update'
 import { globalSearchReadRoutes } from './api/routes/internal/globalSearch.read'
 import { queueArchiveReadRoutes } from './api/routes/internal/queue.archive.read'
+import clientApiKeyGatePlugin from './api/plugins/clientApiKeyGate'
+import { registerClientApiRoutes } from './registerClientApiRoutes'
 
 async function startApp() {
   const app = Fastify({
@@ -65,7 +51,7 @@ async function startApp() {
   app.register(cors, {
     origin: apiConfig.corsAllowOrigins as unknown as string[],
     credentials: true,
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-API-Key'],
     exposedHeaders: ['etag'],
   })
 
@@ -84,6 +70,13 @@ async function startApp() {
           BearerAuth: {
             type: 'http',
             scheme: 'bearer',
+          },
+          ClientApiKey: {
+            type: 'apiKey',
+            in: 'header',
+            name: 'X-API-Key',
+            description:
+              'Client API key (format garb_<lookup>.<secret>). Used for browser/proxy and partner access to read routes; staff flows use Bearer JWT.',
           },
         },
       },
@@ -110,57 +103,18 @@ async function startApp() {
 
   app.register(fastifyCookie)
 
-  app.register(publicContext)
+  await app.register(clientApiKeyGatePlugin)
+  app.register(clientApiContext)
   app.register(authenticatedContext)
 
   return app
 }
 
 /**
- * This context wraps all logic that should be public.
+ * Client API surface: X-API-Key gated read routes (unless ALLOW_ANONYMOUS_CLIENT_API).
  */
-async function publicContext(app: FastifyInstance) {
-  app.get('/', { schema: { hide: true } }, (request, reply) =>
-    reply.redirect(openAPIConfig.prefix)
-  )
-
-  app.register(fastifyStatic, {
-    root: resolve('public'),
-  })
-
-  app.get(
-    '/favicon.ico',
-    { schema: { hide: true }, logLevel: 'silent' },
-    async (request, reply) => {
-      return reply.sendFile('favicon.ico')
-    }
-  )
-
-  //internal routes for data assessment and management
-  app.register(internalCompanyReadRoutes, { prefix: 'api/internal-companies' })
-  app.register(internalMunicipalityReadRoutes, {
-    prefix: 'api/internal-municipalities',
-  })
-
-  //public routes
-  app.register(authentificationRoutes, { prefix: 'api/auth' })
-  app.register(companyReadRoutes, { prefix: 'api/companies' })
-  app.register(companyExportRoutes, { prefix: 'api/companies' })
-  app.register(municipalityReadRoutes, { prefix: 'api/municipalities' })
-  app.register(municipalityExportRoutes, { prefix: 'api/municipalities' })
-  app.register(regionalReadRoutes, { prefix: 'api/regions' })
-  app.register(regionalExportRoutes, { prefix: 'api/regions' })
-  app.register(nationalReadRoutes, { prefix: 'api/nation' })
-  app.register(companyPublicReportingPeriodsRoutes, {
-    prefix: 'api/reporting-period',
-  })
-  app.register(mailingListDownloadsRoute, { prefix: 'api' })
-  app.register(screenshotsReadRoutes, { prefix: 'api/screenshots' })
-
-  app.register(newsletterArchiveDownloadsRoute, {
-    prefix: 'api/newsletters',
-  })
-  app.register(globalSearchReadRoutes, { prefix: 'api/global-search' })
+async function clientApiContext(app: FastifyInstance) {
+  await app.register(registerClientApiRoutes)
 }
 
 /**

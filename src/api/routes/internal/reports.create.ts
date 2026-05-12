@@ -16,7 +16,7 @@ import {
   SaveReportSuccess,
 } from '../../types'
 import { reportsService } from '../../services/reportsService'
-import { redisCache } from '@/index'
+import { redisCache } from '@/lib/redisCacheSingleton'
 import { invalidateRegistryCache } from '@/api/services/registryCache'
 
 export async function reportsCreateRoutes(app: FastifyInstance) {

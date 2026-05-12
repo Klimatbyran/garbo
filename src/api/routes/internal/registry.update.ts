@@ -6,7 +6,7 @@ import {
   getErrorSchemas,
 } from '../../schemas'
 import { registryService } from '@/api/services/registryService'
-import { redisCache } from '@/index'
+import { redisCache } from '@/lib/redisCacheSingleton'
 import { invalidateRegistryCache } from '@/api/services/registryCache'
 import z from 'zod'
 

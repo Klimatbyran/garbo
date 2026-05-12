@@ -13,7 +13,7 @@ import {
   getErrorSchemas,
   companySearchQuerySchema,
 } from '../../schemas'
-import { redisCache } from '../../..'
+import { redisCache } from '../../../lib/redisCacheSingleton'
 
 export async function companyReadRoutes(app: FastifyInstance) {
   app.register(cachePlugin)
@@ -82,6 +82,31 @@ export async function companyReadRoutes(app: FastifyInstance) {
     }
   )
 
+  // Register before /:wikidataId so "search" is not captured as an id
+  app.get(
+    '/search',
+    {
+      schema: {
+        summary: 'Search for companies',
+        description:
+          'Search for a company with its emissions, economic data, industry classification, goals, and initiatives',
+        tags: getTags('Companies'),
+        querystring: companySearchQuerySchema,
+        response: {
+          200: CompanyList,
+        },
+      },
+    },
+    async (
+      request: FastifyRequest<{ Querystring: CompanySearchQuery }>,
+      reply
+    ) => {
+      const { q } = request.query
+      const companies = await companyService.getAllCompaniesBySearchTerm(q)
+      reply.send(companies)
+    }
+  )
+
   app.get(
     '/:wikidataId',
     {
@@ -113,30 +138,6 @@ export async function companyReadRoutes(app: FastifyInstance) {
             }
           : null,
       })
-    }
-  )
-
-  app.get(
-    '/search',
-    {
-      schema: {
-        summary: 'Search for companies',
-        description:
-          'Search for a company with its emissions, economic data, industry classification, goals, and initiatives',
-        tags: getTags('Companies'),
-        querystring: companySearchQuerySchema,
-        response: {
-          200: CompanyList,
-        },
-      },
-    },
-    async (
-      request: FastifyRequest<{ Querystring: CompanySearchQuery }>,
-      reply
-    ) => {
-      const { q } = request.query
-      const companies = await companyService.getAllCompaniesBySearchTerm(q)
-      reply.send(companies)
     }
   )
 }

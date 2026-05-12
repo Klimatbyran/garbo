@@ -115,17 +115,23 @@ The Klimatkollen API provides access to company emissions and economic data. Thi
 
 ## Getting Started
 
-To use the API, you'll need to:
+**Client read API** (data you used to get without logging in: companies, regions, etc.):
 
-1. Request an API key by contacting our team
-2. Include your API key in the Authorization header:
+1. **Request a client API key** from the team — use [Contact Support](mailto:support@klimatkollen.se) if you do not already have one. Keys look like \`garb_<lookup>.<secret>\` (one string; keep them secret).
+2. **Send that string on each request** using the \`X-API-Key\` header (not \`Authorization: Bearer\`). We use a separate header so long-lived keys are not mixed up with short-lived **user JWTs**, which staff and write flows send as \`Authorization: Bearer …\`.
+
+Example after you have been issued a key:
+
 \`\`\`
-Authorization: Bearer YOUR_API_KEY
+X-API-Key: garb_yourlookup.yoursecret
 \`\`\`
+
+For **staff / write** endpoints, sign in (e.g. via Scalar “Authorize”) and use your **JWT** in \`Authorization: Bearer …\`.
 
 ## Authentication
 
-All endpoints require authentication using a Bearer token. Include your API key in the Authorization header of each request.
+- **Client (read) routes:** \`X-API-Key: garb_…\` — static key from the team; use only over HTTPS.
+- **Staff / write routes:** \`Authorization: Bearer <jwt>\` — session token after OAuth, not the client API key.
 
 ## Rate Limiting
 
@@ -143,14 +149,14 @@ All endpoints require authentication using a Bearer token. Include your API key 
 
 \`\`\`bash
 curl -X GET "https://api.klimatkollen.se/api/companies/Q123" \\
-     -H "Authorization: Bearer YOUR_API_KEY"
+     -H "X-API-Key: garb_yourlookup.yoursecret"
 \`\`\`
 
 ### Update Company Emissions
 
 \`\`\`bash
 curl -X POST "https://api.klimatkollen.se/api/companies/Q123/reporting-periods" \\
-     -H "Authorization: Bearer YOUR_API_KEY" \\
+     -H "Authorization: Bearer YOUR_JWT" \\
      -H "Content-Type: application/json" \\
      -d '{"reportingPeriods": [...]}'
 \`\`\`
