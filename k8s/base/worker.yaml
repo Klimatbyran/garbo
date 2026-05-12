@@ -76,6 +76,11 @@ spec:
                 secretKeyRef:
                   name: env
                   key: OPENAPI_PREFIX
+            - name: ALLOW_ANONYMOUS_CLIENT_API
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: ALLOW_ANONYMOUS_CLIENT_API
             - name: CACHE_MAX_AGE
               valueFrom:
                 secretKeyRef:
