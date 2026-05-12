@@ -63,7 +63,7 @@ Defined in `**prisma/schema.prisma**` (tables mapped with `@@map`):
 | Model                         | Purpose                                                                                                                                                                                 |
 | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `**ClientApiPermission**`     | One row per permission **code** (e.g. `api.companies.list`).                                                                                                                            |
-| `**ClientApiRole`**           | Named role (`**slug**`) e.g. `first_party_fe`, `partner_company_api`.                                                                                                                   |
+| `**ClientApiRole`**           | Named role (`**slug**`) e.g. `all_access`, `base`.                                                                                                                                      |
 | `**ClientApiRolePermission**` | Many-to-many: which permissions a role has.                                                                                                                                             |
 | `**ClientApiKey**`            | `**keyLookup**` (public id segment), `**secretHash**`, `**roleId**`, `**revokedAt**`, `**lastUsedAt**`. Full plaintext key is `**garb_<keyLookup>.<secret>**`; only the hash is stored. |
 
@@ -77,10 +77,10 @@ Initial migration: `prisma/migrations/20260413120000_client_api_keys/`. Later co
 ### Seed (`prisma/seedClientApi.ts`, called from `prisma/seed.ts`)
 
 - Upserts all `**CLIENT_API_PERMISSION_CODES**` into `**ClientApiPermission**`.
-- Upserts roles `**first_party_fe**` (all client permissions) and `**partner_company_api**` (subset: companies list/read/search — see `**PARTNER_PERMISSION_CODES**` in `seedClientApi.ts`).
+- Upserts roles `**all_access**` (all client permissions) and `**base**` (subset: companies list/read/search — see `**BASE_PERMISSION_CODES**` in `seedClientApi.ts`).
 - Optionally upserts keys from env:
-  - `**GARBO_SEED_FIRST_PARTY_CLIENT_API_KEY**`
-  - `**GARBO_SEED_PARTNER_CLIENT_API_KEY**`  
+  - `**GARBO_ALL_ACCESS_API_KEY**`
+  - `**GARBO_BASE_API_KEY**`  
   Format: `**garb_<lookup>.<secret>**`. Same pepper as runtime (`**API_SECRET**` or `**CLIENT_API_KEY_PEPPER**`).
 
 If you change `**API_SECRET**` or the plaintext key string, run `**npx prisma db seed**` again so `**secretHash**` matches.
@@ -114,7 +114,7 @@ Typical order:
 3. Add **rule(s)** to `**clientApiRouteRules`** for the exact `**METHOD` + path pattern** (exact vs prefix — see existing rules).
 4. Run `**npx prisma db seed`** so the new permission rows exist.
 5. Attach that permission to roles that should use it:
-  - **Built-in roles:** extend `**seedClientApi.ts`** (`CLIENT_API_PERMISSION_CODES` for first-party, or `**PARTNER_PERMISSION_CODES**` for partner, or add a new role block).
+  - **Built-in roles:** extend `**seedClientApi.ts`** (`CLIENT_API_PERMISSION_CODES` for `all_access`, or `**BASE_PERMISSION_CODES**` for `base`, or add a new role block).
   - **Ad-hoc:** insert `**ClientApiRolePermission`** rows (or add a future staff UI to manage role ↔ permission).
 6. Confirm `**registerClientApiRoutes.registry.test.ts**` still passes.
 
@@ -126,10 +126,10 @@ There is **no** dynamic “create role” HTTP API yet. Roles are **rows in Post
 
 **Pattern:**
 
-1. Choose a stable `**slug`** (e.g. `partner_reports_readonly`).
+1. Choose a stable `**slug`** (e.g. `reports_readonly`).
 2. In `**prisma/seedClientApi.ts**`, `**upsert**` the role and `**createMany**` / `**deleteMany` + create** the `**ClientApiRolePermission`** rows for the permission codes that role should have (reuse codes from `**CLIENT_API_PERMISSION_CODES**` only — unknown codes need a new client route + registry entry first, unless you only use them for future routes).
 3. Run `**npx prisma db seed**`.
-4. Mint keys for that role via **staff `POST /api/internal/client-api-keys`** with the new `**roleId**`, or seed a key via env if you add a third env var in seed (same pattern as first-party/partner).
+4. Mint keys for that role via **staff `POST /api/internal/client-api-keys`** with the new `**roleId**`, or seed a key via env if you add a third env var in seed (same pattern as `all_access`/`base`).
 
 **Optional hardening:** add a Jest test that every role in DB has only permissions that exist in `**CLIENT_API_PERMISSION_CODES`** (not implemented today).
 
@@ -152,8 +152,8 @@ There is **no** dynamic “create role” HTTP API yet. Roles are **rows in Post
 | `**API_SECRET**`                        | Required app secret; default **pepper** for hashing client key secrets.                                                                                    |
 | `**CLIENT_API_KEY_PEPPER`**             | Optional override pepper (must match at seed and runtime if used).                                                                                         |
 | `**ALLOW_ANONYMOUS_CLIENT_API**`        | If true, skips `X-API-Key` on gated routes — **cutover only**. Parsed with `**parseEnvBoolean`** — do **not** use raw `z.coerce.boolean()` on env strings. |
-| **`GARBO_SEED_FIRST_PARTY_CLIENT_API_KEY`** | Full plaintext key; seed upserts by **`keyLookup`**. |
-| **`GARBO_SEED_PARTNER_CLIENT_API_KEY`**     | Same for partner role.                               |
+| **`GARBO_ALL_ACCESS_API_KEY`**              | Full plaintext key for the `all_access` role; seed upserts by `keyLookup`. |
+| **`GARBO_BASE_API_KEY`**                    | Same for the `base` role.                                                  |
 | `**OPENAPI_PREFIX**`                    | Scalar/docs mount `**/${OPENAPI_PREFIX}**`. **Must not be `api`** — see below.                                                                             |
 
 
@@ -204,7 +204,7 @@ cd garbo && npm test
 | **Staff role management**  | No HTTP API yet to create/edit **roles** or **role ↔ permission** without seed/SQL — only keys + revoke + read catalog.          |
 | **Key rotation**           | Today: revoke + create new; optional “rotate secret” endpoint could re-hash in one step.                                         |
 | **Audit trail**            | Create/revoke logs include `**createdByUserId`** / `**revokedByUserId**` in app logs; no dedicated audit table yet.              |
-| **Partner vs first-party** | Partner scope is **hard-coded list** in `**seedClientApi.ts`** — change there when partner should access new client routes.      |
+| **All-access vs base**     | Base role scope is a **hard-coded list** (`BASE_PERMISSION_CODES`) in `**seedClientApi.ts`** — change there when base should access new client routes. |
 
 
 ---

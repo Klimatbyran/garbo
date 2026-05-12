@@ -2,7 +2,7 @@ import type { PrismaClient } from '@prisma/client'
 import { CLIENT_API_PERMISSION_CODES } from '../src/api/security/routePermissions'
 import { hashClientApiSecret, parseClientApiKey } from '../src/lib/clientApiKeyCrypto'
 
-const PARTNER_PERMISSION_CODES = [
+const BASE_PERMISSION_CODES = [
   'api.companies.list',
   'api.companies.read',
   'api.companies.search',
@@ -28,95 +28,95 @@ export async function seedClientApi(prisma: PrismaClient) {
     })
   }
 
-  const firstPartyRole = await prisma.clientApiRole.upsert({
-    where: { slug: 'first_party_fe' },
+  const allAccessRole = await prisma.clientApiRole.upsert({
+    where: { slug: 'all_access' },
     create: {
-      slug: 'first_party_fe',
-      label: 'First-party — full client API HTTP surface',
+      slug: 'all_access',
+      label: 'All-access — full client API HTTP surface',
     },
-    update: { label: 'First-party — full client API HTTP surface' },
+    update: { label: 'All-access — full client API HTTP surface' },
   })
 
-  const partnerRole = await prisma.clientApiRole.upsert({
-    where: { slug: 'partner_company_api' },
+  const baseRole = await prisma.clientApiRole.upsert({
+    where: { slug: 'base' },
     create: {
-      slug: 'partner_company_api',
-      label: 'Partner — company list, detail, search only',
+      slug: 'base',
+      label: 'Base — company list, detail, search only',
     },
-    update: { label: 'Partner — company list, detail, search only' },
+    update: { label: 'Base — company list, detail, search only' },
   })
 
   const allPermissions = await prisma.clientApiPermission.findMany()
   const idByCode = new Map(allPermissions.map((p) => [p.code, p.id]))
 
   await prisma.$transaction(async (tx) => {
-    await tx.clientApiRolePermission.deleteMany({ where: { roleId: firstPartyRole.id } })
+    await tx.clientApiRolePermission.deleteMany({ where: { roleId: allAccessRole.id } })
     await tx.clientApiRolePermission.createMany({
       data: CLIENT_API_PERMISSION_CODES
         .map((code) => idByCode.get(code))
         .filter((id): id is string => id !== undefined)
-        .map((permissionId) => ({ roleId: firstPartyRole.id, permissionId })),
+        .map((permissionId) => ({ roleId: allAccessRole.id, permissionId })),
     })
 
-    await tx.clientApiRolePermission.deleteMany({ where: { roleId: partnerRole.id } })
+    await tx.clientApiRolePermission.deleteMany({ where: { roleId: baseRole.id } })
     await tx.clientApiRolePermission.createMany({
-      data: PARTNER_PERMISSION_CODES
+      data: BASE_PERMISSION_CODES
         .map((code) => idByCode.get(code))
         .filter((id): id is string => id !== undefined)
-        .map((permissionId) => ({ roleId: partnerRole.id, permissionId })),
+        .map((permissionId) => ({ roleId: baseRole.id, permissionId })),
     })
   })
 
-  const firstPartyRaw = process.env.GARBO_SEED_FIRST_PARTY_CLIENT_API_KEY
-  const partnerRaw = process.env.GARBO_SEED_PARTNER_CLIENT_API_KEY
+  const allAccessRaw = process.env.GARBO_ALL_ACCESS_API_KEY
+  const baseRaw = process.env.GARBO_BASE_API_KEY
 
-  if (firstPartyRaw) {
-    const parsed = parseClientApiKey(firstPartyRaw.trim())
+  if (allAccessRaw) {
+    const parsed = parseClientApiKey(allAccessRaw.trim())
     if (!parsed) {
       console.warn(
-        '[seed] GARBO_SEED_FIRST_PARTY_CLIENT_API_KEY has invalid format (expected garb_<lookup>.<secret>).'
+        '[seed] GARBO_ALL_ACCESS_API_KEY has invalid format (expected garb_<lookup>.<secret>).'
       )
     } else {
       const secretHash = hashClientApiSecret(parsed.keyLookup, parsed.secretPart, pepper())
       await prisma.clientApiKey.upsert({
         where: { keyLookup: parsed.keyLookup },
         create: {
-          name: 'Seed first-party',
+          name: 'Seed all-access',
           keyLookup: parsed.keyLookup,
           secretHash,
-          roleId: firstPartyRole.id,
+          roleId: allAccessRole.id,
         },
-        update: { secretHash, roleId: firstPartyRole.id, revokedAt: null },
+        update: { secretHash, roleId: allAccessRole.id, revokedAt: null },
       })
-      console.log('[seed] Upserted first-party client API key from GARBO_SEED_FIRST_PARTY_CLIENT_API_KEY')
+      console.log('[seed] Upserted all-access client API key from GARBO_ALL_ACCESS_API_KEY')
     }
   }
 
-  if (partnerRaw) {
-    const parsed = parseClientApiKey(partnerRaw.trim())
+  if (baseRaw) {
+    const parsed = parseClientApiKey(baseRaw.trim())
     if (!parsed) {
       console.warn(
-        '[seed] GARBO_SEED_PARTNER_CLIENT_API_KEY has invalid format (expected garb_<lookup>.<secret>).'
+        '[seed] GARBO_BASE_API_KEY has invalid format (expected garb_<lookup>.<secret>).'
       )
     } else {
       const secretHash = hashClientApiSecret(parsed.keyLookup, parsed.secretPart, pepper())
       await prisma.clientApiKey.upsert({
         where: { keyLookup: parsed.keyLookup },
         create: {
-          name: 'Seed partner',
+          name: 'Seed base',
           keyLookup: parsed.keyLookup,
           secretHash,
-          roleId: partnerRole.id,
+          roleId: baseRole.id,
         },
-        update: { secretHash, roleId: partnerRole.id, revokedAt: null },
+        update: { secretHash, roleId: baseRole.id, revokedAt: null },
       })
-      console.log('[seed] Upserted partner client API key from GARBO_SEED_PARTNER_CLIENT_API_KEY')
+      console.log('[seed] Upserted base client API key from GARBO_BASE_API_KEY')
     }
   }
 
-  if (!firstPartyRaw && !partnerRaw) {
+  if (!allAccessRaw && !baseRaw) {
     console.log(
-      '[seed] No seed keys set — roles and permissions only. Set GARBO_SEED_FIRST_PARTY_CLIENT_API_KEY / GARBO_SEED_PARTNER_CLIENT_API_KEY to also seed keys.'
+      '[seed] No seed keys set — roles and permissions only. Set GARBO_ALL_ACCESS_API_KEY / GARBO_BASE_API_KEY to also seed keys.'
     )
   }
 }

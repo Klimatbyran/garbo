@@ -6,8 +6,8 @@
  *   npm run seed:client-api
  *
  * Requires DATABASE_URL and API_SECRET (or CLIENT_API_KEY_PEPPER) in the environment.
- * Optionally set GARBO_SEED_FIRST_PARTY_CLIENT_API_KEY and/or
- * GARBO_SEED_PARTNER_CLIENT_API_KEY to also upsert seed keys.
+ * Optionally set GARBO_ALL_ACCESS_API_KEY and/or
+ * GARBO_BASE_API_KEY to also upsert seed keys.
  */
 import 'dotenv/config'
 import { PrismaClient } from '@prisma/client'

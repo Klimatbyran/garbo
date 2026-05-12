@@ -1,9 +1,3 @@
-/**
- * Option A: central registry mapping HTTP requests to client API permission codes.
- * ("Client" = browser/proxy + partner integrations using X-API-Key, vs staff JWT routes.)
- * First matching rule wins — keep more specific paths above generic prefixes.
- */
-
 export const CLIENT_API_PERMISSION_CODES = [
   'api.companies.search',
   'api.companies.export',

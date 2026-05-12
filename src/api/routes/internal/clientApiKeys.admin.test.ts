@@ -133,7 +133,7 @@ const baseKey = {
   revokedAt: null,
   lastUsedAt: null,
   createdAt: new Date('2026-01-01T00:00:00Z'),
-  role: { id: 'role-1', slug: 'partner_company_api', label: 'Partner' },
+  role: { id: 'role-1', slug: 'base', label: 'Base' },
 }
 
 describe('POST /:id/revoke', () => {
