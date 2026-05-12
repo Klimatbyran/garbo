@@ -90,7 +90,7 @@ Make a copy of the file `.env.example` and name it `.env`. Fill it in using the 
 
 The API uses GitHub OAuth for authentication. The backend handles the OAuth flow through a single callback endpoint (`/api/auth/github/callback`) registered with GitHub, then redirects users to the appropriate frontend client based on the `state` parameter. Multiple frontend clients can use the same backend by passing an optional `redirect_uri` query parameter when initiating authentication.
 
-**Client API keys (`X-API-Key`):** Read routes under `/api/...` (except `/api/auth/...` and OpenAPI docs) require an `X-API-Key` header unless `ALLOW_ANONYMOUS_CLIENT_API=true` (cutover only). Keys use the format `garb_<lookup>.<secret>`. Run `npm run prisma migrate dev` and seed, then set `GARBO_SEED_FIRST_PARTY_CLIENT_API_KEY` / `GARBO_SEED_PARTNER_CLIENT_API_KEY` (optional) before `npm run prisma db seed`. Hashing uses `API_SECRET` as pepper unless you set `CLIENT_API_KEY_PEPPER`. **validate** / **bolt** dev: set `GARBO_PROXY_CLIENT_API_KEY` in `.env` so the Vite proxy can attach `X-API-Key` when forwarding to Garbo. (Older env names with `PUBLIC_API` / `GARBO_PROXY_PUBLIC_API_KEY` are still read by seed and the front-end proxies for a transition period.)
+**Client API keys (`X-API-Key`):** Read routes under `/api/...` (except `/api/auth/...` and OpenAPI docs) require an `X-API-Key` header unless `ALLOW_ANONYMOUS_CLIENT_API=true` (cutover only). Keys use the format `garb_<lookup>.<secret>`. Run `npm run prisma migrate dev` and seed, then set `GARBO_SEED_FIRST_PARTY_CLIENT_API_KEY` / `GARBO_SEED_PARTNER_CLIENT_API_KEY` (optional) before `npm run prisma db seed`. Hashing uses `API_SECRET` as pepper unless you set `CLIENT_API_KEY_PEPPER`. **validate** / **bolt** dev: set `GARBO_PROXY_CLIENT_API_KEY` in `.env` so the Vite proxy can attach `X-API-Key` when forwarding to Garbo. (Older env names with `PUBLIC_API` / `GARBO_PROXY_PUBLIC_API_KEY` are still read by seed and the front-end proxies for a transition period.) For implementation detail, manual test matrix, and troubleshooting (including env pitfalls), see **[doc/API_KEYS.md](./doc/API_KEYS.md)**.
 
 ### Installing dependencies
 
@@ -154,7 +154,7 @@ The code can be started in three main ways, depending on what you plan to develo
 npm run dev-api
 ```
 
-This starts the API, and makes it possible to view the OpenAPI documentation at <http://localhost:3000/api>.
+This starts the API, and makes it possible to view the OpenAPI documentation at <http://localhost:3000/reference> (from `OPENAPI_PREFIX`; must not be `api`, which collides with REST `/api/*`).
 
 #### 2) To start the AI pipeline, BullMQ admin dashboard and the API:
 

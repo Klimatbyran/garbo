@@ -4,6 +4,8 @@ import { dirname, resolve } from 'path'
 import { fileURLToPath } from 'node:url'
 import { z } from 'zod'
 
+import { parseEnvBoolean } from './parseEnvBoolean'
+
 /** Jest/ts-jest may not define `import.meta.dirname` (Node 20.11+). */
 const configDir =
   typeof import.meta.dirname === 'string'
@@ -25,7 +27,7 @@ const envSchema = z.object({
   JWT_EXPIRES_IN: z.coerce.number(),
   PROD_BASE_URL: z.string().default('https://api.klimatkollen.se/api'),
   /** When true, client API read routes skip X-API-Key checks — for cutover only. */
-  ALLOW_ANONYMOUS_CLIENT_API: z.coerce.boolean().optional().default(false),
+  ALLOW_ANONYMOUS_CLIENT_API: z.preprocess(parseEnvBoolean, z.boolean()),
   /** Extra material for hashing client API key secrets; defaults to API_SECRET. */
   CLIENT_API_KEY_PEPPER: z.string().optional(),
   /**

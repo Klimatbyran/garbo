@@ -3,7 +3,17 @@ import { descriptions } from 'wikibase-sdk/dist/src/helpers/simplify'
 import { z } from 'zod'
 
 const envSchema = z.object({
-  OPENAPI_PREFIX: z.string(),
+  /**
+   * Scalar / OpenAPI UI mount path (`/${OPENAPI_PREFIX}`). Must not be `api`
+   * (any casing): REST lives under `/api/*`, and the client API key gate skips
+   * `/${prefix}/*`; using `api` would skip enforcement for all data routes.
+   */
+  OPENAPI_PREFIX: z
+    .string()
+    .refine((s) => s.toLowerCase() !== 'api', {
+      message:
+        'OPENAPI_PREFIX cannot be "api" — it shares /api with REST routes and disables X-API-Key gating. Use e.g. "reference" (see jest.env-setup.cjs).',
+    }),
 })
 
 const parsedEnv = envSchema.safeParse(process.env)
