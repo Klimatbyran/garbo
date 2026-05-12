@@ -182,6 +182,11 @@ async function enforceClientApiKey(
     permission,
     path: pathname,
   })
+
+  void prisma.clientApiKey.update({
+    where: { id: keyRow.id },
+    data: { lastUsedAt: new Date() },
+  })
 }
 
 async function clientApiKeyGatePlugin(app: FastifyInstance) {

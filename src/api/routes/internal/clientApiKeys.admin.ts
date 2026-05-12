@@ -8,6 +8,7 @@ import { getTags } from '../../../config/openapi'
 import { hashClientApiSecret } from '../../../lib/clientApiKeyCrypto'
 import { prisma } from '../../../lib/prisma'
 import { getErrorSchemas } from '../../schemas'
+import { clientApiRouteRules } from '../../security/routePermissions'
 
 const permissionCodeSchema = z.object({
   code: z.string(),
@@ -26,12 +27,20 @@ const clientApiKeyListItemSchema = z.object({
   name: z.string(),
   keyLookup: z.string(),
   revokedAt: z.string().nullable(),
+  lastUsedAt: z.string().nullable(),
   createdAt: z.string(),
   role: z.object({
     id: z.string(),
     slug: z.string(),
     label: z.string().nullable(),
   }),
+})
+
+const endpointCatalogEntrySchema = z.object({
+  method: z.string(),
+  type: z.enum(['exact', 'prefix']),
+  path: z.string(),
+  permission: z.string(),
 })
 
 const createClientApiKeyBodySchema = z.object({
@@ -147,6 +156,7 @@ export async function clientApiKeysAdminRoutes(app: FastifyInstance) {
           name: k.name,
           keyLookup: k.keyLookup,
           revokedAt: k.revokedAt?.toISOString() ?? null,
+          lastUsedAt: k.lastUsedAt?.toISOString() ?? null,
           createdAt: k.createdAt.toISOString(),
           role: k.role,
         }))
@@ -235,6 +245,94 @@ export async function clientApiKeysAdminRoutes(app: FastifyInstance) {
         roleId: created.roleId,
         apiKey,
       })
+    }
+  )
+
+  app.post(
+    '/:id/revoke',
+    {
+      schema: {
+        summary: 'Revoke a client API key',
+        description:
+          'Staff only. Marks the key as revoked (sets revokedAt) without deleting the record. The gate immediately stops accepting it. Cannot be undone via the API.',
+        tags: getTags('Internal'),
+        params: z.object({ id: z.string().min(1) }),
+        response: {
+          200: clientApiKeyListItemSchema,
+          ...getErrorSchemas(401, 404, 409, 500),
+        },
+      },
+    },
+    async (
+      request: AuthenticatedFastifyRequest<{ Params: { id: string } }>,
+      reply
+    ) => {
+      const { id } = request.params
+
+      const key = await prisma.clientApiKey.findUnique({
+        where: { id },
+        include: { role: { select: { id: true, slug: true, label: true } } },
+      })
+
+      if (!key) {
+        return reply.status(404).send({ code: '404', message: 'API key not found' })
+      }
+
+      if (key.revokedAt) {
+        return reply.status(409).send({ code: '409', message: 'API key is already revoked' })
+      }
+
+      const revoked = await prisma.clientApiKey.update({
+        where: { id },
+        data: { revokedAt: new Date() },
+        include: { role: { select: { id: true, slug: true, label: true } } },
+      })
+
+      request.log.info(
+        {
+          event: 'client_api_key_revoked',
+          clientApiKeyId: id,
+          keyLookup: revoked.keyLookup,
+          revokedByUserId: request.user.id,
+        },
+        'Staff revoked client API key'
+      )
+
+      return reply.send({
+        id: revoked.id,
+        name: revoked.name,
+        keyLookup: revoked.keyLookup,
+        revokedAt: revoked.revokedAt?.toISOString() ?? null,
+        lastUsedAt: revoked.lastUsedAt?.toISOString() ?? null,
+        createdAt: revoked.createdAt.toISOString(),
+        role: revoked.role,
+      })
+    }
+  )
+
+  app.get(
+    '/endpoint-catalog',
+    {
+      schema: {
+        summary: 'List endpoint → permission mappings',
+        description:
+          'Staff only. Returns the static registry of HTTP method + path patterns and the permission code each requires. Use this to understand what a given role grants access to.',
+        tags: getTags('Internal'),
+        response: {
+          200: z.array(endpointCatalogEntrySchema),
+          ...getErrorSchemas(401, 500),
+        },
+      },
+    },
+    async (_request, reply) => {
+      return reply.send(
+        clientApiRouteRules.map((rule) => ({
+          method: rule.method,
+          type: rule.type,
+          path: rule.path,
+          permission: rule.permission,
+        }))
+      )
     }
   )
 }
