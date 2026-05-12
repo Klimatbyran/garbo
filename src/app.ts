@@ -25,6 +25,7 @@ import {
 import { companyUpdateRoutes } from './api/routes/internal/company.update'
 import { companyDeleteRoutes } from './api/routes/internal/company.delete'
 import { errorHandler } from './api/plugins/errorhandler'
+import { clientApiKeysAdminRoutes } from './api/routes/internal/clientApiKeys.admin'
 import { reportsCreateRoutes } from './api/routes/internal/reports.create'
 import { companyBaseYearRoutes } from './api/routes/internal/company.baseYear'
 import { validationsReadRoutes } from './api/routes/external/validation.read'
@@ -146,6 +147,9 @@ async function authenticatedContext(app: FastifyInstance) {
   })
   app.register(queueArchiveReadRoutes, {
     prefix: 'api/queue-archive',
+  })
+  app.register(clientApiKeysAdminRoutes, {
+    prefix: 'api/internal/client-api-keys',
   })
 }
 
