@@ -13,6 +13,7 @@
     "postinstall": "prisma generate",
     "start": "node --import tsx src/index.ts",
     "migrate": "npx prisma migrate deploy",
+    "seed:client-api": "node --import=tsx scripts/seed-client-api.ts",
     "seed:tags": "node --import tsx scripts/seed-tag-options.ts",
     "seed:gics": "node --import dotenv/config --import tsx scripts/add-gics.ts",
     "workers": "node --import dotenv/config --import tsx src/startWorkers.ts",

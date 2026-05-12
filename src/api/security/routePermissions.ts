@@ -28,19 +28,12 @@ export type ClientApiPermissionCode =
 
 type Method = string
 
-type Rule =
-  | {
-      method: Method
-      type: 'exact'
-      path: string
-      permission: ClientApiPermissionCode
-    }
-  | {
-      method: Method
-      type: 'prefix'
-      path: string
-      permission: ClientApiPermissionCode
-    }
+type Rule = {
+  method: Method
+  type: 'exact' | 'prefix'
+  path: string
+  permission: ClientApiPermissionCode
+}
 
 function normalizePath(pathname: string): string {
   if (pathname.length > 1 && pathname.endsWith('/')) {
@@ -209,6 +202,7 @@ export function samplePathsForRegistryRules(): {
       out.push({ method: rule.method, path: rule.path })
     } else {
       let p: string
+      // TODO: remove hardcoded special case — drive sample path from rule metadata instead
       if (rule.method === 'POST' && rule.path === '/api/download-request') {
         p = '/api/download-request'
       } else if (rule.path.endsWith('/')) {

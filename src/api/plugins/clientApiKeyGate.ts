@@ -191,6 +191,15 @@ async function enforceClientApiKey(
 
 async function clientApiKeyGatePlugin(app: FastifyInstance) {
   app.addHook('onRequest', enforceClientApiKey)
+
+  // Prune entries whose rate window expired
+  const pruner = setInterval(() => {
+    const cutoff = Date.now() - 120_000
+    for (const [id, row] of rateBuckets) {
+      if (row.windowStart < cutoff) rateBuckets.delete(id)
+    }
+  }, 60_000)
+  pruner.unref()
 }
 
 export default fp(clientApiKeyGatePlugin, {
