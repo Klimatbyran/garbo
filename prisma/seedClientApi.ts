@@ -1,6 +1,9 @@
 import type { PrismaClient } from '@prisma/client'
 import { CLIENT_API_PERMISSION_CODES } from '../src/api/security/routePermissions'
-import { hashClientApiSecret, parseClientApiKey } from '../src/lib/clientApiKeyCrypto'
+import {
+  hashClientApiSecret,
+  parseClientApiKey,
+} from '../src/lib/clientApiKeyCrypto'
 
 const BASE_PERMISSION_CODES = [
   'api.companies.list',
@@ -50,18 +53,20 @@ export async function seedClientApi(prisma: PrismaClient) {
   const idByCode = new Map(allPermissions.map((p) => [p.code, p.id]))
 
   await prisma.$transaction(async (tx) => {
-    await tx.clientApiRolePermission.deleteMany({ where: { roleId: allAccessRole.id } })
+    await tx.clientApiRolePermission.deleteMany({
+      where: { roleId: allAccessRole.id },
+    })
     await tx.clientApiRolePermission.createMany({
-      data: CLIENT_API_PERMISSION_CODES
-        .map((code) => idByCode.get(code))
+      data: CLIENT_API_PERMISSION_CODES.map((code) => idByCode.get(code))
         .filter((id): id is string => id !== undefined)
         .map((permissionId) => ({ roleId: allAccessRole.id, permissionId })),
     })
 
-    await tx.clientApiRolePermission.deleteMany({ where: { roleId: baseRole.id } })
+    await tx.clientApiRolePermission.deleteMany({
+      where: { roleId: baseRole.id },
+    })
     await tx.clientApiRolePermission.createMany({
-      data: BASE_PERMISSION_CODES
-        .map((code) => idByCode.get(code))
+      data: BASE_PERMISSION_CODES.map((code) => idByCode.get(code))
         .filter((id): id is string => id !== undefined)
         .map((permissionId) => ({ roleId: baseRole.id, permissionId })),
     })
@@ -77,7 +82,11 @@ export async function seedClientApi(prisma: PrismaClient) {
         '[seed] GARBO_ALL_ACCESS_API_KEY has invalid format (expected garb_<lookup>.<secret>).'
       )
     } else {
-      const secretHash = hashClientApiSecret(parsed.keyLookup, parsed.secretPart, pepper())
+      const secretHash = hashClientApiSecret(
+        parsed.keyLookup,
+        parsed.secretPart,
+        pepper()
+      )
       await prisma.clientApiKey.upsert({
         where: { keyLookup: parsed.keyLookup },
         create: {
@@ -88,7 +97,9 @@ export async function seedClientApi(prisma: PrismaClient) {
         },
         update: { secretHash, roleId: allAccessRole.id, revokedAt: null },
       })
-      console.log('[seed] Upserted all-access client API key from GARBO_ALL_ACCESS_API_KEY')
+      console.log(
+        '[seed] Upserted all-access client API key from GARBO_ALL_ACCESS_API_KEY'
+      )
     }
   }
 
@@ -99,7 +110,11 @@ export async function seedClientApi(prisma: PrismaClient) {
         '[seed] GARBO_BASE_API_KEY has invalid format (expected garb_<lookup>.<secret>).'
       )
     } else {
-      const secretHash = hashClientApiSecret(parsed.keyLookup, parsed.secretPart, pepper())
+      const secretHash = hashClientApiSecret(
+        parsed.keyLookup,
+        parsed.secretPart,
+        pepper()
+      )
       await prisma.clientApiKey.upsert({
         where: { keyLookup: parsed.keyLookup },
         create: {

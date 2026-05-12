@@ -44,8 +44,16 @@ beforeAll(async () => {
     import('./clientApiKeys.admin'),
   ])
 
-  mockFindUnique = (prismaModule.prisma.clientApiKey as unknown as { findUnique: jest.Mock<() => Promise<unknown>> }).findUnique
-  mockUpdate = (prismaModule.prisma.clientApiKey as unknown as { update: jest.Mock<() => Promise<unknown>> }).update
+  mockFindUnique = (
+    prismaModule.prisma.clientApiKey as unknown as {
+      findUnique: jest.Mock<() => Promise<unknown>>
+    }
+  ).findUnique
+  mockUpdate = (
+    prismaModule.prisma.clientApiKey as unknown as {
+      update: jest.Mock<() => Promise<unknown>>
+    }
+  ).update
 
   buildApp = () => {
     const app = Fastify({ logger: false })
@@ -53,7 +61,9 @@ beforeAll(async () => {
     app.setSerializerCompiler(serializerCompiler)
     app.decorateRequest('user', null)
     app.addHook('onRequest', (request, _reply, done) => {
-      ;(request as unknown as { user: { id: string } }).user = { id: 'test-staff-id' }
+      ;(request as unknown as { user: { id: string } }).user = {
+        id: 'test-staff-id',
+      }
       done()
     })
     app.register(routesModule.clientApiKeysAdminRoutes)
@@ -88,7 +98,10 @@ describe('GET /endpoint-catalog', () => {
     await app.ready()
 
     const res = await app.inject({ method: 'GET', url: '/endpoint-catalog' })
-    const body = res.json<{ method: string; type: string; path: string; permission: string }[]>()
+    const body =
+      res.json<
+        { method: string; type: string; path: string; permission: string }[]
+      >()
 
     for (const entry of body) {
       expect(typeof entry.method).toBe('string')
@@ -105,7 +118,10 @@ describe('GET /endpoint-catalog', () => {
     await app.ready()
 
     const res = await app.inject({ method: 'GET', url: '/endpoint-catalog' })
-    const body = res.json<{ method: string; type: string; path: string; permission: string }[]>()
+    const body =
+      res.json<
+        { method: string; type: string; path: string; permission: string }[]
+      >()
 
     expect(body).toEqual(
       clientApiRouteRules.map((r) => ({

@@ -8,12 +8,10 @@ const envSchema = z.object({
    * (any casing): REST lives under `/api/*`, and the client API key gate skips
    * `/${prefix}/*`; using `api` would skip enforcement for all data routes.
    */
-  OPENAPI_PREFIX: z
-    .string()
-    .refine((s) => s.toLowerCase() !== 'api', {
-      message:
-        'OPENAPI_PREFIX cannot be "api" — it shares /api with REST routes and disables X-API-Key gating. Use e.g. "reference" (see jest.env-setup.cjs).',
-    }),
+  OPENAPI_PREFIX: z.string().refine((s) => s.toLowerCase() !== 'api', {
+    message:
+      'OPENAPI_PREFIX cannot be "api" — it shares /api with REST routes and disables X-API-Key gating. Use e.g. "reference" (see jest.env-setup.cjs).',
+  }),
 })
 
 const parsedEnv = envSchema.safeParse(process.env)

@@ -19,9 +19,7 @@ import { companyGoalsRoutes } from './api/routes/internal/company.goals'
 import authPlugin from './api/plugins/auth'
 import { companyIndustryRoutes } from './api/routes/internal/company.industry'
 import { companyInitiativesRoutes } from './api/routes/internal/company.initiatives'
-import {
-  companyReportingPeriodsRoutes,
-} from './api/routes/internal/company.reportingPeriods'
+import { companyReportingPeriodsRoutes } from './api/routes/internal/company.reportingPeriods'
 import { companyUpdateRoutes } from './api/routes/internal/company.update'
 import { companyDeleteRoutes } from './api/routes/internal/company.delete'
 import { errorHandler } from './api/plugins/errorhandler'

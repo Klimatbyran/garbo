@@ -7,7 +7,10 @@ import {
 describe('parseClientApiKey', () => {
   it('parses a valid key', () => {
     const result = parseClientApiKey('garb_mylookup.mysecretpart')
-    expect(result).toEqual({ keyLookup: 'mylookup', secretPart: 'mysecretpart' })
+    expect(result).toEqual({
+      keyLookup: 'mylookup',
+      secretPart: 'mysecretpart',
+    })
   })
 
   it('returns null when the garb_ prefix is missing', () => {
@@ -68,5 +71,4 @@ describe('timingSafeEqualHex', () => {
   it('returns false when lengths differ', () => {
     expect(timingSafeEqualHex('aabb', 'aabbcc')).toBe(false)
   })
-
 })

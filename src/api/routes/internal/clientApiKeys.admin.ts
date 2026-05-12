@@ -180,7 +180,9 @@ export async function clientApiKeysAdminRoutes(app: FastifyInstance) {
       },
     },
     async (
-      request: AuthenticatedFastifyRequest<{ Body: z.infer<typeof createClientApiKeyBodySchema> }>,
+      request: AuthenticatedFastifyRequest<{
+        Body: z.infer<typeof createClientApiKeyBodySchema>
+      }>,
       reply
     ) => {
       const { name, roleId, keyLookup: keyLookupInput } = request.body
@@ -200,7 +202,12 @@ export async function clientApiKeysAdminRoutes(app: FastifyInstance) {
       try {
         keyLookup = await pickUniqueKeyLookup(keyLookupInput)
       } catch (e: unknown) {
-        if (e && typeof e === 'object' && 'code' in e && (e as { code: number }).code === 409) {
+        if (
+          e &&
+          typeof e === 'object' &&
+          'code' in e &&
+          (e as { code: number }).code === 409
+        ) {
           return reply.status(409).send({
             code: '409',
             message: `keyLookup "${keyLookupInput}" is already in use`,
@@ -275,11 +282,15 @@ export async function clientApiKeysAdminRoutes(app: FastifyInstance) {
       })
 
       if (!key) {
-        return reply.status(404).send({ code: '404', message: 'API key not found' })
+        return reply
+          .status(404)
+          .send({ code: '404', message: 'API key not found' })
       }
 
       if (key.revokedAt) {
-        return reply.status(409).send({ code: '409', message: 'API key is already revoked' })
+        return reply
+          .status(409)
+          .send({ code: '409', message: 'API key is already revoked' })
       }
 
       const revoked = await prisma.clientApiKey.update({
