@@ -5,6 +5,7 @@ import { cachePlugin } from '../../plugins/cache'
 import {
   MunicipalitySchema,
   MunicipalitiesSchema,
+  MunicipalityKpiListSchema,
   getErrorSchemas,
   MunicipalityNameParamSchema,
   MunicipalitySectorEmissionsSchema,
@@ -67,6 +68,25 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
       )
 
       reply.header('ETag', etagValue).send(municipalities)
+    }
+  )
+
+  app.get(
+    '/kpis',
+    {
+      schema: {
+        summary: 'Get municipality KPIs',
+        description:
+          'Retrieve key performance indicators for all municipalities: Paris alignment (trend within carbon budget), historical emission change, EVs per charge point, bicycle metres per capita, consumption emissions, electric car adoption change, and whether a published climate plan link exists in the data.',
+        tags: getTags('Municipalities'),
+        response: {
+          200: MunicipalityKpiListSchema,
+        },
+      },
+    },
+    async (_request, reply) => {
+      const kpis = municipalityService.getMunicipalityKpis()
+      reply.send(kpis)
     }
   )
 

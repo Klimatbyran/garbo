@@ -1,9 +1,45 @@
 import { PipelineJob, PipelineWorker } from './PipelineWorker'
-import { Queue } from 'bullmq'
+import { Job, Queue, WorkerOptions } from 'bullmq'
 import redis from '../config/redis'
 import saveToAPI from '../workers/saveToAPI'
 import { canonicalPublicReportUrl, defaultMetadata } from './saveUtils'
 import discord from '../pipelineBridge'
+
+/**
+ * Enqueue saveToAPI with a BullMQ parent link when possible. If the parent job
+ * key is no longer in Redis (retention, cleanup, or inconsistent state),
+ * retries without the parent so the save can still run.
+ */
+export async function enqueueSaveToAPIWithParentFallback(
+  job: Job,
+  name: string,
+  data: Record<string, unknown>
+): Promise<void> {
+  const parentOpts = job.id
+    ? { parent: { id: job.id, queue: job.queueName } }
+    : undefined
+
+  try {
+    await saveToAPI.queue.add(name, data, parentOpts)
+  } catch (error) {
+    const msg =
+      error instanceof Error
+        ? error.message
+        : typeof error === 'string'
+          ? error
+          : ''
+
+    if (msg.includes('Missing key for parent job')) {
+      await job.log(
+        `saveToAPI enqueue: parent missing; retrying without parent. (${msg})`
+      )
+      await saveToAPI.queue.add(name, data)
+      return
+    }
+
+    throw error
+  }
+}
 
 export interface ChangeDescription {
   type: string
@@ -39,13 +75,16 @@ function addCustomMethods(job: DiffJob) {
     wikidata,
     body
   ) => {
-    await saveToAPI.queue.add(companyName + ' ' + apiSubEndpoint, {
+    const name = companyName + ' ' + apiSubEndpoint
+    const data = {
       ...job.data,
       companyName,
       wikidata,
       body,
       apiSubEndpoint,
-    })
+    }
+
+    await enqueueSaveToAPIWithParentFallback(job, name, data)
   }
 
   job.handleDiff = async (apiSubEndpoint, diff, change, requiresApproval) => {

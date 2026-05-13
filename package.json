@@ -1,6 +1,6 @@
 {
   "name": "garbo",
-  "version": "5.7.1-rc.2",
+  "version": "5.8.4-rc.2",
   "description": "",
   "type": "module",
   "exports": {
@@ -13,8 +13,9 @@
     "start": "node --import tsx src/index.ts",
     "migrate": "npx prisma migrate deploy",
     "seed:tags": "node --import tsx scripts/seed-tag-options.ts",
-    "workers": "node --import tsx src/startWorkers.ts",
-    "dev-workers": "node --import tsx --watch src/startWorkers.ts",
+    "seed:gics": "node --import dotenv/config --import tsx scripts/add-gics.ts",
+    "workers": "node --import dotenv/config --import tsx src/startWorkers.ts",
+    "dev-workers": "node --import dotenv/config --import tsx --watch src/startWorkers.ts",
     "dev-board": "node -r dotenv/config --import tsx --watch src/index.ts",
     "dev-api": "node --import tsx --watch src/index.ts --api-only",
     "dev": "concurrently \"npm run dev-board\" \"npm run dev-workers\"",
@@ -29,6 +30,7 @@
     "prisma": "prisma",
     "reset": "node --import tsx scripts/dev-reset.ts",
     "delete-report": "node --import tsx scripts/delete-report.ts",
+    "backfill:report-runs": "node --import tsx scripts/backfill-report-runs-from-bullmq.ts",
     "eslint": "npx eslint src",
     "format": "npx prettier --write .",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest"
@@ -42,7 +44,7 @@
     "@fastify/cookie": "^11.0.2",
     "@fastify/cors": "^10.0.2",
     "@fastify/session": "^11.1.0",
-    "@fastify/static": "^8.0.4",
+    "@fastify/static": "^9.1.2",
     "@fastify/swagger": "^9.4.2",
     "@google-cloud/storage": "^7.19.0",
     "@mendable/firecrawl-js": "^4.13.0",

@@ -69,25 +69,27 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
           logoUrl: logoUrl ?? undefined,
           lei,
         })
-        // Create descriptions
-        descriptions?.map(async (description) => {
-          const createdMetadata = await metadataService.createMetadata({
-            user: request.user,
-            metadata,
+        await Promise.all(
+          (descriptions ?? []).map(async (description) => {
+            const createdMetadata = await metadataService.createMetadata({
+              user: request.user,
+              metadata,
+            })
+            await companyService.upsertDescription({
+              description,
+              companyId: wikidataId,
+              metadataId: createdMetadata.id,
+            })
           })
-          await companyService.upsertDescription({
-            description,
-            companyId: wikidataId,
-            metadataId: createdMetadata.id,
-          })
-        })
+        )
         redisCache.clear()
         return reply.send({ ok: true })
       } catch (error) {
         console.error('ERROR Creation or update of company failed:', error)
-        return reply
-          .status(500)
-          .send({ message: 'Creation or update of company failed.' })
+        return reply.status(500).send({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'Creation or update of company failed.',
+        })
       }
     }
   )

@@ -1,7 +1,7 @@
 import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
+import { enqueueSaveToAPIWithParentFallback } from '../lib/DiffWorker'
 import { defaultMetadata, diffChanges } from '../lib/saveUtils'
 import { QUEUE_NAMES } from '../queues'
-import saveToAPI from './saveToAPI'
 
 export class DiffTagsJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
@@ -33,7 +33,7 @@ const diffTags = new PipelineWorker<DiffTagsJob>(
 
     // Only save if we detected any meaningful changes
     if (diff) {
-      await saveToAPI.queue.add(companyName + ' tags', {
+      await enqueueSaveToAPIWithParentFallback(job, companyName + ' tags', {
         ...job.data,
         body,
         diff,

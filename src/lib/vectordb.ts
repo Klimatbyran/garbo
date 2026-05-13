@@ -19,10 +19,9 @@ const collection = await client.getOrCreateCollection({
 // this is our own type to be able to filter in the future if needed
 const reportMetadataType = 'company_sustainability_report'
 
-// Limit concurrent ChromaDB queries to prevent HNSW searches from overwhelming
-// the server. Under K8s CPU limits all 10+ follow-up workers fire simultaneously;
-// without this they all queue in ChromaDB's thread pool, starve each other of
-// CPU, and time out before any response is sent.
+// Cap concurrent Chroma HTTP calls per worker (queries + per-batch adds). BullMQ
+// runs many jobs at once; one Chroma pod cannot (HNSW/thread pool for query, SQLite
+// locks on add). Extra callers wait on a semaphore. Each pod has its own cap.
 const CHROMA_CONCURRENCY = config.concurrency
 let activeChromaQueries = 0
 const chromaQueryWaiters: (() => void)[] = []
@@ -94,10 +93,12 @@ async function addReport(url: string, markdown: string) {
       parsed: new Date().toISOString(),
     }))
 
-    await collection.add({
-      ids: batchIds,
-      metadatas: batchMetadatas,
-      documents: batchChunks.map(({ chunk }) => chunk),
+    await withChromaLimit(async () => {
+      await collection.add({
+        ids: batchIds,
+        metadatas: batchMetadatas,
+        documents: batchChunks.map(({ chunk }) => chunk),
+      })
     })
 
     // Optional: Add a small delay between batches to avoid rate limiting

@@ -1,4 +1,3 @@
-import { vectorDB } from '../../lib/vectordb'
 import { askStream } from '../../lib/openai'
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { AssessmentInput, AssessmentResult } from './types'
@@ -12,7 +11,8 @@ export async function assessEmissions(
     default: { schema, prompt, queryTexts },
   } = await import('../../workers/followUp/emissionsAssessment')
 
-  // Get relevant context from the PDF
+  // Chroma is optional for most API routes; load only when this endpoint runs.
+  const { vectorDB } = await import('../../lib/vectordb')
   const markdown = await vectorDB.getRelevantMarkdown(url, queryTexts, 5)
 
   const contextData = {

@@ -44,6 +44,7 @@ class ExtractEmissionsJob extends PipelineJob {
 }
 
 const flow = new FlowProducer({ connection: redis })
+flow.on('error', (err) => console.error('FlowProducer connection error:', err))
 
 const extractEmissions = new PipelineWorker<ExtractEmissionsJob>(
   QUEUE_NAMES.EXTRACT_EMISSIONS,

@@ -1,7 +1,7 @@
 import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
+import { enqueueSaveToAPIWithParentFallback } from '../lib/DiffWorker'
 import { defaultMetadata } from '../lib/saveUtils'
 import { QUEUE_NAMES } from '../queues'
-import saveToAPI from './saveToAPI'
 import { Description } from '../api/types'
 import { askPrompt } from '../lib/openai'
 
@@ -51,12 +51,16 @@ const diffDescriptions = new PipelineWorker<DiffDescriptionsJob>(
 
     // Only save if we detected any meaningful changes
     if (!diff.includes('NO_CHANGES')) {
-      await saveToAPI.queue.add(companyName + ' descriptions', {
-        ...job.data,
-        body,
-        diff,
-        apiSubEndpoint: '',
-      })
+      await enqueueSaveToAPIWithParentFallback(
+        job,
+        companyName + ' descriptions',
+        {
+          ...job.data,
+          body,
+          diff,
+          apiSubEndpoint: '',
+        }
+      )
     }
 
     return { body, diff }

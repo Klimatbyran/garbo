@@ -1,4 +1,4 @@
-import { FlowProducer } from 'bullmq'
+import { FlowProducer, DelayedError } from 'bullmq'
 import redis from '../config/redis'
 import wikidata from '../prompts/wikidata'
 import { askPrompt, askStream } from '../lib/openai'
@@ -17,6 +17,7 @@ class PrecheckJob extends PipelineJob {
 }
 
 const flow = new FlowProducer({ connection: redis })
+flow.on('error', (err) => console.error('FlowProducer connection error:', err))
 
 const companyNameSchema = z.object({
   companyName: z.string().nullable(),
@@ -87,7 +88,7 @@ const precheck = new PipelineWorker(
       if (waitingForCompanyName) {
         job.log('Still waiting for user to provide company name manually...')
         await job.moveToDelayed(Date.now() + 30000) // Check again in 30 seconds
-        return
+        throw new DelayedError()
       }
 
       // Send message asking for manual input
@@ -103,7 +104,7 @@ const precheck = new PipelineWorker(
       // Mark the job as waiting for company name
       await job.updateData({ ...job.data, waitingForCompanyName: true })
       await job.moveToDelayed(Date.now() + 300000) // Check again in 5 minutes
-      return
+      throw new DelayedError()
     }
 
     return processWithCompanyName(companyName)

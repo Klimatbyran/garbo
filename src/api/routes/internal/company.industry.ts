@@ -1,6 +1,5 @@
 import { FastifyInstance, AuthenticatedFastifyRequest } from 'fastify'
 
-import { prisma } from '../../../lib/prisma'
 import { industryService } from '../../services/industryService'
 import { getErrorSchemas, postIndustrySchema } from '../../schemas'
 import { metadataService } from '../../services/metadataService'
@@ -53,9 +52,10 @@ export async function companyIndustryRoutes(app: FastifyInstance) {
         )
       } catch (error) {
         console.error('ERROR Creation or update of industry failed:', error)
-        return reply
-          .status(500)
-          .send({ message: 'Creation or update of industry failed.' })
+        return reply.status(500).send({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'Creation or update of industry failed.',
+        })
       }
 
       return reply.send({ ok: true })

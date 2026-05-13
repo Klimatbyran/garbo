@@ -1,7 +1,6 @@
 import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
-import wikidata from '../prompts/wikidata'
+import { enqueueSaveToAPIWithParentFallback } from '../lib/DiffWorker'
 import { QUEUE_NAMES } from '../queues'
-import saveToAPI from './saveToAPI'
 
 export class DiffLEIJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
@@ -69,13 +68,17 @@ const diffLEI = new PipelineWorker<DiffLEIJob>(
     job.log(
       `⚡ Detected changes for '${companyName}', enqueuing save operation...`
     )
-    await saveToAPI.queue.add(`${companyName} - LEI Update`, {
-      ...job.data,
-      body: body,
-      diff: comparisonResult.reason,
-      requiresApproval: false,
-      apiSubEndpoint: '',
-    })
+    await enqueueSaveToAPIWithParentFallback(
+      job,
+      `${companyName} - LEI Update`,
+      {
+        ...job.data,
+        body: body,
+        diff: comparisonResult.reason,
+        requiresApproval: false,
+        apiSubEndpoint: '',
+      }
+    )
 
     job.log(`✅ Enqueued LEI update for '${companyName}' with LEI: '${lei}'.`)
   }
