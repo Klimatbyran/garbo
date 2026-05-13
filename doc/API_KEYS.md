@@ -243,18 +243,18 @@ cd garbo && npm test
 
 ## Quick reference: where to look
 
-| Area                                     | Path                                                 |
-| ---------------------------------------- | ---------------------------------------------------- |
-| Gate                                     | `src/api/plugins/clientApiKeyGate.ts`                |
-| Permission registry + HTTP rules         | `src/api/security/routePermissions.ts`               |
-| Crypto                                   | `src/lib/clientApiKeyCrypto.ts`                      |
-| Client route bundle                      | `src/registerClientApiRoutes.ts`                     |
-| Staff key admin                          | `src/api/routes/internal/clientApiKeys.admin.ts`     |
-| App wiring (gate, client vs staff trees) | `src/app.ts`                                         |
-| Config / pepper / anonymous flag         | `src/config/api.ts`, `src/config/parseEnvBoolean.ts` |
-| OpenAPI prefix validation                | `src/config/openapi.ts`                              |
-| Seed roles + permissions + env keys      | `prisma/seedClientApi.ts`                            |
-| Prisma models                            | `prisma/schema.prisma`                               |
+| Area                                     | Path                                                                               |
+| ---------------------------------------- | ---------------------------------------------------------------------------------- |
+| Gate                                     | `src/api/plugins/clientApiKeyGate.ts`                                              |
+| Permission registry + HTTP rules         | `src/api/security/routePermissions.ts`                                             |
+| Crypto                                   | `src/lib/clientApiKeyCrypto.ts`                                                    |
+| Client route bundle                      | `src/registerClientApiRoutes.ts`                                                   |
+| Staff key admin                          | `src/api/routes/internal/clientApiKeys.admin.ts`                                   |
+| App wiring (gate, client vs staff trees) | `src/app.ts`                                                                       |
+| Config / pepper / anonymous flag         | `src/config/api.ts`, `src/config/parseEnvBoolean.ts`                               |
+| OpenAPI prefix validation                | `src/config/openapi.ts`                                                            |
+| Seed roles + permissions + env keys      | `prisma/seedClientApi.ts`                                                          |
+| Prisma models                            | `prisma/schema.prisma`                                                             |
 | Usage tracking (hook + model)            | `src/api/plugins/clientApiKeyGate.ts`, `prisma/schema.prisma` (`ClientApiRequest`) |
 
 ---
