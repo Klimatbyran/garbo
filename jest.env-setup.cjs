@@ -21,6 +21,8 @@ const defaults = {
   JWT_SECRET: 'jest-jwt-secret-1234567890123456789012',
   JWT_EXPIRES_IN: '86400',
   OPENAPI_PREFIX: 'reference',
+  REDIS_HOST: '127.0.0.1',
+  REDIS_PORT: '6379',
 }
 
 for (const [key, value] of Object.entries(defaults)) {
