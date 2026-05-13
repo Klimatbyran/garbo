@@ -120,6 +120,10 @@ async function clientApiContext(app: FastifyInstance) {
  * This context wraps all logic that requires authentication.
  */
 async function authenticatedContext(app: FastifyInstance) {
+  app.addHook('onRoute', (routeOptions) => {
+    routeOptions.schema = { ...routeOptions.schema, hide: true }
+  })
+
   app.register(authPlugin)
   app.register(companyUpdateRoutes, { prefix: 'api/companies' })
   app.register(companyIndustryRoutes, { prefix: 'api/companies' })
