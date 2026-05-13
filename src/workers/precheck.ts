@@ -111,7 +111,7 @@ const precheck = new PipelineWorker(
     async function processWithCompanyName(companyName: string) {
       job.log('Company name: ' + companyName)
 
-      if (job.hasValidThreadId()) {
+      if (job.hasValidDiscordThreadId()) {
         await job.setThreadName(companyName)
       }
 

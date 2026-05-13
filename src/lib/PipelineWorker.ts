@@ -63,7 +63,7 @@ export class PipelineJob extends Job {
   setThreadName: (name: string) => Promise<TextChannel | undefined>
   sendTyping: () => Promise<void>
   getChildrenEntries: () => Promise<ChildrenEntries>
-  hasValidThreadId: () => boolean
+  hasValidDiscordThreadId: () => boolean
 }
 
 function addCustomMethods(job: PipelineJob) {
@@ -100,7 +100,7 @@ function addCustomMethods(job: PipelineJob) {
       })
   }
 
-  job.hasValidThreadId = function () {
+  job.hasValidDiscordThreadId = function () {
     return (
       typeof this.data.discordThreadId === 'string' &&
       /^\d{17,19}$/.test(this.data.discordThreadId)
@@ -108,7 +108,7 @@ function addCustomMethods(job: PipelineJob) {
   }
 
   job.sendMessage = async (msg: string | BaseMessageOptions) => {
-    if (!job.hasValidThreadId()) {
+    if (!job.hasValidDiscordThreadId()) {
       console.log(
         'Invalid Discord threadId format in sendMessage:',
         job.data.discordThreadId
@@ -123,7 +123,7 @@ function addCustomMethods(job: PipelineJob) {
   }
 
   job.sendTyping = async () => {
-    if (!job.hasValidThreadId()) {
+    if (!job.hasValidDiscordThreadId()) {
       console.log(
         'Invalid Discord threadId format in sendTyping:',
         job.data.discordThreadId
@@ -169,7 +169,7 @@ function addCustomMethods(job: PipelineJob) {
   }
 
   job.editMessage = async (msg: string | BaseMessageOptions) => {
-    if (!job.hasValidThreadId()) {
+    if (!job.hasValidDiscordThreadId()) {
       console.log('Invalid Discord threadId format:', job.data.discordThreadId)
       return undefined
     }
