@@ -60,11 +60,40 @@ Defined in `**prisma/schema.prisma**` (tables mapped with `@@map`):
 | Model                         | Purpose                                                                                                                                                                                 |
 | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `**ClientApiPermission**`     | One row per permission **code** (e.g. `api.companies.list`).                                                                                                                            |
-| `**ClientApiRole`\*\*         | Named role (`**slug**`) e.g. `all_access`, `base`.                                                                                                                                      |
+| `**ClientApiRole**`           | Named role (`**slug**`) e.g. `all_access`, `base`.                                                                                                                                      |
 | `**ClientApiRolePermission**` | Many-to-many: which permissions a role has.                                                                                                                                             |
 | `**ClientApiKey**`            | `**keyLookup**` (public id segment), `**secretHash**`, `**roleId**`, `**revokedAt**`, `**lastUsedAt**`. Full plaintext key is `**garb_<keyLookup>.<secret>**`; only the hash is stored. |
+| `**ClientApiRequest**`        | One row per successful authenticated request (excluding `all_access` role). Fields: `**keyId**`, `**path**`, `**method**`, `**statusCode**`, `**timestamp**`. Used for usage analytics. |
 
-Initial migration: `prisma/migrations/20260413120000_client_api_keys/`. Later columns (e.g. `**last_used_at**`) may have their own migrations.
+Migrations: `prisma/migrations/20260413120000_client_api_keys/` (core tables), `20260512100000_client_api_key_last_used_at/` (`last_used_at` column), `20260513120000_client_api_request/` (usage tracking table).
+
+---
+
+## Usage tracking (`ClientApiRequest`)
+
+Every successful request authenticated with a non-`all_access` key is logged to `**ClientApiRequest**`. The `all_access` role (used internally by Validate/Bolt) is excluded to avoid polluting the table with first-party traffic.
+
+Logging happens in the `**onResponse**` hook in `**clientApiKeyGate.ts**` — fire-and-forget, so it never blocks the response. Any write failure is logged with `**event: 'client_api_request_log_error'**`.
+
+**Example queries:**
+
+```sql
+-- calls per key in the last 7 days
+SELECT key_id, COUNT(*) AS calls
+FROM client_api_request
+WHERE timestamp > NOW() - INTERVAL '7 days'
+GROUP BY key_id ORDER BY calls DESC;
+
+-- most-used endpoints
+SELECT path, method, COUNT(*) AS calls
+FROM client_api_request
+GROUP BY path, method ORDER BY calls DESC;
+
+-- error rate per key
+SELECT key_id, status_code, COUNT(*) AS calls
+FROM client_api_request
+GROUP BY key_id, status_code ORDER BY key_id;
+```
 
 ---
 
@@ -214,18 +243,19 @@ cd garbo && npm test
 
 ## Quick reference: where to look
 
-| Area                                     | Path                                                 |
-| ---------------------------------------- | ---------------------------------------------------- |
-| Gate                                     | `src/api/plugins/clientApiKeyGate.ts`                |
-| Permission registry + HTTP rules         | `src/api/security/routePermissions.ts`               |
-| Crypto                                   | `src/lib/clientApiKeyCrypto.ts`                      |
-| Client route bundle                      | `src/registerClientApiRoutes.ts`                     |
-| Staff key admin                          | `src/api/routes/internal/clientApiKeys.admin.ts`     |
-| App wiring (gate, client vs staff trees) | `src/app.ts`                                         |
-| Config / pepper / anonymous flag         | `src/config/api.ts`, `src/config/parseEnvBoolean.ts` |
-| OpenAPI prefix validation                | `src/config/openapi.ts`                              |
-| Seed roles + permissions + env keys      | `prisma/seedClientApi.ts`                            |
-| Prisma models                            | `prisma/schema.prisma`                               |
+| Area                                     | Path                                                                               |
+| ---------------------------------------- | ---------------------------------------------------------------------------------- |
+| Gate                                     | `src/api/plugins/clientApiKeyGate.ts`                                              |
+| Permission registry + HTTP rules         | `src/api/security/routePermissions.ts`                                             |
+| Crypto                                   | `src/lib/clientApiKeyCrypto.ts`                                                    |
+| Client route bundle                      | `src/registerClientApiRoutes.ts`                                                   |
+| Staff key admin                          | `src/api/routes/internal/clientApiKeys.admin.ts`                                   |
+| App wiring (gate, client vs staff trees) | `src/app.ts`                                                                       |
+| Config / pepper / anonymous flag         | `src/config/api.ts`, `src/config/parseEnvBoolean.ts`                               |
+| OpenAPI prefix validation                | `src/config/openapi.ts`                                                            |
+| Seed roles + permissions + env keys      | `prisma/seedClientApi.ts`                                                          |
+| Prisma models                            | `prisma/schema.prisma`                                                             |
+| Usage tracking (hook + model)            | `src/api/plugins/clientApiKeyGate.ts`, `prisma/schema.prisma` (`ClientApiRequest`) |
 
 ---
 
