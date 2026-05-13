@@ -12,7 +12,7 @@ import {
 import { getTags } from '../../../config/openapi'
 import { PostCompanyBody, WikidataIdParams } from '../../types'
 import { metadataService } from '../../services/metadataService'
-import { redisCache } from '../../..'
+import { redisCache } from '../../../lib/redisCacheSingleton'
 
 export async function companyUpdateRoutes(app: FastifyInstance) {
   app.post(

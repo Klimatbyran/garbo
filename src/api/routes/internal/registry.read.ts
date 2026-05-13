@@ -3,7 +3,7 @@ import { getTags } from '../../../config/openapi'
 import { cachePlugin } from '../../plugins/cache'
 import { RegistryList } from '../../schemas'
 import { registryService } from '@/api/services/registryService'
-import { redisCache } from '@/index'
+import { redisCache } from '@/lib/redisCacheSingleton'
 import {
   REGISTRY_DATA_KEY,
   REGISTRY_ETAG_KEY,

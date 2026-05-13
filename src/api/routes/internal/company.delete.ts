@@ -14,7 +14,7 @@ import {
 } from '../../schemas'
 import { getTags } from '../../../config/openapi'
 import { GarboEntityId, WikidataIdParams } from '../../types'
-import { redisCache } from '../../..'
+import { redisCache } from '../../../lib/redisCacheSingleton'
 import { baseYearService } from '../../services/baseYearService'
 
 export async function companyDeleteRoutes(app: FastifyInstance) {

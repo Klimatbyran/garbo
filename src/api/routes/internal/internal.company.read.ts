@@ -17,7 +17,7 @@ import {
   errorResponseSchema,
   previewResponseSchema,
 } from '../../schemas'
-import { redisCache } from '../../..'
+import { redisCache } from '../../../lib/redisCacheSingleton'
 
 export async function internalCompanyReadRoutes(app: FastifyInstance) {
   app.register(cachePlugin)
@@ -87,40 +87,6 @@ export async function internalCompanyReadRoutes(app: FastifyInstance) {
   )
 
   app.get(
-    '/:wikidataId',
-    {
-      schema: {
-        summary: 'Get detailed company',
-        description:
-          'Retrieve a company with its emissions, economic data, industry classification, goals, and initiatives',
-        tags: getTags('Internal'),
-        params: wikidataIdParamSchema,
-        response: {
-          200: InternalCompanyDetails,
-          ...getErrorSchemas(400, 404),
-        },
-      },
-    },
-    async (request: FastifyRequest<{ Params: WikidataIdParams }>, reply) => {
-      const { wikidataId } = request.params
-      const company = await companyService.getCompanyWithMetadata(wikidataId)
-      reply.send({
-        ...company,
-        // Add translations for GICS data
-        industry: company.industry
-          ? {
-              ...company.industry,
-              industryGics: {
-                ...company.industry.industryGics,
-                ...getGics(company.industry.industryGics.subIndustryCode),
-              },
-            }
-          : null,
-      })
-    }
-  )
-
-  app.get(
     '/search',
     {
       schema: {
@@ -140,7 +106,6 @@ export async function internalCompanyReadRoutes(app: FastifyInstance) {
     ) => {
       const { q } = request.query
       const companies = await companyService.getAllCompaniesBySearchTerm(q)
-      console.log(companies)
       reply.send(companies)
     }
   )
@@ -190,6 +155,40 @@ export async function internalCompanyReadRoutes(app: FastifyInstance) {
 
       reply.header('Content-Type', 'image/jpeg')
       return reply.send(jpegBuffer)
+    }
+  )
+
+  app.get(
+    '/:wikidataId',
+    {
+      schema: {
+        summary: 'Get detailed company',
+        description:
+          'Retrieve a company with its emissions, economic data, industry classification, goals, and initiatives',
+        tags: getTags('Internal'),
+        params: wikidataIdParamSchema,
+        response: {
+          200: InternalCompanyDetails,
+          ...getErrorSchemas(400, 404),
+        },
+      },
+    },
+    async (request: FastifyRequest<{ Params: WikidataIdParams }>, reply) => {
+      const { wikidataId } = request.params
+      const company = await companyService.getCompanyWithMetadata(wikidataId)
+      reply.send({
+        ...company,
+        // Add translations for GICS data
+        industry: company.industry
+          ? {
+              ...company.industry,
+              industryGics: {
+                ...company.industry.industryGics,
+                ...getGics(company.industry.industryGics.subIndustryCode),
+              },
+            }
+          : null,
+      })
     }
   )
 }

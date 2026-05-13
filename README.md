@@ -90,6 +90,8 @@ Make a copy of the file `.env.example` and name it `.env`. Fill it in using the 
 
 The API uses GitHub OAuth for authentication. The backend handles the OAuth flow through a single callback endpoint (`/api/auth/github/callback`) registered with GitHub, then redirects users to the appropriate frontend client based on the `state` parameter. Multiple frontend clients can use the same backend by passing an optional `redirect_uri` query parameter when initiating authentication.
 
+**Client API keys (`X-API-Key`):** Read routes under `/api/...` (except `/api/auth/...` and OpenAPI docs) require an `X-API-Key` header unless `ALLOW_ANONYMOUS_CLIENT_API=true` (cutover only). Keys use the format `garb_<lookup>.<secret>`. Run `npm run prisma migrate dev` and seed, then optionally set `GARBO_ALL_ACCESS_API_KEY` / `GARBO_BASE_API_KEY` before `npm run prisma db seed` (or run `npm run seed:client-api` to seed only the API key roles). Hashing uses `API_SECRET` as pepper unless you set `CLIENT_API_KEY_PEPPER`. **validate** / **bolt** dev: set `GARBO_PROXY_CLIENT_API_KEY` in `.env` so the Vite proxy can attach `X-API-Key` when forwarding to Garbo. For implementation detail, manual test matrix, and troubleshooting, see **[doc/API_KEYS.md](./doc/API_KEYS.md)**.
+
 ### Installing dependencies
 
 ```sh
@@ -152,7 +154,7 @@ The code can be started in three main ways, depending on what you plan to develo
 npm run dev-api
 ```
 
-This starts the API, and makes it possible to view the OpenAPI documentation at <http://localhost:3000/api>.
+This starts the API, and makes it possible to view the OpenAPI documentation at <http://localhost:3000/reference> (from `OPENAPI_PREFIX`; must not be `api`, which collides with REST `/api/*`).
 
 #### 2) To start the AI pipeline, BullMQ admin dashboard and the API:
 

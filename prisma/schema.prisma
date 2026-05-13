@@ -464,3 +464,68 @@ model ReportRunJob {
 
   @@index([reportRunId])
 }
+
+/// Permission codes for the client API key layer (browser/proxy + partner integrations) — see `src/api/security/routePermissions.ts`.
+model ClientApiPermission {
+  id    String @id @default(cuid())
+  code  String @unique
+  label String?
+
+  roles ClientApiRolePermission[]
+
+  @@map("client_api_permission")
+}
+
+model ClientApiRole {
+  id    String @id @default(cuid())
+  slug  String @unique
+  label String?
+
+  permissions ClientApiRolePermission[]
+  keys        ClientApiKey[]
+
+  @@map("client_api_role")
+}
+
+model ClientApiRolePermission {
+  roleId       String @map("role_id")
+  permissionId String @map("permission_id")
+
+  role       ClientApiRole       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission ClientApiPermission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([roleId, permissionId])
+  @@map("client_api_role_permission")
+}
+
+model ClientApiKey {
+  id         String   @id @default(cuid())
+  name       String
+  /// Lookup segment (shown in logs); full key is `garb_<keyLookup>.<secret>`
+  keyLookup  String   @unique @map("key_lookup")
+  /// sha256 hex of `${keyLookup}.${secret}.${pepper}`
+  secretHash String   @map("secret_hash")
+  roleId     String   @map("role_id")
+  role       ClientApiRole @relation(fields: [roleId], references: [id], onDelete: Restrict)
+  revokedAt  DateTime? @map("revoked_at")
+  lastUsedAt DateTime? @map("last_used_at")
+  createdAt  DateTime @default(now()) @map("created_at")
+  requests   ClientApiRequest[]
+
+  @@map("client_api_key")
+}
+
+model ClientApiRequest {
+  id         String   @id @default(cuid())
+  keyId      String   @map("key_id")
+  path       String
+  method     String
+  statusCode Int      @map("status_code")
+  timestamp  DateTime @default(now())
+
+  key ClientApiKey @relation(fields: [keyId], references: [id], onDelete: Cascade)
+
+  @@index([keyId])
+  @@index([timestamp])
+  @@map("client_api_request")
+}

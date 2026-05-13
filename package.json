@@ -10,8 +10,10 @@
     "node": ">=22.0.0"
   },
   "scripts": {
+    "postinstall": "prisma generate",
     "start": "node --import tsx src/index.ts",
     "migrate": "npx prisma migrate deploy",
+    "seed:client-api": "node --import=tsx scripts/seed-client-api.ts",
     "seed:tags": "node --import tsx scripts/seed-tag-options.ts",
     "seed:gics": "node --import dotenv/config --import tsx scripts/add-gics.ts",
     "workers": "node --import dotenv/config --import tsx src/startWorkers.ts",
@@ -99,7 +101,10 @@
   },
   "overrides": {
     "undici": ">=6.23.0",
-    "@tootallnate/once": ">=3.0.1"
+    "@tootallnate/once": ">=3.0.1",
+    "prisma-zod-generator": {
+      "@prisma/client": "5.22.0"
+    }
   },
   "prisma": {
     "seed": "node --import=tsx prisma/seed.ts"

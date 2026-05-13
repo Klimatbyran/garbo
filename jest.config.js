@@ -1,6 +1,7 @@
 export default {
   preset: 'ts-jest',
   testEnvironment: 'node',
+  setupFiles: ['<rootDir>/jest.env-setup.cjs'],
   extensionsToTreatAsEsm: ['.ts'],
   transform: {
     '^.+\\.tsx?$': [
@@ -10,7 +11,12 @@ export default {
   },
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',
+    '^@/(.*)$': '<rootDir>/src/$1',
   },
-  testMatch: ['**/tests/**/*.spec.ts', '**/tests/**/*.test.ts'],
+  testMatch: [
+    '**/tests/**/*.spec.ts',
+    '**/tests/**/*.test.ts',
+    '<rootDir>/src/**/*.test.ts',
+  ],
   collectCoverageFrom: ['src/**/*.ts', '!src/**/*.d.ts'],
 }

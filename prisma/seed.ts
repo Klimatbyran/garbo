@@ -1,6 +1,7 @@
 import 'dotenv/config'
 import { PrismaClient } from '@prisma/client'
 import { seedGicsCodes } from '../scripts/add-gics'
+import { seedClientApi } from './seedClientApi'
 
 const prisma = new PrismaClient()
 
@@ -49,6 +50,7 @@ async function seedTagOptions() {
 
 async function main() {
   await Promise.all([seedGicsCodes(), seedUsers(), seedTagOptions()])
+  await seedClientApi(prisma)
 }
 
 main()
