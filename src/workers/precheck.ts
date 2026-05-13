@@ -3,13 +3,13 @@ import redis from '../config/redis'
 import wikidata from '../prompts/wikidata'
 import { askPrompt, askStream } from '../lib/openai'
 import { zodResponseFormat } from 'openai/helpers/zod'
-import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { z } from 'zod'
 import { QUEUE_NAMES } from '../queues'
-import discord from '../discord'
+import discord from '../pipelineBridge'
 
-class PrecheckJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+class PrecheckJob extends PipelineJob {
+  declare data: PipelineJob['data'] & {
     cachedMarkdown?: string
     companyName?: string
     waitingForCompanyName?: boolean
@@ -23,7 +23,7 @@ const companyNameSchema = z.object({
   companyName: z.string().nullable(),
 })
 
-const precheck = new DiscordWorker(
+const precheck = new PipelineWorker(
   QUEUE_NAMES.PRECHECK,
   async (job: PrecheckJob) => {
     const {
@@ -76,7 +76,7 @@ const precheck = new DiscordWorker(
       )
     }
 
-    const companyName = await extractCompanyName(markdown)
+    const companyName = await extractCompanyName(markdown as string)
 
     if (companyName) {
       // Update job data with companyName for grouping/UI in validation tool
@@ -112,7 +112,7 @@ const precheck = new DiscordWorker(
     async function processWithCompanyName(companyName: string) {
       job.log('Company name: ' + companyName)
 
-      if (job.hasValidThreadId()) {
+      if (job.hasValidDiscordThreadId()) {
         await job.setThreadName(companyName)
       }
 

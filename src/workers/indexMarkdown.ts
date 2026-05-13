@@ -1,23 +1,28 @@
 import config from '../config/chromadb'
-import { DiscordWorker, DiscordJob } from '../lib/DiscordWorker'
+import { PipelineWorker, PipelineJob } from '../lib/PipelineWorker'
 import { vectorDB } from '../lib/vectordb'
 import { QUEUE_NAMES } from '../queues'
 
-class IndexMarkdownJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+class IndexMarkdownJob extends PipelineJob {
+  declare data: PipelineJob['data'] & {
     markdown: string
   }
 }
 
-const indexMarkdown = new DiscordWorker(
+const indexMarkdown = new PipelineWorker(
   QUEUE_NAMES.INDEX_MARKDOWN,
   async (job: IndexMarkdownJob) => {
     const { url } = job.data
 
     // Accept markdown from own data or from child job results (e.g., Docling parser)
-    const childEntries = await job.getChildrenEntries().catch(() => ({}))
-    const markdown: string | undefined =
-      job.data.markdown ?? childEntries.markdown
+    const childEntries: Record<string, unknown> = await job
+      .getChildrenEntries()
+      .catch((): Record<string, unknown> => ({}))
+    const childMarkdown =
+      typeof childEntries.markdown === 'string'
+        ? childEntries.markdown
+        : undefined
+    const markdown: string | undefined = job.data.markdown ?? childMarkdown
 
     if (!markdown || !markdown.trim()) {
       job.editMessage(

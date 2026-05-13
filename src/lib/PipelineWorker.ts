@@ -1,4 +1,4 @@
-import { Worker, WorkerOptions, Job, Queue, UnrecoverableError } from 'bullmq'
+import { Worker, WorkerOptions, Job, Queue } from 'bullmq'
 import {
   BaseMessageOptions,
   Message,
@@ -6,10 +6,9 @@ import {
   TextChannel,
 } from 'discord.js'
 import redis from '../config/redis'
-import discord from '../discord'
-import apiConfig from '../config/api'
+import discord from '../pipelineBridge'
 import { ChangeDescription } from './DiffWorker'
-import { createDiscordLogger } from './logger'
+import { createPipelineLogger } from './logger'
 import { Logger } from '@/types'
 
 interface Approval {
@@ -23,12 +22,18 @@ interface Approval {
   }
 }
 
-export class DiscordJob extends Job {
+type ApprovedBody = Record<string, unknown> & {
+  metadata?: Approval['metadata']
+}
+
+type ChildrenEntries = Record<string, unknown>
+
+export class PipelineJob extends Job {
   declare data: {
     url: string
-    threadId?: string
-    channelId: string
-    messageId?: string
+    discordThreadId?: string
+    discordChannelId?: string
+    discordMessageId?: string
     autoApprove: boolean
     approval?: Approval
     /** Propagated from pipeline-api job create; used for batch filtering. */
@@ -39,6 +44,7 @@ export class DiscordJob extends Job {
   sendMessage: (
     msg: string | BaseMessageOptions
   ) => Promise<Message<true> | undefined>
+  log: (row: string) => Promise<number>
   editMessage: (
     msg: string | BaseMessageOptions
   ) => Promise<
@@ -53,14 +59,14 @@ export class DiscordJob extends Job {
   ) => Promise<void>
   isDataApproved: () => boolean
   hasApproval: () => boolean
-  getApprovedBody: () => any
+  getApprovedBody: () => ApprovedBody
   setThreadName: (name: string) => Promise<TextChannel | undefined>
   sendTyping: () => Promise<void>
-  getChildrenEntries: () => Promise<any>
-  hasValidThreadId: () => boolean
+  getChildrenEntries: () => Promise<ChildrenEntries>
+  hasValidDiscordThreadId: () => boolean
 }
 
-function addCustomMethods(job: DiscordJob) {
+function addCustomMethods(job: PipelineJob) {
   let message: Message<true> | null = null
   /**
    * Combine results of children jobs into a single object.
@@ -79,14 +85,14 @@ function addCustomMethods(job: DiscordJob) {
         })
       )
       .then((objects) => {
-        const out: Record<string, any> = {}
-        for (const obj of objects as Record<string, any>[]) {
+        const out: ChildrenEntries = {}
+        for (const obj of objects as Record<string, unknown>[]) {
           if (!obj || typeof obj !== 'object') continue
           const payload =
             Object.prototype.hasOwnProperty.call(obj, 'value') &&
             obj.value &&
             typeof obj.value === 'object'
-              ? (obj.value as Record<string, any>)
+              ? (obj.value as Record<string, unknown>)
               : obj
           Object.assign(out, payload)
         }
@@ -94,38 +100,38 @@ function addCustomMethods(job: DiscordJob) {
       })
   }
 
-  job.hasValidThreadId = function () {
+  job.hasValidDiscordThreadId = function () {
     return (
-      typeof this.data.threadId === 'string' &&
-      /^\d{17,19}$/.test(this.data.threadId)
+      typeof this.data.discordThreadId === 'string' &&
+      /^\d{17,19}$/.test(this.data.discordThreadId)
     )
   }
 
-  job.sendMessage = async (msg: string) => {
-    if (!job.hasValidThreadId()) {
+  job.sendMessage = async (msg: string | BaseMessageOptions) => {
+    if (!job.hasValidDiscordThreadId()) {
       console.log(
         'Invalid Discord threadId format in sendMessage:',
-        job.data.threadId
+        job.data.discordThreadId
       )
       return undefined
     }
-    const threadId = job.data.threadId as string
-    message = await discord.sendMessage(threadId, msg)
+    const discordThreadId = job.data.discordThreadId as string
+    message = await discord.sendMessage(discordThreadId, msg)
     if (!message) return undefined // TODO: throw error?
-    await job.updateData({ ...job.data, messageId: message.id })
+    await job.updateData({ ...job.data, discordMessageId: message.id })
     return message
   }
 
   job.sendTyping = async () => {
-    if (!job.hasValidThreadId()) {
+    if (!job.hasValidDiscordThreadId()) {
       console.log(
         'Invalid Discord threadId format in sendTyping:',
-        job.data.threadId
+        job.data.discordThreadId
       )
       return
     }
-    const threadId = job.data.threadId as string
-    return discord.sendTyping(threadId)
+    const discordThreadId = job.data.discordThreadId as string
+    return discord.sendTyping(discordThreadId)
   }
 
   job.requestApproval = async (
@@ -150,24 +156,30 @@ function addCustomMethods(job: DiscordJob) {
   }
 
   job.getApprovedBody = () => {
+    const approvedValue = job.data.approval?.data.newValue
+    const approvedData =
+      approvedValue && typeof approvedValue === 'object'
+        ? (approvedValue as Record<string, unknown>)
+        : {}
+
     return {
-      ...job.data.approval?.data.newValue,
+      ...approvedData,
       metadata: job.data.approval?.metadata,
     }
   }
 
   job.editMessage = async (msg: string | BaseMessageOptions) => {
-    if (!job.hasValidThreadId()) {
-      console.log('Invalid Discord threadId format:', job.data.threadId)
+    if (!job.hasValidDiscordThreadId()) {
+      console.log('Invalid Discord threadId format:', job.data.discordThreadId)
       return undefined
     }
 
-    if (!message && job.data.messageId) {
-      const { channelId, threadId, messageId } = job.data
+    if (!message && job.data.discordMessageId) {
+      const { discordChannelId, discordThreadId, discordMessageId } = job.data
       message = await discord.findMessage({
-        channelId,
-        threadId,
-        messageId,
+        channelId: discordChannelId,
+        threadId: discordThreadId,
+        messageId: discordMessageId,
       })
     }
     if (message && message.edit) {
@@ -198,9 +210,9 @@ function addCustomMethods(job: DiscordJob) {
   job.setThreadName = async (
     name: string
   ): Promise<TextChannel | undefined> => {
-    const threadId = job.data.threadId as string
+    const discordThreadId = job.data.discordThreadId as string
     const thread = (await discord.client.channels.fetch(
-      threadId
+      discordThreadId
     )) as TextChannel
     return thread?.setName(name)
   }
@@ -208,18 +220,18 @@ function addCustomMethods(job: DiscordJob) {
   return job
 }
 
-export class DiscordWorker<T extends DiscordJob> extends Worker {
+export class PipelineWorker<T extends PipelineJob> extends Worker {
   queue: Queue
   constructor(
     name: string,
-    callback: (job: T, logger: Logger) => any,
+    callback: (job: T, logger: Logger) => unknown,
     options?: WorkerOptions
   ) {
     super(
       name,
       async (raw: T) => {
         const job = addCustomMethods(raw) as T
-        const logger = createDiscordLogger(job)
+        const logger = createPipelineLogger(job)
         return callback(job, logger)
       },
       {

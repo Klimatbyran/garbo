@@ -1,18 +1,18 @@
 // ! Commented out until we have decided how to handle screenshots and table extraction
 // import { UnrecoverableError } from 'bullmq'
-// import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+// import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 // import { ParsedDocument } from '../lib/nlm-ingestor-schema'
 // import { QUEUE_NAMES } from '../queues'
 // import { createScreenshots } from '@/jobs/extractScreenshots/extractScreenshots'
 // import { Logger } from '@/types'
 
-// class NLMExtractTablesJob extends DiscordJob {
-//   declare data: DiscordJob['data'] & {
+// class NLMExtractTablesJob extends PipelineJob {
+//   declare data: PipelineJob['data'] & {
 //     json: ParsedDocument
 //   }
 // }
 
-// const nlmExtractTables = new DiscordWorker(
+// const nlmExtractTables = new PipelineWorker(
 //   QUEUE_NAMES.NLM_EXTRACT_TABLES,
 //   async (job: NLMExtractTablesJob, logger: Logger) => {
 //     const { json, url } = job.data

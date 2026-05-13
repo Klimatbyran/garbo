@@ -1,9 +1,9 @@
-import { DiscordJob, DiscordWorker } from './DiscordWorker'
+import { PipelineJob, PipelineWorker } from './PipelineWorker'
 import { Job, Queue, WorkerOptions } from 'bullmq'
 import redis from '../config/redis'
 import saveToAPI from '../workers/saveToAPI'
 import { canonicalPublicReportUrl, defaultMetadata } from './saveUtils'
-import discord from '../discord'
+import discord from '../pipelineBridge'
 
 /**
  * Enqueue saveToAPI with a BullMQ parent link when possible. If the parent job
@@ -47,8 +47,8 @@ export interface ChangeDescription {
   newValue
 }
 
-export class DiffJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+export class DiffJob extends PipelineJob {
+  declare data: PipelineJob['data'] & {
     companyName: string
     wikidata: { node: string }
   }
@@ -57,7 +57,7 @@ export class DiffJob extends DiscordJob {
     apiSubEndpoint: string,
     companyName: string,
     wikidata: { node: string },
-    body: any
+    body: Record<string, unknown>
   ) => Promise<void>
 
   handleDiff: (
@@ -100,7 +100,6 @@ function addCustomMethods(job: DiffJob) {
       await job.editMessage({
         components: [buttonRow],
       })
-
       await job.requestApproval(
         apiSubEndpoint,
         change,
@@ -131,11 +130,11 @@ function addCustomMethods(job: DiffJob) {
 
   return job
 }
-export class DiffWorker<T extends DiffJob> extends DiscordWorker<DiffJob> {
+export class DiffWorker<T extends DiffJob> extends PipelineWorker<DiffJob> {
   queue: Queue
   constructor(
     name: string,
-    callback: (job: T) => any,
+    callback: (job: T) => unknown,
     options?: WorkerOptions
   ) {
     super(name, (job: T) => callback(addCustomMethods(job) as T), {
