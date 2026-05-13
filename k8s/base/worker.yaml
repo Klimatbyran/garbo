@@ -81,6 +81,11 @@ spec:
                 secretKeyRef:
                   name: env
                   key: ALLOW_ANONYMOUS_CLIENT_API
+            - name: GARBO_ALL_ACCESS_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: GARBO_ALL_ACCESS_API_KEY
             - name: CACHE_MAX_AGE
               valueFrom:
                 secretKeyRef:
