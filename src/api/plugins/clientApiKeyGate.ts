@@ -18,6 +18,7 @@ declare module 'fastify' {
   interface FastifyRequest {
     clientApiKeyId?: string
     clientApiPermission?: ClientApiPermissionCode
+    clientApiKeyRoleSlug?: string
   }
 }
 
@@ -175,6 +176,7 @@ async function enforceClientApiKey(
 
   request.clientApiKeyId = keyRow.id
   request.clientApiPermission = permission
+  request.clientApiKeyRoleSlug = keyRow.role.slug
   request.log.info({
     event: 'client_api_key_auth',
     outcome: 'allowed',
@@ -191,6 +193,21 @@ async function enforceClientApiKey(
 
 async function clientApiKeyGatePlugin(app: FastifyInstance) {
   app.addHook('onRequest', enforceClientApiKey)
+
+  app.addHook('onResponse', (request, reply, done) => {
+    const keyId = request.clientApiKeyId
+    if (keyId && request.clientApiKeyRoleSlug !== 'all_access') {
+      void prisma.clientApiRequest.create({
+        data: {
+          keyId,
+          path: pathnameOnly(request.url),
+          method: request.method,
+          statusCode: reply.statusCode,
+        },
+      })
+    }
+    done()
+  })
 
   // Prune entries whose rate window expired
   const pruner = setInterval(() => {
