@@ -3,9 +3,9 @@ import redis from '../config/redis'
 
 export type PipelineJobData = {
   url: string
-  threadId?: string
-  channelId?: string
-  messageId?: string
+  discordThreadId?: string
+  discordChannelId?: string
+  discordMessageId?: string
   autoApprove?: boolean
   [key: string]: unknown
 }

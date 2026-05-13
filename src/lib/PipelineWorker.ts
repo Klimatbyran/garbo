@@ -31,9 +31,9 @@ type ChildrenEntries = Record<string, unknown>
 export class PipelineJob extends Job {
   declare data: {
     url: string
-    threadId?: string
-    channelId: string
-    messageId?: string
+    discordThreadId?: string
+    discordChannelId?: string
+    discordMessageId?: string
     autoApprove: boolean
     approval?: Approval
     /** Propagated from pipeline-api job create; used for batch filtering. */
@@ -102,8 +102,8 @@ function addCustomMethods(job: PipelineJob) {
 
   job.hasValidThreadId = function () {
     return (
-      typeof this.data.threadId === 'string' &&
-      /^\d{17,19}$/.test(this.data.threadId)
+      typeof this.data.discordThreadId === 'string' &&
+      /^\d{17,19}$/.test(this.data.discordThreadId)
     )
   }
 
@@ -111,14 +111,14 @@ function addCustomMethods(job: PipelineJob) {
     if (!job.hasValidThreadId()) {
       console.log(
         'Invalid Discord threadId format in sendMessage:',
-        job.data.threadId
+        job.data.discordThreadId
       )
       return undefined
     }
-    const threadId = job.data.threadId as string
-    message = await discord.sendMessage(threadId, msg)
+    const discordThreadId = job.data.discordThreadId as string
+    message = await discord.sendMessage(discordThreadId, msg)
     if (!message) return undefined // TODO: throw error?
-    await job.updateData({ ...job.data, messageId: message.id })
+    await job.updateData({ ...job.data, discordMessageId: message.id })
     return message
   }
 
@@ -126,12 +126,12 @@ function addCustomMethods(job: PipelineJob) {
     if (!job.hasValidThreadId()) {
       console.log(
         'Invalid Discord threadId format in sendTyping:',
-        job.data.threadId
+        job.data.discordThreadId
       )
       return
     }
-    const threadId = job.data.threadId as string
-    return discord.sendTyping(threadId)
+    const discordThreadId = job.data.discordThreadId as string
+    return discord.sendTyping(discordThreadId)
   }
 
   job.requestApproval = async (
@@ -170,16 +170,16 @@ function addCustomMethods(job: PipelineJob) {
 
   job.editMessage = async (msg: string | BaseMessageOptions) => {
     if (!job.hasValidThreadId()) {
-      console.log('Invalid Discord threadId format:', job.data.threadId)
+      console.log('Invalid Discord threadId format:', job.data.discordThreadId)
       return undefined
     }
 
-    if (!message && job.data.messageId) {
-      const { channelId, threadId, messageId } = job.data
+    if (!message && job.data.discordMessageId) {
+      const { discordChannelId, discordThreadId, discordMessageId } = job.data
       message = await discord.findMessage({
-        channelId,
-        threadId,
-        messageId,
+        channelId: discordChannelId,
+        threadId: discordThreadId,
+        messageId: discordMessageId,
       })
     }
     if (message && message.edit) {
@@ -210,9 +210,9 @@ function addCustomMethods(job: PipelineJob) {
   job.setThreadName = async (
     name: string
   ): Promise<TextChannel | undefined> => {
-    const threadId = job.data.threadId as string
+    const discordThreadId = job.data.discordThreadId as string
     const thread = (await discord.client.channels.fetch(
-      threadId
+      discordThreadId
     )) as TextChannel
     return thread?.setName(name)
   }

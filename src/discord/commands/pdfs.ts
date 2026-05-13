@@ -94,7 +94,7 @@ export default {
           'download ' + url.slice(-20),
           {
             url: url.trim(),
-            threadId: thread.id,
+            discordThreadId: thread.id,
             autoApprove,
             forceReindex,
             ...(tags?.length && { tags }),
