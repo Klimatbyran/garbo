@@ -14,6 +14,7 @@ export class GuessWikidataJob extends DiscordJob {
     companyName: string
     overrideWikidataId: EntityId
     wikidata?: Wikidata
+    forceWikidataReview?: boolean
   }
 }
 
@@ -303,53 +304,55 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
       )
     }
 
-    try {
-      const checkIfWikidataExistInProductionRes = await fetch(
-        apiConfig.prodBaseURL + '/companies/' + wikidataForApproval.node,
-        { method: 'GET', headers: { 'Content-Type': 'application/json' } }
-      )
-      if (checkIfWikidataExistInProductionRes.ok) {
-        const checkIfWikidataExistInProduction =
-          await checkIfWikidataExistInProductionRes.json()
-        if (checkIfWikidataExistInProduction.wikidataId) {
-          // Auto-approve since company exists in production
-          const metadata = {
-            source: 'production-database',
-            comment: 'Company found in production database',
-          }
+    if (!job.data.forceWikidataReview) {
+      try {
+        const checkIfWikidataExistInProductionRes = await fetch(
+          apiConfig.prodBaseURL + '/companies/' + wikidataForApproval.node,
+          { method: 'GET', headers: { 'Content-Type': 'application/json' } }
+        )
+        if (checkIfWikidataExistInProductionRes.ok) {
+          const checkIfWikidataExistInProduction =
+            await checkIfWikidataExistInProductionRes.json()
+          if (checkIfWikidataExistInProduction.wikidataId) {
+            // Auto-approve since company exists in production
+            const metadata = {
+              source: 'production-database',
+              comment: 'Company found in production database',
+            }
 
-          await job.requestApproval(
-            'wikidata',
-            {
-              type: 'wikidata',
-              newValue: { wikidata: wikidataForApproval },
-            },
-            true, // auto-approved
-            metadata,
-            `Auto-approved wikidata for ${companyName}`
-          )
-
-          job.sendMessage({
-            content: `🚀 Company found in production database, we will approve automatically: ${companyName}`,
-            components: [],
-          })
-          return JSON.stringify(
-            {
-              status: 'approved',
-              wikidata: wikidataForApproval,
-              message: `Auto-approved wikidata for ${companyName} (found in production database)`,
+            await job.requestApproval(
+              'wikidata',
+              {
+                type: 'wikidata',
+                newValue: { wikidata: wikidataForApproval },
+              },
+              true, // auto-approved
               metadata,
-            },
-            null,
-            2
-          )
+              `Auto-approved wikidata for ${companyName}`
+            )
+
+            job.sendMessage({
+              content: `🚀 Company found in production database, we will approve automatically: ${companyName}`,
+              components: [],
+            })
+            return JSON.stringify(
+              {
+                status: 'approved',
+                wikidata: wikidataForApproval,
+                message: `Auto-approved wikidata for ${companyName} (found in production database)`,
+                metadata,
+              },
+              null,
+              2
+            )
+          }
         }
+      } catch (_error) {
+        job.sendMessage({
+          content: `😫 Could not find the company in the production database, we will have to as the human.`,
+          components: [],
+        })
       }
-    } catch (_error) {
-      job.sendMessage({
-        content: `😫 Could not find the company in the production database, we will have to as the human.`,
-        components: [],
-      })
     }
 
     job.log('Creating approval request for wikidata')
