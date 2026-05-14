@@ -14,7 +14,7 @@ import { readFileSync } from 'fs'
 import { resolve } from 'path'
 
 import apiConfig from './config/api'
-import openAPIConfig from './config/openapi'
+import openAPIConfig, { publicTagNames } from './config/openapi'
 import { companyGoalsRoutes } from './api/routes/internal/company.goals'
 import authPlugin from './api/plugins/auth'
 import { companyIndustryRoutes } from './api/routes/internal/company.industry'
@@ -85,7 +85,7 @@ async function startApp() {
           description: 'API endpoint',
         },
       ],
-      tags: Object.values(openAPIConfig.tags),
+      tags: Object.values(openAPIConfig.tags).filter((tag) => publicTagNames.has(tag.name)),
     },
     transform: jsonSchemaTransform,
   })

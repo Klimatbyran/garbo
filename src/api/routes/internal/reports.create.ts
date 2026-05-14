@@ -27,7 +27,7 @@ export async function reportsCreateRoutes(app: FastifyInstance) {
         summary: 'Scrape for reports',
         description:
           'Scrape for company reports based on the provided company name(s), year(s) and country. This endpoint is intended to be used for scraping reports from external sources.',
-        tags: getTags('Reports'),
+        tags: getTags('Internal'),
         body: postReportsBodySchema,
         response: {
           200: ReportsListResponseSchema,
@@ -60,7 +60,7 @@ export async function reportsCreateRoutes(app: FastifyInstance) {
         summary: 'Add reports to database',
         description:
           'Add one or more reports to the database. This endpoint is intended to be used for persisting reports that have been scraped from external sources.',
-        tags: getTags('Reports'),
+        tags: getTags('Internal'),
         body: saveReportsBodySchema,
         response: {
           200: saveReportsListResponseSchema,
