@@ -62,8 +62,8 @@ const openAPITagDefinitions = {
   Nation: {
     description: 'Climate data related to Sweden as a nation',
   },
-  Auth: {
-    descriptions: 'Authentification',
+  Search: {
+    description: 'Endpoints related to search functionality',
   },
   ReportValidations: {
     description: 'Report validations',
@@ -71,11 +71,11 @@ const openAPITagDefinitions = {
   TagOptions: {
     description: 'Valid tag options for company tags',
   },
-  Screenshots: {
-    description: 'Screenshots of PDF tables from reports',
-  },
   Newsletters: {
     description: 'Newsletters',
+  },
+  Screenshots: {
+    description: 'Screenshots of PDF tables from reports',
   },
   Reports: {
     description: 'Company reports',
@@ -84,11 +84,11 @@ const openAPITagDefinitions = {
     description:
       'Registry of collected reports that have been saved in the database',
   },
+  Auth: {
+    descriptions: 'Authentification',
+  },
   Internal: {
     description: 'Internal endpoints for data assessment and management',
-  },
-  Search: {
-    description: 'Endpoints related to search functionality',
   },
 } as const
 
@@ -110,6 +110,24 @@ const openAPITags = Object.entries(openAPITagDefinitions).reduce(
 export function getTags(...tags: (keyof typeof openAPITags)[]) {
   return tags
 }
+
+/**
+ * Tags whose definitions should appear in the public OpenAPI spec.
+ * Hidden-route-only tags (e.g. Goals, Emissions) are excluded to prevent
+ * empty sections in Scalar.
+ */
+export const publicTagNames = new Set<TagName>([
+  'Auth',
+  'Companies',
+  'Internal',
+  'Municipalities',
+  'Nation',
+  'Newsletters',
+  'Regions',
+  'ReportingPeriods',
+  'Screenshots',
+  'Search',
+])
 
 const env = parsedEnv.data
 

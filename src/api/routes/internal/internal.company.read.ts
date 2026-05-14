@@ -117,7 +117,7 @@ export async function internalCompanyReadRoutes(app: FastifyInstance) {
           'Get list of all companies in the database with reporting periods for crawler purposes.',
         description:
           'Retrieve a list of all companies in the database, including their names and Wikidata IDs and reporting periods.',
-        tags: getTags('Reports'),
+        tags: getTags('Internal'),
         response: {
           200: ReportsCompanyList,
         },
@@ -136,7 +136,7 @@ export async function internalCompanyReadRoutes(app: FastifyInstance) {
         summary: 'Generate preview image from PDF URL',
         description:
           'Returns a preview image (JPEG) from the first page of the given PDF URL.',
-        tags: getTags('Reports'),
+        tags: getTags('Internal'),
         querystring: previewQuerySchema,
         response: {
           200: previewResponseSchema,

@@ -36,6 +36,21 @@ const clientApiKeyListItemSchema = z.object({
   }),
 })
 
+const usageEndpointSchema = z.object({
+  method: z.string(),
+  path: z.string(),
+  count: z.number(),
+})
+
+const keyUsageSchema = z.object({
+  keyId: z.string(),
+  keyLookup: z.string(),
+  roleSlug: z.string(),
+  totalRequests: z.number(),
+  lastRequestAt: z.string().nullable(),
+  endpoints: z.array(usageEndpointSchema),
+})
+
 const endpointCatalogEntrySchema = z.object({
   method: z.string(),
   type: z.enum(['exact', 'prefix']),
@@ -318,6 +333,94 @@ export async function clientApiKeysAdminRoutes(app: FastifyInstance) {
         createdAt: revoked.createdAt.toISOString(),
         role: revoked.role,
       })
+    }
+  )
+
+  app.get(
+    '/usage',
+    {
+      schema: {
+        summary: 'Client API key usage summary',
+        description:
+          'Staff only. Returns aggregated request counts per key and endpoint. Excludes all_access keys (internal traffic). Optional `since` query param (ISO date) to filter by time window.',
+        tags: getTags('Internal'),
+        querystring: z.object({
+          since: z.string().datetime({ offset: true }).optional(),
+        }),
+        response: {
+          200: z.array(keyUsageSchema),
+          ...getErrorSchemas(401, 500),
+        },
+      },
+    },
+    async (request, reply) => {
+      const { since } = request.query as { since?: string }
+
+      const where = since ? { timestamp: { gte: new Date(since) } } : {}
+
+      const rows = await prisma.clientApiRequest.groupBy({
+        by: ['keyId', 'method', 'path'],
+        where,
+        _count: { id: true },
+        _max: { timestamp: true },
+        orderBy: { _count: { id: 'desc' } },
+      })
+
+      const keys = await prisma.clientApiKey.findMany({
+        where: { id: { in: [...new Set(rows.map((r) => r.keyId))] } },
+        select: {
+          id: true,
+          keyLookup: true,
+          role: { select: { slug: true } },
+        },
+      })
+      const keyMap = new Map(keys.map((k) => [k.id, k]))
+
+      const grouped = new Map<
+        string,
+        {
+          keyId: string
+          keyLookup: string
+          roleSlug: string
+          totalRequests: number
+          lastRequestAt: Date | null
+          endpoints: { method: string; path: string; count: number }[]
+        }
+      >()
+
+      for (const row of rows) {
+        const key = keyMap.get(row.keyId)
+        if (!key) continue
+
+        let entry = grouped.get(row.keyId)
+        if (!entry) {
+          entry = {
+            keyId: key.id,
+            keyLookup: key.keyLookup,
+            roleSlug: key.role.slug,
+            totalRequests: 0,
+            lastRequestAt: null,
+            endpoints: [],
+          }
+          grouped.set(row.keyId, entry)
+        }
+
+        const count = row._count.id
+        const ts = row._max.timestamp
+
+        entry.totalRequests += count
+        if (ts && (!entry.lastRequestAt || ts > entry.lastRequestAt)) {
+          entry.lastRequestAt = ts
+        }
+        entry.endpoints.push({ method: row.method, path: row.path, count })
+      }
+
+      return reply.send(
+        [...grouped.values()].map((e) => ({
+          ...e,
+          lastRequestAt: e.lastRequestAt?.toISOString() ?? null,
+        }))
+      )
     }
   )
 
