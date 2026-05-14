@@ -32,6 +32,7 @@
     "prisma": "prisma",
     "reset": "node --import tsx scripts/dev-reset.ts",
     "delete-report": "node --import tsx scripts/delete-report.ts",
+    "dedupe:report-registry": "node --import dotenv/config --import tsx scripts/dedupe-report-registry.ts",
     "backfill:report-runs": "node --import tsx scripts/backfill-report-runs-from-bullmq.ts",
     "eslint": "npx eslint src",
     "format": "npx prettier --write .",

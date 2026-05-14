@@ -5,6 +5,91 @@ import {
   registryUpdateRequestBodySchema,
 } from '../schemas'
 import z from 'zod'
+import {
+  buildReportLookupOr,
+  mergeNullReportFields,
+  pickSurvivorReport,
+  type RegistryReportIdentityRow,
+  trimStr,
+  isLikelyStoredObjectUrl,
+} from './registryReportIdentity'
+
+function promoteHumanUrlFromInput(
+  existing: RegistryReportIdentityRow,
+  inputUrl: string
+): string | undefined {
+  const inUrl = trimStr(inputUrl)
+  const exUrl = trimStr(existing.url)
+  if (!inUrl || !exUrl) return undefined
+  if (
+    isLikelyStoredObjectUrl(exUrl) &&
+    !isLikelyStoredObjectUrl(inUrl) &&
+    /^https?:\/\//i.test(inUrl)
+  ) {
+    return inUrl
+  }
+  return undefined
+}
+
+function buildSingleRowUpsertData(
+  existing: RegistryReportIdentityRow,
+  input: {
+    companyName: string
+    wikidataId?: string | null
+    reportYear?: string | null
+    url: string
+    sourceUrl?: string | null
+    s3Url?: string | null
+    s3Key?: string | null
+    s3Bucket?: string | null
+    sha256?: string | null
+  }
+): Prisma.ReportUpdateInput {
+  const promoted = promoteHumanUrlFromInput(existing, input.url)
+  return {
+    companyName: existing.companyName ?? input.companyName,
+    wikidataId: existing.wikidataId ?? input.wikidataId ?? undefined,
+    reportYear: existing.reportYear ?? input.reportYear ?? undefined,
+    ...(input.sourceUrl !== undefined ? { sourceUrl: input.sourceUrl } : {}),
+    ...(input.s3Url !== undefined ? { s3Url: input.s3Url } : {}),
+    ...(input.s3Key !== undefined ? { s3Key: input.s3Key } : {}),
+    ...(input.s3Bucket !== undefined ? { s3Bucket: input.s3Bucket } : {}),
+    ...(input.sha256 !== undefined ? { sha256: input.sha256 } : {}),
+    ...(promoted !== undefined ? { url: promoted } : {}),
+  }
+}
+
+/** After merging duplicate rows in-memory, persist union + apply input overlays. */
+function buildMergedRowUpsertData(
+  merged: RegistryReportIdentityRow,
+  input: {
+    companyName: string
+    wikidataId?: string | null
+    reportYear?: string | null
+    url: string
+    sourceUrl?: string | null
+    s3Url?: string | null
+    s3Key?: string | null
+    s3Bucket?: string | null
+    sha256?: string | null
+  }
+): Prisma.ReportUpdateInput {
+  const promoted = promoteHumanUrlFromInput(merged, input.url)
+  const baseUrl = trimStr(merged.url) || trimStr(input.url) || merged.url
+
+  return {
+    companyName: merged.companyName ?? input.companyName,
+    wikidataId: merged.wikidataId ?? input.wikidataId ?? undefined,
+    reportYear: merged.reportYear ?? input.reportYear ?? undefined,
+    url: promoted ?? baseUrl,
+    sourceUrl:
+      input.sourceUrl !== undefined ? input.sourceUrl : merged.sourceUrl,
+    s3Url: input.s3Url !== undefined ? input.s3Url : merged.s3Url,
+    s3Key: input.s3Key !== undefined ? input.s3Key : merged.s3Key,
+    s3Bucket: input.s3Bucket !== undefined ? input.s3Bucket : merged.s3Bucket,
+    sha256: input.sha256 !== undefined ? input.sha256 : merged.sha256,
+  }
+}
 
 class RegistryService {
   async getReportRegistry(prismaClient = prisma) {
@@ -40,18 +125,16 @@ class RegistryService {
     },
     prismaClient = prisma
   ) {
-    const { sha256, sourceUrl, url } = input
+    const or = buildReportLookupOr(input)
+    const where: Prisma.ReportWhereInput =
+      or.length > 0 ? { OR: or } : { url: input.url }
 
-    const existing =
-      (typeof sha256 === 'string' && sha256
-        ? await prismaClient.report.findUnique({ where: { sha256 } })
-        : null) ||
-      (typeof sourceUrl === 'string' && sourceUrl
-        ? await prismaClient.report.findUnique({ where: { sourceUrl } })
-        : null) ||
-      (await prismaClient.report.findUnique({ where: { url } }))
+    const matches = await prismaClient.report.findMany({
+      where,
+      orderBy: { id: 'asc' },
+    })
 
-    if (!existing) {
+    if (matches.length === 0) {
       return prismaClient.report.create({
         data: {
           companyName: input.companyName,
@@ -67,21 +150,40 @@ class RegistryService {
       })
     }
 
-    return prismaClient.report.update({
-      where: { id: existing.id },
-      data: {
-        companyName: existing.companyName ?? input.companyName,
-        wikidataId: existing.wikidataId ?? input.wikidataId ?? undefined,
-        reportYear: existing.reportYear ?? input.reportYear ?? undefined,
-        // When provided (including explicit null), overwrite so callers can clear optional fields.
-        ...(input.sourceUrl !== undefined
-          ? { sourceUrl: input.sourceUrl }
-          : {}),
-        ...(input.s3Url !== undefined ? { s3Url: input.s3Url } : {}),
-        ...(input.s3Key !== undefined ? { s3Key: input.s3Key } : {}),
-        ...(input.s3Bucket !== undefined ? { s3Bucket: input.s3Bucket } : {}),
-        ...(input.sha256 !== undefined ? { sha256: input.sha256 } : {}),
-      },
+    if (matches.length === 1) {
+      const existing = matches[0]
+      return prismaClient.report.update({
+        where: { id: existing.id },
+        data: buildSingleRowUpsertData(
+          existing as RegistryReportIdentityRow,
+          input
+        ),
+      })
+    }
+
+    return prismaClient.$transaction(async (tx) => {
+      const refreshed = await tx.report.findMany({
+        where: { id: { in: matches.map((m) => m.id) } },
+        orderBy: { id: 'asc' },
+      })
+      const survivor = pickSurvivorReport(
+        refreshed as RegistryReportIdentityRow[]
+      )
+      const losers = refreshed.filter((r) => r.id !== survivor.id)
+      const merged: RegistryReportIdentityRow = { ...survivor }
+      for (const row of losers) {
+        Object.assign(
+          merged,
+          mergeNullReportFields(merged, row as RegistryReportIdentityRow)
+        )
+      }
+      for (const row of losers) {
+        await tx.report.delete({ where: { id: row.id } })
+      }
+      return tx.report.update({
+        where: { id: survivor.id },
+        data: buildMergedRowUpsertData(merged, input),
+      })
     })
   }
 
