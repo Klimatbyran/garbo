@@ -85,7 +85,9 @@ async function startApp() {
           description: 'API endpoint',
         },
       ],
-      tags: Object.values(openAPIConfig.tags).filter((tag) => publicTagNames.has(tag.name)),
+      tags: Object.values(openAPIConfig.tags).filter((tag) =>
+        publicTagNames.has(tag.name)
+      ),
     },
     transform: jsonSchemaTransform,
   })
