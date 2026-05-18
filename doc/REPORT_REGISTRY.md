@@ -18,12 +18,12 @@ A `Report` row has three URL-like columns:
 
 **Crawler / link path** — report discovered or submitted via a web link:
 ```
-{ url: "https://company.com/report-2024", sourceUrl: "https://company.com/report-2024", s3Url: "https://s3.amazonaws.com/x.pdf", sha256: "…" }
+{ url: "https://company.com/report-2024", sourceUrl: "https://company.com/report-2024", s3Url: "https://storage.googleapis.com/garbo-reports/x.pdf", sha256: "…" }
 ```
 
 **File upload path** — report submitted as a file, no web link:
 ```
-{ url: "https://s3.amazonaws.com/x.pdf", sourceUrl: null, s3Url: "https://s3.amazonaws.com/x.pdf", sha256: "…" }
+{ url: "https://storage.googleapis.com/garbo-reports/x.pdf", sourceUrl: null, s3Url: "https://storage.googleapis.com/garbo-reports/x.pdf", sha256: "…" }
 ```
 
 **Legacy / crawler-only rows** (pre-S3 pipeline, still in production data) — no S3 copy yet:
@@ -33,7 +33,7 @@ A `Report` row has three URL-like columns:
 
 **Old pipeline rows** (pre-fix, still in production data) — S3 URL was incorrectly stored in `url`:
 ```
-{ url: "https://s3.amazonaws.com/x.pdf", sourceUrl: "https://company.com/report-2024", s3Url: null }
+{ url: "https://storage.googleapis.com/garbo-reports/x.pdf", sourceUrl: "https://company.com/report-2024", s3Url: null }
 ```
 The dedup script and `upgradeToWebUrlIfAvailable` normalise these over time.
 
