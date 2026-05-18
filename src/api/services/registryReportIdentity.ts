@@ -106,6 +106,21 @@ export function mergeNullReportFields(
   return patch
 }
 
+/**
+ * Builds the OR clause used to find an existing `Report` row that matches any identity field
+ * on the incoming upsert input.
+ *
+ * Why four direct matches plus two cross-links:
+ *
+ * The crawler and the pipeline write to different fields for the same document:
+ *   - Crawler:  { url: "https://company.com/report" }            (human landing page)
+ *   - Pipeline: { url: "https://s3.amazonaws.com/x.pdf",         (old: S3 URL in url)
+ *                  sourceUrl: "https://company.com/report" }     (original source in sourceUrl)
+ *
+ * Without the cross-links, a pipeline upsert with sourceUrl="https://company.com/report"
+ * would miss the crawler row (which stored it under `url`) and create a duplicate.
+ * The cross-link clauses { url: u } and { sourceUrl: su } bridge that gap.
+ */
 export function buildReportLookupOr(
   input: {
     url: string
@@ -123,5 +138,9 @@ export function buildReportLookupOr(
   if (su) or.push({ sourceUrl: su })
   if (u) or.push({ url: u })
   if (s3) or.push({ s3Url: s3 })
+  // Cross-links: crawler stores the link URL in `url`; pipeline may store it in `sourceUrl`.
+  // Search both directions so either write order finds the same row.
+  if (su && su !== u) or.push({ url: su })
+  if (u && u !== su) or.push({ sourceUrl: u })
   return or
 }

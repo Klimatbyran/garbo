@@ -172,6 +172,49 @@ describe('registryService', () => {
     })
   })
 
+  it('finds crawler row via cross-link when pipeline sends url in sourceUrl', async () => {
+    // The crawler saved a row keyed by the human URL in `url`.
+    // The pipeline later upserts with that same URL in `sourceUrl` and an S3 URL in `url`.
+    // The cross-link in buildReportLookupOr must find the crawler row so no duplicate is created.
+    const crawlerRow = {
+      id: 'r-crawler',
+      url: 'https://company.com/report-2024',
+      companyName: 'Corp',
+      wikidataId: 'Q5',
+      reportYear: null,
+      sourceUrl: null,
+      s3Url: null,
+      s3Key: null,
+      s3Bucket: null,
+      sha256: null as string | null,
+    }
+
+    mockPrisma.report.findMany.mockResolvedValueOnce([crawlerRow])
+    mockPrisma.report.update.mockResolvedValueOnce({
+      ...crawlerRow,
+      reportYear: '2024',
+      s3Url: 'https://s3.amazonaws.com/x.pdf',
+    })
+
+    await registryService.upsertReportInRegistry(
+      {
+        companyName: 'Corp',
+        wikidataId: 'Q5',
+        reportYear: '2024',
+        url: 'https://s3.amazonaws.com/x.pdf',
+        sourceUrl: 'https://company.com/report-2024',
+        s3Url: 'https://s3.amazonaws.com/x.pdf',
+      },
+      mockPrisma
+    )
+
+    // Must update (found via cross-link), never create a second row
+    expect(mockPrisma.report.create).not.toHaveBeenCalled()
+    expect(mockPrisma.report.update).toHaveBeenCalledWith(
+      expect.objectContaining({ where: { id: 'r-crawler' } })
+    )
+  })
+
   it('merges multiple matching rows in a transaction', async () => {
     const s3 = 'https://bucket.s3.amazonaws.com/x.pdf'
     const rowA = {

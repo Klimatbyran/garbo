@@ -29,7 +29,7 @@ function isWikidataQId(wikidataId: string): boolean {
   return /^Q\d+$/i.test(wikidataId.trim())
 }
 
-function pickRegistryPayloadFromReportingPeriodsSave(
+export function pickRegistryPayloadFromReportingPeriodsSave(
   job: SaveToApiJob
 ): null | {
   companyName: string
@@ -190,10 +190,7 @@ function pickRegistryPayloadFromReportingPeriodsSave(
   }
 
   const sourceUrlOut =
-    sourceIsHttp &&
-    sourceUrl &&
-    sourceUrl.trim() !== urlForUniqueRow &&
-    sourceUrl.trim() !== (s3Url ?? '')
+    sourceIsHttp && sourceUrl && !isLikelyStoredObjectUrl(sourceUrl.trim())
       ? sourceUrl.trim()
       : undefined
 

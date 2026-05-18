@@ -14,7 +14,12 @@ import {
   isLikelyStoredObjectUrl,
 } from './registryReportIdentity'
 
-function promoteHumanUrlFromInput(
+/**
+ * If the existing row's `url` is an S3/CDN URL but the incoming input carries a proper
+ * web URL, return the web URL so the caller can upgrade the `url` field.
+ * Returns undefined when no upgrade is warranted (keep the existing value).
+ */
+function upgradeToWebUrlIfAvailable(
   existing: RegistryReportIdentityRow,
   inputUrl: string
 ): string | undefined {
@@ -45,7 +50,7 @@ function buildSingleRowUpsertData(
     sha256?: string | null
   }
 ): Prisma.ReportUpdateInput {
-  const promoted = promoteHumanUrlFromInput(existing, input.url)
+  const promoted = upgradeToWebUrlIfAvailable(existing, input.url)
   return {
     companyName: existing.companyName ?? input.companyName,
     wikidataId: existing.wikidataId ?? input.wikidataId ?? undefined,
@@ -74,7 +79,7 @@ function buildMergedRowUpsertData(
     sha256?: string | null
   }
 ): Prisma.ReportUpdateInput {
-  const promoted = promoteHumanUrlFromInput(merged, input.url)
+  const promoted = upgradeToWebUrlIfAvailable(merged, input.url)
   const baseUrl = trimStr(merged.url) || trimStr(input.url) || merged.url
 
   return {
