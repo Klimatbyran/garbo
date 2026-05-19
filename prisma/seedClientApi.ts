@@ -44,9 +44,9 @@ export async function seedClientApi(prisma: PrismaClient) {
     where: { slug: 'company_data' },
     create: {
       slug: 'company_data',
-      label: 'Base Corporate — company list, detail, search only',
+      label: 'Company Data — company list, detail, search only',
     },
-    update: { label: 'Base Corporate — company list, detail, search only' },
+    update: { label: 'Company Data — company list, detail, search only' },
   })
 
   const allPermissions = await prisma.clientApiPermission.findMany()
