@@ -373,6 +373,7 @@ class CompanyService {
       select: {
         name: true,
         wikidataId: true,
+        tags: true,
         reportingPeriods: {
           select: {
             id: true,
