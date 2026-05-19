@@ -183,7 +183,7 @@ If neither key type fits your use case — for example, if you need a specific s
 
 ## Rate Limiting
 
-- 3000 requests per minute for API key holders (configurable via \`CLIENT_API_RATE_LIMIT_PER_MINUTE\`)
+- 3000 requests per minute for API key holders
 - Requests without a valid API key are rejected
 
 ## Resources
