@@ -137,13 +137,11 @@ export default {
 
   title: 'Klimatkollen API Reference',
   description: `
-The Klimatkollen API provides access to company emissions and economic data. This API allows you to retrieve, create and update information about companies' environmental impact and sustainability initiatives.
+The API provides access to our climate data.
 
 ## Getting Started
 
-**Client read API** (data you used to get without logging in: companies, regions, etc.):
-
-1. **Request a client API key** from the team — use [Contact Support](mailto:support@klimatkollen.se) if you do not already have one. Keys look like \`garb_<lookup>.<secret>\` (one string; keep them secret).
+1. **Request a client API key** from the team — use [Contact Support](mailto:support@klimatkollen.se). Keys are not self-serve; we issue them manually. Keys look like \`garb_<lookup>.<secret>\` (one string; keep them secret).
 2. **Send that string on each request** using the \`X-API-Key\` header (not \`Authorization: Bearer\`). We use a separate header so long-lived keys are not mixed up with short-lived **user JWTs**, which staff and write flows send as \`Authorization: Bearer …\`.
 
 Example after you have been issued a key:
@@ -154,6 +152,30 @@ X-API-Key: garb_yourlookup.yoursecret
 
 For **staff / write** endpoints, sign in (e.g. via Scalar “Authorize”) and use your **JWT** in \`Authorization: Bearer …\`.
 
+## API Keys
+
+API keys are issued manually by the Klimatkollen team. To request one, contact us at [support@klimatkollen.se](mailto:support@klimatkollen.se).
+
+We currently offer two key types:
+
+### Company Data API Key (\`company_data\`)
+
+Provides access to core company data endpoints:
+
+- Company list
+- Company detail
+- Company search
+
+### All-Access Key (\`all_access\`)
+
+Provides access to the full client API surface, including municipalities, regions, nation-level data, newsletters, screenshots, and more.
+
+This key is intended for deeper integrations and data pipelines.
+
+---
+
+If neither key type fits your use case — for example, if you need a specific subset of endpoints — [reach out to us](mailto:support@klimatkollen.se) and we can discuss what access makes sense for you.
+
 ## Authentication
 
 - **Client (read) routes:** \`X-API-Key: garb_…\` — static key from the team; use only over HTTPS.
@@ -161,8 +183,8 @@ For **staff / write** endpoints, sign in (e.g. via Scalar “Authorize”) and u
 
 ## Rate Limiting
 
-- 1000 requests per hour for authenticated users
-- 100 requests per hour for unauthenticated users
+- 3000 requests per minute for API key holders (configurable via \`CLIENT_API_RATE_LIMIT_PER_MINUTE\`)
+- Requests without a valid API key are rejected
 
 ## Resources
 
@@ -174,17 +196,17 @@ For **staff / write** endpoints, sign in (e.g. via Scalar “Authorize”) and u
 ### Fetch Company Data
 
 \`\`\`bash
-curl -X GET "https://api.klimatkollen.se/api/companies/Q123" \\
-     -H "X-API-Key: garb_yourlookup.yoursecret"
+curl -X GET “https://api.klimatkollen.se/api/companies/Q123” \\
+     -H “X-API-Key: garb_yourlookup.yoursecret”
 \`\`\`
 
 ### Update Company Emissions
 
 \`\`\`bash
-curl -X POST "https://api.klimatkollen.se/api/companies/Q123/reporting-periods" \\
-     -H "Authorization: Bearer YOUR_JWT" \\
-     -H "Content-Type: application/json" \\
-     -d '{"reportingPeriods": [...]}'
+curl -X POST “https://api.klimatkollen.se/api/companies/Q123/reporting-periods” \\
+     -H “Authorization: Bearer YOUR_JWT” \\
+     -H “Content-Type: application/json” \\
+     -d '{“reportingPeriods”: [...]}'
 \`\`\`
 `,
 }
