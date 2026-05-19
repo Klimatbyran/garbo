@@ -41,12 +41,12 @@ export async function seedClientApi(prisma: PrismaClient) {
   })
 
   const baseRole = await prisma.clientApiRole.upsert({
-    where: { slug: 'base' },
+    where: { slug: 'company_data' },
     create: {
-      slug: 'base',
-      label: 'Base — company list, detail, search only',
+      slug: 'company_data',
+      label: 'Company Data — company list, detail, search only',
     },
-    update: { label: 'Base — company list, detail, search only' },
+    update: { label: 'Company Data — company list, detail, search only' },
   })
 
   const allPermissions = await prisma.clientApiPermission.findMany()
