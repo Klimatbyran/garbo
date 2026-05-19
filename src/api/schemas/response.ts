@@ -409,6 +409,7 @@ export const ReportsCompanyList = z.array(
   z.object({
     name: z.string(),
     wikidataId: wikidataIdSchema,
+    tags: z.array(z.string()),
     reportingPeriods: z.array(ReportsReportingPeriodSchema),
   })
 )
