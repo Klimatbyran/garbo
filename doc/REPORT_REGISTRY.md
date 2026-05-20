@@ -16,26 +16,71 @@ A `Report` row has three URL-like columns:
 
 ### How rows are created
 
-**Crawler / link path** — report discovered or submitted via a web link:
-```
-{ url: "https://company.com/report-2024", sourceUrl: "https://company.com/report-2024", s3Url: "https://storage.googleapis.com/garbo-reports/x.pdf", sha256: "…" }
-```
+There are four active write paths, plus two legacy shapes still present in production data.
 
-**File upload path** — report submitted as a file, no web link:
-```
-{ url: "https://storage.googleapis.com/garbo-reports/x.pdf", sourceUrl: null, s3Url: "https://storage.googleapis.com/garbo-reports/x.pdf", sha256: "…" }
-```
+---
 
-**Legacy / crawler-only rows** (pre-S3 pipeline, still in production data) — no S3 copy yet:
+**1. Crawler** — auto-discovers report URLs from company pages; no PDF download or GCS caching.
+
+The crawler calls `save-reports` → `reportsService.saveReportsToDb` → `upsertReportInRegistry` with only the web URL known.
+
 ```
 { url: "https://company.com/report-2024", sourceUrl: null, s3Url: null }
 ```
 
-**Old pipeline rows** (pre-fix, still in production data) — S3 URL was incorrectly stored in `url`:
+`sourceUrl` is `null` here because only one URL is known — it sits in `url` by convention.
+
+---
+
+**2. Validate registry add** — operator manually adds a report via the registry tab (`RegistryAddModal` in Validate).
+
+1. Operator enters the web link URL; `sourceUrl` auto-mirrors `url` until manually overridden.
+2. `addRegistryEntry` in `registry-api.ts` tries to cache the PDF to GCS via the pipeline-api `cache-pdf` endpoint, getting back `s3Url`, `s3Key`, `s3Bucket`, `sha256`.
+3. POSTs to `internal-companies/reports/save-reports` → `reportsService.saveReportsToDb` → `upsertReportInRegistry`.
+
+Result (GCS caching succeeded):
+```
+{ url: "https://company.com/report-2024", sourceUrl: "https://company.com/report-2024", s3Url: "https://storage.googleapis.com/garbo-reports/x.pdf", sha256: "…" }
+```
+
+Result (GCS caching failed or skipped):
+```
+{ url: "https://company.com/report-2024", sourceUrl: "https://company.com/report-2024", s3Url: null }
+```
+
+---
+
+**3. Pipeline — link upload** — operator submits a web link; the pipeline fetches and caches the PDF to GCS, then saves the reporting periods.
+
+`saveToAPI` worker → `pickRegistryPayloadFromReportingPeriodsSave` → `upsertReportInRegistry`.
+
+```
+{ url: "https://company.com/report-2024", sourceUrl: "https://company.com/report-2024", s3Url: "https://storage.googleapis.com/garbo-reports/x.pdf", sha256: "…" }
+```
+
+---
+
+**4. Pipeline — file upload** — operator uploads a PDF directly; there is no web link.
+
+`saveToAPI` worker → `pickRegistryPayloadFromReportingPeriodsSave` → `upsertReportInRegistry`. Because no web URL exists, the GCS URL fills both `url` and `s3Url`.
+
+```
+{ url: "https://storage.googleapis.com/garbo-reports/x.pdf", sourceUrl: null, s3Url: "https://storage.googleapis.com/garbo-reports/x.pdf", sha256: "…" }
+```
+
+---
+
+**Legacy rows** (still in production, pre-GCS era, no cached copy):
+```
+{ url: "https://company.com/report-2024", sourceUrl: null, s3Url: null }
+```
+
+**Old pipeline rows** (pre-fix: S3 URL was incorrectly placed in `url`):
 ```
 { url: "https://storage.googleapis.com/garbo-reports/x.pdf", sourceUrl: "https://company.com/report-2024", s3Url: null }
 ```
-The dedup script and `upgradeToWebUrlIfAvailable` normalise these over time.
+
+The dedup script and `upgradeToWebUrlIfAvailable` normalise old pipeline rows over time.
 
 ## Duplicate prevention
 
