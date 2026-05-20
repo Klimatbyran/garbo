@@ -1,0 +1,60 @@
+# One-off Job: populate ReportingPeriod.companyReportId for all existing rows.
+# NOT applied by Flux — use: kubectl create -f k8s/jobs/link-periods-to-company-reports.yaml
+#
+# Prerequisites (run in order):
+#   1. Deploy the PR 1 image (adds CompanyReport table + nullable companyReportId column)
+#   2. Run scripts/backfill-report-from-periods.ts (report-registry-dedupe first, then backfill)
+#   3. Run this job
+#
+# - For dry-run only, set args to: ["scripts/link-periods-to-company-reports.ts", "--dry-run"]
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: link-periods-to-company-reports-
+  labels:
+    app: garbo
+    job-type: link-periods-to-company-reports
+spec:
+  ttlSecondsAfterFinished: 3600
+  backoffLimit: 0
+  activeDeadlineSeconds: 3600
+  template:
+    metadata:
+      labels:
+        app: garbo
+        job-type: link-periods-to-company-reports
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: link
+          image: ghcr.io/klimatbyran/garbo
+          imagePullPolicy: Always
+          workingDir: /app
+          command: ["npx", "--yes", "tsx"]
+          args: ["scripts/link-periods-to-company-reports.ts"]
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              memory: "512Mi"
+          envFrom:
+            - secretRef:
+                name: env
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redis
+                  key: redis-password
+                  optional: true
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgresql
+                  key: postgres-password
+            - name: DATABASE_URL
+              value: postgresql://postgres:$(POSTGRES_PASSWORD)@postgresql:5432/garbo

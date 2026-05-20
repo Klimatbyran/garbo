@@ -31,6 +31,7 @@ model Company {
 
   industry         Industry?
   reportingPeriods ReportingPeriod[]
+  companyReports   CompanyReport[]
   goals            Goal[]
   initiatives      Initiative[]
   baseYear         BaseYear?
@@ -111,12 +112,16 @@ model ReportingPeriod {
   /// Content hash for the cached/uploaded report PDF when available.
   reportSha256 String?
 
-  companyId String
+  companyId       String
+  /// FK to the CompanyReport that owns this period's data. Nullable during the PR 1 transition;
+  /// made required and unique on (companyReportId, year) in PR 2 once all rows are backfilled.
+  companyReportId String?
 
-  metadata  Metadata[]
-  economy   Economy?
-  emissions Emissions?
-  company   Company    @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+  metadata      Metadata[]
+  economy       Economy?
+  emissions     Emissions?
+  company       Company        @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+  companyReport CompanyReport? @relation(fields: [companyReportId], references: [id], onDelete: SetNull)
 
   @@unique([companyId, year])
 }
@@ -415,6 +420,34 @@ model Report {
   companyName String?
   wikidataId  String?
   reportYear  String?
+
+  companyReports CompanyReport[]
+}
+
+/// One processed document per company. Links a registry Report to the company's pipeline data.
+/// Multiple CompanyReports per company are allowed — one per distinct PDF submitted.
+/// reportingPeriods point here so the same calendar year can exist under different reports
+/// without overwriting (@@unique([companyReportId, year]) enforced in PR 2).
+model CompanyReport {
+  id                    String    @id @default(cuid())
+  companyId             String
+  /// FK to the Report registry row. Null only for synthetic legacy rows where no PDF identity
+  /// was available at backfill time (i.e. ReportingPeriod had no reportURL/reportS3Url/reportSha256).
+  registryReportId      String?
+  /// Primary business/data year for this document (e.g. "2024" for the 2024 annual report).
+  /// Set to the max period year in the document's cluster during backfill.
+  reportYear            String?
+  /// Publication date of the PDF when available; used as tie-breaker in effective-view ranking.
+  reportPublicationDate DateTime?
+  createdAt             DateTime  @default(now())
+
+  company          Company           @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+  report           Report?           @relation(fields: [registryReportId], references: [id], onDelete: SetNull)
+  reportingPeriods ReportingPeriod[]
+
+  /// One CompanyReport per (company, report). Postgres allows multiple NULLs in unique
+  /// constraints, so synthetic legacy rows (registryReportId IS NULL) are permitted per company.
+  @@unique([companyId, registryReportId])
 }
 
 model Batch {
