@@ -21,8 +21,8 @@ describe('registryService', () => {
     mockPrisma.report.update.mockReset()
     mockPrisma.report.delete.mockReset()
     mockPrisma.$transaction.mockReset()
-    mockPrisma.$transaction.mockImplementation(async (fn: (tx: typeof mockPrisma) => unknown) =>
-      fn(mockPrisma)
+    mockPrisma.$transaction.mockImplementation(
+      async (fn: (tx: typeof mockPrisma) => unknown) => fn(mockPrisma)
     )
   })
 
@@ -263,7 +263,9 @@ describe('registryService', () => {
     )
 
     expect(mockPrisma.$transaction).toHaveBeenCalled()
-    expect(mockPrisma.report.delete).toHaveBeenCalledWith({ where: { id: 'a' } })
+    expect(mockPrisma.report.delete).toHaveBeenCalledWith({
+      where: { id: 'a' },
+    })
     expect(mockPrisma.report.update).toHaveBeenCalledWith(
       expect.objectContaining({
         where: { id: 'b' },

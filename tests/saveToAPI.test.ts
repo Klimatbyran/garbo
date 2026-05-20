@@ -2,13 +2,28 @@ import { jest } from '@jest/globals'
 
 // saveToAPI imports DiscordWorker which imports discord.js — mock the side-effectful modules
 // so the test environment can load the module without a live Discord client.
-jest.mock('../src/lib/DiscordWorker', () => ({ DiscordWorker: class {}, DiscordJob: class {} }))
-jest.mock('../src/api/services/registryService', () => ({ registryService: {} }))
-jest.mock('../src/api/services/registryCache', () => ({ invalidateRegistryCache: jest.fn() }))
-jest.mock('../src/createCache', () => ({ createServerCache: jest.fn(() => ({})) }))
+jest.mock('../src/lib/DiscordWorker', () => ({
+  DiscordWorker: class {},
+  DiscordJob: class {},
+}))
+jest.mock('../src/api/services/registryService', () => ({
+  registryService: {},
+}))
+jest.mock('../src/api/services/registryCache', () => ({
+  invalidateRegistryCache: jest.fn(),
+}))
+jest.mock('../src/createCache', () => ({
+  createServerCache: jest.fn(() => ({})),
+}))
 jest.mock('../src/lib/api', () => ({ apiFetch: jest.fn() }))
 jest.mock('../src/lib/saveUtils', () => ({
-  canonicalPublicReportUrl: ({ url, sourceUrl }: { url: string; sourceUrl?: string }) => {
+  canonicalPublicReportUrl: ({
+    url,
+    sourceUrl,
+  }: {
+    url: string
+    sourceUrl?: string
+  }) => {
     if (typeof sourceUrl === 'string' && /^https?:\/\//i.test(sourceUrl.trim()))
       return sourceUrl.trim()
     return url
@@ -44,7 +59,10 @@ describe('pickRegistryPayloadFromReportingPeriodsSave', () => {
   // ── Guards ──────────────────────────────────────────────────────────────────
 
   it('returns null when companyName is missing', () => {
-    const job = makeJob({ url: 'https://company.com/report', companyName: undefined })
+    const job = makeJob({
+      url: 'https://company.com/report',
+      companyName: undefined,
+    })
     expect(pickRegistryPayloadFromReportingPeriodsSave(job)).toBeNull()
   })
 
@@ -151,7 +169,7 @@ describe('pickRegistryPayloadFromReportingPeriodsSave', () => {
       url: 'https://company.com/report',
       body: {
         reportingPeriods: [
-          {},          // chosen (first) — no year
+          {}, // chosen (first) — no year
           { year: 2023 },
           { year: 2024 },
         ],

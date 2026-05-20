@@ -6,11 +6,11 @@ The `Report` table is a catalog of PDF documents (mainly annual and sustainabili
 
 A `Report` row has three URL-like columns:
 
-| Field | Meaning | Notes |
-|---|---|---|
-| `url` | The primary unique identifier for this report. Prefer the web/link URL when known; fall back to the S3 URL when the report came from a file upload with no web source. | **Required, unique.** Do not assume it is always a web URL — use `isLikelyStoredObjectUrl` to detect S3/CDN values. `upgradeToWebUrlIfAvailable` upgrades it from S3 to a web URL when a better one arrives later. |
-| `sourceUrl` | The web/link URL — where the report lives publicly. Always stored when known, even if it equals `url`. | Nullable. `null` means the report was uploaded as a file with no associated web link. |
-| `s3Url` | The S3/CDN cached copy of the PDF. | Nullable. All newly ingested reports will have this set. Legacy rows may be `null`. Partial unique index: two rows cannot share the same non-null value. |
+| Field       | Meaning                                                                                                                                                                | Notes                                                                                                                                                                                                              |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `url`       | The primary unique identifier for this report. Prefer the web/link URL when known; fall back to the S3 URL when the report came from a file upload with no web source. | **Required, unique.** Do not assume it is always a web URL — use `isLikelyStoredObjectUrl` to detect S3/CDN values. `upgradeToWebUrlIfAvailable` upgrades it from S3 to a web URL when a better one arrives later. |
+| `sourceUrl` | The web/link URL — where the report lives publicly. Always stored when known, even if it equals `url`.                                                                 | Nullable. `null` means the report was uploaded as a file with no associated web link.                                                                                                                              |
+| `s3Url`     | The S3/CDN cached copy of the PDF.                                                                                                                                     | Nullable. All newly ingested reports will have this set. Legacy rows may be `null`. Partial unique index: two rows cannot share the same non-null value.                                                           |
 
 **Rule of thumb:** `url = sourceUrl ?? s3Url`. `sourceUrl` tells you whether the report has a known public web link. `s3Url` tells you whether we have a cached copy.
 
@@ -39,11 +39,13 @@ The crawler calls `save-reports` → `reportsService.saveReportsToDb` → `upser
 3. POSTs to `internal-companies/reports/save-reports` → `reportsService.saveReportsToDb` → `upsertReportInRegistry`.
 
 Result (GCS caching succeeded):
+
 ```
 { url: "https://company.com/report-2024", sourceUrl: "https://company.com/report-2024", s3Url: "https://storage.googleapis.com/garbo-reports/x.pdf", sha256: "…" }
 ```
 
 Result (GCS caching failed or skipped):
+
 ```
 { url: "https://company.com/report-2024", sourceUrl: "https://company.com/report-2024", s3Url: null }
 ```
@@ -71,11 +73,13 @@ Result (GCS caching failed or skipped):
 ---
 
 **Legacy rows** (still in production, pre-GCS era, no cached copy):
+
 ```
 { url: "https://company.com/report-2024", sourceUrl: null, s3Url: null }
 ```
 
 **Old pipeline rows** (pre-fix: S3 URL was incorrectly placed in `url`):
+
 ```
 { url: "https://storage.googleapis.com/garbo-reports/x.pdf", sourceUrl: "https://company.com/report-2024", s3Url: null }
 ```
@@ -89,6 +93,7 @@ The dedup script and `upgradeToWebUrlIfAvailable` normalise old pipeline rows ov
 `registryService.upsertReportInRegistry` looks up existing rows with an OR query across all four identity fields before deciding to create or update. This prevents duplicates when the crawler and the pipeline write to different columns for the same document.
 
 The OR query (built by `buildReportLookupOr`) checks:
+
 - `sha256` match
 - `sourceUrl` match
 - `url` match
@@ -129,6 +134,7 @@ Run against a **staging clone first**. The k8s job manifest is at `k8s/jobs/repo
 ### Survivor selection
 
 When merging a group of duplicate rows:
+
 1. **Survivor** = row with the most non-null identity fields (`sha256`, `s3Url`, `sourceUrl`, `url`). Tie-break: has `sha256` → lexicographically smallest `id`.
 2. Missing fields from loser rows are null-coalesced onto the survivor.
 3. If both survivor and loser have a non-null scalar that differs, survivor's value wins (a conflict row is logged when `--emit-mapping` is used).
@@ -136,13 +142,13 @@ When merging a group of duplicate rows:
 
 ## Key source files
 
-| File | Purpose |
-|---|---|
-| `src/api/services/registryReportIdentity.ts` | Pure helpers: `buildReportLookupOr`, `pickSurvivorReport`, `mergeNullReportFields`, `isLikelyStoredObjectUrl` |
-| `src/api/services/registryService.ts` | `upsertReportInRegistry` (create / update / merge), `upgradeToWebUrlIfAvailable`, `updateReportInRegistry`, `deleteReportFromRegistry` |
-| `src/workers/saveToAPI.ts` | `pickRegistryPayloadFromReportingPeriodsSave` — routes pipeline job data to the correct registry fields |
-| `scripts/dedupe-report-registry.ts` | One-off dedup script |
-| `prisma/migrations/20260504120000_report_s3url_partial_unique/` | Adds partial unique index on `s3Url WHERE NOT NULL` |
-| `tests/registryReportIdentity.test.ts` | Unit tests for identity helpers including cross-link behaviour |
-| `tests/registryService.test.ts` | Unit tests for upsert logic including cross-link integration |
-| `tests/saveToAPI.test.ts` | Unit tests for pipeline payload routing |
+| File                                                            | Purpose                                                                                                                                |
+| --------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/api/services/registryReportIdentity.ts`                    | Pure helpers: `buildReportLookupOr`, `pickSurvivorReport`, `mergeNullReportFields`, `isLikelyStoredObjectUrl`                          |
+| `src/api/services/registryService.ts`                           | `upsertReportInRegistry` (create / update / merge), `upgradeToWebUrlIfAvailable`, `updateReportInRegistry`, `deleteReportFromRegistry` |
+| `src/workers/saveToAPI.ts`                                      | `pickRegistryPayloadFromReportingPeriodsSave` — routes pipeline job data to the correct registry fields                                |
+| `scripts/dedupe-report-registry.ts`                             | One-off dedup script                                                                                                                   |
+| `prisma/migrations/20260504120000_report_s3url_partial_unique/` | Adds partial unique index on `s3Url WHERE NOT NULL`                                                                                    |
+| `tests/registryReportIdentity.test.ts`                          | Unit tests for identity helpers including cross-link behaviour                                                                         |
+| `tests/registryService.test.ts`                                 | Unit tests for upsert logic including cross-link integration                                                                           |
+| `tests/saveToAPI.test.ts`                                       | Unit tests for pipeline payload routing                                                                                                |

@@ -77,7 +77,12 @@ describe('registryReportIdentity', () => {
     })
 
     it('omits null/empty fields', () => {
-      const or = buildReportLookupOr({ url: '', sourceUrl: null, s3Url: null, sha256: null })
+      const or = buildReportLookupOr({
+        url: '',
+        sourceUrl: null,
+        s3Url: null,
+        sha256: null,
+      })
       expect(or).toHaveLength(0)
     })
   })

@@ -19,7 +19,9 @@ export interface RegistryReportIdentityRow {
 }
 
 /** Heuristic: CDN / object storage URLs that should live in `s3Url`, not as the primary `url`. */
-export function isLikelyStoredObjectUrl(raw: string | null | undefined): boolean {
+export function isLikelyStoredObjectUrl(
+  raw: string | null | undefined
+): boolean {
   if (typeof raw !== 'string' || !raw.trim()) return false
   const s = raw.trim().toLowerCase()
   return (
@@ -39,10 +41,7 @@ export function trimStr(s: string | null | undefined): string | null {
 }
 
 export function identityScore(
-  r: Pick<
-    RegistryReportIdentityRow,
-    'sha256' | 's3Url' | 'sourceUrl' | 'url'
-  >
+  r: Pick<RegistryReportIdentityRow, 'sha256' | 's3Url' | 'sourceUrl' | 'url'>
 ): number {
   let n = 0
   if (trimStr(r.sha256)) n++
@@ -76,11 +75,14 @@ export function mergeNullReportFields(
   donor: RegistryReportIdentityRow
 ): Partial<RegistryReportIdentityRow> {
   const patch: Partial<RegistryReportIdentityRow> = {}
-  if (!trimStr(target.sha256) && trimStr(donor.sha256)) patch.sha256 = trimStr(donor.sha256)
+  if (!trimStr(target.sha256) && trimStr(donor.sha256))
+    patch.sha256 = trimStr(donor.sha256)
   if (!trimStr(target.sourceUrl) && trimStr(donor.sourceUrl))
     patch.sourceUrl = trimStr(donor.sourceUrl)
-  if (!trimStr(target.s3Url) && trimStr(donor.s3Url)) patch.s3Url = trimStr(donor.s3Url)
-  if (!trimStr(target.s3Key) && trimStr(donor.s3Key)) patch.s3Key = trimStr(donor.s3Key)
+  if (!trimStr(target.s3Url) && trimStr(donor.s3Url))
+    patch.s3Url = trimStr(donor.s3Url)
+  if (!trimStr(target.s3Key) && trimStr(donor.s3Key))
+    patch.s3Key = trimStr(donor.s3Key)
   if (!trimStr(target.s3Bucket) && trimStr(donor.s3Bucket))
     patch.s3Bucket = trimStr(donor.s3Bucket)
   if (!trimStr(target.companyName) && trimStr(donor.companyName))
@@ -121,14 +123,12 @@ export function mergeNullReportFields(
  * would miss the crawler row (which stored it under `url`) and create a duplicate.
  * The cross-link clauses { url: u } and { sourceUrl: su } bridge that gap.
  */
-export function buildReportLookupOr(
-  input: {
-    url: string
-    sourceUrl?: string | null
-    s3Url?: string | null
-    sha256?: string | null
-  }
-): Prisma.ReportWhereInput[] {
+export function buildReportLookupOr(input: {
+  url: string
+  sourceUrl?: string | null
+  s3Url?: string | null
+  sha256?: string | null
+}): Prisma.ReportWhereInput[] {
   const or: Prisma.ReportWhereInput[] = []
   const sh = trimStr(input.sha256)
   const su = trimStr(input.sourceUrl)

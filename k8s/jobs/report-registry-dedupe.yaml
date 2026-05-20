@@ -26,14 +26,14 @@ spec:
           image: ghcr.io/klimatbyran/garbo
           imagePullPolicy: Always
           workingDir: /app
-          command: ["npx", "--yes", "tsx"]
-          args: ["scripts/dedupe-report-registry.ts"]
+          command: ['npx', '--yes', 'tsx']
+          args: ['scripts/dedupe-report-registry.ts']
           resources:
             requests:
-              cpu: "100m"
-              memory: "256Mi"
+              cpu: '100m'
+              memory: '256Mi'
             limits:
-              memory: "512Mi"
+              memory: '512Mi'
           envFrom:
             - secretRef:
                 name: env
