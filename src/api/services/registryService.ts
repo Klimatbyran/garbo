@@ -46,7 +46,7 @@ function findWebUrlUpgrade(
   return undefined
 }
 
-function computeUpdateForSingleMatch(
+function patchRow(
   existing: RegistryReportIdentityRow,
   input: ReportInput
 ): Prisma.ReportUpdateInput {
@@ -69,7 +69,7 @@ function computeUpdateForSingleMatch(
   return update
 }
 
-function computeUpdateAfterMerge(
+function applyMergedRows(
   merged: RegistryReportIdentityRow,
   input: ReportInput
 ): Prisma.ReportUpdateInput {
@@ -139,7 +139,7 @@ class RegistryService {
       const existing = matches[0]
       return prismaClient.report.update({
         where: { id: existing.id },
-        data: computeUpdateForSingleMatch(existing as RegistryReportIdentityRow, input),
+        data: patchRow(existing as RegistryReportIdentityRow, input),
       })
     }
 
@@ -164,7 +164,7 @@ class RegistryService {
       }
       return tx.report.update({
         where: { id: rowToKeep.id },
-        data: computeUpdateAfterMerge(mergedRow, input),
+        data: applyMergedRows(mergedRow, input),
       })
     })
   }
