@@ -81,7 +81,8 @@ function applyMergedRows(
     wikidataId: merged.wikidataId ?? input.wikidataId ?? undefined,
     reportYear: merged.reportYear ?? input.reportYear ?? undefined,
     url: webUrl ?? baseUrl,
-    sourceUrl: input.sourceUrl !== undefined ? input.sourceUrl : merged.sourceUrl,
+    sourceUrl:
+      input.sourceUrl !== undefined ? input.sourceUrl : merged.sourceUrl,
     s3Url: input.s3Url !== undefined ? input.s3Url : merged.s3Url,
     s3Key: input.s3Key !== undefined ? input.s3Key : merged.s3Key,
     s3Bucket: input.s3Bucket !== undefined ? input.s3Bucket : merged.s3Bucket,
@@ -112,7 +113,9 @@ class RegistryService {
   async upsertReportInRegistry(input: ReportInput, prismaClient = prisma) {
     const lookupConditions = buildReportMatchConditions(input)
     const where: Prisma.ReportWhereInput =
-      lookupConditions.length > 0 ? { OR: lookupConditions } : { url: input.url }
+      lookupConditions.length > 0
+        ? { OR: lookupConditions }
+        : { url: input.url }
 
     const matches = await prismaClient.report.findMany({
       where,
@@ -156,7 +159,10 @@ class RegistryService {
 
       const mergedRow: RegistryReportIdentityRow = { ...rowToKeep }
       for (const row of rowsToDelete) {
-        Object.assign(mergedRow, copyMissingFields(mergedRow, row as RegistryReportIdentityRow))
+        Object.assign(
+          mergedRow,
+          copyMissingFields(mergedRow, row as RegistryReportIdentityRow)
+        )
       }
 
       for (const row of rowsToDelete) {

@@ -14,9 +14,7 @@ export interface RegistryReportIdentityRow {
   sha256?: string | null
 }
 
-const STORAGE_URL_PATTERNS = [
-  'storage.googleapis.com',
-]
+const STORAGE_URL_PATTERNS = ['storage.googleapis.com']
 
 export function isStorageUrl(raw: string | null | undefined): boolean {
   if (typeof raw !== 'string' || !raw.trim()) return false
@@ -30,19 +28,24 @@ export function trimStr(s: string | null | undefined): string | null {
   return trimmed.length ? trimmed : null
 }
 
-export function numberOfIdentityFieldsInRow(row: RegistryReportIdentityRow): number {
-  return (['sha256', 's3Url', 'sourceUrl', 'url'] as const).filter(
-    (field) => trimStr(row[field])
+export function numberOfIdentityFieldsInRow(
+  row: RegistryReportIdentityRow
+): number {
+  return (['sha256', 's3Url', 'sourceUrl', 'url'] as const).filter((field) =>
+    trimStr(row[field])
   ).length
 }
 
 // Prefers the row with the most identity fields filled in, since that's likely the most
 // complete data. sha256 wins a tie (means we have a verified cached copy); id breaks any remaining ties.
-export function pickRowToKeep(rows: RegistryReportIdentityRow[]): RegistryReportIdentityRow {
+export function pickRowToKeep(
+  rows: RegistryReportIdentityRow[]
+): RegistryReportIdentityRow {
   if (rows.length === 0) throw new Error('pickRowToKeep: empty rows')
   if (rows.length === 1) return rows[0]
   return [...rows].sort((a, b) => {
-    const scoreDiff = numberOfIdentityFieldsInRow(b) - numberOfIdentityFieldsInRow(a)
+    const scoreDiff =
+      numberOfIdentityFieldsInRow(b) - numberOfIdentityFieldsInRow(a)
     if (scoreDiff !== 0) return scoreDiff
     const aHasSha256 = trimStr(a.sha256) ? 1 : 0
     const bHasSha256 = trimStr(b.sha256) ? 1 : 0
@@ -59,12 +62,21 @@ export function copyMissingFields(
   const patch: Partial<RegistryReportIdentityRow> = {}
 
   const fields = [
-    'sha256', 'sourceUrl', 's3Url', 's3Key', 's3Bucket',
-    'companyName', 'wikidataId', 'reportYear',
+    'sha256',
+    'sourceUrl',
+    's3Url',
+    's3Key',
+    's3Bucket',
+    'companyName',
+    'wikidataId',
+    'reportYear',
   ] as const
 
   for (const field of fields) {
-    if (!trimStr(rowToKeep[field] as string | null) && trimStr(rowToDelete[field] as string | null)) {
+    if (
+      !trimStr(rowToKeep[field] as string | null) &&
+      trimStr(rowToDelete[field] as string | null)
+    ) {
       patch[field] = trimStr(rowToDelete[field] as string | null) as any
     }
   }
@@ -75,7 +87,8 @@ export function copyMissingFields(
   const deleteUrl = trimStr(rowToDelete.url)
 
   if (deleteUrl) {
-    const deleteUrlIsWebUrl = /^https?:\/\//i.test(deleteUrl) && !isStorageUrl(deleteUrl)
+    const deleteUrlIsWebUrl =
+      /^https?:\/\//i.test(deleteUrl) && !isStorageUrl(deleteUrl)
     const keepUrlOnlyHasStorageUrl = !keepUrl || isStorageUrl(keepUrl)
 
     if (deleteUrlIsWebUrl && keepUrlOnlyHasStorageUrl) {

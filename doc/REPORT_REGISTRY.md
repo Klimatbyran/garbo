@@ -6,11 +6,11 @@ The `Report` table is a catalog of PDF documents (mainly annual and sustainabili
 
 A `Report` row has three URL-like columns:
 
-| Field       | Meaning                                                                                                                                                         | Notes                                                                                                                                            |
-| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Field       | Meaning                                                                                                                                                          | Notes                                                                                                                                           |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
 | `url`       | The primary identifier for this report. Prefer the web/link URL when known; fall back to the GCS URL when the report came from a file upload with no web source. | Required, unique. Not always a web URL — a storage URL here means no web source is known. Upgraded to a web URL automatically when one arrives. |
-| `sourceUrl` | The web/link URL — where the report lives publicly. Always stored when known, even if it equals `url`.                                                          | Nullable. `null` means the report was uploaded as a file with no associated web link.                                                            |
-| `s3Url`     | The GCS cached copy of the PDF.                                                                                                                                  | Nullable. All newly ingested reports will have this set. Legacy rows may be `null`. Two rows cannot share the same non-null value.               |
+| `sourceUrl` | The web/link URL — where the report lives publicly. Always stored when known, even if it equals `url`.                                                           | Nullable. `null` means the report was uploaded as a file with no associated web link.                                                           |
+| `s3Url`     | The GCS cached copy of the PDF.                                                                                                                                  | Nullable. All newly ingested reports will have this set. Legacy rows may be `null`. Two rows cannot share the same non-null value.              |
 
 **Rule of thumb:** `url = sourceUrl ?? s3Url`. `sourceUrl` tells you whether the report has a known public web link. `s3Url` tells you whether we have a cached copy.
 
@@ -115,4 +115,3 @@ npx tsx scripts/dedupe-report-registry.ts --emit-mapping=./report-dedupe-mapping
 ```
 
 Run against a **staging clone first**. The k8s job manifest is at `k8s/jobs/report-registry-dedupe.yaml`.
-

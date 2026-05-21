@@ -19,9 +19,9 @@ jest.mock('../src/lib/saveUtils', () => ({
 import { pickRegistryPayloadFromReportingPeriodsSave } from '../src/workers/saveToAPI.utils'
 import type { RegistrySaveJobData } from '../src/workers/saveToAPI.utils'
 
-function makeJob(
-  overrides: Partial<RegistrySaveJobData> & { url: string }
-): { data: RegistrySaveJobData } {
+function makeJob(overrides: Partial<RegistrySaveJobData> & { url: string }): {
+  data: RegistrySaveJobData
+} {
   return {
     data: {
       wikidata: { node: 'Q123' },
@@ -46,7 +46,10 @@ describe('pickRegistryPayloadFromReportingPeriodsSave', () => {
   it('returns null when wikidataId is not a Q-number', () => {
     expect(
       pickRegistryPayloadFromReportingPeriodsSave(
-        makeJob({ url: 'https://company.com/report', wikidata: { node: 'not-a-qid' } })
+        makeJob({
+          url: 'https://company.com/report',
+          wikidata: { node: 'not-a-qid' },
+        })
       )
     ).toBeNull()
   })
@@ -54,7 +57,10 @@ describe('pickRegistryPayloadFromReportingPeriodsSave', () => {
   it('returns null when reportingPeriods is empty', () => {
     expect(
       pickRegistryPayloadFromReportingPeriodsSave(
-        makeJob({ url: 'https://company.com/report', body: { reportingPeriods: [] } })
+        makeJob({
+          url: 'https://company.com/report',
+          body: { reportingPeriods: [] },
+        })
       )
     ).toBeNull()
   })
@@ -151,7 +157,11 @@ describe('pickRegistryPayloadFromReportingPeriodsSave', () => {
         },
         body: {
           reportingPeriods: [
-            { year: 2024, reportURL: 'https://company.com/annual', reportSha256: 'b'.repeat(64) },
+            {
+              year: 2024,
+              reportURL: 'https://company.com/annual',
+              reportSha256: 'b'.repeat(64),
+            },
           ],
         },
       })

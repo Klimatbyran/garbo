@@ -14,9 +14,9 @@ function isWikidataQId(wikidataId: string): boolean {
   return /^Q\d+$/i.test(wikidataId.trim())
 }
 
-export function pickRegistryPayloadFromReportingPeriodsSave(
-  job: { data: RegistrySaveJobData }
-): null | {
+export function pickRegistryPayloadFromReportingPeriodsSave(job: {
+  data: RegistrySaveJobData
+}): null | {
   companyName: string
   wikidataId: string
   reportYear?: string
@@ -164,10 +164,7 @@ export function pickRegistryPayloadFromReportingPeriodsSave(
 
   let s3Url: string | undefined
   if (assetResolved) {
-    if (
-      assetResolved !== urlForUniqueRow ||
-      isStorageUrl(urlForUniqueRow)
-    ) {
+    if (assetResolved !== urlForUniqueRow || isStorageUrl(urlForUniqueRow)) {
       s3Url = assetResolved
     }
   } else if (isStorageUrl(urlForUniqueRow)) {
