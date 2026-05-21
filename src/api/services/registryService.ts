@@ -6,7 +6,7 @@ import {
 } from '../schemas'
 import z from 'zod'
 import {
-  buildReportLookupOr,
+  buildReportMatchConditions,
   copyMissingFields,
   pickRowToKeep,
   type RegistryReportIdentityRow,
@@ -110,7 +110,7 @@ class RegistryService {
   }
 
   async upsertReportInRegistry(input: ReportInput, prismaClient = prisma) {
-    const lookupConditions = buildReportLookupOr(input)
+    const lookupConditions = buildReportMatchConditions(input)
     const where: Prisma.ReportWhereInput =
       lookupConditions.length > 0 ? { OR: lookupConditions } : { url: input.url }
 

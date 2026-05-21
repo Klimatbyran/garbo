@@ -175,7 +175,7 @@ describe('registryService', () => {
   it('finds crawler row via cross-link when pipeline sends url in sourceUrl', async () => {
     // The crawler saved a row keyed by the human URL in `url`.
     // The pipeline later upserts with that same URL in `sourceUrl` and an S3 URL in `url`.
-    // The cross-link in buildReportLookupOr must find the crawler row so no duplicate is created.
+    // The cross-link in buildReportMatchConditions must find the crawler row so no duplicate is created.
     const crawlerRow = {
       id: 'r-crawler',
       url: 'https://company.com/report-2024',

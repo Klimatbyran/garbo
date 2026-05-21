@@ -8,7 +8,7 @@
  * - cross-link: row A's `url` equals row B's `sourceUrl` (e.g. crawler row keyed by `url`
  *   vs pipeline row with `sourceUrl` set to that report URL)
  *
- * This matches how `buildReportLookupOr` / `upsertReportInRegistry` can match rows, and
+ * This matches how `buildReportMatchConditions` / `upsertReportInRegistry` can match rows, and
  * supports the partial unique index on `s3Url` (migration `20260504120000_report_s3url_partial_unique`).
  *
  * Row selection and null-coalescing match `registryService.upsertReportInRegistry`.

@@ -1,5 +1,5 @@
 import {
-  buildReportLookupOr,
+  buildReportMatchConditions,
   copyMissingFields,
   pickRowToKeep,
   type RegistryReportIdentityRow,
@@ -23,9 +23,9 @@ function row(
 }
 
 describe('registryReportIdentity', () => {
-  describe('buildReportLookupOr', () => {
+  describe('buildReportMatchConditions', () => {
     it('includes direct field matches', () => {
-      const or = buildReportLookupOr({
+      const or = buildReportMatchConditions({
         url: 'https://company.com/report',
         sourceUrl: 'https://source.example/r.pdf',
         s3Url: 'https://s3.amazonaws.com/r.pdf',
@@ -45,7 +45,7 @@ describe('registryReportIdentity', () => {
       // Crawler saved { url: "https://company.com/report" }.
       // Pipeline upserts with { url: "https://s3.aws/x.pdf", sourceUrl: "https://company.com/report" }.
       // Without the cross-link the OR query would never match the crawler row.
-      const or = buildReportLookupOr({
+      const or = buildReportMatchConditions({
         url: 'https://s3.amazonaws.com/x.pdf',
         sourceUrl: 'https://company.com/report',
       })
@@ -55,7 +55,7 @@ describe('registryReportIdentity', () => {
     })
 
     it('includes cross-link { sourceUrl: url } for the reverse case', () => {
-      const or = buildReportLookupOr({
+      const or = buildReportMatchConditions({
         url: 'https://company.com/report',
         sourceUrl: null,
       })
@@ -65,7 +65,7 @@ describe('registryReportIdentity', () => {
     })
 
     it('does not add redundant cross-link when url and sourceUrl are identical', () => {
-      const or = buildReportLookupOr({
+      const or = buildReportMatchConditions({
         url: 'https://company.com/report',
         sourceUrl: 'https://company.com/report',
       })
@@ -77,7 +77,7 @@ describe('registryReportIdentity', () => {
     })
 
     it('omits null/empty fields', () => {
-      const or = buildReportLookupOr({
+      const or = buildReportMatchConditions({
         url: '',
         sourceUrl: null,
         s3Url: null,

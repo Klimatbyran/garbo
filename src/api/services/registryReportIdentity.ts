@@ -36,13 +36,8 @@ export function numberOfIdentityFieldsInRow(row: RegistryReportIdentityRow): num
   ).length
 }
 
-/**
- * Picks which duplicate row to keep. Prefers the row with the most identity
- * fields filled in (url, sourceUrl, s3Url, sha256), since that is likely the
- * pipeline row with the most complete data. Tie-breaks: prefer the row that
- * has a sha256 (means we have a verified cached copy), then fall back to
- * alphabetical id for a stable result.
- */
+// Prefers the row with the most identity fields filled in, since that's likely the most
+// complete data. sha256 wins a tie (means we have a verified cached copy); id breaks any remaining ties.
 export function pickRowToKeep(rows: RegistryReportIdentityRow[]): RegistryReportIdentityRow {
   if (rows.length === 0) throw new Error('pickRowToKeep: empty rows')
   if (rows.length === 1) return rows[0]
@@ -93,12 +88,9 @@ export function copyMissingFields(
   return patch
 }
 
-// Cross-links are needed because the crawler and pipeline wrote the same web URL
-// to different columns:
-//   Crawler:  { url: "https://company.com/report-2024" }
-//   Pipeline: { sourceUrl: "https://company.com/report-2024", url: "https://storage.googleapis.com/x.pdf" }
-// Searching { url: sourceUrl } and { sourceUrl: url } catches either write order.
-export function buildReportLookupOr(input: {
+// Cross-links are needed because the crawler and pipeline historically wrote the same web URL
+// to different columns. Searching { url: sourceUrl } and { sourceUrl: url } catches either write order.
+export function buildReportMatchConditions(input: {
   url: string
   sourceUrl?: string | null
   s3Url?: string | null
