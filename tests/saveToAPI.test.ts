@@ -1,11 +1,14 @@
 import { jest } from '@jest/globals'
 
-// saveToAPI imports DiscordWorker which imports discord.js — mock the side-effectful modules
-// so the test environment can load the module without a live Discord client.
+// saveToAPI imports DiscordWorker which has a circular ESM dependency:
+// DiscordWorker → src/discord → approve.ts → DiscordWorker (TDZ cycle).
+// Mocking both DiscordWorker and src/discord breaks the cycle before
+// approve.ts is evaluated.
 jest.mock('../src/lib/DiscordWorker', () => ({
   DiscordWorker: class {},
   DiscordJob: class {},
 }))
+jest.mock('../src/discord', () => ({ default: {} }))
 jest.mock('../src/api/services/registryService', () => ({
   registryService: {},
 }))
