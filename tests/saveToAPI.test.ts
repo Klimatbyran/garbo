@@ -16,7 +16,7 @@ jest.mock('../src/lib/saveUtils', () => ({
   },
 }))
 
-import { pickRegistryPayloadFromReportingPeriodsSave } from '../src/workers/saveToAPI.utils'
+import { buildRegistryPayload } from '../src/workers/saveToAPI.utils'
 import type { RegistrySaveJobData } from '../src/workers/saveToAPI.utils'
 
 function makeJob(overrides: Partial<RegistrySaveJobData> & { url: string }): {
@@ -32,12 +32,12 @@ function makeJob(overrides: Partial<RegistrySaveJobData> & { url: string }): {
   }
 }
 
-describe('pickRegistryPayloadFromReportingPeriodsSave', () => {
+describe('buildRegistryPayload', () => {
   // ── Guards ──────────────────────────────────────────────────────────────────
 
   it('returns null when companyName is missing', () => {
     expect(
-      pickRegistryPayloadFromReportingPeriodsSave(
+      buildRegistryPayload(
         makeJob({ url: 'https://company.com/report', companyName: undefined })
       )
     ).toBeNull()
@@ -45,7 +45,7 @@ describe('pickRegistryPayloadFromReportingPeriodsSave', () => {
 
   it('returns null when wikidataId is not a Q-number', () => {
     expect(
-      pickRegistryPayloadFromReportingPeriodsSave(
+      buildRegistryPayload(
         makeJob({
           url: 'https://company.com/report',
           wikidata: { node: 'not-a-qid' },
@@ -56,7 +56,7 @@ describe('pickRegistryPayloadFromReportingPeriodsSave', () => {
 
   it('returns null when reportingPeriods is empty', () => {
     expect(
-      pickRegistryPayloadFromReportingPeriodsSave(
+      buildRegistryPayload(
         makeJob({
           url: 'https://company.com/report',
           body: { reportingPeriods: [] },
@@ -68,7 +68,7 @@ describe('pickRegistryPayloadFromReportingPeriodsSave', () => {
   // ── URL-only job (crawler-style: human URL, no S3, no pdfCache) ─────────────
 
   it('url-only: puts the human URL in `url`, leaves s3Url and sha256 undefined', () => {
-    const result = pickRegistryPayloadFromReportingPeriodsSave(
+    const result = buildRegistryPayload(
       makeJob({ url: 'https://company.com/report-2024' })
     )
     expect(result).not.toBeNull()
@@ -81,7 +81,7 @@ describe('pickRegistryPayloadFromReportingPeriodsSave', () => {
   // ── S3-only job (pipeline cached PDF, no sourceUrl) ─────────────────────────
 
   it('s3-only: puts S3 URL in both `url` and `s3Url` when no human URL is available', () => {
-    const result = pickRegistryPayloadFromReportingPeriodsSave(
+    const result = buildRegistryPayload(
       makeJob({ url: 'https://storage.googleapis.com/garbo/abc.pdf' })
     )
     expect(result).not.toBeNull()
@@ -92,7 +92,7 @@ describe('pickRegistryPayloadFromReportingPeriodsSave', () => {
   // ── pdfCache with hash (pipeline-api provided sha256 + publicUrl) ───────────
 
   it('hash+s3: uses pdfCache sha256, promotes sourceUrl to url, and also stores it in sourceUrl', () => {
-    const result = pickRegistryPayloadFromReportingPeriodsSave(
+    const result = buildRegistryPayload(
       makeJob({
         url: 'https://storage.googleapis.com/garbo/abc.pdf',
         sourceUrl: 'https://company.com/report-2024',
@@ -112,7 +112,7 @@ describe('pickRegistryPayloadFromReportingPeriodsSave', () => {
   // ── Cross-column: old pipeline put human URL in sourceUrl, S3 URL in url ────
 
   it('cross-column: promotes sourceUrl to url, keeps it in sourceUrl, and puts job url in s3Url', () => {
-    const result = pickRegistryPayloadFromReportingPeriodsSave(
+    const result = buildRegistryPayload(
       makeJob({
         url: 'https://storage.googleapis.com/garbo/x.pdf',
         sourceUrl: 'https://company.com/sustainability-report',
@@ -127,7 +127,7 @@ describe('pickRegistryPayloadFromReportingPeriodsSave', () => {
   // ── reportYear derived from period ──────────────────────────────────────────
 
   it('uses the year of the chosen (first) period when no identity match', () => {
-    const result = pickRegistryPayloadFromReportingPeriodsSave(
+    const result = buildRegistryPayload(
       makeJob({
         url: 'https://company.com/report',
         body: { reportingPeriods: [{ year: 2022 }, { year: 2024 }] },
@@ -137,7 +137,7 @@ describe('pickRegistryPayloadFromReportingPeriodsSave', () => {
   })
 
   it('falls back to max year when chosen period has no year', () => {
-    const result = pickRegistryPayloadFromReportingPeriodsSave(
+    const result = buildRegistryPayload(
       makeJob({
         url: 'https://company.com/report',
         body: { reportingPeriods: [{}, { year: 2023 }, { year: 2024 }] },
@@ -147,7 +147,7 @@ describe('pickRegistryPayloadFromReportingPeriodsSave', () => {
   })
 
   it('prefers reportURL from the period that matches sha256', () => {
-    const result = pickRegistryPayloadFromReportingPeriodsSave(
+    const result = buildRegistryPayload(
       makeJob({
         url: 'https://storage.googleapis.com/garbo/x.pdf',
         sourceUrl: 'https://company.com/annual',

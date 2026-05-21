@@ -4,10 +4,10 @@ import { QUEUE_NAMES } from '../queues'
 import { registryService } from '../api/services/registryService'
 import { createServerCache } from '../createCache'
 import { invalidateRegistryCache } from '../api/services/registryCache'
-import { pickRegistryPayloadFromReportingPeriodsSave } from './saveToAPI.utils'
+import { buildRegistryPayload } from './saveToAPI.utils'
 
 export type { RegistrySaveJobData } from './saveToAPI.utils'
-export { pickRegistryPayloadFromReportingPeriodsSave }
+export { buildRegistryPayload }
 
 const registryCache = createServerCache({ maxAge: 24 * 60 * 60 * 1000 })
 
@@ -124,7 +124,7 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
       }
 
       if (apiSubEndpoint === 'reporting-periods') {
-        const registryPayload = pickRegistryPayloadFromReportingPeriodsSave(job)
+        const registryPayload = buildRegistryPayload(job)
         if (registryPayload) {
           try {
             await registryService.upsertReportInRegistry(registryPayload)

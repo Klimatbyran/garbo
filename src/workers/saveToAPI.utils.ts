@@ -1,5 +1,5 @@
 import { canonicalPublicReportUrl } from '../lib/saveUtils'
-import { isStorageUrl } from '../api/services/registryReportIdentity'
+import { isStorageUrl, trimStr } from '../api/services/registryReportIdentity'
 
 export interface RegistrySaveJobData {
   companyName?: string
@@ -14,7 +14,81 @@ function isWikidataQId(wikidataId: string): boolean {
   return /^Q\d+$/i.test(wikidataId.trim())
 }
 
-export function pickRegistryPayloadFromReportingPeriodsSave(job: {
+// Priority: sha256 match → storage URL match → web URL match → first period.
+function findMatchingPeriod(
+  reportingPeriods: any[],
+  pdfCacheSha256: string | undefined,
+  storageUrlToMatch: string | undefined,
+  canonicalUrl: string
+): any {
+  return (
+    (pdfCacheSha256
+      ? reportingPeriods.find(
+          (rp: any) =>
+            typeof rp?.reportSha256 === 'string' &&
+            rp.reportSha256.trim() === pdfCacheSha256
+        )
+      : null) ||
+    (storageUrlToMatch
+      ? reportingPeriods.find(
+          (rp: any) =>
+            typeof rp?.reportS3Url === 'string' &&
+            rp.reportS3Url.trim() === storageUrlToMatch
+        )
+      : null) ||
+    reportingPeriods.find(
+      (rp: any) =>
+        typeof rp?.reportURL === 'string' && rp.reportURL.trim() === canonicalUrl
+    ) ||
+    reportingPeriods.find(
+      (rp: any) => typeof rp?.reportURL === 'string' && rp.reportURL.trim()
+    ) ||
+    reportingPeriods[0]
+  )
+}
+
+// Returns the first candidate that is a proper web URL (not a storage link).
+function firstWebUrl(...candidates: (string | undefined)[]): string | undefined {
+  return candidates.find(
+    (url): url is string =>
+      typeof url === 'string' &&
+      url.length > 0 &&
+      /^https?:\/\//i.test(url) &&
+      !isStorageUrl(url)
+  )
+}
+
+// Returns the best available storage URL from the known sources.
+function resolveStorageUrl(
+  periodStorageUrl: string | undefined,
+  pdfCacheStorageUrl: string | undefined,
+  jobUrl: string,
+  jobStorageUrl: string | undefined
+): string | undefined {
+  return (
+    periodStorageUrl ||
+    pdfCacheStorageUrl ||
+    (isStorageUrl(jobUrl) ? jobUrl : undefined) ||
+    (jobStorageUrl && isStorageUrl(jobStorageUrl) ? jobStorageUrl : undefined)
+  )
+}
+
+// Returns the year from the chosen period, or falls back to the highest year across all periods.
+function resolveReportYear(chosenPeriod: any, reportingPeriods: any[]): string | undefined {
+  const year = chosenPeriod?.year
+  if (typeof year === 'number') return year.toString()
+  if (typeof year === 'string') return year
+
+  const maxYear = reportingPeriods.reduce((max: number | null, rp: any) => {
+    const y = Number(rp?.year)
+    if (!Number.isFinite(y)) return max
+    return max === null ? y : Math.max(max, y)
+  }, null as number | null)
+
+  return maxYear !== null ? maxYear.toString() : undefined
+}
+
+export function buildRegistryPayload(job: {
   data: RegistrySaveJobData
 }): null | {
   companyName: string
@@ -31,160 +105,65 @@ export function pickRegistryPayloadFromReportingPeriodsSave(job: {
   const wikidataId = job.data.wikidata.node.trim()
   if (!isWikidataQId(wikidataId)) return null
 
+  const reportingPeriods = job.data.body?.reportingPeriods
+  if (!Array.isArray(reportingPeriods) || reportingPeriods.length === 0) return null
+
   const url = typeof job.data.url === 'string' ? job.data.url.trim() : ''
   const sourceUrl =
-    typeof job.data.sourceUrl === 'string'
-      ? job.data.sourceUrl.trim()
-      : undefined
-  const pdfCache = job.data.pdfCache
+    typeof job.data.sourceUrl === 'string' ? job.data.sourceUrl.trim() : undefined
 
-  const reportingPeriods = job.data.body?.reportingPeriods
-  if (!Array.isArray(reportingPeriods) || reportingPeriods.length === 0)
-    return null
+  const pdfCacheSha256 = trimStr(job.data.pdfCache?.sha256) ?? undefined
+  const pdfCacheStorageUrl = trimStr(job.data.pdfCache?.publicUrl) ?? undefined
 
-  const canonicalReportUrl = canonicalPublicReportUrl({ url, sourceUrl })
-
-  const sha256FromPdfCache =
-    typeof pdfCache?.sha256 === 'string' && pdfCache.sha256.trim()
-      ? pdfCache.sha256.trim()
-      : undefined
-
-  const s3UrlFromPdfCache =
-    typeof pdfCache?.publicUrl === 'string' && pdfCache.publicUrl.trim()
-      ? pdfCache.publicUrl.trim()
-      : undefined
-
-  const sourceIsHttp =
+  const sourceUrlIsHttp =
     typeof sourceUrl === 'string' && /^https?:\/\//i.test(sourceUrl)
+  const jobStorageUrl =
+    url && (!sourceUrlIsHttp || url !== sourceUrl) ? url : undefined
 
-  const s3UrlFromJobUrl =
-    url && (!sourceIsHttp || url !== sourceUrl) ? url : undefined
+  const canonicalUrl = canonicalPublicReportUrl({ url, sourceUrl })
+  const storageUrlToMatch = pdfCacheStorageUrl || jobStorageUrl
 
-  const expectedS3Url = s3UrlFromPdfCache || s3UrlFromJobUrl
-
-  const normalizeYear = (year: any): string | undefined => {
-    if (typeof year === 'number') return year.toString()
-    if (typeof year === 'string') return year
-    return undefined
-  }
-
-  const maxYear = reportingPeriods.reduce(
-    (max: number | null, rp: any) => {
-      const y = Number(rp?.year)
-      if (!Number.isFinite(y)) return max
-      if (max === null) return y
-      return Math.max(max, y)
-    },
-    null as number | null
+  const chosenPeriod = findMatchingPeriod(
+    reportingPeriods,
+    pdfCacheSha256,
+    storageUrlToMatch,
+    canonicalUrl
   )
 
-  const chosen =
-    (sha256FromPdfCache
-      ? reportingPeriods.find(
-          (rp: any) =>
-            typeof rp?.reportSha256 === 'string' &&
-            rp.reportSha256.trim() === sha256FromPdfCache
-        )
-      : null) ||
-    (expectedS3Url
-      ? reportingPeriods.find(
-          (rp: any) =>
-            typeof rp?.reportS3Url === 'string' &&
-            rp.reportS3Url.trim() === expectedS3Url
-        )
-      : null) ||
-    reportingPeriods.find(
-      (rp: any) =>
-        typeof rp?.reportURL === 'string' &&
-        rp.reportURL.trim() === canonicalReportUrl
-    ) ||
-    reportingPeriods.find(
-      (rp: any) => typeof rp?.reportURL === 'string' && rp.reportURL.trim()
-    ) ||
-    reportingPeriods[0]
+  const periodWebUrl = trimStr(chosenPeriod?.reportURL) ?? undefined
+  const periodStorageUrl = trimStr(chosenPeriod?.reportS3Url) ?? undefined
+  const periodSha256 = trimStr(chosenPeriod?.reportSha256) ?? undefined
 
-  const reportYear =
-    normalizeYear(chosen?.year) ??
-    (maxYear !== null ? maxYear.toString() : undefined)
+  const webUrl = firstWebUrl(periodWebUrl, sourceUrl, canonicalUrl)
+  const resolvedStorageUrl = resolveStorageUrl(
+    periodStorageUrl,
+    pdfCacheStorageUrl,
+    url,
+    jobStorageUrl
+  )
 
-  const chosenReportPageUrl =
-    typeof chosen?.reportURL === 'string' && chosen.reportURL.trim()
-      ? chosen.reportURL.trim()
-      : ''
+  const primaryUrl =
+    webUrl || (periodWebUrl || canonicalUrl).trim() || canonicalUrl || url || ''
 
-  const reportURL = chosenReportPageUrl || canonicalReportUrl
-
-  const reportS3Url =
-    typeof chosen?.reportS3Url === 'string' && chosen.reportS3Url.trim()
-      ? chosen.reportS3Url.trim()
-      : undefined
-
-  const reportSha256 =
-    typeof chosen?.reportSha256 === 'string' && chosen.reportSha256.trim()
-      ? chosen.reportSha256.trim()
-      : undefined
-
-  const trimmedJobUrl = url.trim()
-
-  const humanResolved =
-    [
-      chosenReportPageUrl &&
-      /^https?:\/\//i.test(chosenReportPageUrl) &&
-      !isStorageUrl(chosenReportPageUrl)
-        ? chosenReportPageUrl
-        : undefined,
-      sourceIsHttp && sourceUrl && !isStorageUrl(sourceUrl)
-        ? sourceUrl.trim()
-        : undefined,
-      canonicalReportUrl &&
-      /^https?:\/\//i.test(canonicalReportUrl) &&
-      !isStorageUrl(canonicalReportUrl)
-        ? canonicalReportUrl
-        : undefined,
-    ].find(Boolean) ?? undefined
-
-  const assetResolved =
-    reportS3Url ||
-    s3UrlFromPdfCache ||
-    (trimmedJobUrl && isStorageUrl(trimmedJobUrl)
-      ? trimmedJobUrl
-      : undefined) ||
-    (s3UrlFromJobUrl && isStorageUrl(s3UrlFromJobUrl)
-      ? s3UrlFromJobUrl
-      : undefined)
-
-  const urlForUniqueRow =
-    humanResolved ||
-    reportURL.trim() ||
-    canonicalReportUrl ||
-    trimmedJobUrl ||
-    ''
-
-  if (!urlForUniqueRow) return null
+  if (!primaryUrl) return null
 
   let s3Url: string | undefined
-  if (assetResolved) {
-    if (assetResolved !== urlForUniqueRow || isStorageUrl(urlForUniqueRow)) {
-      s3Url = assetResolved
+  if (resolvedStorageUrl) {
+    if (resolvedStorageUrl !== primaryUrl || isStorageUrl(primaryUrl)) {
+      s3Url = resolvedStorageUrl
     }
-  } else if (isStorageUrl(urlForUniqueRow)) {
-    s3Url = urlForUniqueRow
+  } else if (isStorageUrl(primaryUrl)) {
+    s3Url = primaryUrl
   }
-
-  const sourceUrlOut =
-    sourceIsHttp && sourceUrl && !isStorageUrl(sourceUrl.trim())
-      ? sourceUrl.trim()
-      : undefined
-
-  const sha256 = sha256FromPdfCache ?? reportSha256
 
   return {
     companyName,
     wikidataId,
-    reportYear,
-    url: urlForUniqueRow,
-    sourceUrl: sourceUrlOut,
+    reportYear: resolveReportYear(chosenPeriod, reportingPeriods),
+    url: primaryUrl,
+    sourceUrl:
+      sourceUrlIsHttp && sourceUrl && !isStorageUrl(sourceUrl) ? sourceUrl : undefined,
     s3Url,
-    sha256,
+    sha256: pdfCacheSha256 ?? periodSha256,
   }
 }
