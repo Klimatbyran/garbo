@@ -151,19 +151,19 @@ class RegistryService {
         orderBy: { id: 'asc' },
       })
 
-      const survivor = pickRowToKeep(rows as RegistryReportIdentityRow[])
-      const duplicates = rows.filter((r) => r.id !== survivor.id)
+      const rowToKeep = pickRowToKeep(rows as RegistryReportIdentityRow[])
+      const rowsToDelete = rows.filter((r) => r.id !== rowToKeep.id)
 
-      const mergedRow: RegistryReportIdentityRow = { ...survivor }
-      for (const duplicate of duplicates) {
-        Object.assign(mergedRow, copyMissingFields(mergedRow, duplicate as RegistryReportIdentityRow))
+      const mergedRow: RegistryReportIdentityRow = { ...rowToKeep }
+      for (const row of rowsToDelete) {
+        Object.assign(mergedRow, copyMissingFields(mergedRow, row as RegistryReportIdentityRow))
       }
 
-      for (const duplicate of duplicates) {
-        await tx.report.delete({ where: { id: duplicate.id } })
+      for (const row of rowsToDelete) {
+        await tx.report.delete({ where: { id: row.id } })
       }
       return tx.report.update({
-        where: { id: survivor.id },
+        where: { id: rowToKeep.id },
         data: computeUpdateAfterMerge(mergedRow, input),
       })
     })
