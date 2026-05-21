@@ -7,88 +7,81 @@ import {
 import z from 'zod'
 import {
   buildReportLookupOr,
-  mergeNullReportFields,
-  pickSurvivorReport,
+  copyMissingFields,
+  pickRowToKeep,
   type RegistryReportIdentityRow,
   trimStr,
-  isLikelyStoredObjectUrl,
+  isStorageUrl,
 } from './registryReportIdentity'
 
-/**
- * If the existing row's `url` is an S3/CDN URL but the incoming input carries a proper
- * web URL, return the web URL so the caller can upgrade the `url` field.
- * Returns undefined when no upgrade is warranted (keep the existing value).
- */
-function upgradeToWebUrlIfAvailable(
+type ReportInput = {
+  companyName: string
+  wikidataId?: string | null
+  reportYear?: string | null
+  url: string
+  sourceUrl?: string | null
+  s3Url?: string | null
+  s3Key?: string | null
+  s3Bucket?: string | null
+  sha256?: string | null
+}
+
+// When the stored url is a storage.googleapis.com link but we now have a proper web URL,
+// return the web URL — human-readable links are better for our frontend users.
+function findWebUrlUpgrade(
   existing: RegistryReportIdentityRow,
   inputUrl: string
 ): string | undefined {
-  const inUrl = trimStr(inputUrl)
-  const exUrl = trimStr(existing.url)
-  if (!inUrl || !exUrl) return undefined
-  if (
-    isLikelyStoredObjectUrl(exUrl) &&
-    !isLikelyStoredObjectUrl(inUrl) &&
-    /^https?:\/\//i.test(inUrl)
-  ) {
-    return inUrl
-  }
+  const storedUrl = trimStr(existing.url)
+  const incomingUrl = trimStr(inputUrl)
+
+  if (!storedUrl || !incomingUrl) return undefined
+
+  const storedIsStorageLink = isStorageUrl(storedUrl)
+  const incomingIsWebUrl =
+    !isStorageUrl(incomingUrl) && /^https?:\/\//i.test(incomingUrl)
+
+  if (storedIsStorageLink && incomingIsWebUrl) return incomingUrl
+
   return undefined
 }
 
-function buildSingleRowUpsertData(
+function computeUpdateForSingleMatch(
   existing: RegistryReportIdentityRow,
-  input: {
-    companyName: string
-    wikidataId?: string | null
-    reportYear?: string | null
-    url: string
-    sourceUrl?: string | null
-    s3Url?: string | null
-    s3Key?: string | null
-    s3Bucket?: string | null
-    sha256?: string | null
-  }
+  input: ReportInput
 ): Prisma.ReportUpdateInput {
-  const promoted = upgradeToWebUrlIfAvailable(existing, input.url)
-  return {
+  const update: Prisma.ReportUpdateInput = {
     companyName: existing.companyName ?? input.companyName,
     wikidataId: existing.wikidataId ?? input.wikidataId ?? undefined,
     reportYear: existing.reportYear ?? input.reportYear ?? undefined,
-    ...(input.sourceUrl !== undefined ? { sourceUrl: input.sourceUrl } : {}),
-    ...(input.s3Url !== undefined ? { s3Url: input.s3Url } : {}),
-    ...(input.s3Key !== undefined ? { s3Key: input.s3Key } : {}),
-    ...(input.s3Bucket !== undefined ? { s3Bucket: input.s3Bucket } : {}),
-    ...(input.sha256 !== undefined ? { sha256: input.sha256 } : {}),
-    ...(promoted !== undefined ? { url: promoted } : {}),
   }
+
+  // Only assign when explicitly provided — omitting keeps Prisma from clearing the field.
+  if (input.sourceUrl !== undefined) update.sourceUrl = input.sourceUrl
+  if (input.s3Url !== undefined) update.s3Url = input.s3Url
+  if (input.s3Key !== undefined) update.s3Key = input.s3Key
+  if (input.s3Bucket !== undefined) update.s3Bucket = input.s3Bucket
+  if (input.sha256 !== undefined) update.sha256 = input.sha256
+
+  const webUrl = findWebUrlUpgrade(existing, input.url)
+  if (webUrl) update.url = webUrl
+
+  return update
 }
 
-/** After merging duplicate rows in-memory, persist union + apply input overlays. */
-function buildMergedRowUpsertData(
+function computeUpdateAfterMerge(
   merged: RegistryReportIdentityRow,
-  input: {
-    companyName: string
-    wikidataId?: string | null
-    reportYear?: string | null
-    url: string
-    sourceUrl?: string | null
-    s3Url?: string | null
-    s3Key?: string | null
-    s3Bucket?: string | null
-    sha256?: string | null
-  }
+  input: ReportInput
 ): Prisma.ReportUpdateInput {
-  const promoted = upgradeToWebUrlIfAvailable(merged, input.url)
   const baseUrl = trimStr(merged.url) || trimStr(input.url) || merged.url
+  const webUrl = findWebUrlUpgrade(merged, input.url)
 
   return {
     companyName: merged.companyName ?? input.companyName,
     wikidataId: merged.wikidataId ?? input.wikidataId ?? undefined,
     reportYear: merged.reportYear ?? input.reportYear ?? undefined,
-    url: promoted ?? baseUrl,
-    sourceUrl:
-      input.sourceUrl !== undefined ? input.sourceUrl : merged.sourceUrl,
+    url: webUrl ?? baseUrl,
+    sourceUrl: input.sourceUrl !== undefined ? input.sourceUrl : merged.sourceUrl,
     s3Url: input.s3Url !== undefined ? input.s3Url : merged.s3Url,
     s3Key: input.s3Key !== undefined ? input.s3Key : merged.s3Key,
     s3Bucket: input.s3Bucket !== undefined ? input.s3Bucket : merged.s3Bucket,
@@ -116,23 +109,10 @@ class RegistryService {
     return registry
   }
 
-  async upsertReportInRegistry(
-    input: {
-      companyName: string
-      wikidataId?: string | null
-      reportYear?: string | null
-      url: string
-      sourceUrl?: string | null
-      s3Url?: string | null
-      s3Key?: string | null
-      s3Bucket?: string | null
-      sha256?: string | null
-    },
-    prismaClient = prisma
-  ) {
-    const or = buildReportLookupOr(input)
+  async upsertReportInRegistry(input: ReportInput, prismaClient = prisma) {
+    const lookupConditions = buildReportLookupOr(input)
     const where: Prisma.ReportWhereInput =
-      or.length > 0 ? { OR: or } : { url: input.url }
+      lookupConditions.length > 0 ? { OR: lookupConditions } : { url: input.url }
 
     const matches = await prismaClient.report.findMany({
       where,
@@ -159,35 +139,32 @@ class RegistryService {
       const existing = matches[0]
       return prismaClient.report.update({
         where: { id: existing.id },
-        data: buildSingleRowUpsertData(
-          existing as RegistryReportIdentityRow,
-          input
-        ),
+        data: computeUpdateForSingleMatch(existing as RegistryReportIdentityRow, input),
       })
     }
 
+    // Multiple matches: the same document was indexed more than once under different URLs.
+    // Collapse them into one row inside a transaction.
     return prismaClient.$transaction(async (tx) => {
-      const refreshed = await tx.report.findMany({
+      const rows = await tx.report.findMany({
         where: { id: { in: matches.map((m) => m.id) } },
         orderBy: { id: 'asc' },
       })
-      const survivor = pickSurvivorReport(
-        refreshed as RegistryReportIdentityRow[]
-      )
-      const losers = refreshed.filter((r) => r.id !== survivor.id)
-      const merged: RegistryReportIdentityRow = { ...survivor }
-      for (const row of losers) {
-        Object.assign(
-          merged,
-          mergeNullReportFields(merged, row as RegistryReportIdentityRow)
-        )
+
+      const survivor = pickRowToKeep(rows as RegistryReportIdentityRow[])
+      const duplicates = rows.filter((r) => r.id !== survivor.id)
+
+      const mergedRow: RegistryReportIdentityRow = { ...survivor }
+      for (const duplicate of duplicates) {
+        Object.assign(mergedRow, copyMissingFields(mergedRow, duplicate as RegistryReportIdentityRow))
       }
-      for (const row of losers) {
-        await tx.report.delete({ where: { id: row.id } })
+
+      for (const duplicate of duplicates) {
+        await tx.report.delete({ where: { id: duplicate.id } })
       }
       return tx.report.update({
         where: { id: survivor.id },
-        data: buildMergedRowUpsertData(merged, input),
+        data: computeUpdateAfterMerge(mergedRow, input),
       })
     })
   }
