@@ -116,12 +116,3 @@ npx tsx scripts/dedupe-report-registry.ts --emit-mapping=./report-dedupe-mapping
 
 Run against a **staging clone first**. The k8s job manifest is at `k8s/jobs/report-registry-dedupe.yaml`.
 
-## Key source files
-
-| File                                         | Purpose                                                                                  |
-| -------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| `src/api/services/registryReportIdentity.ts` | Pure helpers for identity comparison, field merging, and duplicate lookup conditions     |
-| `src/api/services/registryService.ts`        | Upsert logic (create / update / merge), plus update and delete endpoints                 |
-| `src/workers/saveToAPI.utils.ts`             | Routes pipeline job data to the correct registry fields before calling the upsert        |
-| `scripts/dedupe-report-registry.ts`          | One-off dedup script                                                                     |
-| `tests/saveToAPI.test.ts`                    | Unit tests for pipeline payload routing                                                  |

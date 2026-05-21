@@ -1,7 +1,7 @@
 import {
   buildReportLookupOr,
-  mergeNullReportFields,
-  pickSurvivorReport,
+  copyMissingFields,
+  pickRowToKeep,
   type RegistryReportIdentityRow,
 } from '../src/api/services/registryReportIdentity'
 
@@ -87,7 +87,7 @@ describe('registryReportIdentity', () => {
     })
   })
 
-  it('pickSurvivorReport prefers richer identity', () => {
+  it('pickRowToKeep prefers the row with more identity fields filled in', () => {
     const low = row({
       id: 'z',
       url: 'https://x',
@@ -102,23 +102,23 @@ describe('registryReportIdentity', () => {
       sourceUrl: 'https://s',
       s3Url: 'https://s3',
     })
-    expect(pickSurvivorReport([low, high]).id).toBe(high.id)
+    expect(pickRowToKeep([low, high]).id).toBe(high.id)
   })
 
-  it('mergeNullReportFields fills gaps from donor', () => {
-    const target = row({
+  it('copyMissingFields fills empty slots from the row being deleted', () => {
+    const rowToKeep = row({
       id: 'a',
-      url: 'https://bucket.s3.amazonaws.com/x.pdf',
+      url: 'https://storage.googleapis.com/garbo/x.pdf',
       s3Url: null,
       sourceUrl: null,
     })
-    const donor = row({
+    const rowToDelete = row({
       id: 'b',
       url: 'https://human/page',
-      s3Url: 'https://bucket.s3.amazonaws.com/x.pdf',
+      s3Url: 'https://storage.googleapis.com/garbo/x.pdf',
       sourceUrl: 'https://src',
     })
-    const patch = mergeNullReportFields(target, donor)
+    const patch = copyMissingFields(rowToKeep, rowToDelete)
     expect(patch.sourceUrl).toBe('https://src')
     expect(patch.url).toBe('https://human/page')
   })

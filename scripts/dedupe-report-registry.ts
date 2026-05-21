@@ -11,7 +11,7 @@
  * This matches how `buildReportLookupOr` / `upsertReportInRegistry` can match rows, and
  * supports the partial unique index on `s3Url` (migration `20260504120000_report_s3url_partial_unique`).
  *
- * Survivor selection and null-coalescing match `registryService.upsertReportInRegistry`.
+ * Row selection and null-coalescing match `registryService.upsertReportInRegistry`.
  *
  * Usage:
  *   npx tsx scripts/dedupe-report-registry.ts --dry-run
@@ -30,8 +30,8 @@ import { prisma } from '../src/lib/prisma'
 import { invalidateRegistryCache } from '../src/api/services/registryCache'
 import { createServerCache, disconnectRedisCache } from '../src/createCache'
 import {
-  mergeNullReportFields,
-  pickSurvivorReport,
+  copyMissingFields,
+  pickRowToKeep,
   trimStr,
   type RegistryReportIdentityRow,
 } from '../src/api/services/registryReportIdentity'
@@ -147,34 +147,34 @@ async function mergeDuplicateGroup(
 ) {
   if (rows.length < 2) return { merged: 0, deleted: 0, mapping: [] as string[] }
 
-  const survivor = pickSurvivorReport(rows)
-  const losers = rows.filter((r) => r.id !== survivor.id)
-  const merged: RegistryReportIdentityRow = { ...survivor }
-  for (const row of losers) {
-    Object.assign(merged, mergeNullReportFields(merged, row))
+  const rowToKeep = pickRowToKeep(rows)
+  const rowsToDelete = rows.filter((r) => r.id !== rowToKeep.id)
+  const merged: RegistryReportIdentityRow = { ...rowToKeep }
+  for (const row of rowsToDelete) {
+    Object.assign(merged, copyMissingFields(merged, row))
   }
 
   const mapping: string[] = []
-  for (const row of losers) {
-    mapping.push(`${row.id},${survivor.id}`)
+  for (const row of rowsToDelete) {
+    mapping.push(`${row.id},${rowToKeep.id}`)
   }
 
   if (dryRun) {
     const preview = (s: string | null | undefined) =>
       s ? `${s.slice(0, 72)}${s.length > 72 ? '…' : ''}` : '—'
     console.log(
-      `[dry-run] Would merge ${rows.length} rows → survivor ${survivor.id}, delete ${losers.map((l) => l.id).join(', ')}\n` +
+      `[dry-run] Would merge ${rows.length} rows → keep ${rowToKeep.id}, delete ${rowsToDelete.map((r) => r.id).join(', ')}\n` +
         `          url=${preview(merged.url)} sourceUrl=${preview(merged.sourceUrl)} s3Url=${preview(merged.s3Url)}`
     )
-    return { merged: 1, deleted: losers.length, mapping }
+    return { merged: 1, deleted: rowsToDelete.length, mapping }
   }
 
   await prisma.$transaction(async (tx) => {
-    for (const row of losers) {
+    for (const row of rowsToDelete) {
       await tx.report.delete({ where: { id: row.id } })
     }
     await tx.report.update({
-      where: { id: survivor.id },
+      where: { id: rowToKeep.id },
       data: {
         companyName: merged.companyName ?? undefined,
         wikidataId: merged.wikidataId ?? undefined,
@@ -189,7 +189,7 @@ async function mergeDuplicateGroup(
     })
   })
 
-  return { merged: 1, deleted: losers.length, mapping }
+  return { merged: 1, deleted: rowsToDelete.length, mapping }
 }
 
 async function main() {
@@ -223,7 +223,7 @@ async function main() {
 
     console.log(`Found ${componentIdLists.length} duplicate group(s).`)
 
-    const allMapping: string[] = ['loser_id,survivor_id']
+    const allMapping: string[] = ['deleted_id,kept_id']
     let totalDeleted = 0
 
     for (const ids of componentIdLists) {
@@ -242,7 +242,7 @@ async function main() {
     console.log(
       dryRun
         ? `[dry-run] Would delete ${totalDeleted} duplicate row(s).`
-        : `Deleted ${totalDeleted} duplicate row(s); survivors updated.`
+        : `Deleted ${totalDeleted} duplicate row(s); kept rows updated.`
     )
 
     if (!dryRun) {
