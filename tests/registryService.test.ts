@@ -193,7 +193,7 @@ describe('registryService', () => {
     mockPrisma.report.update.mockResolvedValueOnce({
       ...crawlerRow,
       reportYear: '2024',
-      s3Url: 'https://s3.amazonaws.com/x.pdf',
+      s3Url: 'https://storage.googleapis.com/garbo/x.pdf',
     })
 
     await registryService.upsertReportInRegistry(
@@ -201,9 +201,9 @@ describe('registryService', () => {
         companyName: 'Corp',
         wikidataId: 'Q5',
         reportYear: '2024',
-        url: 'https://s3.amazonaws.com/x.pdf',
+        url: 'https://storage.googleapis.com/garbo/x.pdf',
         sourceUrl: 'https://company.com/report-2024',
-        s3Url: 'https://s3.amazonaws.com/x.pdf',
+        s3Url: 'https://storage.googleapis.com/garbo/x.pdf',
       },
       mockPrisma
     )
@@ -216,7 +216,7 @@ describe('registryService', () => {
   })
 
   it('merges multiple matching rows in a transaction', async () => {
-    const s3 = 'https://bucket.s3.amazonaws.com/x.pdf'
+    const s3 = 'https://storage.googleapis.com/garbo/x.pdf'
     const rowA = {
       id: 'a',
       url: 'https://corp.example/2024/esg',

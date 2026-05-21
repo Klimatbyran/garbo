@@ -38,7 +38,8 @@ function findMatchingPeriod(
       : null) ||
     reportingPeriods.find(
       (rp: any) =>
-        typeof rp?.reportURL === 'string' && rp.reportURL.trim() === canonicalUrl
+        typeof rp?.reportURL === 'string' &&
+        rp.reportURL.trim() === canonicalUrl
     ) ||
     reportingPeriods.find(
       (rp: any) => typeof rp?.reportURL === 'string' && rp.reportURL.trim()
@@ -47,7 +48,9 @@ function findMatchingPeriod(
   )
 }
 
-function resolveWebUrl(...candidates: (string | undefined)[]): string | undefined {
+function resolveWebUrl(
+  ...candidates: (string | undefined)[]
+): string | undefined {
   return candidates.find(
     (url): url is string =>
       typeof url === 'string' &&
@@ -72,16 +75,22 @@ function resolveStorageUrl(
 }
 
 // Returns the year from the chosen period, or falls back to the highest year across all periods.
-function resolveReportYear(chosenPeriod: any, reportingPeriods: any[]): string | undefined {
+function resolveReportYear(
+  chosenPeriod: any,
+  reportingPeriods: any[]
+): string | undefined {
   const year = chosenPeriod?.year
   if (typeof year === 'number') return year.toString()
   if (typeof year === 'string') return year
 
-  const maxYear = reportingPeriods.reduce((max: number | null, rp: any) => {
-    const y = Number(rp?.year)
-    if (!Number.isFinite(y)) return max
-    return max === null ? y : Math.max(max, y)
-  }, null as number | null)
+  const maxYear = reportingPeriods.reduce(
+    (max: number | null, rp: any) => {
+      const y = Number(rp?.year)
+      if (!Number.isFinite(y)) return max
+      return max === null ? y : Math.max(max, y)
+    },
+    null as number | null
+  )
 
   return maxYear !== null ? maxYear.toString() : undefined
 }
@@ -104,11 +113,14 @@ export function buildRegistryPayload(job: {
   if (!isWikidataQId(wikidataId)) return null
 
   const reportingPeriods = job.data.body?.reportingPeriods
-  if (!Array.isArray(reportingPeriods) || reportingPeriods.length === 0) return null
+  if (!Array.isArray(reportingPeriods) || reportingPeriods.length === 0)
+    return null
 
   const url = typeof job.data.url === 'string' ? job.data.url.trim() : ''
   const sourceUrl =
-    typeof job.data.sourceUrl === 'string' ? job.data.sourceUrl.trim() : undefined
+    typeof job.data.sourceUrl === 'string'
+      ? job.data.sourceUrl.trim()
+      : undefined
 
   const pdfCacheSha256 = trimStr(job.data.pdfCache?.sha256) ?? undefined
   const pdfCacheS3Url = trimStr(job.data.pdfCache?.publicUrl) ?? undefined
@@ -159,7 +171,9 @@ export function buildRegistryPayload(job: {
     reportYear: resolveReportYear(chosenPeriod, reportingPeriods),
     url: primaryUrl,
     sourceUrl:
-      sourceUrlIsHttp && sourceUrl && !isStorageUrl(sourceUrl) ? sourceUrl : undefined,
+      sourceUrlIsHttp && sourceUrl && !isStorageUrl(sourceUrl)
+        ? sourceUrl
+        : undefined,
     s3Url,
     sha256: pdfCacheSha256 ?? periodSha256,
   }
