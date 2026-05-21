@@ -6,9 +6,6 @@ import { createServerCache } from '../createCache'
 import { invalidateRegistryCache } from '../api/services/registryCache'
 import { buildRegistryPayload } from './saveToAPI.utils'
 
-export type { RegistrySaveJobData } from './saveToAPI.utils'
-export { buildRegistryPayload }
-
 const registryCache = createServerCache({ maxAge: 24 * 60 * 60 * 1000 })
 
 export interface SaveToApiJob extends DiscordJob {
@@ -81,8 +78,6 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
     try {
       const { companyName, wikidata, body, apiSubEndpoint } = job.data
       const wikidataId = wikidata.node
-
-      console.log(body)
 
       // remove all null values except for emissions where we want them to be explicit
       const sanitizedBody = removeNullValuesFromGarbo(body)

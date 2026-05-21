@@ -47,8 +47,7 @@ function findMatchingPeriod(
   )
 }
 
-// Returns the first candidate that is a proper web URL (not a storage link).
-function firstWebUrl(...candidates: (string | undefined)[]): string | undefined {
+function resolveWebUrl(...candidates: (string | undefined)[]): string | undefined {
   return candidates.find(
     (url): url is string =>
       typeof url === 'string' &&
@@ -58,18 +57,17 @@ function firstWebUrl(...candidates: (string | undefined)[]): string | undefined 
   )
 }
 
-// Returns the best available storage URL from the known sources.
 function resolveStorageUrl(
-  periodStorageUrl: string | undefined,
-  pdfCacheStorageUrl: string | undefined,
+  periodS3Url: string | undefined,
+  pdfCacheS3Url: string | undefined,
   jobUrl: string,
-  jobStorageUrl: string | undefined
+  jobS3Url: string | undefined
 ): string | undefined {
   return (
-    periodStorageUrl ||
-    pdfCacheStorageUrl ||
+    periodS3Url ||
+    pdfCacheS3Url ||
     (isStorageUrl(jobUrl) ? jobUrl : undefined) ||
-    (jobStorageUrl && isStorageUrl(jobStorageUrl) ? jobStorageUrl : undefined)
+    (jobS3Url && isStorageUrl(jobS3Url) ? jobS3Url : undefined)
   )
 }
 
@@ -113,37 +111,36 @@ export function buildRegistryPayload(job: {
     typeof job.data.sourceUrl === 'string' ? job.data.sourceUrl.trim() : undefined
 
   const pdfCacheSha256 = trimStr(job.data.pdfCache?.sha256) ?? undefined
-  const pdfCacheStorageUrl = trimStr(job.data.pdfCache?.publicUrl) ?? undefined
+  const pdfCacheS3Url = trimStr(job.data.pdfCache?.publicUrl) ?? undefined
 
   const sourceUrlIsHttp =
     typeof sourceUrl === 'string' && /^https?:\/\//i.test(sourceUrl)
-  const jobStorageUrl =
+  const jobS3Url =
     url && (!sourceUrlIsHttp || url !== sourceUrl) ? url : undefined
 
   const canonicalUrl = canonicalPublicReportUrl({ url, sourceUrl })
-  const storageUrlToMatch = pdfCacheStorageUrl || jobStorageUrl
+  const s3UrlToMatch = pdfCacheS3Url || jobS3Url
 
   const chosenPeriod = findMatchingPeriod(
     reportingPeriods,
     pdfCacheSha256,
-    storageUrlToMatch,
+    s3UrlToMatch,
     canonicalUrl
   )
 
-  const periodWebUrl = trimStr(chosenPeriod?.reportURL) ?? undefined
-  const periodStorageUrl = trimStr(chosenPeriod?.reportS3Url) ?? undefined
+  const periodReportUrl = trimStr(chosenPeriod?.reportURL) ?? undefined
+  const periodS3Url = trimStr(chosenPeriod?.reportS3Url) ?? undefined
   const periodSha256 = trimStr(chosenPeriod?.reportSha256) ?? undefined
 
-  const webUrl = firstWebUrl(periodWebUrl, sourceUrl, canonicalUrl)
+  const resolvedWebUrl = resolveWebUrl(periodReportUrl, sourceUrl, canonicalUrl)
   const resolvedStorageUrl = resolveStorageUrl(
-    periodStorageUrl,
-    pdfCacheStorageUrl,
+    periodS3Url,
+    pdfCacheS3Url,
     url,
-    jobStorageUrl
+    jobS3Url
   )
 
-  const primaryUrl =
-    webUrl || (periodWebUrl || canonicalUrl).trim() || canonicalUrl || url || ''
+  const primaryUrl = resolvedWebUrl || (periodReportUrl || canonicalUrl).trim()
 
   if (!primaryUrl) return null
 
