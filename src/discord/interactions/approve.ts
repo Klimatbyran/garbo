@@ -1,9 +1,9 @@
 import { ButtonInteraction } from 'discord.js'
-import { DiscordJob } from '../../lib/DiscordWorker'
+import { PipelineJob } from '../../lib/PipelineWorker'
 import { Wikidata } from '../../prompts/wikidata'
 
-export class ApproveJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+export class ApproveJob extends PipelineJob {
+  declare data: PipelineJob['data'] & {
     wikidata?: Wikidata
   }
 }

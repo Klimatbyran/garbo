@@ -24,7 +24,7 @@ import editCompanyName, {
   EditCompanyNameJob,
 } from './discord/interactions/inputCompanyName'
 import { queues } from './queues'
-import { DiscordJob } from './lib/DiscordWorker'
+import { PipelineJob } from './lib/PipelineWorker'
 import diffBaseYear from './workers/diffBaseYear'
 
 const queuesWithInteractions = {
@@ -61,7 +61,7 @@ const getJob = (
   jobId: string
 ) => queuesWithInteractions[queueName].queue.getJob(jobId)
 
-export class Discord {
+export class PipelineBridge {
   client: Client<boolean>
   rest: REST
   commands: Array<RESTPostAPIChatInputApplicationCommandsJSONBody>
@@ -158,7 +158,7 @@ export class Discord {
     return this
   }
 
-  public createApproveButtonRow = (job: DiscordJob) => {
+  public createApproveButtonRow = (job: PipelineJob) => {
     return new ActionRowBuilder<ButtonBuilder>().addComponents(
       new ButtonBuilder()
         .setCustomId(`approve~${job.queueName}~${job.id}`)
@@ -167,7 +167,7 @@ export class Discord {
     )
   }
 
-  public createEditWikidataButtonRow = (job: DiscordJob) => {
+  public createEditWikidataButtonRow = (job: PipelineJob) => {
     return new ActionRowBuilder<ButtonBuilder>().addComponents(
       new ButtonBuilder()
         .setCustomId(`approve~${job.queueName}~${job.id}`)
@@ -180,7 +180,7 @@ export class Discord {
     )
   }
 
-  public createEditCompanyNameButtonRow = (job: DiscordJob) => {
+  public createEditCompanyNameButtonRow = (job: PipelineJob) => {
     return new ActionRowBuilder<ButtonBuilder>().addComponents(
       new ButtonBuilder()
         .setCustomId(`editCompanyName~${job.queueName}~${job.id}`)
@@ -270,4 +270,4 @@ export class Discord {
   }
 }
 
-export default new Discord(config)
+export default new PipelineBridge(config)
