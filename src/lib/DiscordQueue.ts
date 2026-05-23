@@ -1,5 +1,6 @@
 import { Queue, QueueOptions } from 'bullmq'
 import redis from '../config/redis'
+import { defaultQueueJobOptions } from './queueRetention'
 
 export type DiscordJobData = {
   url: string
@@ -16,6 +17,7 @@ export class DiscordQueue {
   constructor(name: string, options?: QueueOptions) {
     this.queue = new Queue(name, {
       connection: redis,
+      defaultJobOptions: defaultQueueJobOptions,
       ...options,
     })
   }

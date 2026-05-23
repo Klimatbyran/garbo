@@ -1,4 +1,4 @@
-import { Worker, WorkerOptions, Job, Queue, UnrecoverableError } from 'bullmq'
+import { Worker, WorkerOptions, Job, Queue } from 'bullmq'
 import {
   BaseMessageOptions,
   Message,
@@ -7,10 +7,10 @@ import {
 } from 'discord.js'
 import redis from '../config/redis'
 import discord from '../discord'
-import apiConfig from '../config/api'
 import { ChangeDescription } from './DiffWorker'
 import { createDiscordLogger } from './logger'
 import { Logger } from '@/types'
+import { defaultQueueJobOptions } from './queueRetention'
 
 interface Approval {
   summary?: string
@@ -36,28 +36,28 @@ export class DiscordJob extends Job {
   }
 
   //message: any
-  sendMessage: (
+  declare sendMessage: (
     msg: string | BaseMessageOptions
   ) => Promise<Message<true> | undefined>
-  editMessage: (
+  declare editMessage: (
     msg: string | BaseMessageOptions
   ) => Promise<
     OmitPartialGroupDMChannel<Message<true>> | Message<true> | undefined
   >
-  requestApproval: (
+  declare requestApproval: (
     type: string,
     data: Approval['data'],
     approved: boolean,
     metadata: Approval['metadata'],
     summary?: string
   ) => Promise<void>
-  isDataApproved: () => boolean
-  hasApproval: () => boolean
-  getApprovedBody: () => any
-  setThreadName: (name: string) => Promise<TextChannel | undefined>
-  sendTyping: () => Promise<void>
-  getChildrenEntries: () => Promise<any>
-  hasValidThreadId: () => boolean
+  declare isDataApproved: () => boolean
+  declare hasApproval: () => boolean
+  declare getApprovedBody: () => any
+  declare setThreadName: (name: string) => Promise<TextChannel | undefined>
+  declare sendTyping: () => Promise<void>
+  declare getChildrenEntries: () => Promise<any>
+  declare hasValidThreadId: () => boolean
 }
 
 function addCustomMethods(job: DiscordJob) {
@@ -101,7 +101,7 @@ function addCustomMethods(job: DiscordJob) {
     )
   }
 
-  job.sendMessage = async (msg: string) => {
+  job.sendMessage = async (msg: string | BaseMessageOptions) => {
     if (!job.hasValidThreadId()) {
       console.log(
         'Invalid Discord threadId format in sendMessage:',
@@ -182,9 +182,10 @@ function addCustomMethods(job: DiscordJob) {
           .join('\n\n')
         return message.edit(msg)
       } catch (err) {
+        const errorMessage = err instanceof Error ? err.message : String(err)
         job.log(
           'error editing Discord message:' +
-            err.message +
+            errorMessage +
             '\n' +
             JSON.stringify(message)
         )
@@ -217,8 +218,8 @@ export class DiscordWorker<T extends DiscordJob> extends Worker {
   ) {
     super(
       name,
-      async (raw: T) => {
-        const job = addCustomMethods(raw) as T
+      async (raw: Job) => {
+        const job = addCustomMethods(raw as DiscordJob) as T
         const logger = createDiscordLogger(job)
         return callback(job, logger)
       },
@@ -229,6 +230,9 @@ export class DiscordWorker<T extends DiscordJob> extends Worker {
       }
     )
 
-    this.queue = new Queue(name, { connection: redis })
+    this.queue = new Queue(name, {
+      connection: redis,
+      defaultJobOptions: defaultQueueJobOptions,
+    })
   }
 }

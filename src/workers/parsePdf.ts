@@ -37,6 +37,8 @@ const parsePdf = new DiscordWorker(
           job.log(
             'forceReindex enabled: deleting existing vector index (if any)'
           )
+          await vectorDB.invalidateReportCache(url)
+          job.log('report cache invalidated')
           await vectorDB.deleteReport(url)
           job.log('deleteReport completed')
         } catch (_) {

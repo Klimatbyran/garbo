@@ -1,5 +1,6 @@
 import config from '../config/chromadb'
 import { DiscordWorker, DiscordJob } from '../lib/DiscordWorker'
+import { prefetchQuerySets } from '../lib/prefetchQuerySets'
 import { vectorDB } from '../lib/vectordb'
 import { QUEUE_NAMES } from '../queues'
 
@@ -36,6 +37,16 @@ const indexMarkdown = new DiscordWorker(
 
     try {
       await vectorDB.addReport(url, markdown)
+      await vectorDB.invalidateReportCache(url)
+
+      if (config.prefetchAfterIndex) {
+        void Promise.allSettled(
+          prefetchQuerySets.map((queryTexts) =>
+            vectorDB.getRelevantMarkdown(url, queryTexts, 15)
+          )
+        )
+      }
+
       job.editMessage(`✅ Saving to vector database...`)
       job.log('Done!')
 
