@@ -54,7 +54,7 @@
     "@prisma/client": "^5.22.0",
     "@scalar/fastify-api-reference": "^1.25.109",
     "@types/node": "^22.10.0",
-    "axios": "^1.7.9",
+    "axios": "^1.16.1",
     "bullmq": "^5.28.0",
     "cheerio": "^1.0.0",
     "chromadb": "^1.9.4",
@@ -101,6 +101,7 @@
     "typescript-eslint": "^8.24.0"
   },
   "overrides": {
+    "axios": "^1.16.1",
     "undici": ">=6.23.0",
     "@tootallnate/once": ">=3.0.1",
     "prisma-zod-generator": {
