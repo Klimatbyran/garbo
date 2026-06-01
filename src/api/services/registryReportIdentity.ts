@@ -39,7 +39,9 @@ export function isValidReportCatalogYear(year: string): boolean {
 }
 
 /** Last path segment of a report URL, lowercased (e.g. `annual-report-2024.pdf`). */
-export function pdfBasenameFromUrl(raw: string | null | undefined): string | null {
+export function pdfBasenameFromUrl(
+  raw: string | null | undefined
+): string | null {
   const value = trimStr(raw)
   if (!value) return null
   try {
@@ -83,7 +85,8 @@ export function webUrlsForBasenameMatch(
   const primary = trimStr(row.url)
   const source = trimStr(row.sourceUrl)
   if (primary && !isStorageUrl(primary)) urls.push(primary)
-  if (source && !isStorageUrl(source) && !urls.includes(source)) urls.push(source)
+  if (source && !isStorageUrl(source) && !urls.includes(source))
+    urls.push(source)
   return urls
 }
 
