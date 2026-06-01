@@ -146,9 +146,10 @@ function maxYear(periods: PeriodRow[]): string | null {
  * Company identity (wikidataId + name) for the cluster: uses the company that owns the
  * most periods in the cluster. Tie-break: lexicographically smallest wikidataId.
  */
-function dominantCompany(
-  periods: PeriodRow[]
-): { wikidataId: string; companyName: string } {
+function dominantCompany(periods: PeriodRow[]): {
+  wikidataId: string
+  companyName: string
+} {
   const counts = new Map<string, { count: number; name: string }>()
   for (const p of periods) {
     const entry = counts.get(p.companyId)
@@ -157,10 +158,7 @@ function dominantCompany(
   }
   let best = { wikidataId: '', companyName: '', count: 0 }
   for (const [wid, { count, name }] of counts) {
-    if (
-      count > best.count ||
-      (count === best.count && wid < best.wikidataId)
-    ) {
+    if (count > best.count || (count === best.count && wid < best.wikidataId)) {
       best = { wikidataId: wid, companyName: name, count }
     }
   }
@@ -222,7 +220,9 @@ async function main() {
 
     for (const p of periods) {
       const sha = trimStr(p.reportSha256)
-      const s3 = trimStr(p.reportS3Url) ?? (isLikelyStoredObjectUrl(p.reportURL) ? trimStr(p.reportURL) : null)
+      const s3 =
+        trimStr(p.reportS3Url) ??
+        (isLikelyStoredObjectUrl(p.reportURL) ? trimStr(p.reportURL) : null)
       const url = trimStr(p.reportURL)
 
       if (sha) addToIndex(bySha, sha, p.id)
@@ -258,7 +258,9 @@ async function main() {
     let created = 0
     let updated = 0
     let errors = 0
-    const mappingRows: string[] = ['period_ids,wikidataId,url,reportYear,action']
+    const mappingRows: string[] = [
+      'period_ids,wikidataId,url,reportYear,action',
+    ]
 
     for (const clusterPeriods of clusters.values()) {
       const webUrl = bestWebUrl(clusterPeriods)
@@ -287,8 +289,13 @@ async function main() {
         sha256: sha256 ?? null,
       }
 
-      if (clusterPeriods.length > 1 && new Set(clusterPeriods.map((p) => p.companyId)).size > 1) {
-        const companies = [...new Set(clusterPeriods.map((p) => p.companyId))].join(', ')
+      if (
+        clusterPeriods.length > 1 &&
+        new Set(clusterPeriods.map((p) => p.companyId)).size > 1
+      ) {
+        const companies = [
+          ...new Set(clusterPeriods.map((p) => p.companyId)),
+        ].join(', ')
         console.warn(
           `  [warn] cluster for url=${url} spans multiple companies (${companies}); using dominant company ${wikidataId}`
         )
@@ -337,7 +344,9 @@ async function main() {
 
     if (mappingPath) {
       if (dryRun) {
-        console.log('Skipping --emit-mapping in dry-run (re-run without --dry-run to write CSV).')
+        console.log(
+          'Skipping --emit-mapping in dry-run (re-run without --dry-run to write CSV).'
+        )
       } else {
         writeFileSync(mappingPath, `${mappingRows.join('\n')}\n`, 'utf8')
         console.log(`Wrote mapping CSV: ${mappingPath}`)
