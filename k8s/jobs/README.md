@@ -21,8 +21,6 @@ These manifests are **not** wired into `k8s/base/kustomization.yaml` (Flux). App
 
 Upserts `Report` registry rows from identity fields (`reportURL`, `reportS3Url`, `reportSha256`) already stored on `ReportingPeriod`. Clusters periods by shared identity, merges web-only and GCS-only clusters when the PDF file name matches (same company), and sets `reportYear` from the URL path when possible.
 
-Run **dedupe → backfill → dedupe again** so existing split rows are merged before backfill and any remaining pairs are cleaned up after.
-
 1. **Run the dedupe job first** (see above).
 2. Edit `backfill-report-from-periods.yaml`: set `metadata.namespace` to `garbo-stage` or `garbo`.
 3. **Dry run** (recommended): change `args` to include `--dry-run`.
