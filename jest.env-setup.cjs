@@ -1,5 +1,5 @@
 /**
- * Defaults so importing `src/config/api` / `openapi` during Jest does not throw
+ * Defaults so importing `src/config/api` / `src/config/discord` / `openapi` during Jest does not throw
  * when the suite runs without a full `.env` (e.g. CI, or new clones).
  * Does not override variables that are already set (except NODE_ENV: Jest sets
  * `test`, which is not allowed by the API env schema).
@@ -23,6 +23,10 @@ const defaults = {
   OPENAPI_PREFIX: 'reference',
   REDIS_HOST: '127.0.0.1',
   REDIS_PORT: '6379',
+  DISCORD_TOKEN: 'jest-discord-token',
+  DISCORD_APPLICATION_ID: '000000000000000000',
+  DISCORD_SERVER_ID: '000000000000000000',
+  DISCORD_CHANNEL_ID: '000000000000000000',
 }
 
 for (const [key, value] of Object.entries(defaults)) {
