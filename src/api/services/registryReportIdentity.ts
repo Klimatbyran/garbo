@@ -28,6 +28,125 @@ export function trimStr(s: string | null | undefined): string | null {
   return trimmed.length ? trimmed : null
 }
 
+/** Backfill / one-off catalog year parsing (tight window for current registry cleanup). */
+const REPORT_CATALOG_YEAR_MIN = 2000
+const REPORT_CATALOG_YEAR_MAX = 2026
+
+export function isValidReportCatalogYear(year: string): boolean {
+  if (!/^\d{4}$/.test(year)) return false
+  const n = Number(year)
+  return n >= REPORT_CATALOG_YEAR_MIN && n <= REPORT_CATALOG_YEAR_MAX
+}
+
+/** Last path segment of a report URL, lowercased (e.g. `annual-report-2024.pdf`). */
+export function pdfBasenameFromUrl(raw: string | null | undefined): string | null {
+  const value = trimStr(raw)
+  if (!value) return null
+  try {
+    const pathname = decodeURIComponent(new URL(value).pathname)
+    const segment = pathname.split('/').filter(Boolean).pop()
+    if (!segment || segment.length < 3) return null
+    return segment.toLowerCase()
+  } catch {
+    return null
+  }
+}
+
+const REPORT_YEAR_TOKEN = /^(200\d|201\d|202[0-6])$/
+
+/**
+ * Latest plausible publication year in the PDF file name (last URL path segment only).
+ * When several years appear in the basename, returns the highest (2000–2026).
+ */
+export function parseReportYearFromUrl(
+  raw: string | null | undefined
+): string | null {
+  const basename = pdfBasenameFromUrl(raw)
+  if (!basename) return null
+
+  const years: number[] = []
+  for (const token of basename.split(/[^0-9]+/)) {
+    if (!REPORT_YEAR_TOKEN.test(token)) continue
+    const year = Number(token)
+    if (year >= REPORT_CATALOG_YEAR_MIN && year <= REPORT_CATALOG_YEAR_MAX) {
+      years.push(year)
+    }
+  }
+  if (years.length === 0) return null
+  return String(Math.max(...years))
+}
+
+export function webUrlsForBasenameMatch(
+  row: Pick<RegistryReportIdentityRow, 'url' | 'sourceUrl'>
+): string[] {
+  const urls: string[] = []
+  const primary = trimStr(row.url)
+  const source = trimStr(row.sourceUrl)
+  if (primary && !isStorageUrl(primary)) urls.push(primary)
+  if (source && !isStorageUrl(source) && !urls.includes(source)) urls.push(source)
+  return urls
+}
+
+export function storageUrlsForBasenameMatch(
+  row: Pick<RegistryReportIdentityRow, 'url' | 's3Url'>
+): string[] {
+  const urls: string[] = []
+  const s3 = trimStr(row.s3Url)
+  const primary = trimStr(row.url)
+  if (s3) urls.push(s3)
+  if (primary && isStorageUrl(primary) && !urls.includes(primary)) {
+    urls.push(primary)
+  }
+  return urls
+}
+
+export interface ReportIdentityUnionFind {
+  find(id: string): string
+  union(a: string, b: string): void
+}
+
+/** Links rows when a web/source URL and a storage URL share the same PDF file name and company. */
+export function linkReportRowsByPdfBasename(
+  rows: RegistryReportIdentityRow[],
+  dsu: ReportIdentityUnionFind
+): void {
+  const webByKey = new Map<string, string[]>()
+  const storageByKey = new Map<string, string[]>()
+
+  for (const row of rows) {
+    const wikidataId = trimStr(row.wikidataId)
+    if (!wikidataId) continue
+
+    for (const url of webUrlsForBasenameMatch(row)) {
+      const basename = pdfBasenameFromUrl(url)
+      if (!basename) continue
+      const key = `${wikidataId}\0${basename}`
+      const ids = webByKey.get(key)
+      if (ids) ids.push(row.id)
+      else webByKey.set(key, [row.id])
+    }
+
+    for (const url of storageUrlsForBasenameMatch(row)) {
+      const basename = pdfBasenameFromUrl(url)
+      if (!basename) continue
+      const key = `${wikidataId}\0${basename}`
+      const ids = storageByKey.get(key)
+      if (ids) ids.push(row.id)
+      else storageByKey.set(key, [row.id])
+    }
+  }
+
+  for (const [key, storageIds] of storageByKey) {
+    const webIds = webByKey.get(key)
+    if (!webIds) continue
+    for (const storageId of storageIds) {
+      for (const webId of webIds) {
+        if (storageId !== webId) dsu.union(storageId, webId)
+      }
+    }
+  }
+}
+
 export function numberOfIdentityFieldsInRow(
   row: RegistryReportIdentityRow
 ): number {
