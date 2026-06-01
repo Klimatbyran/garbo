@@ -32,7 +32,7 @@ spec:
           imagePullPolicy: Always
           workingDir: /app
           command: ['npx', '--yes', 'tsx']
-          args: ['scripts/backfill-report-from-periods.ts']
+          args: ['scripts/backfill-report-from-periods.ts','--dry-run']
           resources:
             requests:
               cpu: '100m'
