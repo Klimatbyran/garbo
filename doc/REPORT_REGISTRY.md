@@ -1,28 +1,26 @@
 # Report Registry
 
-The `Report` table is a catalog of PDF documents (mainly annual and sustainability reports) that Garbo has ingested or discovered. It powers the registry tab in Validate and is the source of truth for report metadata (URL, S3 location, sha256, year).
+The `Report` table is a catalog of PDF documents (mainly annual and sustainability reports) that Garbo has ingested or discovered. It powers the registry tab in Validate and is the source of truth for report metadata (URL, GCS location, sha256, year).
 
-## URL field semantics
+## URL fields
 
 A `Report` row has three URL-like columns:
 
-| Field       | Meaning                                                                                                                                                                | Notes                                                                                                                                                                                                              |
-| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `url`       | The primary unique identifier for this report. Prefer the web/link URL when known; fall back to the S3 URL when the report came from a file upload with no web source. | **Required, unique.** Do not assume it is always a web URL — use `isLikelyStoredObjectUrl` to detect S3/CDN values. `upgradeToWebUrlIfAvailable` upgrades it from S3 to a web URL when a better one arrives later. |
-| `sourceUrl` | The web/link URL — where the report lives publicly. Always stored when known, even if it equals `url`.                                                                 | Nullable. `null` means the report was uploaded as a file with no associated web link.                                                                                                                              |
-| `s3Url`     | The S3/CDN cached copy of the PDF.                                                                                                                                     | Nullable. All newly ingested reports will have this set. Legacy rows may be `null`. Partial unique index: two rows cannot share the same non-null value.                                                           |
+| Field       | Meaning                                                                                                                                                          | Notes                                                                                                                                           |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `url`       | The primary identifier for this report. Prefer the web/link URL when known; fall back to the GCS URL when the report came from a file upload with no web source. | Required, unique. Not always a web URL — a storage URL here means no web source is known. Upgraded to a web URL automatically when one arrives. |
+| `sourceUrl` | The web/link URL — where the report lives publicly. Always stored when known, even if it equals `url`.                                                           | Nullable. `null` means the report was uploaded as a file with no associated web link.                                                           |
+| `s3Url`     | The GCS cached copy of the PDF.                                                                                                                                  | Nullable. All newly ingested reports will have this set. Legacy rows may be `null`. Two rows cannot share the same non-null value.              |
 
 **Rule of thumb:** `url = sourceUrl ?? s3Url`. `sourceUrl` tells you whether the report has a known public web link. `s3Url` tells you whether we have a cached copy.
 
-### How rows are created
+## How rows are created
 
 There are four active write paths, plus two legacy shapes still present in production data.
 
 ---
 
 **1. Crawler** — auto-discovers report URLs from company pages; no PDF download or GCS caching.
-
-The crawler calls `save-reports` → `reportsService.saveReportsToDb` → `upsertReportInRegistry` with only the web URL known.
 
 ```
 { url: "https://company.com/report-2024", sourceUrl: null, s3Url: null }
@@ -32,11 +30,9 @@ The crawler calls `save-reports` → `reportsService.saveReportsToDb` → `upser
 
 ---
 
-**2. Validate registry add** — operator manually adds a report via the registry tab (`RegistryAddModal` in Validate).
+**2. Validate registry add** — operator manually adds a report via the registry tab.
 
-1. Operator enters the web link URL; `sourceUrl` auto-mirrors `url` until manually overridden.
-2. `addRegistryEntry` in `registry-api.ts` tries to cache the PDF to GCS via the pipeline-api `cache-pdf` endpoint, getting back `s3Url`, `s3Key`, `s3Bucket`, `sha256`.
-3. POSTs to `internal-companies/reports/save-reports` → `reportsService.saveReportsToDb` → `upsertReportInRegistry`.
+The entered URL is used as the web link. Garbo tries to cache the PDF to GCS to get the storage URL and content hash.
 
 Result (GCS caching succeeded):
 
@@ -54,8 +50,6 @@ Result (GCS caching failed or skipped):
 
 **3. Pipeline — link upload** — operator submits a web link; the pipeline fetches and caches the PDF to GCS, then saves the reporting periods.
 
-`saveToAPI` worker → `pickRegistryPayloadFromReportingPeriodsSave` → `upsertReportInRegistry`.
-
 ```
 { url: "https://company.com/report-2024", sourceUrl: "https://company.com/report-2024", s3Url: "https://storage.googleapis.com/garbo-reports/x.pdf", sha256: "…" }
 ```
@@ -64,7 +58,7 @@ Result (GCS caching failed or skipped):
 
 **4. Pipeline — file upload** — operator uploads a PDF directly; there is no web link.
 
-`saveToAPI` worker → `pickRegistryPayloadFromReportingPeriodsSave` → `upsertReportInRegistry`. Because no web URL exists, the GCS URL fills both `url` and `s3Url`.
+Because no web URL exists, the GCS URL fills both `url` and `s3Url`.
 
 ```
 { url: "https://storage.googleapis.com/garbo-reports/x.pdf", sourceUrl: null, s3Url: "https://storage.googleapis.com/garbo-reports/x.pdf", sha256: "…" }
@@ -72,51 +66,42 @@ Result (GCS caching failed or skipped):
 
 ---
 
-**Legacy rows** (still in production, pre-GCS era, no cached copy):
+**Legacy rows** (pre-GCS era, no cached copy):
 
 ```
 { url: "https://company.com/report-2024", sourceUrl: null, s3Url: null }
 ```
 
-**Old pipeline rows** (pre-fix: S3 URL was incorrectly placed in `url`):
+**Old pipeline rows** (pre-fix: GCS URL was incorrectly placed in `url`):
 
 ```
 { url: "https://storage.googleapis.com/garbo-reports/x.pdf", sourceUrl: "https://company.com/report-2024", s3Url: null }
 ```
 
-The dedup script and `upgradeToWebUrlIfAvailable` normalise old pipeline rows over time.
+These are normalised over time when a web URL arrives and the stored URL is upgraded.
 
 ## Duplicate prevention
 
-### upsertReportInRegistry
+### How we find existing rows
 
-`registryService.upsertReportInRegistry` looks up existing rows with an OR query across all four identity fields before deciding to create or update. This prevents duplicates when the crawler and the pipeline write to different columns for the same document.
+When a report arrives, we search for existing rows matching any identity field: `sha256`, `sourceUrl`, `url`, or `s3Url`.
 
-The OR query (built by `buildReportLookupOr`) checks:
+We also check two cross-links, because the crawler and pipeline historically wrote the same web URL to different columns:
 
-- `sha256` match
-- `sourceUrl` match
-- `url` match
-- `s3Url` match
-- **Cross-link:** `existing.url = input.sourceUrl` — finds crawler rows (stored under `url`) when the pipeline sends the same URL in `sourceUrl`
-- **Cross-link:** `existing.sourceUrl = input.url` — reverse case
+- Crawler stores the web URL in `url`
+- Pipeline stores it in `sourceUrl`, with the GCS URL in `url`
 
-If multiple rows match (existing duplicates), `upsertReportInRegistry` merges them in a transaction: the richest row (most non-null identity fields) is the survivor; fields from the losers are null-coalesced onto the survivor; losers are deleted.
+Without cross-linking, the pipeline would miss the existing crawler row and create a duplicate. So we also check whether an existing row's `url` matches the incoming `sourceUrl`, and vice versa.
 
-### pickRegistryPayloadFromReportingPeriodsSave
+### What happens when we find a match
 
-When the pipeline approves a reporting-periods save, `saveToAPI` calls this function to build the registry payload with consistent field routing:
-
-1. **`url`** — `sourceUrl` when available (web/link), otherwise `s3Url` (file upload). Always set.
-2. **`sourceUrl`** — always stored when a non-S3 HTTP URL is known, even if it equals `url`.
-3. **`s3Url`** — always stored when an S3/CDN copy is available.
-4. **`sha256`** — from `pdfCache.sha256` or `chosen.reportSha256`.
-
-The web URL is resolved in priority order: `chosen.reportURL` (if not S3) → `job.data.sourceUrl` (if HTTP and not S3) → `canonicalPublicReportUrl(url, sourceUrl)`. The S3 URL is resolved from: `chosen.reportS3Url` → `pdfCache.publicUrl` → `job.data.url` if it looks like a storage URL.
+- **No match** — a new row is created.
+- **One match** — the existing row is updated. Fields that are already set are kept; empty fields are filled in from the new data. If the stored `url` is a GCS link but a proper web URL has now arrived, `url` is upgraded.
+- **Multiple matches** — the same document was indexed more than once. The rows are merged in a transaction: the row with the most identity fields filled in is kept, its empty fields are filled from the others, and the duplicates are deleted.
 
 ## Deduplication script (one-off cleanup)
 
-`scripts/dedupe-report-registry.ts` merges existing duplicate rows that were created before the upsert fix. It uses union-find to cluster rows that share any identity field, including the `url ↔ sourceUrl` cross-link that `upsertReportInRegistry` now handles at write time.
+`scripts/dedupe-report-registry.ts` merges existing duplicate rows created before the upsert fix.
 
 ```bash
 # Dry-run — shows what would be merged, writes nothing
@@ -125,30 +110,29 @@ npx tsx scripts/dedupe-report-registry.ts --dry-run
 # Live run — merges rows, invalidates Redis cache
 npx tsx scripts/dedupe-report-registry.ts
 
-# Live run + emit survivor map CSV
+# Live run + emit a CSV mapping of which rows were merged into which
 npx tsx scripts/dedupe-report-registry.ts --emit-mapping=./report-dedupe-mapping.csv
 ```
 
 Run against a **staging clone first**. The k8s job manifest is at `k8s/jobs/report-registry-dedupe.yaml` — see `k8s/jobs/README.md` for apply instructions.
 
-### Survivor selection
+## Backfill from reporting periods (one-off)
 
-When merging a group of duplicate rows:
+`scripts/backfill-report-from-periods.ts` upserts `Report` rows from identity fields already stored on `ReportingPeriod` (`reportSha256`, `reportS3Url`, `reportURL`). Periods with all three null are skipped.
 
-1. **Survivor** = row with the most non-null identity fields (`sha256`, `s3Url`, `sourceUrl`, `url`). Tie-break: has `sha256` → lexicographically smallest `id`.
-2. Missing fields from loser rows are null-coalesced onto the survivor.
-3. If both survivor and loser have a non-null scalar that differs, survivor's value wins (a conflict row is logged when `--emit-mapping` is used).
-4. If the survivor's `url` is an S3 URL but a loser has a web/link URL, the web URL is promoted to `url`.
+Clusters periods by document identity (union-find on hash, then S3, then URL), derives the richest payload per cluster, and calls `upsertReportInRegistry` — the same multi-key logic used at write time.
 
-## Key source files
+**Run the dedupe script first** so existing duplicate `Report` rows are merged before backfill.
 
-| File                                                            | Purpose                                                                                                                                |
-| --------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| `src/api/services/registryReportIdentity.ts`                    | Pure helpers: `buildReportLookupOr`, `pickSurvivorReport`, `mergeNullReportFields`, `isLikelyStoredObjectUrl`                          |
-| `src/api/services/registryService.ts`                           | `upsertReportInRegistry` (create / update / merge), `upgradeToWebUrlIfAvailable`, `updateReportInRegistry`, `deleteReportFromRegistry` |
-| `src/workers/saveToAPI.ts`                                      | `pickRegistryPayloadFromReportingPeriodsSave` — routes pipeline job data to the correct registry fields                                |
-| `scripts/dedupe-report-registry.ts`                             | One-off dedup script                                                                                                                   |
-| `prisma/migrations/20260504120000_report_s3url_partial_unique/` | Adds partial unique index on `s3Url WHERE NOT NULL`                                                                                    |
-| `tests/registryReportIdentity.test.ts`                          | Unit tests for identity helpers including cross-link behaviour                                                                         |
-| `tests/registryService.test.ts`                                 | Unit tests for upsert logic including cross-link integration                                                                           |
-| `tests/saveToAPI.test.ts`                                       | Unit tests for pipeline payload routing                                                                                                |
+```bash
+# Dry-run — logs clusters and payloads, writes nothing
+npx tsx scripts/backfill-report-from-periods.ts --dry-run
+
+# Live run — upserts Report rows, invalidates Redis cache
+npx tsx scripts/backfill-report-from-periods.ts
+
+# Live run + emit mapping CSV
+npx tsx scripts/backfill-report-from-periods.ts --emit-mapping=./backfill-mapping.csv
+```
+
+The k8s job manifest is at `k8s/jobs/backfill-report-from-periods.yaml`.

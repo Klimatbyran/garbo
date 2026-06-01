@@ -1,7 +1,7 @@
 import {
-  buildReportLookupOr,
-  mergeNullReportFields,
-  pickSurvivorReport,
+  buildReportMatchConditions,
+  copyMissingFields,
+  pickRowToKeep,
   type RegistryReportIdentityRow,
 } from '../src/api/services/registryReportIdentity'
 
@@ -23,9 +23,9 @@ function row(
 }
 
 describe('registryReportIdentity', () => {
-  describe('buildReportLookupOr', () => {
+  describe('buildReportMatchConditions', () => {
     it('includes direct field matches', () => {
-      const or = buildReportLookupOr({
+      const or = buildReportMatchConditions({
         url: 'https://company.com/report',
         sourceUrl: 'https://source.example/r.pdf',
         s3Url: 'https://s3.amazonaws.com/r.pdf',
@@ -45,7 +45,7 @@ describe('registryReportIdentity', () => {
       // Crawler saved { url: "https://company.com/report" }.
       // Pipeline upserts with { url: "https://s3.aws/x.pdf", sourceUrl: "https://company.com/report" }.
       // Without the cross-link the OR query would never match the crawler row.
-      const or = buildReportLookupOr({
+      const or = buildReportMatchConditions({
         url: 'https://s3.amazonaws.com/x.pdf',
         sourceUrl: 'https://company.com/report',
       })
@@ -55,7 +55,7 @@ describe('registryReportIdentity', () => {
     })
 
     it('includes cross-link { sourceUrl: url } for the reverse case', () => {
-      const or = buildReportLookupOr({
+      const or = buildReportMatchConditions({
         url: 'https://company.com/report',
         sourceUrl: null,
       })
@@ -65,7 +65,7 @@ describe('registryReportIdentity', () => {
     })
 
     it('does not add redundant cross-link when url and sourceUrl are identical', () => {
-      const or = buildReportLookupOr({
+      const or = buildReportMatchConditions({
         url: 'https://company.com/report',
         sourceUrl: 'https://company.com/report',
       })
@@ -77,7 +77,7 @@ describe('registryReportIdentity', () => {
     })
 
     it('omits null/empty fields', () => {
-      const or = buildReportLookupOr({
+      const or = buildReportMatchConditions({
         url: '',
         sourceUrl: null,
         s3Url: null,
@@ -87,7 +87,7 @@ describe('registryReportIdentity', () => {
     })
   })
 
-  it('pickSurvivorReport prefers richer identity', () => {
+  it('pickRowToKeep prefers the row with more identity fields filled in', () => {
     const low = row({
       id: 'z',
       url: 'https://x',
@@ -102,23 +102,23 @@ describe('registryReportIdentity', () => {
       sourceUrl: 'https://s',
       s3Url: 'https://s3',
     })
-    expect(pickSurvivorReport([low, high]).id).toBe(high.id)
+    expect(pickRowToKeep([low, high]).id).toBe(high.id)
   })
 
-  it('mergeNullReportFields fills gaps from donor', () => {
-    const target = row({
+  it('copyMissingFields fills empty slots from the row being deleted', () => {
+    const rowToKeep = row({
       id: 'a',
-      url: 'https://bucket.s3.amazonaws.com/x.pdf',
+      url: 'https://storage.googleapis.com/garbo/x.pdf',
       s3Url: null,
       sourceUrl: null,
     })
-    const donor = row({
+    const rowToDelete = row({
       id: 'b',
       url: 'https://human/page',
-      s3Url: 'https://bucket.s3.amazonaws.com/x.pdf',
+      s3Url: 'https://storage.googleapis.com/garbo/x.pdf',
       sourceUrl: 'https://src',
     })
-    const patch = mergeNullReportFields(target, donor)
+    const patch = copyMissingFields(rowToKeep, rowToDelete)
     expect(patch.sourceUrl).toBe('https://src')
     expect(patch.url).toBe('https://human/page')
   })
