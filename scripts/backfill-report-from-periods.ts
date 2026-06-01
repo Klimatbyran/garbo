@@ -37,7 +37,7 @@ import { writeFileSync } from 'node:fs'
 import { prisma } from '../src/lib/prisma'
 import { registryService } from '../src/api/services/registryService'
 import {
-  isLikelyStoredObjectUrl,
+  isStorageUrl,
   trimStr,
 } from '../src/api/services/registryReportIdentity'
 import { invalidateRegistryCache } from '../src/api/services/registryCache'
@@ -98,7 +98,7 @@ interface PeriodRow {
 function bestWebUrl(periods: PeriodRow[]): string | null {
   for (const p of periods) {
     const u = trimStr(p.reportURL)
-    if (u && !isLikelyStoredObjectUrl(u)) return u
+    if (u && !isStorageUrl(u)) return u
   }
   return null
 }
@@ -112,7 +112,7 @@ function bestS3Url(periods: PeriodRow[]): string | null {
     if (u) return u
     // Also treat reportURL as s3Url when it looks like a storage URL
     const ru = trimStr(p.reportURL)
-    if (ru && isLikelyStoredObjectUrl(ru)) return ru
+    if (ru && isStorageUrl(ru)) return ru
   }
   return null
 }
@@ -222,7 +222,7 @@ async function main() {
       const sha = trimStr(p.reportSha256)
       const s3 =
         trimStr(p.reportS3Url) ??
-        (isLikelyStoredObjectUrl(p.reportURL) ? trimStr(p.reportURL) : null)
+        (isStorageUrl(p.reportURL) ? trimStr(p.reportURL) : null)
       const url = trimStr(p.reportURL)
 
       if (sha) addToIndex(bySha, sha, p.id)
