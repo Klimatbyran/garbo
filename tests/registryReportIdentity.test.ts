@@ -1,6 +1,9 @@
 import {
   buildReportMatchConditions,
   copyMissingFields,
+  linkReportRowsByPdfBasename,
+  parseReportYearFromUrl,
+  pdfBasenameFromUrl,
   pickRowToKeep,
   type RegistryReportIdentityRow,
 } from '../src/api/services/registryReportIdentity'
@@ -103,6 +106,88 @@ describe('registryReportIdentity', () => {
       s3Url: 'https://s3',
     })
     expect(pickRowToKeep([low, high]).id).toBe(high.id)
+  })
+
+  describe('pdfBasenameFromUrl', () => {
+    it('returns the lowercased last path segment', () => {
+      expect(
+        pdfBasenameFromUrl(
+          'https://storage.googleapis.com/bucket/path/Annual_Report_2024.pdf'
+        )
+      ).toBe('annual_report_2024.pdf')
+      expect(
+        pdfBasenameFromUrl(
+          'https://company.com/investors/Annual_Report_2024.pdf'
+        )
+      ).toBe('annual_report_2024.pdf')
+    })
+  })
+
+  describe('parseReportYearFromUrl', () => {
+    it('extracts the latest year from the file name only (2000–2026)', () => {
+      expect(
+        parseReportYearFromUrl(
+          'https://storage.googleapis.com/b/klimat_Q123_2024_report.pdf'
+        )
+      ).toBe('2024')
+      expect(
+        parseReportYearFromUrl(
+          'https://company.com/docs/compare_2022_2024_annual.pdf'
+        )
+      ).toBe('2024')
+    })
+
+    it('ignores years in parent path segments', () => {
+      expect(
+        parseReportYearFromUrl(
+          'https://storage.googleapis.com/b/2019/archive/sustainability-report.pdf'
+        )
+      ).toBeNull()
+    })
+
+    it('ignores years outside 2000–2026', () => {
+      expect(
+        parseReportYearFromUrl(
+          'https://storage.googleapis.com/b/annual_report_1999.pdf'
+        )
+      ).toBeNull()
+    })
+  })
+
+  describe('linkReportRowsByPdfBasename', () => {
+    it('unions a web-only row with a storage-only row for the same company and file name', () => {
+      const web = row({
+        id: 'web',
+        wikidataId: 'Q1',
+        url: 'https://company.com/docs/Annual_Report_2024.pdf',
+      })
+      const gcs = row({
+        id: 'gcs',
+        wikidataId: 'Q1',
+        url: 'https://storage.googleapis.com/bucket/Annual_Report_2024.pdf',
+        s3Url: 'https://storage.googleapis.com/bucket/Annual_Report_2024.pdf',
+      })
+
+      const parent = new Map<string, string>()
+      const dsu = {
+        find(id: string) {
+          let p = parent.get(id) ?? id
+          while (parent.get(p) && parent.get(p) !== p) {
+            p = parent.get(p)!
+          }
+          parent.set(id, p)
+          return p
+        },
+        union(a: string, b: string) {
+          const ra = this.find(a)
+          const rb = this.find(b)
+          if (ra !== rb) parent.set(rb, ra)
+        },
+      }
+
+      linkReportRowsByPdfBasename([web, gcs], dsu)
+      expect(dsu.find('web')).toBe(dsu.find('gcs'))
+    })
   })
 
   it('copyMissingFields fills empty slots from the row being deleted', () => {

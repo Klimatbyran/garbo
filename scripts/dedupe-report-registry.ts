@@ -7,6 +7,8 @@
  * - the same non-null `url`
  * - cross-link: row A's `url` equals row B's `sourceUrl` (e.g. crawler row keyed by `url`
  *   vs pipeline row with `sourceUrl` set to that report URL)
+ * - same `wikidataId` and exact PDF file name: web/source URL basename equals storage URL basename
+ *   (e.g. GCS object name matches the tail of the company report link)
  *
  * This matches how `buildReportMatchConditions` / `upsertReportInRegistry` can match rows, and
  * supports the partial unique index on `s3Url` (migration `20260504120000_report_s3url_partial_unique`).
@@ -31,6 +33,7 @@ import { invalidateRegistryCache } from '../src/api/services/registryCache'
 import { createServerCache, disconnectRedisCache } from '../src/createCache'
 import {
   copyMissingFields,
+  linkReportRowsByPdfBasename,
   pickRowToKeep,
   trimStr,
   type RegistryReportIdentityRow,
@@ -121,6 +124,8 @@ function findDuplicateComponents(
       }
     }
   }
+
+  linkReportRowsByPdfBasename(rows, dsu)
 
   const rootToIds = new Map<string, string[]>()
   for (const r of rows) {
@@ -213,7 +218,7 @@ async function main() {
 
     if (componentIdLists.length === 0) {
       console.log(
-        'No duplicate report identity groups found (same s3Url, sourceUrl, sha256, url, or url↔sourceUrl link).'
+        'No duplicate report identity groups found (same s3Url, sourceUrl, sha256, url, url↔sourceUrl link, or matching PDF basename per company).'
       )
       if (!dryRun) {
         await invalidateRegistryRedisCache()
