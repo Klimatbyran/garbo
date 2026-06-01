@@ -27,6 +27,8 @@ const defaults = {
   DISCORD_APPLICATION_ID: '000000000000000000',
   DISCORD_SERVER_ID: '000000000000000000',
   DISCORD_CHANNEL_ID: '000000000000000000',
+  OPENAI_API_KEY: 'jest-openai-api-key',
+  OPENAI_ORG_ID: 'jest-openai-org-id',
 }
 
 for (const [key, value] of Object.entries(defaults)) {

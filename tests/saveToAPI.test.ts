@@ -1,21 +1,3 @@
-import { jest } from '@jest/globals'
-
-// canonicalPublicReportUrl is the only external dependency of the function under test.
-// Mock it here so the test runs without a full API config environment.
-jest.mock('../src/lib/saveUtils', () => ({
-  canonicalPublicReportUrl: ({
-    url,
-    sourceUrl,
-  }: {
-    url: string
-    sourceUrl?: string
-  }) => {
-    if (typeof sourceUrl === 'string' && /^https?:\/\//i.test(sourceUrl.trim()))
-      return sourceUrl.trim()
-    return url
-  },
-}))
-
 import { buildRegistryPayload } from '../src/workers/saveToAPI.utils'
 import type { RegistrySaveJobData } from '../src/workers/saveToAPI.utils'
 
