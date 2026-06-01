@@ -36,7 +36,10 @@ import { writeFileSync } from 'node:fs'
 
 import { prisma } from '../src/lib/prisma'
 import { registryService } from '../src/api/services/registryService'
-import { isStorageUrl, trimStr } from '../src/api/services/registryReportIdentity'
+import {
+  isStorageUrl,
+  trimStr,
+} from '../src/api/services/registryReportIdentity'
 import { invalidateRegistryCache } from '../src/api/services/registryCache'
 import { createServerCache, disconnectRedisCache } from '../src/createCache'
 
