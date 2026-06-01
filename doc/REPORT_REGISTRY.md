@@ -114,4 +114,25 @@ npx tsx scripts/dedupe-report-registry.ts
 npx tsx scripts/dedupe-report-registry.ts --emit-mapping=./report-dedupe-mapping.csv
 ```
 
-Run against a **staging clone first**. The k8s job manifest is at `k8s/jobs/report-registry-dedupe.yaml`.
+Run against a **staging clone first**. The k8s job manifest is at `k8s/jobs/report-registry-dedupe.yaml` — see `k8s/jobs/README.md` for apply instructions.
+
+## Backfill from reporting periods (one-off)
+
+`scripts/backfill-report-from-periods.ts` upserts `Report` rows from identity fields already stored on `ReportingPeriod` (`reportSha256`, `reportS3Url`, `reportURL`). Periods with all three null are skipped.
+
+Clusters periods by document identity (union-find on hash, then S3, then URL), derives the richest payload per cluster, and calls `upsertReportInRegistry` — the same multi-key logic used at write time.
+
+**Run the dedupe script first** so existing duplicate `Report` rows are merged before backfill.
+
+```bash
+# Dry-run — logs clusters and payloads, writes nothing
+npx tsx scripts/backfill-report-from-periods.ts --dry-run
+
+# Live run — upserts Report rows, invalidates Redis cache
+npx tsx scripts/backfill-report-from-periods.ts
+
+# Live run + emit mapping CSV
+npx tsx scripts/backfill-report-from-periods.ts --emit-mapping=./backfill-mapping.csv
+```
+
+The k8s job manifest is at `k8s/jobs/backfill-report-from-periods.yaml`.

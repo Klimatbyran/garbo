@@ -1,4 +1,4 @@
-import { canonicalPublicReportUrl } from '../lib/saveUtils'
+import { canonicalPublicReportUrl } from '../lib/canonicalPublicReportUrl'
 import { isStorageUrl, trimStr } from '../api/services/registryReportIdentity'
 
 export interface RegistrySaveJobData {
