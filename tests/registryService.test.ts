@@ -175,7 +175,7 @@ describe('registryService', () => {
   it('finds crawler row via cross-link when pipeline sends url in sourceUrl', async () => {
     // The crawler saved a row keyed by the human URL in `url`.
     // The pipeline later upserts with that same URL in `sourceUrl` and an S3 URL in `url`.
-    // The cross-link in buildReportLookupOr must find the crawler row so no duplicate is created.
+    // The cross-link in buildReportMatchConditions must find the crawler row so no duplicate is created.
     const crawlerRow = {
       id: 'r-crawler',
       url: 'https://company.com/report-2024',
@@ -193,7 +193,7 @@ describe('registryService', () => {
     mockPrisma.report.update.mockResolvedValueOnce({
       ...crawlerRow,
       reportYear: '2024',
-      s3Url: 'https://s3.amazonaws.com/x.pdf',
+      s3Url: 'https://storage.googleapis.com/garbo/x.pdf',
     })
 
     await registryService.upsertReportInRegistry(
@@ -201,9 +201,9 @@ describe('registryService', () => {
         companyName: 'Corp',
         wikidataId: 'Q5',
         reportYear: '2024',
-        url: 'https://s3.amazonaws.com/x.pdf',
+        url: 'https://storage.googleapis.com/garbo/x.pdf',
         sourceUrl: 'https://company.com/report-2024',
-        s3Url: 'https://s3.amazonaws.com/x.pdf',
+        s3Url: 'https://storage.googleapis.com/garbo/x.pdf',
       },
       mockPrisma
     )
@@ -216,7 +216,7 @@ describe('registryService', () => {
   })
 
   it('merges multiple matching rows in a transaction', async () => {
-    const s3 = 'https://bucket.s3.amazonaws.com/x.pdf'
+    const s3 = 'https://storage.googleapis.com/garbo/x.pdf'
     const rowA = {
       id: 'a',
       url: 'https://corp.example/2024/esg',

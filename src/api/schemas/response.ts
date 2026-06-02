@@ -414,20 +414,21 @@ export const ReportsCompanyList = z.array(
   })
 )
 
-export const RegistryList = z.array(
-  z.object({
-    id: z.string(),
-    url: z.string().url(),
-    sourceUrl: z.string().url().nullable().optional(),
-    s3Url: z.string().url().nullable().optional(),
-    s3Key: z.string().nullable().optional(),
-    s3Bucket: z.string().nullable().optional(),
-    sha256: z.string().nullable().optional(),
-    companyName: z.string().optional().nullable(),
-    wikidataId: z.string().optional().nullable(),
-    reportYear: z.string().optional().nullable(),
-  })
-)
+// Read/response shape: allow legacy non-URL strings in DB so PATCH/GET do not 500 on serialize.
+export const RegistryReportSchema = z.object({
+  id: z.string(),
+  url: z.string(),
+  sourceUrl: z.string().nullable().optional(),
+  s3Url: z.string().nullable().optional(),
+  s3Key: z.string().nullable().optional(),
+  s3Bucket: z.string().nullable().optional(),
+  sha256: z.string().nullable().optional(),
+  companyName: z.string().optional().nullable(),
+  wikidataId: z.string().optional().nullable(),
+  reportYear: z.string().optional().nullable(),
+})
+
+export const RegistryList = z.array(RegistryReportSchema)
 
 export const CompanyDetails = CompanyBase.extend({
   goals: z.array(GoalSchema).nullable(),
@@ -665,13 +666,7 @@ export const errorResponseSchema = z.object({
   message: z.string(),
 })
 
-export const registryUpdateResponseSchema = z.object({
-  id: z.string(),
-  companyName: z.string().nullable(),
-  wikidataId: z.string().nullable(),
-  reportYear: z.string().nullable(),
-  url: z.string().url(),
-})
+export const registryUpdateResponseSchema = RegistryReportSchema
 
 export const registryDeleteResponseSchema = z.object({
   message: z.string(),

@@ -4,25 +4,22 @@ These manifests are **not** wired into `k8s/base/kustomization.yaml` (Flux). App
 
 ## Report registry dedupe
 
-Merges duplicate `Report` rows and clears the registry Redis cache. Uses the same image and DB/Redis wiring as the Garbo API/worker.
-
-1. Edit `report-registry-dedupe.yaml`: set `metadata.namespace` to `garbo-stage` or `garbo`. The image matches `backfill-report-runs.yaml` (unpinned `ghcr.io/klimatbyran/garbo` + `Always` pull). Pin a tag in the YAML only if you need that Job to run against one exact image.
-2. **Dry run** (recommended first): change the container `args` to include `--dry-run` (see comments in the YAML).
-3. Create the job (unique name each run — uses `generateName`):
+1. Edit `report-registry-dedupe.yaml`: set `metadata.namespace` to `garbo-stage` or `garbo`. Pin an image tag in the YAML if you need the job to run against one exact image.
+2. Create the job (unique name each run — uses `generateName`):
 
    ```bash
    kubectl create -f k8s/jobs/report-registry-dedupe.yaml
    ```
 
-4. Watch logs in Lens or: `kubectl logs -n garbo-stage job/report-registry-dedupe-<suffix> -f`
+3. Watch logs in Lens or: `kubectl logs -n garbo-stage job/report-registry-dedupe-<suffix> -f`
 
-5. After completion, delete the job if you want a clean namespace: `kubectl delete job -n <ns> <job-name>`
+4. After completion, delete the job if you want a clean namespace: `kubectl delete job -n <ns> <job-name>`
 
 **Note:** The production image omits devDependencies, so the job runs the script via `npx --yes tsx`, which may download `tsx` on first start (needs egress to the npm registry).
 
 ## Report backfill from periods
 
-Upserts `Report` registry rows from identity fields (`reportURL`, `reportS3Url`, `reportSha256`) already stored on `ReportingPeriod`. Run this **after** the dedupe job so there are no pre-existing duplicate `Report` rows before the upsert logic runs.
+Upserts `Report` registry rows from identity fields (`reportURL`, `reportS3Url`, `reportSha256`) already stored on `ReportingPeriod`. Clusters periods by shared identity, merges web-only and GCS-only clusters when the PDF file name matches (same company), and sets `reportYear` from the URL path when possible.
 
 1. **Run the dedupe job first** (see above).
 2. Edit `backfill-report-from-periods.yaml`: set `metadata.namespace` to `garbo-stage` or `garbo`.
