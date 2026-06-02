@@ -9,14 +9,14 @@
  *
  * This script:
  *   1. Loads all periods that have at least one identity field set; skips the rest.
- *   2. Clusters periods that reference the same document using union-find on the
- *      three identity fields (sha256 > S3 > URL). A cluster represents one PDF.
+ *   2. Clusters periods that reference the same document (shared sha/S3/URL keys, then
+ *      merge web-only vs GCS-only clusters for the same company when the PDF file name matches).
  *   3. For each cluster, derives the richest `Report` payload:
  *        url       = non-S3 reportURL if available, else reportS3Url
  *        sourceUrl = non-S3 reportURL (always stored when known)
  *        s3Url     = reportS3Url
  *        sha256    = reportSha256
- *        reportYear = max year across all periods in the cluster
+ *        reportYear = year from PDF file name when present (2000–2026), else max data year in cluster
  *        wikidataId / companyName = from the company with the most periods in the cluster
  *   4. Calls `upsertReportInRegistry` for each cluster — this is the same multi-key
  *      dedup logic used at write time, so it safely merges with existing `Report` rows.
@@ -37,7 +37,9 @@ import { writeFileSync } from 'node:fs'
 import { prisma } from '../src/lib/prisma'
 import { registryService } from '../src/api/services/registryService'
 import {
-  isLikelyStoredObjectUrl,
+  isStorageUrl,
+  parseReportYearFromUrl,
+  pdfBasenameFromUrl,
   trimStr,
 } from '../src/api/services/registryReportIdentity'
 import { invalidateRegistryCache } from '../src/api/services/registryCache'
@@ -67,13 +69,100 @@ class DisjointSet {
   }
 }
 
-function addToIndex(map: Map<string, Set<string>>, key: string, id: string) {
-  let s = map.get(key)
-  if (!s) {
-    s = new Set()
-    map.set(key, s)
+function registerPeriodIdentity(
+  owner: Map<string, string>,
+  dsu: DisjointSet,
+  periodId: string,
+  key: string
+) {
+  const existing = owner.get(key)
+  if (existing) dsu.union(periodId, existing)
+  else owner.set(key, periodId)
+}
+
+function unionPeriodsByIdentityKeys(periods: PeriodRow[], dsu: DisjointSet) {
+  const owner = new Map<string, string>()
+  for (const p of periods) {
+    const sha = trimStr(p.reportSha256)
+    const s3 =
+      trimStr(p.reportS3Url) ??
+      (isStorageUrl(p.reportURL) ? trimStr(p.reportURL) : null)
+    const url = trimStr(p.reportURL)
+
+    if (sha) registerPeriodIdentity(owner, dsu, p.id, `sha:${sha}`)
+    if (s3) registerPeriodIdentity(owner, dsu, p.id, `s3:${s3}`)
+    if (url) registerPeriodIdentity(owner, dsu, p.id, `url:${url}`)
   }
-  s.add(id)
+}
+
+interface ClusterMeta {
+  root: string
+  periods: PeriodRow[]
+  wikidataId: string
+  webUrl: string | null
+  s3Url: string | null
+  sha256: string | null
+}
+
+function shouldMergeComplementaryClusters(
+  a: ClusterMeta,
+  b: ClusterMeta
+): boolean {
+  const shaA = trimStr(a.sha256)
+  const shaB = trimStr(b.sha256)
+  if (shaA && shaB && shaA === shaB) return true
+
+  const pairs: [string | null, string | null][] = [
+    [a.webUrl, b.s3Url],
+    [b.webUrl, a.s3Url],
+  ]
+  for (const [web, s3] of pairs) {
+    if (!web || !s3) continue
+    const webBase = pdfBasenameFromUrl(web)
+    const s3Base = pdfBasenameFromUrl(s3)
+    if (webBase && s3Base && webBase === s3Base) return true
+  }
+  return false
+}
+
+function mergeComplementaryClusters(
+  clusters: Map<string, PeriodRow[]>
+): Map<string, PeriodRow[]> {
+  const metas: ClusterMeta[] = []
+  for (const [root, clusterPeriods] of clusters) {
+    const { wikidataId } = dominantCompany(clusterPeriods)
+    metas.push({
+      root,
+      periods: clusterPeriods,
+      wikidataId,
+      webUrl: bestWebUrl(clusterPeriods),
+      s3Url: bestS3Url(clusterPeriods),
+      sha256: bestSha256(clusterPeriods),
+    })
+  }
+
+  const clusterDsu = new DisjointSet()
+  for (const meta of metas) clusterDsu.find(meta.root)
+
+  for (let i = 0; i < metas.length; i++) {
+    for (let j = i + 1; j < metas.length; j++) {
+      const a = metas[i]!
+      const b = metas[j]!
+      if (a.wikidataId !== b.wikidataId) continue
+      if (shouldMergeComplementaryClusters(a, b)) {
+        clusterDsu.union(a.root, b.root)
+      }
+    }
+  }
+
+  const merged = new Map<string, PeriodRow[]>()
+  for (const meta of metas) {
+    const mergedRoot = clusterDsu.find(meta.root)
+    const list = merged.get(mergedRoot)
+    if (list) list.push(...meta.periods)
+    else merged.set(mergedRoot, [...meta.periods])
+  }
+  return merged
 }
 
 // ── Period row type ───────────────────────────────────────────────────────────
@@ -98,7 +187,7 @@ interface PeriodRow {
 function bestWebUrl(periods: PeriodRow[]): string | null {
   for (const p of periods) {
     const u = trimStr(p.reportURL)
-    if (u && !isLikelyStoredObjectUrl(u)) return u
+    if (u && !isStorageUrl(u)) return u
   }
   return null
 }
@@ -112,7 +201,7 @@ function bestS3Url(periods: PeriodRow[]): string | null {
     if (u) return u
     // Also treat reportURL as s3Url when it looks like a storage URL
     const ru = trimStr(p.reportURL)
-    if (ru && isLikelyStoredObjectUrl(ru)) return ru
+    if (ru && isStorageUrl(ru)) return ru
   }
   return null
 }
@@ -128,18 +217,33 @@ function bestSha256(periods: PeriodRow[]): string | null {
   return null
 }
 
-/**
- * Max year string from the cluster — represents the primary data year for the document.
- * A PDF typically covers multiple years (as comparisons), so the max year is the one
- * the document is "about".
- */
-function maxYear(periods: PeriodRow[]): string | null {
+/** Max data year across periods in the cluster (fallback for catalog `reportYear`). */
+function maxDataYear(periods: PeriodRow[]): string | null {
   let best: string | null = null
   for (const p of periods) {
     const y = trimStr(p.year)
     if (y && (!best || y > best)) best = y
   }
   return best
+}
+
+function resolveReportYear(
+  periods: PeriodRow[],
+  webUrl: string | null,
+  s3Url: string | null
+): string | undefined {
+  const fromFileName =
+    parseReportYearFromUrl(s3Url) ?? parseReportYearFromUrl(webUrl)
+  const fromMaxDataYear = maxDataYear(periods)
+
+  if (fromFileName && fromMaxDataYear && fromFileName !== fromMaxDataYear) {
+    console.warn(
+      `  [year] file name year ${fromFileName} differs from max period data year ${fromMaxDataYear} (periods: ${periods.map((p) => p.id).join(', ')})`
+    )
+  }
+
+  const year = fromFileName ?? fromMaxDataYear
+  return year ?? undefined
 }
 
 /**
@@ -212,39 +316,11 @@ async function main() {
       return
     }
 
-    // 2. Cluster periods by document identity.
+    // 2. Cluster periods by document identity, then merge complementary web/GCS clusters.
     const dsu = new DisjointSet()
-    const bySha = new Map<string, Set<string>>()
-    const byS3 = new Map<string, Set<string>>()
-    const byUrl = new Map<string, Set<string>>()
+    unionPeriodsByIdentityKeys(periods, dsu)
 
-    for (const p of periods) {
-      const sha = trimStr(p.reportSha256)
-      const s3 =
-        trimStr(p.reportS3Url) ??
-        (isLikelyStoredObjectUrl(p.reportURL) ? trimStr(p.reportURL) : null)
-      const url = trimStr(p.reportURL)
-
-      if (sha) addToIndex(bySha, sha, p.id)
-      if (s3) addToIndex(byS3, s3, p.id)
-      if (url) addToIndex(byUrl, url, p.id)
-    }
-
-    for (const ids of bySha.values()) {
-      const arr = [...ids]
-      for (let i = 1; i < arr.length; i++) dsu.union(arr[0]!, arr[i]!)
-    }
-    for (const ids of byS3.values()) {
-      const arr = [...ids]
-      for (let i = 1; i < arr.length; i++) dsu.union(arr[0]!, arr[i]!)
-    }
-    for (const ids of byUrl.values()) {
-      const arr = [...ids]
-      for (let i = 1; i < arr.length; i++) dsu.union(arr[0]!, arr[i]!)
-    }
-
-    // Group periods by cluster root.
-    const clusters = new Map<string, PeriodRow[]>()
+    let clusters = new Map<string, PeriodRow[]>()
     for (const p of periods) {
       const root = dsu.find(p.id)
       const list = clusters.get(root)
@@ -252,7 +328,15 @@ async function main() {
       else clusters.set(root, [p])
     }
 
-    console.log(`Grouped into ${clusters.size} document cluster(s).`)
+    const clustersBeforeMerge = clusters.size
+    clusters = mergeComplementaryClusters(clusters)
+    if (clusters.size < clustersBeforeMerge) {
+      console.log(
+        `Merged complementary clusters: ${clustersBeforeMerge} → ${clusters.size} document cluster(s).`
+      )
+    } else {
+      console.log(`Grouped into ${clusters.size} document cluster(s).`)
+    }
 
     // 3. Upsert one Report per cluster.
     let created = 0
@@ -266,7 +350,7 @@ async function main() {
       const webUrl = bestWebUrl(clusterPeriods)
       const s3Url = bestS3Url(clusterPeriods)
       const sha256 = bestSha256(clusterPeriods)
-      const year = maxYear(clusterPeriods)
+      const year = resolveReportYear(clusterPeriods, webUrl, s3Url)
       const { wikidataId, companyName } = dominantCompany(clusterPeriods)
 
       // `url` is required by upsertReportInRegistry — must always be set.
