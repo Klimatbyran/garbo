@@ -215,6 +215,54 @@ function appendGroupSuffixForSearch(companyName: string): string | null {
   return `${s} Group`
 }
 
+function appendAbSuffixForSearch(companyName: string): string | null {
+  const n = normalizeCompanySearchName(companyName)
+  if (!n) return null
+  if (nameAlreadyHasTrailingLegalSuffix(n, 'ab')) return null
+  return `${n} AB`
+}
+
+function normalizedHitLabel(label: string | undefined): string {
+  return (label ?? '').trim().toLowerCase().replace(/\s+/g, ' ')
+}
+
+function resultsIncludeExactLabel(
+  results: SearchResult[],
+  expectedLabel: string
+): boolean {
+  const want = normalizedHitLabel(expectedLabel)
+  return results.some((r) => normalizedHitLabel(r.label) === want)
+}
+
+/**
+ * Exchange listings often omit “Group” / “AB” while Wikidata labels include them
+ * (e.g. listing “Nelly” → item “Nelly Group”). Merge probe hits even when the plain
+ * name already returns noisy results.
+ */
+function listingSuffixProbeQueries(companyName: string): string[] {
+  const probes: string[] = []
+  const withGroup = appendGroupSuffixForSearch(companyName)
+  if (withGroup) probes.push(withGroup)
+  const withAb = appendAbSuffixForSearch(companyName)
+  if (withAb) probes.push(withAb)
+  return probes
+}
+
+async function mergeListingSuffixProbeResults(
+  results: SearchResult[],
+  companyName: string,
+  language: SearchEntitiesOptions['language'] | undefined
+): Promise<SearchResult[]> {
+  let merged = results
+  for (const query of listingSuffixProbeQueries(companyName)) {
+    if (resultsIncludeExactLabel(merged, query)) continue
+    const fromProbe = await searchWikidataEntitiesForCompany(query, language)
+    if (fromProbe.length === 0) continue
+    merged = interleaveDedupeSearchResults(fromProbe, merged)
+  }
+  return merged
+}
+
 /**
  * Wikidata often lists companies with a legal-form suffix ("Evolution AB", "Acme Ltd").
  * Plain-name search can miss the item entirely (e.g. "Evolution" → biology). When every
@@ -448,6 +496,7 @@ function searchLabelAffinityScore(
 
   if (label === q) return 500_000
   if (label === `${q} ab`) return 450_000
+  if (label === `${q} group`) return 450_000
 
   const legalSecondToken = new Set([
     'ab',
@@ -642,12 +691,11 @@ export async function searchCompany({
     }
   }
 
-  if (results.length === 0 && !companyName.includes('Group')) {
-    const withGroup = appendGroupSuffixForSearch(companyName)
-    if (withGroup) {
-      results = await searchWikidataEntitiesForCompany(withGroup, language)
-    }
-  }
+  results = await mergeListingSuffixProbeResults(
+    results,
+    companyName,
+    language
+  )
 
   if (results.length > 0) {
     let augmentation = await fetchSearchHitAugmentation(
@@ -659,7 +707,12 @@ export async function searchCompany({
     const everyHitNonCompany = results.every(
       (r) => !augmentation.get(r.id)?.companyLike
     )
-    if (everyHitNonCompany) {
+    const hasCompanyLikeListingMatch = results.some(
+      (r) =>
+        augmentation.get(r.id)?.companyLike === true &&
+        searchLabelAffinityScore(r, companyName) >= 440_000
+    )
+    if (everyHitNonCompany || !hasCompanyLikeListingMatch) {
       const simplified = stripLegalFormSuffixes(companyName)
       if (simplified) {
         const fromStrip = await searchWikidataEntitiesForCompany(
