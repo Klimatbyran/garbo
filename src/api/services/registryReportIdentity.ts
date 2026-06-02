@@ -54,6 +54,27 @@ export function pdfBasenameFromUrl(
   }
 }
 
+/** Legacy GCS object names: `company_q1234567_2020_original-file-name.pdf`. */
+const LEGACY_GCS_BASENAME_PREFIX = /^[a-z0-9_]+_q\d+_\d{4}_/i
+
+/** File name after stripping a legacy GCS prefix (may equal the full basename). */
+export function storageBasenameTailForMatch(storageBasename: string): string {
+  const tail = storageBasename.replace(LEGACY_GCS_BASENAME_PREFIX, '')
+  return tail.length >= 3 ? tail : storageBasename
+}
+
+/**
+ * Whether a web PDF name and a storage PDF name refer to the same file.
+ * Exact match, or storage name is `Company_Q{id}_{year}_` + web file name.
+ */
+export function pdfBasenamesMatchForIdentityLink(
+  webBasename: string,
+  storageBasename: string
+): boolean {
+  if (webBasename === storageBasename) return true
+  return webBasename === storageBasenameTailForMatch(storageBasename)
+}
+
 const REPORT_YEAR_TOKEN = /^(200\d|201\d|202[0-6])$/
 
 /**
@@ -148,6 +169,70 @@ export function linkReportRowsByPdfBasename(
       }
     }
   }
+
+  const webEntriesByWikidata = new Map<
+    string,
+    { rowId: string; basename: string }[]
+  >()
+  const storageEntriesByWikidata = new Map<
+    string,
+    { rowId: string; basename: string }[]
+  >()
+
+  for (const row of rows) {
+    const wikidataId = trimStr(row.wikidataId)
+    if (!wikidataId) continue
+
+    for (const url of webUrlsForBasenameMatch(row)) {
+      const basename = pdfBasenameFromUrl(url)
+      if (!basename) continue
+      const list = webEntriesByWikidata.get(wikidataId)
+      const entry = { rowId: row.id, basename }
+      if (list) list.push(entry)
+      else webEntriesByWikidata.set(wikidataId, [entry])
+    }
+
+    for (const url of storageUrlsForBasenameMatch(row)) {
+      const basename = pdfBasenameFromUrl(url)
+      if (!basename) continue
+      const list = storageEntriesByWikidata.get(wikidataId)
+      const entry = { rowId: row.id, basename }
+      if (list) list.push(entry)
+      else storageEntriesByWikidata.set(wikidataId, [entry])
+    }
+  }
+
+  for (const [wikidataId, storageEntries] of storageEntriesByWikidata) {
+    const webEntries = webEntriesByWikidata.get(wikidataId)
+    if (!webEntries) continue
+
+    for (const { rowId: storageId, basename: storageBase } of storageEntries) {
+      for (const { rowId: webId, basename: webBase } of webEntries) {
+        if (storageId === webId) continue
+        if (pdfBasenamesMatchForIdentityLink(webBase, storageBase)) {
+          dsu.union(storageId, webId)
+        }
+      }
+    }
+  }
+}
+
+/** Prefer catalog year from web URLs, then storage URLs, then the stored value. */
+export function preferReportYearFromWebUrls(
+  row: Pick<
+    RegistryReportIdentityRow,
+    'url' | 'sourceUrl' | 's3Url' | 'reportYear'
+  >
+): string | null {
+  for (const url of webUrlsForBasenameMatch(row)) {
+    const year = parseReportYearFromUrl(url)
+    if (year) return year
+  }
+  for (const url of storageUrlsForBasenameMatch(row)) {
+    const year = parseReportYearFromUrl(url)
+    if (year) return year
+  }
+  return trimStr(row.reportYear)
 }
 
 export function numberOfIdentityFieldsInRow(
