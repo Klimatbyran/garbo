@@ -39,6 +39,7 @@ import { registryService } from '../src/api/services/registryService'
 import {
   isStorageUrl,
   parseReportYearFromUrl,
+  pdfBasenamesMatchForIdentityLink,
   pdfBasenameFromUrl,
   trimStr,
 } from '../src/api/services/registryReportIdentity'
@@ -120,7 +121,9 @@ function shouldMergeComplementaryClusters(
     if (!web || !s3) continue
     const webBase = pdfBasenameFromUrl(web)
     const s3Base = pdfBasenameFromUrl(s3)
-    if (webBase && s3Base && webBase === s3Base) return true
+    if (webBase && s3Base && pdfBasenamesMatchForIdentityLink(webBase, s3Base)) {
+      return true
+    }
   }
   return false
 }
@@ -233,7 +236,7 @@ function resolveReportYear(
   s3Url: string | null
 ): string | undefined {
   const fromFileName =
-    parseReportYearFromUrl(s3Url) ?? parseReportYearFromUrl(webUrl)
+    parseReportYearFromUrl(webUrl) ?? parseReportYearFromUrl(s3Url)
   const fromMaxDataYear = maxDataYear(periods)
 
   if (fromFileName && fromMaxDataYear && fromFileName !== fromMaxDataYear) {
