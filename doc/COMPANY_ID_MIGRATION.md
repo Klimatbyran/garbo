@@ -4,26 +4,26 @@ Adds a stable internal `Company.id` (CUID) while keeping `wikidataId` as the pri
 
 ## Schema outcome
 
-| Field        | Role                                      |
-| ------------ | ----------------------------------------- |
+| Field        | Role                                             |
+| ------------ | ------------------------------------------------ |
 | `id`         | Internal unique ID, required, `@default(cuid())` |
-| `wikidataId` | Primary key (`@id`), Wikidata / API slug  |
+| `wikidataId` | Primary key (`@id`), Wikidata / API slug         |
 
 Foreign keys (`companyId`, `companyWikidataId`, etc.) still reference `wikidataId`. No primary-key switch in this rollout.
 
 ## Migrations
 
-| Migration | Purpose |
-| --------- | ------- |
-| `20260602084305_add_company_internal_id` | Add nullable `Company.id` + unique index |
-| `20260602092036_require_company_internal_id` | Set `Company.id` NOT NULL |
+| Migration                                    | Purpose                                  |
+| -------------------------------------------- | ---------------------------------------- |
+| `20260602084305_add_company_internal_id`     | Add nullable `Company.id` + unique index |
+| `20260602092036_require_company_internal_id` | Set `Company.id` NOT NULL                |
 
 ## Backfill script
 
-| Command | Description |
-| ------- | ----------- |
+| Command                           | Description                                 |
+| --------------------------------- | ------------------------------------------- |
 | `npm run backfill:company-id:dry` | List rows that would be updated (no writes) |
-| `npm run backfill:company-id` | Set `id` for every row where `id IS NULL` |
+| `npm run backfill:company-id`     | Set `id` for every row where `id IS NULL`   |
 
 - Safe to re-run: only null `id` rows are updated.
 - Uses the `cuid` package (same style as Prisma `@default(cuid())`).
@@ -98,12 +98,12 @@ SELECT "wikidataId", "id", "name" FROM "Company" LIMIT 10;
 
 ## Environments already partially migrated
 
-| State | Action |
-| ----- | ------ |
-| Neither migration applied | Follow full rollout (steps 2–4) |
-| Only migration 1 applied | Backfill, then `npm run migrate` |
-| Both migrations applied, some null `id` | Run `npm run backfill:company-id`, then fix NOT NULL manually or re-run migrate if migration 2 is still pending |
-| Both migrations applied, all rows have `id` | No DB work; optional API/schema exposure of `id` in app code |
+| State                                       | Action                                                                                                          |
+| ------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| Neither migration applied                   | Follow full rollout (steps 2–4)                                                                                 |
+| Only migration 1 applied                    | Backfill, then `npm run migrate`                                                                                |
+| Both migrations applied, some null `id`     | Run `npm run backfill:company-id`, then fix NOT NULL manually or re-run migrate if migration 2 is still pending |
+| Both migrations applied, all rows have `id` | No DB work; optional API/schema exposure of `id` in app code                                                    |
 
 Check status:
 
