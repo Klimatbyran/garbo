@@ -4,7 +4,6 @@ import { getTags } from '../../../config/openapi'
 import {
   registryUpdateRequestBodySchema,
   registryUpdateResponseSchema,
-  errorResponseSchema,
   getErrorSchemas,
 } from '../../schemas'
 import { registryService } from '@/api/services/registryService'
@@ -24,8 +23,7 @@ export async function registryUpdateRoutes(app: FastifyInstance) {
         body: registryUpdateRequestBodySchema,
         response: {
           200: registryUpdateResponseSchema,
-          409: errorResponseSchema,
-          ...getErrorSchemas(404),
+          ...getErrorSchemas(404, 409),
         },
       },
     },

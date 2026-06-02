@@ -121,7 +121,11 @@ function shouldMergeComplementaryClusters(
     if (!web || !s3) continue
     const webBase = pdfBasenameFromUrl(web)
     const s3Base = pdfBasenameFromUrl(s3)
-    if (webBase && s3Base && pdfBasenamesMatchForIdentityLink(webBase, s3Base)) {
+    if (
+      webBase &&
+      s3Base &&
+      pdfBasenamesMatchForIdentityLink(webBase, s3Base)
+    ) {
       return true
     }
   }

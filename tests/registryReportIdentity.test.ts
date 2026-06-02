@@ -255,7 +255,8 @@ describe('registryReportIdentity', () => {
         wikidataId: 'Q1',
         reportYear: '2017',
         url: 'https://storage.googleapis.com/b/afry_q1_2021_afry_2021_annual.pdf',
-        s3Url: 'https://storage.googleapis.com/b/afry_q1_2021_afry_2021_annual.pdf',
+        s3Url:
+          'https://storage.googleapis.com/b/afry_q1_2021_afry_2021_annual.pdf',
       })
 
       expect(preferReportYearFromWebUrls(web)).toBe('2021')
