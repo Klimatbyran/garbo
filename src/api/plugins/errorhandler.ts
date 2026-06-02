@@ -44,6 +44,19 @@ export function errorHandler(
           ? { error, ...(garboChunkHeader && { garboChunk: garboChunkHeader }) }
           : undefined,
     })
+  } else if (
+    error instanceof Prisma.PrismaClientKnownRequestError &&
+    error.code === 'P2002'
+  ) {
+    reply.status(409).send({
+      code: 'CONFLICT',
+      message:
+        'A report with this URL, source URL, S3 URL, or hash already exists.',
+      details:
+        apiConfig.nodeEnv === 'development'
+          ? { error, ...(garboChunkHeader && { garboChunk: garboChunkHeader }) }
+          : undefined,
+    })
   } else {
     reply.status(500).send({
       code: 'INTERNAL_SERVER_ERROR',

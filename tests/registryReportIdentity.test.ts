@@ -4,9 +4,16 @@ import {
   linkReportRowsByPdfBasename,
   parseReportYearFromUrl,
   pdfBasenameFromUrl,
+  pdfBasenamesMatchForIdentityLink,
+  preferReportYearFromWebUrls,
   pickRowToKeep,
+  storageBasenameTailForMatch,
   type RegistryReportIdentityRow,
 } from '../src/api/services/registryReportIdentity'
+import {
+  findDuplicateReportGroups,
+  mergeDuplicateReportRows,
+} from '../src/api/services/registryReportDedupe'
 
 function row(
   p: Partial<RegistryReportIdentityRow> & { id: string; url: string }
@@ -154,6 +161,31 @@ describe('registryReportIdentity', () => {
     })
   })
 
+  describe('pdfBasenamesMatchForIdentityLink', () => {
+    it('matches exact basenames and legacy GCS prefixed storage names', () => {
+      expect(
+        pdfBasenamesMatchForIdentityLink(
+          'addtech-annual-report-2019-2020.pdf',
+          'addtech_q10400997_2020_addtech-annual-report-2019-2020.pdf'
+        )
+      ).toBe(true)
+      expect(
+        storageBasenameTailForMatch(
+          'addtech_q10400997_2020_addtech-annual-report-2019-2020.pdf'
+        )
+      ).toBe('addtech-annual-report-2019-2020.pdf')
+    })
+
+    it('does not match unrelated PDFs for the same company', () => {
+      expect(
+        pdfBasenamesMatchForIdentityLink(
+          'annual-report-2023.pdf',
+          'annual-report-2024.pdf'
+        )
+      ).toBe(false)
+    })
+  })
+
   describe('linkReportRowsByPdfBasename', () => {
     it('unions a web-only row with a storage-only row for the same company and file name', () => {
       const web = row({
@@ -187,6 +219,69 @@ describe('registryReportIdentity', () => {
 
       linkReportRowsByPdfBasename([web, gcs], dsu)
       expect(dsu.find('web')).toBe(dsu.find('gcs'))
+    })
+
+    it('unions web and legacy GCS names when the storage basename embeds the web file name', () => {
+      const web = row({
+        id: 'web',
+        wikidataId: 'Q1',
+        url: 'https://company.com/docs/infranord-ar-2019.pdf',
+      })
+      const gcs = row({
+        id: 'gcs',
+        wikidataId: 'Q1',
+        url: 'https://storage.googleapis.com/bucket/infranord_q10535401_2019_infranord-ar-2019.pdf',
+        s3Url:
+          'https://storage.googleapis.com/bucket/infranord_q10535401_2019_infranord-ar-2019.pdf',
+      })
+
+      const groups = findDuplicateReportGroups([web, gcs])
+      expect(groups).toHaveLength(1)
+      expect(groups[0]).toEqual(expect.arrayContaining(['web', 'gcs']))
+    })
+  })
+
+  describe('mergeDuplicateReportRows', () => {
+    it('prefers reportYear from the web URL when merging', () => {
+      const web = row({
+        id: 'web',
+        wikidataId: 'Q1',
+        reportYear: '2021',
+        url: 'https://company.com/afry_2021_annual.pdf',
+        sourceUrl: 'https://company.com/afry_2021_annual.pdf',
+      })
+      const gcs = row({
+        id: 'gcs',
+        wikidataId: 'Q1',
+        reportYear: '2017',
+        url: 'https://storage.googleapis.com/b/afry_q1_2021_afry_2021_annual.pdf',
+        s3Url:
+          'https://storage.googleapis.com/b/afry_q1_2021_afry_2021_annual.pdf',
+      })
+
+      expect(preferReportYearFromWebUrls(web)).toBe('2021')
+      const merged = mergeDuplicateReportRows([web, gcs])
+      expect(merged.reportYear).toBe('2021')
+
+      const cisionWeb = row({
+        id: 'web',
+        wikidataId: 'Q1',
+        reportYear: '2022',
+        url: 'https://mb.cision.com/Main/1921081.pdf',
+        sourceUrl: 'https://mb.cision.com/Main/1921081.pdf',
+      })
+      const cisionGcs = row({
+        id: 'gcs',
+        wikidataId: 'Q1',
+        reportYear: '2021',
+        url: 'https://storage.googleapis.com/b/evolution_q1_2022_1921081.pdf',
+        s3Url: 'https://storage.googleapis.com/b/evolution_q1_2022_1921081.pdf',
+      })
+      expect(mergeDuplicateReportRows([cisionWeb, cisionGcs]).reportYear).toBe(
+        '2022'
+      )
+      expect(merged.sourceUrl).toBe(web.sourceUrl)
+      expect(merged.s3Url).toBe(gcs.s3Url)
     })
   })
 
