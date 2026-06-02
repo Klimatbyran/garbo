@@ -14,7 +14,7 @@ generator client {
 model Company {
   // // NOTE: Maybe just use an integer as the ID for companies, and use the unique hash instead.
   // // We want to separate the company id from the URL slug
-  // id          String  @id @default(cuid())
+  id           String  @unique @default(cuid())
   /// wikidataId is our unique identifier to link to companies, also used to export to or import from wikidata
   wikidataId   String        @id
   name         String

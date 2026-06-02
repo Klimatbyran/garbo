@@ -61,6 +61,7 @@ class GlobalSearchService {
         },
       },
       select: {
+        id: true,
         name: true,
         wikidataId: true,
       },
@@ -97,6 +98,7 @@ class GlobalSearchService {
     return [
       ...companies.map((company) => ({
         name: company.name,
+        id: company.id,
         wikidataId: company.wikidataId,
         type: 'company' as const,
       })),

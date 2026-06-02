@@ -65,6 +65,7 @@ const minimalMetadataArgs = {
 
 export const detailedCompanyArgs = {
   select: {
+    id: true,
     wikidataId: true,
     name: true,
     logoUrl: true,
@@ -234,6 +235,7 @@ export const detailedCompanyArgs = {
 
 export const companyListArgs = {
   select: {
+    id: true,
     wikidataId: true,
     name: true,
     logoUrl: true,
@@ -356,6 +358,7 @@ export const companyListArgs = {
 export const companyExportArgs = (year?) => {
   return {
     select: {
+      id: true,
       wikidataId: true,
       name: true,
       description: true,

@@ -128,6 +128,7 @@ class ExportService {
       this.transformEmissions(period.emissions ?? {})
 
     return {
+      id: company.id,
       wikidataId: company.wikidataId,
       name: company.name,
       description: company.description,
@@ -380,6 +381,7 @@ interface Industry {
 }
 
 interface Company {
+  id: string
   wikidataId: string
   name: string
   description: string | null
