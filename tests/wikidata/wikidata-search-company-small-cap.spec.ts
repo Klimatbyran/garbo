@@ -26,17 +26,18 @@ type NamedWikidataCase = Readonly<{
  * When search improves and the id appears, this test fails — move the row back to {@link regularCases}.
  */
 const SMALL_CAP_SEARCH_SPECIAL_CASES: ReadonlyArray<NamedWikidataCase> = [
-  // { companyName: 'Anoto Group AB', klimatkollenWikidataId: 'Q4770417' }, // Anoto
-  // { companyName: 'Björn Borg Group', klimatkollenWikidataId: 'Q4919709' }, // björn borg
-  // { companyName: 'Eniro Group AB', klimatkollenWikidataId: 'Q202643' }, // eniro
-  // { companyName: 'HAKI Safety AB', klimatkollenWikidataId: 'Q10513026' }, // har ingen titel, finns som haki på svenska wiki
-  // { companyName: 'MOMENT GROUP', klimatkollenWikidataId: 'Q10397256' }, // 2e group
-  // { companyName: 'Mysafety Group AB', klimatkollenWikidataId: 'Q31890011' }, // ingen titel, finns som mysafety på svenska wiki
-  // {
-  //   companyName: 'Norrhydro Group Plc',
-  //   klimatkollenWikidataId: 'Q107548957',
-  // }, // norrhydro
-  // { companyName: 'Svedbergs Group', klimatkollenWikidataId: 'Q109796634' }, // svedbergs i daltorp, men svedbergs group på svenska wiki
+  { companyName: 'Nelly', klimatkollenWikidataId: 'Q10438871' },
+  { companyName: 'Anoto Group AB', klimatkollenWikidataId: 'Q4770417' }, // Anoto
+  { companyName: 'Björn Borg Group', klimatkollenWikidataId: 'Q4919709' }, // björn borg
+  { companyName: 'Eniro Group AB', klimatkollenWikidataId: 'Q202643' }, // eniro
+  { companyName: 'HAKI Safety AB', klimatkollenWikidataId: 'Q10513026' }, // har ingen titel, finns som haki på svenska wiki
+  { companyName: 'MOMENT GROUP', klimatkollenWikidataId: 'Q10397256' }, // 2e group
+  { companyName: 'Mysafety Group AB', klimatkollenWikidataId: 'Q31890011' }, // ingen titel, finns som mysafety på svenska wiki
+  {
+    companyName: 'Norrhydro Group Plc',
+    klimatkollenWikidataId: 'Q107548957',
+  }, // norrhydro
+  { companyName: 'Svedbergs Group', klimatkollenWikidataId: 'Q109796634' }, // svedbergs i daltorp, men svedbergs group på svenska wiki
 ]
 
 /**

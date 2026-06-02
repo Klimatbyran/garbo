@@ -222,6 +222,66 @@ function appendAbSuffixForSearch(companyName: string): string | null {
   return `${n} AB`
 }
 
+/**
+ * Removes a trailing “Group” token (exchange listings; not in {@link LEGAL_FORM_SUFFIXES}).
+ */
+function stripTrailingGroupSuffix(companyName: string): string | null {
+  const s = normalizeCompanySearchName(companyName)
+  if (!s) return null
+  const match = s.match(/^(.+?)\s+group\.?$/i)
+  if (!match) return null
+  const rest = match[1].trim().replace(/^\.+|\.+$/g, '')
+  return rest.length > 0 ? rest : null
+}
+
+/**
+ * Shorter search strings when the listing adds “Group” / legal forms Wikidata omits
+ * (e.g. “Anoto Group AB” → label “Anoto”). Shortest variant first for probe priority.
+ */
+function listingStripProbeQueries(companyName: string): string[] {
+  const normalized = normalizeCompanySearchName(companyName)
+  if (!normalized) return []
+
+  const candidates: string[] = []
+  const withoutAb = stripLegalFormSuffixes(companyName)
+  const withoutGroup = stripTrailingGroupSuffix(companyName)
+
+  if (withoutAb) candidates.push(withoutAb)
+  if (withoutGroup) candidates.push(withoutGroup)
+  if (withoutAb) {
+    const core = stripTrailingGroupSuffix(withoutAb)
+    if (core) candidates.push(core)
+  }
+  if (withoutGroup) {
+    const core = stripLegalFormSuffixes(withoutGroup)
+    if (core) candidates.push(core)
+  }
+
+  const normKey = normalizedHitLabel(normalized)
+  return [...new Set(candidates)]
+    .filter((q) => normalizedHitLabel(q) !== normKey)
+    .sort((a, b) => a.length - b.length)
+}
+
+function listingNameHasStripProbes(companyName: string): boolean {
+  return listingStripProbeQueries(companyName).length > 0
+}
+
+async function mergeListingStripProbeResults(
+  results: SearchResult[],
+  companyName: string,
+  language: SearchEntitiesOptions['language'] | undefined
+): Promise<SearchResult[]> {
+  let merged = results
+  for (const query of listingStripProbeQueries(companyName)) {
+    if (resultsIncludeExactLabel(merged, query)) continue
+    const fromProbe = await searchWikidataEntitiesForCompany(query, language)
+    if (fromProbe.length === 0) continue
+    merged = interleaveDedupeSearchResults(fromProbe, merged)
+  }
+  return merged
+}
+
 function normalizedHitLabel(label: string | undefined): string {
   return (label ?? '').trim().toLowerCase().replace(/\s+/g, ' ')
 }
@@ -498,6 +558,10 @@ function searchLabelAffinityScore(
   if (label === `${q} ab`) return 450_000
   if (label === `${q} group`) return 450_000
 
+  for (const probe of listingStripProbeQueries(companyName)) {
+    if (label === normalizedHitLabel(probe)) return 460_000
+  }
+
   const legalSecondToken = new Set([
     'ab',
     'ltd',
@@ -689,6 +753,14 @@ export async function searchCompany({
     if (expanded) {
       results = await searchWikidataEntitiesForCompany(expanded, language)
     }
+  }
+
+  if (listingNameHasStripProbes(companyName)) {
+    results = await mergeListingStripProbeResults(
+      results,
+      companyName,
+      language
+    )
   }
 
   results = await mergeListingSuffixProbeResults(
