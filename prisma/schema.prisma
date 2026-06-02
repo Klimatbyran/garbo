@@ -12,10 +12,10 @@ generator client {
 }
 
 model Company {
-  // // NOTE: Maybe just use an integer as the ID for companies, and use the unique hash instead.
-  // // We want to separate the company id from the URL slug
+  /// Internal Garbo company id (CUID). Not the primary key; use for stable in-app references.
+  /// Public URLs and Wikidata integration still use `wikidataId`.
   id           String  @unique @default(cuid())
-  /// wikidataId is our unique identifier to link to companies, also used to export to or import from wikidata
+  /// Primary key. Wikidata Q-id; used in API routes, FKs, and Wikidata import/export.
   wikidataId   String        @id
   name         String
   description  String?

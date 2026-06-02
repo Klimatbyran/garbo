@@ -91,7 +91,6 @@
     "@types/jsonwebtoken": "^9.0.8",
     "@types/node": "^22.10.6",
     "concurrently": "^9.1.2",
-    "cuid": "^3.0.0",
     "deepl-node": "^1.15.0",
     "eslint": "^10.0.0",
     "eslint-plugin-only-warn": "^1.1.0",

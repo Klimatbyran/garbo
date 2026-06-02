@@ -31,3 +31,22 @@ Upserts `Report` registry rows from identity fields (`reportURL`, `reportS3Url`,
    ```
 
 5. Watch logs: `kubectl logs -n garbo-stage job/backfill-report-from-periods-<suffix> -f`
+
+## Company internal id backfill
+
+Populates `Company.id` (CUID v1) for existing rows after migration `add_company_internal_id` and before `require_company_internal_id`. See [doc/COMPANY_ID_MIGRATION.md](../../doc/COMPANY_ID_MIGRATION.md).
+
+1. Deploy an image that includes `scripts/backfill-company-id.ts` (pin `image:` tag in the YAML if needed).
+2. Edit `backfill-company-id.yaml`: set `metadata.namespace` to `garbo-stage` or `garbo`.
+3. **Dry run** (recommended): set `args` to `["scripts/backfill-company-id.ts", "--dry-run"]`.
+4. Create the job:
+
+   ```bash
+   kubectl create -f k8s/jobs/backfill-company-id.yaml
+   ```
+
+5. Watch logs: `kubectl logs -n garbo-stage job/backfill-company-id-<suffix> -f`
+
+6. After success, run pending migrations again (`npm run migrate` / deploy job) so `require_company_internal_id` can apply.
+
+**Note:** Same as other one-off jobs — runs via `npx --yes tsx` because the production image omits devDependencies.

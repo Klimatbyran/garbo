@@ -25,8 +25,16 @@ Foreign keys (`companyId`, `companyWikidataId`, etc.) still reference `wikidataI
 | `npm run backfill:company-id:dry` | List rows that would be updated (no writes) |
 | `npm run backfill:company-id`     | Set `id` for every row where `id IS NULL`   |
 
+**Staging / production:** prefer the one-off Kubernetes job ([`k8s/jobs/backfill-company-id.yaml`](../k8s/jobs/backfill-company-id.yaml)) so the script runs in-cluster with the same `DATABASE_URL` as the app. See [`k8s/jobs/README.md`](../k8s/jobs/README.md).
+
+```bash
+# Dry-run: set args to ["scripts/backfill-company-id.ts", "--dry-run"] in the YAML first
+kubectl create -f k8s/jobs/backfill-company-id.yaml
+kubectl logs -n garbo-stage job/backfill-company-id-<suffix> -f
+```
+
 - Safe to re-run: only null `id` rows are updated.
-- Uses the `cuid` package (same style as Prisma `@default(cuid())`).
+- Uses an inlined CUID v1 helper (`scripts/lib/create-prisma-cuid.ts`) matching Prisma `@default(cuid())` — not the deprecated `cuid` npm package or `cuid2` (different format).
 - Requires `DATABASE_URL` (see `.env`).
 
 ## Per-environment rollout
@@ -40,6 +48,7 @@ Ship a build that includes:
 - `prisma/schema.prisma` with required `Company.id`
 - Both migrations above
 - `scripts/backfill-company-id.ts`
+- `k8s/jobs/backfill-company-id.yaml` (for stage/prod backfill)
 
 ### 2. Apply migrations (first pass)
 
@@ -116,7 +125,7 @@ npx prisma migrate status
 - Run **backfill against that environment’s `DATABASE_URL`** (never point the script at prod from a laptop by mistake).
 - Prefer staging first, validate API/workers, then production.
 - `migrate deploy` does not prompt for migration names (unlike `migrate dev`); use `migrate dev` only on local dev DBs.
-- If you use Kubernetes one-off jobs, mirror the pattern in `k8s/jobs/README.md`: set namespace, image tag, and run `npm run backfill:company-id` with cluster DB credentials.
+- If you use Kubernetes one-off jobs, mirror the pattern in `k8s/jobs/README.md` and run `k8s/jobs/backfill-company-id.yaml` (set namespace, dry-run first, then real run).
 
 ## Application code (follow-up, optional)
 
@@ -140,3 +149,5 @@ There is no automated rollback. Reverting requires a new migration and coordinat
 - `prisma/migrations/20260602084305_add_company_internal_id/`
 - `prisma/migrations/20260602092036_require_company_internal_id/`
 - `scripts/backfill-company-id.ts`
+- `scripts/lib/create-prisma-cuid.ts`
+- `k8s/jobs/backfill-company-id.yaml`

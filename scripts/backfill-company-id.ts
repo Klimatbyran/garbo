@@ -6,14 +6,15 @@
  *   npx tsx scripts/backfill-company-id.ts
  *
  * Safe to re-run: only rows with `id IS NULL` are updated.
+ * IDs use CUID v1 (same format as Prisma `@default(cuid())`), via scripts/lib/create-prisma-cuid.ts.
  */
 
 import 'dotenv/config'
 import { parseArgs } from 'node:util'
-import cuid from 'cuid'
 import { Prisma } from '@prisma/client'
 
 import { prisma } from '../src/lib/prisma'
+import { createPrismaCuid } from './lib/create-prisma-cuid'
 
 type CliOptions = {
   dryRun: boolean
@@ -55,7 +56,7 @@ async function updateCompanyIdWithRetry(wikidataId: string): Promise<boolean> {
     try {
       const result = await prisma.company.updateMany({
         where: { wikidataId, id: null },
-        data: { id: cuid() },
+        data: { id: createPrismaCuid() },
       })
       return result.count > 0
     } catch (error) {
