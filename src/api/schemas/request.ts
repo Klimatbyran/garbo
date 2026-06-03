@@ -260,6 +260,7 @@ export const reportingPeriodSchema = z
   .object({
     startDate: z.coerce.date(),
     endDate: z.coerce.date(),
+    companyReportId: z.string().optional(),
     reportURL: z.string().optional().nullable(),
     reportS3Url: z.preprocess(
       (val) => (val === '' ? null : val),
@@ -277,6 +278,13 @@ export const postReportingPeriodsSchema = z
   .object({
     reportingPeriods: z.array(reportingPeriodSchema),
     replaceAllEmissions: z.boolean().optional(),
+    /// When set, all periods in the request attach to this document shell (overrides per-period id).
+    companyReportId: z.string().optional(),
+    /// Pipeline/job-level URLs used to resolve CompanyReport when companyReportId is omitted.
+    reportUrl: z.string().optional(),
+    reportSourceUrl: z.string().optional(),
+    reportS3Url: z.string().optional(),
+    reportSha256: z.string().optional(),
   })
   .merge(createMetadataSchema)
 

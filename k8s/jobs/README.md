@@ -47,3 +47,11 @@ Sets `ReportingPeriod.companyReportId` for all rows. One `CompanyReport` per com
    ```
 
 6. Watch logs: `kubectl logs -n garbo-stage job/link-periods-to-company-reports-<suffix> -f`
+
+## PR 2 schema (per-report period uniqueness)
+
+Deploy order after PR 1 link job has run in that environment (no `companyReportId IS NULL`):
+
+1. Deploy app + run migration `20260602120000_reporting_period_per_company_report` (`npm run migrate`).
+2. Writes upsert on `(companyReportId, year)` instead of `(companyId, year)`; same calendar year can exist under two `CompanyReport` rows after PR 1b.
+3. `POST .../reporting-periods` accepts optional `companyReportId` (body or per period); otherwise resolves shell from report URLs/hash or the company’s default `CompanyReport`.

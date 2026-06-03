@@ -113,17 +113,17 @@ model ReportingPeriod {
   reportSha256 String?
 
   companyId       String
-  /// FK to the document shell for this period's data. Nullable until PR 1 link script runs;
-  /// required with @@unique([companyReportId, year]) in PR 2.
-  companyReportId String?
+  /// FK to the document shell for this period's data.
+  companyReportId String
 
   metadata      Metadata[]
   economy       Economy?
   emissions     Emissions?
-  company       Company        @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
-  companyReport CompanyReport? @relation(fields: [companyReportId], references: [id], onDelete: SetNull)
+  company       Company       @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+  companyReport CompanyReport @relation(fields: [companyReportId], references: [id], onDelete: Restrict)
 
-  @@unique([companyId, year])
+  @@unique([companyReportId, year])
+  @@index([companyId, year])
 }
 
 /// Reported emissions for a specific reporting period
@@ -427,7 +427,7 @@ model Report {
 /// One processed document per company. Links a registry Report to the company's pipeline data.
 /// Multiple CompanyReports per company are allowed — one per distinct PDF submitted.
 /// reportingPeriods point here so the same calendar year can exist under different reports
-/// without overwriting (@@unique([companyReportId, year]) enforced in PR 2).
+/// without overwriting (@@unique([companyReportId, year]) on ReportingPeriod).
 model CompanyReport {
   id                    String    @id @default(cuid())
   companyId             String

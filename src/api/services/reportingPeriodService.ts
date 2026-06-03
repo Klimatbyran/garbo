@@ -1,4 +1,5 @@
-import { Company, ReportingPeriod } from '@prisma/client'
+import { Company } from '@prisma/client'
+
 import { prisma } from '../../lib/prisma'
 import { reportingPeriodArgs } from '../args'
 
@@ -13,6 +14,7 @@ class ReportingPeriodService {
       reportS3Url,
       reportSha256,
       year,
+      companyReportId,
     }: {
       startDate: Date
       endDate: Date
@@ -20,12 +22,13 @@ class ReportingPeriodService {
       reportS3Url?: string | null
       reportSha256?: string | null
       year: string
+      companyReportId: string
     }
   ) {
     return prisma.reportingPeriod.upsert({
       where: {
-        companyId_year: {
-          companyId: company.wikidataId,
+        companyReportId_year: {
+          companyReportId,
           year,
         },
       },
@@ -48,9 +51,16 @@ class ReportingPeriodService {
         reportS3Url,
         reportSha256,
         year,
+        companyId: company.wikidataId,
+        companyReportId,
         company: {
           connect: {
             wikidataId: company.wikidataId,
+          },
+        },
+        companyReport: {
+          connect: {
+            id: companyReportId,
           },
         },
         metadata: {
@@ -63,7 +73,7 @@ class ReportingPeriodService {
     })
   }
 
-  async deleteReportingPeriod(id: ReportingPeriod['id']) {
+  async deleteReportingPeriod(id: string) {
     return await prisma.reportingPeriod.delete({ where: { id } })
   }
 }
