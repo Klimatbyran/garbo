@@ -31,7 +31,6 @@ model Company {
 
   industry         Industry?
   reportingPeriods ReportingPeriod[]
-  companyReports   CompanyReport[]
   goals            Goal[]
   initiatives      Initiative[]
   baseYear         BaseYear?
@@ -112,16 +111,12 @@ model ReportingPeriod {
   /// Content hash for the cached/uploaded report PDF when available.
   reportSha256 String?
 
-  companyId       String
-  /// FK to the document shell for this period's data. Nullable until PR 1 link script runs;
-  /// required with @@unique([companyReportId, year]) in PR 2.
-  companyReportId String?
+  companyId String
 
-  metadata      Metadata[]
-  economy       Economy?
-  emissions     Emissions?
-  company       Company        @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
-  companyReport CompanyReport? @relation(fields: [companyReportId], references: [id], onDelete: SetNull)
+  metadata  Metadata[]
+  economy   Economy?
+  emissions Emissions?
+  company   Company    @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
 
   @@unique([companyId, year])
 }
@@ -420,32 +415,6 @@ model Report {
   companyName String?
   wikidataId  String?
   reportYear  String?
-
-  companyReports CompanyReport[]
-}
-
-/// One processed document per company. Links a registry Report to the company's pipeline data.
-/// Multiple CompanyReports per company are allowed — one per distinct PDF submitted.
-/// reportingPeriods point here so the same calendar year can exist under different reports
-/// without overwriting (@@unique([companyReportId, year]) enforced in PR 2).
-model CompanyReport {
-  id                    String    @id @default(cuid())
-  companyId             String
-  /// FK to Report registry row. Null only for synthetic shells (no metadata URL and no registry row).
-  registryReportId      String?
-  /// Max calendar year among linked periods after PR 1 link; document business year may differ.
-  reportYear            String?
-  /// Publication date of the PDF when available; used as tie-breaker in effective-view ranking.
-  reportPublicationDate DateTime?
-  createdAt             DateTime  @default(now())
-
-  company          Company           @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
-  report           Report?           @relation(fields: [registryReportId], references: [id], onDelete: SetNull)
-  reportingPeriods ReportingPeriod[]
-
-  /// One CompanyReport per (company, report). Postgres allows multiple NULLs in unique
-  /// constraints, so synthetic legacy rows (registryReportId IS NULL) are permitted per company.
-  @@unique([companyId, registryReportId])
 }
 
 model Batch {
