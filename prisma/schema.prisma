@@ -113,8 +113,8 @@ model ReportingPeriod {
   reportSha256 String?
 
   companyId       String
-  /// FK to the CompanyReport that owns this period's data. Nullable during the PR 1 transition;
-  /// made required and unique on (companyReportId, year) in PR 2 once all rows are backfilled.
+  /// FK to the document shell for this period's data. Nullable until PR 1 link script runs;
+  /// required with @@unique([companyReportId, year]) in PR 2.
   companyReportId String?
 
   metadata      Metadata[]
@@ -431,11 +431,9 @@ model Report {
 model CompanyReport {
   id                    String    @id @default(cuid())
   companyId             String
-  /// FK to the Report registry row. Null only for synthetic legacy rows where no PDF identity
-  /// was available at backfill time (i.e. ReportingPeriod had no reportURL/reportS3Url/reportSha256).
+  /// FK to Report registry row. Null only for synthetic shells (no metadata URL and no registry row).
   registryReportId      String?
-  /// Primary business/data year for this document (e.g. "2024" for the 2024 annual report).
-  /// Set to the max period year in the document's cluster during backfill.
+  /// Max calendar year among linked periods after PR 1 link; document business year may differ.
   reportYear            String?
   /// Publication date of the PDF when available; used as tie-breaker in effective-view ranking.
   reportPublicationDate DateTime?

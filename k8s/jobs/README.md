@@ -34,12 +34,12 @@ Upserts `Report` registry rows from identity fields (`reportURL`, `reportS3Url`,
 
 ## Link periods to CompanyReport (PR 1)
 
-Sets `ReportingPeriod.companyReportId` for all rows. **One `CompanyReport` per company** (latest `Report` shell): prefers the newest period `Metadata.source` URL from pipeline saves, else the registry `Report` with the highest `reportYear` (if several tie, the row with the most complete identity fields — same rule as dedupe). Does not split periods across historical PDFs — use PR 1b later for validated rows under a separate report shell.
+Sets `ReportingPeriod.companyReportId` for all rows. One `CompanyReport` per company (latest Report). Dry-run prints `Resolution:` counts (watch `synthetic`) and a `Year mismatch:` list when the chosen PDF year ≠ max period year on that company.
 
 1. Deploy PR 1 schema (migration).
 2. Recommended: dedupe + backfill-from-periods (above).
 3. Edit `link-periods-to-company-reports.yaml`: set `metadata.namespace`.
-4. Dry run: add `--dry-run` to `args`.
+4. Dry run: add `--dry-run` to `args`; review console output before live run.
 5. Create the job:
 
    ```bash

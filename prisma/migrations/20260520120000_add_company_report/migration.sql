@@ -21,8 +21,7 @@ CREATE TABLE "CompanyReport" (
 );
 
 -- CreateIndex: one CompanyReport per (company, report).
--- Postgres allows multiple NULLs in a unique constraint, so synthetic legacy rows
--- (registryReportId IS NULL) are permitted per company.
+-- Postgres allows multiple NULLs in unique constraints (synthetic shells per company).
 CREATE UNIQUE INDEX "CompanyReport_companyId_registryReportId_key" ON "CompanyReport"("companyId", "registryReportId");
 
 -- AddForeignKey: CompanyReport -> Company
