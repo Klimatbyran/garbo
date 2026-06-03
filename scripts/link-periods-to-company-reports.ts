@@ -3,20 +3,22 @@
  *
  * Run AFTER:
  *   1. The PR 1 schema migration (adds CompanyReport table + nullable companyReportId column)
- *   2. scripts/backfill-report-from-periods.ts (0b) — ensures Report rows exist for periods
- *      that have identity fields; this script calls upsertReportInRegistry as a fallback
- *      so it is safe to run even if 0b has not been run yet.
+ *   2. scripts/backfill-report-from-periods.ts (0b) recommended — populates Report registry rows
  *
- * For each ReportingPeriod:
- *   - If the period has at least one identity field (reportSha256, reportS3Url, reportURL):
- *       find (or create) the matching Report via upsertReportInRegistry, then find (or
- *       create) a CompanyReport for (companyId, report.id), and set companyReportId.
- *   - If the period has no identity fields:
- *       find (or create) a synthetic CompanyReport for (companyId, registryReportId=NULL)
- *       and set companyReportId.
+ * PR 1 linking policy (one shell per company):
+ *   - Create/find a single CompanyReport per company pointing at that company's "latest" Report.
+ *   - Link every unlinked period for that company to that CompanyReport.
+ *   - Do not split by per-period reportURL/hash (comparison years often lack identity on the period row).
  *
- * CompanyReport.reportYear is set to the max period year across all periods that share
- * the same document (same registryReportId).
+ * "Latest" Report resolution (in order):
+ *   1. Newest period-level Metadata.source that looks like an HTTP(S) URL (pipeline save URL).
+ *   2. Else the Report registry row for this wikidataId with the highest reportYear (tie-break:
+ *      most identity fields filled, then has sha256, then id — same as registry dedupe).
+ *   3. Else a synthetic CompanyReport (registryReportId NULL) — rare if the company has no Report rows
+ *      and no metadata URL.
+ *
+ * Follow-up PR 1b can insert validated periods under a separate CompanyReport (e.g. 2024 report)
+ * once @@unique([companyReportId, year]) exists in PR 2. Reassign companyReportId later if needed.
  *
  * Usage:
  *   npx tsx scripts/link-periods-to-company-reports.ts --dry-run
@@ -32,11 +34,32 @@ import { prisma } from '../src/lib/prisma'
 import { registryService } from '../src/api/services/registryService'
 import {
   isLikelyStoredObjectUrl,
+  pickRowToKeep,
   trimStr,
+  type RegistryReportIdentityRow,
 } from '../src/api/services/registryReportIdentity'
 import { disconnectRedisCache } from '../src/createCache'
 
-// ── Helpers ───────────────────────────────────────────────────────────────────
+type PeriodRow = {
+  id: string
+  year: string
+  companyId: string
+  reportURL: string | null
+  reportS3Url: string | null
+  reportSha256: string | null
+  company: { name: string }
+}
+
+type LatestResolution =
+  | { kind: 'metadata'; sourcePreview: string; registryReportId: string }
+  | { kind: 'registry'; registryReportId: string; reportYear: string | null }
+  | { kind: 'synthetic'; registryReportId: null }
+  | { kind: 'metadata-dry-run'; sourcePreview: string }
+
+function isHttpSource(source: string | null | undefined): boolean {
+  const s = trimStr(source)
+  return !!s && /^https?:\/\//i.test(s)
+}
 
 function bestWebUrl(reportURL: string | null): string | null {
   const u = trimStr(reportURL)
@@ -53,7 +76,157 @@ function bestS3Url(
   return u && isLikelyStoredObjectUrl(u) ? u : null
 }
 
-// ── Main ──────────────────────────────────────────────────────────────────────
+function parseReportYear(reportYear: string | null | undefined): number | null {
+  const y = trimStr(reportYear ?? null)
+  if (!y || !/^\d{4}$/.test(y)) return null
+  return Number(y)
+}
+
+function groupPeriodsByCompany(periods: PeriodRow[]): Map<string, PeriodRow[]> {
+  const byCompany = new Map<string, PeriodRow[]>()
+  for (const period of periods) {
+    const list = byCompany.get(period.companyId) ?? []
+    list.push(period)
+    byCompany.set(period.companyId, list)
+  }
+  return byCompany
+}
+
+async function latestMetadataSourceForPeriods(
+  periodIds: string[]
+): Promise<string | null> {
+  if (periodIds.length === 0) return null
+
+  const rows = await prisma.metadata.findMany({
+    where: {
+      reportingPeriodId: { in: periodIds },
+      source: { not: null },
+    },
+    orderBy: { updatedAt: 'desc' },
+    select: { source: true },
+    take: 200,
+  })
+
+  for (const row of rows) {
+    if (isHttpSource(row.source)) return trimStr(row.source)
+  }
+  return null
+}
+
+async function registryReportWithHighestYear(
+  companyId: string
+): Promise<{ id: string; reportYear: string | null } | null> {
+  const reports = await prisma.report.findMany({
+    where: { wikidataId: companyId },
+    select: {
+      id: true,
+      url: true,
+      companyName: true,
+      wikidataId: true,
+      reportYear: true,
+      sourceUrl: true,
+      s3Url: true,
+      sha256: true,
+    },
+  })
+
+  if (reports.length === 0) return null
+
+  const maxYear = Math.max(
+    ...reports.map((r) => parseReportYear(r.reportYear) ?? -1)
+  )
+  if (maxYear < 0) {
+    const fallback = pickRowToKeep(reports as RegistryReportIdentityRow[])
+    return { id: fallback.id, reportYear: fallback.reportYear }
+  }
+
+  const tiedAtMaxYear = reports.filter(
+    (r) => (parseReportYear(r.reportYear) ?? -1) === maxYear
+  )
+  const chosen = pickRowToKeep(tiedAtMaxYear as RegistryReportIdentityRow[])
+  return { id: chosen.id, reportYear: chosen.reportYear }
+}
+
+async function resolveLatestReportForCompany(
+  companyId: string,
+  companyName: string,
+  companyPeriods: PeriodRow[],
+  dryRun: boolean
+): Promise<LatestResolution> {
+  const periodIds = companyPeriods.map((p) => p.id)
+  const metadataSource = await latestMetadataSourceForPeriods(periodIds)
+
+  if (metadataSource) {
+    if (dryRun) {
+      return {
+        kind: 'metadata-dry-run',
+        sourcePreview: metadataSource.slice(0, 100),
+      }
+    }
+
+    const webUrl = bestWebUrl(metadataSource)
+    const s3Url = bestS3Url(null, metadataSource)
+    const url = webUrl ?? s3Url ?? metadataSource
+
+    const report = await registryService.upsertReportInRegistry({
+      companyName,
+      wikidataId: companyId,
+      url,
+      sourceUrl: webUrl ?? null,
+      s3Url: s3Url ?? null,
+      sha256: null,
+    })
+
+    return {
+      kind: 'metadata',
+      registryReportId: report.id,
+      sourcePreview: metadataSource.slice(0, 100),
+    }
+  }
+
+  const registryRow = await registryReportWithHighestYear(companyId)
+  if (registryRow) {
+    return {
+      kind: 'registry',
+      registryReportId: registryRow.id,
+      reportYear: registryRow.reportYear,
+    }
+  }
+
+  return { kind: 'synthetic', registryReportId: null }
+}
+
+async function findOrCreateCompanyReport(
+  companyId: string,
+  registryReportId: string | null,
+  cache: Map<string, string>
+): Promise<string> {
+  const cacheKey = `${companyId}::${registryReportId ?? 'synthetic'}`
+  const cached = cache.get(cacheKey)
+  if (cached) return cached
+
+  const existing = await prisma.companyReport.findFirst({
+    where: {
+      companyId,
+      registryReportId: registryReportId ?? null,
+    },
+    select: { id: true },
+  })
+
+  const companyReportId =
+    existing?.id ??
+    (
+      await prisma.companyReport.create({
+        data: {
+          companyId,
+          registryReportId: registryReportId ?? null,
+        },
+      })
+    ).id
+
+  cache.set(cacheKey, companyReportId)
+  return companyReportId
+}
 
 async function main() {
   const { values } = parseArgs({
@@ -63,8 +236,13 @@ async function main() {
   })
   const dryRun = Boolean(values['dry-run'])
 
+  const resolutionCounts = {
+    metadata: 0,
+    registry: 0,
+    synthetic: 0,
+  }
+
   try {
-    // Load all periods that still need linking, including company name for upsert.
     const periods = await prisma.reportingPeriod.findMany({
       where: { companyReportId: null },
       select: {
@@ -90,109 +268,80 @@ async function main() {
       return
     }
 
-    // Cache CompanyReport lookups to avoid redundant DB hits within this run.
-    // Key: `${companyId}::${registryReportId ?? 'synthetic'}`
-    const companyReportCache = new Map<string, string>()
+    const byCompany = groupPeriodsByCompany(periods)
+    console.log(
+      `Linking ${periods.length} period(s) across ${byCompany.size} companies (one CompanyReport shell per company).`
+    )
 
+    const companyReportCache = new Map<string, string>()
     let linked = 0
     let errors = 0
 
-    for (const period of periods) {
-      const hasIdentity =
-        trimStr(period.reportSha256) ||
-        trimStr(period.reportS3Url) ||
-        trimStr(period.reportURL)
+    for (const [companyId, companyPeriods] of byCompany) {
+      const companyName = companyPeriods[0]?.company.name ?? companyId
 
       try {
-        let registryReportId: string | null = null
+        const resolution = await resolveLatestReportForCompany(
+          companyId,
+          companyName,
+          companyPeriods,
+          dryRun
+        )
 
-        if (hasIdentity) {
-          const webUrl = bestWebUrl(period.reportURL)
-          const s3Url = bestS3Url(period.reportS3Url, period.reportURL)
-          const url = webUrl ?? s3Url
-
-          if (url) {
-            if (dryRun) {
-              console.log(
-                `[dry-run] Would upsert Report + CompanyReport for period ${period.id} (company=${period.companyId} year=${period.year} url=${url.slice(0, 80)})`
-              )
-              linked++
-              continue
-            }
-
-            const report = await registryService.upsertReportInRegistry({
-              companyName: period.company.name,
-              wikidataId: period.companyId,
-              url,
-              sourceUrl: webUrl ?? null,
-              s3Url: s3Url ?? null,
-              sha256: trimStr(period.reportSha256) ?? null,
-            })
-            registryReportId = report.id
-          }
+        if (resolution.kind === 'metadata-dry-run') {
+          resolutionCounts.metadata++
+        } else {
+          resolutionCounts[resolution.kind]++
         }
 
         if (dryRun) {
+          const via =
+            resolution.kind === 'metadata-dry-run'
+              ? `metadata ${resolution.sourcePreview}`
+              : resolution.kind === 'registry'
+                ? `registry reportYear=${resolution.reportYear ?? '—'}`
+                : 'synthetic'
           console.log(
-            `[dry-run] Would link period ${period.id} (company=${period.companyId} year=${period.year}) to ${registryReportId ? `Report ${registryReportId}` : 'synthetic CompanyReport'}`
+            `[dry-run] ${companyId}: ${companyPeriods.length} period(s) → ${via}`
           )
-          linked++
+          linked += companyPeriods.length
           continue
         }
 
-        // Find or create the CompanyReport for this (company, report) pair.
-        const cacheKey = `${period.companyId}::${registryReportId ?? 'synthetic'}`
-        let companyReportId = companyReportCache.get(cacheKey)
+        const registryReportId =
+          resolution.kind === 'synthetic' ? null : resolution.registryReportId
 
-        if (!companyReportId) {
-          const existing = await prisma.companyReport.findFirst({
-            where: {
-              companyId: period.companyId,
-              registryReportId: registryReportId ?? null,
-            },
-            select: { id: true },
-          })
+        const companyReportId = await findOrCreateCompanyReport(
+          companyId,
+          registryReportId,
+          companyReportCache
+        )
 
-          if (existing) {
-            companyReportId = existing.id
-          } else {
-            const created = await prisma.companyReport.create({
-              data: {
-                companyId: period.companyId,
-                registryReportId: registryReportId ?? null,
-                // reportYear is set in a second pass below once all periods are linked.
-              },
-            })
-            companyReportId = created.id
-          }
-
-          companyReportCache.set(cacheKey, companyReportId)
-        }
-
-        await prisma.reportingPeriod.update({
-          where: { id: period.id },
+        await prisma.reportingPeriod.updateMany({
+          where: {
+            id: { in: companyPeriods.map((p) => p.id) },
+          },
           data: { companyReportId },
         })
 
-        linked++
+        linked += companyPeriods.length
       } catch (err) {
         errors++
-        console.error(
-          `  [error] period ${period.id} (company=${period.companyId} year=${period.year}):`,
-          err
-        )
+        console.error(`  [error] company ${companyId}:`, err)
       }
     }
 
     console.log(
       dryRun
-        ? `[dry-run] Would link ${linked} period(s).`
-        : `Linked ${linked} period(s)${errors > 0 ? `; ${errors} error(s) — check output above` : '.'}`
+        ? `[dry-run] Would link ${linked} period(s) on ${byCompany.size} companies.`
+        : `Linked ${linked} period(s) on ${byCompany.size} companies${errors > 0 ? `; ${errors} company error(s)` : ''}.`
+    )
+    console.log(
+      `Resolution: metadata=${resolutionCounts.metadata} registry=${resolutionCounts.registry} synthetic=${resolutionCounts.synthetic}`
     )
 
-    // Second pass: set reportYear on each CompanyReport to the max year of its periods.
     if (!dryRun && linked > 0) {
-      console.log('Setting reportYear on CompanyReport rows from max period year…')
+      console.log('Setting reportYear on CompanyReport rows from max linked period year…')
 
       const companyReports = await prisma.companyReport.findMany({
         where: { reportYear: null },
@@ -203,8 +352,8 @@ async function main() {
       })
 
       let yearUpdates = 0
-      for (const cr of companyReports) {
-        const maxYear = cr.reportingPeriods
+      for (const companyReport of companyReports) {
+        const maxYear = companyReport.reportingPeriods
           .map((p) => p.year)
           .filter(Boolean)
           .sort()
@@ -212,7 +361,7 @@ async function main() {
 
         if (maxYear) {
           await prisma.companyReport.update({
-            where: { id: cr.id },
+            where: { id: companyReport.id },
             data: { reportYear: maxYear },
           })
           yearUpdates++

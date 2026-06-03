@@ -31,3 +31,19 @@ Upserts `Report` registry rows from identity fields (`reportURL`, `reportS3Url`,
    ```
 
 5. Watch logs: `kubectl logs -n garbo-stage job/backfill-report-from-periods-<suffix> -f`
+
+## Link periods to CompanyReport (PR 1)
+
+Sets `ReportingPeriod.companyReportId` for all rows. **One `CompanyReport` per company** (latest `Report` shell): prefers the newest period `Metadata.source` URL from pipeline saves, else the registry `Report` with the highest `reportYear` (if several tie, the row with the most complete identity fields — same rule as dedupe). Does not split periods across historical PDFs — use PR 1b later for validated rows under a separate report shell.
+
+1. Deploy PR 1 schema (migration).
+2. Recommended: dedupe + backfill-from-periods (above).
+3. Edit `link-periods-to-company-reports.yaml`: set `metadata.namespace`.
+4. Dry run: add `--dry-run` to `args`.
+5. Create the job:
+
+   ```bash
+   kubectl create -f k8s/jobs/link-periods-to-company-reports.yaml
+   ```
+
+6. Watch logs: `kubectl logs -n garbo-stage job/link-periods-to-company-reports-<suffix> -f`

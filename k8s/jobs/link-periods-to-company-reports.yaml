@@ -1,10 +1,11 @@
 # One-off Job: populate ReportingPeriod.companyReportId for all existing rows.
 # NOT applied by Flux — use: kubectl create -f k8s/jobs/link-periods-to-company-reports.yaml
 #
-# Prerequisites (run in order):
-#   1. Deploy the PR 1 image (adds CompanyReport table + nullable companyReportId column)
-#   2. Run scripts/backfill-report-from-periods.ts (report-registry-dedupe first, then backfill)
-#   3. Run this job
+# Prerequisites:
+#   1. Deploy the PR 1 image (CompanyReport table + nullable companyReportId column)
+#   2. Recommended: backfill-report-from-periods (after dedupe) so Report rows exist
+#   3. Run this job — links all periods to one CompanyReport per company (latest Report;
+#      prefers newest period Metadata.source, else highest Report.reportYear (richest row if tied))
 #
 # - For dry-run only, set args to: ["scripts/link-periods-to-company-reports.ts", "--dry-run"]
 
