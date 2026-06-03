@@ -36,9 +36,9 @@ spec:
         - image: ghcr.io/klimatbyran/garbo
           resources:
             requests:
-              memory: '400Mi'
+              memory: '800Mi'
             limits:
-              memory: '768Mi'
+              memory: '1.5Gi'
           name: garbo
           ports:
             - containerPort: 3000
