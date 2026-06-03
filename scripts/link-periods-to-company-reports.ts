@@ -19,7 +19,7 @@ import { parseArgs } from 'node:util'
 import { prisma } from '../src/lib/prisma'
 import { registryService } from '../src/api/services/registryService'
 import {
-  isLikelyStoredObjectUrl,
+  isStorageUrl,
   parseReportYearFromUrl,
   pickRowToKeep,
   trimStr,
@@ -61,7 +61,7 @@ function isHttpSource(source: string | null | undefined): boolean {
 
 function bestWebUrl(reportURL: string | null): string | null {
   const u = trimStr(reportURL)
-  return u && !isLikelyStoredObjectUrl(u) ? u : null
+  return u && !isStorageUrl(u) ? u : null
 }
 
 function bestS3Url(
@@ -71,7 +71,7 @@ function bestS3Url(
   const s3 = trimStr(reportS3Url)
   if (s3) return s3
   const u = trimStr(reportURL)
-  return u && isLikelyStoredObjectUrl(u) ? u : null
+  return u && isStorageUrl(u) ? u : null
 }
 
 function parseReportYear(reportYear: string | null | undefined): number | null {
