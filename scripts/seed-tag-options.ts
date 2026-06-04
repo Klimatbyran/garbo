@@ -19,6 +19,7 @@ const TAG_OPTIONS = [
   { slug: 'private', label: 'Private' },
   { slug: 'small-cap', label: 'Small cap' },
   { slug: 'baltics', label: 'Baltic countries' },
+  { slug: 'big-tech', label: 'Big Tech (Ketan Joshi compilation)' },
 ] as const
 
 async function main() {
