@@ -1,4 +1,7 @@
-import { buildRegistryPayload } from '../src/workers/saveToAPI.utils'
+import {
+  buildRegistryPayload,
+  resolveDocumentReportYear,
+} from '../src/workers/saveToAPI.utils'
 import type { RegistrySaveJobData } from '../src/workers/saveToAPI.utils'
 
 function makeJob(overrides: Partial<RegistrySaveJobData> & { url: string }): {
@@ -108,14 +111,14 @@ describe('buildRegistryPayload', () => {
 
   // ── reportYear derived from period ──────────────────────────────────────────
 
-  it('uses the year of the chosen (first) period when no identity match', () => {
+  it('uses max data year among periods when no explicit documentReportYear', () => {
     const result = buildRegistryPayload(
       makeJob({
         url: 'https://company.com/report',
         body: { reportingPeriods: [{ year: 2022 }, { year: 2024 }] },
       })
     )
-    expect(result!.reportYear).toBe('2022')
+    expect(result!.reportYear).toBe('2024')
   })
 
   it('falls back to max year when chosen period has no year', () => {
@@ -150,5 +153,41 @@ describe('buildRegistryPayload', () => {
     )
     expect(result!.url).toBe('https://company.com/annual')
     expect(result!.sha256).toBe('b'.repeat(64))
+  })
+
+  it('uses documentReportYear from job over a single comparison period year', () => {
+    const result = buildRegistryPayload(
+      makeJob({
+        url: 'https://company.com/annual-report-2025.pdf',
+        documentReportYear: '2025',
+        body: {
+          reportingPeriods: [
+            { year: 2024 },
+            { year: 2025 },
+          ],
+        },
+      })
+    )
+    expect(result!.reportYear).toBe('2025')
+  })
+})
+
+describe('resolveDocumentReportYear', () => {
+  it('prefers explicit documentReportYear', () => {
+    expect(
+      resolveDocumentReportYear([{ year: 2023 }], {
+        documentReportYear: '2025',
+      })
+    ).toBe('2025')
+  })
+
+  it('falls back to max data year among periods', () => {
+    expect(
+      resolveDocumentReportYear([
+        { year: 2023 },
+        { year: 2025 },
+        { year: 2024 },
+      ])
+    ).toBe('2025')
   })
 })

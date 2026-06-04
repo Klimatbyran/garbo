@@ -57,9 +57,22 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
         : undefined)
 
     if (job.isDataApproved()) {
+      const approvedBody = job.getApprovedBody() ?? {}
+      const periods = approvedBody.reportingPeriods ?? []
+      const years = periods
+        .map((p: { year?: number | string }) => Number(p?.year))
+        .filter((y: number) => Number.isFinite(y))
+      const documentReportYear =
+        years.length > 0 ? String(Math.max(...years)) : undefined
+
       await job.enqueueSaveToAPI('reporting-periods', companyName, wikidata, {
-        ...job.getApprovedBody(),
+        ...approvedBody,
         ...(job.data.replaceAllEmissions && { replaceAllEmissions: true }),
+        documentReportYear,
+        reportUrl: reportURLForPeriod,
+        reportSourceUrl: trimmedSourceUrl,
+        reportS3Url: reportS3UrlForPeriod,
+        reportSha256: pdfCache?.sha256,
       })
       return
     }
