@@ -42,11 +42,15 @@ describe('pickOnePeriodPerDataYear', () => {
       period('2025', '2025', 'report-new'),
     ])
     expect(result.map((p) => p.year).sort()).toEqual(['2024', '2025'])
-    expect(result.find((p) => p.year === '2024')?.id).toBe('period-2024-report-old')
+    expect(result.find((p) => p.year === '2024')?.id).toBe(
+      'period-2024-report-old'
+    )
   })
 
   it('strips companyReport from the result', () => {
-    const result = pickOnePeriodPerDataYear([period('2024', '2024', 'report-a')])
+    const result = pickOnePeriodPerDataYear([
+      period('2024', '2024', 'report-a'),
+    ])
     expect(result[0]).not.toHaveProperty('companyReport')
   })
 })

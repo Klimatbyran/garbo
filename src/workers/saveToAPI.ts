@@ -124,8 +124,7 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
           data: {
             ...job.data,
             documentReportYear:
-              job.data.documentReportYear ??
-              sanitizedBody?.documentReportYear,
+              job.data.documentReportYear ?? sanitizedBody?.documentReportYear,
             body: sanitizedBody,
           },
         })

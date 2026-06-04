@@ -7,7 +7,9 @@ export type PeriodWithCompanyReport = {
   } | null
 }
 
-function parseCompanyReportYear(reportYear: string | null | undefined): number | null {
+function parseCompanyReportYear(
+  reportYear: string | null | undefined
+): number | null {
   const trimmed = reportYear?.trim()
   if (!trimmed || !/^\d{4}$/.test(trimmed)) return null
   return Number(trimmed)

@@ -42,9 +42,7 @@ describe('companyReportService', () => {
     jest
       .spyOn(registryService, 'upsertReportInRegistry')
       .mockResolvedValueOnce({ id: 'report-1' } as never)
-    jest
-      .spyOn(prisma.companyReport, 'findFirst')
-      .mockResolvedValueOnce(null)
+    jest.spyOn(prisma.companyReport, 'findFirst').mockResolvedValueOnce(null)
     jest
       .spyOn(prisma.companyReport, 'create')
       .mockResolvedValueOnce({ id: 'cr-new' } as never)

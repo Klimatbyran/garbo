@@ -284,7 +284,9 @@ export const ReportingPeriodSchema = z.object({
   companyReportId: z
     .string()
     .optional()
-    .openapi({ description: 'CompanyReport (processed PDF) this period belongs to' }),
+    .openapi({
+      description: 'CompanyReport (processed PDF) this period belongs to',
+    }),
   emissions: EmissionsSchema.nullable(),
   economy: EconomySchema.nullable(),
   emissionsChangeLastTwoYears: z

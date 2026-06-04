@@ -161,10 +161,7 @@ describe('buildRegistryPayload', () => {
         url: 'https://company.com/annual-report-2025.pdf',
         documentReportYear: '2025',
         body: {
-          reportingPeriods: [
-            { year: 2024 },
-            { year: 2025 },
-          ],
+          reportingPeriods: [{ year: 2024 }, { year: 2025 }],
         },
       })
     )

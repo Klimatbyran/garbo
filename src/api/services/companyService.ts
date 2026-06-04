@@ -120,7 +120,10 @@ class CompanyService {
         wikidataId,
       },
     })
-    const [transformedCompany] = this.enrichCompaniesWithMetadata([company], false)
+    const [transformedCompany] = this.enrichCompaniesWithMetadata(
+      [company],
+      false
+    )
     return transformedCompany
   }
 
@@ -131,7 +134,10 @@ class CompanyService {
         wikidataId,
       },
     })
-    const [transformedCompany] = this.enrichCompaniesWithMetadata([company], true)
+    const [transformedCompany] = this.enrichCompaniesWithMetadata(
+      [company],
+      true
+    )
     return transformedCompany
   }
 

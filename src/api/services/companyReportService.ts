@@ -134,9 +134,8 @@ class CompanyReportService {
     })
 
     if (registryPayload) {
-      const report = await registryService.upsertReportInRegistry(
-        registryPayload
-      )
+      const report =
+        await registryService.upsertReportInRegistry(registryPayload)
       const companyReportId = await this.findOrCreateCompanyReport(
         company.wikidataId,
         report.id
@@ -166,7 +165,10 @@ class CompanyReportService {
     company: Pick<Company, 'wikidataId' | 'name'>,
     reportingPeriods: ReportingPeriodIdentity[],
     input: PrepareCompanyReportForPeriodSaveInput
-  ): Promise<{ companyReportId: string; documentReportYear: string | undefined }> {
+  ): Promise<{
+    companyReportId: string
+    documentReportYear: string | undefined
+  }> {
     const perPeriodCompanyReportId = reportingPeriods.find(
       (period) => period.companyReportId
     )?.companyReportId
@@ -175,8 +177,7 @@ class CompanyReportService {
       company,
       reportingPeriods,
       {
-        companyReportId:
-          input.bodyCompanyReportId ?? perPeriodCompanyReportId,
+        companyReportId: input.bodyCompanyReportId ?? perPeriodCompanyReportId,
         reportIdentity: {
           url: input.reportUrl,
           sourceUrl: input.reportSourceUrl,
@@ -218,10 +219,7 @@ class CompanyReportService {
     )
 
     if (periodCompanyReportId !== defaultCompanyReportId) {
-      await this.setCompanyReportYear(
-        periodCompanyReportId,
-        documentReportYear
-      )
+      await this.setCompanyReportYear(periodCompanyReportId, documentReportYear)
     }
 
     return periodCompanyReportId
