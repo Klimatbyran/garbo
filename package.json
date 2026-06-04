@@ -33,8 +33,6 @@
     "reset": "node --import tsx scripts/dev-reset.ts",
     "delete-report": "node --import tsx scripts/delete-report.ts",
     "dedupe:report-registry": "node --import dotenv/config --import tsx scripts/dedupe-report-registry.ts",
-    "backfill:company-id": "node --import tsx scripts/backfill-company-id.ts",
-    "backfill:company-id:dry": "node --import tsx scripts/backfill-company-id.ts --dry-run",
     "backfill:report-runs": "node --import tsx scripts/backfill-report-runs-from-bullmq.ts",
     "eslint": "npx eslint src",
     "format": "npx prettier --write .",
@@ -108,7 +106,8 @@
     "@tootallnate/once": ">=3.0.1",
     "prisma-zod-generator": {
       "@prisma/client": "5.22.0"
-    }
+    },
+    "uuid": "^11.1.1"
   },
   "prisma": {
     "seed": "node --import=tsx prisma/seed.ts"

@@ -12,9 +12,9 @@ generator client {
 }
 
 model Company {
-  /// Internal Garbo company id (CUID). Not the primary key; use for stable in-app references.
+  /// Internal Garbo company id (UUID). Not the primary key; use for stable in-app references.
   /// Public URLs and Wikidata integration still use `wikidataId`.
-  id           String  @unique @default(cuid())
+  id           String  @unique @default(uuid())
   /// Primary key. Wikidata Q-id; used in API routes, FKs, and Wikidata import/export.
   wikidataId   String        @id
   name         String

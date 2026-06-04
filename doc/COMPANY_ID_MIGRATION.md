@@ -1,92 +1,51 @@
 # Company internal `id` migration
 
-Adds a stable internal `Company.id` (CUID) while keeping `wikidataId` as the primary key and public identifier for now.
+Adds a stable internal `Company.id` (UUID) while keeping `wikidataId` as the primary key and public identifier for now.
 
 ## Schema outcome
 
-| Field        | Role                                             |
-| ------------ | ------------------------------------------------ |
-| `id`         | Internal unique ID, required, `@default(cuid())` |
-| `wikidataId` | Primary key (`@id`), Wikidata / API slug         |
+| Field        | Role                                              |
+| ------------ | ------------------------------------------------- |
+| `id`         | Internal unique ID, required, `@default(uuid())`  |
+| `wikidataId` | Primary key (`@id`), Wikidata / API slug          |
 
 Foreign keys (`companyId`, `companyWikidataId`, etc.) still reference `wikidataId`. No primary-key switch in this rollout.
 
-## Migrations
+## Migration
 
-| Migration                                    | Purpose                                  |
-| -------------------------------------------- | ---------------------------------------- |
-| `20260602084305_add_company_internal_id`     | Add nullable `Company.id` + unique index |
-| `20260602092036_require_company_internal_id` | Set `Company.id` NOT NULL                |
+Single migration: `20260602120000_add_company_internal_id`
 
-## Backfill script
+1. Adds nullable `Company.id`
+2. Backfills existing rows with `gen_random_uuid()::text` in SQL
+3. Sets `id` NOT NULL
+4. Creates unique index on `id`
 
-| Command                           | Description                                 |
-| --------------------------------- | ------------------------------------------- |
-| `npm run backfill:company-id:dry` | List rows that would be updated (no writes) |
-| `npm run backfill:company-id`     | Set `id` for every row where `id IS NULL`   |
-
-**Staging / production:** prefer the one-off Kubernetes job ([`k8s/jobs/backfill-company-id.yaml`](../k8s/jobs/backfill-company-id.yaml)) so the script runs in-cluster with the same `DATABASE_URL` as the app. See [`k8s/jobs/README.md`](../k8s/jobs/README.md).
-
-```bash
-# Dry-run: set args to ["scripts/backfill-company-id.ts", "--dry-run"] in the YAML first
-kubectl create -f k8s/jobs/backfill-company-id.yaml
-kubectl logs -n garbo-stage job/backfill-company-id-<suffix> -f
-```
-
-- Safe to re-run: only null `id` rows are updated.
-- Uses an inlined CUID v1 helper (`scripts/lib/create-prisma-cuid.ts`) matching Prisma `@default(cuid())` — not the deprecated `cuid` npm package or `cuid2` (different format).
-- Requires `DATABASE_URL` (see `.env`).
+No separate backfill script or Kubernetes job.
 
 ## Per-environment rollout
 
-Run these steps **on each database** (local, staging, production). Local data does not propagate to other environments.
+Run on each database (local, staging, production).
 
 ### 1. Deploy application code
 
 Ship a build that includes:
 
-- `prisma/schema.prisma` with required `Company.id`
-- Both migrations above
-- `scripts/backfill-company-id.ts`
-- `k8s/jobs/backfill-company-id.yaml` (for stage/prod backfill)
+- `prisma/schema.prisma` with required `Company.id` (`@default(uuid())`)
+- Migration `20260602120000_add_company_internal_id`
+- API schemas using `companyIdSchema` (`z.string().uuid()`)
 
-### 2. Apply migrations (first pass)
+### 2. Apply migrations
 
 ```bash
 npm run migrate
 # equivalent: npx prisma migrate deploy
 ```
 
-**Expected on a fresh environment:**
+One `migrate deploy` is enough; backfill runs inside the migration.
 
-1. Migration `add_company_internal_id` applies (nullable column).
-2. Migration `require_company_internal_id` may **fail** if any `Company.id` is still `NULL`.
+### 3. Regenerate Prisma client (if needed)
 
-That failure is expected when backfill has not run yet. Migration 1 remains recorded; migration 2 stays pending.
-
-### 3. Backfill
-
-```bash
-npm run backfill:company-id:dry   # optional check
-npm run backfill:company-id
-```
-
-Confirm output:
-
-- `null ids remaining: 0`
-- `duplicate ids: 0`
-
-### 4. Apply migrations (second pass)
-
-```bash
-npm run migrate
-```
-
-Migration `require_company_internal_id` should apply successfully.
-
-### 5. Regenerate Prisma client (if needed)
-
-Usually runs via `postinstall` on deploy. Locally, if `prisma generate` fails with `EPERM` on Windows, stop dev servers/workers and run:
+Usually via `postinstall` on deploy. Locally, if `prisma generate` fails on Windows, stop dev servers and run:
 
 ```bash
 npx prisma generate
@@ -95,59 +54,49 @@ npx prisma generate
 ## Validation (SQL)
 
 ```sql
--- Must be 0 before migration 2 can succeed
-SELECT COUNT(*) FROM "Company" WHERE "id" IS NULL;
+SELECT COUNT(*) FROM "Company" WHERE "id" IS NULL;  -- must be 0
 
--- Must be true after backfill
 SELECT COUNT(*) = COUNT(DISTINCT "id") FROM "Company";
 
--- Spot-check
 SELECT "wikidataId", "id", "name" FROM "Company" LIMIT 10;
 ```
 
-## Environments already partially migrated
+## Local dev: replaced earlier CUID migrations
 
-| State                                       | Action                                                                                                          |
-| ------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| Neither migration applied                   | Follow full rollout (steps 2–4)                                                                                 |
-| Only migration 1 applied                    | Backfill, then `npm run migrate`                                                                                |
-| Both migrations applied, some null `id`     | Run `npm run backfill:company-id`, then fix NOT NULL manually or re-run migrate if migration 2 is still pending |
-| Both migrations applied, all rows have `id` | No DB work; optional API/schema exposure of `id` in app code                                                    |
-
-Check status:
+If you already applied the old two-step migrations (`20260602084305_*`, `20260602092036_*`) or ran the CUID backfill script, reset before applying the new migration:
 
 ```bash
-npx prisma migrate status
+# Option A: full local reset (destructive)
+npm run reset
+
+# Option B: manual (keeps other data)
+# Drop column and clear old migration records, then migrate deploy:
+#   ALTER TABLE "Company" DROP COLUMN IF EXISTS "id";
+#   DELETE FROM "_prisma_migrations"
+#     WHERE migration_name IN (
+#       '20260602084305_add_company_internal_id',
+#       '20260602092036_require_company_internal_id'
+#     );
+npm run migrate
 ```
+
+Staging/production that never received the old migrations only need `migrate deploy`.
 
 ## Staging / production notes
 
-- Run **backfill against that environment’s `DATABASE_URL`** (never point the script at prod from a laptop by mistake).
-- Prefer staging first, validate API/workers, then production.
-- `migrate deploy` does not prompt for migration names (unlike `migrate dev`); use `migrate dev` only on local dev DBs.
-- If you use Kubernetes one-off jobs, mirror the pattern in `k8s/jobs/README.md` and run `k8s/jobs/backfill-company-id.yaml` (set namespace, dry-run first, then real run).
+- Garbo owns `migrate deploy` on the shared database; API and validate-frontend deploy after.
+- Run staging first, smoke-test API, then production.
 
-## Application code (follow-up, optional)
+## Application code
 
-This migration does **not** require updating every `wikidataId` reference immediately.
-
-Add `Company.id` only where you need it:
-
-- API response schemas (`src/api/schemas/response.ts`)
-- Prisma `select` objects (`src/api/args.ts`, services)
-- New internal routes or admin tools
-
-Keep Wikidata-based routes and FKs on `wikidataId` until a future primary-key migration is planned and executed.
+Expose `Company.id` where needed (response schemas, selects). Keep routes and FKs on `wikidataId` until a future primary-key change.
 
 ## Rollback
 
-There is no automated rollback. Reverting requires a new migration and coordinated code changes. Do not drop `id` in production without a reviewed plan.
+No automated rollback. Reverting requires a new migration and coordinated code changes.
 
 ## Related files
 
 - `prisma/schema.prisma` — `Company` model
-- `prisma/migrations/20260602084305_add_company_internal_id/`
-- `prisma/migrations/20260602092036_require_company_internal_id/`
-- `scripts/backfill-company-id.ts`
-- `scripts/lib/create-prisma-cuid.ts`
-- `k8s/jobs/backfill-company-id.yaml`
+- `prisma/migrations/20260602120000_add_company_internal_id/`
+- `src/api/schemas/common.ts` — `companyIdSchema`

@@ -6,7 +6,7 @@ extendZodWithOpenApi(z)
 export const wikidataIdSchema = z.string().regex(/Q\d+/)
 
 /** Garbo internal `Company.id` (CUID). Distinct from `wikidataId`. */
-export const companyIdSchema = z.string().cuid()
+export const companyIdSchema = z.string().uuid()
 
 export const wikidataIdParamSchema = z.object({ wikidataId: wikidataIdSchema })
 
