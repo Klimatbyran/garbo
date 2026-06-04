@@ -278,13 +278,15 @@ export const postReportingPeriodsSchema = z
   .object({
     reportingPeriods: z.array(reportingPeriodSchema),
     replaceAllEmissions: z.boolean().optional(),
-    /// When set, all periods in the request attach to this document shell (overrides per-period id).
+    /// Default CompanyReport for all periods (overrides per-period companyReportId).
     companyReportId: z.string().optional(),
-    /// Pipeline/job-level URLs used to resolve CompanyReport when companyReportId is omitted.
+    /// Report URLs at job level; used to find or create CompanyReport when companyReportId is omitted.
     reportUrl: z.string().optional(),
     reportSourceUrl: z.string().optional(),
     reportS3Url: z.string().optional(),
     reportSha256: z.string().optional(),
+    /// PDF year label (e.g. 2025 annual report), stored on Report and CompanyReport.
+    documentReportYear: z.string().optional(),
   })
   .merge(createMetadataSchema)
 

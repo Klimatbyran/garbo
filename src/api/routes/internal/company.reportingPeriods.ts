@@ -194,6 +194,7 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
         reportSourceUrl,
         reportS3Url,
         reportSha256,
+        documentReportYear: bodyDocumentReportYear,
       } = request.body
       const user = request.user
       let company
@@ -209,31 +210,23 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
       }
 
       let resolvedCompanyReportId: string
+      let documentReportYear: string | undefined
       try {
-        const perPeriodCompanyReportId = reportingPeriods.find(
-          (period) => period.companyReportId
-        )?.companyReportId
-
-        const resolved = await companyReportService.resolveCompanyReportIdForSave(
-          company,
-          reportingPeriods,
-          {
-            companyReportId:
-              bodyCompanyReportId ?? perPeriodCompanyReportId,
-            reportIdentity: {
-              url: reportUrl,
-              sourceUrl: reportSourceUrl,
-              pdfCache:
-                reportS3Url || reportSha256
-                  ? {
-                      publicUrl: reportS3Url,
-                      sha256: reportSha256,
-                    }
-                  : undefined,
-            },
-          }
-        )
-        resolvedCompanyReportId = resolved.companyReportId
+        const prepared =
+          await companyReportService.prepareCompanyReportForPeriodSave(
+            company,
+            reportingPeriods,
+            {
+              bodyCompanyReportId,
+              documentReportYear: bodyDocumentReportYear,
+              reportUrl,
+              reportSourceUrl,
+              reportS3Url,
+              reportSha256,
+            }
+          )
+        resolvedCompanyReportId = prepared.companyReportId
+        documentReportYear = prepared.documentReportYear
       } catch (error) {
         if (error instanceof CompanyReportScopeError) {
           return reply.status(400).send({
@@ -297,14 +290,13 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
           }) => {
             const year = endDate.getFullYear().toString()
 
-            let companyReportIdForPeriod = resolvedCompanyReportId
-            if (periodCompanyReportId) {
-              await companyReportService.assertCompanyReportBelongsToCompany(
+            const companyReportIdForPeriod =
+              await companyReportService.companyReportIdForPeriodSave(
+                company.wikidataId,
+                resolvedCompanyReportId,
                 periodCompanyReportId,
-                company.wikidataId
+                documentReportYear
               )
-              companyReportIdForPeriod = periodCompanyReportId
-            }
 
             const createdMetadata = await metadataService.createMetadata({
               metadata,
