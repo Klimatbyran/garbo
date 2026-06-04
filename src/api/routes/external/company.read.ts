@@ -42,24 +42,32 @@ export async function companyReadRoutes(app: FastifyInstance) {
       const [
         companyCount,
         reportingPeriodCount,
+        companyReportCount,
         emissionsCount,
         latestMetadata,
+        latestCompanyReport,
       ] = await prisma.$transaction([
         prisma.company.count(),
         prisma.reportingPeriod.count(),
+        prisma.companyReport.count(),
         prisma.emissions.count(),
         prisma.metadata.findFirst({
           select: { updatedAt: true },
           orderBy: { updatedAt: 'desc' },
         }),
+        prisma.companyReport.findFirst({
+          select: { createdAt: true },
+          orderBy: { createdAt: 'desc' },
+        }),
       ])
 
-      // Create a unique fingerprint based on company data
       const databaseFingerprint = [
         companyCount,
         reportingPeriodCount,
+        companyReportCount,
         emissionsCount,
         latestMetadata?.updatedAt?.toISOString() || '',
+        latestCompanyReport?.createdAt?.toISOString() || '',
       ].join('|')
 
       if (!currentEtag || !currentEtag.startsWith(databaseFingerprint)) {
@@ -72,7 +80,7 @@ export async function companyReadRoutes(app: FastifyInstance) {
       let companies = await redisCache.get(dataCacheKey)
 
       if (!companies) {
-        companies = await companyService.getAllCompaniesWithMetadata()
+        companies = await companyService.getAllCompaniesForPublicRead()
         await redisCache.set(dataCacheKey, JSON.stringify(companies))
       }
 
@@ -102,7 +110,9 @@ export async function companyReadRoutes(app: FastifyInstance) {
       reply
     ) => {
       const { q } = request.query
-      const companies = await companyService.getAllCompaniesBySearchTerm(q)
+      const companies = await companyService.getAllCompaniesBySearchTerm(q, {
+        onePeriodPerDataYear: true,
+      })
       reply.send(companies)
     }
   )
@@ -124,7 +134,7 @@ export async function companyReadRoutes(app: FastifyInstance) {
     },
     async (request: FastifyRequest<{ Params: WikidataIdParams }>, reply) => {
       const { wikidataId } = request.params
-      const company = await companyService.getCompanyWithMetadata(wikidataId)
+      const company = await companyService.getCompanyForPublicRead(wikidataId)
       reply.send({
         ...company,
         // Add translations for GICS data

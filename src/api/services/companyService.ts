@@ -24,6 +24,7 @@ import sharp from 'sharp'
 import { ReportsListResponseSchema } from '../schemas/response'
 import { z } from 'zod'
 import { registryService } from './registryService'
+import { pickOnePeriodPerDataYear } from './reportingPeriodPublicRead'
 import type { ReportingPeriod } from '@/types'
 
 const API_KEY = process.env.FIRECRAWL_API_KEY
@@ -32,10 +33,22 @@ const API_KEY = process.env.FIRECRAWL_API_KEY
 type ReportsListResponse = z.infer<typeof ReportsListResponseSchema>
 
 class CompanyService {
-  async getAllCompaniesWithMetadata() {
-    const companies = await prisma.company.findMany(companyListArgs)
+  private enrichCompaniesWithMetadata(
+    companies: Array<{ reportingPeriods: unknown[] } & Record<string, unknown>>,
+    onePeriodPerDataYear: boolean
+  ) {
+    const withPeriods = onePeriodPerDataYear
+      ? companies.map((company) => ({
+          ...company,
+          reportingPeriods: pickOnePeriodPerDataYear(
+            company.reportingPeriods as Parameters<
+              typeof pickOnePeriodPerDataYear
+            >[0]
+          ),
+        }))
+      : companies
 
-    const transformedCompanies = companies.map(transformMetadata)
+    const transformedCompanies = withPeriods.map(transformMetadata)
 
     const companiesWithCalculatedTotalEmissions =
       addCalculatedTotalEmissions(transformedCompanies)
@@ -44,14 +57,25 @@ class CompanyService {
       companiesWithCalculatedTotalEmissions
     )
 
-    const companiesWithFutureEmissionsTrendSlope = addFutureEmissionsTrendSlope(
-      companiesWithEmissionsChange
-    )
-
-    return companiesWithFutureEmissionsTrendSlope
+    return addFutureEmissionsTrendSlope(companiesWithEmissionsChange)
   }
 
-  async getAllCompaniesBySearchTerm(searchTerm: string) {
+  /** All reporting period rows (internal / editor). */
+  async getAllCompaniesWithMetadata() {
+    const companies = await prisma.company.findMany(companyListArgs)
+    return this.enrichCompaniesWithMetadata(companies, false)
+  }
+
+  /** Public API: one period per data year (highest CompanyReport.reportYear wins). */
+  async getAllCompaniesForPublicRead() {
+    const companies = await prisma.company.findMany(companyListArgs)
+    return this.enrichCompaniesWithMetadata(companies, true)
+  }
+
+  async getAllCompaniesBySearchTerm(
+    searchTerm: string,
+    options?: { onePeriodPerDataYear?: boolean }
+  ) {
     const normalizedSearchTerm = searchTerm.trim().toLocaleLowerCase('sv-SE')
     const likePattern = normalizedSearchTerm + '%'
 
@@ -81,19 +105,12 @@ class CompanyService {
 
     const sorted = orderedIds
       .map((wikidataId) => companies.find((c) => c.wikidataId === wikidataId))
-      .filter(Boolean)
+      .filter((c) => c !== undefined)
 
-    const transformedCompanies = sorted.map(transformMetadata)
-    const companiesWithCalculatedTotalEmissions =
-      addCalculatedTotalEmissions(transformedCompanies)
-    const companiesWithEmissionsChange = addCompanyEmissionChange(
-      companiesWithCalculatedTotalEmissions
+    return this.enrichCompaniesWithMetadata(
+      sorted,
+      options?.onePeriodPerDataYear ?? false
     )
-    const companiesWithFutureEmissionsTrendSlope = addFutureEmissionsTrendSlope(
-      companiesWithEmissionsChange
-    )
-
-    return companiesWithFutureEmissionsTrendSlope
   }
 
   async getCompanyWithMetadata(wikidataId: string) {
@@ -103,12 +120,18 @@ class CompanyService {
         wikidataId,
       },
     })
-    const [transformedCompany] = addFutureEmissionsTrendSlope(
-      addCompanyEmissionChange(
-        addCalculatedTotalEmissions([transformMetadata(company)])
-      )
-    )
+    const [transformedCompany] = this.enrichCompaniesWithMetadata([company], false)
+    return transformedCompany
+  }
 
+  async getCompanyForPublicRead(wikidataId: string) {
+    const company = await prisma.company.findFirstOrThrow({
+      ...detailedCompanyArgs,
+      where: {
+        wikidataId,
+      },
+    })
+    const [transformedCompany] = this.enrichCompaniesWithMetadata([company], true)
     return transformedCompany
   }
 
