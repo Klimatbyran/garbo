@@ -7,7 +7,9 @@
  *   npx tsx scripts/import-bigtech-ketan-joshi-xlsx.ts --dry-run
  *   npx tsx scripts/import-bigtech-ketan-joshi-xlsx.ts --apply
  *
- * Requires DATABASE_URL and a user row for metadata (IMPORT_USER_EMAIL or garbot user).
+ * --dry-run does not connect to Postgres (uses built-in Wikidata name map only).
+ * --apply requires DATABASE_URL, a running DB, and a user for metadata. Missing Company
+ *   rows for the eight sheet names are created automatically (tag: big-tech, public).
  *
  * Scope notes:
  * - Rows where Company_Name ≠ column “Company” are skipped (spreadsheet alignment issues).
@@ -40,6 +42,14 @@ const WIKIDATA_BY_CANONICAL_NAME: Readonly<Record<string, string>> = {
 
 const IMPORT_COMMENT = 'Imported from Ketan Joshi BigTech emissions compilation (xlsx)'
 const EMISSIONS_UNIT = 'tCO2e' as const
+
+const BIGTECH_TAG_OPTION = {
+  slug: 'big-tech',
+  label: 'Big Tech (Ketan Joshi compilation)',
+} as const
+
+/** Applied on create; merged into existing companies on re-import. */
+const BIGTECH_COMPANY_TAGS = ['big-tech', 'public'] as const
 
 type RawRow = {
   reportVersion: string
@@ -265,16 +275,97 @@ function aggregate(rows: RawRow[]): Map<string, Agg> {
   return out
 }
 
-async function resolveCompanyWikidataId(companyName: string): Promise<string | null> {
-  const fromDb = await prisma.company.findFirst({
-    where: { name: { equals: companyName, mode: 'insensitive' } },
-    select: { wikidataId: true },
-  })
-  if (fromDb) return fromDb.wikidataId
+function resolveCompanyWikidataIdFromMap(companyName: string): string | null {
+  return WIKIDATA_BY_CANONICAL_NAME[companyName.trim().toLowerCase()] ?? null
+}
 
-  const mapped =
-    WIKIDATA_BY_CANONICAL_NAME[companyName.trim().toLowerCase()] ?? null
-  return mapped
+async function resolveCompanyWikidataId(
+  companyName: string,
+  { useDatabase }: { useDatabase: boolean }
+): Promise<string | null> {
+  if (useDatabase) {
+    const fromDb = await prisma.company.findFirst({
+      where: { name: { equals: companyName, mode: 'insensitive' } },
+      select: { wikidataId: true },
+    })
+    if (fromDb) return fromDb.wikidataId
+  }
+  return resolveCompanyWikidataIdFromMap(companyName)
+}
+
+function companiesInSheet(
+  aggregated: Map<string, Agg>
+): Map<string, string> {
+  const byWikidataId = new Map<string, string>()
+  for (const key of aggregated.keys()) {
+    const [companyName] = key.split('\0')
+    const wikidataId = resolveCompanyWikidataIdFromMap(companyName)
+    if (wikidataId) byWikidataId.set(wikidataId, companyName)
+  }
+  return byWikidataId
+}
+
+async function ensureBigTechTagOption(dryRun: boolean): Promise<void> {
+  if (dryRun) {
+    console.log(
+      `[dry-run] would upsert tag option "${BIGTECH_TAG_OPTION.slug}"`
+    )
+    return
+  }
+  await prisma.tagOption.upsert({
+    where: { slug: BIGTECH_TAG_OPTION.slug },
+    create: BIGTECH_TAG_OPTION,
+    update: { label: BIGTECH_TAG_OPTION.label },
+  })
+}
+
+function mergeTags(existing: string[]): string[] {
+  return [...new Set([...existing, ...BIGTECH_COMPANY_TAGS])]
+}
+
+async function ensureBigTechCompanies(
+  aggregated: Map<string, Agg>,
+  dryRun: boolean
+): Promise<void> {
+  const companies = companiesInSheet(aggregated)
+  if (companies.size === 0) return
+
+  await ensureBigTechTagOption(dryRun)
+
+  for (const [wikidataId, name] of companies) {
+    if (dryRun) {
+      console.log(
+        `[dry-run] would ensure Company "${name}" (${wikidataId}) tags=${JSON.stringify([...BIGTECH_COMPANY_TAGS])}`
+      )
+      continue
+    }
+
+    const existing = await prisma.company.findUnique({
+      where: { wikidataId },
+      select: { tags: true },
+    })
+
+    const tags = mergeTags(existing?.tags ?? [])
+    const internalComment = `${IMPORT_COMMENT} (company seed)`
+
+    if (existing) {
+      await prisma.company.update({
+        where: { wikidataId },
+        data: { name, tags },
+      })
+      console.log(`Updated company "${name}" (${wikidataId})`)
+    } else {
+      await prisma.company.create({
+        data: {
+          wikidataId,
+          name,
+          tags,
+          internalComment,
+        },
+      })
+      console.log(`Created company "${name}" (${wikidataId})`)
+    }
+  }
 }
 
 async function getImportUserId(): Promise<string> {
@@ -532,34 +623,24 @@ async function main() {
 
   console.log(
     dryRun
-      ? `Dry run (${aggregated.size} company-years). Pass --apply to write.`
+      ? `Dry run (${aggregated.size} company-years, ${companiesInSheet(aggregated).size} companies). Pass --apply to write.`
       : `Applying ${aggregated.size} company-years…`
   )
+
+  await ensureBigTechCompanies(aggregated, dryRun)
 
   const missingCompanies: string[] = []
 
   for (const [key, agg] of aggregated) {
     const [companyName, yearStr] = key.split('\0')
     const year = Number(yearStr)
-    const wikidataId = await resolveCompanyWikidataId(companyName)
+    const wikidataId = await resolveCompanyWikidataId(companyName, {
+      useDatabase: !dryRun,
+    })
     if (!wikidataId) {
       missingCompanies.push(companyName)
-      console.warn(`Skipping unknown company (no DB row / map): ${companyName}`)
+      console.warn(`Skipping unknown company (no map entry): ${companyName}`)
       continue
-    }
-
-    if (!dryRun) {
-      const exists = await prisma.company.findUnique({
-        where: { wikidataId },
-        select: { wikidataId: true },
-      })
-      if (!exists) {
-        missingCompanies.push(`${companyName} (${wikidataId})`)
-        console.warn(
-          `Skipping — no Company row for Wikidata id ${wikidataId} (${companyName}); create the company first or fix WIKIDATA_BY_CANONICAL_NAME`
-        )
-        continue
-      }
     }
 
     await pushAgg({
