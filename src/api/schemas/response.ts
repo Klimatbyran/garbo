@@ -586,8 +586,13 @@ export const NationalSectorEmissionsSchema = z.object({
   sectors: z.record(z.string(), z.record(z.string(), z.number())),
 })
 
+<<<<<<< Updated upstream
 export const InputNationalDataSchema = z.array(
   z.object({
+=======
+const InputNationalDataItemSchema = z
+  .object({
+>>>>>>> Stashed changes
     country: z.object({ sv: z.string(), en: z.string() }),
     logoUrl: z.string().nullable().optional(),
     emissions: InputYearlyDataSchema,
@@ -598,12 +603,25 @@ export const InputNationalDataSchema = z.array(
     historicalEmissionChangePercent: z.number(),
     meetsParis: z.string().transform((val) => val === 'True'),
   })
-)
+  .transform((data) => ({
+    ...data,
+    // Backward-compatible total emissions series for existing clients
+    emissions: data.territorialFossilEmissions,
+  }))
+
+export const InputNationalDataSchema = z.array(InputNationalDataItemSchema)
 
 export const NationDataSchema = z.object({
   country: z.object({ sv: z.string(), en: z.string() }),
   logoUrl: z.string().nullable().optional(),
   emissions: z.array(YearlyDataSchema),
+<<<<<<< Updated upstream
+=======
+  territorialFossilEmissions: z.array(YearlyDataSchema),
+  biogenicEmissions: z.array(YearlyDataSchema),
+  consumptionAbroadEmissions: z.array(YearlyDataSchema),
+  exportOfOilProductsEmissions: z.array(YearlyDataSchema),
+>>>>>>> Stashed changes
   totalTrend: z.number(),
   totalCarbonLaw: z.number(),
   approximatedHistoricalEmission: z.array(YearlyDataSchema),

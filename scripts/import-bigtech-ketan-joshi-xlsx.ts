@@ -12,6 +12,11 @@
  *   rows for the eight sheet names are created automatically (tag: big-tech, public).
  *
  * Scope notes:
+<<<<<<< Updated upstream
+=======
+ * - Rows with Scope/Category “Offsets” (and offset-like sub-categories) are skipped.
+ * - “Total (…)” emissions use Data_Type **Raw** only (not Claimed / Location).
+>>>>>>> Stashed changes
  * - Rows where Company_Name ≠ column “Company” are skipped (spreadsheet alignment issues).
  * - GHG category numbers are taken from the “Category N …” text; odd vendor numbering may
  *   not match ISO GHG labels — review critical rows if needed.
@@ -85,6 +90,17 @@ function cellLinkOrText(v: unknown): string | undefined {
   return undefined
 }
 
+<<<<<<< Updated upstream
+=======
+/** Sheet rows for carbon removals / purchases / avoided emissions — not scope 1–3. */
+function isOffsetRelatedRow(scopeCategory: string, subCategory: string | null): boolean {
+  if (/^offsets$/i.test(scopeCategory.trim())) return true
+  const sub = subCategory?.trim() ?? ''
+  if (!sub) return false
+  return /\b(removals?|avoided)\b/i.test(sub) || /\boffset(s|ting)?\b/i.test(sub)
+}
+
+>>>>>>> Stashed changes
 function num(v: unknown): number | null {
   if (typeof v === 'number' && Number.isFinite(v)) return v
   if (typeof v === 'string' && v.trim() !== '' && Number.isFinite(Number(v))) {
@@ -120,15 +136,30 @@ async function readSheet(path: string): Promise<RawRow[]> {
     const value = num(row[8])
     if (year == null || value == null) continue
 
+<<<<<<< Updated upstream
+=======
+    const scopeCategory = String(row[4] ?? '').trim()
+    const subCategory =
+      row[5] == null || String(row[5]).trim() === ''
+        ? null
+        : String(row[5]).trim()
+    if (isOffsetRelatedRow(scopeCategory, subCategory)) continue
+
+>>>>>>> Stashed changes
     out.push({
       reportVersion: String(row[1] ?? ''),
       companyName,
       year,
+<<<<<<< Updated upstream
       scopeCategory: String(row[4] ?? '').trim(),
       subCategory:
         row[5] == null || String(row[5]).trim() === ''
           ? null
           : String(row[5]).trim(),
+=======
+      scopeCategory,
+      subCategory,
+>>>>>>> Stashed changes
       dataType: String(row[6] ?? '').trim(),
       metric: String(row[7] ?? '').trim(),
       value,
@@ -203,6 +234,10 @@ function aggregate(rows: RawRow[]): Map<string, Agg> {
 
     for (const row of list) {
       const { scopeCategory: sc, subCategory: sub, dataType: dt } = row
+<<<<<<< Updated upstream
+=======
+      if (isOffsetRelatedRow(sc, sub)) continue
+>>>>>>> Stashed changes
 
       if (sc === 'Scope1' && dt === 'Raw') {
         consider(row, 'scope1', () => row.metric.toLowerCase().includes('tco2'))
@@ -215,7 +250,11 @@ function aggregate(rows: RawRow[]): Map<string, Agg> {
       }
       if (
         (sc === 'Total (Direct)' || sc === 'Total (direct)') &&
+<<<<<<< Updated upstream
         (dt === 'Raw' || dt === 'Claimed')
+=======
+        dt === 'Raw'
+>>>>>>> Stashed changes
       ) {
         consider(row, 'scope1And2', () =>
           row.metric.toLowerCase().includes('tco2')
@@ -225,7 +264,11 @@ function aggregate(rows: RawRow[]): Map<string, Agg> {
         (sc === 'Total (All)' ||
           sc === 'Total (all)' ||
           sc === 'Total ( all )') &&
+<<<<<<< Updated upstream
         (dt === 'Raw' || dt === 'Claimed')
+=======
+        dt === 'Raw'
+>>>>>>> Stashed changes
       ) {
         consider(row, 'statedTotal', () =>
           row.metric.toLowerCase().includes('tco2')
@@ -235,7 +278,11 @@ function aggregate(rows: RawRow[]): Map<string, Agg> {
         (sc === 'Total (Scope3)' ||
           sc === 'Total (Scope 3)' ||
           sc === 'Total (scope 3)') &&
+<<<<<<< Updated upstream
         (dt === 'Raw' || dt === 'Claimed' || dt === 'Location')
+=======
+        dt === 'Raw'
+>>>>>>> Stashed changes
       ) {
         consider(row, 'statedScope3', () =>
           row.metric.toLowerCase().includes('tco2')
