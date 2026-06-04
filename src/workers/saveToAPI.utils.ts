@@ -91,7 +91,10 @@ function maxDataYearAmongPeriods(reportingPeriods: any[]): number | null {
   return max
 }
 
-/** PDF year for Report / CompanyReport (not a single comparison-period row). */
+/**
+ * PDF year label for Report / CompanyReport.
+ * Priority: pipeline/job field → max extracted data year → URL parse (least trusted).
+ */
 export function resolveDocumentReportYear(
   reportingPeriods: any[],
   options?: {
@@ -106,13 +109,15 @@ export function resolveDocumentReportYear(
     if (isValidReportCatalogYear(y)) return y
   }
 
+  const maxYear = maxDataYearAmongPeriods(reportingPeriods)
+  if (maxYear !== null) return String(maxYear)
+
   for (const url of [options?.reportUrl, options?.sourceUrl]) {
     const fromUrl = parseReportYearFromUrl(url)
     if (fromUrl && isValidReportCatalogYear(fromUrl)) return fromUrl
   }
 
-  const maxYear = maxDataYearAmongPeriods(reportingPeriods)
-  return maxYear !== null ? String(maxYear) : undefined
+  return undefined
 }
 
 export function buildRegistryPayload(job: {

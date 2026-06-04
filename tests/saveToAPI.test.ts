@@ -187,4 +187,20 @@ describe('resolveDocumentReportYear', () => {
       ])
     ).toBe('2025')
   })
+
+  it('prefers max data year over a misleading year in the report URL', () => {
+    expect(
+      resolveDocumentReportYear([{ year: 2023 }, { year: 2024 }], {
+        reportUrl: 'https://company.com/annual-report-2017.pdf',
+      })
+    ).toBe('2024')
+  })
+
+  it('uses URL year only when periods have no usable data years', () => {
+    expect(
+      resolveDocumentReportYear([{}], {
+        reportUrl: 'https://company.com/sustainability-report-2022.pdf',
+      })
+    ).toBe('2022')
+  })
 })

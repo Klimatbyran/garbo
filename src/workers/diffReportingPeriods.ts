@@ -1,5 +1,6 @@
 import { canonicalPublicReportUrl, diffChanges } from '../lib/saveUtils'
 import { getReportingPeriodDates } from '../lib/reportingPeriodDates'
+import { resolveDocumentReportYear } from './saveToAPI.utils'
 import { QUEUE_NAMES } from '../queues'
 import { ChangeDescription, DiffWorker, DiffJob } from '../lib/DiffWorker'
 import apiConfig from '../config/api'
@@ -22,6 +23,8 @@ export class DiffReportingPeriodsJob extends DiffJob {
     biogenic?: any[]
     economy?: any[]
     replaceAllEmissions?: boolean
+    /** PDF year from pipeline parse when set on the job. */
+    documentReportYear?: string | number
   }
 }
 
@@ -59,11 +62,12 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
     if (job.isDataApproved()) {
       const approvedBody = job.getApprovedBody() ?? {}
       const periods = approvedBody.reportingPeriods ?? []
-      const years = periods
-        .map((p: { year?: number | string }) => Number(p?.year))
-        .filter((y: number) => Number.isFinite(y))
-      const documentReportYear =
-        years.length > 0 ? String(Math.max(...years)) : undefined
+      const documentReportYear = resolveDocumentReportYear(periods, {
+        documentReportYear:
+          approvedBody.documentReportYear ?? job.data.documentReportYear,
+        reportUrl: reportURLForPeriod,
+        sourceUrl: trimmedSourceUrl,
+      })
 
       await job.enqueueSaveToAPI('reporting-periods', companyName, wikidata, {
         ...approvedBody,

@@ -5,6 +5,7 @@ import {
   buildRegistryPayload,
   resolveDocumentReportYear,
 } from '../../workers/saveToAPI.utils'
+import { mergeReportYearFromPipeline } from './registryReportIdentity'
 import { registryService } from './registryService'
 
 export type ReportingPeriodIdentity = {
@@ -76,27 +77,48 @@ class CompanyReportService {
     companyReportId: string,
     documentReportYear: string | undefined
   ): Promise<void> {
-    const year = documentReportYear?.trim()
-    if (!year || !/^\d{4}$/.test(year)) return
+    const incoming = documentReportYear?.trim()
+    if (!incoming || !/^\d{4}$/.test(incoming)) return
 
-    const companyReport = await prisma.companyReport.update({
+    const existing = await prisma.companyReport.findUnique({
       where: { id: companyReportId },
-      data: { reportYear: year },
-      select: { registryReportId: true },
+      select: { reportYear: true, registryReportId: true },
+    })
+    if (!existing) return
+
+    const mergedYear = mergeReportYearFromPipeline(
+      existing.reportYear,
+      incoming
+    )
+    if (!mergedYear) return
+
+    await prisma.companyReport.update({
+      where: { id: companyReportId },
+      data: { reportYear: mergedYear },
     })
 
-    if (companyReport.registryReportId) {
-      await prisma.report.update({
-        where: { id: companyReport.registryReportId },
-        data: { reportYear: year },
+    if (existing.registryReportId) {
+      const registryRow = await prisma.report.findUnique({
+        where: { id: existing.registryReportId },
+        select: { reportYear: true },
       })
+      const registryYear = mergeReportYearFromPipeline(
+        registryRow?.reportYear,
+        mergedYear
+      )
+      if (registryYear) {
+        await prisma.report.update({
+          where: { id: existing.registryReportId },
+          data: { reportYear: registryYear },
+        })
+      }
     }
   }
 
   async getOrCreateFallbackCompanyReportId(companyId: string): Promise<string> {
     const existing = await prisma.companyReport.findFirst({
       where: { companyId },
-      orderBy: { createdAt: 'desc' },
+      orderBy: { reportingPeriods: { _count: 'desc' } },
       select: { id: true },
     })
 
@@ -169,15 +191,11 @@ class CompanyReportService {
     companyReportId: string
     documentReportYear: string | undefined
   }> {
-    const perPeriodCompanyReportId = reportingPeriods.find(
-      (period) => period.companyReportId
-    )?.companyReportId
-
     const { companyReportId } = await this.resolveCompanyReportIdForSave(
       company,
       reportingPeriods,
       {
-        companyReportId: input.bodyCompanyReportId ?? perPeriodCompanyReportId,
+        companyReportId: input.bodyCompanyReportId,
         reportIdentity: {
           url: input.reportUrl,
           sourceUrl: input.reportSourceUrl,

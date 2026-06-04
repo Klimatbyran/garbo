@@ -84,9 +84,9 @@ const checkDB = new DiscordWorker(
 
     job.sendMessage(`🤖 Checking if ${companyName} already exists in API...`)
     const wikidataId = wikidata.node
-    const existingCompany = await apiFetch(`/companies/${wikidataId}`).catch(
-      () => null
-    )
+    const existingCompany = await apiFetch(
+      `/pipeline/companies/${wikidataId}`
+    ).catch(() => null)
     job.log(existingCompany)
 
     if (!existingCompany) {
