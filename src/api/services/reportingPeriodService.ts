@@ -1,7 +1,11 @@
-import { Company } from '@prisma/client'
+import { Company, Prisma } from '@prisma/client'
 
 import { prisma } from '../../lib/prisma'
 import { reportingPeriodArgs } from '../args'
+
+type UpsertedReportingPeriod = Prisma.ReportingPeriodGetPayload<
+  typeof reportingPeriodArgs
+>
 
 class ReportingPeriodService {
   async upsertReportingPeriod(
@@ -24,7 +28,7 @@ class ReportingPeriodService {
       year: string
       companyReportId: string
     }
-  ) {
+  ): Promise<UpsertedReportingPeriod> {
     return prisma.reportingPeriod.upsert({
       where: {
         companyReportId_year: {
@@ -53,16 +57,6 @@ class ReportingPeriodService {
         year,
         companyId: company.wikidataId,
         companyReportId,
-        company: {
-          connect: {
-            wikidataId: company.wikidataId,
-          },
-        },
-        companyReport: {
-          connect: {
-            id: companyReportId,
-          },
-        },
         metadata: {
           connect: {
             id: metadata.id,

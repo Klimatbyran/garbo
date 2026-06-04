@@ -1,4 +1,4 @@
--- PR 2: require companyReportId; one period row per (CompanyReport, year).
+-- Require companyReportId; one period row per (CompanyReport, year).
 -- Prerequisite: scripts/link-periods-to-company-reports.ts (no NULL companyReportId).
 
 DO $$
