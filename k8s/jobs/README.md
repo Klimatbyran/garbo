@@ -32,11 +32,11 @@ Upserts `Report` registry rows from identity fields (`reportURL`, `reportS3Url`,
 
 5. Watch logs: `kubectl logs -n garbo-stage job/backfill-report-from-periods-<suffix> -f`
 
-## Link periods to CompanyReport (PR 1)
+## Link periods to CompanyReport
 
 Sets `ReportingPeriod.companyReportId` for all rows. One `CompanyReport` per company (latest Report). Dry-run prints `Resolution:` counts (watch `synthetic`) and a `Year mismatch:` list when the chosen PDF year ≠ max period year on that company.
 
-1. Deploy PR 1 schema (migration).
+1. Deploy migration `20260520120000_add_company_report` (CompanyReport table + nullable `companyReportId`).
 2. Recommended: dedupe + backfill-from-periods (above).
 3. Edit `link-periods-to-company-reports.yaml`: set `metadata.namespace`.
 4. Dry run: add `--dry-run` to `args`; review console output before live run.
@@ -48,10 +48,11 @@ Sets `ReportingPeriod.companyReportId` for all rows. One `CompanyReport` per com
 
 6. Watch logs: `kubectl logs -n garbo-stage job/link-periods-to-company-reports-<suffix> -f`
 
-## PR 2 schema (per-report period uniqueness)
+## Reporting periods per document (deploy order)
 
-Deploy order after PR 1 link job has run in that environment (no `companyReportId IS NULL`):
+After the link job has run in that environment (no `companyReportId IS NULL`):
 
 1. Deploy app + run migration `20260602120000_reporting_period_per_company_report` (`npm run migrate`).
-2. Writes upsert on `(companyReportId, year)` instead of `(companyId, year)`; same calendar year can exist under two `CompanyReport` rows after PR 1b.
-3. `POST .../reporting-periods` accepts optional `companyReportId` (body or per period); otherwise resolves shell from report URLs/hash or the company’s default `CompanyReport`.
+2. **Writes:** Upsert reporting periods on `(companyReportId, year)`; `POST .../reporting-periods` accepts optional `companyReportId` and job-level report URLs.
+3. **Public read:** `GET /companies` returns one period per data year (from the `CompanyReport` with the highest `reportYear`).
+4. **PDF year:** Pipeline save sets `documentReportYear` on `Report` and `CompanyReport`; registry upsert updates `reportYear` when the job sends a valid year.

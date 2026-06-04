@@ -1,16 +1,14 @@
 /**
- * Data migration: set ReportingPeriod.companyReportId (PR 1).
+ * Set ReportingPeriod.companyReportId on existing rows (one CompanyReport per company).
  *
- * Run after: PR 1 migration; 0b backfill recommended.
+ * Prerequisites: migration 20260520120000_add_company_report; registry dedupe +
+ * backfill-from-periods recommended.
  *
- * One CompanyReport per company → latest Report (newest period Metadata.source URL,
- * else highest Report.reportYear in registry, else synthetic). Does not split by
- * per-period reportURL. PR 1b may add a second shell after PR 2.
+ * Picks the latest Report per company (newest period metadata URL, else highest
+ * Report.reportYear, else synthetic). Does not split by per-period reportURL.
  *
  *   npx tsx scripts/link-periods-to-company-reports.ts --dry-run
  *   npx tsx scripts/link-periods-to-company-reports.ts
- *
- * Skips rows that already have companyReportId.
  */
 
 import 'dotenv/config'
@@ -301,7 +299,7 @@ async function main() {
 
     const byCompany = groupPeriodsByCompany(periods)
     console.log(
-      `Linking ${periods.length} period(s) across ${byCompany.size} companies (one shell per company).`
+      `Linking ${periods.length} period(s) across ${byCompany.size} companies (one CompanyReport per company).`
     )
 
     const companyReportCache = new Map<string, string>()
@@ -383,7 +381,7 @@ async function main() {
 
     if (yearMismatches.length > 0) {
       console.log(
-        `\nYear mismatch: chosen document year ≠ max calendar year on periods (${yearMismatches.length} companies). Often comparison years + latest PDF metadata — spot-check for accuracy / 1b:`
+        `\nYear mismatch: PDF year ≠ max data year on periods (${yearMismatches.length} companies). Often comparison years in one PDF — spot-check:`
       )
       for (const row of yearMismatches) {
         console.log(
@@ -398,7 +396,7 @@ async function main() {
 
     if (!dryRun && linked > 0) {
       console.log(
-        '\nSetting CompanyReport.reportYear to max linked period calendar year per shell…'
+        '\nSetting CompanyReport.reportYear to max linked period year per company…'
       )
 
       const companyReports = await prisma.companyReport.findMany({
