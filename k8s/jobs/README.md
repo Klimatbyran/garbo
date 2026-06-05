@@ -47,3 +47,16 @@ Sets `ReportingPeriod.companyReportId` for all rows. One `CompanyReport` per com
    ```
 
 6. Watch logs: `kubectl logs -n garbo-stage job/link-periods-to-company-reports-<suffix> -f`
+
+## Backfill report runs from BullMQ
+
+Creates or updates `ReportRun` / `ReportRunJob` rows from historical BullMQ job data (useful after schema changes or if run history was missing).
+
+1. Edit `backfill-report-runs.yaml`: set `metadata.namespace` to `garbo-stage` or `garbo`.
+2. Create the job:
+
+   ```bash
+   kubectl create -f k8s/jobs/backfill-report-runs.yaml
+   ```
+
+3. Watch logs: `kubectl logs -n garbo-stage job/backfill-report-runs-<suffix> -f`

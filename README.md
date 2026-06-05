@@ -12,68 +12,48 @@ We utilise an open source queue manager called BullMQ which relies on Redis. The
 
 ## Current Status
 
-Test the app in Discord channel #reports-to-check by using the command /pdf and Garbo will be answering with a parsed JSON. Or start the validation frontend and pipeline-api to use our custom UI.
+Test the app in Discord channel #reports-to-check by using the command `/pdfs` and Garbo will process the report through the pipeline. Or start the validation frontend and pipeline-api to use our custom UI.
 
 ## Data Flow
 
 Some of the following steps will be performed in parallel and most will be asynchronous. If a process is failed it's important to be able to restart it after a new code release so we can iterate on the prompts etc without having to restart the whole process again.
 
 ```mermaid
-flowchart TB
-
-    PDF[PDF]
-    Cache{Is in cache?}
-    DocLing[DocLing Parse PDF]
-    Tables[Extract Tables]
-    Emissions[Extract Emissions]
-
-    Industry[Industry]
-    Goals[Climate Goals]
-    Review[Discord Review]
-
-    Precheck --> GuessWikidata --> Emissions
-    Precheck --> FiscalYear --> Emissions
-
-    PDF --> Cache --(no)--> NLM
-    NLM --success--> Tables --> Precheck
-    NLM --failure--> DocLing --> Precheck
-
-    Cache --(yes)--> Precheck
-
-    CheckDB{Exists in API?}
-
-
-    Emissions --(followUp)--> Industry --> CheckDB --(yes)--> Review --> API.Industry
-                                           CheckDB --(no)--> API.Industry
-    Emissions --(followUp)--> Scope1+2 --> CheckDB --(yes)--> Review --> API.Emissions
-                                           CheckDB --(no)--> API.Emissions
-    Emissions --(followUp)--> Scope3 --> CheckDB --(yes)--> Review --> API.Emissions
-                                           CheckDB --(no)--> API.Emissions
-    Emissions --(followUp)--> Biogenic --> CheckDB --(yes)--> Review --> API.Emissions
-                                           CheckDB --(no)--> API.Emissions
-    Emissions --(followUp)--> Goals --> CheckDB --(yes)--> Review --> API.Goals
-                                           CheckDB --(no)--> API.Goals
-    Emissions --(followUp)--> Initiatives --> CheckDB --(yes)--> Review --> API.Initiatives
-                                           CheckDB --(no)--> API.Initiatives
-    Emissions --(followUp)--> Turnover --> CheckDB --(yes)--> Review --> API.Economy
-                                           CheckDB --(no)--> API.Initiatives
-    Emissions --(followUp)--> Employees --> CheckDB --(yes)--> Review --> API.Economy
-                                           CheckDB --(no)--> API.Economy
-
-
-    CheckWikidata{Exists in Wikidata?}
-    CheckWikipedia{Exists fact box in Wikipedia?}
-
-    API.Emissions --> CheckWikidata
-    CheckWikidata --(yes)--> UpdateWikidata
-    CheckWikidata --(no)--> ManualUpdate
-    CheckWikidata --(yes)--> CheckWikipedia
-
-    CheckWikipedia --(yes)--> UpdateWikipedia
-    CheckWikipedia --(no)--> ManualUpdate
-
-
-
+flowchart TD
+    A[parsePdf] -->|not cached| B[doclingParsePDF]
+    B --> C[indexMarkdown]
+    C --> D[precheck]
+    A -- cached? --> D
+    D --> F[guessWikidata]
+    D --> G[followUp-fiscalYear]
+    F --> H[extractEmissions]
+    G --> H
+    H --> J[followUp-industryGics]
+    H --> K[followUp-scope1+2]
+    H --> L[followUp-scope3]
+    H --> M[followUp-biogenic]
+    H --> N[followUp-economy]
+    H --> O[followUp-goals]
+    H --> P[followUp-initiatives]
+    H --> Q[followUp-baseYear]
+    J --> R[checkDB]
+    K --> R
+    L --> R
+    M --> R
+    N --> R
+    O --> R
+    P --> R
+    Q --> R
+    R --> T[diffReportingPeriods]
+    R --> U[diffIndustry]
+    R --> V[diffGoals]
+    R --> W[diffBaseYear]
+    R --> X[diffInitiatives]
+    T --> Y[saveToAPI]
+    U --> Y
+    V --> Y
+    W --> Y
+    X --> Y
 ```
 
 For a more in depth explaination of the pipeline and its steps continue [here](./doc/pipeline.md).
@@ -103,9 +83,9 @@ npm i
 
 ### Starting the containers
 
-This project expects some containers running in the background to work properly. We use Postgres as our primary database, Redis for managing the queue system, ChromaDB for embeddings and the NLM ingestor for parsing PDF:s.
+This project expects some containers running in the background to work properly. We use Postgres as our primary database, Redis for BullMQ, and ChromaDB for embeddings. PDF parsing uses **Docling** (hosted Berget API by default via `DOCLING_URL` / `BERGET_AI_TOKEN` in `.env`; optionally uncomment the `docling` service in `docker-compose.yaml` for local docling-serve).
 
-The simplest way to start the containers is to run the following docker commands.
+The simplest way to start the containers is to run the following docker command.
 
 ```bash
 docker-compose up
@@ -117,10 +97,11 @@ You may want a graphical user interface to make it easier to manage your local c
 
 ### Seeding the database for development
 
-This applies migrations and seeding data needed for development. It also generates the prisma JS client and types, which are necessary to let prisma connect to the database.
+This applies migrations and generates the Prisma client. Seed development data (users, tags, GICS, API keys, etc.) in a separate step.
 
 ```sh
 npm run prisma migrate dev
+npm run prisma db seed
 ```
 
 ### Optional: Restoring a database backup with test data
@@ -359,13 +340,12 @@ npm run prisma db seed # seed the data with initial content
 
 ### Operations / DevOps
 
-This application is deployed in production with Kubernetes and uses FluxCD as CD pipeline. The yaml files in the k8s directory are automatically synced to the cluster. If you want to run a fork of the application yourself - just add these helm charts as dependencies:
+This application is deployed in production with Kubernetes and uses FluxCD as CD pipeline. The yaml files in the k8s directory are automatically synced to the cluster. If you want to run a fork of the application yourself - the production cluster uses Helm charts along the lines of:
 
 ```helm
 postgresql (bitnami)
 redis (bitnami)
 chromadb
-metabase
 ```
 
 To create secret in the k8s cluster - use this command to transfer your .env file as secret to the cluster:
