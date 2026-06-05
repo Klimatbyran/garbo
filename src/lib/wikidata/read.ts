@@ -5,7 +5,8 @@ import { SearchEntitiesOptions } from 'wikibase-sdk/dist/src/queries/search_enti
 import wikidataConfig from '../../config/wikidata'
 
 const {
-  CARBON_FOOTPRINT,
+  ANNUAL_GHG_EMISSIONS,
+  POINT_IN_TIME,
   START_TIME,
   END_TIME,
   REFERENCE_URL,
@@ -197,9 +198,9 @@ export async function getClaims(entity: ItemId): Promise<Claim[]> {
       return []
     }
 
-    const carbonFootprintClaims = claims[CARBON_FOOTPRINT] ?? []
+    const annualGhgClaims = claims[ANNUAL_GHG_EMISSIONS] ?? []
 
-    return carbonFootprintClaims.map((claim) => {
+    return annualGhgClaims.map((claim) => {
       const references =
         claim.references?.length > 0 ? claim.references[0].snaks : undefined
 
@@ -217,13 +218,26 @@ export async function getClaims(entity: ItemId): Promise<Claim[]> {
         return references[propertyId][0].datavalue.value
       }
 
+      // P585 stores the year (year-precision). Reconstruct full date strings for
+      // internal comparison logic. For broken fiscal years P580/P582 are also
+      // present as clarifying qualifiers and take precedence.
+      const pointInTime = getQualifierValue(POINT_IN_TIME, (value) => {
+        const year = transformFromWikidataDateStringToDate(value.time).substring(0, 4)
+        return year
+      })
+      const startTimeQualifier = getQualifierValue(START_TIME, (value) =>
+        transformFromWikidataDateStringToDate(value.time)
+      )
+      const endTimeQualifier = getQualifierValue(END_TIME, (value) =>
+        transformFromWikidataDateStringToDate(value.time)
+      )
+
+      const startDate = startTimeQualifier || (pointInTime ? `${pointInTime}-01-01T00:00:00Z` : '')
+      const endDate = endTimeQualifier || (pointInTime ? `${pointInTime}-12-31T00:00:00Z` : '')
+
       return {
-        startDate: getQualifierValue(START_TIME, (value) =>
-          transformFromWikidataDateStringToDate(value.time)
-        ),
-        endDate: getQualifierValue(END_TIME, (value) =>
-          transformFromWikidataDateStringToDate(value.time)
-        ),
+        startDate,
+        endDate,
         value: claim.mainsnak.datavalue.value.amount,
         category: getQualifierValue(APPLIES_TO_PART, (value) => value.id),
         scope: getQualifierValue(

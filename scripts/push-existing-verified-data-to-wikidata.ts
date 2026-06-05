@@ -27,7 +27,9 @@ async function pushWikidata(dryRun: boolean = false, companyQid?: string) {
   const envBaseURL: string = 'https://api.klimatkollen.se/api'
 
   if (dryRun) {
-    console.log('🔍 DRY RUN MODE - No changes will be made to Wikidata\n')
+    console.log('🔍 DRY RUN MODE - No changes will be made to Wikidata (pass --write to actually push)\n')
+  } else {
+    console.log('✍️  WRITE MODE - Changes will be pushed to Wikidata\n')
   }
 
   if (companyQid) {
@@ -81,7 +83,7 @@ async function pushWikidata(dryRun: boolean = false, companyQid?: string) {
 
 // Parse command line arguments
 const args = process.argv.slice(2)
-const dryRun = args.includes('dry-run')
+const dryRun = !args.includes('--write')
 
 // Parse company QID flag (e.g., --company=Q52618 or --company Q52618)
 let companyQid: string | undefined
