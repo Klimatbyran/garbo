@@ -20,41 +20,60 @@ Some of the following steps will be performed in parallel and most will be async
 
 ```mermaid
 flowchart TD
-    A[parsePdf] -->|not cached| B[doclingParsePDF]
-    B --> C[indexMarkdown]
-    C --> D[precheck]
-    A -- cached? --> D
-    D --> F[guessWikidata]
-    D --> G[followUp-fiscalYear]
-    F --> H[extractEmissions]
-    G --> H
-    H --> J[followUp-industryGics]
-    H --> K[followUp-scope1+2]
-    H --> L[followUp-scope3]
-    H --> M[followUp-biogenic]
-    H --> N[followUp-economy]
-    H --> O[followUp-goals]
-    H --> P[followUp-initiatives]
-    H --> Q[followUp-baseYear]
-    J --> R[checkDB]
-    K --> R
-    L --> R
-    M --> R
-    N --> R
-    O --> R
-    P --> R
-    Q --> R
-    R --> T[diffReportingPeriods]
-    R --> U[diffIndustry]
-    R --> V[diffGoals]
-    R --> W[diffBaseYear]
-    R --> X[diffInitiatives]
-    T --> Y[saveToAPI]
-    U --> Y
-    V --> Y
-    W --> Y
-    X --> Y
+    subgraph ingest["PDF ingestion"]
+        A[parsePdf] -->|not cached| B[doclingParsePDF]
+        B --> C[indexMarkdown]
+        C --> D[precheck]
+        A -->|cached| D
+    end
+
+    subgraph context["Company context"]
+        F[guessWikidata]
+        G[followUpFiscalYear]
+        H[extractEmissions]
+        D --> F
+        D --> G
+        F --> H
+        G --> H
+    end
+
+    subgraph followups["Follow-up extraction (parallel children of checkDB)"]
+        J[followUpIndustryGics]
+        K1[followUpScope1]
+        K2[followUpScope2]
+        L[followUpScope3]
+        M[followUpBiogenic]
+        N[followUpEconomy]
+        O[followUpGoals]
+        P[followUpInitiatives]
+        Q[followUpBaseYear]
+        CT[followUpCompanyTags]
+        LEI[extractLEI]
+        DESC[extractDescriptions]
+    end
+
+    H --> J & K1 & K2 & L & M & N & O & P & Q & CT & LEI & DESC
+    J & K1 & K2 & L & M & N & O & P & Q & CT & LEI & DESC --> R[checkDB]
+
+    subgraph persist["Diff, save and notify"]
+        DR[diffReportingPeriods]
+        DI[diffIndustry]
+        DG[diffGoals]
+        DBY[diffBaseYear]
+        DIN[diffInitiatives]
+        DLEI[diffLEI]
+        DD[diffDescriptions]
+        DT[diffTags]
+        Y[saveToAPI]
+        SC[sendCompanyLink]
+    end
+
+    R --> DR & DI & DG & DBY & DIN & DLEI & DD & DT
+    DR & DI & DG & DBY & DIN & DLEI & DD & DT --> Y
+    DR & DI & DG & DBY & DIN & DLEI & DD & DT --> SC
 ```
+
+In BullMQ flows, child jobs finish before their parent runs. Diff jobs and `saveToAPI` are only enqueued when the matching follow-up returned data. `sendCompanyLink` is the flow parent that runs after all diff children complete.
 
 For a more in depth explaination of the pipeline and its steps continue [here](./doc/pipeline.md).
 

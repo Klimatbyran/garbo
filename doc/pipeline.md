@@ -93,46 +93,60 @@ await flow.add({
 
 ```mermaid
 flowchart TD
-    A[parsePdf] -->|not cached| B[doclingParsePDF]
-    B --> C[indexMarkdown]
-    C --> D[precheck]
-    A -- cached? --> D
-    D --> F[guessWikidata]
-    D --> G[followUp-fiscalYear]
-    F --> H[extractEmissions]
-    G --> H
-    H --> J[followUp-industryGics]
-    H --> K[followUp-scope1+2]
-    H --> L[followUp-scope3]
-    H --> M[followUp-biogenic]
-    H --> N[followUp-economy]
-    H --> O[followUp-goals]
-    H --> P[followUp-initiatives]
-    H --> Q[followUp-baseYear]
-    J --> R[checkDB]
-    K --> R
-    L --> R
-    M --> R
-    N --> R
-    O --> R
-    P --> R
-    Q --> R
-    R --> T[diffReportingPeriods]
-    R --> U[diffIndustry]
-    R --> V[diffGoals]
-    R --> W[diffBaseYear]
-    R --> X[diffInitiatives]
-    T --> Y[saveToAPI]
-    U --> Y
-    V --> Y
-    W --> Y
-    X --> Y
-    T --> AD[sendCompanyLink]
-    U --> AD
-    V --> AD
-    W --> AD
-    X --> AD
+    subgraph ingest["PDF ingestion"]
+        A[parsePdf] -->|not cached| B[doclingParsePDF]
+        B --> C[indexMarkdown]
+        C --> D[precheck]
+        A -->|cached| D
+    end
+
+    subgraph context["Company context"]
+        F[guessWikidata]
+        G[followUpFiscalYear]
+        H[extractEmissions]
+        D --> F
+        D --> G
+        F --> H
+        G --> H
+    end
+
+    subgraph followups["Follow-up extraction (parallel children of checkDB)"]
+        J[followUpIndustryGics]
+        K1[followUpScope1]
+        K2[followUpScope2]
+        L[followUpScope3]
+        M[followUpBiogenic]
+        N[followUpEconomy]
+        O[followUpGoals]
+        P[followUpInitiatives]
+        Q[followUpBaseYear]
+        CT[followUpCompanyTags]
+        LEI[extractLEI]
+        DESC[extractDescriptions]
+    end
+
+    H --> J & K1 & K2 & L & M & N & O & P & Q & CT & LEI & DESC
+    J & K1 & K2 & L & M & N & O & P & Q & CT & LEI & DESC --> R[checkDB]
+
+    subgraph persist["Diff, save and notify"]
+        DR[diffReportingPeriods]
+        DI[diffIndustry]
+        DG[diffGoals]
+        DBY[diffBaseYear]
+        DIN[diffInitiatives]
+        DLEI[diffLEI]
+        DD[diffDescriptions]
+        DT[diffTags]
+        Y[saveToAPI]
+        SC[sendCompanyLink]
+    end
+
+    R --> DR & DI & DG & DBY & DIN & DLEI & DD & DT
+    DR & DI & DG & DBY & DIN & DLEI & DD & DT --> Y
+    DR & DI & DG & DBY & DIN & DLEI & DD & DT --> SC
 ```
+
+In BullMQ flows, child jobs finish before their parent runs. Diff jobs and `saveToAPI` are only enqueued when the matching follow-up returned data. `sendCompanyLink` is the flow parent that runs after all diff children complete.
 
 ### parsePdf
 
@@ -240,7 +254,7 @@ Indexes the parsed markdown into the VectorDB for downstream retrieval.
 }
 ```
 
-Additionally, to the three standard fields the job gets three more input properties. Depending if the job was directly called by [nlmParsePDF](#nlmparsepdf) the field `cachedMarkdown` contains the cached markdown extraction which could be directly retrived from the VectorDB and passed to the job. The field `companyName` is deprecated and not used anymore, as the job determines the company name itself. The fiele `type` is also not set and only use to define the name of the wikidata schema.
+Additionally, the job may receive `cachedMarkdown` when [parsePdf](#parsepdf) skips Docling because the report is already indexed in the VectorDB. The field `companyName` is only used when the user provides it manually after automatic extraction fails. The field `type` is not set by the pipeline and is only used to define the name of the wikidata schema.
 
 **Functionality:**
 
@@ -308,7 +322,7 @@ Stringified object containing the field `wikidata` set to the wikidata of the fo
 Despite the three standard properties the job expects the input property `type`. The property `type` defines on which type of data to follow up on. It can be one of the following:
 
 ```
-IndustriyGics, Scope12, Scope3, Biogenic, Economy,
+IndustryGics, Scope1, Scope2, Scope3, Biogenic, Economy,
 Goals, Initiatives, FiscalYear, CompanyTags, BaseYear
 ```
 
@@ -357,14 +371,15 @@ After awaiting it's children the job combines the return values of the childeren
 
 The first four properties are just the jobs input properties and the last two `wikidata` and `fiscalYear` are filled with the corresponding information returned from the two child jobs.
 
-The job [checkDB](#checkdb) is assigned eight [followUp](#followup) child jobs of the following job types:
+The job [checkDB](#checkdb) is assigned up to twelve parallel child jobs:
 
 ```
-IndustriyGics, Scope12, Scope3, Biogenic,
-Economy, Goals, Initiatives, BaseYear
+followUpIndustryGics, followUpScope1, followUpScope2, followUpScope3,
+followUpBiogenic, followUpEconomy, followUpGoals, followUpInitiatives,
+followUpBaseYear, followUpCompanyTags, extractLEI, extractDescriptions
 ```
 
-Each child job gets the same input data as the parent job [checkDB](#checkdb).
+Each child job gets the same input data as the parent job [checkDB](#checkdb). Which jobs run can be limited with the `runOnly` flag on the pipeline input.
 
 **Return Value:** _none_
 
@@ -388,13 +403,16 @@ Each child job gets the same input data as the parent job [checkDB](#checkdb).
 }
 ```
 
-The input data contains the three standard properties as well as the property `companyName` containg the company name, `wikidata` containing the corresponding wikidata and `fiscalYear` defining the fiscal year of the company. Also, the job awaits the return values of its eight children adding the following properties to the jobs data:
+The input data contains the three standard properties as well as the property `companyName` containg the company name, `wikidata` containing the corresponding wikidata and `fiscalYear` defining the fiscal year of the company. Also, the job awaits the return values of its follow-up children, including:
 
 ```typescript
 {
-  scope12, scope3, biogenic, industry, economy, baseYear, goals, initiatives
+  scope1, scope2, scope12, scope3, biogenic, industry, economy,
+  baseYear, goals, initiatives, tags, lei, descriptions
 }
 ```
+
+`scope1` and `scope2` are merged into `scope12` before diffing.
 
 The exact type definitions of each property can be found at the end of the document.
 
@@ -419,11 +437,18 @@ After awaiting the return values of it's child jobs, the job queries the databas
 
 The data object is identical to the job's input data with the addition of the property `existingCompany` containing the queried or newly created company object.
 
-The job is assigned up to five different child jobs depending if certain return values of the previously awaited child jobs are not undefined. If either `scope12`, `scope3`, `biogenic` or `economy` is not undefined, the job [diffReportingPeriods](#diffreportingperiods) is added as a child job. Additionally, to the input data of it's parent job it receives the properties `scope12`, `scope3`, `biogenic` or `economy` of the previously awaited jobs.
-If the property `industry` is not undefined the job [diffIndustry](#diffindustry) is added as a child job getting the same property in addition to the input data of it's parent job as input data.
-If the property `goals` is not undefined the job [diffGoals](#diffgoals) is added as a child job getting the same property in addition to the input data of it's parent job as input data.
-If the property `baseYear` is not undefined the job [diffBaseYear](#diffbaseyear) is added as a child job getting the same property in addition to the input data of it's parent job as input data.
-If the property `initiatives` is not undefined the job [diffInitiatives](#diffinitiatives) is added as a child job getting the same property in addition to the input data of it's parent job as input data.
+The job is assigned up to eight diff child jobs (children of [sendCompanyLink](#sendcompanylink)) depending on which follow-up results are present:
+
+- [diffReportingPeriods](#diffreportingperiods) when merged `scope12`, `scope3`, `biogenic`, or `economy` data exists
+- [diffIndustry](#diffindustry) when `industry` is present
+- [diffGoals](#diffgoals) when `goals` is present
+- [diffBaseYear](#diffbaseyear) when `baseYear` is present
+- [diffInitiatives](#diffinitiatives) when `initiatives` is present
+- `diffLEI` when `lei` is present
+- `diffDescriptions` when `descriptions` is present
+- `diffTags` when `tags` is present
+
+Each diff job receives the relevant extracted fields in addition to the shared company context from `checkDB`.
 
 **Return Value:** _none_
 
@@ -737,7 +762,7 @@ The job returns the three properties `body`, `diff` and `requiresapproval`. The 
 
 ### saveToAPI
 
-**Called By:** On of the jobs [diffReportingPeriods](#diffreportingperiods), [diffIndustry](#diffindustry), [diffGoals](#diffgoals), [diffBaseYear](#diffbaseyear) and [diffInitiatives](#diffinitatives) in their corresponding files `src/workers/diff<type>.ts`.
+**Called By:** One of the diff jobs ([diffReportingPeriods](#diffreportingperiods), [diffIndustry](#diffindustry), [diffGoals](#diffgoals), [diffBaseYear](#diffbaseyear), [diffInitiatives](#diffinitiatives), `diffLEI`, `diffDescriptions`, or `diffTags`) in their corresponding files under `src/workers/`.
 
 **Input Data:**
 
