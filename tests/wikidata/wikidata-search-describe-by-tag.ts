@@ -15,6 +15,7 @@ type WikidataSearchTagSpecConfig = Readonly<{
   specialCases?: ReadonlyArray<NamedWikidataCase>
   emptyResults?: ReadonlyArray<NamedWikidataCase>
   impossibleToFind?: ReadonlyArray<NamedWikidataCase>
+  wrongWinnerCases?: ReadonlyArray<NamedWikidataCase>
 }>
 
 export function defineWikidataSearchTagSpec({
@@ -23,12 +24,14 @@ export function defineWikidataSearchTagSpec({
   specialCases = [],
   emptyResults = [],
   impossibleToFind = [],
+  wrongWinnerCases = [],
 }: WikidataSearchTagSpecConfig): void {
   const regularCases = regularCasesForTag(
     tag,
     specialCases,
     emptyResults,
-    impossibleToFind
+    impossibleToFind,
+    wrongWinnerCases
   )
 
   describe(`searchCompany (${tagLabel})`, () => {
@@ -66,6 +69,15 @@ export function defineWikidataSearchTagSpec({
       async ({ companyName }) => {
         const results = await searchCompany({ companyName })
         expect(results).toHaveLength(0)
+      }
+    )
+
+    it.each(wrongWinnerCases)(
+      'wrong winner: $companyName — hits exist but not Klimatkollen $klimatkollenWikidataId',
+      async ({ companyName, klimatkollenWikidataId }) => {
+        const results = await searchCompany({ companyName })
+        expect(results.length).toBeGreaterThan(0)
+        expect(results.map((r) => r.id)).not.toContain(klimatkollenWikidataId)
       }
     )
   })

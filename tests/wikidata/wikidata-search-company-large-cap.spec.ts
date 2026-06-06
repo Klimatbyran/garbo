@@ -31,12 +31,7 @@ const LARGE_CAP_SEARCH_SPECIAL_CASES: ReadonlyArray<NamedWikidataCase> = [
  * Known gaps: name shape (e.g. trailing “Group”), subclassing, or ambiguous hits —
  * `searchCompany` returns `[]` for these strings as of last alignment.
  */
-const LARGE_CAP_SEARCH_EMPTY_RESULTS: ReadonlyArray<NamedWikidataCase> = [
-  { companyName: 'Coop i Sverige', klimatkollenWikidataId: 'Q106684510' },
-  { companyName: 'Troax Group', klimatkollenWikidataId: 'Q56300993' },
-  { companyName: 'Hemnet Group', klimatkollenWikidataId: 'Q10521828' },
-  { companyName: 'Inter IKEA Group', klimatkollenWikidataId: 'Q47508289' },
-]
+const LARGE_CAP_SEARCH_EMPTY_RESULTS: ReadonlyArray<NamedWikidataCase> = []
 
 const SPECIAL_CASE_NAMES = new Set(
   LARGE_CAP_SEARCH_SPECIAL_CASES.map((c) => c.companyName)

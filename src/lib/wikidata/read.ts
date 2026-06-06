@@ -148,6 +148,8 @@ const LEGAL_FORM_SUFFIXES = new Set([
   'oyj',
   'plc',
   'publ',
+  'sa',
+  'as',
   'scandinavia',
   'company',
 ])
@@ -234,9 +236,75 @@ function stripTrailingGroupSuffix(companyName: string): string | null {
   return rest.length > 0 ? rest : null
 }
 
+/** Baltic / Nordic listing prefixes often omitted from Wikidata labels (e.g. “AB Akola Group”). */
+function stripLeadingLegalPrefix(companyName: string): string | null {
+  const s = normalizeCompanySearchName(companyName)
+  const match = s.match(/^(AB|AS|APB)\s+(.+)$/i)
+  if (!match) return null
+  const rest = match[2].trim()
+  return rest.length > 0 ? rest : null
+}
+
 /**
- * Shorter search strings when the listing adds “Group” / legal forms Wikidata omits
- * (e.g. “Anoto Group AB” → label “Anoto”). Shortest variant first for probe priority.
+ * Trailing listing qualifiers Wikidata often drops (e.g. “Bactiguard Holding B” → “Bactiguard”).
+ */
+function stripTrailingListingQualifiers(companyName: string): string[] {
+  const n = normalizeCompanySearchName(companyName)
+  if (!n) return []
+  const patterns = [
+    /^(.+?)\s+holding\s+b$/i,
+    /^(.+?)\s+holding$/i,
+    /^(.+?)\s+sweden$/i,
+    /^(.+?)\s+industri$/i,
+    /^(.+?)\s+operations\s+o[üu]$/i,
+    /^(.+?)\s+logistic\s+property$/i,
+  ]
+  const out: string[] = []
+  for (const pattern of patterns) {
+    const match = n.match(pattern)
+    if (match?.[1]?.trim()) out.push(match[1].trim())
+  }
+  return out
+}
+
+/** “I.A.R Systems” → “IAR Systems”. */
+function normalizeInitialsAndPunctuation(companyName: string): string | null {
+  const n = normalizeCompanySearchName(companyName)
+  const simplified = n
+    .replace(/([A-Za-zÅÄÖÜÕŽ])\.\s*/g, '$1')
+    .replace(/\s+/g, ' ')
+    .trim()
+  return simplified !== n && simplified.length > 0 ? simplified : null
+}
+
+/** “XANO Industri” → “Xano Industri” (Wikidata label casing). */
+function titleCaseLeadingAllCapsToken(companyName: string): string | null {
+  const parts = normalizeCompanySearchName(companyName).split(' ')
+  if (parts.length === 0) return null
+  const first = parts[0]
+  if (!/^[A-ZÅÄÖÜÕŽ]{2,}$/.test(first)) return null
+  parts[0] = first.charAt(0) + first.slice(1).toLowerCase()
+  const out = parts.join(' ')
+  return out !== companyName ? out : null
+}
+
+function looksBalticListing(text: string): boolean {
+  return (
+    /[žūüõėą]/i.test(text) ||
+    /^(AB|AS|APB)\s/i.test(text) ||
+    /\bOÜ\b/i.test(text) ||
+    /\bOperations\s+OÜ\b/i.test(text)
+  )
+}
+
+function pushUniqueProbe(candidates: string[], query: string | null | undefined) {
+  if (!query?.trim()) return
+  candidates.push(query.trim())
+}
+
+/**
+ * Shorter or transformed search strings when exchange listings diverge from Wikidata labels.
+ * Shortest variant first for probe priority.
  */
 function listingStripProbeQueries(companyName: string): string[] {
   const normalized = normalizeCompanySearchName(companyName)
@@ -245,22 +313,72 @@ function listingStripProbeQueries(companyName: string): string[] {
   const candidates: string[] = []
   const withoutAb = stripLegalFormSuffixes(companyName)
   const withoutGroup = stripTrailingGroupSuffix(companyName)
+  const withoutPrefix = stripLeadingLegalPrefix(companyName)
 
-  if (withoutAb) candidates.push(withoutAb)
-  if (withoutGroup) candidates.push(withoutGroup)
+  pushUniqueProbe(candidates, withoutAb)
+  pushUniqueProbe(candidates, withoutGroup)
+  pushUniqueProbe(candidates, withoutPrefix)
+  for (const q of stripTrailingListingQualifiers(companyName)) {
+    pushUniqueProbe(candidates, q)
+  }
+
   if (withoutAb) {
-    const core = stripTrailingGroupSuffix(withoutAb)
-    if (core) candidates.push(core)
+    pushUniqueProbe(candidates, stripTrailingGroupSuffix(withoutAb))
+    for (const q of stripTrailingListingQualifiers(withoutAb)) {
+      pushUniqueProbe(candidates, q)
+    }
   }
   if (withoutGroup) {
-    const core = stripLegalFormSuffixes(withoutGroup)
-    if (core) candidates.push(core)
+    pushUniqueProbe(candidates, stripLegalFormSuffixes(withoutGroup))
+    for (const q of stripTrailingListingQualifiers(withoutGroup)) {
+      pushUniqueProbe(candidates, q)
+    }
+  }
+  if (withoutPrefix) {
+    pushUniqueProbe(candidates, stripTrailingGroupSuffix(withoutPrefix))
+    pushUniqueProbe(candidates, stripLegalFormSuffixes(withoutPrefix))
+    for (const q of stripTrailingListingQualifiers(withoutPrefix)) {
+      pushUniqueProbe(candidates, q)
+    }
+  }
+
+  if (/\bi\s+sverige\b/i.test(normalized)) {
+    pushUniqueProbe(
+      candidates,
+      normalized.replace(/\bi\s+sverige\b/i, 'Sverige')
+    )
+    pushUniqueProbe(
+      candidates,
+      normalized.replace(/\bi\s+sverige\b/i, 'Sverige AB')
+    )
+  }
+
+  const dePunctuated = normalizeInitialsAndPunctuation(normalized)
+  pushUniqueProbe(candidates, dePunctuated)
+  if (dePunctuated) {
+    pushUniqueProbe(candidates, stripTrailingGroupSuffix(dePunctuated))
+  }
+
+  pushUniqueProbe(candidates, titleCaseLeadingAllCapsToken(normalized))
+
+  const derived = [...candidates]
+  for (const q of derived) {
+    pushUniqueProbe(candidates, titleCaseLeadingAllCapsToken(q))
+    for (const shorter of stripTrailingListingQualifiers(q)) {
+      pushUniqueProbe(candidates, shorter)
+      pushUniqueProbe(candidates, titleCaseLeadingAllCapsToken(shorter))
+    }
+  }
+
+  if (normalized.split(/\s+/).length === 1) {
+    pushUniqueProbe(candidates, `Investment AB ${normalized}`)
   }
 
   const normKey = normalizedHitLabel(normalized)
   return [...new Set(candidates)]
     .filter((q) => normalizedHitLabel(q) !== normKey)
     .sort((a, b) => a.length - b.length)
+    .slice(0, 12)
 }
 
 function listingNameHasStripProbes(companyName: string): boolean {
@@ -274,10 +392,13 @@ async function mergeListingStripProbeResults(
 ): Promise<SearchResult[]> {
   let merged = results
   for (const query of listingStripProbeQueries(companyName)) {
-    if (resultsIncludeExactLabel(merged, query)) continue
-    const fromProbe = await searchWikidataEntitiesForCompany(query, language)
+    if (resultsIncludeExactLabel(merged, query)) break
+    const fromProbe = await searchWikidataEntitiesForCompany(query, language, {
+      includeExtraNordicLanguages: looksBalticListing(query),
+    })
     if (fromProbe.length === 0) continue
     merged = interleaveDedupeSearchResults(fromProbe, merged)
+    if (resultsIncludeExactLabel(merged, query)) break
   }
   return merged
 }
@@ -562,6 +683,10 @@ function searchLabelAffinityScore(
     if (label === normalizedHitLabel(probe)) return 460_000
   }
 
+  if (label === `investment ab ${q}`) return 460_000
+  if (label === `${q} (sweden)`) return 440_000
+  if (label.startsWith(`${q} sverige`)) return 450_000
+
   const legalSecondToken = new Set([
     'ab',
     'ltd',
@@ -717,18 +842,39 @@ function interleaveDedupeSearchResults(
   return out
 }
 
+const EXTRA_NORDIC_SEARCH_LANGUAGES: SearchEntitiesOptions['language'][] = [
+  'fi',
+  'et',
+  'lv',
+  'lt',
+]
+
 /**
  * When the UI language is English, also search in Swedish and interleave hits so
  * short tickers and Swedish labels (MTG, SCA, …) are not lost to unrelated en matches.
+ * Optionally adds fi/et/lv/lt for Baltic listings or empty-result recovery.
  */
 async function searchWikidataEntitiesForCompany(
   search: string,
-  language: SearchEntitiesOptions['language'] | undefined
+  language: SearchEntitiesOptions['language'] | undefined,
+  options?: { includeExtraNordicLanguages?: boolean }
 ): Promise<SearchResponse['search']> {
   const primary = await searchWikidataEntities(search, language)
-  if (language !== 'en') return primary
-  const svHits = await searchWikidataEntities(search, 'sv')
-  return interleaveDedupeSearchResults(primary, svHits)
+  let merged = primary
+  if (language === 'en') {
+    const svHits = await searchWikidataEntities(search, 'sv')
+    merged = interleaveDedupeSearchResults(merged, svHits)
+  }
+  if (options?.includeExtraNordicLanguages) {
+    for (const lang of EXTRA_NORDIC_SEARCH_LANGUAGES) {
+      if (lang === language) continue
+      const hits = await searchWikidataEntities(search, lang)
+      if (hits.length > 0) {
+        merged = interleaveDedupeSearchResults(merged, hits)
+      }
+    }
+  }
+  return merged
 }
 
 export async function searchCompany({
@@ -739,19 +885,26 @@ export async function searchCompany({
   companyName
   language?: SearchEntitiesOptions['language']
 }): Promise<CompanySearchResult[]> {
-  let results = await searchWikidataEntitiesForCompany(companyName, language)
+  const balticListing = looksBalticListing(companyName)
+  let results = await searchWikidataEntitiesForCompany(companyName, language, {
+    includeExtraNordicLanguages: balticListing,
+  })
 
   if (results.length === 0) {
     const simplified = stripLegalFormSuffixes(companyName)
     if (simplified) {
-      results = await searchWikidataEntitiesForCompany(simplified, language)
+      results = await searchWikidataEntitiesForCompany(simplified, language, {
+        includeExtraNordicLanguages: balticListing,
+      })
     }
   }
 
   if (results.length === 0 && companyName.includes('Int')) {
     const expanded = expandInternationalAbbreviation(companyName)
     if (expanded) {
-      results = await searchWikidataEntitiesForCompany(expanded, language)
+      results = await searchWikidataEntitiesForCompany(expanded, language, {
+        includeExtraNordicLanguages: balticListing,
+      })
     }
   }
 

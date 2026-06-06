@@ -25,18 +25,7 @@ type NamedWikidataCase = Readonly<{
  * Non-empty results that never include the Klimatkollen id (wrong entities win or generic noise).
  * When search improves and the id appears, this test fails — move the row back to {@link regularCases}.
  */
-const SMALL_CAP_SEARCH_SPECIAL_CASES: ReadonlyArray<NamedWikidataCase> = [
-  { companyName: 'Nelly', klimatkollenWikidataId: 'Q10438871' },
-  { companyName: 'Anoto Group AB', klimatkollenWikidataId: 'Q4770417' }, // Anoto
-  { companyName: 'Björn Borg Group', klimatkollenWikidataId: 'Q4919709' }, // björn borg
-  { companyName: 'Eniro Group AB', klimatkollenWikidataId: 'Q202643' }, // eniro
-  { companyName: 'Mysafety Group AB', klimatkollenWikidataId: 'Q31890011' }, // ingen titel, finns som mysafety på svenska wiki
-  {
-    companyName: 'Norrhydro Group Plc',
-    klimatkollenWikidataId: 'Q107548957',
-  }, // norrhydro
-  { companyName: 'Svedbergs Group', klimatkollenWikidataId: 'Q109796634' }, // svedbergs i daltorp, men svedbergs group på svenska wiki
-]
+const SMALL_CAP_SEARCH_SPECIAL_CASES: ReadonlyArray<NamedWikidataCase> = []
 
 const SMALL_CAP_IMPOSSIBLE_TO_FIND: ReadonlyArray<NamedWikidataCase> = [
   { companyName: 'HAKI Safety AB', klimatkollenWikidataId: 'Q10513026' }, // har ingen titel, finns som haki på svenska wiki
@@ -47,39 +36,45 @@ const SMALL_CAP_IMPOSSIBLE_TO_FIND: ReadonlyArray<NamedWikidataCase> = [
  * Known gaps: name shape (e.g. trailing “Group”), subclassing, or ambiguous hits —
  * `searchCompany` returns `[]` for these strings as of last alignment.
  */
-const SMALL_CAP_SEARCH_EMPTY_RESULTS: ReadonlyArray<NamedWikidataCase> = [
-  { companyName: 'B3 Consulting Group', klimatkollenWikidataId: 'Q137909059' },
-  { companyName: 'Fastator', klimatkollenWikidataId: 'Q115168502' },
+const SMALL_CAP_SEARCH_WRONG_WINNER_CASES: ReadonlyArray<NamedWikidataCase> = [
+  { companyName: 'Concejo', klimatkollenWikidataId: 'Q138135784' },
+  { companyName: 'Inission AB', klimatkollenWikidataId: 'Q138139493' },
   { companyName: 'Karnell Group AB', klimatkollenWikidataId: 'Q138140101' },
+  { companyName: 'Mendus', klimatkollenWikidataId: 'Q138140858' },
+  { companyName: 'Pierce Group AB', klimatkollenWikidataId: 'Q138141234' },
+  { companyName: 'PION Group AB', klimatkollenWikidataId: 'Q138141573' },
+  { companyName: 'Seafire', klimatkollenWikidataId: 'Q138143154' },
+  {
+    companyName: 'Wall to Wall Group AB',
+    klimatkollenWikidataId: 'Q138144224',
+  },
+]
+
+const SMALL_CAP_SEARCH_EMPTY_RESULTS: ReadonlyArray<NamedWikidataCase> = [
+  { companyName: 'Acrinova', klimatkollenWikidataId: 'Q138135683' },
+  { companyName: 'B3 Consulting Group', klimatkollenWikidataId: 'Q137909059' },
+  { companyName: 'Berner Industrier AB', klimatkollenWikidataId: 'Q138135718' },
+  { companyName: 'EQL Pharma AB', klimatkollenWikidataId: 'Q137399896' },
+  { companyName: 'Fastator', klimatkollenWikidataId: 'Q115168502' },
   { companyName: 'Nivika', klimatkollenWikidataId: 'Q134691493' },
   {
     companyName: 'Nordisk Bergteknik AB',
     klimatkollenWikidataId: 'Q138141068',
   },
-  { companyName: 'Pierce Group AB', klimatkollenWikidataId: 'Q138141234' },
-  { companyName: 'PION Group AB', klimatkollenWikidataId: 'Q138141573' },
   {
     companyName: 'Sivers Semiconductors',
     klimatkollenWikidataId: 'Q138143077',
   },
   { companyName: 'Stockwik', klimatkollenWikidataId: 'Q138142885' },
   { companyName: 'Vivesto', klimatkollenWikidataId: 'Q138145870' },
-  {
-    companyName: 'Wall to Wall Group AB',
-    klimatkollenWikidataId: 'Q138144224',
-  },
-  { companyName: 'Acrinova', klimatkollenWikidataId: 'Q138135683' },
-  { companyName: 'Berner Industrier AB', klimatkollenWikidataId: 'Q138135718' },
-  { companyName: 'Bong', klimatkollenWikidataId: 'Q18287289' },
-  { companyName: 'Concejo', klimatkollenWikidataId: 'Q138135784' },
-  { companyName: 'Inission AB', klimatkollenWikidataId: 'Q138139493' },
-  { companyName: 'Mendus', klimatkollenWikidataId: 'Q138140858' },
-  { companyName: 'Seafire', klimatkollenWikidataId: 'Q138143154' },
-  { companyName: 'EQL Pharma AB', klimatkollenWikidataId: 'Q137399896' }, // inkorrekt id, istället australiensiskt företag
 ]
 
 const SPECIAL_CASE_NAMES = new Set(
   SMALL_CAP_SEARCH_SPECIAL_CASES.map((c) => c.companyName)
+)
+
+const WRONG_WINNER_NAMES = new Set(
+  SMALL_CAP_SEARCH_WRONG_WINNER_CASES.map((c) => c.companyName)
 )
 
 const EMPTY_RESULT_NAMES = new Set(
@@ -106,7 +101,10 @@ function smallCapCasesFromData(
 const regularCases = smallCapCasesFromData(
   companyWikidata as Record<string, CompanyEntry>
 ).filter(
-  ([name]) => !SPECIAL_CASE_NAMES.has(name) && !EMPTY_RESULT_NAMES.has(name)
+  ([name]) =>
+    !SPECIAL_CASE_NAMES.has(name) &&
+    !EMPTY_RESULT_NAMES.has(name) &&
+    !WRONG_WINNER_NAMES.has(name)
 )
 
 describe('searchCompany (small cap)', () => {
@@ -145,6 +143,15 @@ describe('searchCompany (small cap)', () => {
     async ({ companyName }) => {
       const results = await searchCompany({ companyName })
       expect(results).toHaveLength(0)
+    }
+  )
+
+  it.each(SMALL_CAP_SEARCH_WRONG_WINNER_CASES)(
+    'wrong winner: $companyName — hits exist but not Klimatkollen $klimatkollenWikidataId',
+    async ({ companyName, klimatkollenWikidataId }) => {
+      const results = await searchCompany({ companyName })
+      expect(results.length).toBeGreaterThan(0)
+      expect(results.map((r) => r.id)).not.toContain(klimatkollenWikidataId)
     }
   )
 })
