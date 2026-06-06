@@ -1,30 +1,12 @@
-import companyWikidata from '../../src/data/klimatkollen-company-wikidata.json'
-
-export type CompanyEntry = string | { wikidataId: string; tags?: string[] }
+import { companiesWithTag } from '../../src/lib/wikidata/companyRegistry'
 
 export type NamedWikidataCase = Readonly<{
   companyName: string
   klimatkollenWikidataId: string
 }>
 
-export const companyWikidataData = companyWikidata as Record<
-  string,
-  CompanyEntry
->
-
 export function casesFromDataByTag(tag: string): [string, string][] {
-  const out: [string, string][] = []
-  for (const [name, val] of Object.entries(companyWikidataData)) {
-    const wikidataId = typeof val === 'string' ? val : val.wikidataId
-    const tags =
-      typeof val === 'object' && val !== null && Array.isArray(val.tags)
-        ? val.tags
-        : []
-    if (tags.includes(tag)) {
-      out.push([name, wikidataId])
-    }
-  }
-  return [...out].sort(([a], [b]) => a.localeCompare(b, 'sv'))
+  return companiesWithTag(tag)
 }
 
 export function regularCasesForTag(

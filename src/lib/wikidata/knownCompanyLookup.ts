@@ -1,36 +1,12 @@
-import companyWikidata from '../../data/klimatkollen-company-wikidata.json'
-
-type CompanyEntry = string | { wikidataId: string; tags?: string[] }
-
-const companyWikidataData = companyWikidata as Record<string, CompanyEntry>
-
-function normalizeLookupName(companyName: string): string {
-  return companyName.replace(/,/g, ' ').trim().replace(/\s+/g, ' ')
-}
-
-function buildKnownIdIndex(): Map<string, string> {
-  const index = new Map<string, string>()
-  for (const [name, entry] of Object.entries(companyWikidataData)) {
-    const wikidataId = typeof entry === 'string' ? entry : entry.wikidataId
-    const normalized = normalizeLookupName(name)
-    index.set(normalized, wikidataId)
-    index.set(normalized.toLocaleLowerCase('sv-SE'), wikidataId)
-  }
-  return index
-}
-
-const knownIdByName = buildKnownIdIndex()
+import {
+  lookupRegistryWikidataId,
+  normalizeCompanyName,
+} from './companyRegistry'
 
 export function lookupKnownCompanyWikidataIdFromRegistry(
   companyName: string
 ): string | null {
-  const normalized = normalizeLookupName(companyName)
-  if (!normalized) return null
-  return (
-    knownIdByName.get(normalized) ??
-    knownIdByName.get(normalized.toLocaleLowerCase('sv-SE')) ??
-    null
-  )
+  return lookupRegistryWikidataId(companyName)
 }
 
 async function lookupKnownCompanyWikidataIdFromApi(
@@ -43,11 +19,11 @@ async function lookupKnownCompanyWikidataIdFromApi(
     )
     if (!Array.isArray(companies) || companies.length === 0) return null
 
-    const want = normalizeLookupName(companyName).toLocaleLowerCase('sv-SE')
+    const want = normalizeCompanyName(companyName).toLocaleLowerCase('sv-SE')
     const exact = companies.find(
       (c: { name?: string; wikidataId?: string }) =>
         typeof c?.name === 'string' &&
-        normalizeLookupName(c.name).toLocaleLowerCase('sv-SE') === want &&
+        normalizeCompanyName(c.name).toLocaleLowerCase('sv-SE') === want &&
         typeof c.wikidataId === 'string'
     )
     if (exact?.wikidataId) return exact.wikidataId

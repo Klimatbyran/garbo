@@ -2,62 +2,23 @@
  * Stats for companies listed as empty/special/impossible in wikidata search specs.
  */
 import 'dotenv/config'
-import { readFileSync } from 'fs'
 import { searchCompany } from '../src/lib/wikidata/read'
-
-const TOP = 10
-const SPEC_FILES = [
-  'tests/wikidata/wikidata-search-company-large-cap.spec.ts',
-  'tests/wikidata/wikidata-search-company-small-cap.spec.ts',
-  'tests/wikidata/wikidata-search-company-mid-cap.spec.ts',
-  'tests/wikidata/wikidata-search-company-public.spec.ts',
-  'tests/wikidata/wikidata-search-company-baltics.spec.ts',
-]
+import {
+  classifyGapRecovery,
+  WIKIDATA_SEARCH_TOP_N,
+} from '../src/lib/wikidata/searchClassification'
+import { listDocumentedGapCases } from '../tests/wikidata/gapCases'
 
 type Bucket = 'empty' | 'special' | 'impossible'
 type Case = { name: string; id: string; bucket: Bucket }
 
-function extractCases(): Case[] {
-  const out: Case[] = []
-  for (const file of SPEC_FILES) {
-    const src = readFileSync(file, 'utf8')
-    for (const bucket of ['EMPTY_RESULTS', 'SPECIAL_CASES', 'IMPOSSIBLE_TO_FIND'] as const) {
-      const re = new RegExp(`${bucket}:[\\s\\S]*?\\]`)
-      const m = src.match(re)
-      if (!m) continue
-      const rows = [
-        ...m[0].matchAll(
-          /companyName: '([^']+)'[\s\S]*?klimatkollenWikidataId: '([^']+)'/g
-        ),
-      ]
-      for (const [, name, id] of rows) {
-        out.push({
-          name,
-          id,
-          bucket:
-            bucket === 'EMPTY_RESULTS'
-              ? 'empty'
-              : bucket === 'SPECIAL_CASES'
-                ? 'special'
-                : 'impossible',
-        })
-      }
-    }
-  }
-  return out
-}
-
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
-async function classify(name: string, id: string) {
+async function classifyWithRetry(name: string, id: string) {
   for (let attempt = 0; attempt < 5; attempt++) {
     try {
       const results = await searchCompany({ companyName: name })
-      if (results.length === 0) return 'still_empty' as const
-      const topIds = results.slice(0, TOP).map((r) => r.id)
-      if (topIds.includes(id)) return 'now_top' as const
-      if (results.some((r) => r.id === id)) return 'now_low' as const
-      return 'still_missing' as const
+      return classifyGapRecovery(results, id, WIKIDATA_SEARCH_TOP_N)
     } catch (e: unknown) {
       const msg = e instanceof Error ? e.message : String(e)
       if (msg.includes('429') && attempt < 4) {
@@ -71,7 +32,12 @@ async function classify(name: string, id: string) {
 }
 
 async function main() {
-  const cases = extractCases()
+  const cases = listDocumentedGapCases().filter(
+    (c): c is Case & { tag: string } =>
+      c.bucket === 'empty' ||
+      c.bucket === 'special' ||
+      c.bucket === 'impossible'
+  )
   const unique = new Map<string, Case>()
   for (const c of cases) unique.set(`${c.name}|${c.id}`, c)
 
@@ -98,7 +64,7 @@ async function main() {
 
   let i = 0
   for (const c of unique.values()) {
-    const status = await classify(c.name, c.id)
+    const status = await classifyWithRetry(c.name, c.id)
     results[status]++
     byBaseline[c.bucket][status]++
     if (status === 'now_top' || status === 'now_low') {
@@ -122,9 +88,11 @@ async function main() {
 
   console.log('\n=== Current live API (today) ===')
   console.log(
-    `Now in top ${TOP}: ${results.now_top} (${pct(results.now_top, unique.size)})`
+    `Now in top ${WIKIDATA_SEARCH_TOP_N}: ${results.now_top} (${pct(results.now_top, unique.size)})`
   )
-  console.log(`Now in results (outside top ${TOP}): ${results.now_low}`)
+  console.log(
+    `Now in results (outside top ${WIKIDATA_SEARCH_TOP_N}): ${results.now_low}`
+  )
   console.log(`Still no hits: ${results.still_empty}`)
   console.log(`Has hits but not Klimatkollen id: ${results.still_missing}`)
   console.log(

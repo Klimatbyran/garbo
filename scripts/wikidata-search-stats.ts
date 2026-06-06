@@ -3,10 +3,13 @@
  * Usage: npx tsx scripts/wikidata-search-stats.ts
  */
 import 'dotenv/config'
-import { readFileSync } from 'fs'
+import { companiesWithTag } from '../src/lib/wikidata/companyRegistry'
 import { searchCompany } from '../src/lib/wikidata/read'
+import {
+  classifySearchHit,
+  WIKIDATA_SEARCH_TOP_N,
+} from '../src/lib/wikidata/searchClassification'
 
-const TOP = 10
 const TAGS = [
   'large-cap',
   'small-cap',
@@ -18,36 +21,9 @@ const TAGS = [
   'municipality-owned',
 ] as const
 
-type CompanyEntry = string | { wikidataId: string; tags?: string[] }
 type Status = 'top' | 'low' | 'empty'
 
-const companyWikidata = JSON.parse(
-  readFileSync('src/data/klimatkollen-company-wikidata.json', 'utf8')
-) as Record<string, CompanyEntry>
-
-function casesByTag(tag: string): [string, string][] {
-  const out: [string, string][] = []
-  for (const [name, val] of Object.entries(companyWikidata)) {
-    const wikidataId = typeof val === 'string' ? val : val.wikidataId
-    const tags =
-      typeof val === 'object' && val !== null && Array.isArray(val.tags)
-        ? val.tags
-        : []
-    if (tags.includes(tag)) out.push([name, wikidataId])
-  }
-  return out.sort(([a], [b]) => a.localeCompare(b, 'sv'))
-}
-
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
-
-async function classify(name: string, id: string): Promise<Status> {
-  const results = await searchCompany({ companyName: name })
-  if (results.length === 0) return 'empty'
-  const topIds = results.slice(0, TOP).map((r) => r.id)
-  if (topIds.includes(id)) return 'top'
-  if (results.some((r) => r.id === id)) return 'low'
-  return 'empty'
-}
 
 async function main() {
   const cache = new Map<string, Status>()
@@ -59,7 +35,7 @@ async function main() {
 
   const unique = new Map<string, string[]>()
   for (const tag of TAGS) {
-    for (const [name, id] of casesByTag(tag)) {
+    for (const [name, id] of companiesWithTag(tag)) {
       const key = `${name}|${id}`
       const tagList = unique.get(key) ?? []
       tagList.push(tag)
@@ -72,7 +48,8 @@ async function main() {
   let i = 0
   for (const [key, tagList] of unique) {
     const [name, id] = key.split('|')
-    const status = await classify(name, id)
+    const results = await searchCompany({ companyName: name })
+    const status = classifySearchHit(results, id, WIKIDATA_SEARCH_TOP_N)
     cache.set(key, status)
     global[status]++
     global.total++
@@ -94,10 +71,12 @@ async function main() {
   console.log('\n=== Global (unique companies) ===')
   console.log(`Total: ${global.total}`)
   console.log(
-    `In top ${TOP}: ${global.top} (${pct(global.top, global.total)})`
+    `In top ${WIKIDATA_SEARCH_TOP_N}: ${global.top} (${pct(global.top, global.total)})`
   )
-  console.log(`In results (not top ${TOP}): ${global.low}`)
-  console.log(`Not found / wrong id only: ${global.empty} (${pct(global.empty, global.total)})`)
+  console.log(`In results (not top ${WIKIDATA_SEARCH_TOP_N}): ${global.low}`)
+  console.log(
+    `Not found / wrong id only: ${global.empty} (${pct(global.empty, global.total)})`
+  )
   console.log(
     `Resolvable (top or low): ${global.top + global.low} (${pct(global.top + global.low, global.total)})`
   )
