@@ -9,6 +9,7 @@ import { Claim, transformFromWikidataDateStringToDate, wbk } from './util'
 import { WbGetEntitiesResponse } from 'wikibase-sdk/dist/src/helpers/parse_responses'
 import { SearchEntitiesOptions } from 'wikibase-sdk/dist/src/queries/search_entities'
 import wikidataConfig from '../../config/wikidata'
+import { lookupKnownCompanyWikidataId } from './knownCompanyLookup'
 
 /** `wbgetentities` returns sitelinks; the SDK `Entity` type omits them. */
 type EntityWithSitelinks = Entity & {
@@ -877,14 +878,41 @@ async function searchWikidataEntitiesForCompany(
   return merged
 }
 
+function knownCompanySearchResult(
+  companyName: string,
+  wikidataId: string
+): CompanySearchResult[] {
+  return [
+    {
+      id: wikidataId,
+      label: companyName,
+      description: '',
+      url: `https://www.wikidata.org/wiki/${wikidataId}`,
+      match: { type: 'label', language: 'en', text: companyName },
+    },
+  ]
+}
+
 export async function searchCompany({
   companyName,
   /** `wbsearchentities` UI language; default `en` suits international company names. Pass `sv`, `de`, etc. when you know the listing’s primary locale. */
   language = 'en',
+  /**
+   * When true, return a Klimatkollen-known Wikidata id from the bundled registry
+   * or Garbo API before calling Wikidata search. Off by default so search-quality
+   * tests still exercise live `wbsearchentities`.
+   */
+  useKnownIdLookup = false,
 }: {
-  companyName
+  companyName: string
   language?: SearchEntitiesOptions['language']
+  useKnownIdLookup?: boolean
 }): Promise<CompanySearchResult[]> {
+  if (useKnownIdLookup) {
+    const knownId = await lookupKnownCompanyWikidataId(companyName)
+    if (knownId) return knownCompanySearchResult(companyName, knownId)
+  }
+
   const balticListing = looksBalticListing(companyName)
   let results = await searchWikidataEntitiesForCompany(companyName, language, {
     includeExtraNordicLanguages: balticListing,

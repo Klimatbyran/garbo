@@ -1,4 +1,4 @@
-import companyWikidata from './data/klimatkollen-company-wikidata.json'
+import companyWikidata from '../../src/data/klimatkollen-company-wikidata.json'
 
 export type CompanyEntry = string | { wikidataId: string; tags?: string[] }
 

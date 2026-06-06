@@ -208,6 +208,7 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
       job.log(`Searching for company name: ${companyName} (attempt ${retry})`)
       const results = await searchCompany({
         companyName,
+        useKnownIdLookup: true,
         ...(wikidataSearchLanguage != null ? { language: wikidataSearchLanguage } : {}),
       })
 

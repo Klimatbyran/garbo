@@ -1,6 +1,6 @@
 import { describe, it, jest } from '@jest/globals'
 import { searchCompany } from '../../src/lib/wikidata/read'
-import companyWikidata from './data/klimatkollen-company-wikidata.json'
+import companyWikidata from '../../src/data/klimatkollen-company-wikidata.json'
 import {
   EXPECT_WIKIDATA_ID_IN_TOP,
   expectWikidataIdInTopResults,
