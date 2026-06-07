@@ -75,6 +75,8 @@ flowchart TD
 
 In BullMQ flows, child jobs finish before their parent runs. Diff jobs and `saveToAPI` are only enqueued when the matching follow-up returned data. `sendCompanyLink` is the flow parent that runs after all diff children complete.
 
+LEI resolution (`extractLEI` → `diffLEI` → `saveToAPI`) is documented in [doc/pipeline.md#lei-legal-entity-identifier](./doc/pipeline.md#lei-legal-entity-identifier).
+
 For a more in depth explaination of the pipeline and its steps continue [here](./doc/pipeline.md).
 
 ## Get started 🚀

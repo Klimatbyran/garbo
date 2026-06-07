@@ -760,9 +760,112 @@ Except for the properties identical to the job's input properties the properties
 
 The job returns the three properties `body`, `diff` and `requiresapproval`. The property `body` contains the updated initatives and metadata for the possible data update. `diff` contains information about the differences between the new and existing data and `requiresApproval` indicates if the update does require the approval of the user.
 
+## LEI (Legal Entity Identifier)
+
+Garbo enriches companies with a [LEI](https://www.gleif.org/) (Legal Entity Identifier) so API consumers can relate emissions data to a stable entity id. In the main pipeline, [extractLEI](#extractlei) runs in parallel with the other follow-up jobs as a child of [checkDB](#checkdb). When a LEI is returned, [checkDB](#checkdb) adds [diffLEI](#difflei) as a child of the [sendCompanyLink](#sendcompanylink) flow.
+
+```mermaid
+flowchart TD
+    LEI[extractLEI]
+    WD{LEI on Wikidata P1278?}
+    GLEIF[GLEIF API search by company name]
+    LLM[LLM picks best GLEIF match]
+    CDB[checkDB]
+    DLEI[diffLEI]
+    CMP{LEI differs from API?}
+    API[saveToAPI]
+    SC[sendCompanyLink]
+
+    LEI --> WD
+    WD -->|yes| CDB
+    WD -->|no| GLEIF
+    GLEIF -->|no matches| CDB
+    GLEIF -->|candidates| LLM
+    LLM --> CDB
+    CDB --> DLEI
+    DLEI --> CMP
+    CMP -->|yes| API
+    CMP -->|no| SC
+    API --> SC
+```
+
+### extractLEI
+
+**Called By:** The flow construction in the job [extractEmissions](#extractemissions) defined in `src/workers/extractEmissions.ts` (parallel child of [checkDB](#checkdb)).
+
+**Defined In:** `src/workers/extractLEI.ts`
+
+**Input Data:**
+
+```typescript
+{
+    url: string
+    threadId: string
+    autoApprove: boolean
+    companyName: string
+    wikidataId: string
+}
+```
+
+`wikidataId` is the resolved Wikidata entity id from [guessWikidata](#guesswikidata).
+
+**Functionality:**
+
+1. Look up LEI on Wikidata via property `P1278` (`getLEINumber` in `src/lib/wikidata/read.ts`).
+2. If Wikidata has no LEI, search the [GLEIF API](https://documenter.getpostman.com/view/7679680/SVYrrxuU) by `companyName` (`getLEINumbersFromGLEIF` in `src/lib/gleif.ts`).
+3. If GLEIF returns candidates, ask the LLM (prompt in `src/prompts/lei.ts`) to pick the best matching LEI for the company.
+4. Post a Discord message when no LEI can be resolved.
+
+**Return Value:**
+
+```typescript
+{
+  lei?: string
+  wikidataId: string
+}
+```
+
+`checkDB` reads this from its child job results and passes `lei` into [diffLEI](#difflei) when defined.
+
+### diffLEI
+
+**Called By:** The flow construction in the job [checkDB](#checkdb) defined in `src/workers/checkDB.ts` (child of [sendCompanyLink](#sendcompanylink), only when `lei` is present).
+
+**Defined In:** `src/workers/diffLEI.ts`
+
+**Input Data:**
+
+```typescript
+{
+    url: string
+    threadId: string
+    autoApprove: boolean
+    companyName: string
+    existingCompany: Company
+    wikidata: Wikidata
+    lei?: string
+}
+```
+
+**Functionality:**
+
+Compares the extracted `lei` with `existingCompany.lei` from the API. If there is no existing LEI, or the value differs, the job enqueues [saveToAPI](#savetoapi) with `requiresApproval: false` and an empty `apiSubEndpoint`, which PATCHes `/companies/{wikidataId}` with:
+
+```typescript
+{
+  lei: string
+  wikidataId: string
+  name: string
+}
+```
+
+If the LEI is already correct, no save is enqueued.
+
+**Return Value:** _none_
+
 ### saveToAPI
 
-**Called By:** One of the diff jobs ([diffReportingPeriods](#diffreportingperiods), [diffIndustry](#diffindustry), [diffGoals](#diffgoals), [diffBaseYear](#diffbaseyear), [diffInitiatives](#diffinitiatives), `diffLEI`, `diffDescriptions`, or `diffTags`) in their corresponding files under `src/workers/`.
+**Called By:** One of the diff jobs ([diffReportingPeriods](#diffreportingperiods), [diffIndustry](#diffindustry), [diffGoals](#diffgoals), [diffBaseYear](#diffbaseyear), [diffInitiatives](#diffinitiatives), [diffLEI](#difflei), `diffDescriptions`, or `diffTags`) in their corresponding files under `src/workers/`.
 
 **Input Data:**
 
