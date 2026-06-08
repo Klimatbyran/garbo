@@ -281,12 +281,9 @@ export const ReportingPeriodSchema = z.object({
     .nullable()
     .optional()
     .openapi({ description: 'SHA-256 hash for cached/uploaded report PDF' }),
-  companyReportId: z
-    .string()
-    .optional()
-    .openapi({
-      description: 'CompanyReport (processed PDF) this period belongs to',
-    }),
+  companyReportId: z.string().optional().openapi({
+    description: 'CompanyReport (processed PDF) this period belongs to',
+  }),
   emissions: EmissionsSchema.nullable(),
   economy: EconomySchema.nullable(),
   emissionsChangeLastTwoYears: z
