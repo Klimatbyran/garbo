@@ -36,21 +36,35 @@ class CompanyReportService {
     companyId: string,
     registryReportId: string | null
   ): Promise<string> {
+    if (registryReportId !== null) {
+      const row = await prisma.companyReport.upsert({
+        where: {
+          companyId_registryReportId: {
+            companyId,
+            registryReportId,
+          },
+        },
+        create: {
+          companyId,
+          registryReportId,
+        },
+        update: {},
+        select: { id: true },
+      })
+
+      return row.id
+    }
+
     const existing = await prisma.companyReport.findFirst({
-      where: {
-        companyId,
-        registryReportId: registryReportId ?? null,
-      },
+      where: { companyId, registryReportId: null },
+      orderBy: { createdAt: 'desc' },
       select: { id: true },
     })
 
     if (existing) return existing.id
 
     const created = await prisma.companyReport.create({
-      data: {
-        companyId,
-        registryReportId: registryReportId ?? null,
-      },
+      data: { companyId, registryReportId: null },
       select: { id: true },
     })
 
@@ -118,7 +132,7 @@ class CompanyReportService {
   async getOrCreateFallbackCompanyReportId(companyId: string): Promise<string> {
     const existing = await prisma.companyReport.findFirst({
       where: { companyId },
-      orderBy: { reportingPeriods: { _count: 'desc' } },
+      orderBy: [{ reportYear: 'desc' }, { createdAt: 'desc' }],
       select: { id: true },
     })
 

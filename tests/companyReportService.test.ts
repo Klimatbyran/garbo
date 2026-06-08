@@ -38,13 +38,12 @@ describe('companyReportService', () => {
     ).rejects.toBeInstanceOf(CompanyReportScopeError)
   })
 
-  it('creates CompanyReport from registry upsert when identity is present', async () => {
+  it('upserts CompanyReport from registry when identity is present', async () => {
     jest
       .spyOn(registryService, 'upsertReportInRegistry')
       .mockResolvedValueOnce({ id: 'report-1' } as never)
-    jest.spyOn(prisma.companyReport, 'findFirst').mockResolvedValueOnce(null)
     jest
-      .spyOn(prisma.companyReport, 'create')
+      .spyOn(prisma.companyReport, 'upsert')
       .mockResolvedValueOnce({ id: 'cr-new' } as never)
 
     const result = await companyReportService.resolveCompanyReportIdForSave(
@@ -59,17 +58,26 @@ describe('companyReportService', () => {
 
     expect(result).toEqual({ companyReportId: 'cr-new', inferred: true })
     expect(registryService.upsertReportInRegistry).toHaveBeenCalled()
-    expect(prisma.companyReport.create).toHaveBeenCalledWith(
+    expect(prisma.companyReport.upsert).toHaveBeenCalledWith(
       expect.objectContaining({
-        data: { companyId: 'Q1', registryReportId: 'report-1' },
+        where: {
+          companyId_registryReportId: {
+            companyId: 'Q1',
+            registryReportId: 'report-1',
+          },
+        },
+        create: { companyId: 'Q1', registryReportId: 'report-1' },
+        update: {},
       })
     )
   })
 
   it('falls back to the latest CompanyReport when no report identity', async () => {
-    jest.spyOn(prisma.companyReport, 'findFirst').mockResolvedValueOnce({
-      id: 'cr-legacy',
-    } as never)
+    const findFirst = jest
+      .spyOn(prisma.companyReport, 'findFirst')
+      .mockResolvedValueOnce({
+        id: 'cr-legacy',
+      } as never)
 
     const result = await companyReportService.resolveCompanyReportIdForSave(
       { wikidataId: 'Q1', name: 'Acme' },
@@ -77,6 +85,11 @@ describe('companyReportService', () => {
     )
 
     expect(result).toEqual({ companyReportId: 'cr-legacy', inferred: true })
+    expect(findFirst).toHaveBeenCalledWith(
+      expect.objectContaining({
+        orderBy: [{ reportYear: 'desc' }, { createdAt: 'desc' }],
+      })
+    )
   })
 
   it('prepareCompanyReportForPeriodSave resolves id, pdf year, and updates reportYear', async () => {
