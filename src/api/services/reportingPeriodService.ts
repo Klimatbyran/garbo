@@ -67,6 +67,7 @@ class ReportingPeriodService {
     })
   }
 
+  // ToDo: after delete, remove CompanyReport when no periods remain; add bulk delete-by-companyReportId.
   async deleteReportingPeriod(id: string) {
     return await prisma.reportingPeriod.delete({ where: { id } })
   }
