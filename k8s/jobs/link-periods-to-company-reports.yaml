@@ -2,10 +2,9 @@
 # NOT applied by Flux — use: kubectl create -f k8s/jobs/link-periods-to-company-reports.yaml
 #
 # Prerequisites:
-#   1. Deploy the PR 1 image (CompanyReport table + nullable companyReportId column)
+#   1. Deploy image with migration 20260520120000_add_company_report (CompanyReport + nullable companyReportId)
 #   2. Recommended: backfill-report-from-periods (after dedupe) so Report rows exist
-#   3. Run this job — links all periods to one CompanyReport per company (latest Report;
-#      prefers newest period Metadata.source, else highest Report.reportYear (richest row if tied))
+#   3. Run this job — one CompanyReport per company (latest Report by metadata URL or reportYear)
 #
 # - For dry-run only, set args to: ["scripts/link-periods-to-company-reports.ts", "--dry-run"]
 

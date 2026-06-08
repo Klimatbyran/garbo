@@ -5,6 +5,10 @@ import {
 } from 'fastify'
 import { emissionsService } from '../../services/emissionsService'
 import { companyService } from '../../services/companyService'
+import {
+  companyReportService,
+  CompanyReportScopeError,
+} from '../../services/companyReportService'
 import { reportingPeriodService } from '../../services/reportingPeriodService'
 import {
   getErrorSchemas,
@@ -181,7 +185,17 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
       reply
     ) => {
       const { wikidataId } = request.params
-      const { reportingPeriods, metadata, replaceAllEmissions } = request.body
+      const {
+        reportingPeriods,
+        metadata,
+        replaceAllEmissions,
+        companyReportId: bodyCompanyReportId,
+        reportUrl,
+        reportSourceUrl,
+        reportS3Url,
+        reportSha256,
+        documentReportYear: bodyDocumentReportYear,
+      } = request.body
       const user = request.user
       let company
 
@@ -193,6 +207,34 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
           code: '404',
           message: `There is no company with wikidataId ${wikidataId}`,
         })
+      }
+
+      let resolvedCompanyReportId: string
+      let documentReportYear: string | undefined
+      try {
+        const prepared =
+          await companyReportService.prepareCompanyReportForPeriodSave(
+            company,
+            reportingPeriods,
+            {
+              bodyCompanyReportId,
+              documentReportYear: bodyDocumentReportYear,
+              reportUrl,
+              reportSourceUrl,
+              reportS3Url,
+              reportSha256,
+            }
+          )
+        resolvedCompanyReportId = prepared.companyReportId
+        documentReportYear = prepared.documentReportYear
+      } catch (error) {
+        if (error instanceof CompanyReportScopeError) {
+          return reply.status(400).send({
+            code: '400',
+            message: error.message,
+          })
+        }
+        throw error
       }
 
       // If replaceAllEmissions is set, purge existing emissions for ALL reporting periods for the company before upserting
@@ -241,11 +283,21 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
             economy = {},
             startDate,
             endDate,
+            companyReportId: periodCompanyReportId,
             reportURL,
             reportS3Url,
             reportSha256,
           }) => {
             const year = endDate.getFullYear().toString()
+
+            const companyReportIdForPeriod =
+              await companyReportService.companyReportIdForPeriodSave(
+                company.wikidataId,
+                resolvedCompanyReportId,
+                periodCompanyReportId,
+                documentReportYear
+              )
+
             const createdMetadata = await metadataService.createMetadata({
               metadata,
               user,
@@ -267,6 +319,7 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
                   reportS3Url: reportS3Url ?? undefined,
                   reportSha256: reportSha256 ?? undefined,
                   year,
+                  companyReportId: companyReportIdForPeriod,
                 }
               )
 
@@ -384,6 +437,12 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
             'ERROR Creation or update of reporting periods failed',
             result.reason
           )
+          if (result.reason instanceof CompanyReportScopeError) {
+            return reply.status(400).send({
+              code: '400',
+              message: result.reason.message,
+            })
+          }
           return reply.status(500).send({
             code: 'INTERNAL_SERVER_ERROR',
             message: 'Creation or update of reporting periods failed.',

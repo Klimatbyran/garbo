@@ -260,6 +260,7 @@ export const reportingPeriodSchema = z
   .object({
     startDate: z.coerce.date(),
     endDate: z.coerce.date(),
+    companyReportId: z.string().optional(),
     reportURL: z.string().optional().nullable(),
     reportS3Url: z.preprocess(
       (val) => (val === '' ? null : val),
@@ -277,6 +278,15 @@ export const postReportingPeriodsSchema = z
   .object({
     reportingPeriods: z.array(reportingPeriodSchema),
     replaceAllEmissions: z.boolean().optional(),
+    /// Default CompanyReport for all periods (overrides per-period companyReportId).
+    companyReportId: z.string().optional(),
+    /// Report URLs at job level; used to find or create CompanyReport when companyReportId is omitted.
+    reportUrl: z.string().optional(),
+    reportSourceUrl: z.string().optional(),
+    reportS3Url: z.string().optional(),
+    reportSha256: z.string().optional(),
+    /// PDF year label (e.g. 2025 annual report), stored on Report and CompanyReport.
+    documentReportYear: z.string().optional(),
   })
   .merge(createMetadataSchema)
 

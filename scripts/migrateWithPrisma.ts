@@ -61,6 +61,16 @@ async function migrateData() {
       })
     }
 
+    const companyReportId = (
+      await prisma.companyReport.create({
+        data: {
+          companyId: createdCompany.wikidataId,
+          registryReportId: null,
+        },
+        select: { id: true },
+      })
+    ).id
+
     for (const period of reportingPeriods) {
       const createdPeriod = await prisma.reportingPeriod.create({
         data: {
@@ -68,6 +78,7 @@ async function migrateData() {
           endDate: new Date(period.endDate),
           year: period.endDate.slice(0, 4),
           companyId: createdCompany.wikidataId,
+          companyReportId,
           reportURL: period.reportURL,
           metadata: createMetadata(period.metadata),
         },

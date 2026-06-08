@@ -21,6 +21,7 @@ export interface SaveToApiJob extends DiscordJob {
       publicUrl?: string
       sha256?: string
     }
+    documentReportYear?: string | number
   }
 }
 
@@ -119,7 +120,14 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
       }
 
       if (apiSubEndpoint === 'reporting-periods') {
-        const registryPayload = buildRegistryPayload(job)
+        const registryPayload = buildRegistryPayload({
+          data: {
+            ...job.data,
+            documentReportYear:
+              job.data.documentReportYear ?? sanitizedBody?.documentReportYear,
+            body: sanitizedBody,
+          },
+        })
         if (registryPayload) {
           try {
             await registryService.upsertReportInRegistry(registryPayload)

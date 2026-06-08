@@ -2,43 +2,43 @@ import { FastifyInstance, FastifyRequest } from 'fastify'
 
 import { getGics } from '../../../lib/gics'
 import { prisma } from '../../../lib/prisma'
-import { getTags } from '../../../config/openapi'
-import { CompanySearchQuery, WikidataIdParams } from '../../types'
-import { cachePlugin } from '../../plugins/cache'
 import { companyService } from '../../services/companyService'
 import {
   CompanyList,
-  wikidataIdParamSchema,
-  CompanyDetails,
   getErrorSchemas,
-  companySearchQuerySchema,
+  InternalCompanyDetails,
+  wikidataIdParamSchema,
 } from '../../schemas'
+import { getTags } from '../../../config/openapi'
+import { WikidataIdParams } from '../../types'
+import { cachePlugin } from '../../plugins/cache'
 import { redisCache } from '../../../lib/redisCacheSingleton'
 
-export async function companyReadRoutes(app: FastifyInstance) {
+/**
+ * Staff JWT routes for validate and pipeline workers. Full reporting period rows
+ * (not the one-period-per-data-year effective read used on client APIs).
+ */
+export async function pipelineCompanyReadRoutes(app: FastifyInstance) {
   app.register(cachePlugin)
 
   app.get(
     '/',
     {
       schema: {
-        summary: 'Get all companies',
+        summary: 'List companies with all reporting periods (pipeline)',
         description:
-          'Retrieve a list of all companies with their emissions, economic data, industry classification, goals, and initiatives',
-        tags: getTags('Companies'),
-
+          'Staff list for validate and pipeline tooling. Includes every reporting period row per company (not the public one-period-per-data-year view).',
+        tags: getTags('Internal'),
         response: {
           200: CompanyList,
         },
       },
     },
-
     async (request, reply) => {
-      const cacheKey = 'companies:etag'
+      const cacheKey = 'pipeline-companies:etag'
 
       let currentEtag: string = await redisCache.get(cacheKey)
 
-      // Check for database changes by looking at record counts across relevant tables
       const [
         companyCount,
         reportingPeriodCount,
@@ -75,44 +75,16 @@ export async function companyReadRoutes(app: FastifyInstance) {
         await redisCache.set(cacheKey, JSON.stringify(currentEtag))
       }
 
-      const dataCacheKey = `companies:data:${databaseFingerprint}`
+      const dataCacheKey = `pipeline-companies:data:${databaseFingerprint}`
 
       let companies = await redisCache.get(dataCacheKey)
 
       if (!companies) {
-        companies = await companyService.getAllCompaniesForPublicRead()
+        companies = await companyService.getAllCompaniesWithMetadata()
         await redisCache.set(dataCacheKey, JSON.stringify(companies))
       }
 
       reply.header('ETag', `${currentEtag}`)
-
-      reply.send(companies)
-    }
-  )
-
-  // Register before /:wikidataId so "search" is not captured as an id
-  app.get(
-    '/search',
-    {
-      schema: {
-        summary: 'Search for companies',
-        description:
-          'Search for a company with its emissions, economic data, industry classification, goals, and initiatives',
-        tags: getTags('Companies'),
-        querystring: companySearchQuerySchema,
-        response: {
-          200: CompanyList,
-        },
-      },
-    },
-    async (
-      request: FastifyRequest<{ Querystring: CompanySearchQuery }>,
-      reply
-    ) => {
-      const { q } = request.query
-      const companies = await companyService.getAllCompaniesBySearchTerm(q, {
-        onePeriodPerDataYear: true,
-      })
       reply.send(companies)
     }
   )
@@ -121,23 +93,22 @@ export async function companyReadRoutes(app: FastifyInstance) {
     '/:wikidataId',
     {
       schema: {
-        summary: 'Get detailed company',
+        summary: 'Company with all reporting periods (pipeline)',
         description:
-          'Retrieve a company with its emissions, economic data, industry classification, goals, and initiatives',
-        tags: getTags('Companies'),
+          'Full company payload for pipeline diff and approval. Includes every reporting period row (not the public one-period-per-year view).',
+        tags: getTags('Internal'),
         params: wikidataIdParamSchema,
         response: {
-          200: CompanyDetails,
+          200: InternalCompanyDetails,
           ...getErrorSchemas(400, 404),
         },
       },
     },
     async (request: FastifyRequest<{ Params: WikidataIdParams }>, reply) => {
       const { wikidataId } = request.params
-      const company = await companyService.getCompanyForPublicRead(wikidataId)
+      const company = await companyService.getCompanyWithMetadata(wikidataId)
       reply.send({
         ...company,
-        // Add translations for GICS data
         industry: company.industry
           ? {
               ...company.industry,

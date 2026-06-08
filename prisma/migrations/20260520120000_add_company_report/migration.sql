@@ -5,8 +5,9 @@
 -- (scripts/link-periods-to-company-reports.ts) populates the FK for existing rows.
 --
 -- @@unique([companyId, year]) on ReportingPeriod is kept in this migration.
--- It is replaced by @@unique([companyReportId, year]) in PR 2 once all rows
--- have companyReportId set and the write path has been updated.
+-- It is replaced by @@unique([companyReportId, year]) in migration
+-- 20260602120000_reporting_period_per_company_report once all rows have
+-- companyReportId set and the write path uses (companyReportId, year).
 
 -- CreateTable
 CREATE TABLE "CompanyReport" (
@@ -21,7 +22,7 @@ CREATE TABLE "CompanyReport" (
 );
 
 -- CreateIndex: one CompanyReport per (company, report).
--- Postgres allows multiple NULLs in unique constraints (synthetic shells per company).
+-- Postgres allows multiple NULLs in unique constraints (several rows with NULL registryReportId).
 CREATE UNIQUE INDEX "CompanyReport_companyId_registryReportId_key" ON "CompanyReport"("companyId", "registryReportId");
 
 -- AddForeignKey: CompanyReport -> Company

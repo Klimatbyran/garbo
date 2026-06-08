@@ -18,6 +18,19 @@ export const economyArgs = {
   },
 } satisfies Prisma.EconomyDefaultArgs
 
+/** companyReport fields used when picking one period per data year on public read. */
+export const reportingPeriodCompanyReportSelect = {
+  year: true,
+  companyReportId: true,
+  companyReport: {
+    select: {
+      id: true,
+      reportYear: true,
+      reportPublicationDate: true,
+    },
+  },
+} as const
+
 export const reportingPeriodArgs = {
   include: {
     emissions: emissionsArgs,
@@ -84,9 +97,12 @@ export const detailedCompanyArgs = {
         id: true,
         startDate: true,
         endDate: true,
+        year: true,
+        companyReportId: true,
         reportURL: true,
         reportS3Url: true,
         reportSha256: true,
+        companyReport: reportingPeriodCompanyReportSelect.companyReport,
         economy: {
           select: {
             id: true,
@@ -256,9 +272,12 @@ export const companyListArgs = {
       select: {
         startDate: true,
         endDate: true,
+        year: true,
+        companyReportId: true,
         reportURL: true,
         reportS3Url: true,
         reportSha256: true,
+        companyReport: reportingPeriodCompanyReportSelect.companyReport,
         economy: {
           select: {
             turnover: {

@@ -1,5 +1,10 @@
 import { canonicalPublicReportUrl } from '../lib/canonicalPublicReportUrl'
-import { isStorageUrl, trimStr } from '../api/services/registryReportIdentity'
+import {
+  isStorageUrl,
+  parseReportYearFromUrl,
+  trimStr,
+  isValidReportCatalogYear,
+} from '../api/services/registryReportIdentity'
 
 export interface RegistrySaveJobData {
   companyName?: string
@@ -7,6 +12,8 @@ export interface RegistrySaveJobData {
   url: string
   sourceUrl?: string
   pdfCache?: { publicUrl?: string; sha256?: string }
+  /** PDF year label from pipeline (explicit field or max extracted data year). */
+  documentReportYear?: string | number
   body: { reportingPeriods: any[] }
 }
 
@@ -74,25 +81,43 @@ function resolveStorageUrl(
   )
 }
 
-// Returns the year from the chosen period, or falls back to the highest year across all periods.
-function resolveReportYear(
-  chosenPeriod: any,
-  reportingPeriods: any[]
+function maxDataYearAmongPeriods(reportingPeriods: any[]): number | null {
+  let max: number | null = null
+  for (const period of reportingPeriods) {
+    const y = Number(period?.year)
+    if (!Number.isFinite(y)) continue
+    max = max === null ? y : Math.max(max, y)
+  }
+  return max
+}
+
+/**
+ * PDF year label for Report / CompanyReport.
+ * Priority: pipeline/job field → max extracted data year → URL parse (least trusted).
+ */
+export function resolveDocumentReportYear(
+  reportingPeriods: any[],
+  options?: {
+    documentReportYear?: string | number | null
+    reportUrl?: string | null
+    sourceUrl?: string | null
+  }
 ): string | undefined {
-  const year = chosenPeriod?.year
-  if (typeof year === 'number') return year.toString()
-  if (typeof year === 'string') return year
+  const explicit = options?.documentReportYear
+  if (explicit !== undefined && explicit !== null) {
+    const y = String(explicit).trim()
+    if (isValidReportCatalogYear(y)) return y
+  }
 
-  const maxYear = reportingPeriods.reduce(
-    (max: number | null, rp: any) => {
-      const y = Number(rp?.year)
-      if (!Number.isFinite(y)) return max
-      return max === null ? y : Math.max(max, y)
-    },
-    null as number | null
-  )
+  const maxYear = maxDataYearAmongPeriods(reportingPeriods)
+  if (maxYear !== null) return String(maxYear)
 
-  return maxYear !== null ? maxYear.toString() : undefined
+  for (const url of [options?.reportUrl, options?.sourceUrl]) {
+    const fromUrl = parseReportYearFromUrl(url)
+    if (fromUrl && isValidReportCatalogYear(fromUrl)) return fromUrl
+  }
+
+  return undefined
 }
 
 export function buildRegistryPayload(job: {
@@ -168,7 +193,14 @@ export function buildRegistryPayload(job: {
   return {
     companyName,
     wikidataId,
-    reportYear: resolveReportYear(chosenPeriod, reportingPeriods),
+    reportYear: resolveDocumentReportYear(reportingPeriods, {
+      documentReportYear: job.data.documentReportYear,
+      reportUrl: primaryUrl,
+      sourceUrl:
+        sourceUrlIsHttp && sourceUrl && !isStorageUrl(sourceUrl)
+          ? sourceUrl
+          : undefined,
+    }),
     url: primaryUrl,
     sourceUrl:
       sourceUrlIsHttp && sourceUrl && !isStorageUrl(sourceUrl)

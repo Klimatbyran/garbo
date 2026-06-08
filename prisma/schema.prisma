@@ -113,17 +113,17 @@ model ReportingPeriod {
   reportSha256 String?
 
   companyId       String
-  /// FK to the document shell for this period's data. Nullable until PR 1 link script runs;
-  /// required with @@unique([companyReportId, year]) in PR 2.
-  companyReportId String?
+  /// CompanyReport (processed PDF) this emissions year belongs to.
+  companyReportId String
 
   metadata      Metadata[]
   economy       Economy?
   emissions     Emissions?
-  company       Company        @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
-  companyReport CompanyReport? @relation(fields: [companyReportId], references: [id], onDelete: SetNull)
+  company       Company       @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+  companyReport CompanyReport @relation(fields: [companyReportId], references: [id], onDelete: Restrict)
 
-  @@unique([companyId, year])
+  @@unique([companyReportId, year])
+  @@index([companyId, year])
 }
 
 /// Reported emissions for a specific reporting period
@@ -424,18 +424,15 @@ model Report {
   companyReports CompanyReport[]
 }
 
-/// One processed document per company. Links a registry Report to the company's pipeline data.
-/// Multiple CompanyReports per company are allowed — one per distinct PDF submitted.
-/// reportingPeriods point here so the same calendar year can exist under different reports
-/// without overwriting (@@unique([companyReportId, year]) enforced in PR 2).
+/// One processed PDF per company (links to Report registry). Several per company when multiple PDFs exist.
 model CompanyReport {
   id                    String    @id @default(cuid())
   companyId             String
-  /// FK to Report registry row. Null only for synthetic shells (no metadata URL and no registry row).
+  /// Report registry row; null when no PDF could be matched (legacy link job only).
   registryReportId      String?
-  /// Max calendar year among linked periods after PR 1 link; document business year may differ.
+  /// PDF year label (e.g. 2025); may differ from max emissions data year on linked periods.
   reportYear            String?
-  /// Publication date of the PDF when available; used as tie-breaker in effective-view ranking.
+  /// PDF publication date; tie-break when two reports share the same reportYear.
   reportPublicationDate DateTime?
   createdAt             DateTime  @default(now())
 
@@ -443,8 +440,6 @@ model CompanyReport {
   report           Report?           @relation(fields: [registryReportId], references: [id], onDelete: SetNull)
   reportingPeriods ReportingPeriod[]
 
-  /// One CompanyReport per (company, report). Postgres allows multiple NULLs in unique
-  /// constraints, so synthetic legacy rows (registryReportId IS NULL) are permitted per company.
   @@unique([companyId, registryReportId])
 }
 

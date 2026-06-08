@@ -9,6 +9,7 @@ import {
   buildReportMatchConditions,
   copyMissingFields,
   pickRowToKeep,
+  mergeReportYearFromPipeline,
   type RegistryReportIdentityRow,
   trimStr,
   isStorageUrl,
@@ -53,7 +54,10 @@ function patchRow(
   const update: Prisma.ReportUpdateInput = {
     companyName: existing.companyName ?? input.companyName,
     wikidataId: existing.wikidataId ?? input.wikidataId ?? undefined,
-    reportYear: existing.reportYear ?? input.reportYear ?? undefined,
+    reportYear: mergeReportYearFromPipeline(
+      existing.reportYear,
+      input.reportYear
+    ),
   }
 
   // Only assign when explicitly provided — omitting keeps Prisma from clearing the field.
@@ -79,7 +83,10 @@ function applyMergedRows(
   return {
     companyName: merged.companyName ?? input.companyName,
     wikidataId: merged.wikidataId ?? input.wikidataId ?? undefined,
-    reportYear: merged.reportYear ?? input.reportYear ?? undefined,
+    reportYear: mergeReportYearFromPipeline(
+      merged.reportYear,
+      input.reportYear
+    ),
     url: webUrl ?? baseUrl,
     sourceUrl:
       input.sourceUrl !== undefined ? input.sourceUrl : merged.sourceUrl,

@@ -26,9 +26,9 @@ export async function internalCompanyReadRoutes(app: FastifyInstance) {
     '/',
     {
       schema: {
-        summary: 'Get all companies',
+        summary: 'Get all companies (latest reporting period per data year)',
         description:
-          'Retrieve a list of all companies with their emissions, economic data, industry classification, goals, and initiatives',
+          'Retrieve companies with their latest reporting period per data year.',
         tags: getTags('Internal'),
 
         response: {
@@ -42,28 +42,35 @@ export async function internalCompanyReadRoutes(app: FastifyInstance) {
 
       let currentEtag: string = await redisCache.get(cacheKey)
 
-      // Check for database changes by looking at record counts across relevant tables
       const [
         companyCount,
         reportingPeriodCount,
+        companyReportCount,
         emissionsCount,
         latestMetadata,
+        latestCompanyReport,
       ] = await prisma.$transaction([
         prisma.company.count(),
         prisma.reportingPeriod.count(),
+        prisma.companyReport.count(),
         prisma.emissions.count(),
         prisma.metadata.findFirst({
           select: { updatedAt: true },
           orderBy: { updatedAt: 'desc' },
         }),
+        prisma.companyReport.findFirst({
+          select: { createdAt: true },
+          orderBy: { createdAt: 'desc' },
+        }),
       ])
 
-      // Create a unique fingerprint based on company data
       const databaseFingerprint = [
         companyCount,
         reportingPeriodCount,
+        companyReportCount,
         emissionsCount,
         latestMetadata?.updatedAt?.toISOString() || '',
+        latestCompanyReport?.createdAt?.toISOString() || '',
       ].join('|')
 
       if (!currentEtag || !currentEtag.startsWith(databaseFingerprint)) {
@@ -76,7 +83,7 @@ export async function internalCompanyReadRoutes(app: FastifyInstance) {
       let companies = await redisCache.get(dataCacheKey)
 
       if (!companies) {
-        companies = await companyService.getAllCompaniesWithMetadata()
+        companies = await companyService.getAllCompaniesForPublicRead()
         await redisCache.set(dataCacheKey, JSON.stringify(companies))
       }
 
@@ -105,7 +112,9 @@ export async function internalCompanyReadRoutes(app: FastifyInstance) {
       reply
     ) => {
       const { q } = request.query
-      const companies = await companyService.getAllCompaniesBySearchTerm(q)
+      const companies = await companyService.getAllCompaniesBySearchTerm(q, {
+        onePeriodPerDataYear: true,
+      })
       reply.send(companies)
     }
   )
@@ -162,9 +171,9 @@ export async function internalCompanyReadRoutes(app: FastifyInstance) {
     '/:wikidataId',
     {
       schema: {
-        summary: 'Get detailed company',
+        summary: 'Get detailed company (one period per data year)',
         description:
-          'Retrieve a company with its emissions, economic data, industry classification, goals, and initiatives',
+          'One reporting period per data year (highest CompanyReport.reportYear wins).',
         tags: getTags('Internal'),
         params: wikidataIdParamSchema,
         response: {
@@ -175,7 +184,7 @@ export async function internalCompanyReadRoutes(app: FastifyInstance) {
     },
     async (request: FastifyRequest<{ Params: WikidataIdParams }>, reply) => {
       const { wikidataId } = request.params
-      const company = await companyService.getCompanyWithMetadata(wikidataId)
+      const company = await companyService.getCompanyForPublicRead(wikidataId)
       reply.send({
         ...company,
         // Add translations for GICS data
