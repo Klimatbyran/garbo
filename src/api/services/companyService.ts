@@ -371,6 +371,7 @@ class CompanyService {
   async getAllCompanies() {
     const companies = await prisma.company.findMany({
       select: {
+        id: true,
         name: true,
         wikidataId: true,
         tags: true,

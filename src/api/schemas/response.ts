@@ -1,6 +1,10 @@
 import { z } from 'zod'
 import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi'
-import { emissionUnitSchemaGarbo, wikidataIdSchema } from './common'
+import {
+  companyIdSchema,
+  emissionUnitSchemaGarbo,
+  wikidataIdSchema,
+} from './common'
 
 extendZodWithOpenApi(z)
 
@@ -47,6 +51,7 @@ export const MetadataSchema = z.object({
 export const MinimalMetadataSchema = MetadataSchema.pick({ verifiedBy: true })
 
 const CompanyBaseSchema = z.object({
+  id: companyIdSchema,
   wikidataId: wikidataIdSchema,
   name: z.string(),
   lei: z.string().optional().nullable(),
@@ -407,6 +412,7 @@ export const ReportsReportingPeriodSchema = ReportingPeriodSchema.omit({
 
 export const ReportsCompanyList = z.array(
   z.object({
+    id: companyIdSchema,
     name: z.string(),
     wikidataId: wikidataIdSchema,
     tags: z.array(z.string()),
@@ -684,6 +690,7 @@ export const registryDeleteResponseSchema = z.object({
 export const globalSearchResponseSchema = z.array(
   z.object({
     name: z.string(),
+    id: companyIdSchema.optional(),
     wikidataId: z.string().optional(),
     type: z.enum(['company', 'municipality', 'region', 'nation']),
   })

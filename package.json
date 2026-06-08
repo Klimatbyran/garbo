@@ -106,7 +106,8 @@
     "@tootallnate/once": ">=3.0.1",
     "prisma-zod-generator": {
       "@prisma/client": "5.22.0"
-    }
+    },
+    "uuid": "^11.1.1"
   },
   "prisma": {
     "seed": "node --import=tsx prisma/seed.ts"
