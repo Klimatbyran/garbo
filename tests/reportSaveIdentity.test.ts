@@ -23,9 +23,9 @@ describe('reportSaveIdentity', () => {
   })
 
   it('detects unknown identity on company', () => {
-    expect(isReportIdentityKnownInCompany({ reportingPeriods: [] }, identity)).toBe(
-      false
-    )
+    expect(
+      isReportIdentityKnownInCompany({ reportingPeriods: [] }, identity)
+    ).toBe(false)
   })
 
   it('detects known identity on company', () => {
@@ -78,9 +78,7 @@ describe('reportSaveIdentity', () => {
         sha256: 'b'.repeat(64),
       },
     })
-    expect(built.reportURL).toBe(
-      'https://storage.googleapis.com/garbo/abc.pdf'
-    )
+    expect(built.reportURL).toBe('https://storage.googleapis.com/garbo/abc.pdf')
     expect(built.reportSha256).toBe('b'.repeat(64))
   })
 })

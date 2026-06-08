@@ -91,7 +91,8 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
     if (!job.hasApproval()) {
       const wikidataId = wikidata.node
       const freshCompany =
-        (await fetchFreshExistingCompany(wikidataId)) ?? existingCompanyFromCheckDb
+        (await fetchFreshExistingCompany(wikidataId)) ??
+        existingCompanyFromCheckDb
       const reportIdentity = buildPipelineReportIdentity(job.data)
       const isNewReportIdentity = !isReportIdentityKnownInCompany(
         freshCompany,
@@ -105,10 +106,10 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
       }
 
       const years = new Set([
-        ...job.data.scope12?.map((d) => d.year) ?? [],
-        ...job.data.scope3?.map((d) => d.year) ?? [],
-        ...job.data.biogenic?.map((d) => d.year) ?? [],
-        ...job.data.economy?.map((d) => d.year) ?? [],
+        ...(job.data.scope12?.map((d) => d.year) ?? []),
+        ...(job.data.scope3?.map((d) => d.year) ?? []),
+        ...(job.data.biogenic?.map((d) => d.year) ?? []),
+        ...(job.data.economy?.map((d) => d.year) ?? []),
       ])
 
       const reportYear = years.size > 0 ? Math.max(...Array.from(years)) : null

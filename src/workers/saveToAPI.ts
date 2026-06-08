@@ -145,7 +145,6 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
             }
           }
         }
-
       })
 
       return { success: true }
