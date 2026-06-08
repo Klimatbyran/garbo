@@ -171,9 +171,9 @@ export async function internalCompanyReadRoutes(app: FastifyInstance) {
     '/:wikidataId',
     {
       schema: {
-        summary: 'Get detailed company (first-party client)',
+        summary: 'Get detailed company (one period per data year)',
         description:
-          'Retrieve a company for Bolt and other first-party clients. One reporting period per data year (highest CompanyReport.reportYear wins).',
+          'One reporting period per data year (highest CompanyReport.reportYear wins).',
         tags: getTags('Internal'),
         params: wikidataIdParamSchema,
         response: {
