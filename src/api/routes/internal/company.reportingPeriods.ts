@@ -237,7 +237,7 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
         throw error
       }
 
-      // If replaceAllEmissions is set, purge existing emissions for ALL reporting periods for the company before upserting
+      // Purge emissions only on the CompanyReport shell being saved (not the whole company).
       if (replaceAllEmissions) {
         if (process.env.NODE_ENV === 'production') {
           return reply.status(403).send({
@@ -246,7 +246,10 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
           })
         }
         const existingPeriods = await prisma.reportingPeriod.findMany({
-          where: { companyId: company.wikidataId },
+          where: {
+            companyId: company.wikidataId,
+            companyReportId: resolvedCompanyReportId,
+          },
           include: {
             emissions: {
               include: {

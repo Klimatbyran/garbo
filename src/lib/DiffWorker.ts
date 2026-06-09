@@ -64,7 +64,11 @@ export class DiffJob extends DiscordJob {
     apiSubEndpoint: string,
     diff: string,
     change: ChangeDescription,
-    requiresApproval: boolean
+    requiresApproval: boolean,
+    options?: {
+      forceSave?: boolean
+      saveBodyExtras?: Record<string, unknown>
+    }
   ) => Promise<void>
 }
 
@@ -87,7 +91,13 @@ function addCustomMethods(job: DiffJob) {
     await enqueueSaveToAPIWithParentFallback(job, name, data)
   }
 
-  job.handleDiff = async (apiSubEndpoint, diff, change, requiresApproval) => {
+  job.handleDiff = async (
+    apiSubEndpoint,
+    diff,
+    change,
+    requiresApproval,
+    options
+  ) => {
     if (diff && requiresApproval && !job.data.autoApprove) {
       job.log('The data needs approval before saving to API.')
 
@@ -112,13 +122,19 @@ function addCustomMethods(job: DiffJob) {
         ),
         `Updates to the company's ${apiSubEndpoint}`
       )
-    } else if (diff) {
+    } else if (diff || options?.forceSave) {
+      if (options?.forceSave && !diff) {
+        job.log(
+          'Forcing save to API: new report PDF identity is not in the database yet.'
+        )
+      }
       await job.enqueueSaveToAPI(
         apiSubEndpoint,
         job.data.companyName,
         job.data.wikidata,
         {
           ...change.newValue,
+          ...options?.saveBodyExtras,
           metadata: defaultMetadata(
             canonicalPublicReportUrl(
               job.data as { url: string; sourceUrl?: string }

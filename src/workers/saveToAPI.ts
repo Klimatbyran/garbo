@@ -5,6 +5,7 @@ import { registryService } from '../api/services/registryService'
 import { createServerCache } from '../createCache'
 import { invalidateRegistryCache } from '../api/services/registryCache'
 import { buildRegistryPayload } from './saveToAPI.utils'
+import { withCompanySaveLock } from '../lib/companySaveLock'
 
 const registryCache = createServerCache({ maxAge: 24 * 60 * 60 * 1000 })
 
@@ -107,39 +108,44 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
         typeof apiSubEndpoint === 'string' && apiSubEndpoint.trim().length > 0
           ? apiSubEndpoint.trim()
           : 'company'
-      const result = await apiFetch(endpoint, {
-        body: sanitizedBody,
-        ...(method && { method }),
-        headers: {
-          'X-Garbo-Chunk': chunk,
-        },
-      })
-
-      if (result === null) {
-        throw new Error(`API endpoint not found: ${endpoint}`)
-      }
-
-      if (apiSubEndpoint === 'reporting-periods') {
-        const registryPayload = buildRegistryPayload({
-          data: {
-            ...job.data,
-            documentReportYear:
-              job.data.documentReportYear ?? sanitizedBody?.documentReportYear,
-            body: sanitizedBody,
+      await withCompanySaveLock(wikidataId, async () => {
+        const saved = await apiFetch(endpoint, {
+          body: sanitizedBody,
+          ...(method && { method }),
+          headers: {
+            'X-Garbo-Chunk': chunk,
           },
         })
-        if (registryPayload) {
-          try {
-            await registryService.upsertReportInRegistry(registryPayload)
-            await invalidateRegistryCache(registryCache, {
-              warn: (msg: string, ...args: unknown[]) =>
-                job.log([msg, ...args.map((a) => JSON.stringify(a))].join(' ')),
-            })
-          } catch (e: any) {
-            job.log(`Registry upsert failed after save: ${e?.message ?? e}`)
+
+        if (saved === null) {
+          throw new Error(`API endpoint not found: ${endpoint}`)
+        }
+
+        if (apiSubEndpoint === 'reporting-periods') {
+          const registryPayload = buildRegistryPayload({
+            data: {
+              ...job.data,
+              documentReportYear:
+                job.data.documentReportYear ??
+                sanitizedBody?.documentReportYear,
+              body: sanitizedBody,
+            },
+          })
+          if (registryPayload) {
+            try {
+              await registryService.upsertReportInRegistry(registryPayload)
+              await invalidateRegistryCache(registryCache, {
+                warn: (msg: string, ...args: unknown[]) =>
+                  job.log(
+                    [msg, ...args.map((a) => JSON.stringify(a))].join(' ')
+                  ),
+              })
+            } catch (e: any) {
+              job.log(`Registry upsert failed after save: ${e?.message ?? e}`)
+            }
           }
         }
-      }
+      })
 
       return { success: true }
     } catch (error) {

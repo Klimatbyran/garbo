@@ -263,6 +263,12 @@ export const InitiativeSchema = z.object({
   metadata: MetadataSchema,
 })
 
+export const CompanyReportSummarySchema = z.object({
+  id: z.string().optional(),
+  reportYear: z.string().nullable().optional(),
+  reportPublicationDate: dateStringSchema.nullable().optional(),
+})
+
 export const ReportingPeriodSchema = z.object({
   id: z.string(),
   startDate: dateStringSchema.openapi({
@@ -271,6 +277,10 @@ export const ReportingPeriodSchema = z.object({
   endDate: dateStringSchema.openapi({
     description: 'End date of reporting period',
   }),
+  year: z
+    .string()
+    .optional()
+    .openapi({ description: 'Data year for this reporting period' }),
   reportURL: z
     .string()
     .nullable()
@@ -289,6 +299,7 @@ export const ReportingPeriodSchema = z.object({
   companyReportId: z.string().optional().openapi({
     description: 'CompanyReport (processed PDF) this period belongs to',
   }),
+  companyReport: CompanyReportSummarySchema.nullable().optional(),
   emissions: EmissionsSchema.nullable(),
   economy: EconomySchema.nullable(),
   emissionsChangeLastTwoYears: z
