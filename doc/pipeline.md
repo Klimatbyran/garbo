@@ -150,7 +150,7 @@ In BullMQ flows, child jobs finish before their parent runs. Diff jobs and `save
 
 ### parsePdf
 
-**Called By:** `/pdfs` command of the discord bot defined in `src/discord/commands/pdfs.ts`.
+**Called By:** Pipeline enqueue from the validation UI (or API), with the same payload shape as the legacy Discord `/pdfs` command in `src/discord/commands/pdfs.ts`.
 
 **Input Data:**
 
@@ -159,15 +159,16 @@ In BullMQ flows, child jobs finish before their parent runs. Diff jobs and `save
     url: string
     threadId: string,
     autoApprove: boolean
+    forceReindex?: boolean
 }
 ```
 
-`url` defines the report URL, `threadId` references the Discord thread where the bot will respond, and `autoApprove` controls whether user approvals are required for data updates.
+`url` defines the report URL, `threadId` references the run thread in the UI, `autoApprove` controls whether user approvals are required for data updates, and `forceReindex` forces a fresh Docling parse even when the report is already indexed.
 
 **Functionality:**
 
 - Checks if the report is already indexed in the VectorDB.
-- If cached, directly queues `precheck` with:
+- By default, if cached and `forceReindex` is not set, directly queues `precheck` with:
 
 ```typescript
 {
@@ -178,7 +179,8 @@ In BullMQ flows, child jobs finish before their parent runs. Diff jobs and `save
 }
 ```
 
-- If not cached, creates a flow:
+- If `forceReindex` is set, deletes the existing vector index (if any) and re-parses via Docling.
+- If not cached (or re-indexing), creates a flow:
 
 ```mermaid
 flowchart LR
@@ -203,9 +205,7 @@ Return Value: Job id when enqueuing `precheck` from the cache path; otherwise tr
 **Functionality:**
 
 - Submits an async parsing task to Docling to convert the PDF to markdown.
-- Supports two backends via configuration:
-  - Local docling-serve: POST `/convert/source/async` → returns `task_id`; poll `/status/poll/{task_id}`; GET `/result/{task_id}`.
-  - Hosted Berget AI: POST `/ocr` → returns `{ taskId, resultUrl }`; poll `resultUrl` until `content` is ready.
+- For local development, uses docling-serve: POST `/convert/source/async` → returns `task_id`; poll `/status/poll/{task_id}`; GET `/result/{task_id}`.
 - Applies a 30s timeout to the initial submission using `AbortController`.
 
 **Return Value:**
@@ -254,7 +254,7 @@ Indexes the parsed markdown into the VectorDB for downstream retrieval.
 }
 ```
 
-Additionally, the job may receive `cachedMarkdown` when [parsePdf](#parsepdf) skips Docling because the report is already indexed in the VectorDB. The field `companyName` is only used when the user provides it manually after automatic extraction fails. The field `type` is not set by the pipeline and is only used to define the name of the wikidata schema.
+Additionally, the job may receive `cachedMarkdown` when [parsePdf](#parsepdf) takes the cached path: the report is already indexed in the VectorDB and `forceReindex` was not set. Callers can pass `forceReindex: true` to parse the PDF again via Docling instead. The field `companyName` is only used when the user provides it manually after automatic extraction fails. The field `type` is not set by the pipeline and is only used to define the name of the wikidata schema.
 
 **Functionality:**
 
@@ -341,16 +341,18 @@ String containg the response from the AI.
 
 **Input Data:**
 
+The job receives the standard base job data passed through the pipeline (`url`, `threadId`, `autoApprove`, etc.). Job-specific fields on `ExtractEmissionsJob`:
+
 ```typescript
 {
-    url: string
-    threadId: string,
-    autoApprove: boolean,
     companyName: string
+    runOnly?: (FollowUpKey | 'all')[]
 }
 ```
 
-Apart from the three standart input properties, the job additionally gets the property `companyName` containing the name of the company in the report. Also, the job first awaits the return value of it's two children [followUp](#followup) and [guessWikidata](#guesswikidata).
+`companyName` is the resolved company name from [precheck](#precheck). `runOnly` limits which follow-up workers are enqueued as children of [checkDB](#checkdb) (e.g. `['scope1', 'lei']` or `['all']`). When omitted, all follow-ups run.
+
+The job first awaits the return values of its two children [followUp](#followup) (`followUpFiscalYear`) and [guessWikidata](#guesswikidata).
 
 **Functionality:**
 After awaiting it's children the job combines the return values of the childeren with its data in a new base object. It then creates a flow with the job [checkDB](#checkdb) as the parent job getting the input data:
@@ -379,7 +381,7 @@ followUpBiogenic, followUpEconomy, followUpGoals, followUpInitiatives,
 followUpBaseYear, followUpCompanyTags, extractLEI, extractDescriptions
 ```
 
-Each child job gets the same input data as the parent job [checkDB](#checkdb). Which jobs run can be limited with the `runOnly` flag on the pipeline input.
+Each child job gets the same input data as the parent job [checkDB](#checkdb). Which jobs run can be limited with the `runOnly` field on [extractEmissions](#extractemissions) job data.
 
 **Return Value:** _none_
 
@@ -814,7 +816,7 @@ flowchart TD
 1. Look up LEI on Wikidata via property `P1278` (`getLEINumber` in `src/lib/wikidata/read.ts`).
 2. If Wikidata has no LEI, search the [GLEIF API](https://documenter.getpostman.com/view/7679680/SVYrrxuU) by `companyName` (`getLEINumbersFromGLEIF` in `src/lib/gleif.ts`).
 3. If GLEIF returns candidates, ask the LLM (prompt in `src/prompts/lei.ts`) to pick the best matching LEI for the company.
-4. Post a Discord message when no LEI can be resolved.
+4. Notify via the job thread when no LEI can be resolved.
 
 **Return Value:**
 
@@ -934,26 +936,14 @@ The job returns the url to the company page.
 
 Docling settings are managed via `src/config/docling.ts`.
 
-Due to current validation, the following environment variables must be present in both local and hosted modes:
+For local development, uncomment the `docling` service in `docker-compose.yaml` and set:
 
 ```bash
-DOCLING_USE_LOCAL=true|false
-DOCLING_URL=<base URL including /v1>
-BERGET_AI_TOKEN=<token>
+DOCLING_USE_LOCAL=true
+DOCLING_URL=http://localhost:5001/v1
 ```
 
-- Local docling-serve:
-  - Set `DOCLING_USE_LOCAL=true`
-  - Set `DOCLING_URL=http://localhost:5001/v1` (include the `/v1` suffix)
-  - `BERGET_AI_TOKEN` must be a non-empty value due to validation (not used by local backend)
-- Hosted Berget AI:
-  - Set `DOCLING_USE_LOCAL=false`
-  - Provide a valid `DOCLING_URL` and `BERGET_AI_TOKEN`
-
-Endpoints used by `doclingParsePDF`:
-
-- Local: `/convert/source/async`, `/status/poll/{task_id}`, `/result/{task_id}`
-- Hosted: `/ocr` (returns `{ taskId, resultUrl }` to poll). Note: `resultUrl` may be relative; the worker will prefix it using the configured base URL.
+`doclingParsePDF` uses docling-serve endpoints: `/convert/source/async`, `/status/poll/{task_id}`, `/result/{task_id}`.
 
 A 30s timeout is applied to the initial submission request via `AbortController`.
 
