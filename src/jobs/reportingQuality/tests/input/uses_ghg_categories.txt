@@ -1,0 +1,31 @@
+## Scope 3 Emissions 2023
+
+We report Scope 3 emissions in accordance with the GHG Protocol Corporate Value Chain (Scope 3) Standard.
+
+| Category | Description | tCO2e |
+|---|---|---|
+| Category 1 | Purchased goods and services | 245,000 |
+| Category 2 | Capital goods | 12,400 |
+| Category 3 | Fuel- and energy-related activities | 8,900 |
+| Category 4 | Upstream transportation and distribution | 34,200 |
+| Category 5 | Waste generated in operations | 1,100 |
+| Category 6 | Business travel | 4,600 |
+| Category 7 | Employee commuting | 3,800 |
+| Category 11 | Use of sold products | 510,000 |
+| Category 12 | End-of-life treatment of sold products | 18,700 |
+
+Total Scope 3: 838,700 tCO2e
+
+We do not report Category 8 (Upstream leased assets), Category 9 (Downstream transportation), Category 10 (Processing of sold products),
+Category 13 (Downstream leased assets), Category 14 (Franchises), or Category 15 (Investments) as these are not material to our operations.
+
+## Scope 1 and Scope 2 Emissions 2023
+
+Scope 1: 12,400 tCO2e
+Scope 2 (market-based): 3,200 tCO2e
+Scope 2 (location-based): 6,100 tCO2e
+
+## Methodology
+
+No changes to calculation methodology were made compared to 2022.
+Emission factors are sourced from the IEA 2023 dataset.

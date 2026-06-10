@@ -15,6 +15,7 @@ export enum FollowUpType {
   Wikidata = 'wikidata',
   Precheck = 'precheck',
   ExtractEmissions = 'extractEmissions',
+  ReportingQuality = 'followUp/reportingQuality',
 }
 
 export type Unit = 'tCO2' | 'tCO2e'

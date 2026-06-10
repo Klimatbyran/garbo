@@ -290,6 +290,17 @@ export const postReportingPeriodsSchema = z
   })
   .merge(createMetadataSchema)
 
+export const postReportingQualitySchema = z
+  .object({
+    url: z.string(),
+    usesGhgProtocolCategories: z.boolean().nullable(),
+    methodChanges: z.array(
+      z.object({ year: z.number().nullable(), description: z.string() })
+    ),
+    missingScopesExplained: z.boolean().nullable(),
+  })
+  .merge(createMetadataSchema)
+
 export const MunicipalityNameSchema = z.string()
 
 export const MunicipalityNameParamSchema = z.object({
