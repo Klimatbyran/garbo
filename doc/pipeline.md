@@ -409,8 +409,19 @@ The input data contains the three standard properties as well as the property `c
 
 ```typescript
 {
-  scope1, scope2, scope12, scope3, biogenic, industry, economy,
-  baseYear, goals, initiatives, tags, lei, descriptions
+  scope1,
+    scope2,
+    scope12,
+    scope3,
+    biogenic,
+    industry,
+    economy,
+    baseYear,
+    goals,
+    initiatives,
+    tags,
+    lei,
+    descriptions
 }
 ```
 
@@ -801,11 +812,11 @@ flowchart TD
 
 ```typescript
 {
-    url: string
-    threadId: string
-    autoApprove: boolean
-    companyName: string
-    wikidataId: string
+  url: string
+  threadId: string
+  autoApprove: boolean
+  companyName: string
+  wikidataId: string
 }
 ```
 
