@@ -233,7 +233,7 @@ const checkDB = new DiscordWorker(
               },
             }
           : null,
-        reportingQuality?.length
+        reportingQuality != null
           ? {
               ...base,
               queueName: QUEUE_NAMES.DIFF_REPORTING_QUALITY,
