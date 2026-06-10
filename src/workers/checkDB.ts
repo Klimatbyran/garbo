@@ -67,6 +67,7 @@ const checkDB = new DiscordWorker(
       descriptions,
       lei,
       tags: extractedTags,
+      reportingQuality,
     } = root || {}
 
     // User-provided tags are a starting point; merge with AI-extracted tags when available.
@@ -229,6 +230,16 @@ const checkDB = new DiscordWorker(
               data: {
                 ...base.data,
                 tags,
+              },
+            }
+          : null,
+        reportingQuality != null
+          ? {
+              ...base,
+              queueName: QUEUE_NAMES.DIFF_REPORTING_QUALITY,
+              data: {
+                ...base.data,
+                reportingQuality,
               },
             }
           : null,

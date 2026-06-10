@@ -126,6 +126,20 @@ model ReportingPeriod {
   @@index([companyId, year])
 }
 
+/// Reporting quality flags derived from a processed PDF (one per CompanyReport)
+model ReportingQuality {
+  id              String   @id @default(cuid())
+  companyReportId String   @unique
+  /// true = uses the 15 official GHG Protocol Scope 3 categories; false = custom labels or single total; null = Scope 3 not reported
+  usesGhgProtocolCategories Boolean?
+  /// JSON array of {year: number|null, description: string} — methodology changes mentioned in the document. Empty array = none.
+  methodChanges             Json  @default("[]")
+  /// true = all missing scopes have an explanation (or none are missing); false = at least one scope absent without explanation; null = all scopes reported
+  missingScopesExplained    Boolean?
+
+  companyReport CompanyReport @relation(fields: [companyReportId], references: [id], onDelete: Cascade)
+}
+
 /// Reported emissions for a specific reporting period
 model Emissions {
   id                String  @id @default(cuid())
@@ -439,6 +453,7 @@ model CompanyReport {
   company          Company           @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
   report           Report?           @relation(fields: [registryReportId], references: [id], onDelete: SetNull)
   reportingPeriods ReportingPeriod[]
+  reportingQuality ReportingQuality?
 
   @@unique([companyId, registryReportId])
 }
