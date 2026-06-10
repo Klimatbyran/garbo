@@ -136,7 +136,7 @@ flowchart TD
 
 ### parsePdf
 
-**Called By:** `/pdfs` command of the discord bot defined in `src/discord/commands/pdfs.ts`.
+**Called By:** The pipeline-api run-report endpoint (or other callers that enqueue a **parsePdf** job).
 
 **Input Data:**
 
