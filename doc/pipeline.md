@@ -150,7 +150,7 @@ In BullMQ flows, child jobs finish before their parent runs. Diff jobs and `save
 
 ### parsePdf
 
-**Called By:** Pipeline enqueue from the validation UI (or API), with the same payload shape as the legacy Discord `/pdfs` command in `src/discord/commands/pdfs.ts`.
+**Called By:** Pipeline enqueue from the validation UI (or API).
 
 **Input Data:**
 
