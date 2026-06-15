@@ -130,7 +130,7 @@ describe('buildRegistryPayload', () => {
     expect(result!.reportYear).toBe('2024')
   })
 
-  it('ignores periods without emissions or economy when deriving report year', () => {
+  it('ignores periods with only a year and no emissions or economy data', () => {
     const result = buildRegistryPayload(
       makeJob({
         url: 'https://company.com/report',
@@ -208,12 +208,29 @@ describe('resolveDocumentReportYear', () => {
     ).toBe('2025')
   })
 
-  it('falls back to max emissions/economy year among periods', () => {
+  it('falls back to max data year among periods', () => {
     expect(
       resolveDocumentReportYear([
         { year: 2023, emissions: { scope1: { total: 1 } } },
         { year: 2025, emissions: { scope1: { total: 1 } } },
         { year: 2024, economy: { turnover: { value: 1 } } },
+      ])
+    ).toBe('2025')
+  })
+
+  it('uses endDate when period payloads omit year (pipeline save shape)', () => {
+    expect(
+      resolveDocumentReportYear([
+        {
+          startDate: '2024-01-01',
+          endDate: '2024-12-31',
+          emissions: { scope1: { total: 1 } },
+        },
+        {
+          startDate: '2025-01-01',
+          endDate: '2025-12-31',
+          emissions: { scope1: { total: 2 } },
+        },
       ])
     ).toBe('2025')
   })

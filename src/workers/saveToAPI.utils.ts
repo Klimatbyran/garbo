@@ -99,12 +99,29 @@ function periodHasEmissionsOrEconomyData(period: any): boolean {
   )
 }
 
+/** Data year on a period payload: explicit `year` or calendar year from `endDate`. */
+export function periodDataYearFromPayload(period: any): number | null {
+  if (period?.year !== undefined && period?.year !== null) {
+    const explicit = Number(period.year)
+    if (Number.isFinite(explicit)) return explicit
+  }
+
+  const end = period?.endDate
+  if (end instanceof Date) return end.getFullYear()
+  if (typeof end === 'string' && end.length >= 4) {
+    const fromEnd = Number(end.slice(0, 4))
+    if (Number.isFinite(fromEnd)) return fromEnd
+  }
+
+  return null
+}
+
 function maxDataYearAmongPeriods(reportingPeriods: any[]): number | null {
   let max: number | null = null
   for (const period of reportingPeriods) {
     if (!periodHasEmissionsOrEconomyData(period)) continue
-    const y = Number(period?.year)
-    if (!Number.isFinite(y)) continue
+    const y = periodDataYearFromPayload(period)
+    if (y === null) continue
     max = max === null ? y : Math.max(max, y)
   }
   return max
@@ -112,7 +129,7 @@ function maxDataYearAmongPeriods(reportingPeriods: any[]): number | null {
 
 /**
  * PDF year label for Report / CompanyReport.
- * Priority: pipeline/job field → max extracted data year → URL parse (least trusted).
+ * Priority: pipeline/job field → max data year (emissions/economy periods only) → URL parse.
  */
 export function resolveDocumentReportYear(
   reportingPeriods: any[],

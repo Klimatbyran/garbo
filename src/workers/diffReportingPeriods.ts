@@ -202,8 +202,15 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
         newValue: { reportingPeriods: updatedReportingPeriods },
       }
 
+      const maxScopeYear =
+        years.size > 0 ? Math.max(...Array.from(years)) : undefined
       const saveBodyExtras = buildReportingPeriodsApiBodyExtras(
-        job.data,
+        {
+          ...job.data,
+          ...(maxScopeYear !== undefined && {
+            documentReportYear: job.data.documentReportYear ?? maxScopeYear,
+          }),
+        },
         updatedReportingPeriods
       )
 
