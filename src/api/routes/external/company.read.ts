@@ -7,9 +7,13 @@ import { CompanySearchQuery, WikidataIdParams } from '../../types'
 import { cachePlugin } from '../../plugins/cache'
 import { companyService } from '../../services/companyService'
 import {
-  CompanyList,
+  toPartnerCompanyList,
+  toPartnerCompanyResponse,
+} from '../../services/reportingPeriodPublicRead'
+import {
+  PartnerCompanyList,
   wikidataIdParamSchema,
-  CompanyDetails,
+  PartnerCompanyDetails,
   getErrorSchemas,
   companySearchQuerySchema,
 } from '../../schemas'
@@ -28,7 +32,7 @@ export async function companyReadRoutes(app: FastifyInstance) {
         tags: getTags('Companies'),
 
         response: {
-          200: CompanyList,
+          200: PartnerCompanyList,
         },
       },
     },
@@ -86,7 +90,7 @@ export async function companyReadRoutes(app: FastifyInstance) {
 
       reply.header('ETag', `${currentEtag}`)
 
-      reply.send(companies)
+      reply.send(toPartnerCompanyList(companies))
     }
   )
 
@@ -101,7 +105,7 @@ export async function companyReadRoutes(app: FastifyInstance) {
         tags: getTags('Companies'),
         querystring: companySearchQuerySchema,
         response: {
-          200: CompanyList,
+          200: PartnerCompanyList,
         },
       },
     },
@@ -113,7 +117,7 @@ export async function companyReadRoutes(app: FastifyInstance) {
       const companies = await companyService.getAllCompaniesBySearchTerm(q, {
         onePeriodPerDataYear: true,
       })
-      reply.send(companies)
+      reply.send(toPartnerCompanyList(companies))
     }
   )
 
@@ -127,7 +131,7 @@ export async function companyReadRoutes(app: FastifyInstance) {
         tags: getTags('Companies'),
         params: wikidataIdParamSchema,
         response: {
-          200: CompanyDetails,
+          200: PartnerCompanyDetails,
           ...getErrorSchemas(400, 404),
         },
       },
@@ -135,19 +139,21 @@ export async function companyReadRoutes(app: FastifyInstance) {
     async (request: FastifyRequest<{ Params: WikidataIdParams }>, reply) => {
       const { wikidataId } = request.params
       const company = await companyService.getCompanyForPublicRead(wikidataId)
-      reply.send({
-        ...company,
-        // Add translations for GICS data
-        industry: company.industry
-          ? {
-              ...company.industry,
-              industryGics: {
-                ...company.industry.industryGics,
-                ...getGics(company.industry.industryGics.subIndustryCode),
-              },
-            }
-          : null,
-      })
+      reply.send(
+        toPartnerCompanyResponse({
+          ...company,
+          // Add translations for GICS data
+          industry: company.industry
+            ? {
+                ...company.industry,
+                industryGics: {
+                  ...company.industry.industryGics,
+                  ...getGics(company.industry.industryGics.subIndustryCode),
+                },
+              }
+            : null,
+        })
+      )
     }
   )
 }
