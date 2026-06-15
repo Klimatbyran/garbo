@@ -396,6 +396,51 @@ export const MinimalReportingPeriodSchema = ReportingPeriodSchema.omit({
   economy: MinimalEconomySchema.nullable(),
 })
 
+/** External GET /api/companies* — prod-compatible period fields only. */
+export const PartnerReportingPeriodSchema = ReportingPeriodSchema.omit({
+  year: true,
+  companyReportId: true,
+  companyReport: true,
+})
+
+export const PartnerMinimalReportingPeriodSchema =
+  PartnerReportingPeriodSchema.omit({
+    id: true,
+    emissions: true,
+    economy: true,
+  }).extend({
+    emissions: MinimalEmissionsSchema.nullable(),
+    economy: MinimalEconomySchema.nullable(),
+  })
+
+export const PartnerCompanyBase = CompanyBaseSchema.extend({
+  description: z.string().optional().nullable(),
+  descriptions: z.array(ResponseDescriptionSchema).optional(),
+  reportingPeriods: z.array(PartnerMinimalReportingPeriodSchema),
+  futureEmissionsTrendSlope: z.number().nullable(),
+  industry: MinimalIndustrySchema.nullable(),
+  baseYear: BaseYearSchema.nullable().optional(),
+  logoUrl: z.string().url().optional().nullable(),
+  tags: z.array(z.string()),
+})
+
+export const PartnerCompanyList = z.array(PartnerCompanyBase)
+
+const PartnerCompanyFullBase = CompanyBaseSchema.extend({
+  description: z.string().optional().nullable(),
+  descriptions: z.array(ResponseDescriptionSchema).optional(),
+  reportingPeriods: z.array(PartnerReportingPeriodSchema),
+  futureEmissionsTrendSlope: z.number().nullable(),
+  industry: IndustrySchema.nullable(),
+  baseYear: BaseYearSchema.nullable().optional(),
+  logoUrl: z.string().url().optional().nullable(),
+})
+
+export const PartnerCompanyDetails = PartnerCompanyFullBase.extend({
+  goals: z.array(GoalSchema).nullable(),
+  initiatives: z.array(InitiativeSchema).nullable(),
+})
+
 export const MinimalCompanyBase = CompanyBaseSchema.extend({
   description: z.string().optional().nullable(),
   descriptions: z.array(ResponseDescriptionSchema).optional(),
