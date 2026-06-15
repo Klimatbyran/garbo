@@ -453,7 +453,26 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
         }
       }
 
-      return reply.send({ ok: true })
+      const registryReportId =
+        await companyReportService.ensureCompanyReportRegistryLink(
+          resolvedCompanyReportId,
+          company,
+          reportingPeriods,
+          {
+            bodyCompanyReportId,
+            documentReportYear,
+            reportUrl,
+            reportSourceUrl,
+            reportS3Url,
+            reportSha256,
+          },
+        )
+
+      return reply.send({
+        ok: true,
+        companyReportId: resolvedCompanyReportId,
+        registryReportId,
+      })
     }
   )
 }

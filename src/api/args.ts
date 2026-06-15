@@ -27,6 +27,18 @@ export const reportingPeriodCompanyReportSelect = {
       id: true,
       reportYear: true,
       reportPublicationDate: true,
+      registryReportId: true,
+      createdAt: true,
+      report: {
+        select: {
+          id: true,
+          url: true,
+          sourceUrl: true,
+          s3Url: true,
+          reportYear: true,
+          sha256: true,
+        },
+      },
     },
   },
 } as const

@@ -127,6 +127,88 @@ describe('companyReportService', () => {
     expect(result).toBe('cr-default')
   })
 
+  it('ensureCompanyReportRegistryLink sets registryReportId on an unlinked shell', async () => {
+    jest.spyOn(prisma.companyReport, 'findUnique').mockResolvedValueOnce({
+      registryReportId: null,
+      companyId: 'Q1',
+    } as never)
+    jest
+      .spyOn(registryService, 'upsertReportInRegistry')
+      .mockResolvedValueOnce({ id: 'report-1' } as never)
+    jest.spyOn(prisma.companyReport, 'findFirst').mockResolvedValueOnce(null)
+    const update = jest
+      .spyOn(prisma.companyReport, 'update')
+      .mockResolvedValueOnce({} as never)
+
+    const linked = await companyReportService.ensureCompanyReportRegistryLink(
+      'cr-unlinked',
+      { wikidataId: 'Q1', name: 'Acme' },
+      [
+        {
+          reportURL: 'https://example.com/sustainability-2024.pdf',
+          year: '2024',
+        },
+      ],
+      {
+        reportUrl: 'https://example.com/sustainability-2024.pdf',
+        documentReportYear: '2024',
+      },
+    )
+
+    expect(linked).toBe('report-1')
+    expect(update).toHaveBeenCalledWith({
+      where: { id: 'cr-unlinked' },
+      data: { registryReportId: 'report-1' },
+    })
+  })
+
+  it('setCompanyReportRegistryLink updates registryReportId when report belongs to company', async () => {
+    jest.spyOn(prisma.companyReport, 'findFirst').mockResolvedValueOnce({
+      id: 'cr-1',
+    } as never)
+    jest.spyOn(prisma.report, 'findUnique').mockResolvedValueOnce({
+      id: 'report-1',
+      wikidataId: 'Q1',
+    } as never)
+    jest.spyOn(prisma.companyReport, 'findFirst').mockResolvedValueOnce(null)
+    const update = jest
+      .spyOn(prisma.companyReport, 'update')
+      .mockResolvedValueOnce({} as never)
+
+    await companyReportService.setCompanyReportRegistryLink(
+      'cr-1',
+      'Q1',
+      'report-1',
+    )
+
+    expect(update).toHaveBeenCalledWith({
+      where: { id: 'cr-1' },
+      data: { registryReportId: 'report-1' },
+    })
+  })
+
+  it('resolveCompanyReportIdForSave uses period reportURL when top-level url is missing', async () => {
+    jest
+      .spyOn(registryService, 'upsertReportInRegistry')
+      .mockResolvedValueOnce({ id: 'report-1' } as never)
+    jest
+      .spyOn(prisma.companyReport, 'upsert')
+      .mockResolvedValueOnce({ id: 'cr-new' } as never)
+
+    const result = await companyReportService.resolveCompanyReportIdForSave(
+      { wikidataId: 'Q1', name: 'Acme' },
+      [
+        {
+          reportURL: 'https://example.com/sustainability-2024.pdf',
+          year: '2024',
+        },
+      ],
+    )
+
+    expect(result).toEqual({ companyReportId: 'cr-new', inferred: true })
+    expect(registryService.upsertReportInRegistry).toHaveBeenCalled()
+  })
+
   it('companyReportIdForPeriodSave uses period override and sets year when different', async () => {
     jest.spyOn(prisma.companyReport, 'findFirst').mockResolvedValueOnce({
       id: 'cr-other',
