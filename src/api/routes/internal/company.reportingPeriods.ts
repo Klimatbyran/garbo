@@ -195,6 +195,7 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
         reportS3Url,
         reportSha256,
         documentReportYear: bodyDocumentReportYear,
+        registryReportId: bodyRegistryReportId,
       } = request.body
       const user = request.user
       let company
@@ -218,6 +219,7 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
             reportingPeriods,
             {
               bodyCompanyReportId,
+              registryReportId: bodyRegistryReportId,
               documentReportYear: bodyDocumentReportYear,
               reportUrl,
               reportSourceUrl,
@@ -453,7 +455,27 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
         }
       }
 
-      return reply.send({ ok: true })
+      const linkResult =
+        await companyReportService.ensureCompanyReportRegistryLink(
+          resolvedCompanyReportId,
+          company,
+          reportingPeriods,
+          {
+            bodyCompanyReportId,
+            registryReportId: bodyRegistryReportId,
+            documentReportYear,
+            reportUrl,
+            reportSourceUrl,
+            reportS3Url,
+            reportSha256,
+          }
+        )
+
+      return reply.send({
+        ok: true,
+        companyReportId: linkResult?.companyReportId ?? resolvedCompanyReportId,
+        registryReportId: linkResult?.registryReportId ?? null,
+      })
     }
   )
 }

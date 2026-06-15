@@ -1,13 +1,7 @@
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { apiFetch } from '../lib/api'
 import { QUEUE_NAMES } from '../queues'
-import { registryService } from '../api/services/registryService'
-import { createServerCache } from '../createCache'
-import { invalidateRegistryCache } from '../api/services/registryCache'
-import { buildRegistryPayload } from './saveToAPI.utils'
 import { withCompanySaveLock } from '../lib/companySaveLock'
-
-const registryCache = createServerCache({ maxAge: 24 * 60 * 60 * 1000 })
 
 export interface SaveToApiJob extends DiscordJob {
   data: DiscordJob['data'] & {
@@ -121,30 +115,8 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
           throw new Error(`API endpoint not found: ${endpoint}`)
         }
 
-        if (apiSubEndpoint === 'reporting-periods') {
-          const registryPayload = buildRegistryPayload({
-            data: {
-              ...job.data,
-              documentReportYear:
-                job.data.documentReportYear ??
-                sanitizedBody?.documentReportYear,
-              body: sanitizedBody,
-            },
-          })
-          if (registryPayload) {
-            try {
-              await registryService.upsertReportInRegistry(registryPayload)
-              await invalidateRegistryCache(registryCache, {
-                warn: (msg: string, ...args: unknown[]) =>
-                  job.log(
-                    [msg, ...args.map((a) => JSON.stringify(a))].join(' ')
-                  ),
-              })
-            } catch (e: any) {
-              job.log(`Registry upsert failed after save: ${e?.message ?? e}`)
-            }
-          }
-        }
+        // TODO(pipeline): Registry upsert was removed here; see checkDB (early) and API period
+        // save prepare/ensure for registryReportId + CompanyReport shell resolution.
       })
 
       return { success: true }

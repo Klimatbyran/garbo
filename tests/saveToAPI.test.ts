@@ -7,11 +7,15 @@ import type { RegistrySaveJobData } from '../src/workers/saveToAPI.utils'
 function makeJob(overrides: Partial<RegistrySaveJobData> & { url: string }): {
   data: RegistrySaveJobData
 } {
+  const defaultPeriod = {
+    year: 2024,
+    emissions: { scope1: { total: 1, unit: 'tCO2e' } },
+  }
   return {
     data: {
       wikidata: { node: 'Q123' },
       companyName: 'Acme Corp',
-      body: { reportingPeriods: [{ year: 2024 }] },
+      body: { reportingPeriods: [defaultPeriod] },
       ...overrides,
     },
   }
@@ -111,21 +115,47 @@ describe('buildRegistryPayload', () => {
 
   // ── reportYear derived from period ──────────────────────────────────────────
 
-  it('uses max data year among periods when no explicit documentReportYear', () => {
+  it('uses max emissions/economy year among periods when no explicit documentReportYear', () => {
     const result = buildRegistryPayload(
       makeJob({
         url: 'https://company.com/report',
-        body: { reportingPeriods: [{ year: 2022 }, { year: 2024 }] },
+        body: {
+          reportingPeriods: [
+            { year: 2022, emissions: { scope1: { total: 1, unit: 'tCO2e' } } },
+            { year: 2024, emissions: { scope1: { total: 1, unit: 'tCO2e' } } },
+          ],
+        },
       })
     )
     expect(result!.reportYear).toBe('2024')
   })
 
-  it('falls back to max year when chosen period has no year', () => {
+  it('ignores periods without emissions or economy when deriving report year', () => {
     const result = buildRegistryPayload(
       makeJob({
         url: 'https://company.com/report',
-        body: { reportingPeriods: [{}, { year: 2023 }, { year: 2024 }] },
+        body: {
+          reportingPeriods: [
+            { year: 2025, emissions: { scope1: { total: 1, unit: 'tCO2e' } } },
+            { year: 2026 },
+          ],
+        },
+      })
+    )
+    expect(result!.reportYear).toBe('2025')
+  })
+
+  it('falls back to max emissions year when chosen period has no year', () => {
+    const result = buildRegistryPayload(
+      makeJob({
+        url: 'https://company.com/report',
+        body: {
+          reportingPeriods: [
+            {},
+            { year: 2023, emissions: { scope1: { total: 1, unit: 'tCO2e' } } },
+            { year: 2024, emissions: { scope1: { total: 1, unit: 'tCO2e' } } },
+          ],
+        },
       })
     )
     expect(result!.reportYear).toBe('2024')
@@ -178,21 +208,36 @@ describe('resolveDocumentReportYear', () => {
     ).toBe('2025')
   })
 
-  it('falls back to max data year among periods', () => {
+  it('falls back to max emissions/economy year among periods', () => {
     expect(
       resolveDocumentReportYear([
-        { year: 2023 },
-        { year: 2025 },
-        { year: 2024 },
+        { year: 2023, emissions: { scope1: { total: 1 } } },
+        { year: 2025, emissions: { scope1: { total: 1 } } },
+        { year: 2024, economy: { turnover: { value: 1 } } },
       ])
     ).toBe('2025')
   })
 
-  it('prefers max data year over a misleading year in the report URL', () => {
+  it('ignores periods with only a year and no emissions or economy data', () => {
     expect(
-      resolveDocumentReportYear([{ year: 2023 }, { year: 2024 }], {
-        reportUrl: 'https://company.com/annual-report-2017.pdf',
-      })
+      resolveDocumentReportYear([
+        { year: 2025, emissions: { scope1: { total: 1 } } },
+        { year: 2026 },
+      ])
+    ).toBe('2025')
+  })
+
+  it('prefers max emissions year over a misleading year in the report URL', () => {
+    expect(
+      resolveDocumentReportYear(
+        [
+          { year: 2023, emissions: { scope1: { total: 1 } } },
+          { year: 2024, emissions: { scope1: { total: 1 } } },
+        ],
+        {
+          reportUrl: 'https://company.com/annual-report-2017.pdf',
+        }
+      )
     ).toBe('2024')
   })
 
