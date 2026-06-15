@@ -380,6 +380,12 @@ class CompanyReportService {
     })
     if (!existing) return null
     if (existing.registryReportId) {
+      const documentReportYear = resolveDocumentReportYear(reportingPeriods, {
+        documentReportYear: input.documentReportYear,
+        reportUrl: input.reportUrl,
+        sourceUrl: input.reportSourceUrl,
+      })
+      await this.setCompanyReportYear(companyReportId, documentReportYear)
       return {
         registryReportId: existing.registryReportId,
         companyReportId,
@@ -420,6 +426,12 @@ class CompanyReportService {
         alreadyLinked.id,
         reportingPeriods
       )
+      const documentReportYear = resolveDocumentReportYear(reportingPeriods, {
+        documentReportYear: input.documentReportYear,
+        reportUrl: input.reportUrl,
+        sourceUrl: input.reportSourceUrl,
+      })
+      await this.setCompanyReportYear(alreadyLinked.id, documentReportYear)
       return {
         registryReportId: report.id,
         companyReportId: alreadyLinked.id,
@@ -430,6 +442,13 @@ class CompanyReportService {
       where: { id: companyReportId },
       data: { registryReportId: report.id },
     })
+
+    const documentReportYear = resolveDocumentReportYear(reportingPeriods, {
+      documentReportYear: input.documentReportYear,
+      reportUrl: input.reportUrl,
+      sourceUrl: input.reportSourceUrl,
+    })
+    await this.setCompanyReportYear(companyReportId, documentReportYear)
 
     return {
       registryReportId: report.id,

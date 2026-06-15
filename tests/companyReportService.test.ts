@@ -139,6 +139,9 @@ describe('companyReportService', () => {
     const update = jest
       .spyOn(prisma.companyReport, 'update')
       .mockResolvedValueOnce({} as never)
+    const setYear = jest
+      .spyOn(companyReportService, 'setCompanyReportYear')
+      .mockResolvedValueOnce(undefined)
 
     const linked = await companyReportService.ensureCompanyReportRegistryLink(
       'cr-unlinked',
@@ -163,6 +166,7 @@ describe('companyReportService', () => {
       where: { id: 'cr-unlinked' },
       data: { registryReportId: 'report-1' },
     })
+    expect(setYear).toHaveBeenCalledWith('cr-unlinked', '2024')
   })
 
   it('ensureCompanyReportRegistryLink reassigns periods when registry is on another shell', async () => {
@@ -190,6 +194,9 @@ describe('companyReportService', () => {
     const deleteShell = jest
       .spyOn(prisma.companyReport, 'delete')
       .mockResolvedValueOnce({} as never)
+    const setYear = jest
+      .spyOn(companyReportService, 'setCompanyReportYear')
+      .mockResolvedValueOnce(undefined)
 
     const linked = await companyReportService.ensureCompanyReportRegistryLink(
       'cr-wrong',
@@ -210,6 +217,7 @@ describe('companyReportService', () => {
       registryReportId: 'report-1',
       companyReportId: 'cr-canonical',
     })
+    expect(setYear).toHaveBeenCalledWith('cr-canonical', '2024')
     expect(updatePeriod).toHaveBeenCalledWith({
       where: { id: 'period-1' },
       data: { companyReportId: 'cr-canonical' },
