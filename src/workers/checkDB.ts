@@ -8,6 +8,9 @@ import {
   extractScopeEntriesFromFollowUp,
   mergeScope1AndScope2Results,
 } from '../lib/mergeScopeResults'
+import { buildEarlyRegistryPayload } from './saveToAPI.utils'
+import { registryService } from '../api/services/registryService'
+import { companyReportService } from '../api/services/companyReportService'
 
 export class CheckDBJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -117,6 +120,36 @@ const checkDB = new DiscordWorker(
       )
     }
 
+    // TODO(pipeline): Registry upsert and CompanyReport shell creation moved to checkDB;
+    // registryReportId is carried on the job through diff/save. Period save still re-resolves
+    // the shell and may reassign periods (ensureCompanyReportRegistryLink). Consider making
+    // registryReportId the single source of truth for the run instead of re-inferring at save.
+    let registryReportId: string | undefined
+    const earlyRegistryPayload = buildEarlyRegistryPayload({
+      companyName,
+      wikidata,
+      url,
+      sourceUrl,
+      pdfCache: job.data.pdfCache,
+      documentReportYear: job.data.documentReportYear,
+    })
+    if (earlyRegistryPayload) {
+      try {
+        const report =
+          await registryService.upsertReportInRegistry(earlyRegistryPayload)
+        registryReportId = report.id
+        await companyReportService.findOrCreateCompanyReport(
+          wikidataId,
+          report.id
+        )
+        job.log(`Early registry upsert: ${report.id}`)
+      } catch (error: any) {
+        job.log(
+          `Early registry upsert failed: ${error?.message ?? String(error)}`
+        )
+      }
+    }
+
     const base = {
       name: companyName,
       data: {
@@ -131,6 +164,9 @@ const checkDB = new DiscordWorker(
         autoApprove: job.data.autoApprove,
         replaceAllEmissions: job.data.replaceAllEmissions,
         batchId: job.data.batchId,
+        pdfCache: job.data.pdfCache,
+        documentReportYear: job.data.documentReportYear,
+        ...(registryReportId && { registryReportId }),
       },
       opts: {
         attempts: 3,

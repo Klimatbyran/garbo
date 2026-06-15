@@ -155,11 +155,66 @@ describe('companyReportService', () => {
       }
     )
 
-    expect(linked).toBe('report-1')
+    expect(linked).toEqual({
+      registryReportId: 'report-1',
+      companyReportId: 'cr-unlinked',
+    })
     expect(update).toHaveBeenCalledWith({
       where: { id: 'cr-unlinked' },
       data: { registryReportId: 'report-1' },
     })
+  })
+
+  it('ensureCompanyReportRegistryLink reassigns periods when registry is on another shell', async () => {
+    jest.spyOn(prisma.companyReport, 'findUnique').mockResolvedValueOnce({
+      registryReportId: null,
+      companyId: 'Q1',
+    } as never)
+    jest
+      .spyOn(registryService, 'upsertReportInRegistry')
+      .mockResolvedValueOnce({ id: 'report-1' } as never)
+    jest.spyOn(prisma.companyReport, 'findFirst').mockResolvedValueOnce({
+      id: 'cr-canonical',
+    } as never)
+    jest
+      .spyOn(prisma.reportingPeriod, 'findFirst')
+      .mockResolvedValueOnce({ id: 'period-1' } as never)
+      .mockResolvedValueOnce(null)
+    const updatePeriod = jest
+      .spyOn(prisma.reportingPeriod, 'update')
+      .mockResolvedValueOnce({} as never)
+    jest.spyOn(prisma.companyReport, 'findUnique').mockResolvedValueOnce({
+      registryReportId: null,
+      _count: { reportingPeriods: 0 },
+    } as never)
+    const deleteShell = jest
+      .spyOn(prisma.companyReport, 'delete')
+      .mockResolvedValueOnce({} as never)
+
+    const linked = await companyReportService.ensureCompanyReportRegistryLink(
+      'cr-wrong',
+      { wikidataId: 'Q1', name: 'Acme' },
+      [
+        {
+          year: '2024',
+          reportURL: 'https://example.com/sustainability-2024.pdf',
+        },
+      ],
+      {
+        reportUrl: 'https://example.com/sustainability-2024.pdf',
+        documentReportYear: '2024',
+      }
+    )
+
+    expect(linked).toEqual({
+      registryReportId: 'report-1',
+      companyReportId: 'cr-canonical',
+    })
+    expect(updatePeriod).toHaveBeenCalledWith({
+      where: { id: 'period-1' },
+      data: { companyReportId: 'cr-canonical' },
+    })
+    expect(deleteShell).toHaveBeenCalledWith({ where: { id: 'cr-wrong' } })
   })
 
   it('setCompanyReportRegistryLink updates registryReportId when report belongs to company', async () => {

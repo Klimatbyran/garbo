@@ -18,11 +18,17 @@ export type ReportingPeriodIdentity = {
 
 export type PrepareCompanyReportForPeriodSaveInput = {
   bodyCompanyReportId?: string
+  registryReportId?: string
   documentReportYear?: string
   reportUrl?: string
   reportSourceUrl?: string
   reportS3Url?: string
   reportSha256?: string
+}
+
+export type EnsureCompanyReportRegistryLinkResult = {
+  registryReportId: string
+  companyReportId: string
 }
 
 export type SaveReportIdentity = {
@@ -91,6 +97,60 @@ function buildRegistryPayloadForCompanySave(
   })
 }
 
+async function reassignPeriodsToCanonicalShell(
+  companyId: string,
+  fromShellId: string,
+  toShellId: string,
+  reportingPeriods: ReportingPeriodIdentity[]
+): Promise<void> {
+  const years = reportingPeriods
+    .map((period) => {
+      if (period.year === undefined || period.year === null) return null
+      return String(period.year)
+    })
+    .filter((year): year is string => year !== null)
+
+  if (years.length === 0) return
+
+  for (const year of years) {
+    const onWrongShell = await prisma.reportingPeriod.findFirst({
+      where: { companyReportId: fromShellId, companyId, year },
+      select: { id: true },
+    })
+    if (!onWrongShell) continue
+
+    const onCanonical = await prisma.reportingPeriod.findFirst({
+      where: { companyReportId: toShellId, companyId, year },
+      select: { id: true },
+    })
+
+    if (onCanonical) {
+      await prisma.reportingPeriod.delete({ where: { id: onWrongShell.id } })
+    } else {
+      await prisma.reportingPeriod.update({
+        where: { id: onWrongShell.id },
+        data: { companyReportId: toShellId },
+      })
+    }
+  }
+
+  const wrongShell = await prisma.companyReport.findUnique({
+    where: { id: fromShellId },
+    select: {
+      registryReportId: true,
+      _count: { select: { reportingPeriods: true } },
+    },
+  })
+
+  if (
+    wrongShell &&
+    !wrongShell.registryReportId &&
+    wrongShell._count.reportingPeriods === 0
+  ) {
+    await prisma.companyReport.delete({ where: { id: fromShellId } })
+  }
+}
+
 class CompanyReportService {
   async findOrCreateCompanyReport(
     companyId: string,
@@ -151,6 +211,9 @@ class CompanyReportService {
     companyReportId: string,
     documentReportYear: string | undefined
   ): Promise<void> {
+    // TODO: After a pipeline run for a report year, keep CompanyReport and its linked Report
+    // row fully in sync (reportYear, urls, sha256, publication date). setCompanyReportYear
+    // only merges reportYear today; identity fields can drift across re-runs and manual edits.
     const incoming = documentReportYear?.trim()
     if (!incoming || !/^\d{4}$/.test(incoming)) return
 
@@ -206,6 +269,7 @@ class CompanyReportService {
     reportingPeriods: ReportingPeriodIdentity[],
     options?: {
       companyReportId?: string
+      registryReportId?: string
       reportIdentity?: SaveReportIdentity
     }
   ): Promise<{ companyReportId: string; inferred: boolean }> {
@@ -216,6 +280,15 @@ class CompanyReportService {
         company.wikidataId
       )
       return { companyReportId: explicitId, inferred: false }
+    }
+
+    const pipelineRegistryId = options?.registryReportId?.trim()
+    if (pipelineRegistryId) {
+      const companyReportId = await this.findOrCreateCompanyReport(
+        company.wikidataId,
+        pipelineRegistryId
+      )
+      return { companyReportId, inferred: true }
     }
 
     const registryPayload = buildRegistryPayloadForCompanySave(
@@ -265,6 +338,7 @@ class CompanyReportService {
       reportingPeriods,
       {
         companyReportId: input.bodyCompanyReportId,
+        registryReportId: input.registryReportId,
         reportIdentity: {
           url: input.reportUrl,
           sourceUrl: input.reportSourceUrl,
@@ -299,13 +373,18 @@ class CompanyReportService {
     company: Pick<Company, 'wikidataId' | 'name'>,
     reportingPeriods: ReportingPeriodIdentity[],
     input: PrepareCompanyReportForPeriodSaveInput
-  ): Promise<string | null> {
+  ): Promise<EnsureCompanyReportRegistryLinkResult | null> {
     const existing = await prisma.companyReport.findUnique({
       where: { id: companyReportId },
       select: { registryReportId: true, companyId: true },
     })
     if (!existing) return null
-    if (existing.registryReportId) return existing.registryReportId
+    if (existing.registryReportId) {
+      return {
+        registryReportId: existing.registryReportId,
+        companyReportId,
+      }
+    }
 
     const registryPayload = buildRegistryPayloadForCompanySave(
       company,
@@ -335,16 +414,16 @@ class CompanyReportService {
       select: { id: true },
     })
     if (alreadyLinked && alreadyLinked.id !== companyReportId) {
-      console.warn(
-        '[companyReportService] Registry report already linked to another CompanyReport',
-        {
-          companyId: existing.companyId,
-          companyReportId,
-          linkedShellId: alreadyLinked.id,
-          registryReportId: report.id,
-        }
+      await reassignPeriodsToCanonicalShell(
+        existing.companyId,
+        companyReportId,
+        alreadyLinked.id,
+        reportingPeriods
       )
-      return report.id
+      return {
+        registryReportId: report.id,
+        companyReportId: alreadyLinked.id,
+      }
     }
 
     await prisma.companyReport.update({
@@ -352,7 +431,10 @@ class CompanyReportService {
       data: { registryReportId: report.id },
     })
 
-    return report.id
+    return {
+      registryReportId: report.id,
+      companyReportId,
+    }
   }
 
   async setCompanyReportRegistryLink(

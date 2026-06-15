@@ -287,6 +287,8 @@ export const postReportingPeriodsSchema = z
     reportSha256: z.string().optional(),
     /// PDF year label (e.g. 2025 annual report), stored on Report and CompanyReport.
     documentReportYear: z.string().optional(),
+    /// Registry report id from early pipeline upsert (checkDB).
+    registryReportId: z.string().optional(),
   })
   .merge(createMetadataSchema)
 
