@@ -17,6 +17,15 @@ export class CheckDBJob extends DiscordJob {
     companyName: string
     /** Original report URL when pipeline cached PDF to S3 (parsePdf). */
     sourceUrl?: string
+    /** Cached/uploaded PDF storage metadata from pipeline-api (when available). */
+    pdfCache?: {
+      publicUrl?: string
+      sha256?: string
+    }
+    /** PDF year from pipeline parse when set on the job. */
+    documentReportYear?: string | number
+    /** Registry report id from early upsert in this worker (passed to diff/save children). */
+    registryReportId?: string
     wikidata: { node: string }
     fiscalYear: {
       startMonth: number
