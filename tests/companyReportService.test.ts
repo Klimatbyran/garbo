@@ -152,7 +152,7 @@ describe('companyReportService', () => {
       {
         reportUrl: 'https://example.com/sustainability-2024.pdf',
         documentReportYear: '2024',
-      },
+      }
     )
 
     expect(linked).toBe('report-1')
@@ -178,7 +178,7 @@ describe('companyReportService', () => {
     await companyReportService.setCompanyReportRegistryLink(
       'cr-1',
       'Q1',
-      'report-1',
+      'report-1'
     )
 
     expect(update).toHaveBeenCalledWith({
@@ -202,7 +202,7 @@ describe('companyReportService', () => {
           reportURL: 'https://example.com/sustainability-2024.pdf',
           year: '2024',
         },
-      ],
+      ]
     )
 
     expect(result).toEqual({ companyReportId: 'cr-new', inferred: true })

@@ -37,16 +37,16 @@ function trimOptional(value: unknown): string | undefined {
 
 function mergeReportIdentityFromPeriods(
   reportingPeriods: ReportingPeriodIdentity[],
-  identity?: SaveReportIdentity,
+  identity?: SaveReportIdentity
 ): SaveReportIdentity {
   const periodWithUrl = reportingPeriods.find((period) =>
-    trimOptional(period.reportURL),
+    trimOptional(period.reportURL)
   )
   const periodWithS3 = reportingPeriods.find((period) =>
-    trimOptional(period.reportS3Url),
+    trimOptional(period.reportS3Url)
   )
   const periodWithSha = reportingPeriods.find((period) =>
-    trimOptional(period.reportSha256),
+    trimOptional(period.reportSha256)
   )
 
   const publicUrl =
@@ -63,8 +63,7 @@ function mergeReportIdentityFromPeriods(
       trimOptional(periodWithS3?.reportS3Url) ??
       '',
     sourceUrl: trimOptional(identity?.sourceUrl),
-    pdfCache:
-      publicUrl || sha256 ? { publicUrl, sha256 } : identity?.pdfCache,
+    pdfCache: publicUrl || sha256 ? { publicUrl, sha256 } : identity?.pdfCache,
   }
 }
 
@@ -72,11 +71,11 @@ function buildRegistryPayloadForCompanySave(
   company: Pick<Company, 'wikidataId' | 'name'>,
   reportingPeriods: ReportingPeriodIdentity[],
   identity?: SaveReportIdentity,
-  documentReportYear?: string,
+  documentReportYear?: string
 ) {
   const mergedIdentity = mergeReportIdentityFromPeriods(
     reportingPeriods,
-    identity,
+    identity
   )
 
   return buildRegistryPayload({
@@ -222,7 +221,7 @@ class CompanyReportService {
     const registryPayload = buildRegistryPayloadForCompanySave(
       company,
       reportingPeriods,
-      options?.reportIdentity,
+      options?.reportIdentity
     )
 
     if (registryPayload) {
@@ -299,7 +298,7 @@ class CompanyReportService {
     companyReportId: string,
     company: Pick<Company, 'wikidataId' | 'name'>,
     reportingPeriods: ReportingPeriodIdentity[],
-    input: PrepareCompanyReportForPeriodSaveInput,
+    input: PrepareCompanyReportForPeriodSaveInput
   ): Promise<string | null> {
     const existing = await prisma.companyReport.findUnique({
       where: { id: companyReportId },
@@ -322,12 +321,11 @@ class CompanyReportService {
               }
             : undefined,
       },
-      input.documentReportYear,
+      input.documentReportYear
     )
     if (!registryPayload) return null
 
-    const report =
-      await registryService.upsertReportInRegistry(registryPayload)
+    const report = await registryService.upsertReportInRegistry(registryPayload)
 
     const alreadyLinked = await prisma.companyReport.findFirst({
       where: {
@@ -344,7 +342,7 @@ class CompanyReportService {
           companyReportId,
           linkedShellId: alreadyLinked.id,
           registryReportId: report.id,
-        },
+        }
       )
       return report.id
     }
@@ -360,11 +358,11 @@ class CompanyReportService {
   async setCompanyReportRegistryLink(
     companyReportId: string,
     companyWikidataId: string,
-    registryReportId: string,
+    registryReportId: string
   ): Promise<void> {
     await this.assertCompanyReportBelongsToCompany(
       companyReportId,
-      companyWikidataId,
+      companyWikidataId
     )
 
     const report = await prisma.report.findUnique({
@@ -373,13 +371,13 @@ class CompanyReportService {
     })
     if (!report) {
       throw new CompanyReportScopeError(
-        `Registry report ${registryReportId} not found`,
+        `Registry report ${registryReportId} not found`
       )
     }
 
     if (report.wikidataId && report.wikidataId !== companyWikidataId) {
       throw new CompanyReportScopeError(
-        `Registry report ${registryReportId} belongs to ${report.wikidataId}, not ${companyWikidataId}`,
+        `Registry report ${registryReportId} belongs to ${report.wikidataId}, not ${companyWikidataId}`
       )
     }
 
@@ -393,7 +391,7 @@ class CompanyReportService {
     })
     if (conflicting) {
       throw new CompanyReportScopeError(
-        `Registry report already linked to CompanyReport ${conflicting.id}`,
+        `Registry report already linked to CompanyReport ${conflicting.id}`
       )
     }
 

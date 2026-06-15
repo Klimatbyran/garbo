@@ -465,7 +465,7 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
             reportSourceUrl,
             reportS3Url,
             reportSha256,
-          },
+          }
         )
 
       return reply.send({
