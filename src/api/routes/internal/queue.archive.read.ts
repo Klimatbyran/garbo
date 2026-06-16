@@ -11,6 +11,8 @@ const queryList = z.object({
   page: z.coerce.number().optional().default(1),
   pageSize: z.coerce.number().optional().default(50),
   q: z.string().optional(),
+  /** Comma-separated CompanyReport ids — narrows archive for Validate overview. */
+  companyReportIds: z.string().optional(),
   /**
    * Comma-separated Garbo `Batch.id` (cuid). Single id = exact match; multiple = OR (`IN`).
    * @deprecated Prefer `batchDbIds`; kept for older clients.
@@ -31,8 +33,9 @@ const createBatchBodySchema = z.object({
 })
 
 /**
- * Postgres-backed BullMQ run archive (Jobbstatus history in Validate).
- * Requires auth; mounted at `api/queue-archive`.
+ * Postgres-backed BullMQ run archive. Same handler, two mounts:
+ * - `api/queue-archive` — staff JWT (Validate Jobbstatus, logged-in browser)
+ * - `api/internal-queue-archive` — X-API-Key (Unearth overview, other server callers)
  */
 export async function queueArchiveReadRoutes(app: FastifyInstance) {
   app.post(
@@ -92,18 +95,26 @@ export async function queueArchiveReadRoutes(app: FastifyInstance) {
     },
     async (request, reply) => {
       const q = queryList.parse(request.query)
-      const merged = new Set<string>()
+      const companyReportIdSet = new Set<string>()
+      for (const part of (q.companyReportIds ?? '').split(',')) {
+        const t = part.trim()
+        if (t) companyReportIdSet.add(t)
+      }
+      const companyReportIds = [...companyReportIdSet]
+      const batchIdSet = new Set<string>()
       for (const part of (q.batchDbIds ?? '').split(',')) {
         const t = part.trim()
-        if (t) merged.add(t)
+        if (t) batchIdSet.add(t)
       }
       const single = q.batchDbId?.trim()
-      if (single) merged.add(single)
-      const batchDbIds = [...merged]
+      if (single) batchIdSet.add(single)
+      const batchDbIds = [...batchIdSet]
       const data = await listArchivedReportRuns({
         page: q.page,
         pageSize: q.pageSize,
         q: q.q,
+        companyReportIds:
+          companyReportIds.length > 0 ? companyReportIds : undefined,
         batchDbIds: batchDbIds.length > 0 ? batchDbIds : undefined,
         batchName: q.batchName,
       })

@@ -134,6 +134,7 @@ const checkDB = new DiscordWorker(
     // the shell and may reassign periods (ensureCompanyReportRegistryLink). Consider making
     // registryReportId the single source of truth for the run instead of re-inferring at save.
     let registryReportId: string | undefined
+    let companyReportId: string | undefined
     const earlyRegistryPayload = buildEarlyRegistryPayload({
       companyName,
       wikidata,
@@ -147,7 +148,7 @@ const checkDB = new DiscordWorker(
         const report =
           await registryService.upsertReportInRegistry(earlyRegistryPayload)
         registryReportId = report.id
-        await companyReportService.findOrCreateCompanyReport(
+        companyReportId = await companyReportService.findOrCreateCompanyReport(
           wikidataId,
           report.id
         )
@@ -176,6 +177,7 @@ const checkDB = new DiscordWorker(
         pdfCache: job.data.pdfCache,
         documentReportYear: job.data.documentReportYear,
         ...(registryReportId && { registryReportId }),
+        ...(companyReportId && { companyReportId }),
       },
       opts: {
         attempts: 3,

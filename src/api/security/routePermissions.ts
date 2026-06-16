@@ -4,6 +4,7 @@ export const CLIENT_API_PERMISSION_CODES = [
   'api.companies.list',
   'api.companies.read',
   'api.internal.companies',
+  'api.internal.queue_archive',
   'api.internal.municipalities',
   'api.municipalities.read',
   'api.municipalities.export',
@@ -73,6 +74,13 @@ export const clientApiRouteRules: Rule[] = [
     type: 'prefix',
     path: '/api/internal-companies',
     permission: 'api.internal.companies',
+  },
+  // Twin of api/queue-archive (staff JWT). See queue.archive.read.ts.
+  {
+    method: 'GET',
+    type: 'prefix',
+    path: '/api/internal-queue-archive',
+    permission: 'api.internal.queue_archive',
   },
   {
     method: 'GET',
