@@ -83,8 +83,8 @@ export function toPartnerCompanyResponse<
   }
 }
 
-export function toPartnerCompanyList<T extends { reportingPeriods?: unknown[] }>(
-  companies: T[]
-): T[] {
+export function toPartnerCompanyList<
+  T extends { reportingPeriods?: unknown[] },
+>(companies: T[]): T[] {
   return companies.map(toPartnerCompanyResponse)
 }
