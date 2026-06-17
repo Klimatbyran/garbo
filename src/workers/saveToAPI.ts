@@ -121,16 +121,15 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
       })
 
       if (apiSubEndpoint === 'reporting-periods') {
-        const companyReportId =
-          companyReportIdFromPeriodSaveResponse(saved)
+        const companyReportId = companyReportIdFromPeriodSaveResponse(saved)
         if (companyReportId) {
           const updated = await syncReportRunCompanyReportId(
             job.data.threadId,
-            companyReportId,
+            companyReportId
           )
           if (updated > 0) {
             job.log(
-              `ReportRun.companyReportId synced to ${companyReportId} after period save.`,
+              `ReportRun.companyReportId synced to ${companyReportId} after period save.`
             )
           }
         }

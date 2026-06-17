@@ -330,7 +330,7 @@ export function buildEarlyRegistryPayload(
 
 /** POST /companies/:id/reporting-periods response shape (internal API). */
 export function companyReportIdFromPeriodSaveResponse(
-  saved: unknown,
+  saved: unknown
 ): string | null {
   if (!saved || typeof saved !== 'object') return null
   const id = (saved as { companyReportId?: unknown }).companyReportId

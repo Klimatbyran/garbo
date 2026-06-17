@@ -207,14 +207,14 @@ describe('companyReportIdFromPeriodSaveResponse', () => {
         ok: true,
         companyReportId: 'cm123abc',
         registryReportId: 'rep1',
-      }),
+      })
     ).toBe('cm123abc')
   })
 
   it('returns null when the field is missing or empty', () => {
     expect(companyReportIdFromPeriodSaveResponse({ ok: true })).toBeNull()
     expect(
-      companyReportIdFromPeriodSaveResponse({ companyReportId: '  ' }),
+      companyReportIdFromPeriodSaveResponse({ companyReportId: '  ' })
     ).toBeNull()
     expect(companyReportIdFromPeriodSaveResponse(null)).toBeNull()
   })

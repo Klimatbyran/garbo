@@ -4,7 +4,10 @@ import { QueueEvents, Queue } from 'bullmq'
 import redis from './config/redis'
 import { QUEUE_NAMES } from './queues'
 import { prisma } from './lib/prisma'
-import { resolveReportBatchDbId, companyReportIdFromJobData } from './lib/reportRunPersistence'
+import {
+  resolveReportBatchDbId,
+  companyReportIdFromJobData,
+} from './lib/reportRunPersistence'
 
 for (const queueName of Object.values(QUEUE_NAMES)) {
   const queueEvents = new QueueEvents(queueName, { connection: redis })

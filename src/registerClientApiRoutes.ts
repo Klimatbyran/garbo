@@ -18,7 +18,7 @@ import { internalCompanyReadRoutes } from './api/routes/internal/internal.compan
 import { internalMunicipalityReadRoutes } from './api/routes/internal/internal.municipality.read'
 import { companyPublicReportingPeriodsRoutes } from './api/routes/internal/company.reportingPeriods'
 import { globalSearchReadRoutes } from './api/routes/internal/globalSearch.read'
-import { queueArchiveReadRoutes } from './api/routes/internal/queue.archive.read'
+import { queueArchiveInternalReadRoutes } from './api/routes/internal/queue.archive.read'
 
 /**
  * Routes that accept X-API-Key (first-party via validate/bolt proxy, partners, etc.).
@@ -42,8 +42,8 @@ export async function registerClientApiRoutes(app: FastifyInstance) {
   )
 
   app.register(internalCompanyReadRoutes, { prefix: 'api/internal-companies' })
-  // X-API-Key — twin: api/queue-archive (staff JWT, same handler).
-  app.register(queueArchiveReadRoutes, {
+  // X-API-Key — GET only; staff JWT mount has POST /batches too.
+  app.register(queueArchiveInternalReadRoutes, {
     prefix: 'api/internal-queue-archive',
   })
   app.register(internalMunicipalityReadRoutes, {

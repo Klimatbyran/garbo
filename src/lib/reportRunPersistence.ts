@@ -14,7 +14,7 @@ export function companyReportIdFromJobData(data: unknown): string | null {
  *   `Batch` by `batchName`, returning the row id.
  */
 export async function resolveReportBatchDbId(
-  batchIdFromJob: string | null | undefined,
+  batchIdFromJob: string | null | undefined
 ): Promise<string | null> {
   const trimmed =
     typeof batchIdFromJob === 'string' ? batchIdFromJob.trim() : ''
@@ -40,7 +40,7 @@ export async function resolveReportBatchDbId(
  */
 export async function syncReportRunCompanyReportId(
   threadId: string | undefined,
-  companyReportId: string,
+  companyReportId: string
 ): Promise<number> {
   const normalizedThreadId = threadId?.trim()
   const normalizedReportId = companyReportId.trim()
