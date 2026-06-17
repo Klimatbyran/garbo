@@ -66,8 +66,10 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
         : undefined)
 
     if (job.isDataApproved()) {
-      const approvedBody = job.getApprovedBody() ?? {}
-      const periods = approvedBody.reportingPeriods ?? []
+      const approvedBody = job.getApprovedBody()
+      const periods = Array.isArray(approvedBody.reportingPeriods)
+        ? approvedBody.reportingPeriods
+        : []
       const saveBodyExtras = buildReportingPeriodsApiBodyExtras(
         job.data,
         periods
