@@ -327,3 +327,12 @@ export function buildEarlyRegistryPayload(
     sha256: pdfCacheSha256,
   }
 }
+
+/** POST /companies/:id/reporting-periods response shape (internal API). */
+export function companyReportIdFromPeriodSaveResponse(
+  saved: unknown
+): string | null {
+  if (!saved || typeof saved !== 'object') return null
+  const id = (saved as { companyReportId?: unknown }).companyReportId
+  return typeof id === 'string' && id.trim() ? id.trim() : null
+}

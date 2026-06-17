@@ -452,20 +452,22 @@ model Batch {
 }
 
 model ReportRun {
-  id          String         @id @default(cuid())
-  threadId    String         @unique
-  pdfUrl      String
-  companyName String?
-  wikidataId  String?
-  batchDbId   String?        @map("batch_db_id")
-  batch       Batch?         @relation(fields: [batchDbId], references: [id], onDelete: SetNull, onUpdate: Cascade)
-  status      String         @default("running") // 'running' | 'completed' | 'failed'
-  startedAt   DateTime       @default(now())
-  updatedAt   DateTime       @updatedAt
-  jobs        ReportRunJob[]
+  id              String         @id @default(cuid())
+  threadId        String         @unique
+  pdfUrl          String
+  companyName     String?
+  wikidataId      String?
+  companyReportId String?        @map("company_report_id")
+  batchDbId       String?        @map("batch_db_id")
+  batch           Batch?         @relation(fields: [batchDbId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  status          String         @default("running") // 'running' | 'completed' | 'failed'
+  startedAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  jobs            ReportRunJob[]
 
   @@index([pdfUrl])
   @@index([wikidataId])
+  @@index([companyReportId])
   @@index([batchDbId])
 }
 

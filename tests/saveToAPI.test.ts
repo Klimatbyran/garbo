@@ -1,5 +1,6 @@
 import {
   buildRegistryPayload,
+  companyReportIdFromPeriodSaveResponse,
   resolveDocumentReportYear,
 } from '../src/workers/saveToAPI.utils'
 import type { RegistrySaveJobData } from '../src/workers/saveToAPI.utils'
@@ -196,6 +197,26 @@ describe('buildRegistryPayload', () => {
       })
     )
     expect(result!.reportYear).toBe('2025')
+  })
+})
+
+describe('companyReportIdFromPeriodSaveResponse', () => {
+  it('reads companyReportId from a successful period save response', () => {
+    expect(
+      companyReportIdFromPeriodSaveResponse({
+        ok: true,
+        companyReportId: 'cm123abc',
+        registryReportId: 'rep1',
+      })
+    ).toBe('cm123abc')
+  })
+
+  it('returns null when the field is missing or empty', () => {
+    expect(companyReportIdFromPeriodSaveResponse({ ok: true })).toBeNull()
+    expect(
+      companyReportIdFromPeriodSaveResponse({ companyReportId: '  ' })
+    ).toBeNull()
+    expect(companyReportIdFromPeriodSaveResponse(null)).toBeNull()
   })
 })
 
