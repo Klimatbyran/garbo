@@ -2,6 +2,8 @@ import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { apiFetch } from '../lib/api'
 import { QUEUE_NAMES } from '../queues'
 import { withCompanySaveLock } from '../lib/companySaveLock'
+import { syncReportRunCompanyReportId } from '../lib/reportRunPersistence'
+import { companyReportIdFromPeriodSaveResponse } from './saveToAPI.utils'
 
 export interface SaveToApiJob extends DiscordJob {
   data: DiscordJob['data'] & {
@@ -102,8 +104,8 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
         typeof apiSubEndpoint === 'string' && apiSubEndpoint.trim().length > 0
           ? apiSubEndpoint.trim()
           : 'company'
-      await withCompanySaveLock(wikidataId, async () => {
-        const saved = await apiFetch(endpoint, {
+      const saved = await withCompanySaveLock(wikidataId, async () => {
+        const response = await apiFetch(endpoint, {
           body: sanitizedBody,
           ...(method && { method }),
           headers: {
@@ -111,13 +113,28 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
           },
         })
 
-        if (saved === null) {
+        if (response === null) {
           throw new Error(`API endpoint not found: ${endpoint}`)
         }
 
-        // TODO(pipeline): Registry upsert was removed here; see checkDB (early) and API period
-        // save prepare/ensure for registryReportId + CompanyReport shell resolution.
+        return response
       })
+
+      if (apiSubEndpoint === 'reporting-periods') {
+        const companyReportId =
+          companyReportIdFromPeriodSaveResponse(saved)
+        if (companyReportId) {
+          const updated = await syncReportRunCompanyReportId(
+            job.data.threadId,
+            companyReportId,
+          )
+          if (updated > 0) {
+            job.log(
+              `ReportRun.companyReportId synced to ${companyReportId} after period save.`,
+            )
+          }
+        }
+      }
 
       return { success: true }
     } catch (error) {
