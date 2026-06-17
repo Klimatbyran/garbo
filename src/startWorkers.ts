@@ -1,4 +1,4 @@
-import discord from './discord'
+import pipelineBridge from './pipelineBridge'
 import { workers } from './workers'
 import { QueueEvents, Queue } from 'bullmq'
 import redis from './config/redis'
@@ -32,7 +32,7 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
       const wikidataId = job.data?.wikidata?.node ?? null
       const companyName = job.data?.companyName ?? null
       const companyReportId = companyReportIdFromJobData(job.data)
-      const threadId = job.data?.threadId ?? null
+      const threadId = job.data?.discordThreadId ?? null
       const rawBatchId = (job.data as { batchId?: unknown } | undefined)
         ?.batchId
       const batchDbId = await resolveReportBatchDbId(
@@ -148,7 +148,8 @@ async function connectWithRetry<T>(
 }
 
 try {
-  await connectWithRetry(() => discord.login())
+  await connectWithRetry(() => pipelineBridge.login())
+  console.log('Discord bot started')
 } catch (error) {
   console.error('Failed to start Discord bot:', error)
   process.exit(1)

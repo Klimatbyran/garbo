@@ -111,7 +111,7 @@ async function resolvePdfUrl(
 function threadIdFromData(
   data: Record<string, unknown> | undefined
 ): string | null {
-  const t = data?.threadId
+  const t = data?.discordThreadId ?? data?.threadId
   return typeof t === 'string' && t.trim() ? t.trim() : null
 }
 

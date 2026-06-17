@@ -1,10 +1,9 @@
-import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { enqueueSaveToAPIWithParentFallback } from '../lib/DiffWorker'
-import wikidata from '../prompts/wikidata'
 import { QUEUE_NAMES } from '../queues'
 
-export class DiffLEIJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+export class DiffLEIJob extends PipelineJob {
+  declare data: PipelineJob['data'] & {
     companyName: string
     lei?: string | undefined // Switching to lei
     existingCompany: any
@@ -40,7 +39,7 @@ function compareLei(
   }
 }
 
-const diffLEI = new DiscordWorker<DiffLEIJob>(
+const diffLEI = new PipelineWorker<DiffLEIJob>(
   QUEUE_NAMES.DIFF_LEI,
   async (job: DiffLEIJob) => {
     const { companyName, lei, existingCompany } = job.data
