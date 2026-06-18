@@ -632,6 +632,15 @@ export const RegionalDataSchema = z.object({
 
 export const RegionalDataListSchema = z.array(RegionalDataSchema)
 
+export const CompanyKpiSchema = z.object({
+  wikidataId: wikidataIdSchema,
+  name: z.string(),
+  meetsParis: z.boolean().nullable(),
+  emissionsChangeFromBaseYear: z.number().nullable(),
+})
+
+export const CompanyKpiListSchema = z.array(CompanyKpiSchema)
+
 export const RegionalKpiSchema = z.object({
   region: z.string(),
   meetsParis: z.boolean(),
