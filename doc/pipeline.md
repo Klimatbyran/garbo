@@ -93,50 +93,64 @@ await flow.add({
 
 ```mermaid
 flowchart TD
-    A[parsePdf] -->|not cached| B[doclingParsePDF]
-    B --> C[indexMarkdown]
-    C --> D[precheck]
-    A -- cached? --> D
-    D --> F[guessWikidata]
-    D --> G[followUp-fiscalYear]
-    F --> H[extractEmissions]
-    G --> H
-    H --> J[followUp-industryGics]
-    H --> K[followUp-scope1+2]
-    H --> L[followUp-scope3]
-    H --> M[followUp-biogenic]
-    H --> N[followUp-economy]
-    H --> O[followUp-goals]
-    H --> P[followUp-initiatives]
-    H --> Q[followUp-baseYear]
-    J --> R[checkDB]
-    K --> R
-    L --> R
-    M --> R
-    N --> R
-    O --> R
-    P --> R
-    Q --> R
-    R --> T[diffReportingPeriods]
-    R --> U[diffIndustry]
-    R --> V[diffGoals]
-    R --> W[diffBaseYear]
-    R --> X[diffInitiatives]
-    T --> Y[saveToAPI]
-    U --> Y
-    V --> Y
-    W --> Y
-    X --> Y
-    T --> AD[sendCompanyLink]
-    U --> AD
-    V --> AD
-    W --> AD
-    X --> AD
+    subgraph ingest["PDF ingestion"]
+        A[parsePdf] -->|not cached| B[doclingParsePDF]
+        B --> C[indexMarkdown]
+        C --> D[precheck]
+        A -->|cached| D
+    end
+
+    subgraph context["Company context"]
+        F[guessWikidata]
+        G[followUpFiscalYear]
+        H[extractEmissions]
+        D --> F
+        D --> G
+        F --> H
+        G --> H
+    end
+
+    subgraph followups["Follow-up extraction (parallel children of checkDB)"]
+        J[followUpIndustryGics]
+        K1[followUpScope1]
+        K2[followUpScope2]
+        L[followUpScope3]
+        M[followUpBiogenic]
+        N[followUpEconomy]
+        O[followUpGoals]
+        P[followUpInitiatives]
+        Q[followUpBaseYear]
+        CT[followUpCompanyTags]
+        LEI[extractLEI]
+        DESC[extractDescriptions]
+    end
+
+    H --> J & K1 & K2 & L & M & N & O & P & Q & CT & LEI & DESC
+    J & K1 & K2 & L & M & N & O & P & Q & CT & LEI & DESC --> R[checkDB]
+
+    subgraph persist["Diff, save and notify"]
+        DR[diffReportingPeriods]
+        DI[diffIndustry]
+        DG[diffGoals]
+        DBY[diffBaseYear]
+        DIN[diffInitiatives]
+        DLEI[diffLEI]
+        DD[diffDescriptions]
+        DT[diffTags]
+        Y[saveToAPI]
+        SC[sendCompanyLink]
+    end
+
+    R --> DR & DI & DG & DBY & DIN & DLEI & DD & DT
+    DR & DI & DG & DBY & DIN & DLEI & DD & DT --> Y
+    DR & DI & DG & DBY & DIN & DLEI & DD & DT --> SC
 ```
+
+In BullMQ flows, child jobs finish before their parent runs. Diff jobs and `saveToAPI` are only enqueued when the matching follow-up returned data. `sendCompanyLink` is the flow parent that runs after all diff children complete.
 
 ### parsePdf
 
-**Called By:** The pipeline-api run-report endpoint (or other callers that enqueue a **parsePdf** job).
+**Called By:** Pipeline enqueue from the validation UI (or API).
 
 **Input Data:**
 
@@ -145,15 +159,16 @@ flowchart TD
     url: string
     threadId: string,
     autoApprove: boolean
+    forceReindex?: boolean
 }
 ```
 
-`url` defines the report URL, `threadId` references the Discord thread where the bot will respond, and `autoApprove` controls whether user approvals are required for data updates.
+`url` defines the report URL, `threadId` references the run thread in the UI, `autoApprove` controls whether user approvals are required for data updates, and `forceReindex` forces a fresh Docling parse even when the report is already indexed.
 
 **Functionality:**
 
 - Checks if the report is already indexed in the VectorDB.
-- If cached, directly queues `precheck` with:
+- By default, if cached and `forceReindex` is not set, directly queues `precheck` with:
 
 ```typescript
 {
@@ -164,7 +179,8 @@ flowchart TD
 }
 ```
 
-- If not cached, creates a flow:
+- If `forceReindex` is set, deletes the existing vector index (if any) and re-parses via Docling.
+- If not cached (or re-indexing), creates a flow:
 
 ```mermaid
 flowchart LR
@@ -189,9 +205,7 @@ Return Value: Job id when enqueuing `precheck` from the cache path; otherwise tr
 **Functionality:**
 
 - Submits an async parsing task to Docling to convert the PDF to markdown.
-- Supports two backends via configuration:
-  - Local docling-serve: POST `/convert/source/async` → returns `task_id`; poll `/status/poll/{task_id}`; GET `/result/{task_id}`.
-  - Hosted Berget AI: POST `/ocr` → returns `{ taskId, resultUrl }`; poll `resultUrl` until `content` is ready.
+- For local development, uses docling-serve: POST `/convert/source/async` → returns `task_id`; poll `/status/poll/{task_id}`; GET `/result/{task_id}`.
 - Applies a 30s timeout to the initial submission using `AbortController`.
 
 **Return Value:**
@@ -240,7 +254,7 @@ Indexes the parsed markdown into the VectorDB for downstream retrieval.
 }
 ```
 
-Additionally, to the three standard fields the job gets three more input properties. Depending if the job was directly called by [nlmParsePDF](#nlmparsepdf) the field `cachedMarkdown` contains the cached markdown extraction which could be directly retrived from the VectorDB and passed to the job. The field `companyName` is deprecated and not used anymore, as the job determines the company name itself. The fiele `type` is also not set and only use to define the name of the wikidata schema.
+Additionally, the job may receive `cachedMarkdown` when [parsePdf](#parsepdf) takes the cached path: the report is already indexed in the VectorDB and `forceReindex` was not set. Callers can pass `forceReindex: true` to parse the PDF again via Docling instead. The field `companyName` is only used when the user provides it manually after automatic extraction fails. The field `type` is not set by the pipeline and is only used to define the name of the wikidata schema.
 
 **Functionality:**
 
@@ -308,7 +322,7 @@ Stringified object containing the field `wikidata` set to the wikidata of the fo
 Despite the three standard properties the job expects the input property `type`. The property `type` defines on which type of data to follow up on. It can be one of the following:
 
 ```
-IndustriyGics, Scope12, Scope3, Biogenic, Economy,
+IndustryGics, Scope1, Scope2, Scope3, Biogenic, Economy,
 Goals, Initiatives, FiscalYear, CompanyTags, BaseYear
 ```
 
@@ -327,16 +341,18 @@ String containg the response from the AI.
 
 **Input Data:**
 
+The job receives the standard base job data passed through the pipeline (`url`, `threadId`, `autoApprove`, etc.). Job-specific fields on `ExtractEmissionsJob`:
+
 ```typescript
 {
-    url: string
-    threadId: string,
-    autoApprove: boolean,
     companyName: string
+    runOnly?: (FollowUpKey | 'all')[]
 }
 ```
 
-Apart from the three standart input properties, the job additionally gets the property `companyName` containing the name of the company in the report. Also, the job first awaits the return value of it's two children [followUp](#followup) and [guessWikidata](#guesswikidata).
+`companyName` is the resolved company name from [precheck](#precheck). `runOnly` limits which follow-up workers are enqueued as children of [checkDB](#checkdb) (e.g. `['scope1', 'lei']` or `['all']`). When omitted, all follow-ups run.
+
+The job first awaits the return values of its two children [followUp](#followup) (`followUpFiscalYear`) and [guessWikidata](#guesswikidata).
 
 **Functionality:**
 After awaiting it's children the job combines the return values of the childeren with its data in a new base object. It then creates a flow with the job [checkDB](#checkdb) as the parent job getting the input data:
@@ -357,14 +373,15 @@ After awaiting it's children the job combines the return values of the childeren
 
 The first four properties are just the jobs input properties and the last two `wikidata` and `fiscalYear` are filled with the corresponding information returned from the two child jobs.
 
-The job [checkDB](#checkdb) is assigned eight [followUp](#followup) child jobs of the following job types:
+The job [checkDB](#checkdb) is assigned up to twelve parallel child jobs:
 
 ```
-IndustriyGics, Scope12, Scope3, Biogenic,
-Economy, Goals, Initiatives, BaseYear
+followUpIndustryGics, followUpScope1, followUpScope2, followUpScope3,
+followUpBiogenic, followUpEconomy, followUpGoals, followUpInitiatives,
+followUpBaseYear, followUpCompanyTags, extractLEI, extractDescriptions
 ```
 
-Each child job gets the same input data as the parent job [checkDB](#checkdb).
+Each child job gets the same input data as the parent job [checkDB](#checkdb). Which jobs run can be limited with the `runOnly` field on [extractEmissions](#extractemissions) job data.
 
 **Return Value:** _none_
 
@@ -388,13 +405,27 @@ Each child job gets the same input data as the parent job [checkDB](#checkdb).
 }
 ```
 
-The input data contains the three standard properties as well as the property `companyName` containg the company name, `wikidata` containing the corresponding wikidata and `fiscalYear` defining the fiscal year of the company. Also, the job awaits the return values of its eight children adding the following properties to the jobs data:
+The input data contains the three standard properties as well as the property `companyName` containg the company name, `wikidata` containing the corresponding wikidata and `fiscalYear` defining the fiscal year of the company. Also, the job awaits the return values of its follow-up children, including:
 
 ```typescript
 {
-  scope12, scope3, biogenic, industry, economy, baseYear, goals, initiatives
+  scope1,
+    scope2,
+    scope12,
+    scope3,
+    biogenic,
+    industry,
+    economy,
+    baseYear,
+    goals,
+    initiatives,
+    tags,
+    lei,
+    descriptions
 }
 ```
+
+`scope1` and `scope2` are merged into `scope12` before diffing.
 
 The exact type definitions of each property can be found at the end of the document.
 
@@ -419,11 +450,18 @@ After awaiting the return values of it's child jobs, the job queries the databas
 
 The data object is identical to the job's input data with the addition of the property `existingCompany` containing the queried or newly created company object.
 
-The job is assigned up to five different child jobs depending if certain return values of the previously awaited child jobs are not undefined. If either `scope12`, `scope3`, `biogenic` or `economy` is not undefined, the job [diffReportingPeriods](#diffreportingperiods) is added as a child job. Additionally, to the input data of it's parent job it receives the properties `scope12`, `scope3`, `biogenic` or `economy` of the previously awaited jobs.
-If the property `industry` is not undefined the job [diffIndustry](#diffindustry) is added as a child job getting the same property in addition to the input data of it's parent job as input data.
-If the property `goals` is not undefined the job [diffGoals](#diffgoals) is added as a child job getting the same property in addition to the input data of it's parent job as input data.
-If the property `baseYear` is not undefined the job [diffBaseYear](#diffbaseyear) is added as a child job getting the same property in addition to the input data of it's parent job as input data.
-If the property `initiatives` is not undefined the job [diffInitiatives](#diffinitiatives) is added as a child job getting the same property in addition to the input data of it's parent job as input data.
+The job is assigned up to eight diff child jobs (children of [sendCompanyLink](#sendcompanylink)) depending on which follow-up results are present:
+
+- [diffReportingPeriods](#diffreportingperiods) when merged `scope12`, `scope3`, `biogenic`, or `economy` data exists
+- [diffIndustry](#diffindustry) when `industry` is present
+- [diffGoals](#diffgoals) when `goals` is present
+- [diffBaseYear](#diffbaseyear) when `baseYear` is present
+- [diffInitiatives](#diffinitiatives) when `initiatives` is present
+- `diffLEI` when `lei` is present
+- `diffDescriptions` when `descriptions` is present
+- `diffTags` when `tags` is present
+
+Each diff job receives the relevant extracted fields in addition to the shared company context from `checkDB`.
 
 **Return Value:** _none_
 
@@ -735,9 +773,112 @@ Except for the properties identical to the job's input properties the properties
 
 The job returns the three properties `body`, `diff` and `requiresapproval`. The property `body` contains the updated initatives and metadata for the possible data update. `diff` contains information about the differences between the new and existing data and `requiresApproval` indicates if the update does require the approval of the user.
 
+## LEI (Legal Entity Identifier)
+
+Garbo enriches companies with a [LEI](https://www.gleif.org/) (Legal Entity Identifier) so API consumers can relate emissions data to a stable entity id. In the main pipeline, [extractLEI](#extractlei) runs in parallel with the other follow-up jobs as a child of [checkDB](#checkdb). When a LEI is returned, [checkDB](#checkdb) adds [diffLEI](#difflei) as a child of the [sendCompanyLink](#sendcompanylink) flow.
+
+```mermaid
+flowchart TD
+    LEI[extractLEI]
+    WD{LEI on Wikidata P1278?}
+    GLEIF[GLEIF API search by company name]
+    LLM[LLM picks best GLEIF match]
+    CDB[checkDB]
+    DLEI[diffLEI]
+    CMP{LEI differs from API?}
+    API[saveToAPI]
+    SC[sendCompanyLink]
+
+    LEI --> WD
+    WD -->|yes| CDB
+    WD -->|no| GLEIF
+    GLEIF -->|no matches| CDB
+    GLEIF -->|candidates| LLM
+    LLM --> CDB
+    CDB --> DLEI
+    DLEI --> CMP
+    CMP -->|yes| API
+    CMP -->|no| SC
+    API --> SC
+```
+
+### extractLEI
+
+**Called By:** The flow construction in the job [extractEmissions](#extractemissions) defined in `src/workers/extractEmissions.ts` (parallel child of [checkDB](#checkdb)).
+
+**Defined In:** `src/workers/extractLEI.ts`
+
+**Input Data:**
+
+```typescript
+{
+  url: string
+  threadId: string
+  autoApprove: boolean
+  companyName: string
+  wikidataId: string
+}
+```
+
+`wikidataId` is the resolved Wikidata entity id from [guessWikidata](#guesswikidata).
+
+**Functionality:**
+
+1. Look up LEI on Wikidata via property `P1278` (`getLEINumber` in `src/lib/wikidata/read.ts`).
+2. If Wikidata has no LEI, search the [GLEIF API](https://documenter.getpostman.com/view/7679680/SVYrrxuU) by `companyName` (`getLEINumbersFromGLEIF` in `src/lib/gleif.ts`).
+3. If GLEIF returns candidates, ask the LLM (prompt in `src/prompts/lei.ts`) to pick the best matching LEI for the company.
+4. Notify via the job thread when no LEI can be resolved.
+
+**Return Value:**
+
+```typescript
+{
+  lei?: string
+  wikidataId: string
+}
+```
+
+`checkDB` reads this from its child job results and passes `lei` into [diffLEI](#difflei) when defined.
+
+### diffLEI
+
+**Called By:** The flow construction in the job [checkDB](#checkdb) defined in `src/workers/checkDB.ts` (child of [sendCompanyLink](#sendcompanylink), only when `lei` is present).
+
+**Defined In:** `src/workers/diffLEI.ts`
+
+**Input Data:**
+
+```typescript
+{
+    url: string
+    threadId: string
+    autoApprove: boolean
+    companyName: string
+    existingCompany: Company
+    wikidata: Wikidata
+    lei?: string
+}
+```
+
+**Functionality:**
+
+Compares the extracted `lei` with `existingCompany.lei` from the API. If there is no existing LEI, or the value differs, the job enqueues [saveToAPI](#savetoapi) with `requiresApproval: false` and an empty `apiSubEndpoint`, which PATCHes `/companies/{wikidataId}` with:
+
+```typescript
+{
+  lei: string
+  wikidataId: string
+  name: string
+}
+```
+
+If the LEI is already correct, no save is enqueued.
+
+**Return Value:** _none_
+
 ### saveToAPI
 
-**Called By:** On of the jobs [diffReportingPeriods](#diffreportingperiods), [diffIndustry](#diffindustry), [diffGoals](#diffgoals), [diffBaseYear](#diffbaseyear) and [diffInitiatives](#diffinitatives) in their corresponding files `src/workers/diff<type>.ts`.
+**Called By:** One of the diff jobs ([diffReportingPeriods](#diffreportingperiods), [diffIndustry](#diffindustry), [diffGoals](#diffgoals), [diffBaseYear](#diffbaseyear), [diffInitiatives](#diffinitiatives), [diffLEI](#difflei), `diffDescriptions`, or `diffTags`) in their corresponding files under `src/workers/`.
 
 **Input Data:**
 
@@ -806,26 +947,14 @@ The job returns the url to the company page.
 
 Docling settings are managed via `src/config/docling.ts`.
 
-Due to current validation, the following environment variables must be present in both local and hosted modes:
+For local development, uncomment the `docling` service in `docker-compose.yaml` and set:
 
 ```bash
-DOCLING_USE_LOCAL=true|false
-DOCLING_URL=<base URL including /v1>
-BERGET_AI_TOKEN=<token>
+DOCLING_USE_LOCAL=true
+DOCLING_URL=http://localhost:5001/v1
 ```
 
-- Local docling-serve:
-  - Set `DOCLING_USE_LOCAL=true`
-  - Set `DOCLING_URL=http://localhost:5001/v1` (include the `/v1` suffix)
-  - `BERGET_AI_TOKEN` must be a non-empty value due to validation (not used by local backend)
-- Hosted Berget AI:
-  - Set `DOCLING_USE_LOCAL=false`
-  - Provide a valid `DOCLING_URL` and `BERGET_AI_TOKEN`
-
-Endpoints used by `doclingParsePDF`:
-
-- Local: `/convert/source/async`, `/status/poll/{task_id}`, `/result/{task_id}`
-- Hosted: `/ocr` (returns `{ taskId, resultUrl }` to poll). Note: `resultUrl` may be relative; the worker will prefix it using the configured base URL.
+`doclingParsePDF` uses docling-serve endpoints: `/convert/source/async`, `/status/poll/{task_id}`, `/result/{task_id}`.
 
 A 30s timeout is applied to the initial submission request via `AbortController`.
 
