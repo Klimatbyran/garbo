@@ -119,6 +119,40 @@ describe('companyKpiCalculator', () => {
         })
       ).toBe(-20)
     })
+
+    it('uses the chronologically latest period when dates are Date objects', () => {
+      const baselineEmissions = 145800
+      const latestEmissions = 213760
+
+      expect(
+        calculateEmissionsChangeFromBaseYear({
+          wikidataId: 'Q1',
+          name: 'Test Co',
+          futureEmissionsTrendSlope: null,
+          baseYear: { year: 2019 },
+          reportingPeriods: [
+            {
+              startDate: new Date('2023-01-01T00:00:00.000Z'),
+              endDate: new Date('2023-12-31T00:00:00.000Z'),
+              emissions: { calculatedTotalEmissions: latestEmissions },
+            },
+            {
+              startDate: new Date('2020-01-01T00:00:00.000Z'),
+              endDate: new Date('2020-12-31T00:00:00.000Z'),
+              emissions: { calculatedTotalEmissions: 122500 },
+            },
+            {
+              startDate: new Date('2019-01-01T00:00:00.000Z'),
+              endDate: new Date('2019-12-31T00:00:00.000Z'),
+              emissions: { calculatedTotalEmissions: baselineEmissions },
+            },
+          ],
+        })
+      ).toBeCloseTo(
+        ((latestEmissions - baselineEmissions) / baselineEmissions) * 100,
+        5
+      )
+    })
   })
 
   describe('calculateCompanyKpi', () => {

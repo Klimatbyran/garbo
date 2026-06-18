@@ -25,6 +25,13 @@ function getYearFromDate(date: string | Date): number {
   return new Date(date).getFullYear()
 }
 
+function comparePeriodEndDates(
+  a: { endDate: string | Date },
+  b: { endDate: string | Date }
+): number {
+  return new Date(a.endDate).getTime() - new Date(b.endDate).getTime()
+}
+
 function get2025Emissions(
   company: CompanyForKpiCalculation,
   slope: number
@@ -133,11 +140,8 @@ export function calculateEmissionsChangeFromBaseYear(
   }
 
   const baseYear = company.baseYear.year.toString()
-  const periods = [...company.reportingPeriods].sort((a, b) =>
-    String(a.startDate).localeCompare(String(b.startDate))
-  )
 
-  const baselinePeriod = periods.find(
+  const baselinePeriod = company.reportingPeriods.find(
     (period) => getYearFromDate(period.endDate).toString() === baseYear
   )
 
@@ -156,21 +160,21 @@ export function calculateEmissionsChangeFromBaseYear(
     return null
   }
 
-  let latestPeriod: (typeof periods)[number] | null = null
-  for (let i = periods.length - 1; i >= 0; i--) {
-    const emissions = periods[i].emissions?.calculatedTotalEmissions ?? null
-    if (emissions !== null && emissions > 0) {
-      latestPeriod = periods[i]
-      break
+  let latestPeriod: (typeof company.reportingPeriods)[number] | null = null
+  for (const period of company.reportingPeriods) {
+    const emissions = period.emissions?.calculatedTotalEmissions ?? null
+    if (emissions === null || emissions <= 0) continue
+    if (getYearFromDate(period.endDate).toString() === baseYear) continue
+
+    if (
+      latestPeriod === null ||
+      comparePeriodEndDates(period, latestPeriod) > 0
+    ) {
+      latestPeriod = period
     }
   }
 
   if (!latestPeriod) {
-    return null
-  }
-
-  const latestYear = getYearFromDate(latestPeriod.endDate).toString()
-  if (latestYear === baseYear) {
     return null
   }
 
