@@ -65,7 +65,7 @@ function get2025Emissions(
   return slope * 2025 + intercept
 }
 
-function calculateCumulativeEmissions(
+export function calculateCumulativeEmissions(
   startEmissions: number,
   slope: number,
   startYear: number,
@@ -79,7 +79,7 @@ function calculateCumulativeEmissions(
   return cumulative
 }
 
-function calculateCarbonLawCumulativeEmissions(
+export function calculateCarbonLawCumulativeEmissions(
   startEmissions: number,
   startYear: number,
   endYear: number

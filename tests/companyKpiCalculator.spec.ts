@@ -1,10 +1,46 @@
 import {
+  calculateCarbonLawCumulativeEmissions,
   calculateCompanyKpi,
+  calculateCumulativeEmissions,
   calculateEmissionsChangeFromBaseYear,
   calculateMeetsParis,
 } from '../src/lib/company-emissions/companyKpiCalculator'
 
+const CARBON_LAW_REDUCTION_RATE = 0.1172
+
 describe('companyKpiCalculator', () => {
+  describe('calculateCumulativeEmissions', () => {
+    it('sums constant emissions when the trend slope is zero', () => {
+      expect(calculateCumulativeEmissions(100, 0, 2025, 2027)).toBe(300)
+    })
+
+    it('sums declining linear emissions and floors negative years at zero', () => {
+      expect(calculateCumulativeEmissions(100, -10, 2025, 2035)).toBe(550)
+    })
+
+    it('sums increasing linear emissions across the range', () => {
+      expect(calculateCumulativeEmissions(100, 10, 2025, 2027)).toBe(330)
+    })
+  })
+
+  describe('calculateCarbonLawCumulativeEmissions', () => {
+    it('returns the starting emissions for a single-year range', () => {
+      expect(calculateCarbonLawCumulativeEmissions(100, 2025, 2025)).toBe(100)
+    })
+
+    it('applies the carbon law reduction rate each year', () => {
+      const startEmissions = 100
+      const expected =
+        startEmissions +
+        startEmissions * (1 - CARBON_LAW_REDUCTION_RATE) +
+        startEmissions * Math.pow(1 - CARBON_LAW_REDUCTION_RATE, 2)
+
+      expect(
+        calculateCarbonLawCumulativeEmissions(startEmissions, 2025, 2027)
+      ).toBeCloseTo(expected, 5)
+    })
+  })
+
   describe('calculateMeetsParis', () => {
     it('returns null when future emissions trend slope is unavailable', () => {
       expect(
@@ -71,6 +107,70 @@ describe('companyKpiCalculator', () => {
           ],
         })
       ).toBe(false)
+    })
+
+    it('compares projected cumulative emissions against the carbon law budget', () => {
+      const slope = -10000
+      const company = {
+        wikidataId: 'Q1',
+        name: 'Test Co',
+        futureEmissionsTrendSlope: slope,
+        reportingPeriods: [
+          {
+            startDate: '2024-01-01',
+            endDate: '2024-12-31',
+            emissions: { calculatedTotalEmissions: 100000 },
+          },
+        ],
+      }
+
+      const emissions2025 = 90000
+      const companyCumulative = calculateCumulativeEmissions(
+        emissions2025,
+        slope,
+        2025,
+        2050
+      )
+      const carbonLawCumulative = calculateCarbonLawCumulativeEmissions(
+        emissions2025,
+        2025,
+        2050
+      )
+
+      expect(companyCumulative).toBeLessThanOrEqual(carbonLawCumulative)
+      expect(calculateMeetsParis(company)).toBe(true)
+    })
+
+    it('returns false when projected cumulative emissions exceed the carbon law budget', () => {
+      const slope = 5000
+      const company = {
+        wikidataId: 'Q1',
+        name: 'Test Co',
+        futureEmissionsTrendSlope: slope,
+        reportingPeriods: [
+          {
+            startDate: '2024-01-01',
+            endDate: '2024-12-31',
+            emissions: { calculatedTotalEmissions: 100000 },
+          },
+        ],
+      }
+
+      const emissions2025 = 105000
+      const companyCumulative = calculateCumulativeEmissions(
+        emissions2025,
+        slope,
+        2025,
+        2050
+      )
+      const carbonLawCumulative = calculateCarbonLawCumulativeEmissions(
+        emissions2025,
+        2025,
+        2050
+      )
+
+      expect(companyCumulative).toBeGreaterThan(carbonLawCumulative)
+      expect(calculateMeetsParis(company)).toBe(false)
     })
   })
 
