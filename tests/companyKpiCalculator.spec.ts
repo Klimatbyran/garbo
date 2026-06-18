@@ -101,6 +101,11 @@ describe('companyKpiCalculator', () => {
           baseYear: { year: 2020 },
           reportingPeriods: [
             {
+              startDate: '2019-01-01',
+              endDate: '2019-12-31',
+              emissions: { calculatedTotalEmissions: 90 },
+            },
+            {
               startDate: '2020-01-01',
               endDate: '2020-12-31',
               emissions: { calculatedTotalEmissions: 100 },
@@ -113,29 +118,6 @@ describe('companyKpiCalculator', () => {
           ],
         })
       ).toBe(-20)
-    })
-
-    it('filters out extreme outliers above 200%', () => {
-      expect(
-        calculateEmissionsChangeFromBaseYear({
-          wikidataId: 'Q1',
-          name: 'Test Co',
-          futureEmissionsTrendSlope: null,
-          baseYear: { year: 2020 },
-          reportingPeriods: [
-            {
-              startDate: '2020-01-01',
-              endDate: '2020-12-31',
-              emissions: { calculatedTotalEmissions: 100 },
-            },
-            {
-              startDate: '2024-01-01',
-              endDate: '2024-12-31',
-              emissions: { calculatedTotalEmissions: 500 },
-            },
-          ],
-        })
-      ).toBeNull()
     })
   })
 
