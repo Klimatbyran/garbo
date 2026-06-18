@@ -1,14 +1,22 @@
-import { buildRegistryPayload } from '../src/workers/saveToAPI.utils'
+import {
+  buildRegistryPayload,
+  companyReportIdFromPeriodSaveResponse,
+  resolveDocumentReportYear,
+} from '../src/workers/saveToAPI.utils'
 import type { RegistrySaveJobData } from '../src/workers/saveToAPI.utils'
 
 function makeJob(overrides: Partial<RegistrySaveJobData> & { url: string }): {
   data: RegistrySaveJobData
 } {
+  const defaultPeriod = {
+    year: 2024,
+    emissions: { scope1: { total: 1, unit: 'tCO2e' } },
+  }
   return {
     data: {
       wikidata: { node: 'Q123' },
       companyName: 'Acme Corp',
-      body: { reportingPeriods: [{ year: 2024 }] },
+      body: { reportingPeriods: [defaultPeriod] },
       ...overrides,
     },
   }
@@ -108,21 +116,47 @@ describe('buildRegistryPayload', () => {
 
   // ── reportYear derived from period ──────────────────────────────────────────
 
-  it('uses the year of the chosen (first) period when no identity match', () => {
+  it('uses max emissions/economy year among periods when no explicit documentReportYear', () => {
     const result = buildRegistryPayload(
       makeJob({
         url: 'https://company.com/report',
-        body: { reportingPeriods: [{ year: 2022 }, { year: 2024 }] },
+        body: {
+          reportingPeriods: [
+            { year: 2022, emissions: { scope1: { total: 1, unit: 'tCO2e' } } },
+            { year: 2024, emissions: { scope1: { total: 1, unit: 'tCO2e' } } },
+          ],
+        },
       })
     )
-    expect(result!.reportYear).toBe('2022')
+    expect(result!.reportYear).toBe('2024')
   })
 
-  it('falls back to max year when chosen period has no year', () => {
+  it('ignores periods with only a year and no emissions or economy data', () => {
     const result = buildRegistryPayload(
       makeJob({
         url: 'https://company.com/report',
-        body: { reportingPeriods: [{}, { year: 2023 }, { year: 2024 }] },
+        body: {
+          reportingPeriods: [
+            { year: 2025, emissions: { scope1: { total: 1, unit: 'tCO2e' } } },
+            { year: 2026 },
+          ],
+        },
+      })
+    )
+    expect(result!.reportYear).toBe('2025')
+  })
+
+  it('falls back to max emissions year when chosen period has no year', () => {
+    const result = buildRegistryPayload(
+      makeJob({
+        url: 'https://company.com/report',
+        body: {
+          reportingPeriods: [
+            {},
+            { year: 2023, emissions: { scope1: { total: 1, unit: 'tCO2e' } } },
+            { year: 2024, emissions: { scope1: { total: 1, unit: 'tCO2e' } } },
+          ],
+        },
       })
     )
     expect(result!.reportYear).toBe('2024')
@@ -150,5 +184,106 @@ describe('buildRegistryPayload', () => {
     )
     expect(result!.url).toBe('https://company.com/annual')
     expect(result!.sha256).toBe('b'.repeat(64))
+  })
+
+  it('uses documentReportYear from job over a single comparison period year', () => {
+    const result = buildRegistryPayload(
+      makeJob({
+        url: 'https://company.com/annual-report-2025.pdf',
+        documentReportYear: '2025',
+        body: {
+          reportingPeriods: [{ year: 2024 }, { year: 2025 }],
+        },
+      })
+    )
+    expect(result!.reportYear).toBe('2025')
+  })
+})
+
+describe('companyReportIdFromPeriodSaveResponse', () => {
+  it('reads companyReportId from a successful period save response', () => {
+    expect(
+      companyReportIdFromPeriodSaveResponse({
+        ok: true,
+        companyReportId: 'cm123abc',
+        registryReportId: 'rep1',
+      })
+    ).toBe('cm123abc')
+  })
+
+  it('returns null when the field is missing or empty', () => {
+    expect(companyReportIdFromPeriodSaveResponse({ ok: true })).toBeNull()
+    expect(
+      companyReportIdFromPeriodSaveResponse({ companyReportId: '  ' })
+    ).toBeNull()
+    expect(companyReportIdFromPeriodSaveResponse(null)).toBeNull()
+  })
+})
+
+describe('resolveDocumentReportYear', () => {
+  it('prefers explicit documentReportYear', () => {
+    expect(
+      resolveDocumentReportYear([{ year: 2023 }], {
+        documentReportYear: '2025',
+      })
+    ).toBe('2025')
+  })
+
+  it('falls back to max data year among periods', () => {
+    expect(
+      resolveDocumentReportYear([
+        { year: 2023, emissions: { scope1: { total: 1 } } },
+        { year: 2025, emissions: { scope1: { total: 1 } } },
+        { year: 2024, economy: { turnover: { value: 1 } } },
+      ])
+    ).toBe('2025')
+  })
+
+  it('uses endDate when period payloads omit year (pipeline save shape)', () => {
+    expect(
+      resolveDocumentReportYear([
+        {
+          startDate: '2024-01-01',
+          endDate: '2024-12-31',
+          emissions: { scope1: { total: 1 } },
+        },
+        {
+          startDate: '2025-01-01',
+          endDate: '2025-12-31',
+          emissions: { scope1: { total: 2 } },
+        },
+      ])
+    ).toBe('2025')
+  })
+
+  it('ignores periods with only a year and no emissions or economy data', () => {
+    expect(
+      resolveDocumentReportYear([
+        { year: 2025, emissions: { scope1: { total: 1 } } },
+        { year: 2026 },
+      ])
+    ).toBe('2025')
+  })
+
+  it('prefers max emissions year over a misleading year in the report URL', () => {
+    expect(
+      resolveDocumentReportYear(
+        [
+          { year: 2023, emissions: { scope1: { total: 1 } } },
+          { year: 2024, emissions: { scope1: { total: 1 } } },
+        ],
+        {
+          reportUrl: 'https://company.com/annual-report-2017.pdf',
+        }
+      )
+    ).toBe('2024')
+  })
+
+  it('uses URL year only when periods have no usable data years', () => {
+    expect(
+      resolveDocumentReportYear([{}], {
+        reportUrl: 'https://company.com/sustainability-report-2022.pdf',
+      })
+    ).toBe('2022')
   })
 })

@@ -2,7 +2,7 @@
 
 This is the main repository for the AI bot we call Garbo. Garbo runs via our [validation frontend](https://github.com/Klimatbyran/validate-frontend) and is powered by LLM:s to fetch and extract GHG self-reported data from companies. It automates the process of data extraction, evaluation, and formatting, providing a streamlined workflow for handling environmental data.
 
-Garbo is invoked through the validation UI and has a pipeline of tasks and jobs that will be started in order for her to both extract, evaluate and format the data autonomously.
+Garbo is invoked through the [Validation frontend](https://github.com/Klimatbyran/validate-frontend) and pipeline-api, and has a pipeline of tasks and jobs that will be started in order for her to both extract, evaluate and format the data autonomously.
 
 Do you have an idea? Jump into the code or head to our [Discord server](https://discord.gg/N5P64QPQ6v) to discuss your thoughts.
 
@@ -12,7 +12,7 @@ We utilise an open source queue manager called BullMQ which relies on Redis. The
 
 ## Current Status
 
-Start the validation frontend and Garbo API/workers locally to process sustainability reports through the pipeline.
+Start the validation frontend and pipeline-api to run reports through the Garbo pipeline.
 
 ## Data Flow
 

@@ -38,6 +38,18 @@ export function isValidReportCatalogYear(year: string): boolean {
   return n >= REPORT_CATALOG_YEAR_MIN && n <= REPORT_CATALOG_YEAR_MAX
 }
 
+/** Registry upsert: use incoming reportYear when it is a valid year. */
+export function mergeReportYearFromPipeline(
+  existing: string | null | undefined,
+  incoming: string | null | undefined
+): string | undefined {
+  const inc = trimStr(incoming ?? null)
+  if (!inc || !isValidReportCatalogYear(inc)) {
+    return trimStr(existing ?? null) ?? undefined
+  }
+  return inc
+}
+
 /** Last path segment of a report URL, lowercased (e.g. `annual-report-2024.pdf`). */
 export function pdfBasenameFromUrl(
   raw: string | null | undefined

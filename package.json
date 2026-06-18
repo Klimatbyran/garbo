@@ -1,6 +1,6 @@
 {
   "name": "garbo",
-  "version": "5.10.1-rc.0",
+  "version": "5.11.1-rc.4",
   "description": "",
   "type": "module",
   "exports": {
@@ -88,7 +88,7 @@
     "@types/jest": "^30.0.0",
     "@types/jsonwebtoken": "^9.0.8",
     "@types/node": "^22.10.6",
-    "concurrently": "^9.1.2",
+    "concurrently": "^10.0.3",
     "deepl-node": "^1.15.0",
     "eslint": "^10.0.0",
     "eslint-plugin-only-warn": "^1.1.0",
@@ -106,7 +106,8 @@
     "@tootallnate/once": ">=3.0.1",
     "prisma-zod-generator": {
       "@prisma/client": "5.22.0"
-    }
+    },
+    "uuid": "^11.1.1"
   },
   "prisma": {
     "seed": "node --import=tsx prisma/seed.ts"

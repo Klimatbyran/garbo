@@ -1,12 +1,9 @@
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { apiFetch } from '../lib/api'
 import { QUEUE_NAMES } from '../queues'
-import { registryService } from '../api/services/registryService'
-import { createServerCache } from '../createCache'
-import { invalidateRegistryCache } from '../api/services/registryCache'
-import { buildRegistryPayload } from './saveToAPI.utils'
-
-const registryCache = createServerCache({ maxAge: 24 * 60 * 60 * 1000 })
+import { withCompanySaveLock } from '../lib/companySaveLock'
+import { syncReportRunCompanyReportId } from '../lib/reportRunPersistence'
+import { companyReportIdFromPeriodSaveResponse } from './saveToAPI.utils'
 
 export interface SaveToApiJob extends DiscordJob {
   data: DiscordJob['data'] & {
@@ -21,6 +18,7 @@ export interface SaveToApiJob extends DiscordJob {
       publicUrl?: string
       sha256?: string
     }
+    documentReportYear?: string | number
   }
 }
 
@@ -106,29 +104,33 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
         typeof apiSubEndpoint === 'string' && apiSubEndpoint.trim().length > 0
           ? apiSubEndpoint.trim()
           : 'company'
-      const result = await apiFetch(endpoint, {
-        body: sanitizedBody,
-        ...(method && { method }),
-        headers: {
-          'X-Garbo-Chunk': chunk,
-        },
+      const saved = await withCompanySaveLock(wikidataId, async () => {
+        const response = await apiFetch(endpoint, {
+          body: sanitizedBody,
+          ...(method && { method }),
+          headers: {
+            'X-Garbo-Chunk': chunk,
+          },
+        })
+
+        if (response === null) {
+          throw new Error(`API endpoint not found: ${endpoint}`)
+        }
+
+        return response
       })
 
-      if (result === null) {
-        throw new Error(`API endpoint not found: ${endpoint}`)
-      }
-
       if (apiSubEndpoint === 'reporting-periods') {
-        const registryPayload = buildRegistryPayload(job)
-        if (registryPayload) {
-          try {
-            await registryService.upsertReportInRegistry(registryPayload)
-            await invalidateRegistryCache(registryCache, {
-              warn: (msg: string, ...args: unknown[]) =>
-                job.log([msg, ...args.map((a) => JSON.stringify(a))].join(' ')),
-            })
-          } catch (e: any) {
-            job.log(`Registry upsert failed after save: ${e?.message ?? e}`)
+        const companyReportId = companyReportIdFromPeriodSaveResponse(saved)
+        if (companyReportId) {
+          const updated = await syncReportRunCompanyReportId(
+            job.data.threadId,
+            companyReportId
+          )
+          if (updated > 0) {
+            job.log(
+              `ReportRun.companyReportId synced to ${companyReportId} after period save.`
+            )
           }
         }
       }

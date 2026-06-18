@@ -20,6 +20,7 @@ import authPlugin from './api/plugins/auth'
 import { companyIndustryRoutes } from './api/routes/internal/company.industry'
 import { companyInitiativesRoutes } from './api/routes/internal/company.initiatives'
 import { companyReportingPeriodsRoutes } from './api/routes/internal/company.reportingPeriods'
+import { pipelineCompanyReadRoutes } from './api/routes/internal/company.pipelineRead'
 import { companyUpdateRoutes } from './api/routes/internal/company.update'
 import { companyDeleteRoutes } from './api/routes/internal/company.delete'
 import { errorHandler } from './api/plugins/errorhandler'
@@ -130,6 +131,9 @@ async function authenticatedContext(app: FastifyInstance) {
   app.register(companyUpdateRoutes, { prefix: 'api/companies' })
   app.register(companyIndustryRoutes, { prefix: 'api/companies' })
   app.register(companyReportingPeriodsRoutes, { prefix: 'api/companies' })
+  app.register(pipelineCompanyReadRoutes, {
+    prefix: 'api/pipeline/companies',
+  })
   app.register(companyGoalsRoutes, { prefix: 'api/companies' })
   app.register(companyBaseYearRoutes, { prefix: 'api/companies' })
   app.register(companyInitiativesRoutes, { prefix: 'api/companies' })
@@ -149,6 +153,7 @@ async function authenticatedContext(app: FastifyInstance) {
   app.register(reportsCreateRoutes, {
     prefix: 'api/internal-companies/reports',
   })
+  // Staff JWT — twin: api/internal-queue-archive (X-API-Key, same handler).
   app.register(queueArchiveReadRoutes, {
     prefix: 'api/queue-archive',
   })
