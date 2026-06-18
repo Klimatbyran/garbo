@@ -57,3 +57,34 @@ export function pickOnePeriodPerDataYear<T extends PeriodWithCompanyReport>(
     ({ companyReport: _companyReport, ...period }) => period
   )
 }
+
+/** External GET contract: prod-compatible period fields (no shell/year linkage). */
+export function toPartnerReportingPeriod<T extends Record<string, unknown>>(
+  period: T
+): Omit<T, 'year' | 'companyReportId' | 'companyReport'> {
+  const {
+    year: _year,
+    companyReportId: _companyReportId,
+    companyReport: _companyReport,
+    ...rest
+  } = period
+  return rest
+}
+
+export function toPartnerCompanyResponse<
+  T extends { reportingPeriods?: unknown[] },
+>(company: T): T {
+  if (!Array.isArray(company.reportingPeriods)) return company
+  return {
+    ...company,
+    reportingPeriods: company.reportingPeriods.map((period) =>
+      toPartnerReportingPeriod(period as Record<string, unknown>)
+    ),
+  }
+}
+
+export function toPartnerCompanyList<
+  T extends { reportingPeriods?: unknown[] },
+>(companies: T[]): T[] {
+  return companies.map(toPartnerCompanyResponse)
+}

@@ -1,6 +1,5 @@
 import { canonicalPublicReportUrl, diffChanges } from '../lib/saveUtils'
 import { getReportingPeriodDates } from '../lib/reportingPeriodDates'
-import { resolveDocumentReportYear } from './saveToAPI.utils'
 import { QUEUE_NAMES } from '../queues'
 import { ChangeDescription, DiffWorker, DiffJob } from '../lib/DiffWorker'
 import apiConfig from '../config/api'
@@ -70,17 +69,15 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
     if (job.isDataApproved()) {
       const approvedBody = job.getApprovedBody() ?? {}
       const periods = approvedBody.reportingPeriods ?? []
-      const documentReportYear = resolveDocumentReportYear(periods, {
-        documentReportYear:
-          approvedBody.documentReportYear ?? job.data.documentReportYear,
-        reportUrl: reportURLForPeriod,
-        sourceUrl: trimmedSourceUrl,
-      })
+      const saveBodyExtras = buildReportingPeriodsApiBodyExtras(
+        job.data,
+        periods
+      )
 
       await job.enqueueSaveToAPI('reporting-periods', companyName, wikidata, {
         ...approvedBody,
+        ...saveBodyExtras,
         ...(job.data.replaceAllEmissions && { replaceAllEmissions: true }),
-        documentReportYear,
         reportUrl: reportURLForPeriod,
         reportSourceUrl: trimmedSourceUrl,
         reportS3Url: reportS3UrlForPeriod,
@@ -210,8 +207,15 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
         newValue: { reportingPeriods: updatedReportingPeriods },
       }
 
+      const maxScopeYear =
+        years.size > 0 ? Math.max(...Array.from(years)) : undefined
       const saveBodyExtras = buildReportingPeriodsApiBodyExtras(
-        job.data,
+        {
+          ...job.data,
+          ...(maxScopeYear !== undefined && {
+            documentReportYear: job.data.documentReportYear ?? maxScopeYear,
+          }),
+        },
         updatedReportingPeriods
       )
 

@@ -81,11 +81,47 @@ function resolveStorageUrl(
   )
 }
 
+function periodHasEmissionsOrEconomyData(period: any): boolean {
+  const economy = period?.economy
+  if (
+    economy &&
+    typeof economy === 'object' &&
+    Object.keys(economy).length > 0
+  ) {
+    return true
+  }
+
+  const emissions = period?.emissions
+  if (!emissions || typeof emissions !== 'object') return false
+
+  return Object.values(emissions).some(
+    (value) => value !== undefined && value !== null
+  )
+}
+
+/** Data year on a period payload: explicit `year` or calendar year from `endDate`. */
+export function periodDataYearFromPayload(period: any): number | null {
+  if (period?.year !== undefined && period?.year !== null) {
+    const explicit = Number(period.year)
+    if (Number.isFinite(explicit)) return explicit
+  }
+
+  const end = period?.endDate
+  if (end instanceof Date) return end.getFullYear()
+  if (typeof end === 'string' && end.length >= 4) {
+    const fromEnd = Number(end.slice(0, 4))
+    if (Number.isFinite(fromEnd)) return fromEnd
+  }
+
+  return null
+}
+
 function maxDataYearAmongPeriods(reportingPeriods: any[]): number | null {
   let max: number | null = null
   for (const period of reportingPeriods) {
-    const y = Number(period?.year)
-    if (!Number.isFinite(y)) continue
+    if (!periodHasEmissionsOrEconomyData(period)) continue
+    const y = periodDataYearFromPayload(period)
+    if (y === null) continue
     max = max === null ? y : Math.max(max, y)
   }
   return max
@@ -93,7 +129,7 @@ function maxDataYearAmongPeriods(reportingPeriods: any[]): number | null {
 
 /**
  * PDF year label for Report / CompanyReport.
- * Priority: pipeline/job field → max extracted data year → URL parse (least trusted).
+ * Priority: pipeline/job field → max data year (emissions/economy periods only) → URL parse.
  */
 export function resolveDocumentReportYear(
   reportingPeriods: any[],
@@ -209,4 +245,94 @@ export function buildRegistryPayload(job: {
     s3Url,
     sha256: pdfCacheSha256 ?? periodSha256,
   }
+}
+
+export type EarlyRegistryJobData = {
+  companyName?: string
+  wikidata?: { node: string }
+  url?: string
+  sourceUrl?: string
+  pdfCache?: { publicUrl?: string; sha256?: string }
+  documentReportYear?: string | number
+}
+
+/** Registry upsert from PDF identity only (before reporting periods exist). */
+export function buildEarlyRegistryPayload(
+  jobData: EarlyRegistryJobData
+): null | {
+  companyName: string
+  wikidataId: string
+  reportYear?: string
+  url: string
+  sourceUrl?: string
+  s3Url?: string
+  sha256?: string
+} {
+  const companyName = jobData.companyName
+  if (!companyName) return null
+
+  const wikidataId = jobData.wikidata?.node?.trim() ?? ''
+  if (!isWikidataQId(wikidataId)) return null
+
+  const url = typeof jobData.url === 'string' ? jobData.url.trim() : ''
+  const sourceUrl =
+    typeof jobData.sourceUrl === 'string' ? jobData.sourceUrl.trim() : undefined
+
+  const pdfCacheSha256 = trimStr(jobData.pdfCache?.sha256) ?? undefined
+  const pdfCacheS3Url = trimStr(jobData.pdfCache?.publicUrl) ?? undefined
+
+  const sourceUrlIsHttp =
+    typeof sourceUrl === 'string' && /^https?:\/\//i.test(sourceUrl)
+  const jobS3Url =
+    url && (!sourceUrlIsHttp || url !== sourceUrl) ? url : undefined
+
+  const canonicalUrl = canonicalPublicReportUrl({ url, sourceUrl })
+  const resolvedWebUrl = resolveWebUrl(sourceUrl, canonicalUrl)
+  const resolvedStorageUrl = resolveStorageUrl(
+    undefined,
+    pdfCacheS3Url,
+    url,
+    jobS3Url
+  )
+
+  const primaryUrl = resolvedWebUrl || canonicalUrl.trim()
+  if (!primaryUrl) return null
+
+  let s3Url: string | undefined
+  if (resolvedStorageUrl) {
+    if (resolvedStorageUrl !== primaryUrl || isStorageUrl(primaryUrl)) {
+      s3Url = resolvedStorageUrl
+    }
+  } else if (isStorageUrl(primaryUrl)) {
+    s3Url = primaryUrl
+  }
+
+  return {
+    companyName,
+    wikidataId,
+    reportYear: resolveDocumentReportYear([], {
+      documentReportYear: jobData.documentReportYear,
+      reportUrl: primaryUrl,
+      sourceUrl:
+        sourceUrlIsHttp && sourceUrl && !isStorageUrl(sourceUrl)
+          ? sourceUrl
+          : undefined,
+    }),
+    url: primaryUrl,
+    sourceUrl:
+      sourceUrlIsHttp && sourceUrl && !isStorageUrl(sourceUrl)
+        ? sourceUrl
+        : undefined,
+    s3Url,
+    sha256: pdfCacheSha256,
+  }
+}
+
+/** POST /companies/:id/reporting-periods response shape (internal API). */
+export function companyReportIdFromPeriodSaveResponse(
+  saved: unknown
+): string | null {
+  if (!saved || typeof saved !== 'object') return null
+  const id = (saved as { companyReportId?: unknown }).companyReportId
+  return typeof id === 'string' && id.trim() ? id.trim() : null
 }

@@ -2,7 +2,7 @@
 
 This is the main repository for the AI bot we call Garbo. Garbo is a bot that can run on Discord or via our UI [Validation frontend](https://github.com/Klimatbyran/validate-frontend). Garbo is powered by LLM:s to fetch and extract GHG self-reported data from companies. It automates the process of data extraction, evaluation, and formatting, providing a streamlined workflow for handling environmental data.
 
-Garbo is invoked through a set of commands in Discord or in our UI and has a pipeline of tasks and jobs that will be started in order for her to both extract, evaluate and format the data autonomously.
+Garbo is invoked through the [Validation frontend](https://github.com/Klimatbyran/validate-frontend) and pipeline-api, and has a pipeline of tasks and jobs that will be started in order for her to both extract, evaluate and format the data autonomously.
 
 Do you have an idea? Jump into the code or head to our [Discord server](https://discord.gg/N5P64QPQ6v) to discuss your thoughts.
 
@@ -12,7 +12,7 @@ We utilise an open source queue manager called BullMQ which relies on Redis. The
 
 ## Current Status
 
-Test the app in Discord channel #reports-to-check by using the command /pdf and Garbo will be answering with a parsed JSON. Or start the validation frontend and pipeline-api to use our custom UI.
+Start the validation frontend and pipeline-api to run reports through the Garbo pipeline.
 
 ## Data Flow
 
@@ -222,9 +222,9 @@ Well done! You've now set up the `garbo` backend and are ready to start developm
 
 ### How to run the pipeline
 
-To run the Garbo pipeline for processing sustainability reports, you'll need to set up Discord and connect the bot to your server or use the validation tool frontend.
+To run the Garbo pipeline for processing sustainability reports, use the [Validation frontend](https://github.com/Klimatbyran/validate-frontend) with pipeline-api. Discord is still used by workers for notifications and approval buttons.
 
-#### Setting up Discord
+#### Setting up Discord (for worker notifications)
 
 1. **Download and Install Discord**
 
@@ -274,23 +274,14 @@ To run the Garbo pipeline for processing sustainability reports, you'll need to 
 
 #### Running a Report Through the Pipeline
 
-Once your Discord bot is set up and the application is running (using `npm run dev` or `npm run dev-board` + `npm run dev-workers`):
+Start the validation frontend and pipeline-api (see their respective repos), then run Garbo with `npm run dev` or `npm run dev-board` + `npm run dev-workers`.
 
-1. Go to your Discord server
-2. In any text channel, use the `/pdfs` command
-3. Provide the URL to the sustainability report PDF
-4. Choose whether to set `auto-approve` to `true` (automatic processing) or `false` (manual approval)
-   - If `auto-approve` is `false` or not set, you'll need to manually approve messages in the thread as Garbo processes the report
-   - If `auto-approve` is `true`, Garbo will process the report autonomously
-
-Example command:
-
-```
-/pdfs url:https://example.com/sustainability-report.pdf auto-approve:true
-```
-
-5. Monitor the progress:
-   - Watch the Discord thread for updates from Garbo
+1. Submit a report URL through the validation frontend
+2. Choose whether to enable auto-approve (automatic processing) or require manual approval
+   - If auto-approve is disabled, approve steps in the Discord thread as Garbo processes the report
+   - If auto-approve is enabled, Garbo processes the report autonomously
+3. Monitor progress:
+   - Watch the Discord thread for updates from Garbo (when a thread is used)
    - View detailed progress in the BullMQ dashboard at <http://localhost:3000/admin/queues>
    - Check logs and restart failed jobs if needed
 

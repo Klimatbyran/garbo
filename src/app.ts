@@ -153,6 +153,7 @@ async function authenticatedContext(app: FastifyInstance) {
   app.register(reportsCreateRoutes, {
     prefix: 'api/internal-companies/reports',
   })
+  // Staff JWT — twin: api/internal-queue-archive (X-API-Key, same handler).
   app.register(queueArchiveReadRoutes, {
     prefix: 'api/queue-archive',
   })
