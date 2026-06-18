@@ -34,6 +34,8 @@ export const QUEUE_NAMES = {
   WIKIPEDIA_UPLOAD: 'wikipediaUpload',
   EXTRACT_LEI: 'extractLEI',
   DIFF_LEI: 'diffLEI',
+  FOLLOW_UP_REPORTING_QUALITY: 'followUpReportingQuality',
+  DIFF_REPORTING_QUALITY: 'diffReportingQuality',
 }
 
 // Create queue clients (NOT workers)
@@ -71,4 +73,8 @@ export const queues = {
   wikipediaUpload: new DiscordQueue(QUEUE_NAMES.WIKIPEDIA_UPLOAD),
   extractLEI: new DiscordQueue(QUEUE_NAMES.EXTRACT_LEI),
   diffLEI: new DiscordQueue(QUEUE_NAMES.DIFF_LEI),
+  followUpReportingQuality: new DiscordQueue(
+    QUEUE_NAMES.FOLLOW_UP_REPORTING_QUALITY
+  ),
+  diffReportingQuality: new DiscordQueue(QUEUE_NAMES.DIFF_REPORTING_QUALITY),
 }
