@@ -18,6 +18,7 @@ export type FollowUpKey =
   | 'companyTags'
   | 'lei'
   | 'descriptions'
+  | 'totalEmissions'
 
 /** All runnable follow-up keys; use for UI (e.g. "Re-run Scope 1", "Re-run Tags") or API validation. */
 export const FOLLOW_UP_KEYS: FollowUpKey[] = [
@@ -34,6 +35,7 @@ export const FOLLOW_UP_KEYS: FollowUpKey[] = [
   'companyTags',
   'lei',
   'descriptions',
+  'totalEmissions',
 ]
 
 class ExtractEmissionsJob extends DiscordJob {
@@ -191,6 +193,14 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
             companyId: wikidata.node,
             type: undefined,
           },
+        },
+      },
+      {
+        key: 'totalEmissions',
+        job: {
+          ...base,
+          name: 'totalEmissions ' + companyName,
+          queueName: QUEUE_NAMES.FOLLOW_UP_TOTAL_EMISSIONS,
         },
       },
     ]

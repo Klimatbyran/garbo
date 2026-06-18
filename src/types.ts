@@ -11,6 +11,7 @@ export enum FollowUpType {
   FiscalYear = 'followUp/fiscalYear',
   CompanyTags = 'followUp/companyTags',
   BaseYear = 'followUp/baseYear',
+  TotalEmissions = 'followUp/totalEmissions',
   Lei = 'extractLEI',
   Wikidata = 'wikidata',
   Precheck = 'precheck',
@@ -24,6 +25,14 @@ export interface Emission {
 }
 
 export interface Scope2 {
+  mb?: number
+  lb?: number
+  unknown?: number
+  unit: Unit
+}
+
+export interface StatedTotal {
+  total?: number
   mb?: number
   lb?: number
   unknown?: number
@@ -44,7 +53,7 @@ export interface Emissions {
   scope1?: Emission
   scope2?: Scope2
   scope3?: Scope3
-  statedTotalEmissions?: Emission
+  statedTotalEmissions?: StatedTotal
   biogenic?: Emission
 }
 

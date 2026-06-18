@@ -148,8 +148,14 @@ model Emissions {
 model StatedTotalEmissions {
   id          String  @id @default(cuid())
   total       Float?
-  scope3Id    String? @unique
+  /// Market-based stated total (top-level Emissions only; mirrors scope 2 mb/lb/unknown pattern)
+  mb          Float?
+  /// Location-based stated total (top-level Emissions only)
+  lb          Float?
+  /// Stated total with unspecified scope 2 method (top-level Emissions only)
+  unknown     Float?
   unit        String
+  scope3Id    String? @unique
   emissionsId String? @unique
 
   emissions Emissions? @relation(fields: [emissionsId], references: [id], onDelete: Cascade)

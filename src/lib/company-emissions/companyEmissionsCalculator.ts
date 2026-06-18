@@ -1,4 +1,4 @@
-import { Emissions } from '../emissions'
+import { Emissions, resolveStatedTotal } from '../emissions'
 
 /**
  * Priority: mb > lb > unknown
@@ -88,12 +88,10 @@ export function calculatedTotalEmissions(emissions: Emissions): number | null {
   const scope1And2Total = calculateScope1And2Total(scope1, scope2, scope1And2)
   const scope3Total = calculateScope3Total(scope3)
 
-  // If both are null, fall back to combined stated total
+  // If both are null, fall back to combined stated total (prefer mb, then lb, then unknown, then legacy total)
   if (scope1And2Total === null && scope3Total === null) {
-    const statedTotal = statedTotalEmissions?.total
-    return statedTotal != null && typeof statedTotal === 'number'
-      ? statedTotal
-      : null
+    const statedTotal = resolveStatedTotal(statedTotalEmissions)
+    return statedTotal != null ? statedTotal : null
   }
 
   // Otherwise, sum them (treating null as 0 for calculation, but we already handled the all-null case)

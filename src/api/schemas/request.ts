@@ -117,6 +117,9 @@ export const postIndustrySchema = z
 export const statedTotalEmissionsSchema = z
   .object({
     total: z.number().nullable().optional(),
+    mb: z.number().nullable().optional(),
+    lb: z.number().nullable().optional(),
+    unknown: z.number().nullable().optional(),
     unit: emissionUnitSchemaWithDefault,
     verified: z.boolean().optional(),
   })

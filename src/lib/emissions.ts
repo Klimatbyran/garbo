@@ -26,7 +26,10 @@ export interface Scope3 {
 
 export interface StatedTotalEmission {
   id?: string
-  total: number | null
+  total?: number | null
+  mb?: number | null
+  lb?: number | null
+  unknown?: number | null
   unit: string
 }
 
@@ -43,6 +46,13 @@ export interface Emissions {
   scope3?: Scope3 | null
   scope1And2?: Scope1And2 | null
   statedTotalEmissions?: StatedTotalEmission
+}
+
+/** Resolve the best single total from a StatedTotalEmission: mb > lb > unknown > total (legacy). */
+export function resolveStatedTotal(
+  s: StatedTotalEmission | null | undefined
+): number | null {
+  return s?.mb ?? s?.lb ?? s?.unknown ?? s?.total ?? null
 }
 
 export interface ReportingPeriod {

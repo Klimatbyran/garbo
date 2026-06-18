@@ -29,6 +29,7 @@ export class DiffReportingPeriodsJob extends DiffJob {
     scope3?: any[]
     biogenic?: any[]
     economy?: any[]
+    totalEmissions?: any[]
     replaceAllEmissions?: boolean
     /** PDF year from pipeline parse when set on the job. */
     documentReportYear?: string | number
@@ -110,6 +111,7 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
         ...(job.data.scope3?.map((d) => d.year) ?? []),
         ...(job.data.biogenic?.map((d) => d.year) ?? []),
         ...(job.data.economy?.map((d) => d.year) ?? []),
+        ...(job.data.totalEmissions?.map((d) => d.year) ?? []),
       ])
 
       const reportYear = years.size > 0 ? Math.max(...Array.from(years)) : null
@@ -118,6 +120,7 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
       const scope3 = job.data.scope3 ?? []
       const biogenic = job.data.biogenic ?? []
       const economy = job.data.economy ?? []
+      const totalEmissions = job.data.totalEmissions ?? []
 
       const reportingPeriods = Array.from(years).map((year) => {
         const [startDate, endDate] = getReportingPeriodDates(
@@ -152,6 +155,8 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
             scope1And2: scope12.find((d) => d.year === year)?.scope1And2,
             scope3: scope3.find((d) => d.year === year)?.scope3,
             biogenic: biogenic.find((d) => d.year === year)?.biogenic,
+            statedTotalEmissions: totalEmissions.find((d) => d.year === year)
+              ?.statedTotalEmissions,
           }
 
           const economyData =

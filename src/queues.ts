@@ -19,6 +19,7 @@ export const QUEUE_NAMES = {
   FOLLOW_UP_COMPANY_TAGS: 'followUpCompanyTags',
   FOLLOW_UP_BASE_YEAR: 'followUpBaseYear',
   FOLLOW_UP_INDUSTRY_GICS: 'followUpIndustryGics',
+  FOLLOW_UP_TOTAL_EMISSIONS: 'followUpTotalEmissions',
   EXTRACT_DESCRIPTIONS: 'extractDescriptions',
   EXTRACT_EMISSIONS: 'extractEmissions',
   CHECK_DB: 'checkDB',
@@ -61,6 +62,9 @@ export const queues = {
   followUpCompanyTags: new DiscordQueue(QUEUE_NAMES.FOLLOW_UP_COMPANY_TAGS),
   followUpGoals: new DiscordQueue(QUEUE_NAMES.FOLLOW_UP_GOALS),
   followUpIndustryGics: new DiscordQueue(QUEUE_NAMES.FOLLOW_UP_INDUSTRY_GICS),
+  followUpTotalEmissions: new DiscordQueue(
+    QUEUE_NAMES.FOLLOW_UP_TOTAL_EMISSIONS
+  ),
   followUpBaseYear: new DiscordQueue(QUEUE_NAMES.FOLLOW_UP_BASE_YEAR),
   followUpEconomy: new DiscordQueue(QUEUE_NAMES.FOLLOW_UP_ECONOMY),
   followUpFiscalYear: new DiscordQueue(QUEUE_NAMES.FOLLOW_UP_FISCAL_YEAR),

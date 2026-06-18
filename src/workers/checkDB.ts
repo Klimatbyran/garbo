@@ -67,6 +67,7 @@ const checkDB = new DiscordWorker(
       descriptions,
       lei,
       tags: extractedTags,
+      totalEmissions,
     } = root || {}
 
     // User-provided tags are a starting point; merge with AI-extracted tags when available.
@@ -146,7 +147,7 @@ const checkDB = new DiscordWorker(
         ...base.data,
       },
       children: [
-        mergedScope12 || scope3 || biogenic || economy
+        mergedScope12 || scope3 || biogenic || economy || totalEmissions
           ? {
               ...base,
               queueName: QUEUE_NAMES.DIFF_REPORTING_PERIODS,
@@ -156,6 +157,7 @@ const checkDB = new DiscordWorker(
                 scope3,
                 biogenic,
                 economy,
+                totalEmissions,
               },
             }
           : null,
