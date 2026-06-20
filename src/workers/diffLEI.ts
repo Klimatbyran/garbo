@@ -1,7 +1,7 @@
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+import { enqueueSaveToAPIWithParentFallback } from '../lib/DiffWorker'
 import wikidata from '../prompts/wikidata'
 import { QUEUE_NAMES } from '../queues'
-import saveToAPI from './saveToAPI'
 
 export class DiffLEIJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -69,7 +69,8 @@ const diffLEI = new DiscordWorker<DiffLEIJob>(
     job.log(
       `⚡ Detected changes for '${companyName}', enqueuing save operation...`
     )
-    await saveToAPI.queue.add(
+    await enqueueSaveToAPIWithParentFallback(
+      job,
       `${companyName} - LEI Update`,
       {
         ...job.data,
@@ -77,8 +78,7 @@ const diffLEI = new DiscordWorker<DiffLEIJob>(
         diff: comparisonResult.reason,
         requiresApproval: false,
         apiSubEndpoint: '',
-      },
-      job.id ? { parent: { id: job.id, queue: job.queueName } } : undefined
+      }
     )
 
     job.log(`✅ Enqueued LEI update for '${companyName}' with LEI: '${lei}'.`)

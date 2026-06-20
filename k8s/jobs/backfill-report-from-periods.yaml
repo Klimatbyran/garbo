@@ -1,0 +1,60 @@
+# One-off Job: backfill Report registry rows from ReportingPeriod identity fields.
+# NOT applied by Flux — use: kubectl create -f k8s/jobs/backfill-report-from-periods.yaml
+#
+# Run the dedupe job (report-registry-dedupe.yaml) BEFORE this one so there are no
+# duplicate Report rows before the upsert logic runs.
+#
+# - For dry-run only, set args to: ["scripts/backfill-report-from-periods.ts", "--dry-run"]
+# - To emit a mapping CSV to stdout, add: "--emit-mapping=/tmp/backfill-mapping.csv"
+#   then kubectl cp <pod>:/tmp/backfill-mapping.csv ./backfill-mapping.csv
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: backfill-report-from-periods-
+  labels:
+    app: garbo
+    job-type: backfill-report-from-periods
+spec:
+  ttlSecondsAfterFinished: 3600
+  backoffLimit: 0
+  activeDeadlineSeconds: 3600
+  template:
+    metadata:
+      labels:
+        app: garbo
+        job-type: backfill-report-from-periods
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: backfill
+          image: ghcr.io/klimatbyran/garbo
+          imagePullPolicy: Always
+          workingDir: /app
+          command: ['npx', '--yes', 'tsx']
+          args: ['scripts/backfill-report-from-periods.ts']
+          resources:
+            requests:
+              cpu: '100m'
+              memory: '256Mi'
+            limits:
+              memory: '512Mi'
+          envFrom:
+            - secretRef:
+                name: env
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redis
+                  key: redis-password
+                  optional: true
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgresql
+                  key: postgres-password
+            - name: DATABASE_URL
+              value: postgresql://postgres:$(POSTGRES_PASSWORD)@postgresql:5432/garbo

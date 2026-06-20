@@ -1,8 +1,8 @@
 # Klimatkollen Garbo AI
 
-This is the main repository for the AI bot we call Garbo. Garbo is a bot that can run on Discord or via our UI [Validation frontend](https://github.com/Klimatbyran/validate-frontend). Garbo is powered by LLM:s to fetch and extract GHG self-reported data from companies. It automates the process of data extraction, evaluation, and formatting, providing a streamlined workflow for handling environmental data.
+This is the main repository for the AI bot we call Garbo. Garbo runs via our [validation frontend](https://github.com/Klimatbyran/validate-frontend) and is powered by LLM:s to fetch and extract GHG self-reported data from companies. It automates the process of data extraction, evaluation, and formatting, providing a streamlined workflow for handling environmental data.
 
-Garbo is invoked through a set of commands in Discord or in our UI and has a pipeline of tasks and jobs that will be started in order for her to both extract, evaluate and format the data autonomously.
+Garbo is invoked through the [Validation frontend](https://github.com/Klimatbyran/validate-frontend) and pipeline-api, and has a pipeline of tasks and jobs that will be started in order for her to both extract, evaluate and format the data autonomously.
 
 Do you have an idea? Jump into the code or head to our [Discord server](https://discord.gg/N5P64QPQ6v) to discuss your thoughts.
 
@@ -12,69 +12,70 @@ We utilise an open source queue manager called BullMQ which relies on Redis. The
 
 ## Current Status
 
-Test the app in Discord channel #reports-to-check by using the command /pdf and Garbo will be answering with a parsed JSON. Or start the validation frontend and pipeline-api to use our custom UI.
+Start the validation frontend and pipeline-api to run reports through the Garbo pipeline.
 
 ## Data Flow
 
 Some of the following steps will be performed in parallel and most will be asynchronous. If a process is failed it's important to be able to restart it after a new code release so we can iterate on the prompts etc without having to restart the whole process again.
 
 ```mermaid
-flowchart TB
+flowchart TD
+    subgraph ingest["PDF ingestion"]
+        A[parsePdf] -->|not cached| B[doclingParsePDF]
+        B --> C[indexMarkdown]
+        C --> D[precheck]
+        A -->|cached| D
+    end
 
-    PDF[PDF]
-    Cache{Is in cache?}
-    DocLing[DocLing Parse PDF]
-    Tables[Extract Tables]
-    Emissions[Extract Emissions]
+    subgraph context["Company context"]
+        F[guessWikidata]
+        G[followUpFiscalYear]
+        H[extractEmissions]
+        D --> F
+        D --> G
+        F --> H
+        G --> H
+    end
 
-    Industry[Industry]
-    Goals[Climate Goals]
-    Review[Discord Review]
+    subgraph followups["Follow-up extraction (parallel children of checkDB)"]
+        J[followUpIndustryGics]
+        K1[followUpScope1]
+        K2[followUpScope2]
+        L[followUpScope3]
+        M[followUpBiogenic]
+        N[followUpEconomy]
+        O[followUpGoals]
+        P[followUpInitiatives]
+        Q[followUpBaseYear]
+        CT[followUpCompanyTags]
+        LEI[extractLEI]
+        DESC[extractDescriptions]
+    end
 
-    Precheck --> GuessWikidata --> Emissions
-    Precheck --> FiscalYear --> Emissions
+    H --> J & K1 & K2 & L & M & N & O & P & Q & CT & LEI & DESC
+    J & K1 & K2 & L & M & N & O & P & Q & CT & LEI & DESC --> R[checkDB]
 
-    PDF --> Cache --(no)--> NLM
-    NLM --success--> Tables --> Precheck
-    NLM --failure--> DocLing --> Precheck
+    subgraph persist["Diff, save and notify"]
+        DR[diffReportingPeriods]
+        DI[diffIndustry]
+        DG[diffGoals]
+        DBY[diffBaseYear]
+        DIN[diffInitiatives]
+        DLEI[diffLEI]
+        DD[diffDescriptions]
+        DT[diffTags]
+        Y[saveToAPI]
+        SC[sendCompanyLink]
+    end
 
-    Cache --(yes)--> Precheck
-
-    CheckDB{Exists in API?}
-
-
-    Emissions --(followUp)--> Industry --> CheckDB --(yes)--> Review --> API.Industry
-                                           CheckDB --(no)--> API.Industry
-    Emissions --(followUp)--> Scope1+2 --> CheckDB --(yes)--> Review --> API.Emissions
-                                           CheckDB --(no)--> API.Emissions
-    Emissions --(followUp)--> Scope3 --> CheckDB --(yes)--> Review --> API.Emissions
-                                           CheckDB --(no)--> API.Emissions
-    Emissions --(followUp)--> Biogenic --> CheckDB --(yes)--> Review --> API.Emissions
-                                           CheckDB --(no)--> API.Emissions
-    Emissions --(followUp)--> Goals --> CheckDB --(yes)--> Review --> API.Goals
-                                           CheckDB --(no)--> API.Goals
-    Emissions --(followUp)--> Initiatives --> CheckDB --(yes)--> Review --> API.Initiatives
-                                           CheckDB --(no)--> API.Initiatives
-    Emissions --(followUp)--> Turnover --> CheckDB --(yes)--> Review --> API.Economy
-                                           CheckDB --(no)--> API.Initiatives
-    Emissions --(followUp)--> Employees --> CheckDB --(yes)--> Review --> API.Economy
-                                           CheckDB --(no)--> API.Economy
-
-
-    CheckWikidata{Exists in Wikidata?}
-    CheckWikipedia{Exists fact box in Wikipedia?}
-
-    API.Emissions --> CheckWikidata
-    CheckWikidata --(yes)--> UpdateWikidata
-    CheckWikidata --(no)--> ManualUpdate
-    CheckWikidata --(yes)--> CheckWikipedia
-
-    CheckWikipedia --(yes)--> UpdateWikipedia
-    CheckWikipedia --(no)--> ManualUpdate
-
-
-
+    R --> DR & DI & DG & DBY & DIN & DLEI & DD & DT
+    DR & DI & DG & DBY & DIN & DLEI & DD & DT --> Y
+    DR & DI & DG & DBY & DIN & DLEI & DD & DT --> SC
 ```
+
+In BullMQ flows, child jobs finish before their parent runs. Diff jobs and `saveToAPI` are only enqueued when the matching follow-up returned data. `sendCompanyLink` is the flow parent that runs after all diff children complete. By default, an already-indexed PDF skips Docling; pass `forceReindex: true` to re-parse.
+
+LEI resolution (`extractLEI` → `diffLEI` → `saveToAPI`) is documented in [doc/pipeline.md#lei-legal-entity-identifier](./doc/pipeline.md#lei-legal-entity-identifier).
 
 For a more in depth explaination of the pipeline and its steps continue [here](./doc/pipeline.md).
 
@@ -90,6 +91,8 @@ Make a copy of the file `.env.example` and name it `.env`. Fill it in using the 
 
 The API uses GitHub OAuth for authentication. The backend handles the OAuth flow through a single callback endpoint (`/api/auth/github/callback`) registered with GitHub, then redirects users to the appropriate frontend client based on the `state` parameter. Multiple frontend clients can use the same backend by passing an optional `redirect_uri` query parameter when initiating authentication.
 
+**Client API keys (`X-API-Key`):** Read routes under `/api/...` (except `/api/auth/...` and OpenAPI docs) require an `X-API-Key` header unless `ALLOW_ANONYMOUS_CLIENT_API=true` (cutover only). Keys use the format `garb_<lookup>.<secret>`. Run `npm run prisma migrate dev` and seed, then optionally set `GARBO_ALL_ACCESS_API_KEY` / `GARBO_BASE_API_KEY` before `npm run prisma db seed` (or run `npm run seed:client-api` to seed only the API key roles). Hashing uses `API_SECRET` as pepper unless you set `CLIENT_API_KEY_PEPPER`. **validate** / **bolt** dev: set `GARBO_PROXY_CLIENT_API_KEY` in `.env` so the Vite proxy can attach `X-API-Key` when forwarding to Garbo. For implementation detail, manual test matrix, and troubleshooting, see **[doc/API_KEYS.md](./doc/API_KEYS.md)**.
+
 ### Installing dependencies
 
 ```sh
@@ -101,24 +104,28 @@ npm i
 
 ### Starting the containers
 
-This project expects some containers running in the background to work properly. We use Postgres as our primary database, Redis for managing the queue system, ChromaDB for embeddings and the NLM ingestor for parsing PDF:s.
+This project expects some containers running in the background to work properly. We use Postgres as our primary database, Redis for BullMQ, and ChromaDB for embeddings. PDF parsing uses **Docling** via local docling-serve.
 
-The simplest way to start the containers is to run the following docker commands.
+For local development, uncomment the `docling` service in `docker-compose.yaml`, set `DOCLING_URL=http://localhost:5001/v1` and `DOCLING_USE_LOCAL=true` in `.env`, then start the containers:
+
+The simplest way to start the containers is to run the following docker command.
 
 ```bash
 docker-compose up
 ```
 
-````
+```
 You may want a graphical user interface to make it easier to manage your local containers. [Podman desktop](https://podman-desktop.io/) and [Rancher desktop](https://rancherdesktop.io/) are both good alternatives
+```
 
 ### Seeding the database for development
 
-This applies migrations and seeding data needed for development. It also generates the prisma JS client and types, which are necessary to let prisma connect to the database.
+This applies migrations and generates the Prisma client. Seed development data (users, tags, GICS, API keys, etc.) in a separate step.
 
 ```sh
 npm run prisma migrate dev
-````
+npm run prisma db seed
+```
 
 ### Optional: Restoring a database backup with test data
 
@@ -152,7 +159,7 @@ The code can be started in three main ways, depending on what you plan to develo
 npm run dev-api
 ```
 
-This starts the API, and makes it possible to view the OpenAPI documentation at <http://localhost:3000/api>.
+This starts the API, and makes it possible to view the OpenAPI documentation at <http://localhost:3000/reference> (from `OPENAPI_PREFIX`; must not be `api`, which collides with REST `/api/*`).
 
 #### 2) To start the AI pipeline, BullMQ admin dashboard and the API:
 
@@ -219,77 +226,14 @@ Well done! You've now set up the `garbo` backend and are ready to start developm
 
 ### How to run the pipeline
 
-To run the Garbo pipeline for processing sustainability reports, you'll need to set up Discord and connect the bot to your server or use the validation tool frontend.
+Use the [validation frontend](https://github.com/Klimatbyran/validate-frontend) with Garbo running locally (`npm run dev` or `npm run dev-board` + `npm run dev-workers`).
 
-#### Setting up Discord
+1. Start the API and workers (see above).
+2. Start the validation frontend and point it at `http://localhost:3000`.
+3. Submit a report URL through the UI.
+4. Monitor progress in the BullMQ dashboard at <http://localhost:3000/admin/queues> and restart failed jobs as needed.
 
-1. **Download and Install Discord**
-
-   - Download Discord from [discord.com](https://discord.com)
-   - Create a Discord account if you don't have one
-
-2. **Enable Developer Mode**
-
-   - Go to Settings > Advanced > Developer Mode (or search for 'Developer Mode' in Settings)
-   - Toggle it on
-
-3. **Create a Discord Server**
-
-   - Click the "+" button in the server list on the left side
-   - Follow the prompts to create your server
-
-4. **Create a Discord Application/Bot**
-
-   - Go to the [Discord Developer Portal](https://discord.com/developers/applications)
-   - Click "New Application" and give it a name
-   - Navigate to the "Bot" tab and click "Add Bot"
-
-5. **Configure Environment Variables**
-
-   Add these variables to your `.env` file:
-
-   - **DISCORD_APPLICATION_ID**: Found in the "General Information" tab of your application
-   - **DISCORD_TOKEN**: In the "Bot" tab, click "Reset Token" and copy the newly generated token
-   - **DISCORD_SERVER_ID**: Right-click on your server in Discord and select "Copy Server ID"
-   - **DISCORD_CHANNEL_ID**: Right-click on a text channel (e.g., "general") in your server and select "Copy Channel ID"
-
-6. **Connect the Bot to Your Server**
-
-   Paste this URL in your web browser, replacing `<your-bot-id>` with your actual `DISCORD_APPLICATION_ID`:
-
-   ```
-   https://discord.com/oauth2/authorize?client_id=<your-bot-id>&scope=bot
-   ```
-
-   Select your server and authorize the bot.
-
-7. **Assign Permissions to the Bot**
-   - Go to Server Settings > Roles
-   - Create a new role or select an existing one
-   - In the "Manage Members" section, add your bot to this role
-   - In the "Permissions" tab, grant all available permissions to ensure the bot can function properly
-
-#### Running a Report Through the Pipeline
-
-Once your Discord bot is set up and the application is running (using `npm run dev` or `npm run dev-board` + `npm run dev-workers`):
-
-1. Go to your Discord server
-2. In any text channel, use the `/pdfs` command
-3. Provide the URL to the sustainability report PDF
-4. Choose whether to set `auto-approve` to `true` (automatic processing) or `false` (manual approval)
-   - If `auto-approve` is `false` or not set, you'll need to manually approve messages in the thread as Garbo processes the report
-   - If `auto-approve` is `true`, Garbo will process the report autonomously
-
-Example command:
-
-```
-/pdfs url:https://example.com/sustainability-report.pdf auto-approve:true
-```
-
-5. Monitor the progress:
-   - Watch the Discord thread for updates from Garbo
-   - View detailed progress in the BullMQ dashboard at <http://localhost:3000/admin/queues>
-   - Check logs and restart failed jobs if needed
+Job payload options (`autoApprove`, `forceReindex`, `tags`, etc.) are documented in [doc/PIPELINE_RUN_AND_TAGS.md](./doc/PIPELINE_RUN_AND_TAGS.md).
 
 ---
 
@@ -356,13 +300,12 @@ npm run prisma db seed # seed the data with initial content
 
 ### Operations / DevOps
 
-This application is deployed in production with Kubernetes and uses FluxCD as CD pipeline. The yaml files in the k8s directory are automatically synced to the cluster. If you want to run a fork of the application yourself - just add these helm charts as dependencies:
+This application is deployed in production with Kubernetes and uses FluxCD as CD pipeline. The yaml files in the k8s directory are automatically synced to the cluster. If you want to run a fork of the application yourself - the production cluster uses Helm charts along the lines of:
 
 ```helm
 postgresql (bitnami)
 redis (bitnami)
 chromadb
-metabase
 ```
 
 To create secret in the k8s cluster - use this command to transfer your .env file as secret to the cluster:

@@ -8,12 +8,24 @@ import {
   extractScopeEntriesFromFollowUp,
   mergeScope1AndScope2Results,
 } from '../lib/mergeScopeResults'
+import { buildEarlyRegistryPayload } from './saveToAPI.utils'
+import { registryService } from '../api/services/registryService'
+import { companyReportService } from '../api/services/companyReportService'
 
 export class CheckDBJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string
     /** Original report URL when pipeline cached PDF to S3 (parsePdf). */
     sourceUrl?: string
+    /** Cached/uploaded PDF storage metadata from pipeline-api (when available). */
+    pdfCache?: {
+      publicUrl?: string
+      sha256?: string
+    }
+    /** PDF year from pipeline parse when set on the job. */
+    documentReportYear?: string | number
+    /** Registry report id from early upsert in this worker (passed to diff/save children). */
+    registryReportId?: string
     wikidata: { node: string }
     fiscalYear: {
       startMonth: number
@@ -84,9 +96,9 @@ const checkDB = new DiscordWorker(
 
     job.sendMessage(`🤖 Checking if ${companyName} already exists in API...`)
     const wikidataId = wikidata.node
-    const existingCompany = await apiFetch(`/companies/${wikidataId}`).catch(
-      () => null
-    )
+    const existingCompany = await apiFetch(
+      `/pipeline/companies/${wikidataId}`
+    ).catch(() => null)
     job.log(existingCompany)
 
     if (!existingCompany) {
@@ -117,6 +129,37 @@ const checkDB = new DiscordWorker(
       )
     }
 
+    // TODO(pipeline): Registry upsert and CompanyReport shell creation moved to checkDB;
+    // registryReportId is carried on the job through diff/save. Period save still re-resolves
+    // the shell and may reassign periods (ensureCompanyReportRegistryLink). Consider making
+    // registryReportId the single source of truth for the run instead of re-inferring at save.
+    let registryReportId: string | undefined
+    let companyReportId: string | undefined
+    const earlyRegistryPayload = buildEarlyRegistryPayload({
+      companyName,
+      wikidata,
+      url,
+      sourceUrl,
+      pdfCache: job.data.pdfCache,
+      documentReportYear: job.data.documentReportYear,
+    })
+    if (earlyRegistryPayload) {
+      try {
+        const report =
+          await registryService.upsertReportInRegistry(earlyRegistryPayload)
+        registryReportId = report.id
+        companyReportId = await companyReportService.findOrCreateCompanyReport(
+          wikidataId,
+          report.id
+        )
+        job.log(`Early registry upsert: ${report.id}`)
+      } catch (error: any) {
+        job.log(
+          `Early registry upsert failed: ${error?.message ?? String(error)}`
+        )
+      }
+    }
+
     const base = {
       name: companyName,
       data: {
@@ -131,6 +174,10 @@ const checkDB = new DiscordWorker(
         autoApprove: job.data.autoApprove,
         replaceAllEmissions: job.data.replaceAllEmissions,
         batchId: job.data.batchId,
+        pdfCache: job.data.pdfCache,
+        documentReportYear: job.data.documentReportYear,
+        ...(registryReportId && { registryReportId }),
+        ...(companyReportId && { companyReportId }),
       },
       opts: {
         attempts: 3,

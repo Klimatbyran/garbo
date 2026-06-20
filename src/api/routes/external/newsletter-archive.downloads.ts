@@ -4,6 +4,7 @@ import {
   mailchimpResponseSchema,
 } from '../../services/mailchimp'
 import { getErrorSchemas } from '../../schemas'
+import { getTags } from '../../../config/openapi'
 
 export async function newsletterArchiveDownloadsRoute(app: FastifyInstance) {
   app.get(
@@ -12,7 +13,7 @@ export async function newsletterArchiveDownloadsRoute(app: FastifyInstance) {
       schema: {
         summary: 'Get all newsletters',
         description: 'Get a list of all previous newsletter campaigns',
-        tags: ['Newsletters'],
+        tags: getTags('Newsletters'),
 
         response: {
           200: mailchimpResponseSchema,

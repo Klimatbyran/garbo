@@ -12,7 +12,7 @@ import {
 import { getTags } from '../../../config/openapi'
 import { PostCompanyBody, WikidataIdParams } from '../../types'
 import { metadataService } from '../../services/metadataService'
-import { redisCache } from '../../..'
+import { redisCache } from '../../../lib/redisCacheSingleton'
 
 export async function companyUpdateRoutes(app: FastifyInstance) {
   app.post(
@@ -69,18 +69,19 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
           logoUrl: logoUrl ?? undefined,
           lei,
         })
-        // Create descriptions
-        descriptions?.map(async (description) => {
-          const createdMetadata = await metadataService.createMetadata({
-            user: request.user,
-            metadata,
+        await Promise.all(
+          (descriptions ?? []).map(async (description) => {
+            const createdMetadata = await metadataService.createMetadata({
+              user: request.user,
+              metadata,
+            })
+            await companyService.upsertDescription({
+              description,
+              companyId: wikidataId,
+              metadataId: createdMetadata.id,
+            })
           })
-          await companyService.upsertDescription({
-            description,
-            companyId: wikidataId,
-            metadataId: createdMetadata.id,
-          })
-        })
+        )
         redisCache.clear()
         return reply.send({ ok: true })
       } catch (error) {

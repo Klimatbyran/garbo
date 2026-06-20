@@ -1,9 +1,45 @@
 import { DiscordJob, DiscordWorker } from './DiscordWorker'
-import { Queue } from 'bullmq'
+import { Job, Queue, WorkerOptions } from 'bullmq'
 import redis from '../config/redis'
 import saveToAPI from '../workers/saveToAPI'
 import { canonicalPublicReportUrl, defaultMetadata } from './saveUtils'
 import discord from '../discord'
+
+/**
+ * Enqueue saveToAPI with a BullMQ parent link when possible. If the parent job
+ * key is no longer in Redis (retention, cleanup, or inconsistent state),
+ * retries without the parent so the save can still run.
+ */
+export async function enqueueSaveToAPIWithParentFallback(
+  job: Job,
+  name: string,
+  data: Record<string, unknown>
+): Promise<void> {
+  const parentOpts = job.id
+    ? { parent: { id: job.id, queue: job.queueName } }
+    : undefined
+
+  try {
+    await saveToAPI.queue.add(name, data, parentOpts)
+  } catch (error) {
+    const msg =
+      error instanceof Error
+        ? error.message
+        : typeof error === 'string'
+          ? error
+          : ''
+
+    if (msg.includes('Missing key for parent job')) {
+      await job.log(
+        `saveToAPI enqueue: parent missing; retrying without parent. (${msg})`
+      )
+      await saveToAPI.queue.add(name, data)
+      return
+    }
+
+    throw error
+  }
+}
 
 export interface ChangeDescription {
   type: string
@@ -28,7 +64,11 @@ export class DiffJob extends DiscordJob {
     apiSubEndpoint: string,
     diff: string,
     change: ChangeDescription,
-    requiresApproval: boolean
+    requiresApproval: boolean,
+    options?: {
+      forceSave?: boolean
+      saveBodyExtras?: Record<string, unknown>
+    }
   ) => Promise<void>
 }
 
@@ -48,36 +88,16 @@ function addCustomMethods(job: DiffJob) {
       apiSubEndpoint,
     }
 
-    const parentOpts = job.id
-      ? { parent: { id: job.id, queue: job.queueName } }
-      : undefined
-
-    try {
-      await saveToAPI.queue.add(name, data, parentOpts)
-    } catch (error) {
-      const msg =
-        error instanceof Error
-          ? error.message
-          : typeof error === 'string'
-            ? error
-            : ''
-
-      // BullMQ may not find the parent job key in Redis (common locally when jobs
-      // are cleaned up or Redis state is inconsistent). Fallback to enqueuing
-      // without a parent link so the pipeline can still proceed.
-      if (msg.includes('Missing key for parent job')) {
-        job.log(
-          `saveToAPI enqueue: parent missing; retrying without parent. (${msg})`
-        )
-        await saveToAPI.queue.add(name, data)
-        return
-      }
-
-      throw error
-    }
+    await enqueueSaveToAPIWithParentFallback(job, name, data)
   }
 
-  job.handleDiff = async (apiSubEndpoint, diff, change, requiresApproval) => {
+  job.handleDiff = async (
+    apiSubEndpoint,
+    diff,
+    change,
+    requiresApproval,
+    options
+  ) => {
     if (diff && requiresApproval && !job.data.autoApprove) {
       job.log('The data needs approval before saving to API.')
 
@@ -102,13 +122,19 @@ function addCustomMethods(job: DiffJob) {
         ),
         `Updates to the company's ${apiSubEndpoint}`
       )
-    } else if (diff) {
+    } else if (diff || options?.forceSave) {
+      if (options?.forceSave && !diff) {
+        job.log(
+          'Forcing save to API: new report PDF identity is not in the database yet.'
+        )
+      }
       await job.enqueueSaveToAPI(
         apiSubEndpoint,
         job.data.companyName,
         job.data.wikidata,
         {
           ...change.newValue,
+          ...options?.saveBodyExtras,
           metadata: defaultMetadata(
             canonicalPublicReportUrl(
               job.data as { url: string; sourceUrl?: string }

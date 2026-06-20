@@ -12,17 +12,17 @@ generator client {
 }
 
 model Company {
-  // // NOTE: Maybe just use an integer as the ID for companies, and use the unique hash instead.
-  // // We want to separate the company id from the URL slug
-  // id          String  @id @default(cuid())
-  /// wikidataId is our unique identifier to link to companies, also used to export to or import from wikidata
-  wikidataId  String  @id
-  name        String
-  description String?
+  /// Internal Garbo company id (UUID). Not the primary key; use for stable in-app references.
+  /// Public URLs and Wikidata integration still use `wikidataId`.
+  id           String  @unique @default(uuid())
+  /// Primary key. Wikidata Q-id; used in API routes, FKs, and Wikidata import/export.
+  wikidataId   String        @id
+  name         String
+  description  String?
   descriptions Description[]
   /// Company website URL
-  url         String?
-  lei         String?
+  url          String?
+  lei          String?
 
   /// TODO: Save Swedish org number, which might be the same as LEI or ISIN
   // swedishOrgNumber
@@ -31,6 +31,7 @@ model Company {
 
   industry         Industry?
   reportingPeriods ReportingPeriod[]
+  companyReports   CompanyReport[]
   goals            Goal[]
   initiatives      Initiative[]
   baseYear         BaseYear?
@@ -97,28 +98,32 @@ model IndustryGics {
 
 /// A reporting period is a timespan for accounting emissions as well as financial data
 model ReportingPeriod {
-  id        String   @id @default(cuid())
-  startDate DateTime
-  endDate   DateTime
+  id           String   @id @default(cuid())
+  startDate    DateTime
+  endDate      DateTime
   /// The year needs to be the same year as the endDate.
-  year      String
+  year         String
   /// Save URLs to the sustainability- and potentially also the yearly report for this reporting period.
   /// This needs to be separate from the source URLs for each datapoint, since the data might be updated in a more recent report.
   /// At the same time, we also want to refer back to the actual reports from a given reporting period for comparisons.
-  reportURL String?
+  reportURL    String?
   /// Public URL to the cached/uploaded report PDF (e.g. S3/MinIO/CDN).
-  reportS3Url    String?
+  reportS3Url  String?
   /// Content hash for the cached/uploaded report PDF when available.
-  reportSha256   String?
+  reportSha256 String?
 
-  companyId String
+  companyId       String
+  /// CompanyReport (processed PDF) this emissions year belongs to.
+  companyReportId String
 
-  metadata  Metadata[]
-  economy   Economy?
-  emissions Emissions?
-  company   Company    @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+  metadata      Metadata[]
+  economy       Economy?
+  emissions     Emissions?
+  company       Company       @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+  companyReport CompanyReport @relation(fields: [companyReportId], references: [id], onDelete: Restrict)
 
-  @@unique([companyId, year])
+  @@unique([companyReportId, year])
+  @@index([companyId, year])
 }
 
 /// Reported emissions for a specific reporting period
@@ -368,13 +373,13 @@ model Metadata {
 }
 
 model User {
-  id    String @id @default(cuid())
-  email String?
-  name  String @unique
-  displayName String?
-  githubId   String? @unique
+  id             String  @id @default(cuid())
+  email          String?
+  name           String  @unique
+  displayName    String?
+  githubId       String? @unique
   githubImageUrl String?
-  bot   Boolean @default(false)
+  bot            Boolean @default(false)
 
   // TODO: connect with github ID
   // TODO: store github profile image - or get it via API
@@ -389,14 +394,15 @@ enum Language {
 }
 
 model Description {
-  id          String @id() @default(cuid())
-  text        String
-  companyId   String
+  id        String   @id() @default(cuid())
+  text      String
+  companyId String
   language  Language
-  @@unique([companyId, language])
 
-  company      Company      @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
-  metadata  Metadata[]
+  company  Company    @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+  metadata Metadata[]
+
+  @@unique([companyId, language])
 }
 
 model Report {
@@ -414,4 +420,140 @@ model Report {
   companyName String?
   wikidataId  String?
   reportYear  String?
+
+  companyReports CompanyReport[]
+}
+
+/// One processed PDF per company (links to Report registry). Several per company when multiple PDFs exist.
+model CompanyReport {
+  id                    String    @id @default(cuid())
+  companyId             String
+  /// Report registry row; null when no PDF could be matched (legacy link job only).
+  registryReportId      String?
+  /// PDF year label (e.g. 2025); may differ from max emissions data year on linked periods.
+  reportYear            String?
+  /// PDF publication date; tie-break when two reports share the same reportYear.
+  reportPublicationDate DateTime?
+  createdAt             DateTime  @default(now())
+
+  company          Company           @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+  report           Report?           @relation(fields: [registryReportId], references: [id], onDelete: SetNull)
+  reportingPeriods ReportingPeriod[]
+
+  @@unique([companyId, registryReportId])
+}
+
+model Batch {
+  id         String      @id @default(cuid())
+  /// Human-assigned batch label; same string as pipeline `job.data.batchId` on jobs.
+  batchName  String      @unique @map("batch_name")
+  createdAt  DateTime    @default(now())
+  reportRuns ReportRun[]
+}
+
+model ReportRun {
+  id              String         @id @default(cuid())
+  threadId        String         @unique
+  pdfUrl          String
+  companyName     String?
+  wikidataId      String?
+  companyReportId String?        @map("company_report_id")
+  batchDbId       String?        @map("batch_db_id")
+  batch           Batch?         @relation(fields: [batchDbId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  status          String         @default("running") // 'running' | 'completed' | 'failed'
+  startedAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  jobs            ReportRunJob[]
+
+  @@index([pdfUrl])
+  @@index([wikidataId])
+  @@index([companyReportId])
+  @@index([batchDbId])
+}
+
+model ReportRunJob {
+  id                String    @id @default(cuid())
+  jobId             String
+  queueName         String
+  wikidataId        String?
+  status            String // 'completed' | 'failed'
+  approvedTimestamp String?   @map("approved_timestamp")
+  autoApprove       Boolean   @default(false) @map("auto_approve")
+  failedReason      String?
+  prompt            String?
+  queryTexts        Json? // string[]
+  markdown          String?
+  startedAt         DateTime?
+  finishedAt        DateTime  @default(now())
+  chromaDurationMs  Int?      @map("chroma_duration_ms")
+  aiDurationMs      Int?      @map("ai_duration_ms")
+  reportRunId       String
+  reportRun         ReportRun @relation(fields: [reportRunId], references: [id])
+
+  @@index([reportRunId])
+}
+
+/// Permission codes for the client API key layer (browser/proxy + partner integrations) — see `src/api/security/routePermissions.ts`.
+model ClientApiPermission {
+  id    String @id @default(cuid())
+  code  String @unique
+  label String?
+
+  roles ClientApiRolePermission[]
+
+  @@map("client_api_permission")
+}
+
+model ClientApiRole {
+  id    String @id @default(cuid())
+  slug  String @unique
+  label String?
+
+  permissions ClientApiRolePermission[]
+  keys        ClientApiKey[]
+
+  @@map("client_api_role")
+}
+
+model ClientApiRolePermission {
+  roleId       String @map("role_id")
+  permissionId String @map("permission_id")
+
+  role       ClientApiRole       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission ClientApiPermission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([roleId, permissionId])
+  @@map("client_api_role_permission")
+}
+
+model ClientApiKey {
+  id         String   @id @default(cuid())
+  name       String
+  /// Lookup segment (shown in logs); full key is `garb_<keyLookup>.<secret>`
+  keyLookup  String   @unique @map("key_lookup")
+  /// sha256 hex of `${keyLookup}.${secret}.${pepper}`
+  secretHash String   @map("secret_hash")
+  roleId     String   @map("role_id")
+  role       ClientApiRole @relation(fields: [roleId], references: [id], onDelete: Restrict)
+  revokedAt  DateTime? @map("revoked_at")
+  lastUsedAt DateTime? @map("last_used_at")
+  createdAt  DateTime @default(now()) @map("created_at")
+  requests   ClientApiRequest[]
+
+  @@map("client_api_key")
+}
+
+model ClientApiRequest {
+  id         String   @id @default(cuid())
+  keyId      String   @map("key_id")
+  path       String
+  method     String
+  statusCode Int      @map("status_code")
+  timestamp  DateTime @default(now())
+
+  key ClientApiKey @relation(fields: [keyId], references: [id], onDelete: Cascade)
+
+  @@index([keyId])
+  @@index([timestamp])
+  @@map("client_api_request")
 }

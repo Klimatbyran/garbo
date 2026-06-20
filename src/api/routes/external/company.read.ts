@@ -7,13 +7,18 @@ import { CompanySearchQuery, WikidataIdParams } from '../../types'
 import { cachePlugin } from '../../plugins/cache'
 import { companyService } from '../../services/companyService'
 import {
-  CompanyList,
+  toPartnerCompanyList,
+  toPartnerCompanyResponse,
+} from '../../services/reportingPeriodPublicRead'
+import {
+  PartnerCompanyList,
   wikidataIdParamSchema,
-  CompanyDetails,
+  PartnerCompanyDetails,
   getErrorSchemas,
   companySearchQuerySchema,
+  CompanyKpiListSchema,
 } from '../../schemas'
-import { redisCache } from '../../..'
+import { redisCache } from '../../../lib/redisCacheSingleton'
 
 export async function companyReadRoutes(app: FastifyInstance) {
   app.register(cachePlugin)
@@ -28,7 +33,7 @@ export async function companyReadRoutes(app: FastifyInstance) {
         tags: getTags('Companies'),
 
         response: {
-          200: CompanyList,
+          200: PartnerCompanyList,
         },
       },
     },
@@ -42,24 +47,32 @@ export async function companyReadRoutes(app: FastifyInstance) {
       const [
         companyCount,
         reportingPeriodCount,
+        companyReportCount,
         emissionsCount,
         latestMetadata,
+        latestCompanyReport,
       ] = await prisma.$transaction([
         prisma.company.count(),
         prisma.reportingPeriod.count(),
+        prisma.companyReport.count(),
         prisma.emissions.count(),
         prisma.metadata.findFirst({
           select: { updatedAt: true },
           orderBy: { updatedAt: 'desc' },
         }),
+        prisma.companyReport.findFirst({
+          select: { createdAt: true },
+          orderBy: { createdAt: 'desc' },
+        }),
       ])
 
-      // Create a unique fingerprint based on company data
       const databaseFingerprint = [
         companyCount,
         reportingPeriodCount,
+        companyReportCount,
         emissionsCount,
         latestMetadata?.updatedAt?.toISOString() || '',
+        latestCompanyReport?.createdAt?.toISOString() || '',
       ].join('|')
 
       if (!currentEtag || !currentEtag.startsWith(databaseFingerprint)) {
@@ -72,13 +85,59 @@ export async function companyReadRoutes(app: FastifyInstance) {
       let companies = await redisCache.get(dataCacheKey)
 
       if (!companies) {
-        companies = await companyService.getAllCompaniesWithMetadata()
+        companies = await companyService.getAllCompaniesForPublicRead()
         await redisCache.set(dataCacheKey, JSON.stringify(companies))
       }
 
       reply.header('ETag', `${currentEtag}`)
 
-      reply.send(companies)
+      reply.send(toPartnerCompanyList(companies))
+    }
+  )
+
+  app.get(
+    '/kpis',
+    {
+      schema: {
+        summary: 'Get company KPIs',
+        description:
+          'Retrieve key performance indicators for all companies, including Paris agreement compliance and emissions change from base year.',
+        tags: getTags('Companies'),
+        response: {
+          200: CompanyKpiListSchema,
+        },
+      },
+    },
+    async (_request, reply) => {
+      const kpis = await companyService.getCompanyKpis()
+      reply.send(kpis)
+    }
+  )
+
+  // Register before /:wikidataId so "search" is not captured as an id
+  app.get(
+    '/search',
+    {
+      schema: {
+        summary: 'Search for companies',
+        description:
+          'Search for a company with its emissions, economic data, industry classification, goals, and initiatives',
+        tags: getTags('Companies'),
+        querystring: companySearchQuerySchema,
+        response: {
+          200: PartnerCompanyList,
+        },
+      },
+    },
+    async (
+      request: FastifyRequest<{ Querystring: CompanySearchQuery }>,
+      reply
+    ) => {
+      const { q } = request.query
+      const companies = await companyService.getAllCompaniesBySearchTerm(q, {
+        onePeriodPerDataYear: true,
+      })
+      reply.send(toPartnerCompanyList(companies))
     }
   )
 
@@ -92,51 +151,29 @@ export async function companyReadRoutes(app: FastifyInstance) {
         tags: getTags('Companies'),
         params: wikidataIdParamSchema,
         response: {
-          200: CompanyDetails,
+          200: PartnerCompanyDetails,
           ...getErrorSchemas(400, 404),
         },
       },
     },
     async (request: FastifyRequest<{ Params: WikidataIdParams }>, reply) => {
       const { wikidataId } = request.params
-      const company = await companyService.getCompanyWithMetadata(wikidataId)
-      reply.send({
-        ...company,
-        // Add translations for GICS data
-        industry: company.industry
-          ? {
-              ...company.industry,
-              industryGics: {
-                ...company.industry.industryGics,
-                ...getGics(company.industry.industryGics.subIndustryCode),
-              },
-            }
-          : null,
-      })
-    }
-  )
-
-  app.get(
-    '/search',
-    {
-      schema: {
-        summary: 'Search for companies',
-        description:
-          'Search for a company with its emissions, economic data, industry classification, goals, and initiatives',
-        tags: getTags('Companies'),
-        querystring: companySearchQuerySchema,
-        response: {
-          200: CompanyList,
-        },
-      },
-    },
-    async (
-      request: FastifyRequest<{ Querystring: CompanySearchQuery }>,
-      reply
-    ) => {
-      const { q } = request.query
-      const companies = await companyService.getAllCompaniesBySearchTerm(q)
-      reply.send(companies)
+      const company = await companyService.getCompanyForPublicRead(wikidataId)
+      reply.send(
+        toPartnerCompanyResponse({
+          ...company,
+          // Add translations for GICS data
+          industry: company.industry
+            ? {
+                ...company.industry,
+                industryGics: {
+                  ...company.industry.industryGics,
+                  ...getGics(company.industry.industryGics.subIndustryCode),
+                },
+              }
+            : null,
+        })
+      )
     }
   )
 }

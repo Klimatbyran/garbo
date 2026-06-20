@@ -17,7 +17,7 @@ import {
   errorResponseSchema,
   previewResponseSchema,
 } from '../../schemas'
-import { redisCache } from '../../..'
+import { redisCache } from '../../../lib/redisCacheSingleton'
 
 export async function internalCompanyReadRoutes(app: FastifyInstance) {
   app.register(cachePlugin)
@@ -26,9 +26,9 @@ export async function internalCompanyReadRoutes(app: FastifyInstance) {
     '/',
     {
       schema: {
-        summary: 'Get all companies',
+        summary: 'Get all companies (latest reporting period per data year)',
         description:
-          'Retrieve a list of all companies with their emissions, economic data, industry classification, goals, and initiatives',
+          'Retrieve companies with their latest reporting period per data year.',
         tags: getTags('Internal'),
 
         response: {
@@ -42,28 +42,35 @@ export async function internalCompanyReadRoutes(app: FastifyInstance) {
 
       let currentEtag: string = await redisCache.get(cacheKey)
 
-      // Check for database changes by looking at record counts across relevant tables
       const [
         companyCount,
         reportingPeriodCount,
+        companyReportCount,
         emissionsCount,
         latestMetadata,
+        latestCompanyReport,
       ] = await prisma.$transaction([
         prisma.company.count(),
         prisma.reportingPeriod.count(),
+        prisma.companyReport.count(),
         prisma.emissions.count(),
         prisma.metadata.findFirst({
           select: { updatedAt: true },
           orderBy: { updatedAt: 'desc' },
         }),
+        prisma.companyReport.findFirst({
+          select: { createdAt: true },
+          orderBy: { createdAt: 'desc' },
+        }),
       ])
 
-      // Create a unique fingerprint based on company data
       const databaseFingerprint = [
         companyCount,
         reportingPeriodCount,
+        companyReportCount,
         emissionsCount,
         latestMetadata?.updatedAt?.toISOString() || '',
+        latestCompanyReport?.createdAt?.toISOString() || '',
       ].join('|')
 
       if (!currentEtag || !currentEtag.startsWith(databaseFingerprint)) {
@@ -76,47 +83,13 @@ export async function internalCompanyReadRoutes(app: FastifyInstance) {
       let companies = await redisCache.get(dataCacheKey)
 
       if (!companies) {
-        companies = await companyService.getAllCompaniesWithMetadata()
+        companies = await companyService.getAllCompaniesForPublicRead()
         await redisCache.set(dataCacheKey, JSON.stringify(companies))
       }
 
       reply.header('ETag', `${currentEtag}`)
 
       reply.send(companies)
-    }
-  )
-
-  app.get(
-    '/:wikidataId',
-    {
-      schema: {
-        summary: 'Get detailed company',
-        description:
-          'Retrieve a company with its emissions, economic data, industry classification, goals, and initiatives',
-        tags: getTags('Internal'),
-        params: wikidataIdParamSchema,
-        response: {
-          200: InternalCompanyDetails,
-          ...getErrorSchemas(400, 404),
-        },
-      },
-    },
-    async (request: FastifyRequest<{ Params: WikidataIdParams }>, reply) => {
-      const { wikidataId } = request.params
-      const company = await companyService.getCompanyWithMetadata(wikidataId)
-      reply.send({
-        ...company,
-        // Add translations for GICS data
-        industry: company.industry
-          ? {
-              ...company.industry,
-              industryGics: {
-                ...company.industry.industryGics,
-                ...getGics(company.industry.industryGics.subIndustryCode),
-              },
-            }
-          : null,
-      })
     }
   )
 
@@ -139,8 +112,9 @@ export async function internalCompanyReadRoutes(app: FastifyInstance) {
       reply
     ) => {
       const { q } = request.query
-      const companies = await companyService.getAllCompaniesBySearchTerm(q)
-      console.log(companies)
+      const companies = await companyService.getAllCompaniesBySearchTerm(q, {
+        onePeriodPerDataYear: true,
+      })
       reply.send(companies)
     }
   )
@@ -152,7 +126,7 @@ export async function internalCompanyReadRoutes(app: FastifyInstance) {
           'Get list of all companies in the database with reporting periods for crawler purposes.',
         description:
           'Retrieve a list of all companies in the database, including their names and Wikidata IDs and reporting periods.',
-        tags: getTags('Reports'),
+        tags: getTags('Internal'),
         response: {
           200: ReportsCompanyList,
         },
@@ -171,7 +145,7 @@ export async function internalCompanyReadRoutes(app: FastifyInstance) {
         summary: 'Generate preview image from PDF URL',
         description:
           'Returns a preview image (JPEG) from the first page of the given PDF URL.',
-        tags: getTags('Reports'),
+        tags: getTags('Internal'),
         querystring: previewQuerySchema,
         response: {
           200: previewResponseSchema,
@@ -190,6 +164,40 @@ export async function internalCompanyReadRoutes(app: FastifyInstance) {
 
       reply.header('Content-Type', 'image/jpeg')
       return reply.send(jpegBuffer)
+    }
+  )
+
+  app.get(
+    '/:wikidataId',
+    {
+      schema: {
+        summary: 'Get detailed company (one period per data year)',
+        description:
+          'One reporting period per data year (highest CompanyReport.reportYear wins).',
+        tags: getTags('Internal'),
+        params: wikidataIdParamSchema,
+        response: {
+          200: InternalCompanyDetails,
+          ...getErrorSchemas(400, 404),
+        },
+      },
+    },
+    async (request: FastifyRequest<{ Params: WikidataIdParams }>, reply) => {
+      const { wikidataId } = request.params
+      const company = await companyService.getCompanyForPublicRead(wikidataId)
+      reply.send({
+        ...company,
+        // Add translations for GICS data
+        industry: company.industry
+          ? {
+              ...company.industry,
+              industryGics: {
+                ...company.industry.industryGics,
+                ...getGics(company.industry.industryGics.subIndustryCode),
+              },
+            }
+          : null,
+      })
     }
   )
 }

@@ -5,6 +5,8 @@ extendZodWithOpenApi(z)
 
 export const wikidataIdSchema = z.string().regex(/Q\d+/)
 
+export const companyIdSchema = z.string().uuid()
+
 export const wikidataIdParamSchema = z.object({ wikidataId: wikidataIdSchema })
 
 export const companySearchQuerySchema = z.object({ q: z.string() })

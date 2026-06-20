@@ -1,6 +1,10 @@
 import { z } from 'zod'
 import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi'
-import { emissionUnitSchemaGarbo, wikidataIdSchema } from './common'
+import {
+  companyIdSchema,
+  emissionUnitSchemaGarbo,
+  wikidataIdSchema,
+} from './common'
 
 extendZodWithOpenApi(z)
 
@@ -47,6 +51,7 @@ export const MetadataSchema = z.object({
 export const MinimalMetadataSchema = MetadataSchema.pick({ verifiedBy: true })
 
 const CompanyBaseSchema = z.object({
+  id: companyIdSchema,
   wikidataId: wikidataIdSchema,
   name: z.string(),
   lei: z.string().optional().nullable(),
@@ -258,6 +263,12 @@ export const InitiativeSchema = z.object({
   metadata: MetadataSchema,
 })
 
+export const CompanyReportSummarySchema = z.object({
+  id: z.string().optional(),
+  reportYear: z.string().nullable().optional(),
+  reportPublicationDate: dateStringSchema.nullable().optional(),
+})
+
 export const ReportingPeriodSchema = z.object({
   id: z.string(),
   startDate: dateStringSchema.openapi({
@@ -266,6 +277,10 @@ export const ReportingPeriodSchema = z.object({
   endDate: dateStringSchema.openapi({
     description: 'End date of reporting period',
   }),
+  year: z
+    .string()
+    .optional()
+    .openapi({ description: 'Data year for this reporting period' }),
   reportURL: z
     .string()
     .nullable()
@@ -281,6 +296,10 @@ export const ReportingPeriodSchema = z.object({
     .nullable()
     .optional()
     .openapi({ description: 'SHA-256 hash for cached/uploaded report PDF' }),
+  companyReportId: z.string().optional().openapi({
+    description: 'CompanyReport (processed PDF) this period belongs to',
+  }),
+  companyReport: CompanyReportSummarySchema.nullable().optional(),
   emissions: EmissionsSchema.nullable(),
   economy: EconomySchema.nullable(),
   emissionsChangeLastTwoYears: z
@@ -377,6 +396,51 @@ export const MinimalReportingPeriodSchema = ReportingPeriodSchema.omit({
   economy: MinimalEconomySchema.nullable(),
 })
 
+/** External GET /api/companies* — prod-compatible period fields only. */
+export const PartnerReportingPeriodSchema = ReportingPeriodSchema.omit({
+  year: true,
+  companyReportId: true,
+  companyReport: true,
+})
+
+export const PartnerMinimalReportingPeriodSchema =
+  PartnerReportingPeriodSchema.omit({
+    id: true,
+    emissions: true,
+    economy: true,
+  }).extend({
+    emissions: MinimalEmissionsSchema.nullable(),
+    economy: MinimalEconomySchema.nullable(),
+  })
+
+export const PartnerCompanyBase = CompanyBaseSchema.extend({
+  description: z.string().optional().nullable(),
+  descriptions: z.array(ResponseDescriptionSchema).optional(),
+  reportingPeriods: z.array(PartnerMinimalReportingPeriodSchema),
+  futureEmissionsTrendSlope: z.number().nullable(),
+  industry: MinimalIndustrySchema.nullable(),
+  baseYear: BaseYearSchema.nullable().optional(),
+  logoUrl: z.string().url().optional().nullable(),
+  tags: z.array(z.string()),
+})
+
+export const PartnerCompanyList = z.array(PartnerCompanyBase)
+
+const PartnerCompanyFullBase = CompanyBaseSchema.extend({
+  description: z.string().optional().nullable(),
+  descriptions: z.array(ResponseDescriptionSchema).optional(),
+  reportingPeriods: z.array(PartnerReportingPeriodSchema),
+  futureEmissionsTrendSlope: z.number().nullable(),
+  industry: IndustrySchema.nullable(),
+  baseYear: BaseYearSchema.nullable().optional(),
+  logoUrl: z.string().url().optional().nullable(),
+})
+
+export const PartnerCompanyDetails = PartnerCompanyFullBase.extend({
+  goals: z.array(GoalSchema).nullable(),
+  initiatives: z.array(InitiativeSchema).nullable(),
+})
+
 export const MinimalCompanyBase = CompanyBaseSchema.extend({
   description: z.string().optional().nullable(),
   descriptions: z.array(ResponseDescriptionSchema).optional(),
@@ -407,26 +471,29 @@ export const ReportsReportingPeriodSchema = ReportingPeriodSchema.omit({
 
 export const ReportsCompanyList = z.array(
   z.object({
+    id: companyIdSchema,
     name: z.string(),
     wikidataId: wikidataIdSchema,
+    tags: z.array(z.string()),
     reportingPeriods: z.array(ReportsReportingPeriodSchema),
   })
 )
 
-export const RegistryList = z.array(
-  z.object({
-    id: z.string(),
-    url: z.string().url(),
-    sourceUrl: z.string().url().nullable().optional(),
-    s3Url: z.string().url().nullable().optional(),
-    s3Key: z.string().nullable().optional(),
-    s3Bucket: z.string().nullable().optional(),
-    sha256: z.string().nullable().optional(),
-    companyName: z.string().optional().nullable(),
-    wikidataId: z.string().optional().nullable(),
-    reportYear: z.string().optional().nullable(),
-  })
-)
+// Read/response shape: allow legacy non-URL strings in DB so PATCH/GET do not 500 on serialize.
+export const RegistryReportSchema = z.object({
+  id: z.string(),
+  url: z.string(),
+  sourceUrl: z.string().nullable().optional(),
+  s3Url: z.string().nullable().optional(),
+  s3Key: z.string().nullable().optional(),
+  s3Bucket: z.string().nullable().optional(),
+  sha256: z.string().nullable().optional(),
+  companyName: z.string().optional().nullable(),
+  wikidataId: z.string().optional().nullable(),
+  reportYear: z.string().optional().nullable(),
+})
+
+export const RegistryList = z.array(RegistryReportSchema)
 
 export const CompanyDetails = CompanyBase.extend({
   goals: z.array(GoalSchema).nullable(),
@@ -565,6 +632,15 @@ export const RegionalDataSchema = z.object({
 
 export const RegionalDataListSchema = z.array(RegionalDataSchema)
 
+export const CompanyKpiSchema = z.object({
+  wikidataId: wikidataIdSchema,
+  name: z.string(),
+  meetsParis: z.boolean().nullable(),
+  emissionsChangeFromBaseYear: z.number().nullable(),
+})
+
+export const CompanyKpiListSchema = z.array(CompanyKpiSchema)
+
 export const RegionalKpiSchema = z.object({
   region: z.string(),
   meetsParis: z.boolean(),
@@ -664,13 +740,7 @@ export const errorResponseSchema = z.object({
   message: z.string(),
 })
 
-export const registryUpdateResponseSchema = z.object({
-  id: z.string(),
-  companyName: z.string().nullable(),
-  wikidataId: z.string().nullable(),
-  reportYear: z.string().nullable(),
-  url: z.string().url(),
-})
+export const registryUpdateResponseSchema = RegistryReportSchema
 
 export const registryDeleteResponseSchema = z.object({
   message: z.string(),
@@ -688,6 +758,7 @@ export const registryDeleteResponseSchema = z.object({
 export const globalSearchResponseSchema = z.array(
   z.object({
     name: z.string(),
+    id: companyIdSchema.optional(),
     wikidataId: z.string().optional(),
     type: z.enum(['company', 'municipality', 'region', 'nation']),
   })
