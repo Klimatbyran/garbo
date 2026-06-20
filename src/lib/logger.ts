@@ -10,19 +10,9 @@ export const createPipelineLogger = (job?: PipelineJob) => {
   return {
     info: async (message: string) => {
       await job.log(message)
-      try {
-        await job.sendMessage(`${message}`)
-      } catch (_error) {
-        await job.log(`WARN: failed to send pipeline message: ${message}`)
-      }
     },
     error: async (message: string) => {
       await job.log(`ERROR: ${message}`)
-      try {
-        await job.editMessage(`❌ ${message}`)
-      } catch (_error) {
-        await job.log(`WARN: failed to edit pipeline message: ${message}`)
-      }
     },
   }
 }

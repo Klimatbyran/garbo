@@ -3,7 +3,6 @@ import { Job, Queue, WorkerOptions } from 'bullmq'
 import redis from '../config/redis'
 import saveToAPI from '../workers/saveToAPI'
 import { canonicalPublicReportUrl, defaultMetadata } from './saveUtils'
-import discord from '../pipelineBridge'
 
 /**
  * Enqueue saveToAPI with a BullMQ parent link when possible. If the parent job
@@ -94,16 +93,10 @@ function addCustomMethods(job: DiffJob) {
       await job.sendMessage({
         content: `## ${apiSubEndpoint}\n\nNew changes for ${job.data.companyName}\n\n${diff}`,
       })
-      // If approval is required and not yet approved, send approval request
-      const buttonRow = discord.createApproveButtonRow(job)
-
-      await job.editMessage({
-        components: [buttonRow],
-      })
       await job.requestApproval(
         apiSubEndpoint,
         change,
-        job.data.autoApprove || !requiresApproval,
+        false,
         defaultMetadata(
           canonicalPublicReportUrl(
             job.data as { url: string; sourceUrl?: string }
