@@ -1,9 +1,4 @@
-import {
-  EntityId,
-  ItemId,
-  SearchResponse,
-  SearchResult,
-} from 'wikibase-sdk'
+import { EntityId, ItemId, SearchResponse, SearchResult } from 'wikibase-sdk'
 import { wbk } from './util'
 import { SearchEntitiesOptions } from 'wikibase-sdk/dist/src/queries/search_entities'
 import { lookupKnownCompanyWikidataId } from './knownCompanyLookup'
@@ -22,10 +17,7 @@ import {
   prioritizeCompanyLikeSearchResults,
   searchLabelAffinityScore,
 } from './companySearchRanking'
-import {
-  fetchJsonWithRetries,
-  WIKIDATA_SEARCH_HEADERS,
-} from './wikidataHttp'
+import { fetchJsonWithRetries, WIKIDATA_SEARCH_HEADERS } from './wikidataHttp'
 
 export type CompanySearchResult = SearchResult & {
   /** Item QIDs for industry (P452), when present on the entity. */
@@ -220,11 +212,7 @@ export async function searchCompany({
     )
   }
 
-  results = await mergeListingSuffixProbeResults(
-    results,
-    companyName,
-    language
-  )
+  results = await mergeListingSuffixProbeResults(results, companyName, language)
 
   if (results.length > 0) {
     let augmentation = await fetchSearchHitAugmentation(

@@ -12,7 +12,9 @@ describe('lookupKnownCompanyWikidataIdFromRegistry', () => {
 
   it('returns null for unknown companies', () => {
     expect(
-      lookupKnownCompanyWikidataIdFromRegistry('Definitely Not A Real Company XYZ')
+      lookupKnownCompanyWikidataIdFromRegistry(
+        'Definitely Not A Real Company XYZ'
+      )
     ).toBeNull()
   })
 })

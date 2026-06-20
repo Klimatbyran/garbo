@@ -2,10 +2,7 @@ import { Entity, EntityId, ItemId, SearchResult } from 'wikibase-sdk'
 import { wbk } from './util'
 import { WbGetEntitiesResponse } from 'wikibase-sdk/dist/src/helpers/parse_responses'
 import { SearchEntitiesOptions } from 'wikibase-sdk/dist/src/queries/search_entities'
-import {
-  fetchJsonWithRetries,
-  WIKIDATA_SEARCH_HEADERS,
-} from './wikidataHttp'
+import { fetchJsonWithRetries, WIKIDATA_SEARCH_HEADERS } from './wikidataHttp'
 import { normalizeCompanyName } from './companyRegistry'
 import {
   listingStripProbeQueries,

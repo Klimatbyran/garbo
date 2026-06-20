@@ -105,7 +105,7 @@ ${JSON.stringify(wikidataForApproval, null, 2)}
 const guessWikidata = new DiscordWorker<GuessWikidataJob>(
   QUEUE_NAMES.GUESS_WIKIDATA,
   async (job: GuessWikidataJob) => {
-      const { companyName, overrideWikidataId, wikidataSearchLanguage } = job.data
+    const { companyName, overrideWikidataId, wikidataSearchLanguage } = job.data
     if (!companyName) throw new Error('No company name was provided')
     job.log('Company name: ' + companyName)
     job.log('Approval: ' + JSON.stringify(job.data.approval, null, 2))
@@ -209,7 +209,9 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
       const results = await searchCompany({
         companyName,
         useKnownIdLookup: true,
-        ...(wikidataSearchLanguage != null ? { language: wikidataSearchLanguage } : {}),
+        ...(wikidataSearchLanguage != null
+          ? { language: wikidataSearchLanguage }
+          : {}),
       })
 
       job.log('Wikidata search results: ' + JSON.stringify(results, null, 2))

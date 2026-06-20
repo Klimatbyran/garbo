@@ -35,7 +35,9 @@ async function searchMain(companyName: string) {
     context: 'Wikidata search (main)',
   })
   if (response.error) {
-    throw new Error(`Wikidata search failed: ${response.error.info ?? response.error.code}`)
+    throw new Error(
+      `Wikidata search failed: ${response.error.info ?? response.error.code}`
+    )
   }
   return response.search ?? []
 }
@@ -130,9 +132,13 @@ async function main() {
   )
 
   console.log(`\nGained vs main search (${gained.length}):`)
-  gained.sort((a, b) => a.localeCompare(b, 'sv')).forEach((n) => console.log(`  + ${n}`))
+  gained
+    .sort((a, b) => a.localeCompare(b, 'sv'))
+    .forEach((n) => console.log(`  + ${n}`))
   console.log(`\nLost vs main search (${lost.length}):`)
-  lost.sort((a, b) => a.localeCompare(b, 'sv')).forEach((n) => console.log(`  - ${n}`))
+  lost
+    .sort((a, b) => a.localeCompare(b, 'sv'))
+    .forEach((n) => console.log(`  - ${n}`))
 }
 
 main().catch((err) => {

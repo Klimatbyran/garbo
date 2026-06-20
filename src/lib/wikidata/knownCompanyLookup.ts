@@ -28,7 +28,10 @@ async function lookupKnownCompanyWikidataIdFromApi(
     )
     if (exact?.wikidataId) return exact.wikidataId
 
-    if (companies.length === 1 && typeof companies[0]?.wikidataId === 'string') {
+    if (
+      companies.length === 1 &&
+      typeof companies[0]?.wikidataId === 'string'
+    ) {
       return companies[0].wikidataId
     }
   } catch {

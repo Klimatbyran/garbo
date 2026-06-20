@@ -69,7 +69,9 @@ export function stripLegalFormSuffixes(companyName: string): string | null {
  * Wikidata search can match labels like "Millicom" that omit the short form
  * (e.g. "Millicom Int. Cellular" → no hits; "Millicom International Cellular" → Q276345).
  */
-export function expandInternationalAbbreviation(companyName: string): string | null {
+export function expandInternationalAbbreviation(
+  companyName: string
+): string | null {
   const normalized = normalizeCompanyName(companyName)
   if (!/\bInt\./i.test(normalized)) return null
   const expanded = normalized
@@ -171,7 +173,10 @@ export function looksBalticListing(text: string): boolean {
   )
 }
 
-function pushUniqueProbe(candidates: string[], query: string | null | undefined) {
+function pushUniqueProbe(
+  candidates: string[],
+  query: string | null | undefined
+) {
   if (!query?.trim()) return
   candidates.push(query.trim())
 }
@@ -330,7 +335,9 @@ function legalFormNormsForSupplementarySearch(): string[] {
   })
 }
 
-export function supplementaryLegalFormListingQueries(companyName: string): string[] {
+export function supplementaryLegalFormListingQueries(
+  companyName: string
+): string[] {
   const n = normalizeCompanyName(companyName)
   if (!n) return []
   const out: string[] = []
@@ -340,4 +347,3 @@ export function supplementaryLegalFormListingQueries(companyName: string): strin
   }
   return out
 }
-

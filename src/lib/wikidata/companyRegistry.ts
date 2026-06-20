@@ -19,7 +19,9 @@ export function wikidataIdFromEntry(entry: CompanyRegistryEntry): string {
 }
 
 export function tagsFromEntry(entry: CompanyRegistryEntry): string[] {
-  return typeof entry === 'object' && entry !== null && Array.isArray(entry.tags)
+  return typeof entry === 'object' &&
+    entry !== null &&
+    Array.isArray(entry.tags)
     ? entry.tags
     : []
 }
