@@ -111,7 +111,7 @@ For local development, uncomment the `docling` service in `docker-compose.yaml`,
 The simplest way to start the containers is to run the following docker command.
 
 ```bash
-docker-compose up
+docker compose up
 ```
 
 ```
