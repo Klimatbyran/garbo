@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import 'dotenv/config'
 import type { TestSuite } from '../../promptTestingFramework/types'
 import { expectedResults } from './expected-results'
 import { prompt } from '../prompt'
@@ -8,9 +8,20 @@ export const testSuite: TestSuite = {
   expectedResults,
   testVariations: [
     {
-      name: 'only scope 1',
-      prompt: prompt,
-      schema: schema,
+      name: 'OpenAI gpt-4o baseline',
+      prompt,
+      schema,
+      baseline: true,
+    },
+    {
+      name: 'Berget Mistral-Medium-3.5',
+      prompt,
+      schema,
+      askOptions: {
+        baseURL: 'https://api.berget.ai/v1',
+        apiKey: process.env.BERGET_AI_TOKEN,
+        model: 'mistralai/Mistral-Medium-3.5-128B',
+      },
     },
   ],
 }
