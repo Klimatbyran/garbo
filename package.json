@@ -36,7 +36,11 @@
     "backfill:report-runs": "node --import tsx scripts/backfill-report-runs-from-bullmq.ts",
     "eslint": "npx eslint src",
     "format": "npx prettier --write .",
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest"
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "test:wikidata:smoke": "WIKIDATA_LIVE_TESTS=smoke NODE_OPTIONS=--experimental-vm-modules jest tests/wikidata/wikidata-search-company",
+    "test:wikidata:regular": "WIKIDATA_LIVE_TESTS=regular NODE_OPTIONS=--experimental-vm-modules jest tests/wikidata/wikidata-search-company",
+    "test:wikidata:fringe": "WIKIDATA_LIVE_TESTS=fringe NODE_OPTIONS=--experimental-vm-modules jest tests/wikidata/wikidata-search-company",
+    "test:wikidata": "WIKIDATA_LIVE_TESTS=all NODE_OPTIONS=--experimental-vm-modules jest tests/wikidata/wikidata-search-company"
   },
   "author": "Christian Landgren, William Ryder, Samuel Plumppu mfl",
   "license": "MIT License",
