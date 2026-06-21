@@ -10,13 +10,10 @@ import {
   ButtonStyle,
   Message,
   ThreadChannel,
-  ChatInputCommandInteraction,
-  RESTPostAPIChatInputApplicationCommandsJSONBody,
   BaseMessageOptions,
   MessagePayload,
   MessageCreateOptions,
 } from 'discord.js'
-import commands from './discord/commands'
 import config from './config/discord'
 import approve, { ApproveJob } from './discord/interactions/approve'
 import edit, { EditWikidataJob } from './discord/interactions/editWikidata'
@@ -63,8 +60,6 @@ const getJob = (
 
 export class PipelineBridge {
   client: Client<boolean>
-  rest: REST
-  commands: Array<RESTPostAPIChatInputApplicationCommandsJSONBody>
   token: string
   channelId: string
 
@@ -72,47 +67,16 @@ export class PipelineBridge {
     this.token = token
     this.channelId = channelId
     this.client = new Client({ intents: [GatewayIntentBits.Guilds] })
-    this.rest = new REST().setToken(token)
     if (!worker) {
-      this.commands = commands.map((command) => command.data.toJSON())
       this.client.on('ready', () => {
         console.log('discord switch connected')
+        const rest = new REST().setToken(token)
         const url = Routes.applicationGuildCommands(clientId, guildId)
-        this.rest.put(url, { body: this.commands })
+        rest.put(url, { body: [] })
       })
 
-      // mentioned user
-      // this.client.on('messageCreate', async (message) => {
-      //   if (message.author.bot) return
-      //   const mentioned = message.mentions.users.filter((user) => user.id !== this.client.user.id).first()
-      //   if (mentioned) {
-      //     console.log('mentioned user:', mentioned.username)
-      //     // TODO: add message to feedback queue
-      // })
-
       this.client.on('interactionCreate', async (interaction) => {
-        if (interaction.isCommand()) {
-          const command = commands.find(
-            (command) => command.data.name === interaction.commandName
-          )
-          if (!command) {
-            console.error(
-              `Discord error: Command "${interaction.commandName}" not found`
-            )
-            return
-          }
-
-          try {
-            await command.execute(interaction as ChatInputCommandInteraction)
-          } catch (error) {
-            console.error('Discord error:', error)
-            // await interaction.reply({
-            //   content: 'There was an error while executing this command!',
-            //   ephemeral: true,
-            // })
-            return
-          }
-        } else if (interaction.isButton()) {
+        if (interaction.isButton()) {
           const [action, rawQueueName, jobId] = interaction.customId.split('~')
           const queueName = queueNameSchema.parse(rawQueueName)
 

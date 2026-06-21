@@ -11,7 +11,7 @@ import {
   RegionalNameParamSchema,
 } from '../../schemas'
 import { regionalService } from '../../services/regionalService'
-import { redisCache } from '../../..'
+import { redisCache } from '../../../lib/redisCacheSingleton'
 import fs from 'fs'
 import apiConfig from '@/config/api'
 

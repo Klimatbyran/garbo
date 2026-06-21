@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify'
-import { redisCache } from '../../..'
+import { redisCache } from '../../../lib/redisCacheSingleton'
 import { getErrorSchemas, ValidationClaimsSchema } from '../../schemas'
 
 export const validationClaimsCacheKey = 'validation:claims'

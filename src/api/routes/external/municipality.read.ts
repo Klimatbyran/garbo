@@ -11,7 +11,7 @@ import {
   MunicipalitySectorEmissionsSchema,
 } from '../../schemas'
 import { municipalityService } from '../../services/municipalityService'
-import { redisCache } from '../../..'
+import { redisCache } from '../../../lib/redisCacheSingleton'
 import fs from 'fs'
 import apiConfig from '../../../config/api'
 

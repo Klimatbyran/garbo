@@ -1,7 +1,16 @@
 import 'dotenv/config'
 import { FastifyServerOptions } from 'fastify'
-import { resolve } from 'path'
+import { dirname, resolve } from 'path'
+import { fileURLToPath } from 'node:url'
 import { z } from 'zod'
+
+import { parseEnvBoolean } from './parseEnvBoolean'
+
+/** Jest/ts-jest may not define `import.meta.dirname` (Node 20.11+). */
+const configDir =
+  typeof import.meta.dirname === 'string'
+    ? import.meta.dirname
+    : dirname(fileURLToPath(import.meta.url))
 
 const envSchema = z.object({
   API_SECRET: z.string(),
@@ -17,6 +26,20 @@ const envSchema = z.object({
   JWT_SECRET: z.string(),
   JWT_EXPIRES_IN: z.coerce.number(),
   PROD_BASE_URL: z.string().default('https://api.klimatkollen.se/api'),
+  /** When true, client API read routes skip X-API-Key checks — for cutover only. */
+  ALLOW_ANONYMOUS_CLIENT_API: z.preprocess(parseEnvBoolean, z.boolean()),
+  /** Extra material for hashing client API key secrets; defaults to API_SECRET. */
+  CLIENT_API_KEY_PEPPER: z.string().optional(),
+  /**
+   * Soft per-key rate limit (requests per rolling minute, in-process).
+   * TODO: replace with Redis / edge gateway when you need distributed limits.
+   */
+  CLIENT_API_RATE_LIMIT_PER_MINUTE: z.coerce
+    .number()
+    .int()
+    .positive()
+    .optional()
+    .default(3000),
 })
 
 const parsedEnv = envSchema.safeParse(process.env)
@@ -71,7 +94,7 @@ const productionOrigins = [
 
 const baseLoggerOptions: FastifyServerOptions['logger'] = {
   // TODO: Redact all sensitive data
-  redact: ['req.headers.authorization'],
+  redact: ['req.headers.authorization', 'req.headers.x-api-key'],
 }
 
 const apiConfig = {
@@ -103,27 +126,28 @@ const apiConfig = {
   jwtSecret: env.JWT_SECRET,
   jwtExpiresIn: env.JWT_EXPIRES_IN,
 
-  municipalityDataPath: resolve(
-    import.meta.dirname,
-    '../data/municipality-data.json'
-  ),
+  allowAnonymousClientApi: env.ALLOW_ANONYMOUS_CLIENT_API,
+  clientApiKeyPepper: env.CLIENT_API_KEY_PEPPER ?? env.API_SECRET,
+  clientApiRateLimitPerMinute: env.CLIENT_API_RATE_LIMIT_PER_MINUTE,
+
+  municipalityDataPath: resolve(configDir, '../data/municipality-data.json'),
 
   municipalitySectorEmissionsPath: resolve(
-    import.meta.dirname,
+    configDir,
     '../data/municipality-sector-emissions.json'
   ),
 
-  regionDataPath: resolve(import.meta.dirname, '../data/region-data.json'),
+  regionDataPath: resolve(configDir, '../data/region-data.json'),
 
   regionSectorEmissionsPath: resolve(
-    import.meta.dirname,
+    configDir,
     '../data/region-sector-emissions.json'
   ),
 
-  nationDataPath: resolve(import.meta.dirname, '../data/nation-data.json'),
+  nationDataPath: resolve(configDir, '../data/nation-data.json'),
 
   nationSectorEmissionsPath: resolve(
-    import.meta.dirname,
+    configDir,
     '../data/nation-sector-emissions.json'
   ),
 

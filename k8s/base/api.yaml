@@ -36,9 +36,9 @@ spec:
         - image: ghcr.io/klimatbyran/garbo
           resources:
             requests:
-              memory: '400Mi'
+              memory: '800Mi'
             limits:
-              memory: '768Mi'
+              memory: '1.5Gi'
           name: garbo
           ports:
             - containerPort: 3000
@@ -222,4 +222,14 @@ spec:
                 secretKeyRef:
                   name: env
                   key: GOOGLE_SCREENSHOT_BUCKET_KEY
+            - name: ALLOW_ANONYMOUS_CLIENT_API
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: ALLOW_ANONYMOUS_CLIENT_API
+            - name: GARBO_ALL_ACCESS_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: GARBO_ALL_ACCESS_API_KEY
           imagePullPolicy: Always

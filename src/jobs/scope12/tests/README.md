@@ -58,7 +58,9 @@ Show CLI help for the analyzer:
 npm run analyze -- --help
 ```
 
-Companie's issues.
+See also [prompt testing framework README](../../promptTestingFramework/README.md).
+
+## Known edge cases (notes)
 
 Scope 1&2 stated together:
 Garo

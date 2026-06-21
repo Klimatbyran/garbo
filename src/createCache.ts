@@ -30,6 +30,19 @@ async function getRedis() {
   return redis
 }
 
+/** Close the lazy Redis client (for CLI scripts that must exit after using createServerCache). */
+export async function disconnectRedisCache(): Promise<void> {
+  try {
+    if (redis?.isOpen) {
+      await redis.quit()
+    }
+  } catch {
+    // ignore quit errors
+  } finally {
+    redis = null
+  }
+}
+
 export function createServerCache({ maxAge }: { maxAge: number }) {
   return {
     async set(key: string, value: string) {

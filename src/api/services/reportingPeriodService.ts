@@ -1,6 +1,11 @@
-import { Company, ReportingPeriod } from '@prisma/client'
+import { Company, Prisma } from '@prisma/client'
+
 import { prisma } from '../../lib/prisma'
 import { reportingPeriodArgs } from '../args'
+
+type UpsertedReportingPeriod = Prisma.ReportingPeriodGetPayload<
+  typeof reportingPeriodArgs
+>
 
 class ReportingPeriodService {
   async upsertReportingPeriod(
@@ -13,6 +18,7 @@ class ReportingPeriodService {
       reportS3Url,
       reportSha256,
       year,
+      companyReportId,
     }: {
       startDate: Date
       endDate: Date
@@ -20,12 +26,13 @@ class ReportingPeriodService {
       reportS3Url?: string | null
       reportSha256?: string | null
       year: string
+      companyReportId: string
     }
-  ) {
+  ): Promise<UpsertedReportingPeriod> {
     return prisma.reportingPeriod.upsert({
       where: {
-        companyId_year: {
-          companyId: company.wikidataId,
+        companyReportId_year: {
+          companyReportId,
           year,
         },
       },
@@ -48,11 +55,8 @@ class ReportingPeriodService {
         reportS3Url,
         reportSha256,
         year,
-        company: {
-          connect: {
-            wikidataId: company.wikidataId,
-          },
-        },
+        companyId: company.wikidataId,
+        companyReportId,
         metadata: {
           connect: {
             id: metadata.id,
@@ -63,7 +67,8 @@ class ReportingPeriodService {
     })
   }
 
-  async deleteReportingPeriod(id: ReportingPeriod['id']) {
+  // ToDo: after delete, remove CompanyReport when no periods remain; add bulk delete-by-companyReportId.
+  async deleteReportingPeriod(id: string) {
     return await prisma.reportingPeriod.delete({ where: { id } })
   }
 }
