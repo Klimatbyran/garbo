@@ -44,13 +44,7 @@ flow.on('error', (err) => console.error('FlowProducer connection error:', err))
 const checkDB = new PipelineWorker(
   QUEUE_NAMES.CHECK_DB,
   async (job: CheckDBJob) => {
-    const {
-      companyName,
-      url,
-      sourceUrl,
-      fiscalYear,
-      wikidata,
-    } = job.data
+    const { companyName, url, sourceUrl, fiscalYear, wikidata } = job.data
 
     const canonicalSource = canonicalPublicReportUrl({ url, sourceUrl })
 
