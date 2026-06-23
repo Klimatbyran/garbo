@@ -3,9 +3,8 @@ import redis from '../config/redis'
 
 export type PipelineJobData = {
   url: string
-  discordThreadId?: string
-  discordChannelId?: string
-  discordMessageId?: string
+  /** Run identifier for report run tracking (set by pipeline-api). */
+  threadId?: string
   autoApprove?: boolean
   [key: string]: unknown
 }

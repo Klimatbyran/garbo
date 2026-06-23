@@ -38,8 +38,6 @@ const checkDB = new PipelineWorker(
       sourceUrl,
       fiscalYear,
       wikidata,
-      discordThreadId,
-      discordChannelId,
     } = job.data
 
     const canonicalSource = canonicalPublicReportUrl({ url, sourceUrl })
@@ -126,8 +124,6 @@ const checkDB = new PipelineWorker(
         sourceUrl,
         fiscalYear,
         wikidata,
-        discordThreadId,
-        discordChannelId,
         autoApprove: job.data.autoApprove,
         replaceAllEmissions: job.data.replaceAllEmissions,
         batchId: job.data.batchId,

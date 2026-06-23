@@ -136,7 +136,7 @@ flowchart TD
 
 ### parsePdf
 
-**Called By:** `/pdfs` command of the discord bot defined in `src/discord/commands/pdfs.ts`.
+**Called By:** pipeline-api (or validation frontend) enqueueing a **parsePdf** job.
 
 **Input Data:**
 
@@ -148,7 +148,7 @@ flowchart TD
 }
 ```
 
-`url` defines the report URL, `threadId` references the Discord thread where the bot will respond, and `autoApprove` controls whether user approvals are required for data updates.
+`url` defines the report URL, `threadId` is the run identifier used for report run tracking, and `autoApprove` controls whether user approvals are required for data updates.
 
 **Functionality:**
 

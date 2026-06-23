@@ -32,9 +32,8 @@ type PipelineMessage =
 export class PipelineJob extends Job {
   declare data: {
     url: string
-    discordThreadId?: string
-    discordChannelId?: string
-    discordMessageId?: string
+    /** Run identifier for report run tracking (set by pipeline-api). */
+    threadId?: string
     autoApprove: boolean
     approval?: Approval
     /** Propagated from pipeline-api job create; used for batch filtering. */
@@ -56,7 +55,6 @@ export class PipelineJob extends Job {
   setThreadName: (name: string) => Promise<undefined>
   sendTyping: () => Promise<void>
   getChildrenEntries: () => Promise<ChildrenEntries>
-  hasValidDiscordThreadId: () => boolean
 }
 
 function messageContent(msg: PipelineMessage): string | undefined {
@@ -93,14 +91,7 @@ function addCustomMethods(job: PipelineJob) {
       })
   }
 
-  job.hasValidDiscordThreadId = function () {
-    return (
-      typeof this.data.discordThreadId === 'string' &&
-      this.data.discordThreadId.trim().length > 0
-    )
-  }
-
-  // Pipeline workers log progress instead of posting to Discord.
+  // Pipeline workers log progress to BullMQ job logs.
   job.sendMessage = async (msg: PipelineMessage) => {
     const content = messageContent(msg)
     if (content) await job.log(content)

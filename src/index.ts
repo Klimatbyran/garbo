@@ -47,8 +47,6 @@ async function main() {
         ]
 
         if (START_BOARD) {
-          const pipelineBridge = (await import('./pipelineBridge')).default
-          await pipelineBridge.login()
           logMessages.push(
             `See the UI for the Garbo pipeline at http://localhost:${port}/admin/queues`
           )
