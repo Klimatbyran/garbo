@@ -3,7 +3,15 @@ import { descriptions } from 'wikibase-sdk/dist/src/helpers/simplify'
 import { z } from 'zod'
 
 const envSchema = z.object({
-  OPENAPI_PREFIX: z.string(),
+  /**
+   * Scalar / OpenAPI UI mount path (`/${OPENAPI_PREFIX}`). Must not be `api`
+   * (any casing): REST lives under `/api/*`, and the client API key gate skips
+   * `/${prefix}/*`; using `api` would skip enforcement for all data routes.
+   */
+  OPENAPI_PREFIX: z.string().refine((s) => s.toLowerCase() !== 'api', {
+    message:
+      'OPENAPI_PREFIX cannot be "api" — it shares /api with REST routes and disables X-API-Key gating. Use e.g. "reference" (see jest.env-setup.cjs).',
+  }),
 })
 
 const parsedEnv = envSchema.safeParse(process.env)
@@ -54,8 +62,8 @@ const openAPITagDefinitions = {
   Nation: {
     description: 'Climate data related to Sweden as a nation',
   },
-  Auth: {
-    descriptions: 'Authentification',
+  Search: {
+    description: 'Endpoints related to search functionality',
   },
   ReportValidations: {
     description: 'Report validations',
@@ -63,11 +71,11 @@ const openAPITagDefinitions = {
   TagOptions: {
     description: 'Valid tag options for company tags',
   },
-  Screenshots: {
-    description: 'Screenshots of PDF tables from reports',
-  },
   Newsletters: {
     description: 'Newsletters',
+  },
+  Screenshots: {
+    description: 'Screenshots of PDF tables from reports',
   },
   Reports: {
     description: 'Company reports',
@@ -76,11 +84,11 @@ const openAPITagDefinitions = {
     description:
       'Registry of collected reports that have been saved in the database',
   },
+  Auth: {
+    descriptions: 'Authentification',
+  },
   Internal: {
     description: 'Internal endpoints for data assessment and management',
-  },
-  Search: {
-    description: 'Endpoints related to search functionality',
   },
 } as const
 
@@ -103,6 +111,24 @@ export function getTags(...tags: (keyof typeof openAPITags)[]) {
   return tags
 }
 
+/**
+ * Tags whose definitions should appear in the public OpenAPI spec.
+ * Hidden-route-only tags (e.g. Goals, Emissions) are excluded to prevent
+ * empty sections in Scalar.
+ */
+export const publicTagNames = new Set<TagName>([
+  'Auth',
+  'Companies',
+  'Internal',
+  'Municipalities',
+  'Nation',
+  'Newsletters',
+  'Regions',
+  'ReportingPeriods',
+  'Screenshots',
+  'Search',
+])
+
 const env = parsedEnv.data
 
 export default {
@@ -111,26 +137,54 @@ export default {
 
   title: 'Klimatkollen API Reference',
   description: `
-The Klimatkollen API provides access to company emissions and economic data. This API allows you to retrieve, create and update information about companies' environmental impact and sustainability initiatives.
+The API provides access to our climate data.
 
 ## Getting Started
 
-To use the API, you'll need to:
+1. **Request a client API key** from the team — use [Contact Support](mailto:support@klimatkollen.se). Keys are not self-serve; we issue them manually. Keys look like \`garb_<lookup>.<secret>\` (one string; keep them secret).
+2. **Send that string on each request** using the \`X-API-Key\` header (not \`Authorization: Bearer\`). We use a separate header so long-lived keys are not mixed up with short-lived **user JWTs**, which staff and write flows send as \`Authorization: Bearer …\`.
 
-1. Request an API key by contacting our team
-2. Include your API key in the Authorization header:
+Example after you have been issued a key:
+
 \`\`\`
-Authorization: Bearer YOUR_API_KEY
+X-API-Key: garb_yourlookup.yoursecret
 \`\`\`
+
+For **staff / write** endpoints, sign in (e.g. via Scalar “Authorize”) and use your **JWT** in \`Authorization: Bearer …\`.
+
+## API Keys
+
+API keys are issued manually by the Klimatkollen team. To request one, contact us at [support@klimatkollen.se](mailto:support@klimatkollen.se).
+
+We currently offer two key types:
+
+### Company Data API Key (\`company_data\`)
+
+Provides access to core company data endpoints:
+
+- Company list
+- Company detail
+- Company search
+
+### All-Access Key (\`all_access\`)
+
+Provides access to the full client API surface, including municipalities, regions, nation-level data, newsletters, screenshots, and more.
+
+This key is intended for deeper integrations and data pipelines.
+
+---
+
+If neither key type fits your use case — for example, if you need a specific subset of endpoints — [reach out to us](mailto:support@klimatkollen.se) and we can discuss what access makes sense for you.
 
 ## Authentication
 
-All endpoints require authentication using a Bearer token. Include your API key in the Authorization header of each request.
+- **Client (read) routes:** \`X-API-Key: garb_…\` — static key from the team; use only over HTTPS.
+- **Staff / write routes:** \`Authorization: Bearer <jwt>\` — session token after OAuth, not the client API key.
 
 ## Rate Limiting
 
-- 1000 requests per hour for authenticated users
-- 100 requests per hour for unauthenticated users
+- 3000 requests per minute for API key holders
+- Requests without a valid API key are rejected
 
 ## Resources
 
@@ -142,17 +196,17 @@ All endpoints require authentication using a Bearer token. Include your API key 
 ### Fetch Company Data
 
 \`\`\`bash
-curl -X GET "https://api.klimatkollen.se/api/companies/Q123" \\
-     -H "Authorization: Bearer YOUR_API_KEY"
+curl -X GET “https://api.klimatkollen.se/api/companies/Q123” \\
+     -H “X-API-Key: garb_yourlookup.yoursecret”
 \`\`\`
 
 ### Update Company Emissions
 
 \`\`\`bash
-curl -X POST "https://api.klimatkollen.se/api/companies/Q123/reporting-periods" \\
-     -H "Authorization: Bearer YOUR_API_KEY" \\
-     -H "Content-Type: application/json" \\
-     -d '{"reportingPeriods": [...]}'
+curl -X POST “https://api.klimatkollen.se/api/companies/Q123/reporting-periods” \\
+     -H “Authorization: Bearer YOUR_JWT” \\
+     -H “Content-Type: application/json” \\
+     -d '{“reportingPeriods”: [...]}'
 \`\`\`
 `,
 }

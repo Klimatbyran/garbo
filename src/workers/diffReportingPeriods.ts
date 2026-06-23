@@ -3,6 +3,13 @@ import { getReportingPeriodDates } from '../lib/reportingPeriodDates'
 import { QUEUE_NAMES } from '../queues'
 import { ChangeDescription, DiffWorker, DiffJob } from '../lib/DiffWorker'
 import apiConfig from '../config/api'
+import { apiFetch } from '../lib/api'
+import {
+  buildPipelineReportIdentity,
+  buildReportingPeriodsApiBodyExtras,
+  isReportIdentityKnownInCompany,
+  reportingPeriodsForReportIdentity,
+} from '../lib/reportSaveIdentity'
 
 export class DiffReportingPeriodsJob extends DiffJob {
   declare data: DiffJob['data'] & {
@@ -22,7 +29,13 @@ export class DiffReportingPeriodsJob extends DiffJob {
     biogenic?: any[]
     economy?: any[]
     replaceAllEmissions?: boolean
+    /** PDF year from pipeline parse when set on the job. */
+    documentReportYear?: string | number
   }
+}
+
+async function fetchFreshExistingCompany(wikidataId: string) {
+  return apiFetch(`/pipeline/companies/${wikidataId}`).catch(() => null)
 }
 
 const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
@@ -35,11 +48,7 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
       wikidata,
       fiscalYear,
       companyName,
-      existingCompany,
-      scope12 = [],
-      scope3 = [],
-      biogenic = [],
-      economy = [],
+      existingCompany: existingCompanyFromCheckDb,
     } = job.data
 
     const reportURLForPeriod = canonicalPublicReportUrl({ url, sourceUrl })
@@ -57,27 +66,58 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
         : undefined)
 
     if (job.isDataApproved()) {
+      const approvedBody = job.getApprovedBody() ?? {}
+      const periods = Array.isArray(approvedBody.reportingPeriods)
+        ? approvedBody.reportingPeriods
+        : []
+      const saveBodyExtras = buildReportingPeriodsApiBodyExtras(
+        job.data,
+        periods
+      )
+
       await job.enqueueSaveToAPI('reporting-periods', companyName, wikidata, {
-        ...job.getApprovedBody(),
+        ...approvedBody,
+        ...saveBodyExtras,
         ...(job.data.replaceAllEmissions && { replaceAllEmissions: true }),
+        reportUrl: reportURLForPeriod,
+        reportSourceUrl: trimmedSourceUrl,
+        reportS3Url: reportS3UrlForPeriod,
+        reportSha256: pdfCache?.sha256,
       })
       return
     }
 
     if (!job.hasApproval()) {
-      // Get all unique years from all sources
+      const wikidataId = wikidata.node
+      const freshCompany =
+        (await fetchFreshExistingCompany(wikidataId)) ??
+        existingCompanyFromCheckDb
+      const reportIdentity = buildPipelineReportIdentity(job.data)
+      const isNewReportIdentity = !isReportIdentityKnownInCompany(
+        freshCompany,
+        reportIdentity
+      )
+
+      if (isNewReportIdentity) {
+        job.log(
+          `New report identity for ${wikidataId}: ${reportIdentity.reportURL}`
+        )
+      }
+
       const years = new Set([
-        ...scope12.map((d) => d.year),
-        ...scope3.map((d) => d.year),
-        ...biogenic.map((d) => d.year),
-        ...economy.map((d) => d.year),
+        ...(job.data.scope12?.map((d) => d.year) ?? []),
+        ...(job.data.scope3?.map((d) => d.year) ?? []),
+        ...(job.data.biogenic?.map((d) => d.year) ?? []),
+        ...(job.data.economy?.map((d) => d.year) ?? []),
       ])
 
-      // Determine the report year - use the most recent year found in the data
-      // This represents the year the current report actually covers
       const reportYear = years.size > 0 ? Math.max(...Array.from(years)) : null
 
-      // Create base reporting periods
+      const scope12 = job.data.scope12 ?? []
+      const scope3 = job.data.scope3 ?? []
+      const biogenic = job.data.biogenic ?? []
+      const economy = job.data.economy ?? []
+
       const reportingPeriods = Array.from(years).map((year) => {
         const [startDate, endDate] = getReportingPeriodDates(
           year,
@@ -88,7 +128,6 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
           year,
           startDate,
           endDate,
-          // Only assign reportURL to the reporting period that matches the report year
           reportURL:
             reportYear !== null && year === reportYear
               ? reportURLForPeriod
@@ -104,7 +143,6 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
         }
       })
 
-      // Fill in data from each source, only keeping data that was changed.
       const updatedReportingPeriods = reportingPeriods.map(
         ({ year, ...period }) => {
           const emissions = {
@@ -128,9 +166,8 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
             reportingPeriod.economy = economyData
           }
 
-          // Preserve existing reportURL for years that don't match the current report year
           if (reportYear !== null && year !== reportYear) {
-            const existingPeriod = existingCompany?.reportingPeriods?.find(
+            const existingPeriod = freshCompany?.reportingPeriods?.find(
               (rp: any) => rp.year === year.toString()
             )
             if (existingPeriod?.reportURL) {
@@ -148,27 +185,46 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
         }
       )
 
-      // NOTE: Maybe only keep properties in existingCompany.reportingPeriods, e.g. the relevant economy properties, or the relevant emissions properties
-      // This could improve accuracy of the diff
+      const periodsBefore = reportingPeriodsForReportIdentity(
+        freshCompany,
+        reportIdentity
+      )
+
       const { diff, requiresApproval } = await diffChanges({
-        existingCompany,
-        before: existingCompany?.reportingPeriods || [],
+        existingCompany: freshCompany,
+        before: periodsBefore,
         after: updatedReportingPeriods,
       })
 
       const change: ChangeDescription = {
         type: 'reportingPeriods',
         oldValue: {
-          reportingPeriods: existingCompany?.reportingPeriods || [],
+          reportingPeriods: periodsBefore,
         },
         newValue: { reportingPeriods: updatedReportingPeriods },
       }
+
+      const maxScopeYear =
+        years.size > 0 ? Math.max(...Array.from(years)) : undefined
+      const saveBodyExtras = buildReportingPeriodsApiBodyExtras(
+        {
+          ...job.data,
+          ...(maxScopeYear !== undefined && {
+            documentReportYear: job.data.documentReportYear ?? maxScopeYear,
+          }),
+        },
+        updatedReportingPeriods
+      )
+
+      const forceSave =
+        isNewReportIdentity && updatedReportingPeriods.length > 0
 
       await job.handleDiff(
         'reporting-periods',
         diff,
         change,
-        typeof requiresApproval == 'boolean' ? requiresApproval : false
+        typeof requiresApproval == 'boolean' ? requiresApproval : false,
+        { forceSave, saveBodyExtras }
       )
     }
 

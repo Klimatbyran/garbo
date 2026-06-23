@@ -11,7 +11,7 @@ import { authService } from '../../services/authService'
 import apiConfig from '../../../config/api'
 import { z } from 'zod'
 import { randomUUID } from 'node:crypto'
-import { redisCache } from '../../..'
+import { redisCache } from '../../../lib/redisCacheSingleton'
 
 const githubAuthQuerySchema = z.object({
   redirect_uri: z.string().url().optional(),
