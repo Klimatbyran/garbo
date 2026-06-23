@@ -1,17 +1,17 @@
 import { askPrompt } from '../lib/openai'
-import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { vectorDB } from '../lib/vectordb'
 import { QUEUE_NAMES } from '../queues'
 import { Description } from '../api/types'
 
-class ExtractDescriptionsJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+class ExtractDescriptionsJob extends PipelineJob {
+  declare data: PipelineJob['data'] & {
     companyName: string
     companyId: string
   }
 }
 
-const extractDescriptions = new DiscordWorker<ExtractDescriptionsJob>(
+const extractDescriptions = new PipelineWorker<ExtractDescriptionsJob>(
   QUEUE_NAMES.EXTRACT_DESCRIPTIONS,
   async (job: ExtractDescriptionsJob) => {
     const { url, companyName } = job.data

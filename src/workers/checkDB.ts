@@ -1,5 +1,5 @@
 import { FlowProducer } from 'bullmq'
-import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { apiFetch } from '../lib/api'
 import redis from '../config/redis'
 import { canonicalPublicReportUrl, getCompanyURL } from '../lib/saveUtils'
@@ -12,8 +12,8 @@ import { buildEarlyRegistryPayload } from './saveToAPI.utils'
 import { registryService } from '../api/services/registryService'
 import { companyReportService } from '../api/services/companyReportService'
 
-export class CheckDBJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+export class CheckDBJob extends PipelineJob {
+  declare data: PipelineJob['data'] & {
     companyName: string
     /** Original report URL when pipeline cached PDF to S3 (parsePdf). */
     sourceUrl?: string
@@ -41,7 +41,7 @@ export class CheckDBJob extends DiscordJob {
 const flow = new FlowProducer({ connection: redis })
 flow.on('error', (err) => console.error('FlowProducer connection error:', err))
 
-const checkDB = new DiscordWorker(
+const checkDB = new PipelineWorker(
   QUEUE_NAMES.CHECK_DB,
   async (job: CheckDBJob) => {
     const {
@@ -50,8 +50,8 @@ const checkDB = new DiscordWorker(
       sourceUrl,
       fiscalYear,
       wikidata,
-      threadId,
-      channelId,
+      discordThreadId,
+      discordChannelId,
     } = job.data
 
     const canonicalSource = canonicalPublicReportUrl({ url, sourceUrl })
@@ -169,8 +169,8 @@ const checkDB = new DiscordWorker(
         sourceUrl,
         fiscalYear,
         wikidata,
-        threadId,
-        channelId,
+        discordThreadId,
+        discordChannelId,
         autoApprove: job.data.autoApprove,
         replaceAllEmissions: job.data.replaceAllEmissions,
         batchId: job.data.batchId,

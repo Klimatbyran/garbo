@@ -1,5 +1,5 @@
 // ! Commented out until we have decided to remove nlm completely
-// import { DiscordWorker } from '../lib/DiscordWorker'
+// import { PipelineWorker } from '../lib/PipelineWorker'
 // import { FlowProducer } from 'bullmq'
 // import { extractJsonFromPdf, fetchPdf } from '../lib/pdfTools'
 // import redis from '../config/redis'
@@ -16,7 +16,7 @@
 
 // const flow = new FlowProducer({ connection: redis })
 
-// const nlmParsePDF = new DiscordWorker(
+// const nlmParsePDF = new PipelineWorker(
 //   QUEUE_NAMES.NLM_PARSE_PDF,
 //   async (job) => {
 //     const { url } = job.data
