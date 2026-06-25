@@ -31,6 +31,9 @@ describe('routePermissions registry', () => {
     expect(resolveClientApiPermission('GET', '/api/companies/search')).toBe(
       'api.companies.search'
     )
+    expect(resolveClientApiPermission('GET', '/api/companies/kpis')).toBe(
+      'api.companies.list'
+    )
     expect(resolveClientApiPermission('GET', '/api/companies/Q123')).toBe(
       'api.companies.read'
     )

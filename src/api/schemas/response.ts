@@ -635,6 +635,10 @@ export const RegionalDataListSchema = z.array(RegionalDataSchema)
 export const CompanyKpiSchema = z.object({
   wikidataId: wikidataIdSchema,
   name: z.string(),
+  sectorCode: z
+    .string()
+    .nullable()
+    .openapi({ description: 'GICS sector code for client-side sector filtering' }),
   meetsParis: z.boolean().nullable(),
   emissionsChangeFromBaseYear: z.number().nullable(),
 })

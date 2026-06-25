@@ -108,7 +108,7 @@ export async function companyReadRoutes(app: FastifyInstance) {
       schema: {
         summary: 'Get company KPIs',
         description:
-          'Retrieve key performance indicators for all companies, including Paris agreement compliance and emissions change from base year.',
+          'Retrieve key performance indicators for all companies, including GICS sector code for filtering, Paris agreement compliance, and emissions change from base year.',
         tags: getTags('Companies'),
         response: {
           200: CompanyKpiListSchema,
