@@ -1,12 +1,5 @@
 import { Worker, WorkerOptions, Job, Queue } from 'bullmq'
-import {
-  BaseMessageOptions,
-  Message,
-  OmitPartialGroupDMChannel,
-  TextChannel,
-} from 'discord.js'
 import redis from '../config/redis'
-import discord from '../pipelineBridge'
 import { ChangeDescription } from './DiffWorker'
 import { createPipelineLogger } from './logger'
 import { Logger } from '@/types'
@@ -28,28 +21,27 @@ type ApprovedBody = Record<string, unknown> & {
 
 type ChildrenEntries = Record<string, unknown>
 
+type PipelineMessage =
+  | string
+  | {
+      content?: string
+      components?: unknown
+      [key: string]: unknown
+    }
+
 export class PipelineJob extends Job {
   declare data: {
     url: string
-    discordThreadId?: string
-    discordChannelId?: string
-    discordMessageId?: string
+    /** Run identifier for report run tracking (set by pipeline-api). */
+    threadId?: string
     autoApprove: boolean
     approval?: Approval
     /** Propagated from pipeline-api job create; used for batch filtering. */
     batchId?: string
   }
 
-  //message: any
-  sendMessage: (
-    msg: string | BaseMessageOptions
-  ) => Promise<Message<true> | undefined>
-  log: (row: string) => Promise<number>
-  editMessage: (
-    msg: string | BaseMessageOptions
-  ) => Promise<
-    OmitPartialGroupDMChannel<Message<true>> | Message<true> | undefined
-  >
+  sendMessage: (msg: PipelineMessage) => Promise<undefined>
+  editMessage: (msg: PipelineMessage) => Promise<undefined>
   requestApproval: (
     type: string,
     data: Approval['data'],
@@ -60,17 +52,17 @@ export class PipelineJob extends Job {
   isDataApproved: () => boolean
   hasApproval: () => boolean
   getApprovedBody: () => ApprovedBody
-  setThreadName: (name: string) => Promise<TextChannel | undefined>
+  setThreadName: (name: string) => Promise<undefined>
   sendTyping: () => Promise<void>
   getChildrenEntries: () => Promise<ChildrenEntries>
-  hasValidDiscordThreadId: () => boolean
+}
+
+function messageContent(msg: PipelineMessage): string | undefined {
+  if (typeof msg === 'string') return msg
+  return typeof msg.content === 'string' ? msg.content : undefined
 }
 
 function addCustomMethods(job: PipelineJob) {
-  let message: Message<true> | null = null
-  /**
-   * Combine results of children jobs into a single object.
-   */
   job.getChildrenEntries = async () => {
     return job
       .getChildrenValues()
@@ -78,10 +70,9 @@ function addCustomMethods(job: PipelineJob) {
       .then((values) =>
         values.map((value) => {
           if (value && typeof value === 'string') {
-            return JSON.parse(value)
-          } else {
-            return value
+            return JSON.parse(value) as Record<string, unknown>
           }
+          return value as Record<string, unknown>
         })
       )
       .then((objects) => {
@@ -100,46 +91,21 @@ function addCustomMethods(job: PipelineJob) {
       })
   }
 
-  job.hasValidDiscordThreadId = function () {
-    return (
-      typeof this.data.discordThreadId === 'string' &&
-      /^\d{17,19}$/.test(this.data.discordThreadId)
-    )
+  // Pipeline workers log progress to BullMQ job logs.
+  job.sendMessage = async (msg: PipelineMessage) => {
+    const content = messageContent(msg)
+    if (content) await job.log(content)
+    return undefined
   }
 
-  job.sendMessage = async (msg: string | BaseMessageOptions) => {
-    if (!job.hasValidDiscordThreadId()) {
-      console.log(
-        'Invalid Discord threadId format in sendMessage:',
-        job.data.discordThreadId
-      )
-      return undefined
-    }
-    const discordThreadId = job.data.discordThreadId as string
-    message = await discord.sendMessage(discordThreadId, msg)
-    if (!message) return undefined // TODO: throw error?
-    await job.updateData({ ...job.data, discordMessageId: message.id })
-    return message
-  }
-
-  job.sendTyping = async () => {
-    if (!job.hasValidDiscordThreadId()) {
-      console.log(
-        'Invalid Discord threadId format in sendTyping:',
-        job.data.discordThreadId
-      )
-      return
-    }
-    const discordThreadId = job.data.discordThreadId as string
-    return discord.sendTyping(discordThreadId)
-  }
+  job.sendTyping = async () => undefined
 
   job.requestApproval = async (
-    type: string,
-    data: ChangeDescription,
-    approved: boolean = false,
-    metadata: Approval['metadata'],
-    summary?: string
+    type,
+    data,
+    approved = false,
+    metadata,
+    summary
   ) => {
     await job.updateData({
       ...job.data,
@@ -147,13 +113,8 @@ function addCustomMethods(job: PipelineJob) {
     })
   }
 
-  job.isDataApproved = () => {
-    return job.data.approval?.approved ?? false
-  }
-
-  job.hasApproval = () => {
-    return !!job.data.approval
-  }
+  job.isDataApproved = () => job.data.approval?.approved ?? false
+  job.hasApproval = () => !!job.data.approval
 
   job.getApprovedBody = () => {
     const approvedValue = job.data.approval?.data.newValue
@@ -168,54 +129,9 @@ function addCustomMethods(job: PipelineJob) {
     }
   }
 
-  job.editMessage = async (msg: string | BaseMessageOptions) => {
-    if (!job.hasValidDiscordThreadId()) {
-      console.log('Invalid Discord threadId format:', job.data.discordThreadId)
-      return undefined
-    }
+  job.editMessage = async (msg: PipelineMessage) => job.sendMessage(msg)
 
-    if (!message && job.data.discordMessageId) {
-      const { discordChannelId, discordThreadId, discordMessageId } = job.data
-      message = await discord.findMessage({
-        channelId: discordChannelId,
-        threadId: discordThreadId,
-        messageId: discordMessageId,
-      })
-    }
-    if (message && message.edit) {
-      try {
-        if (typeof msg === 'string') {
-          msg = {
-            content: msg,
-          }
-        }
-        msg.content = [message.content, msg.content]
-          .filter(Boolean) // removes falsy values (undefined, null, empty strings)
-          .join('\n\n')
-        return message.edit(msg)
-      } catch (err) {
-        job.log(
-          'error editing Discord message:' +
-            err.message +
-            '\n' +
-            JSON.stringify(message)
-        )
-        return job.sendMessage(msg)
-      }
-    } else {
-      return job.sendMessage(msg)
-    }
-  }
-
-  job.setThreadName = async (
-    name: string
-  ): Promise<TextChannel | undefined> => {
-    const discordThreadId = job.data.discordThreadId as string
-    const thread = (await discord.client.channels.fetch(
-      discordThreadId
-    )) as TextChannel
-    return thread?.setName(name)
-  }
+  job.setThreadName = async (_name: string): Promise<undefined> => undefined
 
   return job
 }

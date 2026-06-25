@@ -150,7 +150,7 @@ In BullMQ flows, child jobs finish before their parent runs. Diff jobs and `save
 
 ### parsePdf
 
-**Called By:** Pipeline enqueue from the validation UI (or API).
+**Called By:** pipeline-api or the validation frontend enqueueing a **parsePdf** job.
 
 **Input Data:**
 
@@ -163,7 +163,7 @@ In BullMQ flows, child jobs finish before their parent runs. Diff jobs and `save
 }
 ```
 
-`url` defines the report URL, `threadId` references the run thread in the UI, `autoApprove` controls whether user approvals are required for data updates, and `forceReindex` forces a fresh Docling parse even when the report is already indexed.
+`url` defines the report URL, `threadId` is the run identifier used for report run tracking, `autoApprove` controls whether user approvals are required for data updates, and `forceReindex` forces a fresh Docling parse even when the report is already indexed.
 
 **Functionality:**
 
