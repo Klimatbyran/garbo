@@ -65,12 +65,6 @@ export const clientApiRouteRules: Rule[] = [
   },
   {
     method: 'GET',
-    type: 'exact',
-    path: '/api/companies/kpis',
-    permission: 'api.companies.list',
-  },
-  {
-    method: 'GET',
     type: 'prefix',
     path: '/api/companies/',
     permission: 'api.companies.read',
