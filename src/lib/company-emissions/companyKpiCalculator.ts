@@ -5,6 +5,11 @@ export type CompanyForKpiCalculation = {
   name: string
   futureEmissionsTrendSlope: number | null
   baseYear?: { year?: number } | null
+  industry?: {
+    industryGics?: {
+      sectorCode?: string | null
+    } | null
+  } | null
   reportingPeriods?: Array<{
     startDate: string | Date
     endDate: string | Date
@@ -17,6 +22,7 @@ export type CompanyForKpiCalculation = {
 export type CompanyKpi = {
   wikidataId: string
   name: string
+  sectorCode: string | null
   meetsParis: boolean | null
   emissionsChangeFromBaseYear: number | null
 }
@@ -178,6 +184,11 @@ export function calculateEmissionsChangeFromBaseYear(
     return null
   }
 
+  const latestYear = getYearFromDate(latestPeriod.endDate).toString()
+  if (latestYear === baseYear) {
+    return null
+  }
+
   const latestEmissions = latestPeriod.emissions?.calculatedTotalEmissions ?? 0
   const changePercent =
     ((latestEmissions - baselineEmissions) / baselineEmissions) * 100
@@ -195,6 +206,7 @@ export function calculateCompanyKpi(
   return {
     wikidataId: company.wikidataId,
     name: company.name,
+    sectorCode: company.industry?.industryGics?.sectorCode ?? null,
     meetsParis: calculateMeetsParis(company),
     emissionsChangeFromBaseYear: calculateEmissionsChangeFromBaseYear(company),
   }

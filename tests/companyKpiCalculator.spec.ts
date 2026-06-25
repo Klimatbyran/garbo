@@ -253,16 +253,38 @@ describe('companyKpiCalculator', () => {
         5
       )
     })
+    it('returns null when latest period is the same year as the base year', () => {
+      expect(
+        calculateEmissionsChangeFromBaseYear({
+          wikidataId: 'Q1',
+          name: 'Test Co',
+          futureEmissionsTrendSlope: null,
+          baseYear: { year: 2024 },
+          reportingPeriods: [
+            {
+              startDate: '2024-01-01',
+              endDate: '2024-12-31',
+              emissions: { calculatedTotalEmissions: 100 },
+            },
+          ],
+        })
+      ).toBeNull()
+    })
   })
 
   describe('calculateCompanyKpi', () => {
-    it('projects company identity and KPI fields', () => {
+    it('projects company identity, sector, and KPI fields', () => {
       expect(
         calculateCompanyKpi({
           wikidataId: 'Q123',
           name: 'Example AB',
           futureEmissionsTrendSlope: -10000,
           baseYear: { year: 2020 },
+          industry: {
+            industryGics: {
+              sectorCode: '10',
+            },
+          },
           reportingPeriods: [
             {
               startDate: '2020-01-01',
@@ -279,8 +301,26 @@ describe('companyKpiCalculator', () => {
       ).toEqual({
         wikidataId: 'Q123',
         name: 'Example AB',
+        sectorCode: '10',
         meetsParis: true,
         emissionsChangeFromBaseYear: -20,
+      })
+    })
+
+    it('returns null sectorCode when industry classification is missing', () => {
+      expect(
+        calculateCompanyKpi({
+          wikidataId: 'Q123',
+          name: 'Example AB',
+          futureEmissionsTrendSlope: null,
+          reportingPeriods: [],
+        })
+      ).toEqual({
+        wikidataId: 'Q123',
+        name: 'Example AB',
+        sectorCode: null,
+        meetsParis: null,
+        emissionsChangeFromBaseYear: null,
       })
     })
   })
