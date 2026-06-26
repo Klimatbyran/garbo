@@ -1,18 +1,22 @@
 import { EntityId, SearchResult } from 'wikibase-sdk'
+import type { SearchEntitiesOptions } from 'wikibase-sdk/dist/src/queries/search_entities'
 import { ask } from '../lib/openai'
 import { zodResponseFormat } from 'openai/helpers/zod'
-import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
+import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import wikidata, { Wikidata } from '../prompts/wikidata'
+import discord from '../discord'
 import apiConfig from '../config/api'
 import { ChatCompletionMessageParam } from 'openai/resources'
 import { QUEUE_NAMES } from '../queues'
 import { getWikidataEntities, searchCompany } from '@/lib/wikidata/read'
 
-export class GuessWikidataJob extends PipelineJob {
-  declare data: PipelineJob['data'] & {
+export class GuessWikidataJob extends DiscordJob {
+  declare data: DiscordJob['data'] & {
     companyName: string
     overrideWikidataId: EntityId
     wikidata?: Wikidata
+    /** Optional `wbsearchentities` language (e.g. `sv` for Swedish listings). Defaults to `searchCompany`’s `en`. */
+    wikidataSearchLanguage?: SearchEntitiesOptions['language']
   }
 }
 
@@ -84,21 +88,24 @@ async function handleOverrideWikidataId(
     `Wikidata override for ${companyName} - please verify`
   )
 
+  const buttonRow = discord.createEditWikidataButtonRow(job)
+
   await job.sendMessage({
     content: `Override Wikidata ID provided. Please verify this is correct:
 \`\`\`md
 ${JSON.stringify(wikidataForApproval, null, 2)}
 \`\`\``,
+    components: [buttonRow],
   })
 
   await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
   return null
 }
 
-const guessWikidata = new PipelineWorker<GuessWikidataJob>(
+const guessWikidata = new DiscordWorker<GuessWikidataJob>(
   QUEUE_NAMES.GUESS_WIKIDATA,
   async (job: GuessWikidataJob) => {
-    const { companyName, overrideWikidataId } = job.data
+    const { companyName, overrideWikidataId, wikidataSearchLanguage } = job.data
     if (!companyName) throw new Error('No company name was provided')
     job.log('Company name: ' + companyName)
     job.log('Approval: ' + JSON.stringify(job.data.approval, null, 2))
@@ -114,6 +121,7 @@ const guessWikidata = new PipelineWorker<GuessWikidataJob>(
 
       job.editMessage({
         content: `Thanks for approving the wikidata for: ${companyName}`,
+        components: [],
       })
 
       return JSON.stringify(
@@ -181,6 +189,7 @@ const guessWikidata = new PipelineWorker<GuessWikidataJob>(
 
       job.sendMessage({
         content: `Company with the same name found in production auto-approving the wikidata for: ${companyName}`,
+        components: [],
       })
 
       return JSON.stringify({ wikidata }, null, 2)
@@ -197,7 +206,13 @@ const guessWikidata = new PipelineWorker<GuessWikidataJob>(
       if (retry > 3) return []
 
       job.log(`Searching for company name: ${companyName} (attempt ${retry})`)
-      const results = await searchCompany({ companyName })
+      const results = await searchCompany({
+        companyName,
+        useKnownIdLookup: true,
+        ...(wikidataSearchLanguage != null
+          ? { language: wikidataSearchLanguage }
+          : {}),
+      })
 
       job.log('Wikidata search results: ' + JSON.stringify(results, null, 2))
       if (results.length) return results
@@ -325,6 +340,7 @@ const guessWikidata = new PipelineWorker<GuessWikidataJob>(
 
           job.sendMessage({
             content: `🚀 Company found in production database, we will approve automatically: ${companyName}`,
+            components: [],
           })
           return JSON.stringify(
             {
@@ -340,7 +356,8 @@ const guessWikidata = new PipelineWorker<GuessWikidataJob>(
       }
     } catch (_error) {
       job.sendMessage({
-        content: `😫 Could not find the company in the production database, we will have to ask the human.`,
+        content: `😫 Could not find the company in the production database, we will have to as the human.`,
+        components: [],
       })
     }
 
@@ -363,11 +380,14 @@ const guessWikidata = new PipelineWorker<GuessWikidataJob>(
       `Wikidata selection for ${companyName}`
     )
 
+    const buttonRow = discord.createEditWikidataButtonRow(job)
+
     await job.sendMessage({
       content: `Is this the correct company?:
 \`\`\`md
 ${JSON.stringify(wikidataForApproval, null, 2)}
 \`\`\``,
+      components: [buttonRow],
     })
 
     await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
