@@ -269,6 +269,7 @@ model Economy {
 
   turnover        Turnover?
   employees       Employees?
+  profit          Profit?
   reportingPeriod ReportingPeriod? @relation(fields: [reportingPeriodId], references: [id], onDelete: Cascade)
 }
 
@@ -292,6 +293,16 @@ model Employees {
   economyId String? @unique
 
   economy  Economy?   @relation(fields: [economyId], references: [id], onDelete: Cascade)
+  metadata Metadata[]
+}
+
+model Profit {
+  id        String  @id @default(cuid())
+  value     Float?
+  currency  String?
+  economyId String  @unique
+
+  economy  Economy    @relation(fields: [economyId], references: [id], onDelete: Cascade)
   metadata Metadata[]
 }
 
@@ -351,6 +362,7 @@ model Metadata {
   categoryId             String?
   turnoverId             String?
   employeesId            String?
+  profitId               String?
   descriptionId          String?
 
   goal                 Goal?                 @relation(fields: [goalId], references: [id])
@@ -369,6 +381,7 @@ model Metadata {
   category             Scope3Category?       @relation(fields: [categoryId], references: [id])
   turnover             Turnover?             @relation(fields: [turnoverId], references: [id])
   employees            Employees?            @relation(fields: [employeesId], references: [id])
+  profit                 Profit?               @relation(fields: [profitId], references: [id])
   description          Description?          @relation(fields: [descriptionId], references: [id], onDelete: Cascade)
 }
 

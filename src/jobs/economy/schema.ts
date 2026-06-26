@@ -16,6 +16,7 @@ export const schema = z.object({
         .object({
           turnover: monetaryValueSchema,
           revenue: monetaryValueSchema,
+          profit: monetaryValueSchema,
           employees: z
             .object({
               value: z.number().nullable().optional(),

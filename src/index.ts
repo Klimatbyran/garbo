@@ -80,6 +80,7 @@ async function findAndDeleteOrphanedMetadata() {
         { categoryId: null },
         { turnoverId: null },
         { employeesId: null },
+        { profitId: null },
       ],
     },
   })
