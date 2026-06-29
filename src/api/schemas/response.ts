@@ -50,6 +50,20 @@ export const MetadataSchema = z.object({
 
 export const MinimalMetadataSchema = MetadataSchema.pick({ verifiedBy: true })
 
+export const CompanyIdentifierTypeSchema = z.enum([
+  'WIKIDATA',
+  'LEI',
+  'ORG_NUMBER',
+  'ISIN',
+])
+
+export const CompanyIdentifierSchema = z.object({
+  id: z.string(),
+  type: CompanyIdentifierTypeSchema,
+  value: z.string(),
+  metadata: MetadataSchema,
+})
+
 const CompanyBaseSchema = z.object({
   id: companyIdSchema,
   wikidataId: wikidataIdSchema,
@@ -505,6 +519,7 @@ export const CompanyDetails = CompanyBase.extend({
  */
 export const InternalCompanyDetails = CompanyDetails.extend({
   tags: z.array(z.string()),
+  identifiers: z.array(CompanyIdentifierSchema).optional(),
 })
 
 function transformYearlyData(

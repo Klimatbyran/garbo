@@ -97,6 +97,47 @@ describe('registryService', () => {
     })
   })
 
+  it('upsert replaces placeholder company name with pipeline name', async () => {
+    const existing = {
+      id: 'r1',
+      url: 'https://example.com/report.pdf',
+      companyName: 'Unknown',
+      wikidataId: null,
+      reportYear: null,
+      sourceUrl: null,
+      s3Url: null,
+      s3Key: null,
+      s3Bucket: null,
+      sha256: 'a'.repeat(64),
+    }
+
+    mockPrisma.report.findMany.mockResolvedValueOnce([existing])
+    mockPrisma.report.update.mockResolvedValueOnce({
+      ...existing,
+      companyName: 'Acme Corp',
+      wikidataId: 'Q1',
+    })
+
+    await registryService.upsertReportInRegistry(
+      {
+        companyName: 'Acme Corp',
+        wikidataId: 'Q1',
+        reportYear: '2024',
+        url: 'https://example.com/report.pdf',
+        sha256: 'a'.repeat(64),
+      },
+      mockPrisma
+    )
+
+    expect(mockPrisma.report.update).toHaveBeenCalledWith({
+      where: { id: 'r1' },
+      data: expect.objectContaining({
+        companyName: 'Acme Corp',
+        wikidataId: 'Q1',
+      }),
+    })
+  })
+
   it('creates when no OR matches', async () => {
     mockPrisma.report.findMany.mockResolvedValueOnce([])
 

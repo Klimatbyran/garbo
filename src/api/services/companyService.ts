@@ -26,6 +26,7 @@ import { ReportsListResponseSchema } from '../schemas/response'
 import { z } from 'zod'
 import { registryService } from './registryService'
 import { pickOnePeriodPerDataYear } from './reportingPeriodPublicRead'
+import { companyIdentifierService } from './companyIdentifierService'
 import type { ReportingPeriod } from '@/types'
 
 const API_KEY = process.env.FIRECRAWL_API_KEY
@@ -166,7 +167,7 @@ class CompanyService {
     tags?: string[]
     lei?: string
   }) {
-    return prisma.company.upsert({
+    const company = await prisma.company.upsert({
       where: {
         wikidataId,
       },
@@ -174,13 +175,12 @@ class CompanyService {
         ...data,
         wikidataId,
       },
-      // TODO: Should we allow updating the wikidataId?
-      // Probably yes from a business perspective, but that also means we need to update all related records too.
-      // Updating the primary key can be tricky, especially with backups using the old primary key no longer being compatible.
-      // This might be a reason why we shouldn't use wikidataId as our primary key in the DB.
-      // However, no matter what, we could still use wikidataId in the API and in the URL structure.
       update: { ...data },
     })
+
+    await companyIdentifierService.syncFromLegacyColumns(company)
+
+    return company
   }
 
   async updateCompanyTags(wikidataId: string, tags: string[]) {

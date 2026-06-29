@@ -43,6 +43,29 @@ model Company {
   tags String[]
 
   logoUrl String?
+
+  identifiers CompanyIdentifier[]
+}
+
+enum CompanyIdentifierType {
+  WIKIDATA
+  LEI
+  ORG_NUMBER
+  ISIN
+}
+
+model CompanyIdentifier {
+  id        String                @id @default(cuid())
+  companyId String
+  type      CompanyIdentifierType
+  value     String
+
+  company  Company    @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  metadata Metadata[]
+
+  @@unique([companyId, type])
+  @@index([type, value])
+  @@map("company_identifiers")
 }
 
 /// Valid tag options for company tags. Company.tags[] may only contain values that exist as slug here.
@@ -352,6 +375,7 @@ model Metadata {
   turnoverId             String?
   employeesId            String?
   descriptionId          String?
+  companyIdentifierId    String?
 
   goal                 Goal?                 @relation(fields: [goalId], references: [id])
   initiative           Initiative?           @relation(fields: [initiativeId], references: [id])
@@ -370,6 +394,7 @@ model Metadata {
   turnover             Turnover?             @relation(fields: [turnoverId], references: [id])
   employees            Employees?            @relation(fields: [employeesId], references: [id])
   description          Description?          @relation(fields: [descriptionId], references: [id], onDelete: Cascade)
+  companyIdentifier    CompanyIdentifier?    @relation(fields: [companyIdentifierId], references: [id], onDelete: SetNull)
 }
 
 model User {

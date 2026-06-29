@@ -104,6 +104,14 @@ export const detailedCompanyArgs = {
     },
     lei: true,
     tags: true,
+    identifiers: {
+      select: {
+        id: true,
+        type: true,
+        value: true,
+        metadata: metadataArgs,
+      },
+    },
     reportingPeriods: {
       select: {
         id: true,
