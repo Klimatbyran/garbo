@@ -249,7 +249,7 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
         }
         const existingPeriods = await prisma.reportingPeriod.findMany({
           where: {
-            companyId: company.wikidataId,
+            companyId: company.id,
             companyReportId: resolvedCompanyReportId,
           },
           include: {
@@ -297,7 +297,7 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
 
             const companyReportIdForPeriod =
               await companyReportService.companyReportIdForPeriodSave(
-                company.wikidataId,
+                company.id,
                 resolvedCompanyReportId,
                 periodCompanyReportId,
                 documentReportYear

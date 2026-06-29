@@ -70,6 +70,7 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
           lei,
           user: request.user,
         })
+        const company = await companyService.getCompany(wikidataId)
         await Promise.all(
           (descriptions ?? []).map(async (description) => {
             const createdMetadata = await metadataService.createMetadata({
@@ -78,7 +79,7 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
             })
             await companyService.upsertDescription({
               description,
-              companyId: wikidataId,
+              companyId: company.id,
               metadataId: createdMetadata.id,
             })
           })
@@ -132,14 +133,14 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
         }
       }
       try {
-        await companyService.getCompany(wikidataId)
+        const company = await companyService.getCompany(wikidataId)
+        await companyService.updateCompanyTags(company.id, tags)
       } catch {
         return reply.status(404).send({
           code: '404',
           message: 'Company not found',
         })
       }
-      await companyService.updateCompanyTags(wikidataId, tags)
       redisCache.clear()
       return reply.send({ ok: true })
     }

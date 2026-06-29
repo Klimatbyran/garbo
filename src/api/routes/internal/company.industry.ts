@@ -1,6 +1,7 @@
 import { FastifyInstance, AuthenticatedFastifyRequest } from 'fastify'
 
 import { industryService } from '../../services/industryService'
+import { companyService } from '../../services/companyService'
 import { getErrorSchemas, postIndustrySchema } from '../../schemas'
 import { metadataService } from '../../services/metadataService'
 import { getTags } from '../../../config/openapi'
@@ -45,8 +46,9 @@ export async function companyIndustryRoutes(app: FastifyInstance) {
       })
 
       try {
+        const company = await companyService.getCompany(wikidataId)
         await industryService.upsertIndustry(
-          wikidataId,
+          company.id,
           { subIndustryCode },
           createdMetadata
         )

@@ -11,6 +11,7 @@ import {
   getErrorSchemas,
 } from '../../schemas'
 import { initiativeService } from '../../services/initiativeService'
+import { companyService } from '../../services/companyService'
 import {
   WikidataIdParams,
   PostInitiativeBody,
@@ -47,8 +48,9 @@ export async function companyInitiativesRoutes(app: FastifyInstance) {
         const { wikidataId } = request.params
 
         try {
+          const company = await companyService.getCompany(wikidataId)
           await initiativeService.createInitiatives(
-            wikidataId,
+            company.id,
             initiatives,
             () =>
               metadataService.createMetadata({

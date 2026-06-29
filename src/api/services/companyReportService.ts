@@ -74,7 +74,7 @@ function mergeReportIdentityFromPeriods(
 }
 
 function buildRegistryPayloadForCompanySave(
-  company: Pick<Company, 'wikidataId' | 'name'>,
+  company: Pick<Company, 'id' | 'wikidataId' | 'name'>,
   reportingPeriods: ReportingPeriodIdentity[],
   identity?: SaveReportIdentity,
   documentReportYear?: string
@@ -87,7 +87,7 @@ function buildRegistryPayloadForCompanySave(
   return buildRegistryPayload({
     data: {
       companyName: company.name,
-      wikidata: { node: company.wikidataId },
+      wikidata: { node: company.wikidataId ?? '' },
       url: mergedIdentity.url ?? '',
       sourceUrl: mergedIdentity.sourceUrl,
       pdfCache: mergedIdentity.pdfCache,
@@ -265,7 +265,7 @@ class CompanyReportService {
   }
 
   async resolveCompanyReportIdForSave(
-    company: Pick<Company, 'wikidataId' | 'name'>,
+    company: Pick<Company, 'id' | 'wikidataId' | 'name'>,
     reportingPeriods: ReportingPeriodIdentity[],
     options?: {
       companyReportId?: string
@@ -277,7 +277,7 @@ class CompanyReportService {
     if (explicitId) {
       await this.assertCompanyReportBelongsToCompany(
         explicitId,
-        company.wikidataId
+        company.id
       )
       return { companyReportId: explicitId, inferred: false }
     }
@@ -285,7 +285,7 @@ class CompanyReportService {
     const pipelineRegistryId = options?.registryReportId?.trim()
     if (pipelineRegistryId) {
       const companyReportId = await this.findOrCreateCompanyReport(
-        company.wikidataId,
+        company.id,
         pipelineRegistryId
       )
       return { companyReportId, inferred: true }
@@ -301,13 +301,13 @@ class CompanyReportService {
       const report =
         await registryService.upsertReportInRegistry(registryPayload)
       const companyReportId = await this.findOrCreateCompanyReport(
-        company.wikidataId,
+        company.id,
         report.id
       )
       console.warn(
         '[companyReportService] Inferred companyReportId from report identity',
         {
-          companyId: company.wikidataId,
+          companyId: company.id,
           companyReportId,
           registryReportId: report.id,
         }
@@ -316,17 +316,17 @@ class CompanyReportService {
     }
 
     const companyReportId = await this.getOrCreateFallbackCompanyReportId(
-      company.wikidataId
+      company.id
     )
     console.warn(
       '[companyReportService] Inferred companyReportId from latest CompanyReport for company',
-      { companyId: company.wikidataId, companyReportId }
+      { companyId: company.id, companyReportId }
     )
     return { companyReportId, inferred: true }
   }
 
   async prepareCompanyReportForPeriodSave(
-    company: Pick<Company, 'wikidataId' | 'name'>,
+    company: Pick<Company, 'id' | 'wikidataId' | 'name'>,
     reportingPeriods: ReportingPeriodIdentity[],
     input: PrepareCompanyReportForPeriodSaveInput
   ): Promise<{
@@ -370,7 +370,7 @@ class CompanyReportService {
    */
   async ensureCompanyReportRegistryLink(
     companyReportId: string,
-    company: Pick<Company, 'wikidataId' | 'name'>,
+    company: Pick<Company, 'id' | 'wikidataId' | 'name'>,
     reportingPeriods: ReportingPeriodIdentity[],
     input: PrepareCompanyReportForPeriodSaveInput
   ): Promise<EnsureCompanyReportRegistryLinkResult | null> {
@@ -458,12 +458,17 @@ class CompanyReportService {
 
   async setCompanyReportRegistryLink(
     companyReportId: string,
-    companyWikidataId: string,
+    companyId: string,
     registryReportId: string
   ): Promise<void> {
+    const company = await prisma.company.findFirstOrThrow({
+      where: { id: companyId },
+      select: { id: true, wikidataId: true },
+    })
+
     await this.assertCompanyReportBelongsToCompany(
       companyReportId,
-      companyWikidataId
+      company.id
     )
 
     const report = await prisma.report.findUnique({
@@ -476,15 +481,19 @@ class CompanyReportService {
       )
     }
 
-    if (report.wikidataId && report.wikidataId !== companyWikidataId) {
+    if (
+      report.wikidataId &&
+      company.wikidataId &&
+      report.wikidataId !== company.wikidataId
+    ) {
       throw new CompanyReportScopeError(
-        `Registry report ${registryReportId} belongs to ${report.wikidataId}, not ${companyWikidataId}`
+        `Registry report ${registryReportId} belongs to ${report.wikidataId}, not ${company.wikidataId}`
       )
     }
 
     const conflicting = await prisma.companyReport.findFirst({
       where: {
-        companyId: companyWikidataId,
+        companyId: company.id,
         registryReportId,
         NOT: { id: companyReportId },
       },

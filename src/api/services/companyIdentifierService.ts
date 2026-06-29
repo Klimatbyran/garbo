@@ -64,7 +64,7 @@ class CompanyIdentifierService {
   }
 
   async syncFromLegacyColumns(
-    company: { id: string; wikidataId: string; lei?: string | null },
+    company: { id: string; wikidataId: string | null; lei?: string | null },
     options?: {
       user?: User
       source?: string
@@ -78,7 +78,7 @@ class CompanyIdentifierService {
 
     const synced: Array<{ id: string; value?: string }> = []
 
-    if (company.wikidataId.trim()) {
+    if (company.wikidataId?.trim()) {
       const row = await this.upsertIdentifier({
         companyId: company.id,
         type: 'WIKIDATA',
