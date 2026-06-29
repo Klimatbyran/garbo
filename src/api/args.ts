@@ -15,6 +15,7 @@ export const economyArgs = {
   include: {
     employees: { select: { id: true } },
     turnover: { select: { id: true } },
+    profit: { select: { id: true } },
   },
 } satisfies Prisma.EconomyDefaultArgs
 
@@ -131,6 +132,14 @@ export const detailedCompanyArgs = {
                 id: true,
                 value: true,
                 unit: true,
+                metadata: metadataArgs,
+              },
+            },
+            profit: {
+              select: {
+                id: true,
+                value: true,
+                currency: true,
                 metadata: metadataArgs,
               },
             },

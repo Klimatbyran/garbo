@@ -68,6 +68,23 @@ export function toPartnerReportingPeriod<T extends Record<string, unknown>>(
     companyReport: _companyReport,
     ...rest
   } = period
+
+  if (
+    rest.economy &&
+    typeof rest.economy === 'object' &&
+    rest.economy !== null &&
+    'profit' in rest.economy
+  ) {
+    const { profit: _profit, ...economyWithoutProfit } = rest.economy as Record<
+      string,
+      unknown
+    >
+    return {
+      ...rest,
+      economy: economyWithoutProfit,
+    } as Omit<T, 'year' | 'companyReportId' | 'companyReport'>
+  }
+
   return rest
 }
 

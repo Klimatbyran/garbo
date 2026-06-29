@@ -347,11 +347,14 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
               biogenic,
               scope1And2,
             } = emissions
-            const { turnover, employees } = economy
+            const { turnover, employees, profit } = economy
 
             // Normalise currency
             if (turnover?.currency) {
               turnover.currency = turnover.currency.trim().toUpperCase()
+            }
+            if (profit?.currency) {
+              profit.currency = profit.currency.trim().toUpperCase()
             }
 
             await Promise.allSettled([
@@ -430,6 +433,14 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
                   metadata: employees.verified
                     ? verifiedMetadata
                     : createdMetadata,
+                }),
+              profit &&
+                companyService.upsertProfit({
+                  economy: dbEconomy,
+                  metadata: profit.verified
+                    ? verifiedMetadata
+                    : createdMetadata,
+                  profit: _.omit(profit, 'verified'),
                 }),
             ])
           }

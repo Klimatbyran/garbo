@@ -50,10 +50,22 @@ export interface Emissions {
 
 export interface Economy {
   turnover?: Turnover
+  revenue?: Revenue
+  profit?: Profit
   employees?: Employees
 }
 
 export interface Turnover {
+  value: number
+  currency: string
+}
+
+export interface Revenue {
+  value: number
+  currency: string
+}
+
+export interface Profit {
   value: number
   currency: string
 }

@@ -1,6 +1,7 @@
 import {
   Employees,
   Metadata,
+  Profit,
   Turnover,
   Description,
   Prisma,
@@ -311,6 +312,36 @@ class CompanyService {
       },
       update: {
         ...employees,
+        metadata: {
+          connect: { id: metadata.id },
+        },
+      },
+      select: { id: true },
+    })
+  }
+
+  async upsertProfit({
+    economy,
+    metadata,
+    profit,
+  }: {
+    economy: DefaultEconomyType
+    metadata: Metadata
+    profit: Partial<Omit<Profit, 'id' | 'metadataId' | 'economyId'>>
+  }) {
+    return prisma.profit.upsert({
+      where: { id: economy.profit?.id ?? '' },
+      create: {
+        ...profit,
+        metadata: {
+          connect: { id: metadata.id },
+        },
+        economy: {
+          connect: { id: economy.id },
+        },
+      },
+      update: {
+        ...profit,
         metadata: {
           connect: { id: metadata.id },
         },

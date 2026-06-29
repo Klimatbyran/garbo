@@ -228,6 +228,20 @@ export const economySchema = z
         verified: z.boolean().optional(),
       })
       .optional(),
+    revenue: z
+      .object({
+        value: z.number().optional(),
+        currency: z.string().optional(),
+        verified: z.boolean().optional(),
+      })
+      .optional(),
+    profit: z
+      .object({
+        value: z.number().optional(),
+        currency: z.string().optional(),
+        verified: z.boolean().optional(),
+      })
+      .optional(),
     employees: z
       .object({
         value: z.number().optional(),

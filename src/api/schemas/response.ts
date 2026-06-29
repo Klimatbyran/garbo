@@ -192,6 +192,13 @@ export const EmployeesSchema = z.object({
   metadata: MetadataSchema,
 })
 
+export const ProfitSchema = z.object({
+  id: z.string(),
+  value: z.number().nullable().openapi({ description: 'Profit value' }),
+  currency: z.string().nullable().openapi({ description: 'Currency code' }),
+  metadata: MetadataSchema,
+})
+
 export const EconomySchema = z.object({
   id: z.string(),
   turnover: TurnoverSchema.nullable(),
@@ -502,9 +509,19 @@ export const CompanyDetails = CompanyBase.extend({
 
 /**
  * Internal company details include tags (used by internal tools like Validate).
+ * Profit is stored internally and is not exposed on partner/client APIs.
  */
+export const InternalEconomySchema = EconomySchema.extend({
+  profit: ProfitSchema.nullable().optional(),
+})
+
+export const InternalReportingPeriodSchema = ReportingPeriodSchema.extend({
+  economy: InternalEconomySchema.nullable(),
+})
+
 export const InternalCompanyDetails = CompanyDetails.extend({
   tags: z.array(z.string()),
+  reportingPeriods: z.array(InternalReportingPeriodSchema),
 })
 
 function transformYearlyData(
