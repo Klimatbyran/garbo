@@ -1,0 +1,104 @@
+# Temporary PostgreSQL instance seeded from the recovered dump.
+# Apply this before running the migration job.
+# Tear it down when done: kubectl delete -f recovered-postgres.yaml -n garbo
+#
+# The dump file must be uploaded to GCS first:
+#   gsutil cp /path/to/recovered.dump gs://<BACKUP_BUCKET>/manual/recovered.dump
+#
+# The pod uses an init container to download and restore the dump on startup.
+# Replace <BACKUP_BUCKET> with your actual bucket name.
+apiVersion: v1
+kind: Service
+metadata:
+  name: recovered-postgres
+spec:
+  selector:
+    app: recovered-postgres
+  ports:
+    - port: 5432
+      targetPort: 5432
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: recovered-restore-script
+data:
+  # Run by the init container — only downloads the dump
+  download.sh: |
+    #!/bin/bash
+    set -e
+    echo "Downloading dump from GCS..."
+    gsutil cp gs://${BACKUP_BUCKET}/manual/recovered.dump /dump/recovered.dump
+    echo "Download complete."
+  # Mounted into /docker-entrypoint-initdb.d/ — postgres runs this on first startup
+  restore.sh: |
+    #!/bin/bash
+    set -e
+    echo "Creating recovered database and restoring dump..."
+    psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" \
+      -c "CREATE DATABASE recovered;"
+    pg_restore --username "$POSTGRES_USER" --dbname recovered \
+      --no-owner --no-acl --clean --if-exists /dump/recovered.dump
+    echo "Restore complete."
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recovered-postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: recovered-postgres
+  template:
+    metadata:
+      labels:
+        app: recovered-postgres
+    spec:
+      initContainers:
+        - name: download-dump
+          image: google/cloud-sdk:slim
+          command: ['/bin/bash', '/scripts/download.sh']
+          env:
+            - name: BACKUP_BUCKET
+              value: '<BACKUP_BUCKET>'
+          volumeMounts:
+            - name: dump
+              mountPath: /dump
+            - name: scripts
+              mountPath: /scripts
+      containers:
+        - name: postgres
+          image: postgres:16
+          env:
+            - name: POSTGRES_HOST_AUTH_METHOD
+              value: trust
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: dump
+              mountPath: /dump
+            - name: initdb
+              mountPath: /docker-entrypoint-initdb.d
+          readinessProbe:
+            exec:
+              command: ['pg_isready', '-U', 'postgres']
+            initialDelaySeconds: 5
+            periodSeconds: 5
+      volumes:
+        - name: dump
+          emptyDir: {}
+        - name: scripts
+          configMap:
+            name: recovered-restore-script
+            items:
+              - key: download.sh
+                path: download.sh
+                mode: 0755
+        - name: initdb
+          configMap:
+            name: recovered-restore-script
+            items:
+              - key: restore.sh
+                path: restore.sh
+                mode: 0755

@@ -1,0 +1,41 @@
+# One-shot Job to restore validated Scope1 data from recovered DB into prod.
+# Requires recovered-postgres to be running (apply recovered-postgres.yaml first).
+#
+# Dry run (default — inspect logs, no data written):
+#   kubectl apply -f restore-validated-scope1.yaml -n garbo
+#   kubectl logs job/restore-validated-scope1 -n garbo -f
+#   kubectl delete job/restore-validated-scope1 -n garbo
+#
+# To actually commit, change the --commit flag below and re-apply.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: restore-validated-scope1
+spec:
+  ttlSecondsAfterFinished: 3600
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: migrate
+          image: ghcr.io/klimatbyran/garbo
+          imagePullPolicy: Always
+          workingDir: /app
+          command: ['npx', '--yes', 'tsx']
+          args:
+            - scripts/restore-validated-scope1.ts
+            # Uncomment when ready to write:
+            # - --commit
+          env:
+            - name: SOURCE_DATABASE_URL
+              value: postgresql://postgres@recovered-postgres:5432/recovered
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: DATABASE_URL
+            - name: NODE_ENV
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: NODE_ENV
