@@ -42,9 +42,7 @@ class CompanyIdentifierService {
         comment: metadata?.comment,
         source: metadata?.source,
         user: { connect: { id: user.id } },
-        verifiedBy: verified
-          ? { connect: { id: user.id } }
-          : undefined,
+        verifiedBy: verified ? { connect: { id: user.id } } : undefined,
       },
     })
 
@@ -74,7 +72,8 @@ class CompanyIdentifierService {
     }
   ) {
     const user =
-      options?.user ?? (await getOrCreateServiceBotUser(GARBO_SERVICE_CLIENT_ID))
+      options?.user ??
+      (await getOrCreateServiceBotUser(GARBO_SERVICE_CLIENT_ID))
     const source = options?.source ?? 'company-column-sync'
 
     const synced: Array<{ id: string; value?: string }> = []

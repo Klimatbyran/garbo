@@ -9,7 +9,12 @@ import {
 import { OptionalNullable } from '../../lib/type-utils'
 import { DefaultEconomyType } from '../types'
 import { prisma } from '../../lib/prisma'
-import { economyArgs, detailedCompanyArgs, pipelineCompanyDetailArgs, companyListArgs } from '../args'
+import {
+  economyArgs,
+  detailedCompanyArgs,
+  pipelineCompanyDetailArgs,
+  companyListArgs,
+} from '../args'
 import {
   calculateEmissionChangeLastTwoYears,
   calculateScope2Total,
