@@ -17,6 +17,11 @@ jest.unstable_mockModule('../src/lib/prisma', () => ({
   prisma: prismaMock,
 }))
 
+jest.unstable_mockModule('../src/api/services/serviceBotUser', () => ({
+  GARBO_SERVICE_CLIENT_ID: 'garbo',
+  getOrCreateServiceBotUser: jest.fn(async () => botUser),
+}))
+
 const { companyIdentifierService } = await import(
   '../src/api/services/companyIdentifierService'
 )
@@ -26,7 +31,6 @@ const botUser = { id: 'user-garbo', name: 'garbo', bot: true }
 describe('companyIdentifierService', () => {
   beforeEach(() => {
     jest.clearAllMocks()
-    prismaMock.user.upsert.mockResolvedValue(botUser)
   })
 
   it('upsertIdentifier creates row and metadata for new identifier', async () => {

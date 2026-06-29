@@ -1,19 +1,9 @@
 import { CompanyIdentifierType, User } from '@prisma/client'
 import { prisma } from '../../lib/prisma'
-
-const GARBO_BOT_NAME = 'garbo'
-
-async function getGarboBotUser(): Promise<User> {
-  return prisma.user.upsert({
-    where: { name: GARBO_BOT_NAME },
-    update: {},
-    create: {
-      name: GARBO_BOT_NAME,
-      email: 'garbo@klimatkollen.se',
-      bot: true,
-    },
-  })
-}
+import {
+  GARBO_SERVICE_CLIENT_ID,
+  getOrCreateServiceBotUser,
+} from './serviceBotUser'
 
 class CompanyIdentifierService {
   async upsertIdentifier({
@@ -83,7 +73,8 @@ class CompanyIdentifierService {
       verified?: boolean
     }
   ) {
-    const user = options?.user ?? (await getGarboBotUser())
+    const user =
+      options?.user ?? (await getOrCreateServiceBotUser(GARBO_SERVICE_CLIENT_ID))
     const source = options?.source ?? 'company-column-sync'
 
     const synced: Array<{ id: string; value?: string }> = []

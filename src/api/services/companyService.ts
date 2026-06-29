@@ -4,11 +4,12 @@ import {
   Turnover,
   Description,
   Prisma,
+  User,
 } from '@prisma/client'
 import { OptionalNullable } from '../../lib/type-utils'
 import { DefaultEconomyType } from '../types'
 import { prisma } from '../../lib/prisma'
-import { economyArgs, detailedCompanyArgs, companyListArgs } from '../args'
+import { economyArgs, detailedCompanyArgs, pipelineCompanyDetailArgs, companyListArgs } from '../args'
 import {
   calculateEmissionChangeLastTwoYears,
   calculateScope2Total,
@@ -122,7 +123,7 @@ class CompanyService {
 
   async getCompanyWithMetadata(wikidataId: string) {
     const company = await prisma.company.findFirstOrThrow({
-      ...detailedCompanyArgs,
+      ...pipelineCompanyDetailArgs,
       where: {
         wikidataId,
       },
@@ -157,6 +158,7 @@ class CompanyService {
 
   async upsertCompany({
     wikidataId,
+    user,
     ...data
   }: {
     wikidataId: string
@@ -166,6 +168,7 @@ class CompanyService {
     internalComment?: string
     tags?: string[]
     lei?: string
+    user?: User
   }) {
     const company = await prisma.company.upsert({
       where: {
@@ -178,7 +181,10 @@ class CompanyService {
       update: { ...data },
     })
 
-    await companyIdentifierService.syncFromLegacyColumns(company)
+    await companyIdentifierService.syncFromLegacyColumns(company, {
+      user,
+      source: user ? 'validate-editor' : 'company-column-sync',
+    })
 
     return company
   }
