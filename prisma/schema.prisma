@@ -586,3 +586,41 @@ model ClientApiRequest {
   @@index([timestamp])
   @@map("client_api_request")
 }
+
+/// Validate Coverage tab: named index lists (e.g. MSCI World Index).
+model CoverageList {
+  id        String             @id @default(cuid())
+  name      String             @unique
+  createdAt DateTime           @default(now()) @map("created_at")
+  updatedAt DateTime           @updatedAt @map("updated_at")
+  years     CoverageListYear[]
+
+  @@map("coverage_lists")
+}
+
+/// One edition per year for a coverage list.
+model CoverageListYear {
+  id        String              @id @default(cuid())
+  listId    String              @map("list_id")
+  list      CoverageList        @relation(fields: [listId], references: [id], onDelete: Cascade)
+  year      Int
+  createdAt DateTime            @default(now()) @map("created_at")
+  updatedAt DateTime            @updatedAt @map("updated_at")
+  entries   CoverageListEntry[]
+
+  @@unique([listId, year])
+  @@index([listId])
+  @@map("coverage_list_years")
+}
+
+/// Pasted company name line belonging to a list year edition.
+model CoverageListEntry {
+  id        String           @id @default(cuid())
+  yearId    String           @map("year_id")
+  year      CoverageListYear @relation(fields: [yearId], references: [id], onDelete: Cascade)
+  name      String
+  sortOrder Int              @default(0) @map("sort_order")
+
+  @@index([yearId])
+  @@map("coverage_list_entries")
+}
