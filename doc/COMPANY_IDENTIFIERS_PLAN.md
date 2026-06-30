@@ -69,13 +69,13 @@ Keep `Company.wikidataId` and `Company.lei` during transition. **Dual-write**: i
 
 ### Verification
 
-| State                                    | `metadata.verifiedBy`                   | Typical `source`                          |
-| ---------------------------------------- | --------------------------------------- | ----------------------------------------- |
-| Pipeline guess, not reviewed             | `null`                                  | `wikidata-search`, `override-wikidata-id` |
-| Auto-matched production DB               | optional bot / `null`                   | `production-database`                     |
-| Human approved in Validate               | approver user id                        | from approval                             |
-| Manual editor save with `verified: true` | editor user id                          | `validate-editor`                         |
-| Backfill from legacy columns             | `null` (or `--mark-verified` in script) | `migration-backfill`                      |
+| State                                    | `metadata.verifiedBy` | Typical `source`                                 |
+| ---------------------------------------- | --------------------- | ------------------------------------------------ |
+| Pipeline guess, not reviewed             | `null`                | `wikidata-search`, `override-wikidata-id`        |
+| Auto-matched production DB               | optional bot / `null` | `production-database`                            |
+| Human approved in Validate               | approver user id      | from approval                                    |
+| Manual editor save with `verified: true` | editor user id        | `validate-editor`                                |
+| Backfill from legacy columns             | `null`                | `legacy-company-wikidata` / `legacy-company-lei` |
 
 Query “is Wikidata verified?” → `CompanyIdentifier` where `type = WIKIDATA` and latest metadata has non-null `verifiedBy`.
 
@@ -291,10 +291,9 @@ npx prisma migrate deploy
 # Backfill (staging first):
 npx tsx scripts/backfill-company-identifiers.ts --dry-run
 npx tsx scripts/backfill-company-identifiers.ts
-
-# Optional: mark backfilled Wikidata as verified (curated prod only):
-npx tsx scripts/backfill-company-identifiers.ts --mark-verified
 ```
+
+Backfill sets legacy `source` / `comment` on metadata only (`verifiedBy` stays null). Wikidata and LEI use separate sources — see `scripts/backfill-company-identifiers.ts`.
 
 Verify:
 
