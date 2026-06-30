@@ -39,7 +39,8 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       const { wikidataId } = request.params
       redisCache.clear()
       try {
-        await companyService.deleteCompany(wikidataId)
+        const company = await companyService.getCompany(wikidataId)
+        await companyService.deleteCompany(company.id)
       } catch (error) {
         console.error('ERROR Deletion of company failed:', error)
         return reply
@@ -102,7 +103,8 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       const { wikidataId } = request.params
       redisCache.clear()
       try {
-        await industryService.deleteIndustry(wikidataId)
+        const company = await companyService.getCompany(wikidataId)
+        await industryService.deleteIndustry(company.id)
       } catch (error) {
         console.error('ERROR deletion of industry failed:', error)
         return reply

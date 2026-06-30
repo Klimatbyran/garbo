@@ -92,9 +92,9 @@ class CompanyService {
     const normalizedSearchTerm = searchTerm.trim().toLocaleLowerCase('sv-SE')
     const likePattern = normalizedSearchTerm + '%'
 
-    const matches = await prisma.$queryRaw<{ wikidataId: string }[]>(
+    const matches = await prisma.$queryRaw<{ id: string }[]>(
       Prisma.sql`
-      SELECT "wikidataId"
+      SELECT "id"
       FROM "Company"
       WHERE lower(name) LIKE ${likePattern}
          OR (
@@ -109,16 +109,19 @@ class CompanyService {
     `
     )
 
-    const orderedIds = matches.map((m) => m.wikidataId)
+    const orderedIds = matches.map((m) => m.id)
 
     const companies = await prisma.company.findMany({
       ...companyListArgs,
-      where: { wikidataId: { in: orderedIds } },
+      where: { id: { in: orderedIds } },
     })
 
     const sorted = orderedIds
-      .map((wikidataId) => companies.find((c) => c.wikidataId === wikidataId))
-      .filter((c) => c !== undefined)
+      .map((id) => companies.find((c) => c.id === id))
+      .filter(
+        (company): company is NonNullable<typeof company> =>
+          company !== undefined
+      )
 
     return this.enrichCompaniesWithMetadata(
       sorted,
@@ -154,6 +157,13 @@ class CompanyService {
     return transformedCompany
   }
 
+  async getCompanyByInternalId(id: string) {
+    return prisma.company.findFirstOrThrow({
+      where: { id },
+      include: { baseYear: true },
+    })
+  }
+
   async getCompany(wikidataId: string) {
     return prisma.company.findFirstOrThrow({
       where: { wikidataId },
@@ -185,7 +195,6 @@ class CompanyService {
       },
       update: { ...data },
     })
-
     await companyIdentifierService.syncFromLegacyColumns(company, {
       user,
       source: user ? 'validate-editor' : 'company-column-sync',
@@ -194,15 +203,48 @@ class CompanyService {
     return company
   }
 
-  async updateCompanyTags(wikidataId: string, tags: string[]) {
+  async updateCompanyWikidataIdentifier(
+    companyId: string,
+    newWikidataId: string,
+    user?: User
+  ): Promise<void> {
+    if (!newWikidataId.trim()) return
+
+    const existing = await prisma.company.findFirstOrThrow({
+      where: { id: companyId },
+    })
+    if (existing.wikidataId === newWikidataId) return
+
+    const conflict = await prisma.company.findFirst({
+      where: { wikidataId: newWikidataId, NOT: { id: companyId } },
+    })
+    if (conflict) {
+      throw Object.assign(
+        new Error(`Wikidata ID ${newWikidataId} is already in use`),
+        { code: 409 }
+      )
+    }
+
+    const updated = await prisma.company.update({
+      where: { id: companyId },
+      data: { wikidataId: newWikidataId },
+    })
+
+    await companyIdentifierService.syncFromLegacyColumns(updated, {
+      user,
+      source: user ? 'validate-editor' : 'wikidata-update',
+    })
+  }
+
+  async updateCompanyTags(companyId: string, tags: string[]) {
     return prisma.company.update({
-      where: { wikidataId },
+      where: { id: companyId },
       data: { tags },
     })
   }
 
-  async deleteCompany(wikidataId: string) {
-    return prisma.company.delete({ where: { wikidataId } })
+  async deleteCompany(companyId: string) {
+    return prisma.company.delete({ where: { id: companyId } })
   }
 
   async upsertEconomy({
@@ -248,7 +290,7 @@ class CompanyService {
         text: description.text,
         language: description.language,
         company: {
-          connect: { wikidataId: companyId },
+          connect: { id: companyId },
         },
         metadata: {
           connect: { id: metadataId },
