@@ -37,29 +37,31 @@ class CompanyIdentifierService {
       return existing
     }
 
-    const metadataRecord = await prisma.metadata.create({
-      data: {
-        comment: metadata?.comment,
-        source: metadata?.source,
-        user: { connect: { id: user.id } },
-        verifiedBy: verified ? { connect: { id: user.id } } : undefined,
-      },
-    })
+    return prisma.$transaction(async (transaction) => {
+      const metadataRecord = await transaction.metadata.create({
+        data: {
+          comment: metadata?.comment,
+          source: metadata?.source,
+          user: { connect: { id: user.id } },
+          verifiedBy: verified ? { connect: { id: user.id } } : undefined,
+        },
+      })
 
-    return prisma.companyIdentifier.upsert({
-      where: {
-        companyId_type: { companyId, type },
-      },
-      create: {
-        companyId,
-        type,
-        value: trimmedValue,
-        metadata: { connect: { id: metadataRecord.id } },
-      },
-      update: {
-        value: trimmedValue,
-        metadata: { connect: { id: metadataRecord.id } },
-      },
+      return transaction.companyIdentifier.upsert({
+        where: {
+          companyId_type: { companyId, type },
+        },
+        create: {
+          companyId,
+          type,
+          value: trimmedValue,
+          metadata: { connect: { id: metadataRecord.id } },
+        },
+        update: {
+          value: trimmedValue,
+          metadata: { connect: { id: metadataRecord.id } },
+        },
+      })
     })
   }
 

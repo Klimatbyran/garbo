@@ -3,6 +3,7 @@ import { prisma } from '../../lib/prisma'
 import { PostGoalBody, PostGoalsBody } from '../types'
 
 class GoalService {
+  // TODO(Klimatbyran/garbo#1333): createMetadata + goal.create should run in one $transaction.
   async createGoals(
     companyId: string,
     goals: PostGoalsBody['goals'],

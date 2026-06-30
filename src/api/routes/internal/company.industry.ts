@@ -39,6 +39,7 @@ export async function companyIndustryRoutes(app: FastifyInstance) {
       } = request.body
       const { wikidataId } = request.params
 
+      // TODO(Klimatbyran/garbo#1333): wrap createMetadata + industryService.upsertIndustry in $transaction.
       const createdMetadata = await metadataService.createMetadata({
         metadata,
         user: request.user,

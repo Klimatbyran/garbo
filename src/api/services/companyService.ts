@@ -195,7 +195,6 @@ class CompanyService {
       },
       update: { ...data },
     })
-
     await companyIdentifierService.syncFromLegacyColumns(company, {
       user,
       source: user ? 'validate-editor' : 'company-column-sync',
@@ -532,6 +531,7 @@ class CompanyService {
 export const companyService = new CompanyService()
 
 export function transformMetadata(data: any): any {
+  // TODO(Klimatbyran/garbo#1334): metadata arrays collapse to null; Zod schemas still require MetadataSchema.
   if (Array.isArray(data)) {
     return data.map((item) => transformMetadata(item))
   } else if (data && typeof data === 'object') {

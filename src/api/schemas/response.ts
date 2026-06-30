@@ -61,7 +61,7 @@ export const CompanyIdentifierSchema = z.object({
   id: z.string(),
   type: CompanyIdentifierTypeSchema,
   value: z.string(),
-  metadata: MetadataSchema,
+  metadata: MetadataSchema.nullable(),
 })
 
 const CompanyBaseSchema = z.object({
