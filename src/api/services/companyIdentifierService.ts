@@ -66,29 +66,34 @@ class CompanyIdentifierService {
   }
 
   async syncFromLegacyColumns(
-    company: { id: string; wikidataId: string; lei?: string | null },
+    company: { id: string; wikidataId: string | null; lei?: string | null },
     options?: {
       user?: User
       source?: string
       verified?: boolean
+      wikidataMetadata?: { source?: string; comment?: string }
+      leiMetadata?: { source?: string; comment?: string }
     }
   ) {
     const user =
       options?.user ??
       (await getOrCreateServiceBotUser(GARBO_SERVICE_CLIENT_ID))
-    const source = options?.source ?? 'company-column-sync'
+    const defaultSource = options?.source ?? 'company-column-sync'
 
     const synced: Array<{ id: string; value?: string }> = []
 
-    if (company.wikidataId.trim()) {
+    if (company.wikidataId?.trim()) {
       const row = await this.upsertIdentifier({
         companyId: company.id,
         type: 'WIKIDATA',
         value: company.wikidataId,
         user,
         metadata: {
-          source,
-          comment: 'Synced from Company.wikidataId',
+          source:
+            options?.wikidataMetadata?.source ?? defaultSource,
+          comment:
+            options?.wikidataMetadata?.comment ??
+            'Synced from Company.wikidataId',
         },
         verified: options?.verified ?? false,
         skipMetadataIfUnchanged: true,
@@ -104,8 +109,9 @@ class CompanyIdentifierService {
         value: lei,
         user,
         metadata: {
-          source,
-          comment: 'Synced from Company.lei',
+          source: options?.leiMetadata?.source ?? defaultSource,
+          comment:
+            options?.leiMetadata?.comment ?? 'Synced from Company.lei',
         },
         verified: options?.verified ?? false,
         skipMetadataIfUnchanged: true,
