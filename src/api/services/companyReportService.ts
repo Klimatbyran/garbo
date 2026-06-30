@@ -275,10 +275,7 @@ class CompanyReportService {
   ): Promise<{ companyReportId: string; inferred: boolean }> {
     const explicitId = options?.companyReportId?.trim()
     if (explicitId) {
-      await this.assertCompanyReportBelongsToCompany(
-        explicitId,
-        company.id
-      )
+      await this.assertCompanyReportBelongsToCompany(explicitId, company.id)
       return { companyReportId: explicitId, inferred: false }
     }
 
@@ -466,10 +463,7 @@ class CompanyReportService {
       select: { id: true, wikidataId: true },
     })
 
-    await this.assertCompanyReportBelongsToCompany(
-      companyReportId,
-      company.id
-    )
+    await this.assertCompanyReportBelongsToCompany(companyReportId, company.id)
 
     const report = await prisma.report.findUnique({
       where: { id: registryReportId },
