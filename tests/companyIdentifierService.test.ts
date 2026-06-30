@@ -11,6 +11,10 @@ const prismaMock = {
     findUnique: jest.fn<() => Promise<unknown>>(),
     upsert: jest.fn<() => Promise<unknown>>(),
   },
+  $transaction: jest.fn(
+    async (callback: (client: typeof prismaMock) => Promise<unknown>) =>
+      callback(prismaMock)
+  ),
 }
 
 jest.unstable_mockModule('../src/lib/prisma', () => ({
@@ -51,6 +55,7 @@ describe('companyIdentifierService', () => {
     })
 
     expect(prismaMock.metadata.create).toHaveBeenCalled()
+    expect(prismaMock.$transaction).toHaveBeenCalled()
     expect(prismaMock.companyIdentifier.upsert).toHaveBeenCalledWith(
       expect.objectContaining({
         where: { companyId_type: { companyId: 'company-1', type: 'WIKIDATA' } },
