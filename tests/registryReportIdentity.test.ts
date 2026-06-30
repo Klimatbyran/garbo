@@ -2,6 +2,7 @@ import {
   buildReportMatchConditions,
   copyMissingFields,
   linkReportRowsByPdfBasename,
+  mergeCompanyNameFromPipeline,
   parseReportYearFromUrl,
   pdfBasenameFromUrl,
   pdfBasenamesMatchForIdentityLink,
@@ -301,5 +302,36 @@ describe('registryReportIdentity', () => {
     const patch = copyMissingFields(rowToKeep, rowToDelete)
     expect(patch.sourceUrl).toBe('https://src')
     expect(patch.url).toBe('https://human/page')
+  })
+
+  describe('mergeCompanyNameFromPipeline', () => {
+    it('replaces placeholder or missing names with the pipeline name', () => {
+      expect(mergeCompanyNameFromPipeline('Unknown', 'Acme Corp')).toBe(
+        'Acme Corp'
+      )
+      expect(mergeCompanyNameFromPipeline(null, 'Acme Corp')).toBe('Acme Corp')
+      expect(mergeCompanyNameFromPipeline('unknown', 'Acme Corp')).toBe(
+        'Acme Corp'
+      )
+    })
+
+    it('keeps a real existing name over the pipeline input', () => {
+      expect(mergeCompanyNameFromPipeline('Acme', 'New Name')).toBe('Acme')
+    })
+  })
+
+  it('copyMissingFields replaces placeholder company names', () => {
+    const rowToKeep = row({
+      id: 'a',
+      url: 'https://storage.googleapis.com/garbo/x.pdf',
+      companyName: 'Unknown',
+    })
+    const rowToDelete = row({
+      id: 'b',
+      url: 'https://human/page',
+      companyName: 'Acme Corp',
+    })
+    const patch = copyMissingFields(rowToKeep, rowToDelete)
+    expect(patch.companyName).toBe('Acme Corp')
   })
 })

@@ -68,6 +68,7 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
           url,
           logoUrl: logoUrl ?? undefined,
           lei,
+          user: request.user,
         })
         await Promise.all(
           (descriptions ?? []).map(async (description) => {
