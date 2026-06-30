@@ -89,8 +89,7 @@ class CompanyIdentifierService {
         value: company.wikidataId,
         user,
         metadata: {
-          source:
-            options?.wikidataMetadata?.source ?? defaultSource,
+          source: options?.wikidataMetadata?.source ?? defaultSource,
           comment:
             options?.wikidataMetadata?.comment ??
             'Synced from Company.wikidataId',
@@ -110,8 +109,7 @@ class CompanyIdentifierService {
         user,
         metadata: {
           source: options?.leiMetadata?.source ?? defaultSource,
-          comment:
-            options?.leiMetadata?.comment ?? 'Synced from Company.lei',
+          comment: options?.leiMetadata?.comment ?? 'Synced from Company.lei',
         },
         verified: options?.verified ?? false,
         skipMetadataIfUnchanged: true,

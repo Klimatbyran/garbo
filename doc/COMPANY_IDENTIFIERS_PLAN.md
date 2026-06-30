@@ -69,13 +69,13 @@ Keep `Company.wikidataId` and `Company.lei` during transition. **Dual-write**: i
 
 ### Verification
 
-| State                                    | `metadata.verifiedBy`                   | Typical `source`                          |
-| ---------------------------------------- | --------------------------------------- | ----------------------------------------- |
-| Pipeline guess, not reviewed             | `null`                                  | `wikidata-search`, `override-wikidata-id` |
-| Auto-matched production DB               | optional bot / `null`                   | `production-database`                     |
-| Human approved in Validate               | approver user id                        | from approval                             |
-| Manual editor save with `verified: true` | editor user id                          | `validate-editor`                         |
-| Backfill from legacy columns             | `null`                                  | `legacy-company-wikidata` / `legacy-company-lei` |
+| State                                    | `metadata.verifiedBy` | Typical `source`                                 |
+| ---------------------------------------- | --------------------- | ------------------------------------------------ |
+| Pipeline guess, not reviewed             | `null`                | `wikidata-search`, `override-wikidata-id`        |
+| Auto-matched production DB               | optional bot / `null` | `production-database`                            |
+| Human approved in Validate               | approver user id      | from approval                                    |
+| Manual editor save with `verified: true` | editor user id        | `validate-editor`                                |
+| Backfill from legacy columns             | `null`                | `legacy-company-wikidata` / `legacy-company-lei` |
 
 Query “is Wikidata verified?” → `CompanyIdentifier` where `type = WIKIDATA` and latest metadata has non-null `verifiedBy`.
 
