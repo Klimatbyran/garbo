@@ -1,4 +1,11 @@
-import { jest, describe, it, expect, beforeEach, beforeAll } from '@jest/globals'
+import {
+  jest,
+  describe,
+  it,
+  expect,
+  beforeEach,
+  beforeAll,
+} from '@jest/globals'
 
 const mockApiFetch = jest.fn<(...args: unknown[]) => Promise<unknown>>()
 
@@ -9,7 +16,9 @@ jest.unstable_mockModule('./api', () => ({
 let resolveOrCreatePipelineCompanyId: typeof import('./pipelineCompanyResolve').resolveOrCreatePipelineCompanyId
 
 beforeAll(async () => {
-  ;({ resolveOrCreatePipelineCompanyId } = await import('./pipelineCompanyResolve'))
+  ;({ resolveOrCreatePipelineCompanyId } = await import(
+    './pipelineCompanyResolve'
+  ))
 })
 
 describe('resolveOrCreatePipelineCompanyId', () => {
@@ -28,7 +37,10 @@ describe('resolveOrCreatePipelineCompanyId', () => {
 
   it('resolves by wikidata before creating', async () => {
     mockApiFetch.mockImplementation(async (path: unknown) => {
-      if (typeof path === 'string' && path.includes('/pipeline/companies/Q123')) {
+      if (
+        typeof path === 'string' &&
+        path.includes('/pipeline/companies/Q123')
+      ) {
         return { id: 'from-wikidata' }
       }
       throw new Error(`unexpected path ${String(path)}`)
@@ -43,7 +55,10 @@ describe('resolveOrCreatePipelineCompanyId', () => {
 
   it('resolves by exact name match when a single hit matches', async () => {
     mockApiFetch.mockImplementation(async (path: unknown) => {
-      if (typeof path === 'string' && path.includes('/pipeline/companies/search')) {
+      if (
+        typeof path === 'string' &&
+        path.includes('/pipeline/companies/search')
+      ) {
         return [
           { id: 'other', name: 'Other Co' },
           { id: 'exact', name: 'Acme AB' },
@@ -57,15 +72,20 @@ describe('resolveOrCreatePipelineCompanyId', () => {
   })
 
   it('creates a company when no match is found', async () => {
-    mockApiFetch.mockImplementation(async (path: unknown, init?: { body?: unknown }) => {
-      if (typeof path === 'string' && path.includes('/pipeline/companies/search')) {
-        return []
+    mockApiFetch.mockImplementation(
+      async (path: unknown, init?: { body?: unknown }) => {
+        if (
+          typeof path === 'string' &&
+          path.includes('/pipeline/companies/search')
+        ) {
+          return []
+        }
+        if (path === '/companies/' && init?.body) {
+          return { id: 'new-company' }
+        }
+        throw new Error(`unexpected path ${String(path)}`)
       }
-      if (path === '/companies/' && init?.body) {
-        return { id: 'new-company' }
-      }
-      throw new Error(`unexpected path ${String(path)}`)
-    })
+    )
 
     const result = await resolveOrCreatePipelineCompanyId({}, 'Brand New Co')
     expect(result).toEqual({ companyId: 'new-company', method: 'created' })

@@ -18,11 +18,7 @@ const diffGoals = new DiffWorker<DiffGoalsJob>(
   async (job) => {
     const { wikidata, companyName, existingCompany, goals } = job.data
     if (job.isDataApproved()) {
-      await job.enqueueSaveToAPI(
-        'goals',
-        companyName,
-        job.getApprovedBody()
-      )
+      await job.enqueueSaveToAPI('goals', companyName, job.getApprovedBody())
       return
     }
 

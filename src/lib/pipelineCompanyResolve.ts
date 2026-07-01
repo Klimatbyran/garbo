@@ -38,9 +38,9 @@ export async function resolveOrCreatePipelineCompanyId(
 
   const wikidataId = jobData.wikidata?.node?.trim()
   if (wikidataId) {
-    const byWikidata = await apiFetch(pipelineCompanyReadPath(wikidataId)).catch(
-      () => null
-    )
+    const byWikidata = await apiFetch(
+      pipelineCompanyReadPath(wikidataId)
+    ).catch(() => null)
     if (byWikidata?.id) {
       return { companyId: byWikidata.id as string, method: 'wikidata' }
     }
@@ -80,9 +80,9 @@ type CompanyWithIdentifiers = {
 export async function hasVerifiedWikidataIdentifier(
   companyId: string
 ): Promise<boolean> {
-  const company = (await apiFetch(
-    pipelineCompanyReadPath(companyId)
-  ).catch(() => null)) as CompanyWithIdentifiers | null
+  const company = (await apiFetch(pipelineCompanyReadPath(companyId)).catch(
+    () => null
+  )) as CompanyWithIdentifiers | null
   if (!company?.identifiers?.length) return false
 
   const wikidataRow = company.identifiers.find((row) => row.type === 'WIKIDATA')

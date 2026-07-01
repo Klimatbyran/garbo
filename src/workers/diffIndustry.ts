@@ -18,11 +18,7 @@ const diffIndustry = new DiffWorker<DiffIndustryJob>(
     const { wikidata, companyName, existingCompany, industry } = job.data
 
     if (job.isDataApproved()) {
-      await job.enqueueSaveToAPI(
-        'industry',
-        companyName,
-        job.getApprovedBody()
-      )
+      await job.enqueueSaveToAPI('industry', companyName, job.getApprovedBody())
       return
     }
 

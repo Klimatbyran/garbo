@@ -113,7 +113,9 @@ export async function pipelineCompanyReadRoutes(app: FastifyInstance) {
       const companies = await companyService.getAllCompaniesBySearchTerm(q, {
         onePeriodPerDataYear: true,
       })
-      reply.send(companies.map((company) => ({ id: company.id, name: company.name })))
+      reply.send(
+        companies.map((company) => ({ id: company.id, name: company.name }))
+      )
     }
   )
 
@@ -132,7 +134,10 @@ export async function pipelineCompanyReadRoutes(app: FastifyInstance) {
         },
       },
     },
-    async (request: FastifyRequest<{ Params: CompanyIdentifierParams }>, reply) => {
+    async (
+      request: FastifyRequest<{ Params: CompanyIdentifierParams }>,
+      reply
+    ) => {
       const { wikidataId: identifier } = request.params
       const company = await companyService.getCompanyWithMetadata(identifier)
       reply.send({

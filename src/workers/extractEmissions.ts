@@ -68,8 +68,7 @@ const extractEmissions = new PipelineWorker<ExtractEmissionsJob>(
       (job.data as any)?.wikidata ??
       (entries as any)?.value?.wikidata ??
       (entries as any)?.wikidata
-    const fiscalYear =
-      fiscalYearFromChildren ?? (job.data as any)?.fiscalYear
+    const fiscalYear = fiscalYearFromChildren ?? (job.data as any)?.fiscalYear
 
     const base = {
       name: companyName,

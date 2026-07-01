@@ -1,4 +1,7 @@
-import { companyReportIdFromJobData, companyIdFromJobData } from '../src/lib/reportRunPersistence'
+import {
+  companyReportIdFromJobData,
+  companyIdFromJobData,
+} from '../src/lib/reportRunPersistence'
 
 describe('companyReportIdFromJobData', () => {
   it('returns trimmed companyReportId from job data', () => {

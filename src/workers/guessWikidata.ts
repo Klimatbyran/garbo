@@ -137,7 +137,9 @@ const guessWikidata = new PipelineWorker<GuessWikidataJob>(
 
     // If approved, process the wikidata (takes precedence - don't override approved data)
     if (job.isDataApproved()) {
-      const approvedWikidata = job.getApprovedBody().wikidata as Wikidata | undefined
+      const approvedWikidata = job.getApprovedBody().wikidata as
+        | Wikidata
+        | undefined
       if (!approvedWikidata) {
         throw new Error('Missing approved wikidata: ' + approvedWikidata)
       }

@@ -160,7 +160,10 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
             request.user,
             { verified, metadata, verifiedByUserId }
           )
-        } else if (bodyWikidataId && (metadata || verified || verifiedByUserId)) {
+        } else if (
+          bodyWikidataId &&
+          (metadata || verified || verifiedByUserId)
+        ) {
           await companyService.updateCompanyWikidataIdentifier(
             existing.id,
             bodyWikidataId,

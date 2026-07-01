@@ -145,22 +145,22 @@ No response shape change. `PartnerCompanyBase` keeps `id`, `wikidataId`, `lei` p
 
 **Name source for matching (unchanged from Phase 3):** LLM extraction from report markdown in `precheck`, or `job.data.companyName` when set by pipeline-api / staff. Wikidata labels are **not** used for name matching; Wikidata is a separate resolution path via `job.data.wikidata.node` when present on the job (typical on re-runs).
 
-| Step | Work                                                                                                                                                                                                 |
-| ---- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 3.5.1 | **Ambiguity heuristics** — pure function on fuzzy search candidates + extracted name: multiple exact matches; multiple fuzzy hits + short/generic name (e.g. one token or ≤4 chars); optional shared-prefix rule for ICA-style cases |
+| Step  | Work                                                                                                                                                                                                                                           |
+| ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 3.5.1 | **Ambiguity heuristics** — pure function on fuzzy search candidates + extracted name: multiple exact matches; multiple fuzzy hits + short/generic name (e.g. one token or ≤4 chars); optional shared-prefix rule for ICA-style cases           |
 | 3.5.2 | **`precheck` approval gate** — when ambiguous, `requestApproval('companyLink', { extractedName, candidates })`, `moveToDelayed`; on approve read `companyId` (or explicit “create new”) from `approval.data.newValue` before spawning children |
-| 3.5.3 | **Validate `CompanyLinkApprovalDisplay`** — radio list of candidates (`id`, `name`, `wikidataId` if any) plus “Create new company”; mirror `WikidataApprovalDisplay` + `useJobRerunActions` approve/rerun pattern |
-| 3.5.4 | **Observability (optional, ~2–3 h)** — log/metric when candidates exist but no single exact match (measures how often the gate would fire without blocking yet)                                      |
-| 3.5.5 | **Re-run contract** — document/enforce pipeline-api passing `companyId` or `wikidataId` when re-processing a known company (most reliable path; name-only remains fallback)                            |
-| 3.5.6 | **Tests** — unit tests for heuristics; precheck approval resume path; Validate parser for `approval.type === 'companyLink'`                                                                          |
+| 3.5.3 | **Validate `CompanyLinkApprovalDisplay`** — radio list of candidates (`id`, `name`, `wikidataId` if any) plus “Create new company”; mirror `WikidataApprovalDisplay` + `useJobRerunActions` approve/rerun pattern                              |
+| 3.5.4 | **Observability (optional, ~2–3 h)** — log/metric when candidates exist but no single exact match (measures how often the gate would fire without blocking yet)                                                                                |
+| 3.5.5 | **Re-run contract** — document/enforce pipeline-api passing `companyId` or `wikidataId` when re-processing a known company (most reliable path; name-only remains fallback)                                                                    |
+| 3.5.6 | **Tests** — unit tests for heuristics; precheck approval resume path; Validate parser for `approval.type === 'companyLink'`                                                                                                                    |
 
 **Repos / changes:**
 
-| Repo | Work |
-| ---- | ---- |
-| **garbo** | `pipelineCompanyResolve.ts`, `precheck.ts`, tests |
-| **validate** | `CompanyLinkApprovalDisplay`, `job-specific-data-parsing.ts`, `JobSpecificDataView`, i18n |
-| **pipeline-api** | No schema changes expected; existing `/rerun` deep-merge of `approval` is sufficient |
+| Repo             | Work                                                                                      |
+| ---------------- | ----------------------------------------------------------------------------------------- |
+| **garbo**        | `pipelineCompanyResolve.ts`, `precheck.ts`, tests                                         |
+| **validate**     | `CompanyLinkApprovalDisplay`, `job-specific-data-parsing.ts`, `JobSpecificDataView`, i18n |
+| **pipeline-api** | No schema changes expected; existing `/rerun` deep-merge of `approval` is sufficient      |
 
 **Trigger policy (recommended v1):** ask human only when `candidates.length > 1` and there is not exactly one exact normalized name match. Most runs never hit the gate.
 
