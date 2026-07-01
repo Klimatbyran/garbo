@@ -250,6 +250,7 @@ class CompanyService {
     options?: {
       verified?: boolean
       metadata?: { source?: string; comment?: string }
+      verifiedByUserId?: string
     }
   ): Promise<void> {
     if (!newWikidataId.trim()) return
@@ -276,14 +277,21 @@ class CompanyService {
       })
     }
 
-    const botOrUser =
-      user ?? (await getOrCreateServiceBotUser(GARBO_SERVICE_CLIENT_ID))
+    let verifier: User
+    if (options?.verifiedByUserId) {
+      verifier = await prisma.user.findFirstOrThrow({
+        where: { id: options.verifiedByUserId },
+      })
+    } else {
+      verifier =
+        user ?? (await getOrCreateServiceBotUser(GARBO_SERVICE_CLIENT_ID))
+    }
 
     await companyIdentifierService.upsertIdentifier({
       companyId,
       type: 'WIKIDATA',
       value: newWikidataId,
-      user: botOrUser,
+      user: verifier,
       metadata: options?.metadata ?? {
         source: user ? 'validate-editor' : 'company-column-sync',
         comment: user

@@ -13,6 +13,8 @@ const createMetadataSchema = z.object({
     })
     .optional(),
   verified: z.boolean().optional(),
+  /** Staff user id when a human approved Wikidata in Validate (pipeline worker JWT). */
+  verifiedByUserId: z.string().uuid().optional(),
 })
 
 export const descriptionSchema = z.object({

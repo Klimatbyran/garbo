@@ -97,20 +97,25 @@ const checkDB = new PipelineWorker(
     job.log(existingCompany)
 
     if (!existingCompany) {
-      job.sendMessage(
-        `🤖 No previous data found for ${companyName} (${companyId}). Creating..`
+      job.log(
+        `Company ${companyId} not returned from pipeline read; syncing name (should exist from precheck)`
       )
-      await apiFetch(companyMutationPath(companyId), {
+      const synced = await apiFetch(companyMutationPath(companyId), {
         body: { name: companyName },
       })
-
+      if (synced === null) {
+        throw new Error(
+          `Company ${companyId} not found after precheck resolution — cannot continue pipeline`
+        )
+      }
       await job.sendMessage(
-        `✅ The company '${companyName}' has been created! See the result here: ${getCompanyURL(companyName, companyId, wikidata?.node)}`
+        `✅ Synced company '${companyName}' (${companyId}). See: ${getCompanyURL(companyName, companyId, wikidata?.node)}`
       )
     } else {
       job.log(`✅ The company '${companyName}' was found in the database.`)
+      const leiLabel = existingCompany.lei ?? 'none'
       await job.sendMessage(
-        `✅ The company '${companyName}' was found in the database, with LEI number '${existingCompany.lei} || null'`
+        `✅ The company '${companyName}' was found in the database, with LEI number '${leiLabel}'`
       )
     }
 
@@ -143,6 +148,10 @@ const checkDB = new PipelineWorker(
           `Early registry upsert failed: ${error?.message ?? String(error)}`
         )
       }
+    } else if (!wikidata?.node) {
+      job.log(
+        'Skipping early registry upsert: no Wikidata on job yet (guessWikidata runs in parallel; registry may be linked on a later save)'
+      )
     }
 
     const base = {

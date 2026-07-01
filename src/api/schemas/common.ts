@@ -33,6 +33,16 @@ export const companyInitiativeParamsSchema = z.object({
   initiativeId: z.string(),
 })
 
+/** Lightweight pipeline company search hit (id + name only). */
+export const pipelineCompanySearchHitSchema = z.object({
+  id: companyIdSchema,
+  name: z.string(),
+})
+
+export const pipelineCompanySearchListSchema = z.array(
+  pipelineCompanySearchHitSchema
+)
+
 export const companySearchQuerySchema = z.object({ q: z.string() })
 
 export const garboEntityIdSchema = z.object({ id: z.string() })

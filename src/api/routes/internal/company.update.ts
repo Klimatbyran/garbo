@@ -146,6 +146,7 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
         lei,
         metadata,
         verified,
+        verifiedByUserId,
       } = request.body
       if (!(await validateTags(tags, reply))) return
 
@@ -157,14 +158,14 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
             existing.id,
             bodyWikidataId,
             request.user,
-            { verified, metadata }
+            { verified, metadata, verifiedByUserId }
           )
-        } else if (bodyWikidataId && (metadata || verified)) {
+        } else if (bodyWikidataId && (metadata || verified || verifiedByUserId)) {
           await companyService.updateCompanyWikidataIdentifier(
             existing.id,
             bodyWikidataId,
             request.user,
-            { verified, metadata }
+            { verified, metadata, verifiedByUserId }
           )
         }
 

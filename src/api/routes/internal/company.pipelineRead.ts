@@ -9,6 +9,7 @@ import {
   InternalCompanyDetails,
   companyIdentifierParamSchema,
   companySearchQuerySchema,
+  pipelineCompanySearchListSchema,
 } from '../../schemas'
 import { getTags } from '../../../config/openapi'
 import { CompanyIdentifierParams, CompanySearchQuery } from '../../types'
@@ -100,7 +101,7 @@ export async function pipelineCompanyReadRoutes(app: FastifyInstance) {
         tags: getTags('Internal'),
         querystring: companySearchQuerySchema,
         response: {
-          200: CompanyList,
+          200: pipelineCompanySearchListSchema,
         },
       },
     },

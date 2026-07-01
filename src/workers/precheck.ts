@@ -7,6 +7,7 @@ import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { z } from 'zod'
 import { QUEUE_NAMES } from '../queues'
 import { resolveOrCreatePipelineCompanyId } from '../lib/pipelineCompanyResolve'
+import { EXTRACT_EMISSIONS_CHILD_QUEUES } from './precheckFlow'
 
 class PrecheckJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
@@ -28,10 +29,13 @@ async function ensurePipelineCompany(
   job: PrecheckJob,
   companyName: string
 ): Promise<string> {
-  const companyId = await resolveOrCreatePipelineCompanyId(job.data, companyName)
+  const { companyId, method } = await resolveOrCreatePipelineCompanyId(
+    job.data,
+    companyName
+  )
   if (companyId !== job.data.companyId) {
     await job.updateData({ ...job.data, companyId, companyName })
-    job.log(`Resolved pipeline company id=${companyId} name=${companyName}`)
+    job.log(`Resolved pipeline company id=${companyId} method=${method}`)
   }
   return companyId
 }
@@ -130,7 +134,7 @@ const precheck = new PipelineWorker(
           children: [
             {
               ...base,
-              queueName: QUEUE_NAMES.FOLLOW_UP_FISCAL_YEAR,
+              queueName: EXTRACT_EMISSIONS_CHILD_QUEUES[0],
               name: 'fiscalYear ' + companyName,
             },
           ],

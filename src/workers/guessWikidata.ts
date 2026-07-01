@@ -105,6 +105,7 @@ async function persistApprovedWikidata(
   options: {
     verified?: boolean
     metadata?: { source: string; comment: string }
+    verifiedByUserId?: string
   }
 ) {
   const companyId = job.data.companyId
@@ -118,6 +119,9 @@ async function persistApprovedWikidata(
       wikidataId: wikidata.node,
       metadata: options.metadata,
       verified: options.verified ?? false,
+      ...(options.verifiedByUserId && {
+        verifiedByUserId: options.verifiedByUserId,
+      }),
     },
   })
 }
@@ -141,8 +145,10 @@ const guessWikidata = new PipelineWorker<GuessWikidataJob>(
       const metadata = job.data.approval?.metadata
 
       await persistApprovedWikidata(job, companyName, approvedWikidata, {
+        // verified false when job autoApprove is on; human approver id comes from Validate rerun.
         verified: !job.data.autoApprove,
         metadata,
+        verifiedByUserId: job.data.approval?.verifiedByUserId,
       })
 
       job.editMessage({

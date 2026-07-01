@@ -9,6 +9,17 @@ type PipelineCompanyRef = {
 
 type CompanySearchHit = { id: string; name: string }
 
+export type CompanyResolutionMethod =
+  | 'job_data'
+  | 'wikidata'
+  | 'exact_name'
+  | 'created'
+
+export type CompanyResolution = {
+  companyId: string
+  method: CompanyResolutionMethod
+}
+
 function normalizeCompanyName(name: string): string {
   return name.trim().toLocaleLowerCase('sv-SE')
 }
@@ -20,15 +31,19 @@ function normalizeCompanyName(name: string): string {
 export async function resolveOrCreatePipelineCompanyId(
   jobData: PipelineCompanyRef,
   companyName: string
-): Promise<string> {
-  if (jobData.companyId?.trim()) return jobData.companyId.trim()
+): Promise<CompanyResolution> {
+  if (jobData.companyId?.trim()) {
+    return { companyId: jobData.companyId.trim(), method: 'job_data' }
+  }
 
   const wikidataId = jobData.wikidata?.node?.trim()
   if (wikidataId) {
     const byWikidata = await apiFetch(pipelineCompanyReadPath(wikidataId)).catch(
       () => null
     )
-    if (byWikidata?.id) return byWikidata.id as string
+    if (byWikidata?.id) {
+      return { companyId: byWikidata.id as string, method: 'wikidata' }
+    }
   }
 
   const searchHits = (await apiFetch(
@@ -40,7 +55,9 @@ export async function resolveOrCreatePipelineCompanyId(
     const exactMatches = searchHits.filter(
       (hit) => hit.name && normalizeCompanyName(hit.name) === target
     )
-    if (exactMatches.length === 1) return exactMatches[0].id
+    if (exactMatches.length === 1) {
+      return { companyId: exactMatches[0].id, method: 'exact_name' }
+    }
   }
 
   const created = await apiFetch('/companies/', {
@@ -49,7 +66,7 @@ export async function resolveOrCreatePipelineCompanyId(
   if (!created?.id) {
     throw new Error('Company create did not return id')
   }
-  return created.id as string
+  return { companyId: created.id as string, method: 'created' }
 }
 
 type CompanyWithIdentifiers = {

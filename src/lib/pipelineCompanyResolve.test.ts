@@ -18,11 +18,11 @@ describe('resolveOrCreatePipelineCompanyId', () => {
   })
 
   it('returns job.data.companyId when already set', async () => {
-    const id = await resolveOrCreatePipelineCompanyId(
+    const result = await resolveOrCreatePipelineCompanyId(
       { companyId: 'existing-id' },
       'Acme AB'
     )
-    expect(id).toBe('existing-id')
+    expect(result).toEqual({ companyId: 'existing-id', method: 'job_data' })
     expect(mockApiFetch).not.toHaveBeenCalled()
   })
 
@@ -34,11 +34,11 @@ describe('resolveOrCreatePipelineCompanyId', () => {
       throw new Error(`unexpected path ${String(path)}`)
     })
 
-    const id = await resolveOrCreatePipelineCompanyId(
+    const result = await resolveOrCreatePipelineCompanyId(
       { wikidata: { node: 'Q123' } },
       'Acme AB'
     )
-    expect(id).toBe('from-wikidata')
+    expect(result).toEqual({ companyId: 'from-wikidata', method: 'wikidata' })
   })
 
   it('resolves by exact name match when a single hit matches', async () => {
@@ -52,8 +52,8 @@ describe('resolveOrCreatePipelineCompanyId', () => {
       throw new Error(`unexpected path ${String(path)}`)
     })
 
-    const id = await resolveOrCreatePipelineCompanyId({}, 'Acme AB')
-    expect(id).toBe('exact')
+    const result = await resolveOrCreatePipelineCompanyId({}, 'Acme AB')
+    expect(result).toEqual({ companyId: 'exact', method: 'exact_name' })
   })
 
   it('creates a company when no match is found', async () => {
@@ -67,7 +67,7 @@ describe('resolveOrCreatePipelineCompanyId', () => {
       throw new Error(`unexpected path ${String(path)}`)
     })
 
-    const id = await resolveOrCreatePipelineCompanyId({}, 'Brand New Co')
-    expect(id).toBe('new-company')
+    const result = await resolveOrCreatePipelineCompanyId({}, 'Brand New Co')
+    expect(result).toEqual({ companyId: 'new-company', method: 'created' })
   })
 })
