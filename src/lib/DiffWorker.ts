@@ -49,13 +49,13 @@ export interface ChangeDescription {
 export class DiffJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
     companyName: string
-    wikidata: { node: string }
+    companyId: string
+    wikidata?: { node: string }
   }
 
   enqueueSaveToAPI: (
     apiSubEndpoint: string,
     companyName: string,
-    wikidata: { node: string },
     body: Record<string, unknown>
   ) => Promise<void>
 
@@ -72,17 +72,11 @@ export class DiffJob extends PipelineJob {
 }
 
 function addCustomMethods(job: DiffJob) {
-  job.enqueueSaveToAPI = async (
-    apiSubEndpoint,
-    companyName,
-    wikidata,
-    body
-  ) => {
+  job.enqueueSaveToAPI = async (apiSubEndpoint, companyName, body) => {
     const name = companyName + ' ' + apiSubEndpoint
     const data = {
       ...job.data,
       companyName,
-      wikidata,
       body,
       apiSubEndpoint,
     }
@@ -120,25 +114,21 @@ function addCustomMethods(job: DiffJob) {
           'Forcing save to API: new report PDF identity is not in the database yet.'
         )
       }
-      await job.enqueueSaveToAPI(
-        apiSubEndpoint,
-        job.data.companyName,
-        job.data.wikidata,
-        {
-          ...change.newValue,
-          ...options?.saveBodyExtras,
-          metadata: defaultMetadata(
-            canonicalPublicReportUrl(
-              job.data as { url: string; sourceUrl?: string }
-            )
-          ),
-        }
-      )
+      await job.enqueueSaveToAPI(apiSubEndpoint, job.data.companyName, {
+        ...change.newValue,
+        ...options?.saveBodyExtras,
+        metadata: defaultMetadata(
+          canonicalPublicReportUrl(
+            job.data as { url: string; sourceUrl?: string }
+          )
+        ),
+      })
     }
   }
 
   return job
 }
+
 export class DiffWorker<T extends DiffJob> extends PipelineWorker<DiffJob> {
   queue: Queue
   constructor(

@@ -13,13 +13,13 @@ import { reportingPeriodService } from '../../services/reportingPeriodService'
 import {
   getErrorSchemas,
   postReportingPeriodsSchema,
-  wikidataIdParamSchema,
+  companyIdParamSchema,
   okResponseSchema,
   ReportingPeriodYearsSchema,
 } from '../../schemas'
 import { getTags } from '../../../config/openapi'
 import {
-  WikidataIdParams,
+  CompanyIdParams,
   PostReportingPeriodsBody,
   DefaultEmissions,
 } from '../../types'
@@ -162,14 +162,14 @@ function buildScope2Promise(
 
 export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
   app.post(
-    '/:wikidataId/reporting-periods',
+    '/:id/reporting-periods',
     {
       schema: {
         summary: 'Create or update reporting periods',
         description:
           'Create or update reporting periods for a specific company. This is used to update emissions and economy data.',
         tags: getTags('ReportingPeriods'),
-        params: wikidataIdParamSchema,
+        params: companyIdParamSchema,
         body: postReportingPeriodsSchema,
         response: {
           200: okResponseSchema,
@@ -179,12 +179,11 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
     },
     async (
       request: AuthenticatedFastifyRequest<{
-        Params: WikidataIdParams
+        Params: CompanyIdParams
         Body: PostReportingPeriodsBody
       }>,
       reply
     ) => {
-      const { wikidataId } = request.params
       const {
         reportingPeriods,
         metadata,
@@ -197,16 +196,17 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
         documentReportYear: bodyDocumentReportYear,
         registryReportId: bodyRegistryReportId,
       } = request.body
+      const { id } = request.params
       const user = request.user
       let company
 
       try {
-        company = await companyService.getCompany(wikidataId)
+        company = await companyService.getCompanyByInternalId(id)
       } catch (error) {
         console.error(`Error: ${error}`)
         return reply.status(404).send({
           code: '404',
-          message: `There is no company with wikidataId ${wikidataId}`,
+          message: `There is no company with id ${id}`,
         })
       }
 

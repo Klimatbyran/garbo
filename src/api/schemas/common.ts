@@ -9,6 +9,30 @@ export const companyIdSchema = z.string().uuid()
 
 export const wikidataIdParamSchema = z.object({ wikidataId: wikidataIdSchema })
 
+/** Staff mutation routes: internal UUID only. */
+export const companyIdParamSchema = z.object({ id: companyIdSchema })
+
+/** Pipeline read: wikidataId, full UUID, or 8-char UUID prefix. */
+export const companyUrlIdentifierSchema = z.union([
+  wikidataIdSchema,
+  companyIdSchema,
+  z.string().regex(/^[0-9a-f]{8}$/i),
+])
+
+export const companyIdentifierParamSchema = z.object({
+  wikidataId: companyUrlIdentifierSchema,
+})
+
+export const companyGoalParamsSchema = z.object({
+  id: companyIdSchema,
+  goalId: z.string(),
+})
+
+export const companyInitiativeParamsSchema = z.object({
+  id: companyIdSchema,
+  initiativeId: z.string(),
+})
+
 export const companySearchQuerySchema = z.object({ q: z.string() })
 
 export const garboEntityIdSchema = z.object({ id: z.string() })

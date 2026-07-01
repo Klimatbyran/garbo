@@ -16,6 +16,11 @@ const dateStringSchema = z.union([
 ])
 
 export const okResponseSchema = z.object({ ok: z.boolean() })
+
+export const createCompanyResponseSchema = z.object({
+  ok: z.boolean(),
+  id: z.string().uuid(),
+})
 export const redirectResponseSchema = z.object({ location: z.string() })
 
 export const tagOptionSchema = z.object({

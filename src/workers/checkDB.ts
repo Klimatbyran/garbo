@@ -2,7 +2,7 @@ import { FlowProducer } from 'bullmq'
 import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { apiFetch } from '../lib/api'
 import redis from '../config/redis'
-import { canonicalPublicReportUrl, getCompanyURL } from '../lib/saveUtils'
+import { getCompanyURL } from '../lib/saveUtils'
 import { QUEUE_NAMES } from '../queues'
 import {
   extractScopeEntriesFromFollowUp,
@@ -11,10 +11,15 @@ import {
 import { buildEarlyRegistryPayload } from './saveToAPI.utils'
 import { registryService } from '../api/services/registryService'
 import { companyReportService } from '../api/services/companyReportService'
+import {
+  companyMutationPath,
+  pipelineCompanyReadPath,
+} from '../lib/pipelineCompanyPath'
 
 export class CheckDBJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
     companyName: string
+    companyId: string
     /** Original report URL when pipeline cached PDF to S3 (parsePdf). */
     sourceUrl?: string
     /** Cached/uploaded PDF storage metadata from pipeline-api (when available). */
@@ -26,7 +31,7 @@ export class CheckDBJob extends PipelineJob {
     documentReportYear?: string | number
     /** Registry report id from early upsert in this worker (passed to diff/save children). */
     registryReportId?: string
-    wikidata: { node: string }
+    wikidata?: { node: string }
     fiscalYear: {
       startMonth: number
       endMonth: number
@@ -44,9 +49,8 @@ flow.on('error', (err) => console.error('FlowProducer connection error:', err))
 const checkDB = new PipelineWorker(
   QUEUE_NAMES.CHECK_DB,
   async (job: CheckDBJob) => {
-    const { companyName, url, sourceUrl, fiscalYear, wikidata } = job.data
-
-    const canonicalSource = canonicalPublicReportUrl({ url, sourceUrl })
+    const { companyName, companyId, url, sourceUrl, fiscalYear, wikidata } =
+      job.data
 
     const childrenEntries = await job.getChildrenEntries()
 
@@ -87,32 +91,21 @@ const checkDB = new PipelineWorker(
     )
 
     job.sendMessage(`🤖 Checking if ${companyName} already exists in API...`)
-    const wikidataId = wikidata.node
     const existingCompany = await apiFetch(
-      `/pipeline/companies/${wikidataId}`
+      pipelineCompanyReadPath(companyId)
     ).catch(() => null)
     job.log(existingCompany)
 
     if (!existingCompany) {
-      const metadata = {
-        source: canonicalSource,
-        comment: 'Created by Garbo AI',
-      }
-
       job.sendMessage(
-        `🤖 No previous data found for  ${companyName} (${wikidataId}). Creating..`
+        `🤖 No previous data found for ${companyName} (${companyId}). Creating..`
       )
-      const body = {
-        name: companyName,
-        wikidataId,
-        metadata,
-        ...(tags?.length > 0 && { tags }),
-      }
-
-      await apiFetch(`/companies/${wikidataId}`, { body })
+      await apiFetch(companyMutationPath(companyId), {
+        body: { name: companyName },
+      })
 
       await job.sendMessage(
-        `✅ The company '${companyName}' has been created! See the result here: ${getCompanyURL(companyName, wikidataId)}`
+        `✅ The company '${companyName}' has been created! See the result here: ${getCompanyURL(companyName, companyId, wikidata?.node)}`
       )
     } else {
       job.log(`✅ The company '${companyName}' was found in the database.`)
@@ -141,7 +134,7 @@ const checkDB = new PipelineWorker(
           await registryService.upsertReportInRegistry(earlyRegistryPayload)
         registryReportId = report.id
         companyReportId = await companyReportService.findOrCreateCompanyReport(
-          wikidataId,
+          companyId,
           report.id
         )
         job.log(`Early registry upsert: ${report.id}`)
@@ -157,6 +150,7 @@ const checkDB = new PipelineWorker(
       data: {
         existingCompany,
         companyName,
+        companyId,
         url,
         sourceUrl,
         fiscalYear,
@@ -253,7 +247,7 @@ const checkDB = new PipelineWorker(
               data: {
                 ...job.data,
                 fiscalYear: undefined,
-                wikidataId: wikidataId,
+                companyId,
                 existingDescriptions: existingCompany?.descriptions,
                 descriptions: descriptions,
               },

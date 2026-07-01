@@ -4,6 +4,7 @@ import { prisma } from '../../lib/prisma'
 const jobListSelect = {
   jobId: true,
   queueName: true,
+  companyId: true,
   wikidataId: true,
   status: true,
   approvedTimestamp: true,
@@ -46,6 +47,7 @@ function buildListWhere(args: {
         OR: [
           { threadId: { contains: qTrim, mode: 'insensitive' } },
           { companyName: { contains: qTrim, mode: 'insensitive' } },
+          { companyId: { contains: qTrim, mode: 'insensitive' as const } },
           { wikidataId: { contains: qTrim, mode: 'insensitive' } },
           { pdfUrl: { contains: qTrim, mode: 'insensitive' } },
           {

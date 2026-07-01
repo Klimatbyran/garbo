@@ -21,7 +21,6 @@ const diffGoals = new DiffWorker<DiffGoalsJob>(
       await job.enqueueSaveToAPI(
         'goals',
         companyName,
-        wikidata,
         job.getApprovedBody()
       )
       return

@@ -6,11 +6,13 @@ import { zodResponseFormat } from 'openai/helpers/zod'
 import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { z } from 'zod'
 import { QUEUE_NAMES } from '../queues'
+import { resolveOrCreatePipelineCompanyId } from '../lib/pipelineCompanyResolve'
 
 class PrecheckJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
     cachedMarkdown?: string
     companyName?: string
+    companyId?: string
     waitingForCompanyName?: boolean
   }
 }
@@ -21,6 +23,18 @@ flow.on('error', (err) => console.error('FlowProducer connection error:', err))
 const companyNameSchema = z.object({
   companyName: z.string().nullable(),
 })
+
+async function ensurePipelineCompany(
+  job: PrecheckJob,
+  companyName: string
+): Promise<string> {
+  const companyId = await resolveOrCreatePipelineCompanyId(job.data, companyName)
+  if (companyId !== job.data.companyId) {
+    await job.updateData({ ...job.data, companyId, companyName })
+    job.log(`Resolved pipeline company id=${companyId} name=${companyName}`)
+  }
+  return companyId
+}
 
 const precheck = new PipelineWorker(
   QUEUE_NAMES.PRECHECK,
@@ -33,7 +47,6 @@ const precheck = new PipelineWorker(
     } = job.data
     const { markdown = cachedMarkdown } = await job.getChildrenEntries()
 
-    // If we already have a company name provided by the user, use it directly
     if (existingCompanyName && waitingForCompanyName) {
       job.log('Using manually provided company name: ' + existingCompanyName)
       await job.updateData({ ...job.data, waitingForCompanyName: false })
@@ -78,7 +91,6 @@ const precheck = new PipelineWorker(
     const companyName = await extractCompanyName(markdown as string)
 
     if (companyName) {
-      // Update job data with companyName for grouping/UI in validation tool
       await job.updateData({ ...job.data, companyName })
     }
 
@@ -99,8 +111,10 @@ const precheck = new PipelineWorker(
     async function processWithCompanyName(companyName: string) {
       job.log('Company name: ' + companyName)
 
+      const companyId = await ensurePipelineCompany(job, companyName)
+
       const base = {
-        data: { ...baseData, companyName },
+        data: { ...baseData, companyName, companyId },
         opts: {
           attempts: 3,
         },
@@ -116,15 +130,6 @@ const precheck = new PipelineWorker(
           children: [
             {
               ...base,
-              name: 'guessWikidata ' + companyName,
-              queueName: QUEUE_NAMES.GUESS_WIKIDATA,
-              data: {
-                ...base.data,
-                schema: zodResponseFormat(wikidata.schema, 'wikidata'),
-              },
-            },
-            {
-              ...base,
               queueName: QUEUE_NAMES.FOLLOW_UP_FISCAL_YEAR,
               name: 'fiscalYear ' + companyName,
             },
@@ -133,6 +138,19 @@ const precheck = new PipelineWorker(
             attempts: 3,
           },
         })
+
+        await flow.add({
+          name: 'guessWikidata ' + companyName,
+          queueName: QUEUE_NAMES.GUESS_WIKIDATA,
+          data: {
+            ...base.data,
+            schema: zodResponseFormat(wikidata.schema, 'wikidata'),
+          },
+          opts: {
+            attempts: 3,
+          },
+        })
+
         return extractEmissions.job?.id
       } catch (error) {
         job.log('Error: ' + error)

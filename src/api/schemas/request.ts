@@ -49,7 +49,7 @@ export const patchCompanyTagsBodySchema = z.object({
 
 export const postCompanyBodySchema = z
   .object({
-    wikidataId: wikidataIdSchema,
+    wikidataId: wikidataIdSchema.optional(),
     name: z.string(),
     descriptions: z.array(descriptionSchema).optional(),
     url: z.string().url().optional(),
