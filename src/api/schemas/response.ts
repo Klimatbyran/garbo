@@ -66,7 +66,7 @@ export const CompanyIdentifierSchema = z.object({
 
 const CompanyBaseSchema = z.object({
   id: companyIdSchema,
-  wikidataId: wikidataIdSchema,
+  wikidataId: wikidataIdSchema.optional().nullable(),
   name: z.string(),
   lei: z.string().optional().nullable(),
   logoUrl: z.string().url().optional().nullable(),

@@ -1,6 +1,7 @@
 import { FastifyInstance, AuthenticatedFastifyRequest } from 'fastify'
 
 import { goalService } from '../../services/goalService'
+import { companyService } from '../../services/companyService'
 import {
   wikidataIdParamSchema,
   postGoalSchema,
@@ -48,7 +49,8 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
         const user = request.user
 
         try {
-          await goalService.createGoals(wikidataId, goals, () =>
+          const company = await companyService.getCompany(wikidataId)
+          await goalService.createGoals(company.id, goals, () =>
             metadataService.createMetadata({
               metadata,
               user,
