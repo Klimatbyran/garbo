@@ -159,7 +159,10 @@ The code can be started in three main ways, depending on what you plan to develo
 npm run dev-api
 ```
 
-This starts the API, and makes it possible to view the OpenAPI documentation at <http://localhost:3000/reference> (from `OPENAPI_PREFIX`; must not be `api`, which collides with REST `/api/*`).
+This starts the API, and makes it possible to view the OpenAPI documentation at <http://localhost:3002/reference> (from `OPENAPI_PREFIX`; must not be `api`, which collides with REST `/api/*`).
+
+> [!NOTE]
+> Local default port is **3002** so Unearth API can run on **3000** alongside Garbo. Set `API_PORT` in `.env`. Workers still POST to Unearth via `API_BASE_URL` (default `http://localhost:3000/api`).
 
 #### 2) To start the AI pipeline, BullMQ admin dashboard and the API:
 
@@ -171,7 +174,7 @@ First, run the following command to start the API and the queue system, includin
 npm run dev-board
 ```
 
-In addition to the accessing the local API, you can now view the BullMQ dashboard at <http://localhost:3000/admin/queues>.
+In addition to the accessing the local API, you can now view the BullMQ dashboard at <http://localhost:3002/admin/queues>.
 
 The BullMQ dashboard is useful to develop and debug how garbo is extracting data from reports. A common workflow is to run a report through the garbo pipeline and then follow the progress in the BullMQ dashboard to view logs, errors and restart jobs. When updating code or prompts in the workers that make up what we call the garbo pipeline, it's possible to restart a job partway through the pipeline, to make it both easier and faster to iterate on changes.
 
@@ -229,9 +232,9 @@ Well done! You've now set up the `garbo` backend and are ready to start developm
 Use the [validation frontend](https://github.com/Klimatbyran/validate-frontend) with Garbo running locally (`npm run dev` or `npm run dev-board` + `npm run dev-workers`).
 
 1. Start the API and workers (see above).
-2. Start the validation frontend and point it at `http://localhost:3000`.
+2. Start the validation frontend and point it at Unearth API (`http://localhost:3000` via Validate proxy).
 3. Submit a report URL through the UI.
-4. Monitor progress in the BullMQ dashboard at <http://localhost:3000/admin/queues> and restart failed jobs as needed.
+4. Monitor progress in the BullMQ dashboard at <http://localhost:3002/admin/queues> and restart failed jobs as needed.
 
 Job payload options (`autoApprove`, `forceReindex`, `tags`, etc.) are documented in [doc/PIPELINE_RUN_AND_TAGS.md](./doc/PIPELINE_RUN_AND_TAGS.md).
 
