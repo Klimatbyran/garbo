@@ -13,6 +13,8 @@ interface Approval {
     source: string
     comment: string
   }
+  /** Garbo user id of human approver (set by Validate on Wikidata approve). */
+  verifiedByUserId?: string
 }
 
 type ApprovedBody = Record<string, unknown> & {

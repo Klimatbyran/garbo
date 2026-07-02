@@ -7,10 +7,13 @@ import apiConfig from '../config/api'
 import { ChatCompletionMessageParam } from 'openai/resources'
 import { QUEUE_NAMES } from '../queues'
 import { getWikidataEntities, searchCompany } from '@/lib/wikidata/read'
+import { apiFetch } from '../lib/api'
+import { companyMutationPath } from '../lib/pipelineCompanyPath'
 
 export class GuessWikidataJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
     companyName: string
+    companyId: string
     overrideWikidataId: EntityId
     wikidata?: Wikidata
   }
@@ -95,22 +98,60 @@ ${JSON.stringify(wikidataForApproval, null, 2)}
   return null
 }
 
+async function persistApprovedWikidata(
+  job: GuessWikidataJob,
+  companyName: string,
+  wikidata: Wikidata,
+  options: {
+    verified?: boolean
+    metadata?: { source: string; comment: string }
+    verifiedByUserId?: string
+  }
+) {
+  const companyId = job.data.companyId
+  if (!companyId) {
+    throw new Error('Missing companyId on guessWikidata job')
+  }
+
+  await apiFetch(companyMutationPath(companyId), {
+    body: {
+      name: companyName,
+      wikidataId: wikidata.node,
+      metadata: options.metadata,
+      verified: options.verified ?? false,
+      ...(options.verifiedByUserId && {
+        verifiedByUserId: options.verifiedByUserId,
+      }),
+    },
+  })
+}
+
 const guessWikidata = new PipelineWorker<GuessWikidataJob>(
   QUEUE_NAMES.GUESS_WIKIDATA,
   async (job: GuessWikidataJob) => {
-    const { companyName, overrideWikidataId } = job.data
+    const { companyName, companyId, overrideWikidataId } = job.data
     if (!companyName) throw new Error('No company name was provided')
+    if (!companyId) throw new Error('No companyId was provided')
     job.log('Company name: ' + companyName)
     job.log('Approval: ' + JSON.stringify(job.data.approval, null, 2))
 
     // If approved, process the wikidata (takes precedence - don't override approved data)
     if (job.isDataApproved()) {
-      const approvedWikidata = job.getApprovedBody().wikidata
+      const approvedWikidata = job.getApprovedBody().wikidata as
+        | Wikidata
+        | undefined
       if (!approvedWikidata) {
         throw new Error('Missing approved wikidata: ' + approvedWikidata)
       }
 
       const metadata = job.data.approval?.metadata
+
+      await persistApprovedWikidata(job, companyName, approvedWikidata, {
+        // verified false when job autoApprove is on; human approver id comes from Validate rerun.
+        verified: !job.data.autoApprove,
+        metadata,
+        verifiedByUserId: job.data.approval?.verifiedByUserId,
+      })
 
       job.editMessage({
         content: `Thanks for approving the wikidata for: ${companyName}`,
@@ -234,10 +275,15 @@ const guessWikidata = new PipelineWorker<GuessWikidataJob>(
 
       job.log('Results: ' + JSON.stringify(results, null, 2))
       if (results.length === 0) {
-        await job.sendMessage(`❌ Hittade inte Wikidata för: ${companyName}.`)
-        // TODO: If no wikidata entry was found, provide a link to create a new wikidata entry.
-        // TODO: allow providing the wikidata entry if it is known, to continue the job.
-        throw new Error(`No Wikidata entry for "${companyName}"`)
+        await job.sendMessage(
+          `❌ Hittade inte Wikidata för: ${companyName}. Pipeline continues without Wikidata.`
+        )
+        job.log(`No Wikidata entry for "${companyName}" — non-blocking`)
+        return JSON.stringify(
+          { status: 'not_found', message: `No Wikidata for ${companyName}` },
+          null,
+          2
+        )
       }
 
       const orderedResults = results
@@ -318,10 +364,15 @@ const guessWikidata = new PipelineWorker<GuessWikidataJob>(
               type: 'wikidata',
               newValue: { wikidata: wikidataForApproval },
             },
-            true, // auto-approved
+            true,
             metadata,
             `Auto-approved wikidata for ${companyName}`
           )
+
+          await persistApprovedWikidata(job, companyName, wikidataForApproval, {
+            verified: false,
+            metadata,
+          })
 
           job.sendMessage({
             content: `🚀 Company found in production database, we will approve automatically: ${companyName}`,
@@ -349,6 +400,39 @@ const guessWikidata = new PipelineWorker<GuessWikidataJob>(
     const metadata = {
       source: 'wikidata-search',
       comment: 'Wikidata found via search and LLM selection',
+    }
+
+    if (job.data.autoApprove) {
+      await job.requestApproval(
+        'wikidata',
+        {
+          type: 'wikidata',
+          newValue: { wikidata: wikidataForApproval },
+        },
+        true,
+        metadata,
+        `Auto-approved wikidata for ${companyName}`
+      )
+
+      await persistApprovedWikidata(job, companyName, wikidataForApproval, {
+        verified: false,
+        metadata,
+      })
+
+      await job.sendMessage({
+        content: `Auto-approved wikidata for ${companyName} (job autoApprove enabled)`,
+      })
+
+      return JSON.stringify(
+        {
+          status: 'approved',
+          wikidata: wikidataForApproval,
+          message: `Auto-approved wikidata for ${companyName}`,
+          metadata,
+        },
+        null,
+        2
+      )
     }
 
     // Create approval request using standard pattern

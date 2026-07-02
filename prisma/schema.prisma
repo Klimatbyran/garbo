@@ -12,11 +12,10 @@ generator client {
 }
 
 model Company {
-  /// Internal Garbo company id (UUID). Not the primary key; use for stable in-app references.
-  /// Public URLs and Wikidata integration still use `wikidataId`.
-  id           String  @unique @default(uuid())
-  /// Primary key. Wikidata Q-id; used in API routes, FKs, and Wikidata import/export.
-  wikidataId   String        @id
+  /// Primary key. Stable internal company id (UUID).
+  id         String  @id @default(uuid())
+  /// Wikidata Q-id when known. Nullable until pipeline or editor assigns one.
+  wikidataId String? @unique
   name         String
   description  String?
   descriptions Description[]
@@ -85,7 +84,7 @@ model BaseYear {
   companyId String @unique
 
   metadata Metadata[]
-  company  Company    @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+  company  Company    @relation(fields: [companyId], references: [id], onDelete: Cascade)
 }
 
 /// Connecting a company to a specific industry and metadata
@@ -93,9 +92,9 @@ model BaseYear {
 model Industry {
   id                  String @id @default(cuid())
   gicsSubIndustryCode String
-  companyWikidataId   String @unique
+  companyId           String @unique
 
-  company      Company      @relation(fields: [companyWikidataId], references: [wikidataId], onDelete: Cascade)
+  company      Company      @relation(fields: [companyId], references: [id], onDelete: Cascade)
   metadata     Metadata[]
   industryGics IndustryGics @relation(fields: [gicsSubIndustryCode], references: [subIndustryCode])
 }
@@ -142,7 +141,7 @@ model ReportingPeriod {
   metadata      Metadata[]
   economy       Economy?
   emissions     Emissions?
-  company       Company       @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+  company       Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
   companyReport CompanyReport @relation(fields: [companyReportId], references: [id], onDelete: Restrict)
 
   @@unique([companyReportId, year])
@@ -331,7 +330,7 @@ model Goal {
   companyId   String
 
   metadata Metadata[]
-  company  Company    @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+  company  Company    @relation(fields: [companyId], references: [id], onDelete: Cascade)
 }
 
 model Initiative {
@@ -342,7 +341,7 @@ model Initiative {
   scope       String?
   companyId   String
 
-  company  Company    @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+  company  Company    @relation(fields: [companyId], references: [id], onDelete: Cascade)
   metadata Metadata[]
 }
 
@@ -424,7 +423,7 @@ model Description {
   companyId String
   language  Language
 
-  company  Company    @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+  company  Company    @relation(fields: [companyId], references: [id], onDelete: Cascade)
   metadata Metadata[]
 
   @@unique([companyId, language])
@@ -461,7 +460,7 @@ model CompanyReport {
   reportPublicationDate DateTime?
   createdAt             DateTime  @default(now())
 
-  company          Company           @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+  company          Company           @relation(fields: [companyId], references: [id], onDelete: Cascade)
   report           Report?           @relation(fields: [registryReportId], references: [id], onDelete: SetNull)
   reportingPeriods ReportingPeriod[]
 
@@ -481,6 +480,8 @@ model ReportRun {
   threadId        String         @unique
   pdfUrl          String
   companyName     String?
+  /// Stable Garbo company id when known (preferred over wikidataId for linking runs).
+  companyId       String?
   wikidataId      String?
   companyReportId String?        @map("company_report_id")
   batchDbId       String?        @map("batch_db_id")
@@ -491,6 +492,7 @@ model ReportRun {
   jobs            ReportRunJob[]
 
   @@index([pdfUrl])
+  @@index([companyId])
   @@index([wikidataId])
   @@index([companyReportId])
   @@index([batchDbId])
@@ -500,6 +502,7 @@ model ReportRunJob {
   id                String    @id @default(cuid())
   jobId             String
   queueName         String
+  companyId         String?
   wikidataId        String?
   status            String // 'completed' | 'failed'
   approvedTimestamp String?   @map("approved_timestamp")
@@ -516,6 +519,7 @@ model ReportRunJob {
   reportRun         ReportRun @relation(fields: [reportRunId], references: [id])
 
   @@index([reportRunId])
+  @@index([companyId])
 }
 
 /// Permission codes for the client API key layer (browser/proxy + partner integrations) — see `src/api/security/routePermissions.ts`.

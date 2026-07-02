@@ -115,10 +115,10 @@ export async function emissionsAssessmentRoutes(app: FastifyInstance) {
           companyName: company.name,
           existingCompany: {
             name: company.name,
-            wikidataId: company.wikidataId,
+            wikidataId: company.wikidataId!,
             industry: company.industry ?? undefined,
           },
-          wikidata: { node: company.wikidataId },
+          wikidata: { node: company.wikidataId! },
           reportingPeriods,
           industry: company.industry ?? undefined,
         })

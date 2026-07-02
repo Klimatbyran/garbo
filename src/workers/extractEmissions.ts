@@ -39,7 +39,9 @@ export const FOLLOW_UP_KEYS: FollowUpKey[] = [
 class ExtractEmissionsJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
     companyName: string
+    companyId: string
     runOnly?: (FollowUpKey | 'all')[]
+    wikidata?: { node: string }
   }
 }
 
@@ -49,11 +51,9 @@ flow.on('error', (err) => console.error('FlowProducer connection error:', err))
 const extractEmissions = new PipelineWorker<ExtractEmissionsJob>(
   QUEUE_NAMES.EXTRACT_EMISSIONS,
   async (job) => {
-    const { companyName, runOnly } = job.data
+    const { companyName, companyId, runOnly } = job.data
     job.sendMessage(`🤖 Fetching emissions data...`)
 
-    // Try to get wikidata/fiscalYear from children; if not present (e.g. manual rerun),
-    // fall back to values already on the job data.
     let entries: any
     try {
       entries = await job.getChildrenEntries()
@@ -61,18 +61,18 @@ const extractEmissions = new PipelineWorker<ExtractEmissionsJob>(
       entries = undefined
     }
 
-    const wikidataFromChildren =
-      (entries as any)?.value?.wikidata ?? (entries as any)?.wikidata
     const fiscalYearFromChildren =
       (entries as any)?.value?.fiscalYear ?? (entries as any)?.fiscalYear
 
-    const wikidata = wikidataFromChildren ?? (job.data as any)?.wikidata
+    const wikidata =
+      (job.data as any)?.wikidata ??
+      (entries as any)?.value?.wikidata ??
+      (entries as any)?.wikidata
     const fiscalYear = fiscalYearFromChildren ?? (job.data as any)?.fiscalYear
 
-    // updating the job data with the values we seek
     const base = {
       name: companyName,
-      data: { ...job.data, wikidata, fiscalYear },
+      data: { ...job.data, companyId, wikidata, fiscalYear },
       opts: {
         attempts: 3,
       },
@@ -80,12 +80,13 @@ const extractEmissions = new PipelineWorker<ExtractEmissionsJob>(
 
     job.log('🔍 Running these workers : ' + runOnly?.join(', '))
 
-    // a worker should run if it is explicitly in the runOnly array or if runOnly is 'all'
     const shouldRun = (key: FollowUpKey) => {
       if (!runOnly) return true
       if (runOnly.includes('all')) return true
       return runOnly.includes(key)
     }
+
+    const wikidataId = wikidata?.node
 
     const childrenJobs: { key: FollowUpKey; job: FlowChildJob }[] = [
       {
@@ -176,7 +177,8 @@ const extractEmissions = new PipelineWorker<ExtractEmissionsJob>(
           queueName: QUEUE_NAMES.EXTRACT_LEI,
           data: {
             ...base.data,
-            wikidataId: base.data.wikidata.node,
+            companyId,
+            ...(wikidataId && { wikidataId }),
           },
         },
       },
@@ -188,7 +190,7 @@ const extractEmissions = new PipelineWorker<ExtractEmissionsJob>(
           queueName: QUEUE_NAMES.EXTRACT_DESCRIPTIONS,
           data: {
             ...job.data,
-            companyId: wikidata.node,
+            companyId,
             type: undefined,
           },
         },
