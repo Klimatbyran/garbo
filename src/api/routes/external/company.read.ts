@@ -19,6 +19,51 @@ import {
 } from '../../schemas'
 import { redisCache } from '../../../lib/redisCacheSingleton'
 
+async function getCompaniesDatabaseFingerprint() {
+  const [
+    companyCount,
+    reportingPeriodCount,
+    companyReportCount,
+    emissionsCount,
+    latestMetadata,
+    latestCompanyReport,
+  ] = await prisma.$transaction([
+    prisma.company.count(),
+    prisma.reportingPeriod.count(),
+    prisma.companyReport.count(),
+    prisma.emissions.count(),
+    prisma.metadata.findFirst({
+      select: { updatedAt: true },
+      orderBy: { updatedAt: 'desc' },
+    }),
+    prisma.companyReport.findFirst({
+      select: { createdAt: true },
+      orderBy: { createdAt: 'desc' },
+    }),
+  ])
+
+  return [
+    companyCount,
+    reportingPeriodCount,
+    companyReportCount,
+    emissionsCount,
+    latestMetadata?.updatedAt?.toISOString() || '',
+    latestCompanyReport?.createdAt?.toISOString() || '',
+  ].join('|')
+}
+
+async function getOrRefreshCompaniesEtag(databaseFingerprint: string) {
+  const cacheKey = 'companies:etag'
+  let currentEtag: string = await redisCache.get(cacheKey)
+
+  if (!currentEtag || !currentEtag.startsWith(databaseFingerprint)) {
+    currentEtag = `${databaseFingerprint}-${new Date().toISOString()}`
+    await redisCache.set(cacheKey, JSON.stringify(currentEtag))
+  }
+
+  return currentEtag
+}
+
 export async function companyReadRoutes(app: FastifyInstance) {
   app.register(cachePlugin)
 
@@ -38,46 +83,8 @@ export async function companyReadRoutes(app: FastifyInstance) {
     },
 
     async (request, reply) => {
-      const cacheKey = 'companies:etag'
-
-      let currentEtag: string = await redisCache.get(cacheKey)
-
-      // Check for database changes by looking at record counts across relevant tables
-      const [
-        companyCount,
-        reportingPeriodCount,
-        companyReportCount,
-        emissionsCount,
-        latestMetadata,
-        latestCompanyReport,
-      ] = await prisma.$transaction([
-        prisma.company.count(),
-        prisma.reportingPeriod.count(),
-        prisma.companyReport.count(),
-        prisma.emissions.count(),
-        prisma.metadata.findFirst({
-          select: { updatedAt: true },
-          orderBy: { updatedAt: 'desc' },
-        }),
-        prisma.companyReport.findFirst({
-          select: { createdAt: true },
-          orderBy: { createdAt: 'desc' },
-        }),
-      ])
-
-      const databaseFingerprint = [
-        companyCount,
-        reportingPeriodCount,
-        companyReportCount,
-        emissionsCount,
-        latestMetadata?.updatedAt?.toISOString() || '',
-        latestCompanyReport?.createdAt?.toISOString() || '',
-      ].join('|')
-
-      if (!currentEtag || !currentEtag.startsWith(databaseFingerprint)) {
-        currentEtag = `${databaseFingerprint}-${new Date().toISOString()}`
-        await redisCache.set(cacheKey, JSON.stringify(currentEtag))
-      }
+      const databaseFingerprint = await getCompaniesDatabaseFingerprint()
+      const currentEtag = await getOrRefreshCompaniesEtag(databaseFingerprint)
 
       const dataCacheKey = `companies:data:${databaseFingerprint}`
 

@@ -4,11 +4,17 @@ import {
   Turnover,
   Description,
   Prisma,
+  User,
 } from '@prisma/client'
 import { OptionalNullable } from '../../lib/type-utils'
 import { DefaultEconomyType } from '../types'
 import { prisma } from '../../lib/prisma'
-import { economyArgs, detailedCompanyArgs, companyListArgs } from '../args'
+import {
+  economyArgs,
+  detailedCompanyArgs,
+  pipelineCompanyDetailArgs,
+  companyListArgs,
+} from '../args'
 import {
   calculateEmissionChangeLastTwoYears,
   calculateScope2Total,
@@ -25,6 +31,7 @@ import { ReportsListResponseSchema } from '../schemas/response'
 import { z } from 'zod'
 import { registryService } from './registryService'
 import { pickOnePeriodPerDataYear } from './reportingPeriodPublicRead'
+import { companyIdentifierService } from './companyIdentifierService'
 import type { ReportingPeriod } from '@/types'
 
 const API_KEY = process.env.FIRECRAWL_API_KEY
@@ -115,7 +122,7 @@ class CompanyService {
 
   async getCompanyWithMetadata(wikidataId: string) {
     const company = await prisma.company.findFirstOrThrow({
-      ...detailedCompanyArgs,
+      ...pipelineCompanyDetailArgs,
       where: {
         wikidataId,
       },
@@ -150,6 +157,7 @@ class CompanyService {
 
   async upsertCompany({
     wikidataId,
+    user,
     ...data
   }: {
     wikidataId: string
@@ -159,8 +167,9 @@ class CompanyService {
     internalComment?: string
     tags?: string[]
     lei?: string
+    user?: User
   }) {
-    return prisma.company.upsert({
+    const company = await prisma.company.upsert({
       where: {
         wikidataId,
       },
@@ -168,13 +177,15 @@ class CompanyService {
         ...data,
         wikidataId,
       },
-      // TODO: Should we allow updating the wikidataId?
-      // Probably yes from a business perspective, but that also means we need to update all related records too.
-      // Updating the primary key can be tricky, especially with backups using the old primary key no longer being compatible.
-      // This might be a reason why we shouldn't use wikidataId as our primary key in the DB.
-      // However, no matter what, we could still use wikidataId in the API and in the URL structure.
       update: { ...data },
     })
+
+    await companyIdentifierService.syncFromLegacyColumns(company, {
+      user,
+      source: user ? 'validate-editor' : 'company-column-sync',
+    })
+
+    return company
   }
 
   async updateCompanyTags(wikidataId: string, tags: string[]) {
@@ -472,6 +483,7 @@ class CompanyService {
 export const companyService = new CompanyService()
 
 export function transformMetadata(data: any): any {
+  // TODO(Klimatbyran/garbo#1334): metadata arrays collapse to null; Zod schemas still require MetadataSchema.
   if (Array.isArray(data)) {
     return data.map((item) => transformMetadata(item))
   } else if (data && typeof data === 'object') {

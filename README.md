@@ -1,8 +1,8 @@
 # Klimatkollen Garbo AI
 
-This is the main repository for the AI bot we call Garbo. Garbo runs via our [validation frontend](https://github.com/Klimatbyran/validate-frontend) and is powered by LLM:s to fetch and extract GHG self-reported data from companies. It automates the process of data extraction, evaluation, and formatting, providing a streamlined workflow for handling environmental data.
+This is the main repository for the AI pipeline we call Garbo. Garbo runs via our [validation frontend](https://github.com/Klimatbyran/validate-frontend) and pipeline-api, and is powered by LLM:s to fetch and extract GHG self-reported data from companies. It automates the process of data extraction, evaluation, and formatting, providing a streamlined workflow for handling environmental data.
 
-Garbo is invoked through the [Validation frontend](https://github.com/Klimatbyran/validate-frontend) and pipeline-api, and has a pipeline of tasks and jobs that will be started in order for her to both extract, evaluate and format the data autonomously.
+Garbo is invoked through the validation UI or pipeline-api, and has a pipeline of tasks and jobs that will be started in order to extract, evaluate and format the data autonomously.
 
 Do you have an idea? Jump into the code or head to our [Discord server](https://discord.gg/N5P64QPQ6v) to discuss your thoughts.
 
@@ -111,7 +111,7 @@ For local development, uncomment the `docling` service in `docker-compose.yaml`,
 The simplest way to start the containers is to run the following docker command.
 
 ```bash
-docker-compose up
+docker compose up
 ```
 
 ```

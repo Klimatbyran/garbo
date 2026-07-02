@@ -1,15 +1,14 @@
-import { FlowProducer, DelayedError } from 'bullmq'
+import { FlowProducer } from 'bullmq'
 import redis from '../config/redis'
 import wikidata from '../prompts/wikidata'
-import { askPrompt, askStream } from '../lib/openai'
+import { askStream } from '../lib/openai'
 import { zodResponseFormat } from 'openai/helpers/zod'
-import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { z } from 'zod'
 import { QUEUE_NAMES } from '../queues'
-import discord from '../discord'
 
-class PrecheckJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+class PrecheckJob extends PipelineJob {
+  declare data: PipelineJob['data'] & {
     cachedMarkdown?: string
     companyName?: string
     waitingForCompanyName?: boolean
@@ -23,7 +22,7 @@ const companyNameSchema = z.object({
   companyName: z.string().nullable(),
 })
 
-const precheck = new DiscordWorker(
+const precheck = new PipelineWorker(
   QUEUE_NAMES.PRECHECK,
   async (job: PrecheckJob) => {
     const {
@@ -76,7 +75,7 @@ const precheck = new DiscordWorker(
       )
     }
 
-    const companyName = await extractCompanyName(markdown)
+    const companyName = await extractCompanyName(markdown as string)
 
     if (companyName) {
       // Update job data with companyName for grouping/UI in validation tool
@@ -84,37 +83,21 @@ const precheck = new DiscordWorker(
     }
 
     if (!companyName) {
-      // If we're already waiting for manual input, don't send another message
       if (waitingForCompanyName) {
-        job.log('Still waiting for user to provide company name manually...')
-        await job.moveToDelayed(Date.now() + 30000) // Check again in 30 seconds
-        throw new DelayedError()
+        job.log('Still waiting for companyName in job data...')
+        await job.moveToDelayed(Date.now() + 30000)
+        return
       }
 
-      // Send message asking for manual input
-      job.log('Could not find company name, asking user for input')
-      const buttonRow = discord.createEditCompanyNameButtonRow(job)
-
-      await job.sendMessage({
-        content:
-          "❌ Could not automatically find the company's name in the document. Please enter the company name manually:",
-        components: [buttonRow],
-      })
-
-      // Mark the job as waiting for company name
-      await job.updateData({ ...job.data, waitingForCompanyName: true })
-      await job.moveToDelayed(Date.now() + 300000) // Check again in 5 minutes
-      throw new DelayedError()
+      throw new Error(
+        'Could not identify company name from report. Re-run with companyName provided in job data.'
+      )
     }
 
     return processWithCompanyName(companyName)
 
     async function processWithCompanyName(companyName: string) {
       job.log('Company name: ' + companyName)
-
-      if (job.hasValidThreadId()) {
-        await job.setThreadName(companyName)
-      }
 
       const base = {
         data: { ...baseData, companyName },

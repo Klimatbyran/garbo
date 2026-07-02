@@ -9,6 +9,7 @@ import {
   buildReportMatchConditions,
   copyMissingFields,
   pickRowToKeep,
+  mergeCompanyNameFromPipeline,
   mergeReportYearFromPipeline,
   type RegistryReportIdentityRow,
   trimStr,
@@ -52,7 +53,10 @@ function patchRow(
   input: ReportInput
 ): Prisma.ReportUpdateInput {
   const update: Prisma.ReportUpdateInput = {
-    companyName: existing.companyName ?? input.companyName,
+    companyName: mergeCompanyNameFromPipeline(
+      existing.companyName,
+      input.companyName
+    ),
     wikidataId: existing.wikidataId ?? input.wikidataId ?? undefined,
     reportYear: mergeReportYearFromPipeline(
       existing.reportYear,
@@ -81,7 +85,10 @@ function applyMergedRows(
   const webUrl = findWebUrlUpgrade(merged, input.url)
 
   return {
-    companyName: merged.companyName ?? input.companyName,
+    companyName: mergeCompanyNameFromPipeline(
+      merged.companyName,
+      input.companyName
+    ),
     wikidataId: merged.wikidataId ?? input.wikidataId ?? undefined,
     reportYear: mergeReportYearFromPipeline(
       merged.reportYear,

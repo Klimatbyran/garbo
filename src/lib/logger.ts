@@ -1,6 +1,6 @@
-import { DiscordJob } from './DiscordWorker'
+import { PipelineJob } from './PipelineWorker'
 
-export const createDiscordLogger = (job?: DiscordJob) => {
+export const createPipelineLogger = (job?: PipelineJob) => {
   if (!job) {
     return {
       info: (message: string) => console.log(`${message}`),
@@ -10,19 +10,9 @@ export const createDiscordLogger = (job?: DiscordJob) => {
   return {
     info: async (message: string) => {
       await job.log(message)
-      try {
-        await job.sendMessage(`${message}`)
-      } catch (err) {
-        await job.log(`WARN: failed to send Discord message: ${message}`)
-      }
     },
     error: async (message: string) => {
       await job.log(`ERROR: ${message}`)
-      try {
-        await job.editMessage(`❌ ${message}`)
-      } catch (err) {
-        await job.log(`WARN: failed to edit Discord message: ${message}`)
-      }
     },
   }
 }

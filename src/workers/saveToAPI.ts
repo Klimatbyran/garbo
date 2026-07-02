@@ -1,12 +1,12 @@
-import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { apiFetch } from '../lib/api'
 import { QUEUE_NAMES } from '../queues'
 import { withCompanySaveLock } from '../lib/companySaveLock'
 import { syncReportRunCompanyReportId } from '../lib/reportRunPersistence'
 import { companyReportIdFromPeriodSaveResponse } from './saveToAPI.utils'
 
-export interface SaveToApiJob extends DiscordJob {
-  data: DiscordJob['data'] & {
+export interface SaveToApiJob extends PipelineJob {
+  data: PipelineJob['data'] & {
     companyName?: string
     body: any
     wikidata: { node: string }
@@ -70,7 +70,7 @@ function removeNullValuesFromGarbo(
   }
 }
 
-export const saveToAPI = new DiscordWorker<SaveToApiJob>(
+export const saveToAPI = new PipelineWorker<SaveToApiJob>(
   QUEUE_NAMES.SAVE_TO_API,
   async (job: SaveToApiJob) => {
     try {

@@ -1,9 +1,8 @@
-import { DiscordJob, DiscordWorker } from './DiscordWorker'
+import { PipelineJob, PipelineWorker } from './PipelineWorker'
 import { Job, Queue, WorkerOptions } from 'bullmq'
 import redis from '../config/redis'
 import saveToAPI from '../workers/saveToAPI'
 import { canonicalPublicReportUrl, defaultMetadata } from './saveUtils'
-import discord from '../discord'
 
 /**
  * Enqueue saveToAPI with a BullMQ parent link when possible. If the parent job
@@ -47,8 +46,8 @@ export interface ChangeDescription {
   newValue
 }
 
-export class DiffJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+export class DiffJob extends PipelineJob {
+  declare data: PipelineJob['data'] & {
     companyName: string
     wikidata: { node: string }
   }
@@ -57,7 +56,7 @@ export class DiffJob extends DiscordJob {
     apiSubEndpoint: string,
     companyName: string,
     wikidata: { node: string },
-    body: any
+    body: Record<string, unknown>
   ) => Promise<void>
 
   handleDiff: (
@@ -104,17 +103,10 @@ function addCustomMethods(job: DiffJob) {
       await job.sendMessage({
         content: `## ${apiSubEndpoint}\n\nNew changes for ${job.data.companyName}\n\n${diff}`,
       })
-      // If approval is required and not yet approved, send approval request
-      const buttonRow = discord.createApproveButtonRow(job)
-
-      await job.editMessage({
-        components: [buttonRow],
-      })
-
       await job.requestApproval(
         apiSubEndpoint,
         change,
-        job.data.autoApprove || !requiresApproval,
+        false,
         defaultMetadata(
           canonicalPublicReportUrl(
             job.data as { url: string; sourceUrl?: string }
@@ -147,11 +139,11 @@ function addCustomMethods(job: DiffJob) {
 
   return job
 }
-export class DiffWorker<T extends DiffJob> extends DiscordWorker<DiffJob> {
+export class DiffWorker<T extends DiffJob> extends PipelineWorker<DiffJob> {
   queue: Queue
   constructor(
     name: string,
-    callback: (job: T) => any,
+    callback: (job: T) => unknown,
     options?: WorkerOptions
   ) {
     super(name, (job: T) => callback(addCustomMethods(job) as T), {

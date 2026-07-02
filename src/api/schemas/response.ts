@@ -50,6 +50,20 @@ export const MetadataSchema = z.object({
 
 export const MinimalMetadataSchema = MetadataSchema.pick({ verifiedBy: true })
 
+export const CompanyIdentifierTypeSchema = z.enum([
+  'WIKIDATA',
+  'LEI',
+  'ORG_NUMBER',
+  'ISIN',
+])
+
+export const CompanyIdentifierSchema = z.object({
+  id: z.string(),
+  type: CompanyIdentifierTypeSchema,
+  value: z.string(),
+  metadata: MetadataSchema.nullable(),
+})
+
 const CompanyBaseSchema = z.object({
   id: companyIdSchema,
   wikidataId: wikidataIdSchema,
@@ -505,6 +519,7 @@ export const CompanyDetails = CompanyBase.extend({
  */
 export const InternalCompanyDetails = CompanyDetails.extend({
   tags: z.array(z.string()),
+  identifiers: z.array(CompanyIdentifierSchema).optional(),
 })
 
 function transformYearlyData(
@@ -655,28 +670,27 @@ export const NationalSectorEmissionsSchema = z.object({
 
 export const InputNationalDataSchema = z.array(
   z.object({
-    country: z.object({ sv: z.string(), en: z.string() }),
+    country: z.string().transform((val) => ({
+      sv: val,
+      en: val === 'Sverige' ? 'Sweden' : val,
+    })),
     logoUrl: z.string().nullable().optional(),
-    emissions: InputYearlyDataSchema,
-    totalTrend: z.number(),
-    totalCarbonLaw: z.number(),
-    approximatedHistoricalEmission: InputYearlyDataSchema,
-    trend: InputYearlyDataSchema,
-    historicalEmissionChangePercent: z.number(),
-    meetsParis: z.string().transform((val) => val === 'True'),
+    territorialFossilEmissions: InputYearlyDataSchema,
+    biogenicEmissions: InputYearlyDataSchema,
+    consumptionAbroadEmissions: InputYearlyDataSchema,
+    exportOfOilProductsEmissions: InputYearlyDataSchema,
+    eCommerceEmissions: InputYearlyDataSchema,
   })
 )
 
 export const NationDataSchema = z.object({
   country: z.object({ sv: z.string(), en: z.string() }),
   logoUrl: z.string().nullable().optional(),
-  emissions: z.array(YearlyDataSchema),
-  totalTrend: z.number(),
-  totalCarbonLaw: z.number(),
-  approximatedHistoricalEmission: z.array(YearlyDataSchema),
-  trend: z.array(YearlyDataSchema),
-  historicalEmissionChangePercent: z.number(),
-  meetsParis: z.boolean(),
+  territorialFossilEmissions: z.array(YearlyDataSchema),
+  biogenicEmissions: z.array(YearlyDataSchema),
+  consumptionAbroadEmissions: z.array(YearlyDataSchema),
+  exportOfOilProductsEmissions: z.array(YearlyDataSchema),
+  eCommerceEmissions: z.array(YearlyDataSchema),
 })
 
 export const NationalDataListSchema = z.array(NationDataSchema)

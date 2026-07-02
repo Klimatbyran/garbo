@@ -163,6 +163,7 @@ We currently offer two key types:
 Provides access to core company data endpoints:
 
 - Company list
+- Company KPIs
 - Company detail
 - Company search
 

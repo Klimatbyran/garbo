@@ -60,11 +60,10 @@ describe('reportSaveIdentity', () => {
           publicUrl: 'https://storage.googleapis.com/garbo/abc.pdf',
           sha256: identity.reportSha256,
         },
-        replaceAllEmissions: true,
       },
       [{ year: 2025, startDate: '2025-01-01', endDate: '2025-12-31' }]
     )
-    expect(extras.replaceAllEmissions).toBe(true)
+    expect(extras).not.toHaveProperty('replaceAllEmissions')
     expect(extras.reportSha256).toBe(identity.reportSha256)
     expect(extras.documentReportYear).toBe('2025')
   })

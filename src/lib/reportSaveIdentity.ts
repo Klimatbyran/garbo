@@ -13,7 +13,6 @@ type JobReportFields = {
   pdfCache?: { publicUrl?: string; sha256?: string }
   documentReportYear?: string | number
   registryReportId?: string
-  replaceAllEmissions?: boolean
 }
 
 function trimOptional(value: unknown): string | undefined {
@@ -110,7 +109,6 @@ export function buildReportingPeriodsApiBodyExtras(
   })
 
   return {
-    ...(jobData.replaceAllEmissions && { replaceAllEmissions: true }),
     documentReportYear,
     reportUrl: identity.reportURL,
     reportSourceUrl: trimmedSourceUrl,
