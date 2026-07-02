@@ -1,4 +1,5 @@
-# One-shot Job to restore validated Scope1 data from recovered DB into prod.
+# One-shot Job to restore complete reporting period trees from recovered DB into prod.
+# Targets companies where recovered max year = 2024 and prod max year >= 2025.
 # Requires recovered-postgres to be running (apply recovered-postgres.yaml first).
 #
 # Dry run (default — inspect logs, no data written):
@@ -23,7 +24,7 @@ spec:
           workingDir: /app
           command: ['npx', '--yes', 'tsx']
           args:
-            - scripts/restore-validated-scope1.ts
+            - scripts/restore-reporting-periods.ts
             # Uncomment when ready to write:
             # - --commit
           env:

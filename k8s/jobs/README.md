@@ -48,12 +48,14 @@ Sets `ReportingPeriod.companyReportId` for all rows. One `CompanyReport` per com
 
 6. Watch logs: `kubectl logs -n garbo-stage job/link-periods-to-company-reports-<suffix> -f`
 
-## Restore validated Scope1 data from recovered DB
+## Restore reporting periods from recovered DB
 
-Copies human-verified Scope1 values from the recovered database into the target (prod) database,
-adapting to the `CompanyReport`-based `ReportingPeriod` structure.
-Each value is anchored to the specific PDF it came from (`reportURL`) — periods from different
-reports are never mixed even if they cover the same company and year.
+Recreates complete reporting period trees (all emission types + economy + metadata) from the
+recovered database into prod. Targets companies where recovered max year = 2024 but prod max
+year ≥ 2025 — i.e. Garbo already moved the company to a 2025 report, so the 2024 data needs
+to be imported as a separate report chain anchored to the 2024 PDF URL from recovered.
+Each period is anchored to its specific PDF (`reportURL`) — data from different reports is
+never mixed. Preserves all metadata including validation status.
 Defaults to dry-run. Pass `--commit` to write.
 
 ---
@@ -91,12 +93,12 @@ docker exec -it recovered-pg pg_restore -U postgres -d recovered \
 # Dry run (default):
 SOURCE_DATABASE_URL=postgresql://postgres@localhost:5433/recovered \
 DATABASE_URL=postgresql://postgres:<your-local-password>@localhost:5432/garbo \
-npx tsx scripts/restore-validated-scope1.ts
+npx tsx scripts/restore-reporting-periods.ts
 
 # Commit for real:
 SOURCE_DATABASE_URL=postgresql://postgres@localhost:5433/recovered \
 DATABASE_URL=postgresql://postgres:<your-local-password>@localhost:5432/garbo \
-npx tsx scripts/restore-validated-scope1.ts --commit
+npx tsx scripts/restore-reporting-periods.ts --commit
 ```
 
 ---
