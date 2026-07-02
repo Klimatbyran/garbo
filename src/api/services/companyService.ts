@@ -22,7 +22,6 @@ import {
   calculatedTotalEmissions,
 } from '@/lib/company-emissions/companyEmissionsCalculator'
 import { calculateFutureEmissionTrend } from '@/lib/company-emissions/companyEmissionsFutureTrendCalculator'
-import { calculateCompanyKpi } from '@/lib/company-emissions/companyKpiCalculator'
 import Firecrawl, { SearchResultWeb } from '@mendable/firecrawl-js'
 import { CompanyReports, SaveReportsBody, SaveReportsResult } from '../types'
 import { pdf } from 'pdf-to-img'
@@ -78,11 +77,6 @@ class CompanyService {
   async getAllCompaniesForPublicRead() {
     const companies = await prisma.company.findMany(companyListArgs)
     return this.enrichCompaniesWithMetadata(companies, true)
-  }
-
-  async getCompanyKpis() {
-    const companies = await this.getAllCompaniesForPublicRead()
-    return companies.map((company) => calculateCompanyKpi(company))
   }
 
   async getAllCompaniesBySearchTerm(
