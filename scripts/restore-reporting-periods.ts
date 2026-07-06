@@ -397,165 +397,163 @@ async function main() {
     await target.$transaction(
       async (tx) => {
         for (const { companyId } of recoveredCompanies) {
-          try {
-            const company = await tx.company.findUnique({
-              where: { wikidataId: companyId },
-              select: { wikidataId: true, name: true },
-            })
-            if (!company) {
-              stats.companies_skipped_not_in_prod++
-              continue
-            }
+          const company = await tx.company.findUnique({
+            where: { wikidataId: companyId },
+            select: { wikidataId: true, name: true },
+          })
+          if (!company) {
+            stats.companies_skipped_not_in_prod++
+            continue
+          }
 
-            const label = `${company.name} (${companyId})`
+          const label = `${company.name} (${companyId})`
 
-            // Only migrate companies where prod already has a 2025 report —
-            // these are the ones who lost their 2024 data when Garbo moved forward
-            const prodLatest = await tx.reportingPeriod.findFirst({
-              where: { companyId },
-              orderBy: { year: 'desc' },
-              select: { year: true },
-            })
-            if (!prodLatest || prodLatest.year <= '2024') {
-              console.log(
-                `⏭  ${label}: prod max year is ${prodLatest?.year ?? 'none'} — already at or before 2024, skipping`
-              )
-              stats.companies_skipped_prod_not_updated++
-              continue
-            }
+          // Only migrate companies where prod already has a 2025 report —
+          // these are the ones who lost their 2024 data when Garbo moved forward
+          const prodLatest = await tx.reportingPeriod.findFirst({
+            where: { companyId },
+            orderBy: { year: 'desc' },
+            select: { year: true },
+          })
+          if (!prodLatest || prodLatest.year <= '2024') {
+            console.log(
+              `⏭  ${label}: prod max year is ${prodLatest?.year ?? 'none'} — already at or before 2024, skipping`
+            )
+            stats.companies_skipped_prod_not_updated++
+            continue
+          }
 
-            stats.companies_targeted++
+          stats.companies_targeted++
 
-            // All periods for this company in backup, ordered newest first
-            const periods = await source.$queryRaw<SourcePeriod[]>`
+          // All periods for this company in backup, ordered newest first
+          const periods = await source.$queryRaw<SourcePeriod[]>`
               SELECT id,"companyId","reportURL","startDate","endDate",year
               FROM "ReportingPeriod"
               WHERE "companyId"=${companyId}
               ORDER BY year DESC
             `
 
-            const backupMaxYear = periods[0]?.year ?? '?'
-            const backupYears = periods.map((p) => p.year).join(', ')
+          const backupMaxYear = periods[0]?.year ?? '?'
+          const backupYears = periods.map((p) => p.year).join(', ')
 
-            // Use the URL from the most recent period that has one as the anchor for the new Report
-            const reportUrl =
-              periods.find((p) => p.reportURL)?.reportURL ?? null
+          // Use the URL from the most recent period that has one as the anchor for the new Report
+          const reportUrl = periods.find((p) => p.reportURL)?.reportURL ?? null
 
-            console.log(`\n🏢 ${label}`)
+          console.log(`\n🏢 ${label}`)
+          console.log(
+            `   Prod max year: ${prodLatest.year} | Backup years: ${backupYears}`
+          )
+          console.log(
+            `   Report URL (from most recent backup period with a URL): ${reportUrl ?? 'none'}`
+          )
+
+          if (!reportUrl) {
             console.log(
-              `   Prod max year: ${prodLatest.year} | Backup years: ${backupYears}`
+              `   ⚠  No URL found in any backup period — cannot create Report, skipping company`
             )
-            console.log(
-              `   Report URL (from most recent backup period with a URL): ${reportUrl ?? 'none'}`
-            )
+            stats.errors++
+            continue
+          }
 
-            if (!reportUrl) {
+          // Find or create Report using the backup URL
+          let report = await tx.report.findFirst({
+            where: { OR: [{ url: reportUrl }, { sourceUrl: reportUrl }] },
+            select: { id: true },
+          })
+          if (report) {
+            console.log(`   Report: already exists in prod (reusing)`)
+          } else {
+            report = await tx.report.create({
+              data: {
+                url: reportUrl,
+                reportYear: backupMaxYear,
+                companyName: company.name,
+                wikidataId: company.wikidataId ?? undefined,
+              },
+              select: { id: true },
+            })
+            console.log(`   Report: did not exist in prod → created new`)
+          }
+
+          // Find or create CompanyReport linking this company to the 2024 report
+          let companyReport = await tx.companyReport.findFirst({
+            where: { companyId, registryReportId: report.id },
+            select: { id: true },
+          })
+          if (companyReport) {
+            console.log(
+              `   CompanyReport (${company.name} ↔ 2024 report): already exists`
+            )
+          } else {
+            companyReport = await tx.companyReport.create({
+              data: {
+                companyId,
+                registryReportId: report.id,
+                reportYear: backupMaxYear,
+              },
+              select: { id: true },
+            })
+            console.log(
+              `   CompanyReport (${company.name} ↔ 2024 report): created new (reportYear=${backupMaxYear})`
+            )
+          }
+
+          // Restore ALL periods from backup under this CompanyReport
+          for (const period of periods) {
+            // Idempotency: check by (companyReportId, year) — the real unique key.
+            // Do not rely on reportURL in prod; it may have been overwritten.
+            const existing = await tx.reportingPeriod.findFirst({
+              where: { companyReportId: companyReport.id, year: period.year },
+              select: { id: true },
+            })
+            if (existing) {
               console.log(
-                `   ⚠  No URL found in any backup period — cannot create Report, skipping company`
+                `   ${period.year}: already exists under this CompanyReport — skipping`
               )
-              stats.errors++
+              stats.periods_already_exist++
               continue
             }
 
-            // Find or create Report using the backup URL
-            let report = await tx.report.findFirst({
-              where: { OR: [{ url: reportUrl }, { sourceUrl: reportUrl }] },
+            const newPeriod = await tx.reportingPeriod.create({
+              data: {
+                companyId,
+                companyReportId: companyReport.id,
+                year: period.year,
+                startDate: period.startDate,
+                endDate: period.endDate,
+                reportURL: period.reportURL,
+              },
               select: { id: true },
             })
-            if (report) {
-              console.log(`   Report: already exists in prod (reusing)`)
-            } else {
-              report = await tx.report.create({
-                data: { url: reportUrl },
-                select: { id: true },
-              })
-              console.log(`   Report: did not exist in prod → created new`)
-            }
+            await restoreMeta(
+              tx,
+              'reportingPeriodId',
+              newPeriod.id,
+              await lastMeta('reportingPeriodId', period.id)
+            )
 
-            // Find or create CompanyReport linking this company to the 2024 report
-            let companyReport = await tx.companyReport.findFirst({
-              where: { companyId, registryReportId: report.id },
-              select: { id: true },
-            })
-            if (companyReport) {
-              console.log(
-                `   CompanyReport (${company.name} ↔ 2024 report): already exists`
-              )
-            } else {
-              companyReport = await tx.companyReport.create({
-                data: {
-                  companyId,
-                  registryReportId: report.id,
-                  reportYear: backupMaxYear,
-                },
-                select: { id: true },
-              })
-              console.log(
-                `   CompanyReport (${company.name} ↔ 2024 report): created new (reportYear=${backupMaxYear})`
-              )
-            }
-
-            // Restore ALL periods from backup under this CompanyReport
-            for (const period of periods) {
-              // Idempotency: check by (companyReportId, year) — the real unique key.
-              // Do not rely on reportURL in prod; it may have been overwritten.
-              const existing = await tx.reportingPeriod.findFirst({
-                where: { companyReportId: companyReport.id, year: period.year },
-                select: { id: true },
-              })
-              if (existing) {
-                console.log(
-                  `   ${period.year}: already exists under this CompanyReport — skipping`
-                )
-                stats.periods_already_exist++
-                continue
-              }
-
-              const newPeriod = await tx.reportingPeriod.create({
-                data: {
-                  companyId,
-                  companyReportId: companyReport.id,
-                  year: period.year,
-                  startDate: period.startDate,
-                  endDate: period.endDate,
-                  reportURL: period.reportURL,
-                },
-                select: { id: true },
-              })
-              await restoreMeta(
-                tx,
-                'reportingPeriodId',
-                newPeriod.id,
-                await lastMeta('reportingPeriodId', period.id)
-              )
-
+            const [srcEmissions] = await source.$queryRaw<{ id: string }[]>`
+                SELECT id FROM "Emissions" WHERE "reportingPeriodId"=${period.id}
+              `
+            if (srcEmissions) {
               const newEmissions = await tx.emissions.create({
                 data: { reportingPeriodId: newPeriod.id },
                 select: { id: true },
               })
+              await restoreEmissions(tx, srcEmissions.id, newEmissions.id)
+            }
 
-              const [srcEmissions] = await source.$queryRaw<{ id: string }[]>`
-                SELECT id FROM "Emissions" WHERE "reportingPeriodId"=${period.id}
-              `
-              if (srcEmissions) {
-                await restoreEmissions(tx, srcEmissions.id, newEmissions.id)
-              }
-
-              const [srcEconomy] = await source.$queryRaw<{ id: string }[]>`
+            const [srcEconomy] = await source.$queryRaw<{ id: string }[]>`
                 SELECT id FROM "Economy" WHERE "reportingPeriodId"=${period.id}
               `
-              if (srcEconomy) {
-                await restoreEconomy(tx, srcEconomy.id, newPeriod.id)
-              }
-
-              console.log(
-                `   ✅ ${period.year}: created with full emissions + economy + metadata`
-              )
-              stats.periods_created++
+            if (srcEconomy) {
+              await restoreEconomy(tx, srcEconomy.id, newPeriod.id)
             }
-          } catch (err) {
-            console.error(`❌ ${companyId}: ${err}`)
-            stats.errors++
+
+            console.log(
+              `   ✅ ${period.year}: created with full emissions + economy + metadata`
+            )
+            stats.periods_created++
           }
         }
 
