@@ -28,7 +28,7 @@ data:
     #!/bin/bash
     set -e
     echo "Downloading dump from GCS..."
-    gsutil cp gs://${BACKUP_BUCKET}/manual/recovered.dump /dump/recovered.dump
+    gsutil cp gs://${BACKUP_BUCKET} /dump/recovered.dump
     echo "Download complete."
   # Mounted into /docker-entrypoint-initdb.d/ — postgres runs this on first startup
   restore.sh: |
@@ -61,7 +61,7 @@ spec:
           command: ['/bin/bash', '/scripts/download.sh']
           env:
             - name: BACKUP_BUCKET
-              value: '<BACKUP_BUCKET>'
+              value: 'garbo-backups/other-backups/backup_garbo_march_10.dump'
           volumeMounts:
             - name: dump
               mountPath: /dump
