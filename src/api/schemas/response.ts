@@ -3,6 +3,7 @@ import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi'
 import {
   companyIdSchema,
   emissionUnitSchemaGarbo,
+  TagOptionTypeSchema,
   wikidataIdSchema,
 } from './common'
 
@@ -18,12 +19,21 @@ const dateStringSchema = z.union([
 export const okResponseSchema = z.object({ ok: z.boolean() })
 export const redirectResponseSchema = z.object({ location: z.string() })
 
+export { TagOptionTypeSchema } from './common'
+
 export const tagOptionSchema = z.object({
   id: z.string(),
   slug: z.string(),
   label: z.string().nullable(),
+  type: TagOptionTypeSchema,
 })
 export const tagOptionListResponseSchema = z.array(tagOptionSchema)
+
+export const companyTagSchema = z.object({
+  slug: z.string(),
+  type: TagOptionTypeSchema,
+  label: z.string().nullable().optional(),
+})
 export const emptyBodySchema = z.undefined()
 
 export const MetadataSchema = z.object({
