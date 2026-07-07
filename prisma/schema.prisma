@@ -67,11 +67,21 @@ model CompanyIdentifier {
   @@map("company_identifiers")
 }
 
+enum TagOptionType {
+  COUNTRY
+  REGION
+  OWNERSHIP
+  MARKET_CAP
+  INDEX
+  OTHER
+}
+
 /// Valid tag options for company tags. Company.tags[] may only contain values that exist as slug here.
 model TagOption {
-  id    String  @id @default(cuid())
-  slug  String  @unique
+  id    String        @id @default(cuid())
+  slug  String        @unique
   label String?
+  type  TagOptionType @default(OTHER)
 
   @@map("tag_options")
 }

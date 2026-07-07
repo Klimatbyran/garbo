@@ -16,14 +16,17 @@ const queryTexts = [
 
 /** Fetches tag options from the API (no DB access in worker). */
 async function fetchTagOptions(): Promise<
-  { slug: string; label: string | null }[]
+  { slug: string; label: string | null; type?: string }[]
 > {
   const options = await apiFetch('/tag-options')
   if (!Array.isArray(options)) return []
-  return options.map((o: { slug?: string | null; label?: string | null }) => ({
-    slug: o.slug ?? '',
-    label: o.label ?? null,
-  }))
+  return options.map(
+    (o: { slug?: string | null; label?: string | null; type?: string }) => ({
+      slug: o.slug ?? '',
+      label: o.label ?? null,
+      type: o.type,
+    })
+  )
 }
 
 async function buildSchemaAndPrompt(): Promise<{

@@ -1,10 +1,12 @@
 import { FastifyInstance, AuthenticatedFastifyRequest } from 'fastify'
+import type { TagOptionType } from '@prisma/client'
 
 import { tagOptionService } from '../services/tagOptionService'
 import {
   createTagOptionBodySchema,
   updateTagOptionBodySchema,
   tagOptionIdParamSchema,
+  tagOptionListQuerySchema,
   okResponseSchema,
   getErrorSchemas,
   tagOptionSchema,
@@ -20,14 +22,22 @@ export async function tagOptionsRoutes(app: FastifyInstance) {
         summary: 'List tag options',
         description: 'Returns all valid tag options for company tags',
         tags: getTags('TagOptions'),
+        querystring: tagOptionListQuerySchema,
         response: {
           200: tagOptionListResponseSchema,
           ...getErrorSchemas(500),
         },
       },
     },
-    async (_request, reply) => {
-      const options = await tagOptionService.findAll()
+    async (
+      request: AuthenticatedFastifyRequest<{
+        Querystring: { type?: string }
+      }>,
+      reply
+    ) => {
+      const options = await tagOptionService.findAll(
+        request.query.type as Parameters<typeof tagOptionService.findAll>[0]
+      )
       return reply.send(options)
     }
   )
@@ -48,11 +58,11 @@ export async function tagOptionsRoutes(app: FastifyInstance) {
     },
     async (
       request: AuthenticatedFastifyRequest<{
-        Body: { slug: string; label?: string }
+        Body: { slug: string; label?: string; type?: string }
       }>,
       reply
     ) => {
-      const { slug, label } = request.body
+      const { slug, label, type } = request.body
       const existing = await tagOptionService.findBySlug(slug)
       if (existing) {
         return reply.status(409).send({
@@ -60,7 +70,11 @@ export async function tagOptionsRoutes(app: FastifyInstance) {
           message: `Tag option with slug "${slug}" already exists`,
         })
       }
-      const created = await tagOptionService.create({ slug, label })
+      const created = await tagOptionService.create({
+        slug,
+        label,
+        type: type as TagOptionType | undefined,
+      })
       return reply.send(created)
     }
   )
@@ -84,7 +98,7 @@ export async function tagOptionsRoutes(app: FastifyInstance) {
     async (
       request: AuthenticatedFastifyRequest<{
         Params: { id: string }
-        Body: { slug?: string; label?: string | null }
+        Body: { slug?: string; label?: string | null; type?: string }
       }>,
       reply
     ) => {
@@ -109,6 +123,9 @@ export async function tagOptionsRoutes(app: FastifyInstance) {
       const updated = await tagOptionService.update(id, {
         slug: body.slug,
         label: body.label,
+        type: body.type as Parameters<
+          typeof tagOptionService.update
+        >[1]['type'],
       })
       return reply.send(updated)
     }

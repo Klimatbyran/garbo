@@ -6,27 +6,40 @@
  *   kubectl exec -it deployment/garbo -c garbo -n garbo-stage -- npm run seed:tags
  */
 import 'dotenv/config'
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, TagOptionType } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-const TAG_OPTIONS = [
-  { slug: 'public', label: 'Publicly traded companies' },
-  { slug: 'large-cap', label: 'Large cap' },
-  { slug: 'mid-cap', label: 'Mid cap' },
-  { slug: 'state-owned', label: 'State owned' },
-  { slug: 'municipality-owned', label: 'Municipality owned' },
-  { slug: 'private', label: 'Private' },
-  { slug: 'small-cap', label: 'Small cap' },
-  { slug: 'baltics', label: 'Baltic countries' },
-] as const
+const TAG_OPTIONS: {
+  slug: string
+  label: string
+  type: TagOptionType
+}[] = [
+  { slug: 'public', label: 'Publicly traded companies', type: 'OWNERSHIP' },
+  { slug: 'large-cap', label: 'Large cap', type: 'MARKET_CAP' },
+  { slug: 'mid-cap', label: 'Mid cap', type: 'MARKET_CAP' },
+  { slug: 'state-owned', label: 'State owned', type: 'OWNERSHIP' },
+  {
+    slug: 'municipality-owned',
+    label: 'Municipality owned',
+    type: 'OWNERSHIP',
+  },
+  { slug: 'private', label: 'Private', type: 'OWNERSHIP' },
+  { slug: 'small-cap', label: 'Small cap', type: 'MARKET_CAP' },
+  { slug: 'baltics', label: 'Baltic countries', type: 'REGION' },
+  { slug: 'sweden', label: 'Sweden', type: 'COUNTRY' },
+  { slug: 'norway', label: 'Norway', type: 'COUNTRY' },
+  { slug: 'finland', label: 'Finland', type: 'COUNTRY' },
+  { slug: 'denmark', label: 'Denmark', type: 'COUNTRY' },
+  { slug: 'iceland', label: 'Iceland', type: 'COUNTRY' },
+]
 
 async function main() {
   for (const option of TAG_OPTIONS) {
     await prisma.tagOption.upsert({
       where: { slug: option.slug },
       create: option,
-      update: { label: option.label },
+      update: { label: option.label, type: option.type },
     })
   }
   console.log(`Seeded ${TAG_OPTIONS.length} tag options.`)

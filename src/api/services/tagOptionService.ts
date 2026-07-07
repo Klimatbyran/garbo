@@ -1,8 +1,10 @@
 import { prisma } from '../../lib/prisma'
+import type { TagOptionType } from '@prisma/client'
 
 class TagOptionService {
-  async findAll() {
+  async findAll(type?: TagOptionType) {
     return prisma.tagOption.findMany({
+      where: type ? { type } : undefined,
       orderBy: { slug: 'asc' },
     })
   }
@@ -19,23 +21,40 @@ class TagOptionService {
     })
   }
 
-  async create(data: { slug: string; label?: string | null }) {
+  async create(data: {
+    slug: string
+    label?: string | null
+    type?: TagOptionType
+  }) {
     return prisma.tagOption.create({
       data: {
         slug: data.slug,
         label: data.label ?? null,
+        type: data.type ?? 'OTHER',
       },
     })
   }
 
-  async update(id: string, data: { slug?: string; label?: string | null }) {
+  async update(
+    id: string,
+    data: {
+      slug?: string
+      label?: string | null
+      type?: TagOptionType
+    }
+  ) {
     const existing = await prisma.tagOption.findUniqueOrThrow({
       where: { id },
     })
 
-    const updates: { slug?: string; label?: string | null } = {}
+    const updates: {
+      slug?: string
+      label?: string | null
+      type?: TagOptionType
+    } = {}
     if (data.slug !== undefined) updates.slug = data.slug
     if (data.label !== undefined) updates.label = data.label
+    if (data.type !== undefined) updates.type = data.type
 
     if (data.slug !== undefined && data.slug !== existing.slug) {
       const oldSlug = existing.slug

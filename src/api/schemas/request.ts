@@ -2,6 +2,7 @@ import { z } from 'zod'
 import {
   emissionUnitSchemaWithDefault,
   emissionUnitSchemaGarbo,
+  TagOptionTypeSchema,
   wikidataIdSchema,
 } from './common'
 
@@ -34,11 +35,17 @@ const tagOptionSlugSchema = z
 export const createTagOptionBodySchema = z.object({
   slug: tagOptionSlugSchema,
   label: z.string().optional(),
+  type: TagOptionTypeSchema.optional(),
 })
 
 export const updateTagOptionBodySchema = z.object({
   slug: tagOptionSlugSchema.optional(),
   label: z.string().optional().nullable(),
+  type: TagOptionTypeSchema.optional(),
+})
+
+export const tagOptionListQuerySchema = z.object({
+  type: TagOptionTypeSchema.optional(),
 })
 
 export const tagOptionIdParamSchema = z.object({
