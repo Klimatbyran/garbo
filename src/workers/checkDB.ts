@@ -157,6 +157,7 @@ const checkDB = new PipelineWorker(
     const base = {
       name: companyName,
       data: {
+        ...job.data,
         existingCompany,
         companyName,
         companyId,
