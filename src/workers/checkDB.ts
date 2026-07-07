@@ -148,9 +148,9 @@ const checkDB = new PipelineWorker(
           `Early registry upsert failed: ${error?.message ?? String(error)}`
         )
       }
-    } else if (!wikidata?.node) {
+    } else {
       job.log(
-        'Skipping early registry upsert: no Wikidata on job yet (guessWikidata runs in parallel; registry may be linked on a later save)'
+        'Skipping early registry upsert: no PDF URL identity on job (url/sourceUrl/pdfCache)'
       )
     }
 

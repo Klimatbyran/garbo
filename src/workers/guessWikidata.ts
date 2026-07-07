@@ -9,6 +9,8 @@ import { QUEUE_NAMES } from '../queues'
 import { getWikidataEntities, searchCompany } from '@/lib/wikidata/read'
 import { apiFetch } from '../lib/api'
 import { companyMutationPath } from '../lib/pipelineCompanyPath'
+import { buildEarlyRegistryPayload } from './saveToAPI.utils'
+import { registryService } from '../api/services/registryService'
 
 export class GuessWikidataJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
@@ -16,6 +18,9 @@ export class GuessWikidataJob extends PipelineJob {
     companyId: string
     overrideWikidataId: EntityId
     wikidata?: Wikidata
+    sourceUrl?: string
+    pdfCache?: { publicUrl?: string; sha256?: string }
+    documentReportYear?: string | number
   }
 }
 
@@ -124,6 +129,32 @@ async function persistApprovedWikidata(
       }),
     },
   })
+
+  await backfillRegistryWikidataFromJob(job, wikidata)
+}
+
+async function backfillRegistryWikidataFromJob(
+  job: GuessWikidataJob,
+  wikidata: Wikidata
+) {
+  const payload = buildEarlyRegistryPayload({
+    companyName: job.data.companyName,
+    wikidata: { node: wikidata.node },
+    url: job.data.url,
+    sourceUrl: job.data.sourceUrl,
+    pdfCache: job.data.pdfCache,
+    documentReportYear: job.data.documentReportYear,
+  })
+  if (!payload) return
+
+  try {
+    const report = await registryService.upsertReportInRegistry(payload)
+    job.log(`Registry wikidata backfill: ${report.id} → ${wikidata.node}`)
+  } catch (error: any) {
+    job.log(
+      `Registry wikidata backfill failed: ${error?.message ?? String(error)}`
+    )
+  }
 }
 
 const guessWikidata = new PipelineWorker<GuessWikidataJob>(
