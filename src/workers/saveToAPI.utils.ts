@@ -31,9 +31,9 @@ function isWikidataQId(wikidataId: string): boolean {
   return /^Q\d+$/i.test(wikidataId.trim())
 }
 
-function parseOptionalWikidataId(
-  wikidata?: { node: string },
-): string | undefined {
+function parseOptionalWikidataId(wikidata?: {
+  node: string
+}): string | undefined {
   const id = wikidata?.node?.trim() ?? ''
   return isWikidataQId(id) ? id : undefined
 }

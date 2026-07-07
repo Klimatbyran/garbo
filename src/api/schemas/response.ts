@@ -652,18 +652,6 @@ export const RegionalDataSchema = z.object({
 
 export const RegionalDataListSchema = z.array(RegionalDataSchema)
 
-export const CompanyKpiSchema = z.object({
-  wikidataId: wikidataIdSchema,
-  name: z.string(),
-  sectorCode: z.string().nullable().openapi({
-    description: 'GICS sector code for client-side sector filtering',
-  }),
-  meetsParis: z.boolean().nullable(),
-  emissionsChangeFromBaseYear: z.number().nullable(),
-})
-
-export const CompanyKpiListSchema = z.array(CompanyKpiSchema)
-
 export const RegionalKpiSchema = z.object({
   region: z.string(),
   meetsParis: z.boolean(),
@@ -687,28 +675,27 @@ export const NationalSectorEmissionsSchema = z.object({
 
 export const InputNationalDataSchema = z.array(
   z.object({
-    country: z.object({ sv: z.string(), en: z.string() }),
+    country: z.string().transform((val) => ({
+      sv: val,
+      en: val === 'Sverige' ? 'Sweden' : val,
+    })),
     logoUrl: z.string().nullable().optional(),
-    emissions: InputYearlyDataSchema,
-    totalTrend: z.number(),
-    totalCarbonLaw: z.number(),
-    approximatedHistoricalEmission: InputYearlyDataSchema,
-    trend: InputYearlyDataSchema,
-    historicalEmissionChangePercent: z.number(),
-    meetsParis: z.string().transform((val) => val === 'True'),
+    territorialFossilEmissions: InputYearlyDataSchema,
+    biogenicEmissions: InputYearlyDataSchema,
+    consumptionAbroadEmissions: InputYearlyDataSchema,
+    exportOfOilProductsEmissions: InputYearlyDataSchema,
+    eCommerceEmissions: InputYearlyDataSchema,
   })
 )
 
 export const NationDataSchema = z.object({
   country: z.object({ sv: z.string(), en: z.string() }),
   logoUrl: z.string().nullable().optional(),
-  emissions: z.array(YearlyDataSchema),
-  totalTrend: z.number(),
-  totalCarbonLaw: z.number(),
-  approximatedHistoricalEmission: z.array(YearlyDataSchema),
-  trend: z.array(YearlyDataSchema),
-  historicalEmissionChangePercent: z.number(),
-  meetsParis: z.boolean(),
+  territorialFossilEmissions: z.array(YearlyDataSchema),
+  biogenicEmissions: z.array(YearlyDataSchema),
+  consumptionAbroadEmissions: z.array(YearlyDataSchema),
+  exportOfOilProductsEmissions: z.array(YearlyDataSchema),
+  eCommerceEmissions: z.array(YearlyDataSchema),
 })
 
 export const NationalDataListSchema = z.array(NationDataSchema)
