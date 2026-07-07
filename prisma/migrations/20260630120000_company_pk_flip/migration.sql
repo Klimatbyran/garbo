@@ -52,6 +52,8 @@ ALTER TABLE "Industry" DROP COLUMN "companyWikidataId";
 CREATE UNIQUE INDEX "Industry_companyId_key" ON "Industry"("companyId");
 
 -- Flip Company primary key
+-- Phase 1 company_identifiers FK references Company(id) via Company_id_key; drop first.
+ALTER TABLE "company_identifiers" DROP CONSTRAINT IF EXISTS "company_identifiers_companyId_fkey";
 ALTER TABLE "Company" DROP CONSTRAINT "Company_pkey";
 DROP INDEX IF EXISTS "Company_id_key";
 ALTER TABLE "Company" ADD CONSTRAINT "Company_pkey" PRIMARY KEY ("id");
@@ -85,4 +87,8 @@ ALTER TABLE "Description"
 
 ALTER TABLE "CompanyReport"
   ADD CONSTRAINT "CompanyReport_companyId_fkey"
+  FOREIGN KEY ("companyId") REFERENCES "Company"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE "company_identifiers"
+  ADD CONSTRAINT "company_identifiers_companyId_fkey"
   FOREIGN KEY ("companyId") REFERENCES "Company"("id") ON DELETE CASCADE ON UPDATE CASCADE;
