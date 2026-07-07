@@ -1,6 +1,7 @@
 import { FastifyInstance, AuthenticatedFastifyRequest } from 'fastify'
 
 import { baseYearService } from '../../services/baseYearService'
+import { companyService } from '../../services/companyService'
 import {
   wikidataIdParamSchema,
   okResponseSchema,
@@ -44,8 +45,9 @@ export async function companyBaseYearRoutes(app: FastifyInstance) {
       })
 
       try {
+        const company = await companyService.getCompany(wikidataId)
         await baseYearService.upsertBaseYear(
-          wikidataId,
+          company.id,
           baseYear,
           createdMetadata
         )
