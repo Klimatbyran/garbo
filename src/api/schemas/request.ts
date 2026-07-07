@@ -13,6 +13,8 @@ const createMetadataSchema = z.object({
     })
     .optional(),
   verified: z.boolean().optional(),
+  /** Staff user id when a human approved Wikidata in Validate (pipeline worker JWT). */
+  verifiedByUserId: z.string().uuid().optional(),
 })
 
 export const descriptionSchema = z.object({
@@ -49,7 +51,7 @@ export const patchCompanyTagsBodySchema = z.object({
 
 export const postCompanyBodySchema = z
   .object({
-    wikidataId: wikidataIdSchema,
+    wikidataId: wikidataIdSchema.optional(),
     name: z.string(),
     descriptions: z.array(descriptionSchema).optional(),
     url: z.string().url().optional(),

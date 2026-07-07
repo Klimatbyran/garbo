@@ -6,6 +6,7 @@ import { prisma } from './lib/prisma'
 import {
   resolveReportBatchDbId,
   companyReportIdFromJobData,
+  companyIdFromJobData,
 } from './lib/reportRunPersistence'
 
 for (const queueName of Object.values(QUEUE_NAMES)) {
@@ -29,6 +30,7 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
       }
 
       const wikidataId = job.data?.wikidata?.node ?? null
+      const companyId = companyIdFromJobData(job.data)
       const companyName = job.data?.companyName ?? null
       const companyReportId = companyReportIdFromJobData(job.data)
       const threadId = job.data?.threadId ?? null
@@ -48,12 +50,14 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
           threadId,
           pdfUrl,
           companyName,
+          companyId,
           wikidataId,
           companyReportId,
           batchDbId,
         },
         update: {
           companyName: companyName ?? undefined,
+          companyId: companyId ?? undefined,
           wikidataId: wikidataId ?? undefined,
           ...(companyReportId ? { companyReportId } : {}),
           ...(batchDbId ? { batchDbId } : {}),
@@ -77,6 +81,7 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
           jobId,
           queueName,
           status,
+          companyId,
           wikidataId: wikidataId ?? null,
           approvedTimestamp:
             status === 'completed' ? new Date().toISOString() : null,

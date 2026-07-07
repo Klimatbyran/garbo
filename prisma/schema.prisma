@@ -480,6 +480,8 @@ model ReportRun {
   threadId        String         @unique
   pdfUrl          String
   companyName     String?
+  /// Stable Garbo company id when known (preferred over wikidataId for linking runs).
+  companyId       String?
   wikidataId      String?
   companyReportId String?        @map("company_report_id")
   batchDbId       String?        @map("batch_db_id")
@@ -490,6 +492,7 @@ model ReportRun {
   jobs            ReportRunJob[]
 
   @@index([pdfUrl])
+  @@index([companyId])
   @@index([wikidataId])
   @@index([companyReportId])
   @@index([batchDbId])
@@ -499,6 +502,7 @@ model ReportRunJob {
   id                String    @id @default(cuid())
   jobId             String
   queueName         String
+  companyId         String?
   wikidataId        String?
   status            String // 'completed' | 'failed'
   approvedTimestamp String?   @map("approved_timestamp")
@@ -515,6 +519,7 @@ model ReportRunJob {
   reportRun         ReportRun @relation(fields: [reportRunId], references: [id])
 
   @@index([reportRunId])
+  @@index([companyId])
 }
 
 /// Permission codes for the client API key layer (browser/proxy + partner integrations) — see `src/api/security/routePermissions.ts`.

@@ -8,7 +8,7 @@ import {
 
 export interface RegistrySaveJobData {
   companyName?: string
-  wikidata: { node: string }
+  wikidata?: { node: string }
   url: string
   sourceUrl?: string
   pdfCache?: { publicUrl?: string; sha256?: string }
@@ -17,8 +17,25 @@ export interface RegistrySaveJobData {
   body: { reportingPeriods: any[] }
 }
 
+export type RegistryUpsertPayload = {
+  companyName: string
+  wikidataId?: string
+  reportYear?: string
+  url: string
+  sourceUrl?: string
+  s3Url?: string
+  sha256?: string
+}
+
 function isWikidataQId(wikidataId: string): boolean {
   return /^Q\d+$/i.test(wikidataId.trim())
+}
+
+function parseOptionalWikidataId(wikidata?: {
+  node: string
+}): string | undefined {
+  const id = wikidata?.node?.trim() ?? ''
+  return isWikidataQId(id) ? id : undefined
 }
 
 // Priority: sha256 match → storage URL match → web URL match → first period.
@@ -158,20 +175,11 @@ export function resolveDocumentReportYear(
 
 export function buildRegistryPayload(job: {
   data: RegistrySaveJobData
-}): null | {
-  companyName: string
-  wikidataId: string
-  reportYear?: string
-  url: string
-  sourceUrl?: string
-  s3Url?: string
-  sha256?: string
-} {
+}): RegistryUpsertPayload | null {
   const companyName = job.data.companyName
   if (!companyName) return null
 
-  const wikidataId = job.data.wikidata.node.trim()
-  if (!isWikidataQId(wikidataId)) return null
+  const wikidataId = parseOptionalWikidataId(job.data.wikidata)
 
   const reportingPeriods = job.data.body?.reportingPeriods
   if (!Array.isArray(reportingPeriods) || reportingPeriods.length === 0)
@@ -228,7 +236,7 @@ export function buildRegistryPayload(job: {
 
   return {
     companyName,
-    wikidataId,
+    ...(wikidataId ? { wikidataId } : {}),
     reportYear: resolveDocumentReportYear(reportingPeriods, {
       documentReportYear: job.data.documentReportYear,
       reportUrl: primaryUrl,
@@ -259,20 +267,11 @@ export type EarlyRegistryJobData = {
 /** Registry upsert from PDF identity only (before reporting periods exist). */
 export function buildEarlyRegistryPayload(
   jobData: EarlyRegistryJobData
-): null | {
-  companyName: string
-  wikidataId: string
-  reportYear?: string
-  url: string
-  sourceUrl?: string
-  s3Url?: string
-  sha256?: string
-} {
+): RegistryUpsertPayload | null {
   const companyName = jobData.companyName
   if (!companyName) return null
 
-  const wikidataId = jobData.wikidata?.node?.trim() ?? ''
-  if (!isWikidataQId(wikidataId)) return null
+  const wikidataId = parseOptionalWikidataId(jobData.wikidata)
 
   const url = typeof jobData.url === 'string' ? jobData.url.trim() : ''
   const sourceUrl =
@@ -309,7 +308,7 @@ export function buildEarlyRegistryPayload(
 
   return {
     companyName,
-    wikidataId,
+    ...(wikidataId ? { wikidataId } : {}),
     reportYear: resolveDocumentReportYear([], {
       documentReportYear: jobData.documentReportYear,
       reportUrl: primaryUrl,

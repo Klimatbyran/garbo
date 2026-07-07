@@ -7,25 +7,25 @@ import { initiativeService } from '../../services/initiativeService'
 import { reportingPeriodService } from '../../services/reportingPeriodService'
 import { emissionsService } from '../../services/emissionsService'
 import {
-  wikidataIdParamSchema,
+  companyIdParamSchema,
   emptyBodySchema,
   garboEntityIdSchema,
   getErrorSchemas,
 } from '../../schemas'
 import { getTags } from '../../../config/openapi'
-import { GarboEntityId, WikidataIdParams } from '../../types'
+import { GarboEntityId, CompanyIdParams } from '../../types'
 import { redisCache } from '../../../lib/redisCacheSingleton'
 import { baseYearService } from '../../services/baseYearService'
 
 export async function companyDeleteRoutes(app: FastifyInstance) {
   app.delete(
-    '/:wikidataId',
+    '/:id',
     {
       schema: {
         summary: 'Delete company',
-        description: 'Delete a company by Wikidata ID',
+        description: 'Delete a company by internal id',
         tags: getTags('Internal'),
-        params: wikidataIdParamSchema,
+        params: companyIdParamSchema,
         response: {
           204: emptyBodySchema,
           ...getErrorSchemas(400, 404, 500),
@@ -33,13 +33,13 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       },
     },
     async (
-      request: AuthenticatedFastifyRequest<{ Params: WikidataIdParams }>,
+      request: AuthenticatedFastifyRequest<{ Params: CompanyIdParams }>,
       reply
     ) => {
-      const { wikidataId } = request.params
+      const { id } = request.params
       redisCache.clear()
       try {
-        const company = await companyService.getCompany(wikidataId)
+        const company = await companyService.getCompanyByInternalId(id)
         await companyService.deleteCompany(company.id)
       } catch (error) {
         console.error('ERROR Deletion of company failed:', error)
@@ -83,13 +83,13 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
   )
 
   app.delete(
-    '/:wikidataId/industry',
+    '/:id/industry',
     {
       schema: {
         summary: 'Delete industry',
         description: 'Delete a company industry',
         tags: getTags('Industry'),
-        params: garboEntityIdSchema,
+        params: companyIdParamSchema,
         response: {
           204: emptyBodySchema,
           ...getErrorSchemas(400, 404, 500),
@@ -97,13 +97,13 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       },
     },
     async (
-      request: AuthenticatedFastifyRequest<{ Params: WikidataIdParams }>,
+      request: AuthenticatedFastifyRequest<{ Params: CompanyIdParams }>,
       reply
     ) => {
-      const { wikidataId } = request.params
+      const { id } = request.params
       redisCache.clear()
       try {
-        const company = await companyService.getCompany(wikidataId)
+        const company = await companyService.getCompanyByInternalId(id)
         await industryService.deleteIndustry(company.id)
       } catch (error) {
         console.error('ERROR deletion of industry failed:', error)

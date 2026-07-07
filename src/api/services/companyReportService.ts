@@ -87,7 +87,7 @@ function buildRegistryPayloadForCompanySave(
   return buildRegistryPayload({
     data: {
       companyName: company.name,
-      wikidata: { node: company.wikidataId ?? '' },
+      ...(company.wikidataId ? { wikidata: { node: company.wikidataId } } : {}),
       url: mergedIdentity.url ?? '',
       sourceUrl: mergedIdentity.sourceUrl,
       pdfCache: mergedIdentity.pdfCache,

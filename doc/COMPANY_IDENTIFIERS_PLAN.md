@@ -135,6 +135,41 @@ No response shape change. `PartnerCompanyBase` keeps `id`, `wikidataId`, `lei` p
 
 **Gap:** Garbo internal API still uses `/:wikidataId` routes; port staff `/:id` routes from unearth-api into garbo (or point workers at unearth-api) before changing worker URLs.
 
+**Baseline shipped in Phase 3 (branch `1338-wikidataWorker`):** `resolveOrCreatePipelineCompanyId` in `src/lib/pipelineCompanyResolve.ts` — prefer `job.data.companyId`, then Wikidata Q-id lookup, then exact normalized name match after fuzzy DB search, else `POST /companies/`. No approval gate yet.
+
+### Phase 3.5 — Company link resolution + Wikidata matching (deferred)
+
+**Scope:** garbo + validate. Small middle step between Phase 3 and Phase 4. **Paused for now** — implement when ambiguous matches show up in stage/prod, or before a large batch run where wrong `companyId` would be costly.
+
+**Problem:** Phase 3 auto-links only when exactly one Garbo row has the same normalized name as the name extracted from the report. Fuzzy search can return several candidates (e.g. ICA Sweden vs ICA Finland) while the PDF gives a short generic name (`"ICA"`). Today that falls through to **create a new company** rather than silently linking to the wrong row — but duplicates and manual cleanup are still possible.
+
+**Name source for matching (unchanged from Phase 3):** LLM extraction from report markdown in `precheck`, or `job.data.companyName` when set by pipeline-api / staff. Wikidata labels are **not** used for name matching; Wikidata is a separate resolution path via `job.data.wikidata.node` when present on the job (typical on re-runs).
+
+| Step  | Work                                                                                                                                                                                                                                           |
+| ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 3.5.1 | **Ambiguity heuristics** — pure function on fuzzy search candidates + extracted name: multiple exact matches; multiple fuzzy hits + short/generic name (e.g. one token or ≤4 chars); optional shared-prefix rule for ICA-style cases           |
+| 3.5.2 | **`precheck` approval gate** — when ambiguous, `requestApproval('companyLink', { extractedName, candidates })`, `moveToDelayed`; on approve read `companyId` (or explicit “create new”) from `approval.data.newValue` before spawning children |
+| 3.5.3 | **Validate `CompanyLinkApprovalDisplay`** — radio list of candidates (`id`, `name`, `wikidataId` if any) plus “Create new company”; mirror `WikidataApprovalDisplay` + `useJobRerunActions` approve/rerun pattern                              |
+| 3.5.4 | **Observability (optional, ~2–3 h)** — log/metric when candidates exist but no single exact match (measures how often the gate would fire without blocking yet)                                                                                |
+| 3.5.5 | **Re-run contract** — document/enforce pipeline-api passing `companyId` or `wikidataId` when re-processing a known company (most reliable path; name-only remains fallback)                                                                    |
+| 3.5.6 | **Tests** — unit tests for heuristics; precheck approval resume path; Validate parser for `approval.type === 'companyLink'`                                                                                                                    |
+
+**Repos / changes:**
+
+| Repo             | Work                                                                                      |
+| ---------------- | ----------------------------------------------------------------------------------------- |
+| **garbo**        | `pipelineCompanyResolve.ts`, `precheck.ts`, tests                                         |
+| **validate**     | `CompanyLinkApprovalDisplay`, `job-specific-data-parsing.ts`, `JobSpecificDataView`, i18n |
+| **pipeline-api** | No schema changes expected; existing `/rerun` deep-merge of `approval` is sufficient      |
+
+**Trigger policy (recommended v1):** ask human only when `candidates.length > 1` and there is not exactly one exact normalized name match. Most runs never hit the gate.
+
+**Effort (estimate):** ~1.5–2 dev days for scoped MVP; +0.5 day for swimlane copy, candidate detail links, and polish.
+
+**Exit criteria:** Ambiguous extractions block in `precheck` until staff pick a company or confirm create-new; chosen `companyId` flows to all downstream workers; no silent wrong-country link on multi-candidate cases covered by heuristics.
+
+**Not in scope:** LLM-based company disambiguation, fuzzy auto-link without human approval, or registry-driven name resolution.
+
 ### Phase 4 — Validate UI + verification UX
 
 | Step | Work                                                                        |
@@ -251,6 +286,7 @@ garbo `getAllCompaniesBySearchTerm` orders by `wikidataId`; unearth-api searches
 - `saveToAPI.test.ts` (Phase 3)
 - `CompanyDetailTab.test.tsx` (Phase 4)
 - Pipeline flow integration tests (Phase 3)
+- `pipelineCompanyResolve` ambiguity heuristics + `precheck` company-link approval (Phase 3.5)
 - `metadataService` / reporting-period save tests (Phase 6)
 
 ### Registry placeholder names (related uncommitted work)
@@ -323,7 +359,8 @@ When deploying API against a DB with Phase 1 migration:
 ## References
 
 - `prisma/schema.prisma` — `Company`, `Metadata`
-- `src/workers/precheck.ts` — flow construction
+- `src/lib/pipelineCompanyResolve.ts` — company id resolve-or-create (Phase 3); ambiguity gate (Phase 3.5)
+- `src/workers/precheck.ts` — flow construction; company-link approval (Phase 3.5)
 - `src/workers/guessWikidata.ts` — approval blocking
 - `src/workers/checkDB.ts` — company creation
 - `doc/pipeline.md` — worker documentation

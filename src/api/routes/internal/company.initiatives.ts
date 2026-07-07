@@ -2,32 +2,32 @@ import { FastifyInstance, AuthenticatedFastifyRequest } from 'fastify'
 
 import { getTags } from '../../../config/openapi'
 import { metadataService } from '../../services/metadataService'
+import { companyService } from '../../services/companyService'
 import {
-  wikidataIdParamSchema,
+  companyIdParamSchema,
+  companyInitiativeParamsSchema,
   okResponseSchema,
   postInitiativeSchema,
   postInitiativesSchema,
-  garboEntityIdSchema,
   getErrorSchemas,
 } from '../../schemas'
 import { initiativeService } from '../../services/initiativeService'
-import { companyService } from '../../services/companyService'
 import {
-  WikidataIdParams,
+  CompanyIdParams,
   PostInitiativeBody,
   PostInitiativesBody,
-  GarboEntityId,
+  CompanyInitiativeParams,
 } from '../../types'
 
 export async function companyInitiativesRoutes(app: FastifyInstance) {
   app.post(
-    '/:wikidataId/initiatives',
+    '/:id/initiatives',
     {
       schema: {
         summary: 'Create company initiatives',
         description: 'Create new initiatives for a company',
         tags: getTags('Initiatives'),
-        params: wikidataIdParamSchema,
+        params: companyIdParamSchema,
         body: postInitiativesSchema,
         response: {
           200: okResponseSchema,
@@ -37,7 +37,7 @@ export async function companyInitiativesRoutes(app: FastifyInstance) {
     },
     async (
       request: AuthenticatedFastifyRequest<{
-        Params: WikidataIdParams
+        Params: CompanyIdParams
         Body: PostInitiativesBody
       }>,
       reply
@@ -45,10 +45,10 @@ export async function companyInitiativesRoutes(app: FastifyInstance) {
       const { initiatives, metadata } = request.body
 
       if (initiatives?.length) {
-        const { wikidataId } = request.params
+        const { id } = request.params
 
         try {
-          const company = await companyService.getCompany(wikidataId)
+          const company = await companyService.getCompanyByInternalId(id)
           await initiativeService.createInitiatives(
             company.id,
             initiatives,
@@ -70,13 +70,13 @@ export async function companyInitiativesRoutes(app: FastifyInstance) {
   )
 
   app.patch(
-    '/:wikidataId/initiatives/:id',
+    '/:id/initiatives/:initiativeId',
     {
       schema: {
         summary: 'Update a company initiative',
         description: 'Update an existing initiative for a company',
         tags: getTags('Initiatives'),
-        params: garboEntityIdSchema,
+        params: companyInitiativeParamsSchema,
         body: postInitiativeSchema,
         response: {
           200: okResponseSchema,
@@ -86,12 +86,12 @@ export async function companyInitiativesRoutes(app: FastifyInstance) {
     },
     async (
       request: AuthenticatedFastifyRequest<{
-        Params: GarboEntityId
+        Params: CompanyInitiativeParams
         Body: PostInitiativeBody
       }>,
       reply
     ) => {
-      const { id } = request.params
+      const { initiativeId } = request.params
       const { initiative, metadata } = request.body
       const createdMetadata = await metadataService.createMetadata({
         metadata,
@@ -100,7 +100,7 @@ export async function companyInitiativesRoutes(app: FastifyInstance) {
 
       try {
         await initiativeService.updateInitiative(
-          id,
+          initiativeId,
           initiative,
           createdMetadata
         )
