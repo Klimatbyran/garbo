@@ -89,12 +89,23 @@ const reportType = new FollowUpWorker<FollowUpJob>(
       FollowUpType.ReportType
     )
 
-    const slug = answer?.reportType
-    if (typeof slug !== 'string' || !slug.trim()) {
+    if (!answer) {
       return { reportType: null }
     }
 
-    const normalizedSlug = slug.trim()
+    let reportType: unknown
+    try {
+      const parsed = JSON.parse(answer) as { value?: { reportType?: unknown } }
+      reportType = parsed.value?.reportType
+    } catch {
+      return { reportType: null }
+    }
+
+    if (typeof reportType !== 'string' || !reportType.trim()) {
+      return { reportType: null }
+    }
+
+    const normalizedSlug = reportType.trim()
     if (!validSlugs.includes(normalizedSlug)) {
       job.log(`Report type not in configured list: ${normalizedSlug}`)
       return { reportType: null }
