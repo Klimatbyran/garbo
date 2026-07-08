@@ -2,6 +2,7 @@ import { FlowChildJob, FlowProducer } from 'bullmq'
 import redis from '../config/redis'
 import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { QUEUE_NAMES } from '../queues'
+import { withPipelineJobOpts } from '../lib/pipelineJobOptions'
 
 /** Keys for follow-up workers that can be run selectively via runOnly (e.g. manual re-run in validation UI). */
 export type FollowUpKey =
@@ -73,9 +74,9 @@ const extractEmissions = new PipelineWorker<ExtractEmissionsJob>(
     const base = {
       name: companyName,
       data: { ...job.data, companyId, wikidata, fiscalYear },
-      opts: {
+      opts: withPipelineJobOpts({
         attempts: 3,
-      },
+      }),
     }
 
     job.log('🔍 Running these workers : ' + runOnly?.join(', '))
@@ -208,9 +209,9 @@ const extractEmissions = new PipelineWorker<ExtractEmissionsJob>(
           .filter((child) => shouldRun(child.key))
           .map((child) => child.job),
       ].filter((e) => e !== null),
-      opts: {
+      opts: withPipelineJobOpts({
         attempts: 3,
-      },
+      }),
     })
 
     job.sendMessage(`🤖 Asking follow-up questions...`)

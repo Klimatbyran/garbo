@@ -8,6 +8,7 @@ import { z } from 'zod'
 import { QUEUE_NAMES } from '../queues'
 import { resolveOrCreatePipelineCompanyId } from '../lib/pipelineCompanyResolve'
 import { EXTRACT_EMISSIONS_CHILD_QUEUES } from './precheckFlow'
+import { withPipelineJobOpts } from '../lib/pipelineJobOptions'
 
 class PrecheckJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
@@ -119,9 +120,9 @@ const precheck = new PipelineWorker(
 
       const base = {
         data: { ...baseData, companyName, companyId },
-        opts: {
+        opts: withPipelineJobOpts({
           attempts: 3,
-        },
+        }),
       }
 
       job.sendMessage('🤖 Asking questions about basic facts...')
@@ -138,9 +139,9 @@ const precheck = new PipelineWorker(
               name: 'fiscalYear ' + companyName,
             },
           ],
-          opts: {
+          opts: withPipelineJobOpts({
             attempts: 3,
-          },
+          }),
         })
 
         await flow.add({
@@ -150,9 +151,9 @@ const precheck = new PipelineWorker(
             ...base.data,
             schema: zodResponseFormat(wikidata.schema, 'wikidata'),
           },
-          opts: {
+          opts: withPipelineJobOpts({
             attempts: 3,
-          },
+          }),
         })
 
         return extractEmissions.job?.id

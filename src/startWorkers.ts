@@ -8,10 +8,15 @@ import {
   companyReportIdFromJobData,
   companyIdFromJobData,
 } from './lib/reportRunPersistence'
+import { DEFAULT_PIPELINE_JOB_OPTIONS } from './lib/pipelineJobOptions'
+import { requestPipelineRunPrune } from './lib/pipelineApiPrune'
 
 for (const queueName of Object.values(QUEUE_NAMES)) {
   const queueEvents = new QueueEvents(queueName, { connection: redis })
-  const queue = new Queue(queueName, { connection: redis })
+  const queue = new Queue(queueName, {
+    connection: redis,
+    defaultJobOptions: DEFAULT_PIPELINE_JOB_OPTIONS,
+  })
 
   const saveRun = async (
     jobId: string,
@@ -111,6 +116,10 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
           where: { id: reportRun.id },
           data: { status: 'completed' },
         })
+
+        if (threadId) {
+          requestPipelineRunPrune({ threadId })
+        }
       }
     } catch (err) {
       console.error(`[ReportRun] failed to save run for job ${jobId}:`, err)

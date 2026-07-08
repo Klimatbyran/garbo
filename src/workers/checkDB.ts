@@ -8,6 +8,7 @@ import {
   extractScopeEntriesFromFollowUp,
   mergeScope1AndScope2Results,
 } from '../lib/mergeScopeResults'
+import { withPipelineJobOpts } from '../lib/pipelineJobOptions'
 import { buildEarlyRegistryPayload } from './saveToAPI.utils'
 import { registryService } from '../api/services/registryService'
 import { companyReportService } from '../api/services/companyReportService'
@@ -173,9 +174,9 @@ const checkDB = new PipelineWorker(
         ...(registryReportId && { registryReportId }),
         ...(companyReportId && { companyReportId }),
       },
-      opts: {
+      opts: withPipelineJobOpts({
         attempts: 3,
-      },
+      }),
     }
 
     await job.editMessage(`🤖 Saving data...`)
@@ -252,6 +253,7 @@ const checkDB = new PipelineWorker(
           : null,
         descriptions
           ? {
+              ...base,
               name: 'diffDescriptions' + companyName,
               queueName: QUEUE_NAMES.DIFF_DESCRIPTIONS,
               data: {
