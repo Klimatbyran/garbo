@@ -44,6 +44,8 @@ model Company {
   logoUrl String?
 
   identifiers CompanyIdentifier[]
+
+  coverageListEntries CoverageListEntry[]
 }
 
 enum CompanyIdentifierType {
@@ -615,12 +617,16 @@ model CoverageListYear {
 
 /// Pasted company name line belonging to a list year edition.
 model CoverageListEntry {
-  id        String           @id @default(cuid())
-  yearId    String           @map("year_id")
-  year      CoverageListYear @relation(fields: [yearId], references: [id], onDelete: Cascade)
-  name      String
-  sortOrder Int              @default(0) @map("sort_order")
+  id               String           @id @default(cuid())
+  yearId           String           @map("year_id")
+  year             CoverageListYear @relation(fields: [yearId], references: [id], onDelete: Cascade)
+  name             String
+  sortOrder        Int              @default(0) @map("sort_order")
+  /// Staff-confirmed DB company match; overrides auto-matching when set.
+  matchedCompanyId String?          @map("matched_company_id")
+  matchedCompany   Company?         @relation(fields: [matchedCompanyId], references: [id], onDelete: SetNull)
 
   @@index([yearId])
+  @@index([matchedCompanyId])
   @@map("coverage_list_entries")
 }
