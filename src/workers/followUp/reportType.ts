@@ -12,6 +12,9 @@ const queryTexts = [
   'CSR report',
   'Climate report',
   'ESG report',
+  'TCFD',
+  'Corporate responsibility report',
+  'Modern slavery statement',
   'Document title',
   'Table of contents',
 ]
@@ -31,6 +34,7 @@ async function buildSchemaAndPrompt(): Promise<{
   hasOptions: boolean
   schema: z.ZodTypeAny
   prompt: string
+  validSlugs: string[]
 }> {
   const reportTypes = await fetchReportTypes()
   const slugs = reportTypes.map((o) => o.slug).filter(Boolean)
@@ -39,6 +43,7 @@ async function buildSchemaAndPrompt(): Promise<{
       hasOptions: false,
       schema: z.object({ reportType: z.string().nullable() }),
       prompt: `No report types are configured. Return {"reportType": null}.`,
+      validSlugs: [],
     }
   }
   const schema = z.object({
@@ -61,14 +66,15 @@ Only use the exact slugs listed above. Do not add any other values.
 Do not include explanatory text, only return the JSON.
 If you cannot determine the report type with certainty, return null for reportType.
 `
-  return { hasOptions: true, schema, prompt }
+  return { hasOptions: true, schema, prompt, validSlugs: slugs }
 }
 
 const reportType = new FollowUpWorker<FollowUpJob>(
   QUEUE_NAMES.FOLLOW_UP_REPORT_TYPE,
   async (job) => {
     const { url, previousAnswer } = job.data
-    const { hasOptions, schema, prompt } = await buildSchemaAndPrompt()
+    const { hasOptions, schema, prompt, validSlugs } =
+      await buildSchemaAndPrompt()
 
     if (!hasOptions) {
       return { reportType: null }
@@ -82,7 +88,19 @@ const reportType = new FollowUpWorker<FollowUpJob>(
       queryTexts,
       FollowUpType.ReportType
     )
-    return answer
+
+    const slug = answer?.reportType
+    if (typeof slug !== 'string' || !slug.trim()) {
+      return { reportType: null }
+    }
+
+    const normalizedSlug = slug.trim()
+    if (!validSlugs.includes(normalizedSlug)) {
+      job.log(`Report type not in configured list: ${normalizedSlug}`)
+      return { reportType: null }
+    }
+
+    return { reportType: normalizedSlug }
   }
 )
 

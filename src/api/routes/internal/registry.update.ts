@@ -24,7 +24,7 @@ export async function registryUpdateRoutes(app: FastifyInstance) {
         body: registryUpdateRequestBodySchema,
         response: {
           200: registryUpdateResponseSchema,
-          ...getErrorSchemas(404, 409),
+          ...getErrorSchemas(400, 404, 409),
         },
       },
     },
@@ -33,7 +33,14 @@ export async function registryUpdateRoutes(app: FastifyInstance) {
         const body = request.body as z.infer<
           typeof registryUpdateRequestBodySchema
         >
-        await reportTypeService.assertValidReportTypeId(body.reportTypeId)
+        try {
+          await reportTypeService.assertValidReportTypeId(body.reportTypeId)
+        } catch (error) {
+          return reply.status(400).send({
+            message:
+              error instanceof Error ? error.message : 'Invalid report type',
+          })
+        }
 
         const updatedReport = await registryService.updateReportInRegistry(body)
 
