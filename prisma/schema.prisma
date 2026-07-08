@@ -625,6 +625,8 @@ model CoverageListEntry {
   /// Staff-confirmed DB company match; overrides auto-matching when set.
   matchedCompanyId String?          @map("matched_company_id")
   matchedCompany   Company?         @relation(fields: [matchedCompanyId], references: [id], onDelete: SetNull)
+  /// Staff confirmed this list name is not in the DB (overrides ambiguous suggestions).
+  matchConfirmedMissing Boolean     @default(false) @map("match_confirmed_missing")
 
   @@index([yearId])
   @@index([matchedCompanyId])
