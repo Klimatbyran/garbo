@@ -253,6 +253,7 @@ const checkDB = new PipelineWorker(
           : null,
         descriptions
           ? {
+              ...base,
               name: 'diffDescriptions' + companyName,
               queueName: QUEUE_NAMES.DIFF_DESCRIPTIONS,
               data: {

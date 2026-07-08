@@ -1,9 +1,9 @@
 import type { JobsOptions } from 'bullmq'
 
-/** Align with pipeline-api run retention (secondary safety net per queue). */
+/** Overflow safety net only — run-level pruning in pipeline-api is authoritative. */
 export const DEFAULT_PIPELINE_JOB_OPTIONS: JobsOptions = {
   removeOnComplete: {
-    count: 15,
+    count: 30,
   },
   removeOnFail: {
     age: 1_209_600,

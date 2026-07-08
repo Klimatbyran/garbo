@@ -1,15 +1,18 @@
 import 'dotenv/config'
-import { z } from 'zod'
 
-const envSchema = z.object({
-  PIPELINE_API_URL: z.string().url().optional(),
-  INTERNAL_SERVICE_TOKEN: z.string().optional(),
-})
-
-const parsedEnv = envSchema.safeParse(process.env)
-const env = parsedEnv.success ? parsedEnv.data : {}
+function readOptionalUrl(value: string | undefined): string | undefined {
+  if (!value?.trim()) return undefined
+  try {
+    return new URL(value.trim()).toString().replace(/\/$/, '')
+  } catch {
+    console.warn(
+      '[pipelineApi] invalid PIPELINE_API_URL; prune hook disabled until URL is fixed'
+    )
+    return undefined
+  }
+}
 
 export default {
-  baseUrl: env.PIPELINE_API_URL?.replace(/\/$/, ''),
-  internalServiceToken: env.INTERNAL_SERVICE_TOKEN,
+  baseUrl: readOptionalUrl(process.env.PIPELINE_API_URL),
+  internalServiceToken: process.env.INTERNAL_SERVICE_TOKEN?.trim() || undefined,
 }
