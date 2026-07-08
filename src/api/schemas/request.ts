@@ -45,6 +45,28 @@ export const tagOptionIdParamSchema = z.object({
   id: z.string().cuid(),
 })
 
+const reportTypeSlugSchema = z
+  .string()
+  .min(1)
+  .regex(
+    /^[a-z0-9-]+$/,
+    'Slug must be lowercase letters, numbers and hyphens only'
+  )
+
+export const createReportTypeBodySchema = z.object({
+  slug: reportTypeSlugSchema,
+  label: z.string().optional(),
+})
+
+export const updateReportTypeBodySchema = z.object({
+  slug: reportTypeSlugSchema.optional(),
+  label: z.string().optional().nullable(),
+})
+
+export const reportTypeIdParamSchema = z.object({
+  id: z.string().cuid(),
+})
+
 export const patchCompanyTagsBodySchema = z.object({
   tags: z.array(z.string()),
 })
@@ -391,6 +413,7 @@ export const registryUpdateRequestBodySchema = z
       .regex(/^[a-f0-9]{64}$/i, 'sha256 must be a 64-character hex string')
       .optional()
       .nullable(),
+    reportTypeId: z.string().min(1).nullable().optional(),
   })
   .refine(
     ({
@@ -403,6 +426,7 @@ export const registryUpdateRequestBodySchema = z
       s3Key,
       s3Bucket,
       sha256,
+      reportTypeId,
     }) =>
       companyName !== undefined ||
       wikidataId !== undefined ||
@@ -412,7 +436,8 @@ export const registryUpdateRequestBodySchema = z
       s3Url !== undefined ||
       s3Key !== undefined ||
       s3Bucket !== undefined ||
-      sha256 !== undefined,
+      sha256 !== undefined ||
+      reportTypeId !== undefined,
     {
       message: 'At least one field to update must be provided.',
     }

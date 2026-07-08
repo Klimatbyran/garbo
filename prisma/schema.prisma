@@ -76,6 +76,17 @@ model TagOption {
   @@map("tag_options")
 }
 
+/// Valid report types for registry reports (e.g. sustainability-report, annual-report).
+model ReportType {
+  id    String  @id @default(cuid())
+  slug  String  @unique
+  label String?
+
+  reports Report[]
+
+  @@map("report_types")
+}
+
 /// Explicitly stated base year for comparable data
 model BaseYear {
   id        String @id @default(cuid())
@@ -444,8 +455,12 @@ model Report {
   companyName String?
   wikidataId  String?
   reportYear  String?
+  reportTypeId String?
+  reportType   ReportType? @relation(fields: [reportTypeId], references: [id], onDelete: SetNull)
 
   companyReports CompanyReport[]
+
+  @@index([reportTypeId])
 }
 
 /// One processed PDF per company (links to Report registry). Several per company when multiple PDFs exist.

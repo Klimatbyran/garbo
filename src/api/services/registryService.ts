@@ -16,6 +16,25 @@ import {
   isStorageUrl,
 } from './registryReportIdentity'
 
+const registryReportTypeSelect = {
+  reportTypeId: true,
+  reportType: {
+    select: {
+      id: true,
+      slug: true,
+      label: true,
+    },
+  },
+} as const
+
+function mapRegistryReportRow<
+  T extends {
+    reportType?: { id: string; slug: string; label: string | null } | null
+  },
+>(row: T) {
+  return row
+}
+
 type ReportInput = {
   companyName: string
   wikidataId?: string | null
@@ -119,9 +138,10 @@ class RegistryService {
         s3Key: true,
         s3Bucket: true,
         sha256: true,
+        ...registryReportTypeSelect,
       },
     })
-    return registry
+    return registry.map(mapRegistryReportRow)
   }
 
   async upsertReportInRegistry(input: ReportInput, prismaClient = prisma) {
@@ -193,13 +213,31 @@ class RegistryService {
     data: z.infer<typeof registryUpdateRequestBodySchema>,
     prismaClient = prisma
   ) {
-    const { id, ...fields } = data
+    const { id, reportTypeId, ...fields } = data
     const report = await prismaClient.report.findUnique({ where: { id } })
     if (!report) return null
-    return prismaClient.report.update({
-      where: { id },
-      data: fields,
-    })
+    return prismaClient.report
+      .update({
+        where: { id },
+        data: {
+          ...fields,
+          ...(reportTypeId !== undefined ? { reportTypeId } : {}),
+        },
+        select: {
+          id: true,
+          companyName: true,
+          wikidataId: true,
+          reportYear: true,
+          url: true,
+          sourceUrl: true,
+          s3Url: true,
+          s3Key: true,
+          s3Bucket: true,
+          sha256: true,
+          ...registryReportTypeSelect,
+        },
+      })
+      .then(mapRegistryReportRow)
   }
 
   async deleteReportFromRegistry(
