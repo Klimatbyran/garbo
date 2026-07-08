@@ -559,7 +559,7 @@ async function main() {
 
         if (DRY_RUN) throw new Error('DRY_RUN_ROLLBACK')
       },
-      { timeout: 300_000 }
+      { timeout: 900_000 }
     )
   } catch (err) {
     if (err instanceof Error && err.message === 'DRY_RUN_ROLLBACK') {
