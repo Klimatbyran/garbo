@@ -97,13 +97,20 @@ export const saveToAPI = new PipelineWorker<SaveToApiJob>(
       job.log(`Saving approved data for companyId:${companyId} company:${companyName} to API ${apiSubEndpoint}:
           ${JSON.stringify(sanitizedBody)}`)
 
-      const method = apiSubEndpoint === 'tags' ? ('PATCH' as const) : undefined
-      const endpoint = companyMutationPath(
-        companyId,
-        typeof apiSubEndpoint === 'string' && apiSubEndpoint.trim().length > 0
-          ? apiSubEndpoint.trim()
+      const method =
+        apiSubEndpoint === 'tags' || apiSubEndpoint === 'registry-report-type'
+          ? ('PATCH' as const)
           : undefined
-      )
+      const endpoint =
+        apiSubEndpoint === 'registry-report-type'
+          ? '/reports/registry'
+          : companyMutationPath(
+              companyId,
+              typeof apiSubEndpoint === 'string' &&
+                apiSubEndpoint.trim().length > 0
+                ? apiSubEndpoint.trim()
+                : undefined
+            )
       const chunk =
         typeof apiSubEndpoint === 'string' && apiSubEndpoint.trim().length > 0
           ? apiSubEndpoint.trim()

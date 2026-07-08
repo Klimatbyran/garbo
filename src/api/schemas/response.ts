@@ -29,6 +29,13 @@ export const tagOptionSchema = z.object({
   label: z.string().nullable(),
 })
 export const tagOptionListResponseSchema = z.array(tagOptionSchema)
+
+export const reportTypeSchema = z.object({
+  id: z.string(),
+  slug: z.string(),
+  label: z.string().nullable(),
+})
+export const reportTypeListResponseSchema = z.array(reportTypeSchema)
 export const emptyBodySchema = z.undefined()
 
 export const MetadataSchema = z.object({
@@ -510,6 +517,8 @@ export const RegistryReportSchema = z.object({
   companyName: z.string().optional().nullable(),
   wikidataId: z.string().optional().nullable(),
   reportYear: z.string().optional().nullable(),
+  reportTypeId: z.string().nullable().optional(),
+  reportType: reportTypeSchema.nullable().optional(),
 })
 
 export const RegistryList = z.array(RegistryReportSchema)

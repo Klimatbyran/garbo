@@ -76,6 +76,7 @@ const checkDB = new PipelineWorker(
       descriptions,
       lei,
       tags: extractedTags,
+      reportType: extractedReportType,
     } = root || {}
 
     // User-provided tags are a starting point; merge with AI-extracted tags when available.
@@ -126,6 +127,7 @@ const checkDB = new PipelineWorker(
     // registryReportId the single source of truth for the run instead of re-inferring at save.
     let registryReportId: string | undefined
     let companyReportId: string | undefined
+    let existingReportTypeId: string | null = null
     const earlyRegistryPayload = buildEarlyRegistryPayload({
       companyName,
       wikidata,
@@ -139,6 +141,7 @@ const checkDB = new PipelineWorker(
         const report =
           await registryService.upsertReportInRegistry(earlyRegistryPayload)
         registryReportId = report.id
+        existingReportTypeId = report.reportTypeId ?? null
         companyReportId = await companyReportService.findOrCreateCompanyReport(
           companyId,
           report.id
@@ -153,6 +156,26 @@ const checkDB = new PipelineWorker(
       job.log(
         'Skipping early registry upsert: no PDF URL identity on job (url/sourceUrl/pdfCache)'
       )
+    }
+
+    if (!registryReportId && earlyRegistryPayload) {
+      try {
+        const existingReport =
+          await registryService.findMatchingReportInRegistry(
+            earlyRegistryPayload
+          )
+        if (existingReport) {
+          registryReportId = existingReport.id
+          existingReportTypeId = existingReport.reportTypeId
+          job.log(
+            `Resolved registry report for report type update: ${registryReportId}`
+          )
+        }
+      } catch (error: any) {
+        job.log(
+          `Registry lookup for report type failed: ${error?.message ?? String(error)}`
+        )
+      }
     }
 
     const base = {
@@ -173,6 +196,7 @@ const checkDB = new PipelineWorker(
         documentReportYear: job.data.documentReportYear,
         ...(registryReportId && { registryReportId }),
         ...(companyReportId && { companyReportId }),
+        ...(registryReportId && { existingReportTypeId }),
       },
       opts: withPipelineJobOpts({
         attempts: 3,
@@ -272,6 +296,20 @@ const checkDB = new PipelineWorker(
               data: {
                 ...base.data,
                 tags,
+              },
+            }
+          : null,
+        typeof extractedReportType === 'string' &&
+        extractedReportType.trim().length > 0 &&
+        registryReportId
+          ? {
+              ...base,
+              queueName: QUEUE_NAMES.DIFF_REPORT_TYPE,
+              data: {
+                ...base.data,
+                registryReportId,
+                existingReportTypeId,
+                reportTypeSlug: extractedReportType.trim(),
               },
             }
           : null,

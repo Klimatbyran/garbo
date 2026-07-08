@@ -71,6 +71,9 @@ const openAPITagDefinitions = {
   TagOptions: {
     description: 'Valid tag options for company tags',
   },
+  ReportTypes: {
+    description: 'Valid report types for registry reports',
+  },
   Newsletters: {
     description: 'Newsletters',
   },

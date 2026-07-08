@@ -17,6 +17,7 @@ export type FollowUpKey =
   | 'initiatives'
   | 'baseYear'
   | 'companyTags'
+  | 'reportType'
   | 'lei'
   | 'descriptions'
 
@@ -33,6 +34,7 @@ export const FOLLOW_UP_KEYS: FollowUpKey[] = [
   'initiatives',
   'baseYear',
   'companyTags',
+  'reportType',
   'lei',
   'descriptions',
 ]
@@ -168,6 +170,14 @@ const extractEmissions = new PipelineWorker<ExtractEmissionsJob>(
           ...base,
           name: 'companyTags ' + companyName,
           queueName: QUEUE_NAMES.FOLLOW_UP_COMPANY_TAGS,
+        },
+      },
+      {
+        key: 'reportType',
+        job: {
+          ...base,
+          name: 'reportType ' + companyName,
+          queueName: QUEUE_NAMES.FOLLOW_UP_REPORT_TYPE,
         },
       },
       {

@@ -281,6 +281,7 @@ describe('registryService', () => {
       s3Key: 'key1',
       s3Bucket: 'bkt',
       sha256: 'b'.repeat(64),
+      reportTypeId: 'type_annual',
     }
 
     mockPrisma.report.findMany
@@ -317,8 +318,41 @@ describe('registryService', () => {
           s3Key: 'key1',
           s3Bucket: 'bkt',
           sha256: 'b'.repeat(64),
+          reportType: { connect: { id: 'type_annual' } },
         }),
       })
     )
+  })
+
+  it('findMatchingReportInRegistry returns the kept row id and reportTypeId', async () => {
+    const existing = {
+      id: 'r1',
+      url: 'https://example.com/report.pdf',
+      companyName: 'Acme',
+      wikidataId: null,
+      reportYear: null,
+      sourceUrl: null,
+      s3Url: null,
+      s3Key: null,
+      s3Bucket: null,
+      sha256: 'a'.repeat(64),
+      reportTypeId: 'type_esg',
+    }
+
+    mockPrisma.report.findMany.mockResolvedValueOnce([existing])
+
+    const result = await registryService.findMatchingReportInRegistry(
+      {
+        companyName: 'Acme',
+        url: 'https://example.com/report.pdf',
+        sha256: 'a'.repeat(64),
+      },
+      mockPrisma
+    )
+
+    expect(result).toEqual({
+      id: 'r1',
+      reportTypeId: 'type_esg',
+    })
   })
 })

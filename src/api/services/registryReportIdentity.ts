@@ -12,6 +12,7 @@ export interface RegistryReportIdentityRow {
   s3Key?: string | null
   s3Bucket?: string | null
   sha256?: string | null
+  reportTypeId?: string | null
 }
 
 const STORAGE_URL_PATTERNS = ['storage.googleapis.com']
@@ -311,6 +312,7 @@ export function copyMissingFields(
     'companyName',
     'wikidataId',
     'reportYear',
+    'reportTypeId',
   ] as const
 
   for (const field of fields) {

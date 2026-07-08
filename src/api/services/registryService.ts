@@ -16,6 +16,25 @@ import {
   isStorageUrl,
 } from './registryReportIdentity'
 
+const registryReportTypeSelect = {
+  reportTypeId: true,
+  reportType: {
+    select: {
+      id: true,
+      slug: true,
+      label: true,
+    },
+  },
+} as const
+
+function mapRegistryReportRow<
+  T extends {
+    reportType?: { id: string; slug: string; label: string | null } | null
+  },
+>(row: T) {
+  return row
+}
+
 type ReportInput = {
   companyName: string
   wikidataId?: string | null
@@ -101,10 +120,54 @@ function applyMergedRows(
     s3Key: input.s3Key !== undefined ? input.s3Key : merged.s3Key,
     s3Bucket: input.s3Bucket !== undefined ? input.s3Bucket : merged.s3Bucket,
     sha256: input.sha256 !== undefined ? input.sha256 : merged.sha256,
+    ...(merged.reportTypeId
+      ? { reportType: { connect: { id: merged.reportTypeId } } }
+      : {}),
   }
 }
 
 class RegistryService {
+  async findMatchingReportInRegistry(
+    input: ReportInput,
+    prismaClient = prisma
+  ): Promise<{ id: string; reportTypeId: string | null } | null> {
+    const lookupConditions = buildReportMatchConditions(input)
+    const where: Prisma.ReportWhereInput =
+      lookupConditions.length > 0
+        ? { OR: lookupConditions }
+        : { url: input.url }
+
+    const matches = await prismaClient.report.findMany({
+      where,
+      orderBy: { id: 'asc' },
+      select: {
+        id: true,
+        url: true,
+        companyName: true,
+        wikidataId: true,
+        reportYear: true,
+        sourceUrl: true,
+        s3Url: true,
+        s3Key: true,
+        s3Bucket: true,
+        sha256: true,
+        reportTypeId: true,
+      },
+    })
+
+    if (matches.length === 0) return null
+
+    const row =
+      matches.length === 1
+        ? matches[0]
+        : pickRowToKeep(matches as RegistryReportIdentityRow[])
+
+    return {
+      id: row.id,
+      reportTypeId: row.reportTypeId ?? null,
+    }
+  }
+
   async getReportRegistry(prismaClient = prisma) {
     const registry = await prismaClient.report.findMany({
       orderBy: [{ reportYear: 'desc' }, { companyName: 'asc' }, { id: 'asc' }],
@@ -119,9 +182,10 @@ class RegistryService {
         s3Key: true,
         s3Bucket: true,
         sha256: true,
+        ...registryReportTypeSelect,
       },
     })
-    return registry
+    return registry.map(mapRegistryReportRow)
   }
 
   async upsertReportInRegistry(input: ReportInput, prismaClient = prisma) {
@@ -193,13 +257,31 @@ class RegistryService {
     data: z.infer<typeof registryUpdateRequestBodySchema>,
     prismaClient = prisma
   ) {
-    const { id, ...fields } = data
+    const { id, reportTypeId, ...fields } = data
     const report = await prismaClient.report.findUnique({ where: { id } })
     if (!report) return null
-    return prismaClient.report.update({
-      where: { id },
-      data: fields,
-    })
+    return prismaClient.report
+      .update({
+        where: { id },
+        data: {
+          ...fields,
+          ...(reportTypeId !== undefined ? { reportTypeId } : {}),
+        },
+        select: {
+          id: true,
+          companyName: true,
+          wikidataId: true,
+          reportYear: true,
+          url: true,
+          sourceUrl: true,
+          s3Url: true,
+          s3Key: true,
+          s3Bucket: true,
+          sha256: true,
+          ...registryReportTypeSelect,
+        },
+      })
+      .then(mapRegistryReportRow)
   }
 
   async deleteReportFromRegistry(

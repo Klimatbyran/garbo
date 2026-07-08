@@ -30,6 +30,7 @@ function row(
     companyName: p.companyName ?? null,
     wikidataId: p.wikidataId ?? null,
     reportYear: p.reportYear ?? null,
+    reportTypeId: p.reportTypeId ?? null,
   }
 }
 
@@ -333,5 +334,21 @@ describe('registryReportIdentity', () => {
     })
     const patch = copyMissingFields(rowToKeep, rowToDelete)
     expect(patch.companyName).toBe('Acme Corp')
+  })
+
+  it('copyMissingFields preserves reportTypeId from the row being deleted', () => {
+    const rowToKeep = row({
+      id: 'a',
+      url: 'https://storage.googleapis.com/garbo/x.pdf',
+      sha256: 'a'.repeat(64),
+      reportTypeId: null,
+    })
+    const rowToDelete = row({
+      id: 'b',
+      url: 'https://human/page',
+      reportTypeId: 'type_sustainability',
+    })
+    const patch = copyMissingFields(rowToKeep, rowToDelete)
+    expect(patch.reportTypeId).toBe('type_sustainability')
   })
 })
