@@ -117,11 +117,8 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
           data: { status: 'completed' },
         })
 
-        if (companyName && threadId) {
-          requestPipelineRunPrune({
-            companyName,
-            threadId,
-          })
+        if (threadId) {
+          requestPipelineRunPrune({ threadId })
         }
       }
     } catch (err) {
