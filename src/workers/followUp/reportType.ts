@@ -1,5 +1,6 @@
 import { QUEUE_NAMES } from '../../queues'
 import { FollowUpJob, FollowUpWorker } from '../../lib/FollowUpWorker'
+import { parseFollowUpAnswer } from '../../lib/parseFollowUpAnswer'
 import { z } from 'zod'
 import { FollowUpType } from '../../types'
 import { apiFetch } from '../../lib/api'
@@ -89,17 +90,8 @@ const reportType = new FollowUpWorker<FollowUpJob>(
       FollowUpType.ReportType
     )
 
-    if (!answer) {
-      return { reportType: null }
-    }
-
-    let reportType: unknown
-    try {
-      const parsed = JSON.parse(answer) as { value?: { reportType?: unknown } }
-      reportType = parsed.value?.reportType
-    } catch {
-      return { reportType: null }
-    }
+    const parsed = parseFollowUpAnswer(answer)
+    const reportType = parsed?.reportType
 
     if (typeof reportType !== 'string' || !reportType.trim()) {
       return { reportType: null }

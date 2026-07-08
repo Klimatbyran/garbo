@@ -281,6 +281,7 @@ describe('registryService', () => {
       s3Key: 'key1',
       s3Bucket: 'bkt',
       sha256: 'b'.repeat(64),
+      reportTypeId: 'type_annual',
     }
 
     mockPrisma.report.findMany
@@ -317,6 +318,7 @@ describe('registryService', () => {
           s3Key: 'key1',
           s3Bucket: 'bkt',
           sha256: 'b'.repeat(64),
+          reportType: { connect: { id: 'type_annual' } },
         }),
       })
     )
