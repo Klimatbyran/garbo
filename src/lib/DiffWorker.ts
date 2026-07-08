@@ -3,6 +3,7 @@ import { Job, Queue, WorkerOptions } from 'bullmq'
 import redis from '../config/redis'
 import saveToAPI from '../workers/saveToAPI'
 import { canonicalPublicReportUrl, defaultMetadata } from './saveUtils'
+import { withPipelineJobOpts } from './pipelineJobOptions'
 
 /**
  * Enqueue saveToAPI with a BullMQ parent link when possible. If the parent job
@@ -19,7 +20,7 @@ export async function enqueueSaveToAPIWithParentFallback(
     : undefined
 
   try {
-    await saveToAPI.queue.add(name, data, parentOpts)
+    await saveToAPI.queue.add(name, data, withPipelineJobOpts(parentOpts))
   } catch (error) {
     const msg =
       error instanceof Error
@@ -32,7 +33,7 @@ export async function enqueueSaveToAPIWithParentFallback(
       await job.log(
         `saveToAPI enqueue: parent missing; retrying without parent. (${msg})`
       )
-      await saveToAPI.queue.add(name, data)
+      await saveToAPI.queue.add(name, data, withPipelineJobOpts())
       return
     }
 

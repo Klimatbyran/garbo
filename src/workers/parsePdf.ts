@@ -4,6 +4,7 @@ import redis from '../config/redis'
 import precheck from './precheck'
 import { vectorDB } from '../lib/vectordb'
 import { QUEUE_NAMES } from '../queues'
+import { withPipelineJobOpts } from '../lib/pipelineJobOptions'
 
 const flow = new FlowProducer({ connection: redis })
 flow.on('error', (err) => console.error('FlowProducer connection error:', err))
@@ -62,10 +63,10 @@ const parsePdf = new PipelineWorker(
                   ...base,
                   name: 'doclingParsePDF',
                   queueName: QUEUE_NAMES.DOCLING_PARSE_PDF,
-                  opts: {
+                  opts: withPipelineJobOpts({
                     attempts: 3,
                     backoff: { type: 'fixed', delay: 120_000 },
-                  },
+                  }),
                 },
               ],
             },
