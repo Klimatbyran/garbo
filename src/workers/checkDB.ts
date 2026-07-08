@@ -157,6 +157,26 @@ const checkDB = new PipelineWorker(
       )
     }
 
+    if (!registryReportId && earlyRegistryPayload) {
+      try {
+        const existingReport =
+          await registryService.findMatchingReportInRegistry(
+            earlyRegistryPayload
+          )
+        if (existingReport) {
+          registryReportId = existingReport.id
+          existingReportTypeId = existingReport.reportTypeId
+          job.log(
+            `Resolved registry report for report type update: ${registryReportId}`
+          )
+        }
+      } catch (error: any) {
+        job.log(
+          `Registry lookup for report type failed: ${error?.message ?? String(error)}`
+        )
+      }
+    }
+
     const base = {
       name: companyName,
       data: {

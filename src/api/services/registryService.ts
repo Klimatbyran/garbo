@@ -127,6 +127,47 @@ function applyMergedRows(
 }
 
 class RegistryService {
+  async findMatchingReportInRegistry(
+    input: ReportInput,
+    prismaClient = prisma
+  ): Promise<{ id: string; reportTypeId: string | null } | null> {
+    const lookupConditions = buildReportMatchConditions(input)
+    const where: Prisma.ReportWhereInput =
+      lookupConditions.length > 0
+        ? { OR: lookupConditions }
+        : { url: input.url }
+
+    const matches = await prismaClient.report.findMany({
+      where,
+      orderBy: { id: 'asc' },
+      select: {
+        id: true,
+        url: true,
+        companyName: true,
+        wikidataId: true,
+        reportYear: true,
+        sourceUrl: true,
+        s3Url: true,
+        s3Key: true,
+        s3Bucket: true,
+        sha256: true,
+        reportTypeId: true,
+      },
+    })
+
+    if (matches.length === 0) return null
+
+    const row =
+      matches.length === 1
+        ? matches[0]
+        : pickRowToKeep(matches as RegistryReportIdentityRow[])
+
+    return {
+      id: row.id,
+      reportTypeId: row.reportTypeId ?? null,
+    }
+  }
+
   async getReportRegistry(prismaClient = prisma) {
     const registry = await prismaClient.report.findMany({
       orderBy: [{ reportYear: 'desc' }, { companyName: 'asc' }, { id: 'asc' }],

@@ -1,6 +1,5 @@
 import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { enqueueSaveToAPIWithParentFallback } from '../lib/DiffWorker'
-import { diffChanges } from '../lib/saveUtils'
 import { QUEUE_NAMES } from '../queues'
 import { apiFetch } from '../lib/api'
 
@@ -20,6 +19,13 @@ async function resolveReportTypeId(slug: string): Promise<string | null> {
     (option: { id?: string; slug?: string }) => option.slug === slug
   )
   return match?.id ?? null
+}
+
+export function registryReportTypeChanged(
+  existingReportTypeId: string | null,
+  reportTypeId: string
+): boolean {
+  return existingReportTypeId !== reportTypeId
 }
 
 const diffReportType = new PipelineWorker<DiffReportTypeJob>(
@@ -43,30 +49,28 @@ const diffReportType = new PipelineWorker<DiffReportTypeJob>(
       reportTypeId,
     }
 
-    const { diff, requiresApproval } = await diffChanges({
-      existingCompany: existingReportTypeId ? { id: registryReportId } : null,
-      before: { reportTypeId: existingReportTypeId },
-      after: { reportTypeId },
-    })
-
-    job.log('Diff:' + diff)
-
-    if (diff) {
-      await enqueueSaveToAPIWithParentFallback(
-        job,
-        companyName + ' report type',
-        {
-          ...job.data,
-          body,
-          diff,
-          requiresApproval,
-          apiSubEndpoint: 'registry-report-type',
-          reportTypeSlug: undefined,
-        }
-      )
+    if (!registryReportTypeChanged(existingReportTypeId, reportTypeId)) {
+      job.log('Report type unchanged; skipping registry update')
+      return { body, skipped: true }
     }
 
-    return { body, diff, requiresApproval }
+    const diff = `Report type: ${existingReportTypeId ?? 'none'} → ${reportTypeId}`
+    job.log('Diff:' + diff)
+
+    await enqueueSaveToAPIWithParentFallback(
+      job,
+      companyName + ' report type',
+      {
+        ...job.data,
+        body,
+        diff,
+        requiresApproval: false,
+        apiSubEndpoint: 'registry-report-type',
+        reportTypeSlug: undefined,
+      }
+    )
+
+    return { body, diff, requiresApproval: false }
   }
 )
 

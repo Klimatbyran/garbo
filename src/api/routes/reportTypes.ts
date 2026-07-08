@@ -1,6 +1,8 @@
 import { FastifyInstance, AuthenticatedFastifyRequest } from 'fastify'
 
 import { reportTypeService } from '../services/reportTypeService'
+import { redisCache } from '@/lib/redisCacheSingleton'
+import { invalidateRegistryCache } from '@/api/services/registryCache'
 import {
   createReportTypeBodySchema,
   updateReportTypeBodySchema,
@@ -145,6 +147,7 @@ export async function reportTypesRoutes(app: FastifyInstance) {
       const { id } = request.params
       try {
         await reportTypeService.delete(id)
+        await invalidateRegistryCache(redisCache, request.log)
         return reply.send({ ok: true })
       } catch (error: any) {
         if (error?.code === 'P2025') {
