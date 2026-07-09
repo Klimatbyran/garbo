@@ -32,7 +32,7 @@ export async function nationalReadRoutes(app: FastifyInstance) {
       schema: {
         summary: 'Get national data',
         description:
-          'Retrieve national (Sweden) data with historical emissions, trends, and Paris agreement compliance status. Returns 304 Not Modified if the resource has not changed since the last request (based on ETag).',
+          'Retrieve national (Sweden) data with territorial fossil, biogenic, consumption abroad, oil export, and e-commerce emissions. Returns 304 Not Modified if the resource has not changed since the last request (based on ETag).',
         tags: getTags('Nation'),
 
         response: {

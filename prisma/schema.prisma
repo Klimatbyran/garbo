@@ -12,11 +12,10 @@ generator client {
 }
 
 model Company {
-  /// Internal Garbo company id (UUID). Not the primary key; use for stable in-app references.
-  /// Public URLs and Wikidata integration still use `wikidataId`.
-  id           String  @unique @default(uuid())
-  /// Primary key. Wikidata Q-id; used in API routes, FKs, and Wikidata import/export.
-  wikidataId   String        @id
+  /// Primary key. Stable internal company id (UUID).
+  id         String  @id @default(uuid())
+  /// Wikidata Q-id when known. Nullable until pipeline or editor assigns one.
+  wikidataId String? @unique
   name         String
   description  String?
   descriptions Description[]
@@ -43,6 +42,31 @@ model Company {
   tags String[]
 
   logoUrl String?
+
+  identifiers CompanyIdentifier[]
+
+  coverageListEntries CoverageListEntry[]
+}
+
+enum CompanyIdentifierType {
+  WIKIDATA
+  LEI
+  ORG_NUMBER
+  ISIN
+}
+
+model CompanyIdentifier {
+  id        String                @id @default(cuid())
+  companyId String
+  type      CompanyIdentifierType
+  value     String
+
+  company  Company    @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  metadata Metadata[]
+
+  @@unique([companyId, type])
+  @@index([type, value])
+  @@map("company_identifiers")
 }
 
 /// Valid tag options for company tags. Company.tags[] may only contain values that exist as slug here.
@@ -54,6 +78,17 @@ model TagOption {
   @@map("tag_options")
 }
 
+/// Valid report types for registry reports (e.g. sustainability-report, annual-report).
+model ReportType {
+  id    String  @id @default(cuid())
+  slug  String  @unique
+  label String?
+
+  reports Report[]
+
+  @@map("report_types")
+}
+
 /// Explicitly stated base year for comparable data
 model BaseYear {
   id        String @id @default(cuid())
@@ -62,7 +97,7 @@ model BaseYear {
   companyId String @unique
 
   metadata Metadata[]
-  company  Company    @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+  company  Company    @relation(fields: [companyId], references: [id], onDelete: Cascade)
 }
 
 /// Connecting a company to a specific industry and metadata
@@ -70,9 +105,9 @@ model BaseYear {
 model Industry {
   id                  String @id @default(cuid())
   gicsSubIndustryCode String
-  companyWikidataId   String @unique
+  companyId           String @unique
 
-  company      Company      @relation(fields: [companyWikidataId], references: [wikidataId], onDelete: Cascade)
+  company      Company      @relation(fields: [companyId], references: [id], onDelete: Cascade)
   metadata     Metadata[]
   industryGics IndustryGics @relation(fields: [gicsSubIndustryCode], references: [subIndustryCode])
 }
@@ -119,7 +154,7 @@ model ReportingPeriod {
   metadata      Metadata[]
   economy       Economy?
   emissions     Emissions?
-  company       Company       @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+  company       Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
   companyReport CompanyReport @relation(fields: [companyReportId], references: [id], onDelete: Restrict)
 
   @@unique([companyReportId, year])
@@ -308,7 +343,7 @@ model Goal {
   companyId   String
 
   metadata Metadata[]
-  company  Company    @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+  company  Company    @relation(fields: [companyId], references: [id], onDelete: Cascade)
 }
 
 model Initiative {
@@ -319,7 +354,7 @@ model Initiative {
   scope       String?
   companyId   String
 
-  company  Company    @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+  company  Company    @relation(fields: [companyId], references: [id], onDelete: Cascade)
   metadata Metadata[]
 }
 
@@ -352,6 +387,7 @@ model Metadata {
   turnoverId             String?
   employeesId            String?
   descriptionId          String?
+  companyIdentifierId    String?
 
   goal                 Goal?                 @relation(fields: [goalId], references: [id])
   initiative           Initiative?           @relation(fields: [initiativeId], references: [id])
@@ -370,6 +406,7 @@ model Metadata {
   turnover             Turnover?             @relation(fields: [turnoverId], references: [id])
   employees            Employees?            @relation(fields: [employeesId], references: [id])
   description          Description?          @relation(fields: [descriptionId], references: [id], onDelete: Cascade)
+  companyIdentifier    CompanyIdentifier?    @relation(fields: [companyIdentifierId], references: [id], onDelete: SetNull)
 }
 
 model User {
@@ -399,7 +436,7 @@ model Description {
   companyId String
   language  Language
 
-  company  Company    @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+  company  Company    @relation(fields: [companyId], references: [id], onDelete: Cascade)
   metadata Metadata[]
 
   @@unique([companyId, language])
@@ -420,8 +457,12 @@ model Report {
   companyName String?
   wikidataId  String?
   reportYear  String?
+  reportTypeId String?
+  reportType   ReportType? @relation(fields: [reportTypeId], references: [id], onDelete: SetNull)
 
   companyReports CompanyReport[]
+
+  @@index([reportTypeId])
 }
 
 /// One processed PDF per company (links to Report registry). Several per company when multiple PDFs exist.
@@ -436,7 +477,7 @@ model CompanyReport {
   reportPublicationDate DateTime?
   createdAt             DateTime  @default(now())
 
-  company          Company           @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+  company          Company           @relation(fields: [companyId], references: [id], onDelete: Cascade)
   report           Report?           @relation(fields: [registryReportId], references: [id], onDelete: SetNull)
   reportingPeriods ReportingPeriod[]
 
@@ -456,6 +497,8 @@ model ReportRun {
   threadId        String         @unique
   pdfUrl          String
   companyName     String?
+  /// Stable Garbo company id when known (preferred over wikidataId for linking runs).
+  companyId       String?
   wikidataId      String?
   companyReportId String?        @map("company_report_id")
   batchDbId       String?        @map("batch_db_id")
@@ -466,6 +509,7 @@ model ReportRun {
   jobs            ReportRunJob[]
 
   @@index([pdfUrl])
+  @@index([companyId])
   @@index([wikidataId])
   @@index([companyReportId])
   @@index([batchDbId])
@@ -475,6 +519,7 @@ model ReportRunJob {
   id                String    @id @default(cuid())
   jobId             String
   queueName         String
+  companyId         String?
   wikidataId        String?
   status            String // 'completed' | 'failed'
   approvedTimestamp String?   @map("approved_timestamp")
@@ -491,6 +536,7 @@ model ReportRunJob {
   reportRun         ReportRun @relation(fields: [reportRunId], references: [id])
 
   @@index([reportRunId])
+  @@index([companyId])
 }
 
 /// Permission codes for the client API key layer (browser/proxy + partner integrations) — see `src/api/security/routePermissions.ts`.
@@ -556,4 +602,48 @@ model ClientApiRequest {
   @@index([keyId])
   @@index([timestamp])
   @@map("client_api_request")
+}
+
+/// Validate Coverage tab: named index lists (e.g. MSCI World Index).
+model CoverageList {
+  id        String             @id @default(cuid())
+  name      String             @unique
+  createdAt DateTime           @default(now()) @map("created_at")
+  updatedAt DateTime           @updatedAt @map("updated_at")
+  years     CoverageListYear[]
+
+  @@map("coverage_lists")
+}
+
+/// One edition per year for a coverage list.
+model CoverageListYear {
+  id        String              @id @default(cuid())
+  listId    String              @map("list_id")
+  list      CoverageList        @relation(fields: [listId], references: [id], onDelete: Cascade)
+  year      Int
+  createdAt DateTime            @default(now()) @map("created_at")
+  updatedAt DateTime            @updatedAt @map("updated_at")
+  entries   CoverageListEntry[]
+
+  @@unique([listId, year])
+  @@index([listId])
+  @@map("coverage_list_years")
+}
+
+/// Pasted company name line belonging to a list year edition.
+model CoverageListEntry {
+  id               String           @id @default(cuid())
+  yearId           String           @map("year_id")
+  year             CoverageListYear @relation(fields: [yearId], references: [id], onDelete: Cascade)
+  name             String
+  sortOrder        Int              @default(0) @map("sort_order")
+  /// Staff-confirmed DB company match; overrides auto-matching when set.
+  matchedCompanyId String?          @map("matched_company_id")
+  matchedCompany   Company?         @relation(fields: [matchedCompanyId], references: [id], onDelete: SetNull)
+  /// Staff confirmed this list name is not in the DB (overrides ambiguous suggestions).
+  matchConfirmedMissing Boolean     @default(false) @map("match_confirmed_missing")
+
+  @@index([yearId])
+  @@index([matchedCompanyId])
+  @@map("coverage_list_entries")
 }

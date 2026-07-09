@@ -17,4 +17,10 @@ describe('lookupKnownCompanyWikidataIdFromRegistry', () => {
       )
     ).toBeNull()
   })
+
+  it('resolves Oncopeptides from the bundled registry', () => {
+    expect(lookupKnownCompanyWikidataIdFromRegistry('Oncopeptides')).toBe(
+      'Q138144442'
+    )
+  })
 })
