@@ -1,9 +1,4 @@
-import {
-  Entity,
-  EntityId,
-  ItemId,
-  SearchResponse,
-} from 'wikibase-sdk'
+import { Entity, EntityId, ItemId, SearchResponse } from 'wikibase-sdk'
 import { Claim, transformFromWikidataDateStringToDate, wbk } from './util'
 import { WbGetEntitiesResponse } from 'wikibase-sdk/dist/src/helpers/parse_responses'
 import { SearchEntitiesOptions } from 'wikibase-sdk/dist/src/queries/search_entities'
