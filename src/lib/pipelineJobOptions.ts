@@ -1,13 +1,20 @@
 import type { JobsOptions } from 'bullmq'
 
-/** Overflow safety net only — run-level pruning in pipeline-api is authoritative. */
+/**
+ * Completed jobs are evicted by run-level pruning in pipeline-api (15 most recent
+ * runs), not per-queue caps. Per-queue removeOnComplete caused saveToAPI jobs to
+ * disappear from live Jobbstatus while their run was still within the keep window.
+ */
 export const DEFAULT_PIPELINE_JOB_OPTIONS: JobsOptions = {
-  removeOnComplete: {
-    count: 30,
-  },
+  removeOnComplete: false,
   removeOnFail: {
     age: 1_209_600,
   },
+}
+
+/** Multiple saveToAPI jobs per run — never use per-queue eviction here. */
+export const SAVE_TO_API_JOB_OPTIONS: JobsOptions = {
+  removeOnComplete: false,
 }
 
 export function withPipelineJobOpts(opts?: JobsOptions): JobsOptions {
