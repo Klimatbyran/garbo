@@ -4,11 +4,17 @@ import {
   Turnover,
   Description,
   Prisma,
+  User,
 } from '@prisma/client'
 import { OptionalNullable } from '../../lib/type-utils'
 import { DefaultEconomyType } from '../types'
 import { prisma } from '../../lib/prisma'
-import { economyArgs, detailedCompanyArgs, companyListArgs } from '../args'
+import {
+  economyArgs,
+  detailedCompanyArgs,
+  pipelineCompanyDetailArgs,
+  companyListArgs,
+} from '../args'
 import {
   calculateEmissionChangeLastTwoYears,
   calculateScope2Total,
@@ -16,7 +22,6 @@ import {
   calculatedTotalEmissions,
 } from '@/lib/company-emissions/companyEmissionsCalculator'
 import { calculateFutureEmissionTrend } from '@/lib/company-emissions/companyEmissionsFutureTrendCalculator'
-import { calculateCompanyKpi } from '@/lib/company-emissions/companyKpiCalculator'
 import Firecrawl, { SearchResultWeb } from '@mendable/firecrawl-js'
 import { CompanyReports, SaveReportsBody, SaveReportsResult } from '../types'
 import { pdf } from 'pdf-to-img'
@@ -26,12 +31,21 @@ import { ReportsListResponseSchema } from '../schemas/response'
 import { z } from 'zod'
 import { registryService } from './registryService'
 import { pickOnePeriodPerDataYear } from './reportingPeriodPublicRead'
+import { companyIdentifierService } from './companyIdentifierService'
+import {
+  GARBO_SERVICE_CLIENT_ID,
+  getOrCreateServiceBotUser,
+} from './serviceBotUser'
 import type { ReportingPeriod } from '@/types'
 
 const API_KEY = process.env.FIRECRAWL_API_KEY
 
 // TODO: Evaluate mapping the firecrawler type to internal type definition.
 type ReportsListResponse = z.infer<typeof ReportsListResponseSchema>
+
+const UUID_RE =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+const UUID_PREFIX_RE = /^[0-9a-f]{8}$/i
 
 class CompanyService {
   private enrichCompaniesWithMetadata(
@@ -73,11 +87,6 @@ class CompanyService {
     return this.enrichCompaniesWithMetadata(companies, true)
   }
 
-  async getCompanyKpis() {
-    const companies = await this.getAllCompaniesForPublicRead()
-    return companies.map((company) => calculateCompanyKpi(company))
-  }
-
   async getAllCompaniesBySearchTerm(
     searchTerm: string,
     options?: { onePeriodPerDataYear?: boolean }
@@ -85,9 +94,9 @@ class CompanyService {
     const normalizedSearchTerm = searchTerm.trim().toLocaleLowerCase('sv-SE')
     const likePattern = normalizedSearchTerm + '%'
 
-    const matches = await prisma.$queryRaw<{ wikidataId: string }[]>(
+    const matches = await prisma.$queryRaw<{ id: string }[]>(
       Prisma.sql`
-      SELECT "wikidataId"
+      SELECT "id"
       FROM "Company"
       WHERE lower(name) LIKE ${likePattern}
          OR (
@@ -102,16 +111,19 @@ class CompanyService {
     `
     )
 
-    const orderedIds = matches.map((m) => m.wikidataId)
+    const orderedIds = matches.map((m) => m.id)
 
     const companies = await prisma.company.findMany({
       ...companyListArgs,
-      where: { wikidataId: { in: orderedIds } },
+      where: { id: { in: orderedIds } },
     })
 
     const sorted = orderedIds
-      .map((wikidataId) => companies.find((c) => c.wikidataId === wikidataId))
-      .filter((c) => c !== undefined)
+      .map((id) => companies.find((c) => c.id === id))
+      .filter(
+        (company): company is NonNullable<typeof company> =>
+          company !== undefined
+      )
 
     return this.enrichCompaniesWithMetadata(
       sorted,
@@ -119,13 +131,50 @@ class CompanyService {
     )
   }
 
-  async getCompanyWithMetadata(wikidataId: string) {
-    const company = await prisma.company.findFirstOrThrow({
-      ...detailedCompanyArgs,
-      where: {
-        wikidataId,
-      },
+  async resolveCompanyIdentifier(
+    param: string,
+    args: typeof detailedCompanyArgs = detailedCompanyArgs
+  ) {
+    if (/^Q\d+$/.test(param)) {
+      return prisma.company.findFirstOrThrow({
+        ...args,
+        where: { wikidataId: param },
+      })
+    }
+    if (UUID_RE.test(param)) {
+      return prisma.company.findFirstOrThrow({
+        ...args,
+        where: { id: param },
+      })
+    }
+    if (UUID_PREFIX_RE.test(param)) {
+      const matches = await prisma.company.findMany({
+        where: { id: { startsWith: param.toLowerCase() } },
+        select: { id: true },
+        take: 2,
+      })
+      if (matches.length !== 1) {
+        return prisma.company.findFirstOrThrow({
+          ...args,
+          where: { id: '__not_found__' },
+        })
+      }
+      return prisma.company.findFirstOrThrow({
+        ...args,
+        where: { id: matches[0].id },
+      })
+    }
+    return prisma.company.findFirstOrThrow({
+      ...args,
+      where: { id: '__not_found__' },
     })
+  }
+
+  async getCompanyWithMetadata(identifier: string) {
+    const company = await this.resolveCompanyIdentifier(
+      identifier,
+      pipelineCompanyDetailArgs
+    )
     const [transformedCompany] = this.enrichCompaniesWithMetadata(
       [company],
       false
@@ -133,18 +182,20 @@ class CompanyService {
     return transformedCompany
   }
 
-  async getCompanyForPublicRead(wikidataId: string) {
-    const company = await prisma.company.findFirstOrThrow({
-      ...detailedCompanyArgs,
-      where: {
-        wikidataId,
-      },
-    })
+  async getCompanyForPublicRead(identifier: string) {
+    const company = await this.resolveCompanyIdentifier(identifier)
     const [transformedCompany] = this.enrichCompaniesWithMetadata(
       [company],
       true
     )
     return transformedCompany
+  }
+
+  async getCompanyByInternalId(id: string) {
+    return prisma.company.findFirstOrThrow({
+      where: { id },
+      include: { baseYear: true },
+    })
   }
 
   async getCompany(wikidataId: string) {
@@ -156,6 +207,7 @@ class CompanyService {
 
   async upsertCompany({
     wikidataId,
+    user,
     ...data
   }: {
     wikidataId: string
@@ -165,8 +217,9 @@ class CompanyService {
     internalComment?: string
     tags?: string[]
     lei?: string
+    user?: User
   }) {
-    return prisma.company.upsert({
+    const company = await prisma.company.upsert({
       where: {
         wikidataId,
       },
@@ -174,24 +227,151 @@ class CompanyService {
         ...data,
         wikidataId,
       },
-      // TODO: Should we allow updating the wikidataId?
-      // Probably yes from a business perspective, but that also means we need to update all related records too.
-      // Updating the primary key can be tricky, especially with backups using the old primary key no longer being compatible.
-      // This might be a reason why we shouldn't use wikidataId as our primary key in the DB.
-      // However, no matter what, we could still use wikidataId in the API and in the URL structure.
       update: { ...data },
+    })
+    await companyIdentifierService.syncFromLegacyColumns(company, {
+      user,
+      source: user ? 'validate-editor' : 'company-column-sync',
+    })
+
+    return company
+  }
+
+  async updateCompanyWikidataIdentifier(
+    companyId: string,
+    newWikidataId: string,
+    user?: User,
+    options?: {
+      verified?: boolean
+      metadata?: { source?: string; comment?: string }
+      verifiedByUserId?: string
+    }
+  ): Promise<void> {
+    if (!newWikidataId.trim()) return
+
+    const existing = await prisma.company.findFirstOrThrow({
+      where: { id: companyId },
+    })
+    if (existing.wikidataId === newWikidataId) {
+      if (!options?.metadata && !options?.verified) return
+    } else {
+      const conflict = await prisma.company.findFirst({
+        where: { wikidataId: newWikidataId, NOT: { id: companyId } },
+      })
+      if (conflict) {
+        throw Object.assign(
+          new Error(`Wikidata ID ${newWikidataId} is already in use`),
+          { code: 409 }
+        )
+      }
+
+      await prisma.company.update({
+        where: { id: companyId },
+        data: { wikidataId: newWikidataId },
+      })
+    }
+
+    let verifier: User
+    if (options?.verifiedByUserId) {
+      verifier = await prisma.user.findFirstOrThrow({
+        where: { id: options.verifiedByUserId },
+      })
+    } else {
+      verifier =
+        user ?? (await getOrCreateServiceBotUser(GARBO_SERVICE_CLIENT_ID))
+    }
+
+    await companyIdentifierService.upsertIdentifier({
+      companyId,
+      type: 'WIKIDATA',
+      value: newWikidataId,
+      user: verifier,
+      metadata: options?.metadata ?? {
+        source: user ? 'validate-editor' : 'company-column-sync',
+        comment: user
+          ? 'Wikidata identifier updated via staff editor'
+          : 'Wikidata identifier updated',
+      },
+      verified: options?.verified ?? false,
     })
   }
 
-  async updateCompanyTags(wikidataId: string, tags: string[]) {
+  async createCompany({
+    wikidataId,
+    user,
+    ...data
+  }: {
+    wikidataId?: string | null
+    name: string
+    url?: string
+    logoUrl?: string
+    internalComment?: string
+    tags?: string[]
+    lei?: string
+    user?: User
+  }) {
+    if (wikidataId) {
+      const existing = await prisma.company.findUnique({
+        where: { wikidataId },
+        select: { id: true },
+      })
+      if (existing) {
+        throw Object.assign(
+          new Error(`Wikidata ID ${wikidataId} is already in use`),
+          { code: 409 }
+        )
+      }
+    }
+
+    const company = await prisma.company.create({
+      data: {
+        ...data,
+        wikidataId: wikidataId ?? null,
+      },
+    })
+
+    await companyIdentifierService.syncFromLegacyColumns(company, {
+      user,
+      source: user ? 'validate-editor' : 'company-column-sync',
+    })
+
+    return company
+  }
+
+  async updateCompanyById(
+    companyId: string,
+    data: {
+      name: string
+      url?: string
+      logoUrl?: string
+      internalComment?: string
+      tags?: string[]
+      lei?: string
+    },
+    user?: User
+  ) {
+    const company = await prisma.company.update({
+      where: { id: companyId },
+      data,
+    })
+
+    await companyIdentifierService.syncFromLegacyColumns(company, {
+      user,
+      source: user ? 'validate-editor' : 'company-column-sync',
+    })
+
+    return company
+  }
+
+  async updateCompanyTags(companyId: string, tags: string[]) {
     return prisma.company.update({
-      where: { wikidataId },
+      where: { id: companyId },
       data: { tags },
     })
   }
 
-  async deleteCompany(wikidataId: string) {
-    return prisma.company.delete({ where: { wikidataId } })
+  async deleteCompany(companyId: string) {
+    return prisma.company.delete({ where: { id: companyId } })
   }
 
   async upsertEconomy({
@@ -237,7 +417,7 @@ class CompanyService {
         text: description.text,
         language: description.language,
         company: {
-          connect: { wikidataId: companyId },
+          connect: { id: companyId },
         },
         metadata: {
           connect: { id: metadataId },
@@ -478,6 +658,7 @@ class CompanyService {
 export const companyService = new CompanyService()
 
 export function transformMetadata(data: any): any {
+  // TODO(Klimatbyran/garbo#1334): metadata arrays collapse to null; Zod schemas still require MetadataSchema.
   if (Array.isArray(data)) {
     return data.map((item) => transformMetadata(item))
   } else if (data && typeof data === 'object') {

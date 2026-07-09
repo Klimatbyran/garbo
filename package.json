@@ -1,6 +1,6 @@
 {
   "name": "garbo",
-  "version": "5.11.4-rc.1",
+  "version": "6.0.5-rc.2",
   "description": "",
   "type": "module",
   "exports": {
@@ -15,6 +15,7 @@
     "migrate": "npx prisma migrate deploy",
     "seed:client-api": "node --import=tsx scripts/seed-client-api.ts",
     "seed:tags": "node --import tsx scripts/seed-tag-options.ts",
+    "seed:report-types": "node --import tsx scripts/seed-report-types.ts",
     "seed:gics": "node --import dotenv/config --import tsx scripts/add-gics.ts",
     "workers": "node --import dotenv/config --import tsx src/startWorkers.ts",
     "dev-workers": "node --import dotenv/config --import tsx --watch src/startWorkers.ts",
@@ -75,7 +76,7 @@
     "redis": "^4.7.0",
     "sharp": "^0.33.5",
     "tldts": "^7.0.26",
-    "tsx": "^4.19.2",
+    "tsx": "^4.22.4",
     "wikibase-edit": "^8.0.4",
     "wikibase-sdk": "^10.2.1",
     "zod": "^3.23.8",
@@ -100,6 +101,7 @@
     "typescript-eslint": "^8.24.0"
   },
   "overrides": {
+    "esbuild": ">=0.28.1",
     "axios": "^1.16.1",
     "undici": ">=6.23.0",
     "@tootallnate/once": ">=3.0.1",

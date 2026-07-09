@@ -97,6 +97,12 @@ export async function diffChanges<T extends object>({
   return { diff: hasChanges ? diff : '', requiresApproval }
 }
 
-export function getCompanyURL(name: string, wikidataId: string) {
-  return `${apiConfig.frontendURL}/companies/${wikidataId}`
+export function getCompanyURL(
+  name: string,
+  companyId: string,
+  wikidataId?: string | null
+) {
+  void name
+  const pathSegment = wikidataId?.trim() || companyId
+  return `${apiConfig.frontendURL}/companies/${pathSegment}`
 }

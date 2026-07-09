@@ -1,22 +1,23 @@
 import { FastifyInstance, AuthenticatedFastifyRequest } from 'fastify'
 
 import { industryService } from '../../services/industryService'
+import { companyService } from '../../services/companyService'
 import { getErrorSchemas, postIndustrySchema } from '../../schemas'
 import { metadataService } from '../../services/metadataService'
 import { getTags } from '../../../config/openapi'
-import { wikidataIdParamSchema, okResponseSchema } from '../../schemas'
-import { WikidataIdParams, PostIndustryBody } from '../../types'
+import { companyIdParamSchema, okResponseSchema } from '../../schemas'
+import { CompanyIdParams, PostIndustryBody } from '../../types'
 
 export async function companyIndustryRoutes(app: FastifyInstance) {
   app.post(
-    '/:wikidataId/industry',
+    '/:id/industry',
     {
       schema: {
         summary: 'Update company industry',
         description:
           'Update or create industry classification for a company based on the GICS standard',
         tags: getTags('Industry'),
-        params: wikidataIdParamSchema,
+        params: companyIdParamSchema,
         body: postIndustrySchema,
         response: {
           200: okResponseSchema,
@@ -26,7 +27,7 @@ export async function companyIndustryRoutes(app: FastifyInstance) {
     },
     async (
       request: AuthenticatedFastifyRequest<{
-        Params: WikidataIdParams
+        Params: CompanyIdParams
         Body: PostIndustryBody
       }>,
       reply
@@ -36,7 +37,7 @@ export async function companyIndustryRoutes(app: FastifyInstance) {
         metadata,
         verified,
       } = request.body
-      const { wikidataId } = request.params
+      const { id } = request.params
 
       const createdMetadata = await metadataService.createMetadata({
         metadata,
@@ -45,8 +46,9 @@ export async function companyIndustryRoutes(app: FastifyInstance) {
       })
 
       try {
+        const company = await companyService.getCompanyByInternalId(id)
         await industryService.upsertIndustry(
-          wikidataId,
+          company.id,
           { subIndustryCode },
           createdMetadata
         )

@@ -198,6 +198,13 @@ spec:
                 secretKeyRef:
                   name: env
                   key: BACKUP_API_AUTH_HEADER
+            - name: PIPELINE_API_URL
+              value: http://pipeline-api:4000
+            - name: INTERNAL_SERVICE_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: INTERNAL_SERVICE_TOKEN
           imagePullPolicy: Always
 ---
 apiVersion: autoscaling/v2
