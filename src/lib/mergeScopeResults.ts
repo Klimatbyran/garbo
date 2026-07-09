@@ -7,12 +7,19 @@ type Scope2Result = z.infer<typeof scope2Schema>
 type Scope1Entry = Scope1Result['scope1'][number]
 type Scope2Entry = Scope2Result['scope2'][number]
 
+type ScopeValueWithProvenance = {
+  sourceReference?: string
+  pageNumber?: number
+}
+
 export type ScopeEntry = {
   year?: number
   scope1?: Scope1Entry['scope1']
   scope2?: Scope2Entry['scope2']
   scope1And2?: Scope1Entry['scope1And2'] | Scope2Entry['scope1And2']
   absoluteMostRecentYearInReport?: number
+  sourceReference?: string
+  pageNumber?: number
 }
 
 export function extractScopeEntriesFromFollowUp(
@@ -132,8 +139,71 @@ function mergeEntriesForYear(
   combined.scope1 = scope1Entry?.scope1 ?? legacyEntry?.scope1
   combined.scope2 = scope2Entry?.scope2 ?? legacyEntry?.scope2
   combined.scope1And2 = pickScope1And2(scope1Entry, scope2Entry, legacyEntry)
+  combined.sourceReference = pickSourceReference(
+    scope1Entry,
+    scope2Entry,
+    legacyEntry
+  )
+  combined.pageNumber = pickPageNumber(scope1Entry, scope2Entry, legacyEntry)
 
   return combined
+}
+
+function provenanceFromScopeValue(
+  value: ScopeValueWithProvenance | null | undefined
+): Pick<ScopeEntry, 'sourceReference' | 'pageNumber'> {
+  if (!value || typeof value !== 'object') return {}
+  return {
+    ...(typeof value.sourceReference === 'string' && value.sourceReference.trim()
+      ? { sourceReference: value.sourceReference.trim() }
+      : {}),
+    ...(typeof value.pageNumber === 'number'
+      ? { pageNumber: value.pageNumber }
+      : {}),
+  }
+}
+
+function provenanceFromEntry(
+  entry?: ScopeEntry
+): Pick<ScopeEntry, 'sourceReference' | 'pageNumber'> {
+  if (!entry) return {}
+
+  const fromScope1 = provenanceFromScopeValue(entry.scope1 ?? undefined)
+  const fromScope2 = provenanceFromScopeValue(entry.scope2 ?? undefined)
+  const fromScope12 = provenanceFromScopeValue(entry.scope1And2 ?? undefined)
+
+  return {
+    sourceReference:
+      fromScope1.sourceReference ??
+      fromScope2.sourceReference ??
+      fromScope12.sourceReference ??
+      entry.sourceReference,
+    pageNumber:
+      fromScope1.pageNumber ??
+      fromScope2.pageNumber ??
+      fromScope12.pageNumber ??
+      entry.pageNumber,
+  }
+}
+
+function pickSourceReference(
+  scope1Entry?: ScopeEntry,
+  scope2Entry?: ScopeEntry,
+  legacyEntry?: ScopeEntry
+): string | undefined {
+  return provenanceFromEntry(scope1Entry).sourceReference ??
+    provenanceFromEntry(scope2Entry).sourceReference ??
+    provenanceFromEntry(legacyEntry).sourceReference
+}
+
+function pickPageNumber(
+  scope1Entry?: ScopeEntry,
+  scope2Entry?: ScopeEntry,
+  legacyEntry?: ScopeEntry
+): number | undefined {
+  return provenanceFromEntry(scope1Entry).pageNumber ??
+    provenanceFromEntry(scope2Entry).pageNumber ??
+    provenanceFromEntry(legacyEntry).pageNumber
 }
 
 function findLegacyEntryForYear(

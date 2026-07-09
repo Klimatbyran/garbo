@@ -1,3 +1,5 @@
+import { SOURCE_REFERENCE_PROMPT } from '@/lib/sourceReference'
+
 export const prompt = `
 *** Golden Rule ***
 - Extract values only if explicitly available in the context. Do not infer or create data. Leave optional fields absent or explicitly set to null if no data is provided.
@@ -39,6 +41,8 @@ Only fill in scope1And2 if there are no separate values for scope 1 and only a c
 Use a specific value ONLY ONCE! A value only belongs to one category, it cannot be used as final value in multiple categories!
 
 In the listOfAllPossibleScope1Numbers, include all possible values that you can find, even if you end up not using them in the output. We want all possible sources here for reference later.
+
+${SOURCE_REFERENCE_PROMPT}
 
 *** Example***
 //   This is only an example format; do not include this specific data in the output and do not use markdown in the output:

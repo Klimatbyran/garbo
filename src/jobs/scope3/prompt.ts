@@ -1,3 +1,5 @@
+import { SOURCE_REFERENCE_PROMPT } from '@/lib/sourceReference'
+
 export const prompt = `## Scope 3:
 Extract scope 3 emissions according to the GHG Protocol and organize them by year. Add a field \`scope3\` and include as many categories as explicitly reported. Always include the latest year if available. Do not infer or estimate data.
 
@@ -153,4 +155,6 @@ Extract scope 3 emissions according to the GHG Protocol and organize them by yea
 9. **Complete Category List**:
 The output must contain exactly ONE entry for each category 1-16, in numerical order. All values for that category should be included. Categories with a value of zero should have "total": 0, categories without any kind of data should have "total": null. 
 Never duplicate categories or skip category numbers.
+
+${SOURCE_REFERENCE_PROMPT}
 `
