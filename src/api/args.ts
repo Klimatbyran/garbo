@@ -60,6 +60,7 @@ export const metadataArgs = {
     id: true,
     comment: true,
     source: true,
+    sourceReference: true,
     updatedAt: true,
     user: {
       select: {

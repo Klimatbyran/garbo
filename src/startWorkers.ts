@@ -10,6 +10,7 @@ import {
 } from './lib/reportRunPersistence'
 import { DEFAULT_PIPELINE_JOB_OPTIONS } from './lib/pipelineJobOptions'
 import { requestPipelineRunPrune } from './lib/pipelineApiPrune'
+import { archiveFieldsFromFollowUpReturnValue } from './lib/sourceReference'
 
 for (const queueName of Object.values(QUEUE_NAMES)) {
   const queueEvents = new QueueEvents(queueName, { connection: redis })
@@ -81,6 +82,8 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
         }
       }
 
+      const archiveFields = archiveFieldsFromFollowUpReturnValue(returnValue)
+
       await prisma.reportRunJob.create({
         data: {
           jobId,
@@ -97,6 +100,8 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
           prompt: returnValue?.metadata?.prompt ?? null,
           queryTexts: returnValue?.metadata?.queryTexts ?? null,
           markdown: returnValue?.metadata?.context ?? null,
+          sourceReference: archiveFields.sourceReference,
+          extractionResult: archiveFields.extractionResult,
           chromaDurationMs: returnValue?.metadata?.chromaDurationMs ?? null,
           aiDurationMs: returnValue?.metadata?.aiDurationMs ?? null,
           startedAt: job.processedOn ? new Date(job.processedOn) : null,

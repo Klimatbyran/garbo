@@ -364,6 +364,8 @@ model Metadata {
   /// The comment is used to add relevant information about why the datapoint looks like it does
   comment          String?
   source           String?
+  /// Where in the original report this datapoint came from (e.g. "p. 42", "p. 42, GHG table"). Internal only.
+  sourceReference  String?
   updatedAt        DateTime @default(now()) @updatedAt
   /// The userId who last updated the associated datapoint
   userId           String
@@ -528,6 +530,10 @@ model ReportRunJob {
   prompt            String?
   queryTexts        Json? // string[]
   markdown          String?
+  /// Page or section locator for this job's chosen extraction, when applicable.
+  sourceReference   String?
+  /// Full follow-up return value for audit (internal).
+  extractionResult  Json?
   startedAt         DateTime?
   finishedAt        DateTime  @default(now())
   chromaDurationMs  Int?      @map("chroma_duration_ms")
