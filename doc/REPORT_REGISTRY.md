@@ -107,7 +107,7 @@ Without cross-linking, the pipeline would miss the existing crawler row and crea
 # Dry-run — shows what would be merged, writes nothing
 npx tsx scripts/dedupe-report-registry.ts --dry-run
 
-# Live run — merges rows, invalidates Redis cache
+# Live run — merges rows
 npx tsx scripts/dedupe-report-registry.ts
 
 # Live run + emit a CSV mapping of which rows were merged into which
@@ -128,7 +128,7 @@ Clusters periods by document identity (union-find on hash, then S3, then URL), d
 # Dry-run — logs clusters and payloads, writes nothing
 npx tsx scripts/backfill-report-from-periods.ts --dry-run
 
-# Live run — upserts Report rows, invalidates Redis cache
+# Live run — upserts Report rows
 npx tsx scripts/backfill-report-from-periods.ts
 
 # Live run + emit mapping CSV

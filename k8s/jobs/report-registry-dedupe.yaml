@@ -1,4 +1,4 @@
-# One-off Job: merge duplicate Report registry rows + invalidate Redis cache.
+# One-off Job: merge duplicate Report registry rows.
 # NOT applied by Flux — use: kubectl create -f k8s/jobs/report-registry-dedupe.yaml
 #
 # - For dry-run only, set args to: ["scripts/dedupe-report-registry.ts", "--dry-run"]
@@ -40,12 +40,6 @@ spec:
           env:
             - name: NODE_ENV
               value: production
-            - name: REDIS_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: redis
-                  key: redis-password
-                  optional: true
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
