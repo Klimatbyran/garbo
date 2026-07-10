@@ -150,9 +150,9 @@ function computeSitelinkPreferenceRank(
     const e = sl[site]
     return Boolean(
       e &&
-      typeof e === 'object' &&
-      'title' in e &&
-      (e as { title?: string }).title
+        typeof e === 'object' &&
+        'title' in e &&
+        (e as { title?: string }).title
     )
   }
 
