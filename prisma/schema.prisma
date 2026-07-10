@@ -617,13 +617,17 @@ model CoverageList {
 
 /// One edition per year for a coverage list.
 model CoverageListYear {
-  id        String              @id @default(cuid())
-  listId    String              @map("list_id")
-  list      CoverageList        @relation(fields: [listId], references: [id], onDelete: Cascade)
-  year      Int
-  createdAt DateTime            @default(now()) @map("created_at")
-  updatedAt DateTime            @updatedAt @map("updated_at")
-  entries   CoverageListEntry[]
+  id               String              @id @default(cuid())
+  listId           String              @map("list_id")
+  list             CoverageList        @relation(fields: [listId], references: [id], onDelete: Cascade)
+  year             Int
+  totalNames       Int                 @default(0) @map("total_names")
+  matchedCount     Int                 @default(0) @map("matched_count")
+  ambiguousCount   Int                 @default(0) @map("ambiguous_count")
+  coveragePercent  Int                 @default(0) @map("coverage_percent")
+  createdAt        DateTime            @default(now()) @map("created_at")
+  updatedAt        DateTime            @updatedAt @map("updated_at")
+  entries          CoverageListEntry[]
 
   @@unique([listId, year])
   @@index([listId])
