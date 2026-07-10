@@ -6,6 +6,12 @@ export function companyReportIdFromJobData(data: unknown): string | null {
   return typeof id === 'string' && id.trim() ? id.trim() : null
 }
 
+export function companyIdFromJobData(data: unknown): string | null {
+  if (!data || typeof data !== 'object') return null
+  const id = (data as { companyId?: unknown }).companyId
+  return typeof id === 'string' && id.trim() ? id.trim() : null
+}
+
 /**
  * Resolve `job.data.batchId` to a stable Garbo `Batch.id` for `ReportRun.batchDbId`.
  *

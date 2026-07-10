@@ -1,10 +1,11 @@
-import { Company, Goal, Metadata } from '@prisma/client'
+import { Goal, Metadata } from '@prisma/client'
 import { prisma } from '../../lib/prisma'
 import { PostGoalBody, PostGoalsBody } from '../types'
 
 class GoalService {
+  // TODO(Klimatbyran/garbo#1333): createMetadata + goal.create should run in one $transaction.
   async createGoals(
-    wikidataId: Company['wikidataId'],
+    companyId: string,
     goals: PostGoalsBody['goals'],
     createMetadata: () => Promise<Metadata>
   ) {
@@ -17,7 +18,7 @@ class GoalService {
             description: goal.description,
             company: {
               connect: {
-                wikidataId,
+                id: companyId,
               },
             },
             metadata: {

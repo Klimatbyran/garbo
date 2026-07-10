@@ -4,6 +4,7 @@ import { prisma } from '../../lib/prisma'
 const jobListSelect = {
   jobId: true,
   queueName: true,
+  companyId: true,
   wikidataId: true,
   status: true,
   approvedTimestamp: true,
@@ -21,12 +22,14 @@ const batchListSelect = {
 function buildListWhere(args: {
   q?: string
   companyReportIds?: string[]
+  /** Exact `ReportRun.pdfUrl` values — OR match when more than one. */
+  pdfUrls?: string[]
   /** Garbo `Batch.id` values; OR match when more than one. */
   batchDbIds?: string[]
   /** Exact match on `Batch.batchName` (same string as pipeline `job.data.batchId`). */
   batchName?: string
 }): Prisma.ReportRunWhereInput {
-  const { q, companyReportIds, batchDbIds, batchName } = args
+  const { q, companyReportIds, pdfUrls, batchDbIds, batchName } = args
   const qTrim = q?.trim()
   const idList = (batchDbIds ?? []).map((s) => s.trim()).filter(Boolean)
   const batchNameTrim = batchName?.trim()
@@ -41,11 +44,20 @@ function buildListWhere(args: {
         ? { companyReportId: reportIdList[0] }
         : null
 
+  const pdfUrlList = (pdfUrls ?? []).map((s) => s.trim()).filter(Boolean)
+  const pdfUrlWhere: Prisma.ReportRunWhereInput | null =
+    pdfUrlList.length > 1
+      ? { pdfUrl: { in: pdfUrlList } }
+      : pdfUrlList.length === 1
+        ? { pdfUrl: pdfUrlList[0] }
+        : null
+
   const textWhere: Prisma.ReportRunWhereInput | null = qTrim
     ? {
         OR: [
           { threadId: { contains: qTrim, mode: 'insensitive' } },
           { companyName: { contains: qTrim, mode: 'insensitive' } },
+          { companyId: { contains: qTrim, mode: 'insensitive' as const } },
           { wikidataId: { contains: qTrim, mode: 'insensitive' } },
           { pdfUrl: { contains: qTrim, mode: 'insensitive' } },
           {
@@ -79,6 +91,7 @@ function buildListWhere(args: {
   if (textWhere) parts.push(textWhere)
   if (batchPick) parts.push(batchPick)
   if (companyReportWhere) parts.push(companyReportWhere)
+  if (pdfUrlWhere) parts.push(pdfUrlWhere)
 
   if (parts.length === 0) return {}
   if (parts.length === 1) return parts[0] as Prisma.ReportRunWhereInput
@@ -114,6 +127,7 @@ export async function listArchivedReportRuns(params: {
   pageSize: number
   q?: string
   companyReportIds?: string[]
+  pdfUrls?: string[]
   /** Stable Garbo `Batch.id` (cuid); multiple IDs are OR-matched. */
   batchDbIds?: string[]
   /** Exact pipeline batch string (`Batch.batchName`) when filtering without a known cuid. */
@@ -125,6 +139,7 @@ export async function listArchivedReportRuns(params: {
   const where = buildListWhere({
     q: params.q,
     companyReportIds: params.companyReportIds,
+    pdfUrls: params.pdfUrls,
     batchDbIds: params.batchDbIds,
     batchName: params.batchName,
   })

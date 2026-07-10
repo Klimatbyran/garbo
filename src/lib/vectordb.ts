@@ -42,7 +42,34 @@ async function withChromaLimit<T>(fn: () => Promise<T>): Promise<T> {
   }
 }
 
-async function addReport(url: string, markdown: string) {
+async function withChromaRetry<T>(
+  fn: () => Promise<T>,
+  log: (msg: string) => void,
+  maxRetries = 5
+): Promise<T> {
+  let lastError: unknown
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      return await fn()
+    } catch (err) {
+      lastError = err
+      if (attempt === maxRetries) break
+      const jitter = Math.floor(Math.random() * 1000)
+      const delayMs = 1000 * Math.pow(2, attempt - 1) + jitter
+      log(
+        `ChromaDB attempt ${attempt}/${maxRetries} failed, retrying in ${delayMs}ms: ${err}`
+      )
+      await new Promise((resolve) => setTimeout(resolve, delayMs))
+    }
+  }
+  throw lastError
+}
+
+async function addReport(
+  url: string,
+  markdown: string,
+  log: (msg: string) => void = console.log
+) {
   const overlapSize = 200
 
   const paragraphs = markdown
@@ -94,11 +121,15 @@ async function addReport(url: string, markdown: string) {
     }))
 
     await withChromaLimit(async () => {
-      await collection.add({
-        ids: batchIds,
-        metadatas: batchMetadatas,
-        documents: batchChunks.map(({ chunk }) => chunk),
-      })
+      await withChromaRetry(
+        () =>
+          collection.add({
+            ids: batchIds,
+            metadatas: batchMetadatas,
+            documents: batchChunks.map(({ chunk }) => chunk),
+          }),
+        log
+      )
     })
 
     // Optional: Add a small delay between batches to avoid rate limiting

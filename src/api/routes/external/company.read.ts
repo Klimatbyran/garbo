@@ -16,7 +16,6 @@ import {
   PartnerCompanyDetails,
   getErrorSchemas,
   companySearchQuerySchema,
-  CompanyKpiListSchema,
 } from '../../schemas'
 import { redisCache } from '../../../lib/redisCacheSingleton'
 
@@ -99,38 +98,6 @@ export async function companyReadRoutes(app: FastifyInstance) {
       reply.header('ETag', `${currentEtag}`)
 
       reply.send(toPartnerCompanyList(companies))
-    }
-  )
-
-  app.get(
-    '/kpis',
-    {
-      schema: {
-        summary: 'Get company KPIs',
-        description:
-          'Retrieve key performance indicators for all companies, including GICS sector code for filtering, Paris agreement compliance, and emissions change from base year.',
-        tags: getTags('Companies'),
-        response: {
-          200: CompanyKpiListSchema,
-        },
-      },
-    },
-    async (_request, reply) => {
-      const databaseFingerprint = await getCompaniesDatabaseFingerprint()
-      const currentEtag = await getOrRefreshCompaniesEtag(databaseFingerprint)
-
-      const dataCacheKey = `companies:kpis:${databaseFingerprint}`
-
-      let kpis = await redisCache.get(dataCacheKey)
-
-      if (!kpis) {
-        kpis = await companyService.getCompanyKpis()
-        await redisCache.set(dataCacheKey, JSON.stringify(kpis))
-      }
-
-      reply.header('ETag', `${currentEtag}`)
-
-      reply.send(kpis)
     }
   )
 
