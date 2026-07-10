@@ -163,8 +163,12 @@ async function backfillRegistryWikidataFromJob(
 const guessWikidata = new PipelineWorker<GuessWikidataJob>(
   QUEUE_NAMES.GUESS_WIKIDATA,
   async (job: GuessWikidataJob) => {
-    const { companyName, companyId, overrideWikidataId, wikidataSearchLanguage } =
-      job.data
+    const {
+      companyName,
+      companyId,
+      overrideWikidataId,
+      wikidataSearchLanguage,
+    } = job.data
     if (!companyName) throw new Error('No company name was provided')
     if (!companyId) throw new Error('No companyId was provided')
     job.log('Company name: ' + companyName)
