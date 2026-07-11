@@ -13,6 +13,8 @@ const queryList = z.object({
   q: z.string().optional(),
   /** Comma-separated CompanyReport ids — narrows archive for Validate overview. */
   companyReportIds: z.string().optional(),
+  /** Comma-separated exact `ReportRun.pdfUrl` values — registry gap overview lookup. */
+  pdfUrls: z.string().optional(),
   /**
    * Comma-separated Garbo `Batch.id` (cuid). Single id = exact match; multiple = OR (`IN`).
    * @deprecated Prefer `batchDbIds`; kept for older clients.
@@ -70,6 +72,12 @@ export async function queueArchiveInternalReadRoutes(app: FastifyInstance) {
         if (t) companyReportIdSet.add(t)
       }
       const companyReportIds = [...companyReportIdSet]
+      const pdfUrlSet = new Set<string>()
+      for (const part of (q.pdfUrls ?? '').split(',')) {
+        const t = part.trim()
+        if (t) pdfUrlSet.add(t)
+      }
+      const pdfUrls = [...pdfUrlSet]
       const batchIdSet = new Set<string>()
       for (const part of (q.batchDbIds ?? '').split(',')) {
         const t = part.trim()
@@ -84,6 +92,7 @@ export async function queueArchiveInternalReadRoutes(app: FastifyInstance) {
         q: q.q,
         companyReportIds:
           companyReportIds.length > 0 ? companyReportIds : undefined,
+        pdfUrls: pdfUrls.length > 0 ? pdfUrls : undefined,
         batchDbIds: batchDbIds.length > 0 ? batchDbIds : undefined,
         batchName: q.batchName,
       })

@@ -382,7 +382,7 @@ interface Industry {
 
 interface Company {
   id: string
-  wikidataId: string
+  wikidataId: string | null
   name: string
   description: string | null
   tags: string[]

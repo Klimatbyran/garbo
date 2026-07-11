@@ -8,7 +8,8 @@ import { askPrompt } from '../lib/openai'
 export class DiffDescriptionsJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
     companyName: string
-    wikidataId: string
+    companyId: string
+    wikidataId?: string
     existingDescriptions: Description[]
     descriptions: Description[]
   }
@@ -23,8 +24,8 @@ const diffDescriptions = new PipelineWorker<DiffDescriptionsJob>(
 
     const body = {
       name: companyName,
-      wikidataId,
-      descriptions: descriptions,
+      ...(wikidataId && { wikidataId }),
+      descriptions,
       metadata,
     }
 

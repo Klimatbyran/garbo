@@ -7,10 +7,12 @@ import {
   CompanyList,
   getErrorSchemas,
   InternalCompanyDetails,
-  wikidataIdParamSchema,
+  companyIdentifierParamSchema,
+  companySearchQuerySchema,
+  pipelineCompanySearchListSchema,
 } from '../../schemas'
 import { getTags } from '../../../config/openapi'
-import { WikidataIdParams } from '../../types'
+import { CompanyIdentifierParams, CompanySearchQuery } from '../../types'
 import { cachePlugin } from '../../plugins/cache'
 import { redisCache } from '../../../lib/redisCacheSingleton'
 
@@ -90,6 +92,34 @@ export async function pipelineCompanyReadRoutes(app: FastifyInstance) {
   )
 
   app.get(
+    '/search',
+    {
+      schema: {
+        summary: 'Search companies by name (pipeline)',
+        description:
+          'Lightweight name search for pipeline workers resolving an existing company id.',
+        tags: getTags('Internal'),
+        querystring: companySearchQuerySchema,
+        response: {
+          200: pipelineCompanySearchListSchema,
+        },
+      },
+    },
+    async (
+      request: FastifyRequest<{ Querystring: CompanySearchQuery }>,
+      reply
+    ) => {
+      const { q } = request.query
+      const companies = await companyService.getAllCompaniesBySearchTerm(q, {
+        onePeriodPerDataYear: true,
+      })
+      reply.send(
+        companies.map((company) => ({ id: company.id, name: company.name }))
+      )
+    }
+  )
+
+  app.get(
     '/:wikidataId',
     {
       schema: {
@@ -97,16 +127,19 @@ export async function pipelineCompanyReadRoutes(app: FastifyInstance) {
         description:
           'Full company payload for pipeline diff and approval. Includes every reporting period row (not the public one-period-per-year view).',
         tags: getTags('Internal'),
-        params: wikidataIdParamSchema,
+        params: companyIdentifierParamSchema,
         response: {
           200: InternalCompanyDetails,
           ...getErrorSchemas(400, 404),
         },
       },
     },
-    async (request: FastifyRequest<{ Params: WikidataIdParams }>, reply) => {
-      const { wikidataId } = request.params
-      const company = await companyService.getCompanyWithMetadata(wikidataId)
+    async (
+      request: FastifyRequest<{ Params: CompanyIdentifierParams }>,
+      reply
+    ) => {
+      const { wikidataId: identifier } = request.params
+      const company = await companyService.getCompanyWithMetadata(identifier)
       reply.send({
         ...company,
         industry: company.industry
