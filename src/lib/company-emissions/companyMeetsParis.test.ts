@@ -88,4 +88,51 @@ describe('toCompanyParisOverviewItem', () => {
       tags: ['sweden'],
     })
   })
+
+  it('returns meetsParis true when latest emissions are zero', () => {
+    const item = toCompanyParisOverviewItem({
+      id: 'company-id',
+      wikidataId: 'Q123',
+      name: 'Zero Emissions AB',
+      reportingPeriods: [
+        {
+          endDate: '2025-12-31',
+          emissions: { calculatedTotalEmissions: 0 },
+        },
+      ],
+      futureEmissionsTrendSlope: -50,
+    })
+
+    expect(item.meetsParis).toBe(true)
+    expect(item.emissions).toBeNull()
+    expect(item.emissionsYear).toBe(2025)
+  })
+
+  it('calculates meetsParis from older periods when latest has no emissions', () => {
+    const item = toCompanyParisOverviewItem({
+      id: 'company-id',
+      wikidataId: 'Q123',
+      name: 'Partial Data AB',
+      reportingPeriods: [
+        {
+          endDate: '2025-12-31',
+          emissions: { calculatedTotalEmissions: null },
+        },
+        {
+          endDate: '2024-12-31',
+          emissions: { calculatedTotalEmissions: 1000 },
+        },
+        {
+          endDate: '2023-12-31',
+          emissions: { calculatedTotalEmissions: 1100 },
+        },
+      ],
+      baseYear: { year: 2019 },
+      futureEmissionsTrendSlope: -20,
+    })
+
+    expect(item.meetsParis).toEqual(expect.any(Boolean))
+    expect(item.emissions).toBeNull()
+    expect(item.emissionsYear).toBe(2025)
+  })
 })

@@ -166,10 +166,7 @@ export function toCompanyParisOverviewItem(company: {
     ? new Date(latestPeriod.endDate).getFullYear()
     : null
 
-  const meetsParis =
-    emissions == null || emissions <= 0
-      ? null
-      : calculateCompanyMeetsParis(company)
+  const meetsParis = calculateCompanyMeetsParis(company)
 
   return {
     id: company.id,
