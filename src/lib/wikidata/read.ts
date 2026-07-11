@@ -1,9 +1,10 @@
-import { Entity, EntityId, ItemId, SearchResponse } from 'wikibase-sdk'
+import { Entity, EntityId, ItemId } from 'wikibase-sdk'
 import { Claim, transformFromWikidataDateStringToDate, wbk } from './util'
 import { WbGetEntitiesResponse } from 'wikibase-sdk/dist/src/helpers/parse_responses'
-import { SearchEntitiesOptions } from 'wikibase-sdk/dist/src/queries/search_entities'
 import wikidataConfig from '../../config/wikidata'
 import { fetchJsonWithRetries, WIKIDATA_SEARCH_HEADERS } from './wikidataHttp'
+
+export { searchCompany, type CompanySearchResult } from './searchCompany'
 
 const {
   CARBON_FOOTPRINT,
@@ -60,38 +61,6 @@ export async function getLEINumber(
   }
 
   return claims['P1278'][0].mainsnak.datavalue.value
-}
-
-export async function searchCompany({
-  companyName,
-  language = 'sv',
-}: {
-  companyName: string
-  language?: SearchEntitiesOptions['language']
-}): Promise<SearchResponse['search']> {
-  const searchEntitiesQuery = wbk.searchEntities({
-    search: companyName,
-    type: 'item',
-    language,
-    limit: 20,
-  })
-
-  const response = await fetchJsonWithRetries<SearchResponse>(
-    searchEntitiesQuery,
-    {
-      headers: { ...WIKIDATA_SEARCH_HEADERS },
-      maxAttempts: 3,
-      expectedContentType: 'application/json',
-      context: 'Wikidata search',
-    }
-  )
-
-  if (response.error) {
-    const msg = response.error.info || response.error.code
-    throw new Error(`Wikidata search failed: ${msg}`)
-  }
-
-  return response.search ?? []
 }
 
 export async function getWikidataEntities(ids: `Q${number}`[]) {

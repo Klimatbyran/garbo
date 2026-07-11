@@ -1,4 +1,5 @@
 import { EntityId, SearchResult } from 'wikibase-sdk'
+import type { SearchEntitiesOptions } from 'wikibase-sdk/dist/src/queries/search_entities'
 import { ask } from '../lib/openai'
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
@@ -18,6 +19,8 @@ export class GuessWikidataJob extends PipelineJob {
     companyId: string
     overrideWikidataId: EntityId
     wikidata?: Wikidata
+    /** Optional `wbsearchentities` language (e.g. `sv` for Swedish listings). Defaults to `searchCompany`'s `en`. */
+    wikidataSearchLanguage?: SearchEntitiesOptions['language']
     sourceUrl?: string
     pdfCache?: { publicUrl?: string; sha256?: string }
     documentReportYear?: string | number
@@ -160,7 +163,12 @@ async function backfillRegistryWikidataFromJob(
 const guessWikidata = new PipelineWorker<GuessWikidataJob>(
   QUEUE_NAMES.GUESS_WIKIDATA,
   async (job: GuessWikidataJob) => {
-    const { companyName, companyId, overrideWikidataId } = job.data
+    const {
+      companyName,
+      companyId,
+      overrideWikidataId,
+      wikidataSearchLanguage,
+    } = job.data
     if (!companyName) throw new Error('No company name was provided')
     if (!companyId) throw new Error('No companyId was provided')
     job.log('Company name: ' + companyName)
@@ -269,7 +277,13 @@ const guessWikidata = new PipelineWorker<GuessWikidataJob>(
       if (retry > 3) return []
 
       job.log(`Searching for company name: ${companyName} (attempt ${retry})`)
-      const results = await searchCompany({ companyName })
+      const results = await searchCompany({
+        companyName,
+        useKnownIdLookup: true,
+        ...(wikidataSearchLanguage != null
+          ? { language: wikidataSearchLanguage }
+          : {}),
+      })
 
       job.log('Wikidata search results: ' + JSON.stringify(results, null, 2))
       if (results.length) return results
