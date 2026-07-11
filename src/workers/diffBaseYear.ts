@@ -20,7 +20,6 @@ const diffBaseYear = new DiffWorker<DiffBaseYearJob>(
       await job.enqueueSaveToAPI(
         'base-year',
         companyName,
-        wikidata,
         job.getApprovedBody()
       )
       return

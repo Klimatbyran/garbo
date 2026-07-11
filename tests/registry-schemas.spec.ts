@@ -127,6 +127,30 @@ describe('registryUpdateRequestBodySchema', () => {
     })
     expect(result.success).toBe(true)
   })
+
+  test('accepts reportTypeId as the sole update field', () => {
+    const result = registryUpdateRequestBodySchema.safeParse({
+      id: 'report_123',
+      reportTypeId: 'type_abc',
+    })
+    expect(result.success).toBe(true)
+  })
+
+  test('accepts reportTypeId null as sole update to clear', () => {
+    const result = registryUpdateRequestBodySchema.safeParse({
+      id: 'report_123',
+      reportTypeId: null,
+    })
+    expect(result.success).toBe(true)
+  })
+
+  test('rejects empty reportTypeId string', () => {
+    const result = registryUpdateRequestBodySchema.safeParse({
+      id: 'report_123',
+      reportTypeId: '',
+    })
+    expect(result.success).toBe(false)
+  })
 })
 
 describe('registryDeleteRequestBodySchema', () => {

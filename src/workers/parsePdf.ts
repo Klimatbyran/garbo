@@ -4,6 +4,7 @@ import redis from '../config/redis'
 import precheck from './precheck'
 import { vectorDB } from '../lib/vectordb'
 import { QUEUE_NAMES } from '../queues'
+import { withPipelineJobOpts } from '../lib/pipelineJobOptions'
 
 const flow = new FlowProducer({ connection: redis })
 flow.on('error', (err) => console.error('FlowProducer connection error:', err))
@@ -23,6 +24,9 @@ const parsePdf = new PipelineWorker(
       data: {
         ...job.data,
       },
+      opts: withPipelineJobOpts({
+        attempts: 3,
+      }),
     }
 
     job.log(`Docling pipeline starting for url: ${url}`)
@@ -62,10 +66,10 @@ const parsePdf = new PipelineWorker(
                   ...base,
                   name: 'doclingParsePDF',
                   queueName: QUEUE_NAMES.DOCLING_PARSE_PDF,
-                  opts: {
+                  opts: withPipelineJobOpts({
                     attempts: 3,
                     backoff: { type: 'fixed', delay: 120_000 },
-                  },
+                  }),
                 },
               ],
             },
@@ -79,10 +83,14 @@ const parsePdf = new PipelineWorker(
           'company name, annual report, about the company, introduction, company overview, who we are, our business, bolagets namn, årsredovisning, om bolaget',
         ])
 
-        const added = await precheck.queue.add('precheck', {
-          ...job.data,
-          cachedMarkdown: markdown,
-        })
+        const added = await precheck.queue.add(
+          'precheck',
+          {
+            ...job.data,
+            cachedMarkdown: markdown,
+          },
+          withPipelineJobOpts()
+        )
         return added.id
       }
       return true
