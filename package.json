@@ -37,7 +37,11 @@
     "backfill:report-runs": "node --import tsx scripts/backfill-report-runs-from-bullmq.ts",
     "eslint": "npx eslint src",
     "format": "npx prettier --write .",
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest"
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "test:wikidata:smoke": "WIKIDATA_LIVE_TESTS=smoke NODE_OPTIONS=--experimental-vm-modules jest tests/wikidata/wikidata-search-company",
+    "test:wikidata:regular": "WIKIDATA_LIVE_TESTS=regular NODE_OPTIONS=--experimental-vm-modules jest tests/wikidata/wikidata-search-company",
+    "test:wikidata:fringe": "WIKIDATA_LIVE_TESTS=fringe NODE_OPTIONS=--experimental-vm-modules jest tests/wikidata/wikidata-search-company",
+    "test:wikidata": "WIKIDATA_LIVE_TESTS=all NODE_OPTIONS=--experimental-vm-modules jest tests/wikidata/wikidata-search-company"
   },
   "author": "Christian Landgren, William Ryder, Samuel Plumppu mfl",
   "license": "MIT License",
@@ -60,6 +64,7 @@
     "cheerio": "^1.0.0",
     "chromadb": "^1.9.4",
     "compromise": "^14.13.0",
+    "discord.js": "^14.16.3",
     "dotenv": "^16.4.5",
     "exceljs": "^4.1.1",
     "fastify": "^5.2.1",
