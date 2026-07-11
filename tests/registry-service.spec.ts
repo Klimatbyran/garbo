@@ -31,6 +31,17 @@ const sampleReport = {
   sha256: null,
 }
 
+const registryReportTypeSelect = {
+  reportTypeId: true,
+  reportType: {
+    select: {
+      id: true,
+      slug: true,
+      label: true,
+    },
+  },
+}
+
 // Keep this as `any` so TS doesn't infer `jest.fn()` as `never`.
 const mockPrisma: any = {
   report: {
@@ -82,6 +93,7 @@ describe('getReportRegistry', () => {
         s3Key: true,
         s3Bucket: true,
         sha256: true,
+        ...registryReportTypeSelect,
       },
     })
   })
@@ -126,6 +138,19 @@ describe('updateReportInRegistry', () => {
     expect(mockUpdate).toHaveBeenCalledWith({
       where: { id: 'cmnh123' },
       data: { companyName: 'New Name' },
+      select: {
+        id: true,
+        companyName: true,
+        wikidataId: true,
+        reportYear: true,
+        url: true,
+        sourceUrl: true,
+        s3Url: true,
+        s3Key: true,
+        s3Bucket: true,
+        sha256: true,
+        ...registryReportTypeSelect,
+      },
     })
   })
 

@@ -6,11 +6,17 @@ import { prisma } from './lib/prisma'
 import {
   resolveReportBatchDbId,
   companyReportIdFromJobData,
+  companyIdFromJobData,
 } from './lib/reportRunPersistence'
+import { DEFAULT_PIPELINE_JOB_OPTIONS } from './lib/pipelineJobOptions'
+import { requestPipelineRunPrune } from './lib/pipelineApiPrune'
 
 for (const queueName of Object.values(QUEUE_NAMES)) {
   const queueEvents = new QueueEvents(queueName, { connection: redis })
-  const queue = new Queue(queueName, { connection: redis })
+  const queue = new Queue(queueName, {
+    connection: redis,
+    defaultJobOptions: DEFAULT_PIPELINE_JOB_OPTIONS,
+  })
 
   const saveRun = async (
     jobId: string,
@@ -29,6 +35,7 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
       }
 
       const wikidataId = job.data?.wikidata?.node ?? null
+      const companyId = companyIdFromJobData(job.data)
       const companyName = job.data?.companyName ?? null
       const companyReportId = companyReportIdFromJobData(job.data)
       const threadId = job.data?.threadId ?? null
@@ -48,12 +55,14 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
           threadId,
           pdfUrl,
           companyName,
+          companyId,
           wikidataId,
           companyReportId,
           batchDbId,
         },
         update: {
           companyName: companyName ?? undefined,
+          companyId: companyId ?? undefined,
           wikidataId: wikidataId ?? undefined,
           ...(companyReportId ? { companyReportId } : {}),
           ...(batchDbId ? { batchDbId } : {}),
@@ -77,6 +86,7 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
           jobId,
           queueName,
           status,
+          companyId,
           wikidataId: wikidataId ?? null,
           approvedTimestamp:
             status === 'completed' ? new Date().toISOString() : null,
@@ -106,6 +116,10 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
           where: { id: reportRun.id },
           data: { status: 'completed' },
         })
+
+        if (threadId) {
+          requestPipelineRunPrune({ threadId })
+        }
       }
     } catch (err) {
       console.error(`[ReportRun] failed to save run for job ${jobId}:`, err)

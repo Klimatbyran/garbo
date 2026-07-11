@@ -1,4 +1,5 @@
 import config from '../config/chromadb'
+import redis from '../config/redis'
 import { PipelineWorker, PipelineJob } from '../lib/PipelineWorker'
 import { vectorDB } from '../lib/vectordb'
 import { QUEUE_NAMES } from '../queues'
@@ -40,7 +41,7 @@ const indexMarkdown = new PipelineWorker(
     )
 
     try {
-      await vectorDB.addReport(url, markdown)
+      await vectorDB.addReport(url, markdown, (msg) => job.log(msg))
       job.editMessage(`✅ Saving to vector database...`)
       job.log('Done!')
 
@@ -52,7 +53,8 @@ const indexMarkdown = new PipelineWorker(
       )
       throw error
     }
-  }
+  },
+  { concurrency: 1, connection: redis }
 )
 
 export default indexMarkdown

@@ -1,4 +1,11 @@
 {
+  "10101010": {
+    "sectorName": "Energi",
+    "groupName": "Energi",
+    "industryName": "Utrustning och tjänster för energi",
+    "subIndustryName": "Olje- och gasborrning",
+    "subIndustryDescription": "Borrkontraktörer eller ägare av borriggar som erbjuder sina tjänster för borrning av brunnar"
+  },
   "10101020": {
     "sectorName": "Energi",
     "groupName": "Energi",

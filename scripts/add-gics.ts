@@ -1233,7 +1233,7 @@ const translateRecords = async (records: IndustryGicsWithTranslations[]) => {
     'subIndustryCode',
   ])
 
-  for (const record of records.slice(1)) {
+  for (const record of records) {
     const updated = structuredClone(record)
 
     const keysToTranslate = Object.keys(record).filter((key) => {

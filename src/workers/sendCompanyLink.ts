@@ -6,7 +6,8 @@ import { QUEUE_NAMES } from '../queues'
 export class SendCompanyLinkJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
     companyName: string
-    wikidata: Wikidata
+    companyId: string
+    wikidata?: Wikidata
     existingCompany: any
   }
 }
@@ -14,9 +15,8 @@ export class SendCompanyLinkJob extends PipelineJob {
 const sendCompanyLink = new PipelineWorker<SendCompanyLinkJob>(
   QUEUE_NAMES.SEND_COMPANY_LINK,
   async (job) => {
-    const { companyName, wikidata, existingCompany } = job.data
-    const wikidataId = wikidata.node
-    const url = getCompanyURL(companyName, wikidataId)
+    const { companyName, companyId, wikidata, existingCompany } = job.data
+    const url = getCompanyURL(companyName, companyId, wikidata?.node)
 
     if (existingCompany) {
       await job.sendMessage(

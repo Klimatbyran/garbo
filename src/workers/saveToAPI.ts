@@ -4,12 +4,14 @@ import { QUEUE_NAMES } from '../queues'
 import { withCompanySaveLock } from '../lib/companySaveLock'
 import { syncReportRunCompanyReportId } from '../lib/reportRunPersistence'
 import { companyReportIdFromPeriodSaveResponse } from './saveToAPI.utils'
+import { companyMutationPath } from '../lib/pipelineCompanyPath'
 
 export interface SaveToApiJob extends PipelineJob {
   data: PipelineJob['data'] & {
     companyName?: string
+    companyId: string
     body: any
-    wikidata: { node: string }
+    wikidata?: { node: string }
     apiSubEndpoint: string
     /** Original report URL when pipeline cached PDF to S3 (parsePdf). */
     sourceUrl?: string
@@ -74,8 +76,8 @@ export const saveToAPI = new PipelineWorker<SaveToApiJob>(
   QUEUE_NAMES.SAVE_TO_API,
   async (job: SaveToApiJob) => {
     try {
-      const { companyName, wikidata, body, apiSubEndpoint } = job.data
-      const wikidataId = wikidata.node
+      const { companyName, companyId, wikidata, body, apiSubEndpoint } =
+        job.data
 
       // remove all null values except for emissions where we want them to be explicit
       const sanitizedBody = removeNullValuesFromGarbo(body)
@@ -92,19 +94,28 @@ export const saveToAPI = new PipelineWorker<SaveToApiJob>(
         }
       }
 
-      job.log(`Saving approved data for ID:${wikidataId} company:${companyName} to API ${apiSubEndpoint}:
+      job.log(`Saving approved data for companyId:${companyId} company:${companyName} to API ${apiSubEndpoint}:
           ${JSON.stringify(sanitizedBody)}`)
 
-      const method = apiSubEndpoint === 'tags' ? ('PATCH' as const) : undefined
+      const method =
+        apiSubEndpoint === 'tags' || apiSubEndpoint === 'registry-report-type'
+          ? ('PATCH' as const)
+          : undefined
       const endpoint =
-        typeof apiSubEndpoint === 'string' && apiSubEndpoint.trim().length > 0
-          ? `/companies/${wikidataId}/${apiSubEndpoint}`
-          : `/companies/${wikidataId}`
+        apiSubEndpoint === 'registry-report-type'
+          ? '/reports/registry'
+          : companyMutationPath(
+              companyId,
+              typeof apiSubEndpoint === 'string' &&
+                apiSubEndpoint.trim().length > 0
+                ? apiSubEndpoint.trim()
+                : undefined
+            )
       const chunk =
         typeof apiSubEndpoint === 'string' && apiSubEndpoint.trim().length > 0
           ? apiSubEndpoint.trim()
           : 'company'
-      const saved = await withCompanySaveLock(wikidataId, async () => {
+      const saved = await withCompanySaveLock(companyId, async () => {
         const response = await apiFetch(endpoint, {
           body: sanitizedBody,
           ...(method && { method }),

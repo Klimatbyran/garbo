@@ -261,6 +261,21 @@ export const detailedCompanyArgs = {
   },
 } satisfies Prisma.CompanyDefaultArgs
 
+/** Staff/pipeline company detail — includes identifiers (not on partner reads). */
+export const pipelineCompanyDetailArgs = {
+  select: {
+    ...detailedCompanyArgs.select,
+    identifiers: {
+      select: {
+        id: true,
+        type: true,
+        value: true,
+        metadata: metadataArgs,
+      },
+    },
+  },
+} satisfies Prisma.CompanyDefaultArgs
+
 export const companyListArgs = {
   select: {
     id: true,

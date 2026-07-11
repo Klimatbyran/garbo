@@ -32,6 +32,7 @@ import { validationsUpdateRoutes } from './api/routes/internal/validation.update
 import { emissionsAssessmentRoutes } from './api/routes/internal/emissionsAssessment'
 import { industryGicsRoute } from './api/routes/external/industryGics.read'
 import { tagOptionsRoutes } from './api/routes/tagOptions'
+import { reportTypesRoutes } from './api/routes/reportTypes'
 import { registryReadRoutes } from './api/routes/internal/registry.read'
 import { registryDeleteRoutes } from './api/routes/internal/registry.delete'
 import { registryUpdateRoutes } from './api/routes/internal/registry.update'
@@ -147,6 +148,7 @@ async function authenticatedContext(app: FastifyInstance) {
   })
   app.register(industryGicsRoute, { prefix: 'api/industry-gics' })
   app.register(tagOptionsRoutes, { prefix: 'api/tag-options' })
+  app.register(reportTypesRoutes, { prefix: 'api/report-types' })
   app.register(registryReadRoutes, { prefix: 'api/reports/registry' })
   app.register(registryDeleteRoutes, { prefix: 'api/reports/registry' })
   app.register(registryUpdateRoutes, { prefix: 'api/reports/registry' })
