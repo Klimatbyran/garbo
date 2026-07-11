@@ -2,19 +2,25 @@ import { FlowProducer } from 'bullmq'
 import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { apiFetch } from '../lib/api'
 import redis from '../config/redis'
-import { canonicalPublicReportUrl, getCompanyURL } from '../lib/saveUtils'
+import { getCompanyURL } from '../lib/saveUtils'
 import { QUEUE_NAMES } from '../queues'
 import {
   extractScopeEntriesFromFollowUp,
   mergeScope1AndScope2Results,
 } from '../lib/mergeScopeResults'
+import { withPipelineJobOpts } from '../lib/pipelineJobOptions'
 import { buildEarlyRegistryPayload } from './saveToAPI.utils'
 import { registryService } from '../api/services/registryService'
 import { companyReportService } from '../api/services/companyReportService'
+import {
+  companyMutationPath,
+  pipelineCompanyReadPath,
+} from '../lib/pipelineCompanyPath'
 
 export class CheckDBJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
     companyName: string
+    companyId: string
     /** Original report URL when pipeline cached PDF to S3 (parsePdf). */
     sourceUrl?: string
     /** Cached/uploaded PDF storage metadata from pipeline-api (when available). */
@@ -26,7 +32,7 @@ export class CheckDBJob extends PipelineJob {
     documentReportYear?: string | number
     /** Registry report id from early upsert in this worker (passed to diff/save children). */
     registryReportId?: string
-    wikidata: { node: string }
+    wikidata?: { node: string }
     fiscalYear: {
       startMonth: number
       endMonth: number
@@ -44,9 +50,8 @@ flow.on('error', (err) => console.error('FlowProducer connection error:', err))
 const checkDB = new PipelineWorker(
   QUEUE_NAMES.CHECK_DB,
   async (job: CheckDBJob) => {
-    const { companyName, url, sourceUrl, fiscalYear, wikidata } = job.data
-
-    const canonicalSource = canonicalPublicReportUrl({ url, sourceUrl })
+    const { companyName, companyId, url, sourceUrl, fiscalYear, wikidata } =
+      job.data
 
     const childrenEntries = await job.getChildrenEntries()
 
@@ -71,6 +76,7 @@ const checkDB = new PipelineWorker(
       descriptions,
       lei,
       tags: extractedTags,
+      reportType: extractedReportType,
     } = root || {}
 
     // User-provided tags are a starting point; merge with AI-extracted tags when available.
@@ -87,37 +93,31 @@ const checkDB = new PipelineWorker(
     )
 
     job.sendMessage(`🤖 Checking if ${companyName} already exists in API...`)
-    const wikidataId = wikidata.node
     const existingCompany = await apiFetch(
-      `/pipeline/companies/${wikidataId}`
+      pipelineCompanyReadPath(companyId)
     ).catch(() => null)
     job.log(existingCompany)
 
     if (!existingCompany) {
-      const metadata = {
-        source: canonicalSource,
-        comment: 'Created by Garbo AI',
-      }
-
-      job.sendMessage(
-        `🤖 No previous data found for  ${companyName} (${wikidataId}). Creating..`
+      job.log(
+        `Company ${companyId} not returned from pipeline read; syncing name (should exist from precheck)`
       )
-      const body = {
-        name: companyName,
-        wikidataId,
-        metadata,
-        ...(tags?.length > 0 && { tags }),
+      const synced = await apiFetch(companyMutationPath(companyId), {
+        body: { name: companyName },
+      })
+      if (synced === null) {
+        throw new Error(
+          `Company ${companyId} not found after precheck resolution — cannot continue pipeline`
+        )
       }
-
-      await apiFetch(`/companies/${wikidataId}`, { body })
-
       await job.sendMessage(
-        `✅ The company '${companyName}' has been created! See the result here: ${getCompanyURL(companyName, wikidataId)}`
+        `✅ Synced company '${companyName}' (${companyId}). See: ${getCompanyURL(companyName, companyId, wikidata?.node)}`
       )
     } else {
       job.log(`✅ The company '${companyName}' was found in the database.`)
+      const leiLabel = existingCompany.lei ?? 'none'
       await job.sendMessage(
-        `✅ The company '${companyName}' was found in the database, with LEI number '${existingCompany.lei} || null'`
+        `✅ The company '${companyName}' was found in the database, with LEI number '${leiLabel}'`
       )
     }
 
@@ -127,6 +127,7 @@ const checkDB = new PipelineWorker(
     // registryReportId the single source of truth for the run instead of re-inferring at save.
     let registryReportId: string | undefined
     let companyReportId: string | undefined
+    let existingReportTypeId: string | null = null
     const earlyRegistryPayload = buildEarlyRegistryPayload({
       companyName,
       wikidata,
@@ -140,8 +141,9 @@ const checkDB = new PipelineWorker(
         const report =
           await registryService.upsertReportInRegistry(earlyRegistryPayload)
         registryReportId = report.id
+        existingReportTypeId = report.reportTypeId ?? null
         companyReportId = await companyReportService.findOrCreateCompanyReport(
-          wikidataId,
+          companyId,
           report.id
         )
         job.log(`Early registry upsert: ${report.id}`)
@@ -150,13 +152,39 @@ const checkDB = new PipelineWorker(
           `Early registry upsert failed: ${error?.message ?? String(error)}`
         )
       }
+    } else {
+      job.log(
+        'Skipping early registry upsert: no PDF URL identity on job (url/sourceUrl/pdfCache)'
+      )
+    }
+
+    if (!registryReportId && earlyRegistryPayload) {
+      try {
+        const existingReport =
+          await registryService.findMatchingReportInRegistry(
+            earlyRegistryPayload
+          )
+        if (existingReport) {
+          registryReportId = existingReport.id
+          existingReportTypeId = existingReport.reportTypeId
+          job.log(
+            `Resolved registry report for report type update: ${registryReportId}`
+          )
+        }
+      } catch (error: any) {
+        job.log(
+          `Registry lookup for report type failed: ${error?.message ?? String(error)}`
+        )
+      }
     }
 
     const base = {
       name: companyName,
       data: {
+        ...job.data,
         existingCompany,
         companyName,
+        companyId,
         url,
         sourceUrl,
         fiscalYear,
@@ -168,10 +196,11 @@ const checkDB = new PipelineWorker(
         documentReportYear: job.data.documentReportYear,
         ...(registryReportId && { registryReportId }),
         ...(companyReportId && { companyReportId }),
+        ...(registryReportId && { existingReportTypeId }),
       },
-      opts: {
+      opts: withPipelineJobOpts({
         attempts: 3,
-      },
+      }),
     }
 
     await job.editMessage(`🤖 Saving data...`)
@@ -248,12 +277,13 @@ const checkDB = new PipelineWorker(
           : null,
         descriptions
           ? {
+              ...base,
               name: 'diffDescriptions' + companyName,
               queueName: QUEUE_NAMES.DIFF_DESCRIPTIONS,
               data: {
                 ...job.data,
                 fiscalYear: undefined,
-                wikidataId: wikidataId,
+                companyId,
                 existingDescriptions: existingCompany?.descriptions,
                 descriptions: descriptions,
               },
@@ -266,6 +296,20 @@ const checkDB = new PipelineWorker(
               data: {
                 ...base.data,
                 tags,
+              },
+            }
+          : null,
+        typeof extractedReportType === 'string' &&
+        extractedReportType.trim().length > 0 &&
+        registryReportId
+          ? {
+              ...base,
+              queueName: QUEUE_NAMES.DIFF_REPORT_TYPE,
+              data: {
+                ...base.data,
+                registryReportId,
+                existingReportTypeId,
+                reportTypeSlug: extractedReportType.trim(),
               },
             }
           : null,

@@ -1,4 +1,5 @@
 import {
+  buildEarlyRegistryPayload,
   buildRegistryPayload,
   companyReportIdFromPeriodSaveResponse,
   resolveDocumentReportYear,
@@ -33,15 +34,27 @@ describe('buildRegistryPayload', () => {
     ).toBeNull()
   })
 
-  it('returns null when wikidataId is not a Q-number', () => {
-    expect(
-      buildRegistryPayload(
-        makeJob({
-          url: 'https://company.com/report',
-          wikidata: { node: 'not-a-qid' },
-        })
-      )
-    ).toBeNull()
+  it('omits wikidataId when node is not a Q-number', () => {
+    const result = buildRegistryPayload(
+      makeJob({
+        url: 'https://company.com/report',
+        wikidata: { node: 'not-a-qid' },
+      })
+    )
+    expect(result).not.toBeNull()
+    expect(result!.wikidataId).toBeUndefined()
+    expect(result!.url).toBe('https://company.com/report')
+  })
+
+  it('builds payload without wikidata when node is omitted', () => {
+    const result = buildRegistryPayload(
+      makeJob({
+        url: 'https://company.com/report-2024',
+        wikidata: undefined,
+      })
+    )
+    expect(result).not.toBeNull()
+    expect(result!.wikidataId).toBeUndefined()
   })
 
   it('returns null when reportingPeriods is empty', () => {
@@ -197,6 +210,40 @@ describe('buildRegistryPayload', () => {
       })
     )
     expect(result!.reportYear).toBe('2025')
+  })
+})
+
+describe('buildEarlyRegistryPayload', () => {
+  it('upserts from PDF identity without wikidata', () => {
+    const result = buildEarlyRegistryPayload({
+      companyName: 'Acme Corp',
+      url: 'https://company.com/report-2024',
+    })
+    expect(result).not.toBeNull()
+    expect(result!.companyName).toBe('Acme Corp')
+    expect(result!.url).toBe('https://company.com/report-2024')
+    expect(result!.wikidataId).toBeUndefined()
+    expect(result!.reportYear).toBe('2024')
+  })
+
+  it('includes wikidataId when present', () => {
+    const result = buildEarlyRegistryPayload({
+      companyName: 'Acme Corp',
+      wikidata: { node: 'Q123' },
+      url: 'https://company.com/report',
+    })
+    expect(result!.wikidataId).toBe('Q123')
+  })
+
+  it('returns null without company name or PDF URL', () => {
+    expect(
+      buildEarlyRegistryPayload({ companyName: 'Acme', url: '' })
+    ).toBeNull()
+    expect(
+      buildEarlyRegistryPayload({
+        url: 'https://company.com/report',
+      })
+    ).toBeNull()
   })
 })
 
