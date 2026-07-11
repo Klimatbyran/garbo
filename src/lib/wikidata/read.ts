@@ -2,7 +2,7 @@ import { Entity, EntityId, ItemId } from 'wikibase-sdk'
 import { Claim, transformFromWikidataDateStringToDate, wbk } from './util'
 import { WbGetEntitiesResponse } from 'wikibase-sdk/dist/src/helpers/parse_responses'
 import wikidataConfig from '../../config/wikidata'
-import { fetchJsonWithRetries } from './wikidataHttp'
+import { fetchJsonWithRetries, WIKIDATA_SEARCH_HEADERS } from './wikidataHttp'
 
 export { searchCompany, type CompanySearchResult } from './searchCompany'
 
@@ -68,14 +68,10 @@ export async function getWikidataEntities(ids: `Q${number}`[]) {
     ids,
     props: ['info', 'claims', 'descriptions', 'labels'],
   })
-  const headers = {
-    Accept: 'application/json',
-    'User-Agent': 'KlimatkollenGarboBot/1.0 (+https://klimatkollen.se)',
-  }
 
   const { entities }: WbGetEntitiesResponse =
     await fetchJsonWithRetries<WbGetEntitiesResponse>(url, {
-      headers,
+      headers: { ...WIKIDATA_SEARCH_HEADERS },
       maxAttempts: 3,
       expectedContentType: 'application/json',
       context: 'Wikidata entities',
