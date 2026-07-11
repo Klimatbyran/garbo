@@ -161,8 +161,7 @@ export function toCompanyParisOverviewItem(company: {
     (a, b) => new Date(b.endDate).getTime() - new Date(a.endDate).getTime()
   )[0]
 
-  const emissions =
-    latestPeriod?.emissions?.calculatedTotalEmissions ?? null
+  const emissions = latestPeriod?.emissions?.calculatedTotalEmissions ?? null
   const emissionsYear = latestPeriod
     ? new Date(latestPeriod.endDate).getFullYear()
     : null
