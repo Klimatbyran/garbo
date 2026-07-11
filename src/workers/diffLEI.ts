@@ -5,9 +5,10 @@ import { QUEUE_NAMES } from '../queues'
 export class DiffLEIJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
     companyName: string
-    lei?: string | undefined // Switching to lei
+    companyId: string
+    lei?: string | undefined
     existingCompany: any
-    wikidata: { node: string }
+    wikidata?: { node: string }
   }
 }
 
@@ -60,9 +61,9 @@ const diffLEI = new PipelineWorker<DiffLEIJob>(
     }
 
     const body = {
-      lei: lei,
-      wikidataId: job.data.wikidata.node,
+      lei,
       name: companyName,
+      ...(job.data.wikidata?.node && { wikidataId: job.data.wikidata.node }),
     }
 
     job.log(
