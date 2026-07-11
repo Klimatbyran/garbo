@@ -37,6 +37,7 @@ import {
   getOrCreateServiceBotUser,
 } from './serviceBotUser'
 import type { ReportingPeriod } from '@/types'
+import { toCompanyParisOverviewItem } from '@/lib/company-emissions/companyMeetsParis'
 
 const API_KEY = process.env.FIRECRAWL_API_KEY
 
@@ -85,6 +86,12 @@ class CompanyService {
   async getAllCompaniesForPublicRead() {
     const companies = await prisma.company.findMany(companyListArgs)
     return this.enrichCompaniesWithMetadata(companies, true)
+  }
+
+  /** Public API: minimal payload for the companies overview Paris chart. */
+  async getParisOverviewForPublicRead() {
+    const companies = await this.getAllCompaniesForPublicRead()
+    return companies.map((company) => toCompanyParisOverviewItem(company))
   }
 
   async getAllCompaniesBySearchTerm(

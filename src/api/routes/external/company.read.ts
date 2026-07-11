@@ -12,6 +12,7 @@ import {
 } from '../../services/reportingPeriodPublicRead'
 import {
   PartnerCompanyList,
+  CompanyParisOverviewList,
   wikidataIdParamSchema,
   PartnerCompanyDetails,
   getErrorSchemas,
@@ -101,7 +102,38 @@ export async function companyReadRoutes(app: FastifyInstance) {
     }
   )
 
-  // Register before /:wikidataId so "search" is not captured as an id
+  // Register before /:wikidataId so static paths are not captured as ids
+  app.get(
+    '/paris-overview',
+    {
+      schema: {
+        summary: 'Get Paris overview data for companies',
+        description:
+          'Retrieve a lightweight list of companies with Paris Agreement status and latest-year emissions for the overview chart',
+        tags: getTags('Companies'),
+        response: {
+          200: CompanyParisOverviewList,
+        },
+      },
+    },
+    async (request, reply) => {
+      const databaseFingerprint = await getCompaniesDatabaseFingerprint()
+      const currentEtag = await getOrRefreshCompaniesEtag(databaseFingerprint)
+
+      const dataCacheKey = `companies:paris-overview:data:${databaseFingerprint}`
+
+      let companies = await redisCache.get(dataCacheKey)
+
+      if (!companies) {
+        companies = await companyService.getParisOverviewForPublicRead()
+        await redisCache.set(dataCacheKey, JSON.stringify(companies))
+      }
+
+      reply.header('ETag', `${currentEtag}`)
+      reply.send(companies)
+    }
+  )
+
   app.get(
     '/search',
     {

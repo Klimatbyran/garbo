@@ -452,6 +452,19 @@ export const PartnerCompanyBase = CompanyBaseSchema.extend({
 
 export const PartnerCompanyList = z.array(PartnerCompanyBase)
 
+export const CompanyParisOverviewItem = z.object({
+  id: companyIdSchema,
+  wikidataId: wikidataIdSchema.nullable(),
+  name: z.string(),
+  meetsParis: z.boolean().nullable(),
+  emissions: z.number().nullable(),
+  emissionsYear: z.number().int().nullable(),
+  sectorCode: z.string().nullable(),
+  tags: z.array(z.string()),
+})
+
+export const CompanyParisOverviewList = z.array(CompanyParisOverviewItem)
+
 const PartnerCompanyFullBase = CompanyBaseSchema.extend({
   description: z.string().optional().nullable(),
   descriptions: z.array(ResponseDescriptionSchema).optional(),
