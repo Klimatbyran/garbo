@@ -1,5 +1,6 @@
 import { JobsOptions, Queue, QueueOptions } from 'bullmq'
 import redis from '../config/redis'
+import { DEFAULT_PIPELINE_JOB_OPTIONS } from './pipelineJobOptions'
 
 export type PipelineJobData = {
   url: string
@@ -15,6 +16,7 @@ export class PipelineQueue {
   constructor(name: string, options?: QueueOptions) {
     this.queue = new Queue(name, {
       connection: redis,
+      defaultJobOptions: DEFAULT_PIPELINE_JOB_OPTIONS,
       ...options,
     })
   }

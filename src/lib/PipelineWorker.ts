@@ -3,6 +3,7 @@ import redis from '../config/redis'
 import { ChangeDescription } from './DiffWorker'
 import { createPipelineLogger } from './logger'
 import { Logger } from '@/types'
+import { DEFAULT_PIPELINE_JOB_OPTIONS } from './pipelineJobOptions'
 
 interface Approval {
   summary?: string
@@ -13,6 +14,8 @@ interface Approval {
     source: string
     comment: string
   }
+  /** Garbo user id of human approver (set by Validate on Wikidata approve). */
+  verifiedByUserId?: string
 }
 
 type ApprovedBody = Record<string, unknown> & {
@@ -157,6 +160,9 @@ export class PipelineWorker<T extends PipelineJob> extends Worker {
       }
     )
 
-    this.queue = new Queue(name, { connection: redis })
+    this.queue = new Queue(name, {
+      connection: redis,
+      defaultJobOptions: DEFAULT_PIPELINE_JOB_OPTIONS,
+    })
   }
 }
