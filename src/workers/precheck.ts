@@ -208,13 +208,20 @@ const precheck = new PipelineWorker(
     if (!companyName) {
       if (waitingForCompanyName) {
         job.log('Still waiting for companyName in job data...')
-        await job.moveToDelayed(Date.now() + 30000)
+        await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
         return
       }
 
-      throw new Error(
-        'Could not identify company name from report. Re-run with companyName provided in job data.'
+      job.log(
+        'Could not identify company name from report — waiting for manual input'
       )
+      await job.updateData({ ...job.data, waitingForCompanyName: true })
+      await job.sendMessage({
+        content:
+          'Could not identify the company name from this report. Please enter the company name in Validate to continue.',
+      })
+      await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+      return
     }
 
     return processWithCompanyName(companyName)
