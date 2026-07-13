@@ -15,15 +15,15 @@ jest.unstable_mockModule('./api', () => ({
 
 let resolveOrCreatePipelineCompanyId: typeof import('./pipelineCompanyResolve').resolveOrCreatePipelineCompanyId
 let resolvePipelineCompanyOutcome: typeof import('./pipelineCompanyResolve').resolvePipelineCompanyOutcome
-let resolveTargetCompanyIdForWikidata: typeof import('./pipelineCompanyResolve').resolveTargetCompanyIdForWikidata
 let findCompanyByWikidataId: typeof import('./pipelineCompanyResolve').findCompanyByWikidataId
+let findCompanyByLei: typeof import('./pipelineCompanyResolve').findCompanyByLei
 
 beforeAll(async () => {
   ;({
     resolveOrCreatePipelineCompanyId,
     resolvePipelineCompanyOutcome,
-    resolveTargetCompanyIdForWikidata,
     findCompanyByWikidataId,
+    findCompanyByLei,
   } = await import('./pipelineCompanyResolve'))
 })
 
@@ -47,7 +47,7 @@ describe('resolveOrCreatePipelineCompanyId', () => {
         typeof path === 'string' &&
         path.includes('/pipeline/companies/Q123')
       ) {
-        return { id: 'from-wikidata' }
+        return { id: 'from-wikidata', name: 'Acme', wikidataId: 'Q123' }
       }
       throw new Error(`unexpected path ${String(path)}`)
     })
@@ -57,6 +57,28 @@ describe('resolveOrCreatePipelineCompanyId', () => {
       'Acme AB'
     )
     expect(result).toEqual({ companyId: 'from-wikidata', method: 'wikidata' })
+  })
+
+  it('resolves by lei before name search', async () => {
+    mockApiFetch.mockImplementation(async (path: unknown) => {
+      if (
+        typeof path === 'string' &&
+        path.includes('/pipeline/companies/5493001KJTIIGC8Y1R12')
+      ) {
+        return {
+          id: 'from-lei',
+          name: 'Acme',
+          lei: '5493001KJTIIGC8Y1R12',
+        }
+      }
+      throw new Error(`unexpected path ${String(path)}`)
+    })
+
+    const result = await resolveOrCreatePipelineCompanyId(
+      { lei: '5493001KJTIIGC8Y1R12' },
+      'Acme AB'
+    )
+    expect(result).toEqual({ companyId: 'from-lei', method: 'lei' })
   })
 
   it('resolves by exact name match when a single hit matches', async () => {
@@ -112,28 +134,28 @@ describe('resolveOrCreatePipelineCompanyId', () => {
       id: 'existing-alfa',
       name: 'Alfa Laval',
       wikidataId: 'Q686030',
-    })
-
-    const relink = await resolveTargetCompanyIdForWikidata(
-      'duplicate-id',
-      'Q686030'
-    )
-    expect(relink).toEqual({
-      companyId: 'existing-alfa',
-      relinked: true,
+      lei: null,
     })
   })
 
-  it('keeps the current company when wikidata is not assigned elsewhere', async () => {
-    mockApiFetch.mockImplementation(async () => null)
+  it('finds the company that already owns an lei', async () => {
+    mockApiFetch.mockImplementation(async (path: unknown) => {
+      if (path === '/pipeline/companies/5493001KJTIIGC8Y1R12') {
+        return {
+          id: 'existing-lei',
+          name: 'Acme',
+          lei: '5493001KJTIIGC8Y1R12',
+        }
+      }
+      throw new Error(`unexpected path ${String(path)}`)
+    })
 
-    const result = await resolveTargetCompanyIdForWikidata(
-      'current-id',
-      'Q686030'
-    )
+    const result = await findCompanyByLei('5493001KJTIIGC8Y1R12')
     expect(result).toEqual({
-      companyId: 'current-id',
-      relinked: false,
+      id: 'existing-lei',
+      name: 'Acme',
+      wikidataId: null,
+      lei: '5493001KJTIIGC8Y1R12',
     })
   })
 
@@ -185,6 +207,28 @@ describe('resolvePipelineCompanyOutcome', () => {
         { id: 'alfa-1', name: 'Alfa Laval', wikidataId: 'Q686030' },
         { id: 'alfa-2', name: 'Alfa Laval', wikidataId: 'Q686030' },
       ],
+    })
+  })
+
+  it('returns ambiguous when a single fuzzy hit does not exactly match', async () => {
+    mockApiFetch.mockImplementation(async (path: unknown) => {
+      if (
+        typeof path === 'string' &&
+        path.includes('/pipeline/companies/search')
+      ) {
+        return [{ id: 'alfa-1', name: 'Alfa Laval', wikidataId: 'Q686030' }]
+      }
+      throw new Error(`unexpected path ${String(path)}`)
+    })
+
+    const result = await resolvePipelineCompanyOutcome(
+      {},
+      'Totally Different Name'
+    )
+    expect(result).toEqual({
+      status: 'ambiguous',
+      extractedName: 'Totally Different Name',
+      candidates: [{ id: 'alfa-1', name: 'Alfa Laval', wikidataId: 'Q686030' }],
     })
   })
 })

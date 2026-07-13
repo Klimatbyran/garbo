@@ -1,20 +1,13 @@
-const LEGAL_ENTITY_SUFFIXES = new Set([
-  'ab',
-  'the',
-  'and',
-  'inc',
-  'co',
-  'publ',
-  '(publ)',
-  '(ab)',
-  'aktiebolag',
-  'aktiebolaget',
-])
+import {
+  isLegalEntitySuffix,
+  stripLegalEntitySuffixes,
+} from './companyLegalEntitySuffixes'
 
 export type CompanyLinkCandidate = {
   id: string
   name: string
   wikidataId?: string | null
+  lei?: string | null
 }
 
 export type CompanyLinkResolution =
@@ -22,24 +15,16 @@ export type CompanyLinkResolution =
   | { action: 'ambiguous'; candidates: CompanyLinkCandidate[] }
   | { action: 'create' }
 
+export { stripLegalEntitySuffixes }
+
 export function normalizeCompanyNameForMatch(name: string): string {
   return name
     .trim()
     .toLocaleLowerCase('sv-SE')
     .split(/\s+/)
-    .filter((word) => !LEGAL_ENTITY_SUFFIXES.has(word))
+    .filter((word) => !isLegalEntitySuffix(word))
     .join(' ')
     .trim()
-}
-
-export function stripLegalEntitySuffixes(name: string): string {
-  const stripped = name
-    .trim()
-    .split(/\s+/)
-    .filter((word) => !LEGAL_ENTITY_SUFFIXES.has(word.toLowerCase()))
-    .join(' ')
-    .trim()
-  return stripped || name.trim()
 }
 
 export function dedupeCompanyLinkCandidates(
@@ -66,7 +51,8 @@ export function pickExactNameMatches(
 
 /**
  * Decide whether to auto-link, ask a human, or create a new company.
- * Ask when multiple candidates exist and there is not exactly one exact name match.
+ * Auto-link only when exactly one candidate matches the normalized name.
+ * Any fuzzy hit without a single exact match goes to staff (including a lone non-exact hit).
  */
 export function assessCompanyLinkResolution(
   extractedName: string,
@@ -84,9 +70,5 @@ export function assessCompanyLinkResolution(
     return { action: 'resolve', companyId: exactMatches[0].id }
   }
 
-  if (uniqueCandidates.length > 1) {
-    return { action: 'ambiguous', candidates: uniqueCandidates }
-  }
-
-  return { action: 'create' }
+  return { action: 'ambiguous', candidates: uniqueCandidates }
 }

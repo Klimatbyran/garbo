@@ -14,6 +14,7 @@ import {
 } from '../lib/pipelineCompanyPath'
 import { findCompanyByWikidataId } from '../lib/pipelineCompanyResolve'
 import type { CompanyLinkCandidate } from '../lib/companyLinkResolve'
+import { LEGAL_ENTITY_SUFFIXES } from '../lib/companyLegalEntitySuffixes'
 import { syncCanonicalReportRunCompanyId } from '../lib/pipelineRunCompanyId'
 import { buildEarlyRegistryPayload } from './saveToAPI.utils'
 import { registryService } from '../api/services/registryService'
@@ -30,18 +31,7 @@ export class GuessWikidataJob extends PipelineJob {
   }
 }
 
-const insignificantWords = new Set([
-  'ab',
-  'the',
-  'and',
-  'inc',
-  'co',
-  'publ',
-  '(publ)',
-  '(ab)',
-  'aktiebolag',
-  'aktiebolaget',
-])
+const insignificantWords = LEGAL_ENTITY_SUFFIXES
 
 async function handleOverrideWikidataId(
   job: GuessWikidataJob,
@@ -127,10 +117,11 @@ async function loadCompanyLinkCandidate(
  * When Wikidata is already linked to a different company, ask staff to confirm
  * the company id before persisting. Returns false when waiting on approval.
  */
-async function ensureCompanyLinkBeforeWikidataPersist(
+async function requestCompanyLinkIfWikidataConflict(
   job: GuessWikidataJob,
   companyName: string,
-  wikidata: Wikidata
+  wikidata: Wikidata,
+  options?: { source?: string; comment?: string }
 ): Promise<boolean> {
   if (job.data.approval?.type === 'companyLink' && !job.isDataApproved()) {
     job.log('Waiting for company link approval before Wikidata persist')
@@ -156,8 +147,10 @@ async function ensureCompanyLinkBeforeWikidataPersist(
   await job.updateData({ ...job.data, wikidata })
 
   const metadata = {
-    source: 'wikidata-relink',
-    comment: `Wikidata ${wikidata.node} is already linked to another company. Confirm which company this report belongs to before saving.`,
+    source: options?.source ?? 'wikidata-relink',
+    comment:
+      options?.comment ??
+      `Wikidata ${wikidata.node} is already linked to another company. Confirm which company this report belongs to before saving.`,
   }
 
   await job.requestApproval(
@@ -182,6 +175,14 @@ async function ensureCompanyLinkBeforeWikidataPersist(
 
   await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
   return false
+}
+
+async function ensureCompanyLinkBeforeWikidataPersist(
+  job: GuessWikidataJob,
+  companyName: string,
+  wikidata: Wikidata
+): Promise<boolean> {
+  return requestCompanyLinkIfWikidataConflict(job, companyName, wikidata)
 }
 
 function resolveCompanyIdFromCompanyLinkApproval(job: GuessWikidataJob): {
@@ -263,13 +264,18 @@ async function persistApprovedWikidata(
     })
   }
 
-  await backfillRegistryWikidataFromJob(job, wikidata)
+  await backfillRegistryWikidataFromJob(job, wikidata, {
+    skipWhenNotAssigned: options.skipWikidataAssign,
+  })
 }
 
 async function backfillRegistryWikidataFromJob(
   job: GuessWikidataJob,
-  wikidata: Wikidata
+  wikidata: Wikidata,
+  options?: { skipWhenNotAssigned?: boolean }
 ) {
+  if (options?.skipWhenNotAssigned) return
+
   const payload = buildEarlyRegistryPayload({
     companyName: job.data.companyName,
     wikidata: { node: wikidata.node },
@@ -561,6 +567,13 @@ const guessWikidata = new PipelineWorker<GuessWikidataJob>(
         `Could not parse wikidataId from json: ${wikidataForApproval}`
       )
     }
+
+    const readyBeforeApproval = await requestCompanyLinkIfWikidataConflict(
+      job,
+      companyName,
+      wikidataForApproval
+    )
+    if (!readyBeforeApproval) return
 
     try {
       const checkIfWikidataExistInProductionRes = await fetch(

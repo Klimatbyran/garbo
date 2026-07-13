@@ -18,6 +18,7 @@ class PrecheckJob extends PipelineJob {
     cachedMarkdown?: string
     companyName?: string
     companyId?: string
+    lei?: string
     waitingForCompanyName?: boolean
   }
 }
@@ -83,6 +84,7 @@ async function ensurePipelineCompany(
     !job.isDataApproved()
   ) {
     job.log('Waiting for company link approval')
+    await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
     return null
   }
 

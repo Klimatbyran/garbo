@@ -97,8 +97,18 @@ async function listGuessWikidataJobsForThread(threadId: string) {
   }
 }
 
-/** True while a guessWikidata job for this thread is still running or awaiting approval. */
-export async function isGuessWikidataPendingForThread(
+function isCompanyLinkApprovalPending(jobData: unknown): boolean {
+  if (!jobData || typeof jobData !== 'object') return false
+  const approval = (jobData as { approval?: { type?: string; approved?: boolean } })
+    .approval
+  return approval?.type === 'companyLink' && approval.approved !== true
+}
+
+/**
+ * True while guessWikidata is waiting on a companyLink approval for this thread.
+ * Does not block saves for ordinary Wikidata approval delays.
+ */
+export async function isCompanyLinkResolutionPendingForThread(
   threadId: string
 ): Promise<boolean> {
   const normalizedThreadId = threadId.trim()
@@ -108,6 +118,8 @@ export async function isGuessWikidataPendingForThread(
   if (jobs.length === 0) return false
 
   for (const job of jobs) {
+    if (!isCompanyLinkApprovalPending(job.data)) continue
+
     const state = await job.getState()
     if (!GUESS_WIKIDATA_TERMINAL_STATES.has(state)) {
       return true
@@ -115,4 +127,11 @@ export async function isGuessWikidataPendingForThread(
   }
 
   return false
+}
+
+/** @deprecated Prefer isCompanyLinkResolutionPendingForThread for save gating. */
+export async function isGuessWikidataPendingForThread(
+  threadId: string
+): Promise<boolean> {
+  return isCompanyLinkResolutionPendingForThread(threadId)
 }

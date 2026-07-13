@@ -49,25 +49,31 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
         return
       }
 
-      const reportRun = await prisma.reportRun.upsert({
+      const existingReportRun = await prisma.reportRun.findUnique({
         where: { threadId },
-        create: {
-          threadId,
-          pdfUrl,
-          companyName,
-          companyId,
-          wikidataId,
-          companyReportId,
-          batchDbId,
-        },
-        update: {
-          companyName: companyName ?? undefined,
-          companyId: companyId ?? undefined,
-          wikidataId: wikidataId ?? undefined,
-          ...(companyReportId ? { companyReportId } : {}),
-          ...(batchDbId ? { batchDbId } : {}),
-        },
+        select: { id: true },
       })
+
+      const reportRun = existingReportRun
+        ? await prisma.reportRun.update({
+            where: { threadId },
+            data: {
+              companyName: companyName ?? undefined,
+              ...(companyReportId ? { companyReportId } : {}),
+              ...(batchDbId ? { batchDbId } : {}),
+            },
+          })
+        : await prisma.reportRun.create({
+            data: {
+              threadId,
+              pdfUrl,
+              companyName,
+              companyId,
+              wikidataId,
+              companyReportId,
+              batchDbId,
+            },
+          })
 
       let returnValue: Record<string, any> | null = null
       if (job.returnvalue) {

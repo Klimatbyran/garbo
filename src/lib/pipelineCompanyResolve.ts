@@ -4,17 +4,20 @@ import {
   type CompanyLinkCandidate,
   stripLegalEntitySuffixes,
 } from './companyLinkResolve'
+import { normalizeLei } from './normalizeLei'
 import { pipelineCompanyReadPath } from './pipelineCompanyPath'
 
 type PipelineCompanyRef = {
   companyId?: string
   companyName?: string
   wikidata?: { node?: string }
+  lei?: string
 }
 
 export type CompanyResolutionMethod =
   | 'job_data'
   | 'wikidata'
+  | 'lei'
   | 'exact_name'
   | 'approved_link'
   | 'created'
@@ -32,6 +35,27 @@ export type PipelineCompanyResolveOutcome =
       candidates: CompanyLinkCandidate[]
     }
   | { status: 'create'; extractedName: string }
+
+type PipelineCompanyRecord = {
+  id?: string
+  name?: string
+  wikidataId?: string | null
+  lei?: string | null
+}
+
+function toCompanyLinkCandidate(
+  record: PipelineCompanyRecord,
+  fallbackId?: string
+): CompanyLinkCandidate | null {
+  const id = record.id ?? fallbackId
+  if (!id) return null
+  return {
+    id,
+    name: record.name ?? '',
+    wikidataId: record.wikidataId ?? null,
+    lei: record.lei ?? null,
+  }
+}
 
 async function searchCompaniesByName(
   companyName: string
@@ -60,37 +84,36 @@ async function collectNameSearchCandidates(
   return [...byId.values()]
 }
 
+async function findCompanyByIdentifier(
+  identifier: string
+): Promise<CompanyLinkCandidate | null> {
+  const existing = (await apiFetch(pipelineCompanyReadPath(identifier)).catch(
+    () => null
+  )) as PipelineCompanyRecord | null
+
+  return toCompanyLinkCandidate(existing ?? {}, identifier)
+}
+
 /** Look up which company already owns a Wikidata Q-id in the current API. */
 export async function findCompanyByWikidataId(
   wikidataId: string
 ): Promise<CompanyLinkCandidate | null> {
-  const existing = (await apiFetch(pipelineCompanyReadPath(wikidataId)).catch(
-    () => null
-  )) as { id?: string; name?: string; wikidataId?: string | null } | null
-
-  if (!existing?.id) return null
-  return {
-    id: existing.id,
-    name: existing.name ?? '',
-    wikidataId: existing.wikidataId ?? wikidataId,
-  }
+  return findCompanyByIdentifier(wikidataId)
 }
 
-/** @deprecated Use findCompanyByWikidataId; relink now requires staff approval in guessWikidata. */
-export async function resolveTargetCompanyIdForWikidata(
-  companyId: string,
-  wikidataId: string
-): Promise<{ companyId: string; relinked: boolean }> {
-  const owner = await findCompanyByWikidataId(wikidataId)
-  if (owner?.id && owner.id !== companyId) {
-    return { companyId: owner.id, relinked: true }
-  }
-  return { companyId, relinked: false }
+/** Look up which company already owns an LEI in the current API. */
+export async function findCompanyByLei(
+  lei: string
+): Promise<CompanyLinkCandidate | null> {
+  const normalizedLei = normalizeLei(lei)
+  if (!normalizedLei) return null
+  return findCompanyByIdentifier(normalizedLei)
 }
 
 /**
  * Resolve the stable Garbo company id for a pipeline run without creating a company.
- * Returns ambiguous when staff must pick among multiple candidates.
+ * Prefers explicit job data, then Wikidata, then LEI, then exact name match.
+ * Returns ambiguous when staff must pick among candidates.
  */
 export async function resolvePipelineCompanyOutcome(
   jobData: PipelineCompanyRef,
@@ -106,14 +129,24 @@ export async function resolvePipelineCompanyOutcome(
 
   const wikidataId = jobData.wikidata?.node?.trim()
   if (wikidataId) {
-    const byWikidata = await apiFetch(
-      pipelineCompanyReadPath(wikidataId)
-    ).catch(() => null)
+    const byWikidata = await findCompanyByWikidataId(wikidataId)
     if (byWikidata?.id) {
       return {
         status: 'resolved',
-        companyId: byWikidata.id as string,
+        companyId: byWikidata.id,
         method: 'wikidata',
+      }
+    }
+  }
+
+  const normalizedLei = normalizeLei(jobData.lei)
+  if (normalizedLei) {
+    const byLei = await findCompanyByLei(normalizedLei)
+    if (byLei?.id) {
+      return {
+        status: 'resolved',
+        companyId: byLei.id,
+        method: 'lei',
       }
     }
   }
@@ -142,7 +175,7 @@ export async function resolvePipelineCompanyOutcome(
 
 /**
  * Resolve the stable Garbo company id for a pipeline run.
- * Prefer explicit job data, then wikidata lookup, then exact name match, else create.
+ * Prefer explicit job data, then identifiers, then exact name match, else create.
  * Ambiguous matches fall through to create — use resolvePipelineCompanyOutcome in precheck.
  */
 export async function resolveOrCreatePipelineCompanyId(

@@ -7,7 +7,7 @@ import { getCompanyURL } from '../lib/saveUtils'
 import { QUEUE_NAMES } from '../queues'
 import {
   getCanonicalCompanyIdForThread,
-  isGuessWikidataPendingForThread,
+  isCompanyLinkResolutionPendingForThread,
 } from '../lib/pipelineRunCompanyId'
 import {
   extractScopeEntriesFromFollowUp,
@@ -59,8 +59,10 @@ const checkDB = new PipelineWorker(
       job.data
 
     const threadId = job.data.threadId?.trim()
-    if (threadId && (await isGuessWikidataPendingForThread(threadId))) {
-      job.log('Waiting for guessWikidata to resolve company id before API save')
+    if (threadId && (await isCompanyLinkResolutionPendingForThread(threadId))) {
+      job.log(
+        'Waiting for company link resolution on guessWikidata before API save'
+      )
       await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
       return
     }
