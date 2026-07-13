@@ -7,6 +7,7 @@ import {
   resolveReportBatchDbId,
   companyReportIdFromJobData,
   companyIdFromJobData,
+  reportRunSyncFieldsFromJob,
 } from './lib/reportRunPersistence'
 import { DEFAULT_PIPELINE_JOB_OPTIONS } from './lib/pipelineJobOptions'
 import { requestPipelineRunPrune } from './lib/pipelineApiPrune'
@@ -57,11 +58,13 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
       const reportRun = existingReportRun
         ? await prisma.reportRun.update({
             where: { threadId },
-            data: {
-              companyName: companyName ?? undefined,
-              ...(companyReportId ? { companyReportId } : {}),
-              ...(batchDbId ? { batchDbId } : {}),
-            },
+            data: reportRunSyncFieldsFromJob({
+              companyName,
+              companyId,
+              wikidataId,
+              companyReportId,
+              batchDbId,
+            }),
           })
         : await prisma.reportRun.create({
             data: {

@@ -17,6 +17,7 @@ let resolveOrCreatePipelineCompanyId: typeof import('./pipelineCompanyResolve').
 let resolvePipelineCompanyOutcome: typeof import('./pipelineCompanyResolve').resolvePipelineCompanyOutcome
 let findCompanyByWikidataId: typeof import('./pipelineCompanyResolve').findCompanyByWikidataId
 let findCompanyByLei: typeof import('./pipelineCompanyResolve').findCompanyByLei
+let resolveInternalCompanyId: typeof import('./pipelineCompanyResolve').resolveInternalCompanyId
 
 beforeAll(async () => {
   ;({
@@ -24,6 +25,7 @@ beforeAll(async () => {
     resolvePipelineCompanyOutcome,
     findCompanyByWikidataId,
     findCompanyByLei,
+    resolveInternalCompanyId,
   } = await import('./pipelineCompanyResolve'))
 })
 
@@ -33,12 +35,38 @@ describe('resolveOrCreatePipelineCompanyId', () => {
   })
 
   it('returns job.data.companyId when already set', async () => {
+    const companyId = '11111111-1111-4111-8111-111111111111'
     const result = await resolveOrCreatePipelineCompanyId(
-      { companyId: 'existing-id' },
+      { companyId },
       'Acme AB'
     )
-    expect(result).toEqual({ companyId: 'existing-id', method: 'job_data' })
+    expect(result).toEqual({ companyId, method: 'job_data' })
     expect(mockApiFetch).not.toHaveBeenCalled()
+  })
+
+  it('resolves job.data.companyId when it is a wikidata Q-id', async () => {
+    mockApiFetch.mockImplementation(async (path: unknown) => {
+      if (
+        typeof path === 'string' &&
+        path.includes('/pipeline/companies/Q999')
+      ) {
+        return {
+          id: '11111111-1111-4111-8111-111111111111',
+          name: 'Acme',
+          wikidataId: 'Q999',
+        }
+      }
+      throw new Error(`unexpected path ${String(path)}`)
+    })
+
+    const result = await resolveOrCreatePipelineCompanyId(
+      { companyId: 'Q999' },
+      'Acme AB'
+    )
+    expect(result).toEqual({
+      companyId: '11111111-1111-4111-8111-111111111111',
+      method: 'job_data',
+    })
   })
 
   it('resolves by wikidata before creating', async () => {
@@ -159,6 +187,39 @@ describe('resolveOrCreatePipelineCompanyId', () => {
     })
   })
 
+  it('returns null when wikidata lookup fails', async () => {
+    mockApiFetch.mockRejectedValue(new Error('timeout'))
+
+    await expect(findCompanyByWikidataId('Q686030')).resolves.toBeNull()
+  })
+
+  it('returns null when wikidata lookup returns a record without id', async () => {
+    mockApiFetch.mockResolvedValue({ name: 'Alfa Laval', wikidataId: 'Q686030' })
+
+    await expect(findCompanyByWikidataId('Q686030')).resolves.toBeNull()
+  })
+
+  it('falls through to name search when wikidata lookup fails', async () => {
+    mockApiFetch.mockImplementation(async (path: unknown) => {
+      if (path === '/pipeline/companies/Q123') {
+        throw new Error('upstream 500')
+      }
+      if (
+        typeof path === 'string' &&
+        path.includes('/pipeline/companies/search')
+      ) {
+        return [{ id: 'exact', name: 'Acme AB' }]
+      }
+      throw new Error(`unexpected path ${String(path)}`)
+    })
+
+    const result = await resolveOrCreatePipelineCompanyId(
+      { wikidata: { node: 'Q123' } },
+      'Acme AB'
+    )
+    expect(result).toEqual({ companyId: 'exact', method: 'exact_name' })
+  })
+
   it('creates a company when no match is found', async () => {
     mockApiFetch.mockImplementation(
       async (path: unknown, init?: { body?: unknown }) => {
@@ -230,5 +291,37 @@ describe('resolvePipelineCompanyOutcome', () => {
       extractedName: 'Totally Different Name',
       candidates: [{ id: 'alfa-1', name: 'Alfa Laval', wikidataId: 'Q686030' }],
     })
+  })
+})
+
+describe('resolveInternalCompanyId', () => {
+  beforeEach(() => {
+    mockApiFetch.mockReset()
+  })
+
+  it('returns a UUID unchanged', async () => {
+    const companyId = '11111111-1111-4111-8111-111111111111'
+    await expect(resolveInternalCompanyId(companyId)).resolves.toBe(companyId)
+    expect(mockApiFetch).not.toHaveBeenCalled()
+  })
+
+  it('resolves a wikidata Q-id to the internal company UUID', async () => {
+    mockApiFetch.mockImplementation(async (path: unknown) => {
+      if (
+        typeof path === 'string' &&
+        path.includes('/pipeline/companies/Q686030')
+      ) {
+        return {
+          id: '22222222-2222-4222-8222-222222222222',
+          name: 'Alfa Laval',
+          wikidataId: 'Q686030',
+        }
+      }
+      throw new Error(`unexpected path ${String(path)}`)
+    })
+
+    await expect(resolveInternalCompanyId('Q686030')).resolves.toBe(
+      '22222222-2222-4222-8222-222222222222'
+    )
   })
 })

@@ -7,6 +7,9 @@ import {
 import { normalizeLei } from './normalizeLei'
 import { pipelineCompanyReadPath } from './pipelineCompanyPath'
 
+const COMPANY_UUID_RE =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+
 type PipelineCompanyRef = {
   companyId?: string
   companyName?: string
@@ -43,11 +46,35 @@ type PipelineCompanyRecord = {
   lei?: string | null
 }
 
+/** Resolve wikidata Q-id / LEI / UUID prefix to the internal Company.id used for mutations. */
+export async function resolveInternalCompanyId(
+  identifier: string
+): Promise<string> {
+  const trimmed = identifier.trim()
+  if (!trimmed) {
+    throw new Error('Empty company identifier')
+  }
+  if (COMPANY_UUID_RE.test(trimmed)) {
+    return trimmed
+  }
+
+  const company = (await apiFetch(pipelineCompanyReadPath(trimmed)).catch(
+    () => null
+  )) as PipelineCompanyRecord | null
+
+  const internalId = company?.id?.trim()
+  if (!internalId) {
+    throw new Error(
+      `Could not resolve internal company id for identifier: ${trimmed}`
+    )
+  }
+  return internalId
+}
+
 function toCompanyLinkCandidate(
-  record: PipelineCompanyRecord,
-  fallbackId?: string
+  record: PipelineCompanyRecord
 ): CompanyLinkCandidate | null {
-  const id = record.id ?? fallbackId
+  const id = record.id?.trim()
   if (!id) return null
   return {
     id,
@@ -91,7 +118,9 @@ async function findCompanyByIdentifier(
     () => null
   )) as PipelineCompanyRecord | null
 
-  return toCompanyLinkCandidate(existing ?? {}, identifier)
+  if (!existing) return null
+
+  return toCompanyLinkCandidate(existing)
 }
 
 /** Look up which company already owns a Wikidata Q-id in the current API. */
@@ -120,9 +149,10 @@ export async function resolvePipelineCompanyOutcome(
   companyName: string
 ): Promise<PipelineCompanyResolveOutcome> {
   if (jobData.companyId?.trim()) {
+    const companyId = await resolveInternalCompanyId(jobData.companyId)
     return {
       status: 'resolved',
-      companyId: jobData.companyId.trim(),
+      companyId,
       method: 'job_data',
     }
   }
