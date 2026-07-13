@@ -1,4 +1,19 @@
-# Plan: ChromaDB storage — cleanup now, bounded storage forever
+# ChromaDB storage — cleanup now, bounded storage forever (RFC)
+
+Make Docling markdown a first-class Postgres artifact and treat Chroma as a **disposable working-set cache** that can be pruned or rebuilt at any time.
+
+**Status:** Draft RFC — **no decision made**. Comments and alternatives welcome.
+
+**Audience:** Engineers across **garbo**, **infra**, **pipeline-api**, and **validate**.
+
+**Related docs**
+
+| Repo / doc | Plan |
+| ---------- | ---- |
+| garbo | [pipeline.md](../pipeline.md) — PDF → markdown → extraction flow |
+| garbo | [COMPANY_IDENTIFIERS_PLAN.md](../COMPANY_IDENTIFIERS_PLAN.md) — in-flight schema + pipeline identity work |
+
+---
 
 ## Background
 
@@ -9,7 +24,7 @@ The `indexMarkdown` job is failing because the ChromaDB volume (`data-chromadb-0
 - Chroma is also the **only** store of the Docling markdown output. `parsePdf` uses `vectorDB.hasReport(url)` as the "already parsed" cache. This is why nothing can be deleted today: deleting the index deletes the only copy of the expensive Docling parse.
 - The deployment (infra repo, Amikos chart 0.2.2 → Chroma 1.5.3, `sqliteDb.migrationMode: apply`) was upgraded in place; legacy SQLite/WAL bloat may be occupying significant space and is never reclaimed without a vacuum.
 
-## Target architecture
+## Proposed decision
 
 Markdown becomes a first-class, permanent artifact in Postgres. Chroma becomes a **disposable working-set cache** that can be pruned or rebuilt at any time.
 
@@ -23,7 +38,7 @@ flowchart LR
     MD --> FU
 ```
 
-Data lifecycle after this plan:
+Data lifecycle after this RFC is implemented:
 
 | Artifact                  | Store                            | Retention                | Recreate cost                |
 | ------------------------- | -------------------------------- | ------------------------ | ---------------------------- |
@@ -31,6 +46,8 @@ Data lifecycle after this plan:
 | Docling markdown          | Postgres `ReportMarkdown`        | forever                  | minutes of Docling (avoided) |
 | Embeddings/index          | Chroma                           | ~90 days since last use  | cents, <1 min                |
 | Retrieved context per job | Postgres `ReportRunJob.markdown` | forever (already exists) | —                            |
+
+**Order of operations (safety-critical):** W0 (vacuum/dedupe) → W1 (store) → W2 (backfill) → W3 (slim writes) → W4 (retention). W3 and W4 can land together; retention must not be enabled before W2 reports zero uncovered sources.
 
 ---
 
@@ -206,8 +223,6 @@ The rerun buttons in validate (`useJobRerunActions`, `useRunReportsPipeline`) go
 | **infra**        | Workstream 0 (vacuum Job, optional volume bump in `chromadb-helm.yaml` stage+prod), monitoring section below                                                                                                                                                                                                                 |
 | **pipeline-api** | No required changes. Optional improvement: always enqueue with the cached S3 URL (it already does when `cachePdf: true`) and pass `sha256` through job data so `ReportMarkdown.sha256` is populated at write time instead of via registry lookup                                                                             |
 | **validate**     | No required changes. Optional: surface the "rebuilding index" message distinctly in run status UI                                                                                                                                                                                                                            |
-
-Order of operations (safety-critical): **W0 (vacuum/dedupe) → W1 (store) → W2 (backfill) → W3 (slim writes) → W4 (retention)**. W3 and W4 can land together; retention must not be enabled before W2 reports zero uncovered sources.
 
 ---
 
