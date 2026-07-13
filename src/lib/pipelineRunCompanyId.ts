@@ -99,8 +99,9 @@ async function listGuessWikidataJobsForThread(threadId: string) {
 
 function isCompanyLinkApprovalPending(jobData: unknown): boolean {
   if (!jobData || typeof jobData !== 'object') return false
-  const approval = (jobData as { approval?: { type?: string; approved?: boolean } })
-    .approval
+  const approval = (
+    jobData as { approval?: { type?: string; approved?: boolean } }
+  ).approval
   return approval?.type === 'companyLink' && approval.approved !== true
 }
 

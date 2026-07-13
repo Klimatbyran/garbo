@@ -8,10 +8,10 @@ Make Docling markdown a first-class Postgres artifact and treat Chroma as a **di
 
 **Related docs**
 
-| Repo / doc | Plan |
-| ---------- | ---- |
-| garbo | [pipeline.md](../pipeline.md) — PDF → markdown → extraction flow |
-| garbo | [COMPANY_IDENTIFIERS_PLAN.md](../COMPANY_IDENTIFIERS_PLAN.md) — in-flight schema + pipeline identity work |
+| Repo / doc | Plan                                                                                                      |
+| ---------- | --------------------------------------------------------------------------------------------------------- |
+| garbo      | [pipeline.md](../pipeline.md) — PDF → markdown → extraction flow                                          |
+| garbo      | [COMPANY_IDENTIFIERS_PLAN.md](../COMPANY_IDENTIFIERS_PLAN.md) — in-flight schema + pipeline identity work |
 
 ---
 

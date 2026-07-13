@@ -78,7 +78,10 @@ describe('companyLinkResolve', () => {
 
   it('flags ambiguity when only one fuzzy hit does not exactly match', () => {
     const candidates = [{ id: 'alfa-1', name: 'Alfa Laval' }]
-    const result = assessCompanyLinkResolution('Totally Different Name', candidates)
+    const result = assessCompanyLinkResolution(
+      'Totally Different Name',
+      candidates
+    )
     expect(result).toEqual({ action: 'ambiguous', candidates })
     expect(
       pickExactNameMatches('Totally Different Name', candidates)
