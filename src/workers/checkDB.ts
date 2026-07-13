@@ -2,8 +2,13 @@ import { FlowProducer } from 'bullmq'
 import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { apiFetch } from '../lib/api'
 import redis from '../config/redis'
+import apiConfig from '../config/api'
 import { getCompanyURL } from '../lib/saveUtils'
 import { QUEUE_NAMES } from '../queues'
+import {
+  getCanonicalCompanyIdForThread,
+  isCompanyLinkResolutionPendingForThread,
+} from '../lib/pipelineRunCompanyId'
 import {
   extractScopeEntriesFromFollowUp,
   mergeScope1AndScope2Results,
@@ -50,8 +55,29 @@ flow.on('error', (err) => console.error('FlowProducer connection error:', err))
 const checkDB = new PipelineWorker(
   QUEUE_NAMES.CHECK_DB,
   async (job: CheckDBJob) => {
-    const { companyName, companyId, url, sourceUrl, fiscalYear, wikidata } =
+    let { companyName, companyId, url, sourceUrl, fiscalYear, wikidata } =
       job.data
+
+    const threadId = job.data.threadId?.trim()
+    if (threadId && (await isCompanyLinkResolutionPendingForThread(threadId))) {
+      job.log(
+        'Waiting for company link resolution on guessWikidata before API save'
+      )
+      await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+      return
+    }
+
+    const canonicalCompany = await getCanonicalCompanyIdForThread(
+      threadId,
+      companyId
+    )
+    if (canonicalCompany.companyId !== companyId) {
+      job.log(
+        `Using canonical companyId=${canonicalCompany.companyId} from ${canonicalCompany.source} (job had ${companyId})`
+      )
+      companyId = canonicalCompany.companyId
+      await job.updateData({ ...job.data, companyId })
+    }
 
     const childrenEntries = await job.getChildrenEntries()
 

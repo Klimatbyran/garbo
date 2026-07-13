@@ -135,7 +135,44 @@ class CompanyService {
     param: string,
     args: typeof detailedCompanyArgs = detailedCompanyArgs
   ) {
+    const lei = param.trim().toUpperCase()
+    if (/^[A-Z0-9]{20}$/.test(lei)) {
+      const byLeiColumn = await prisma.company.findFirst({
+        ...args,
+        where: { lei },
+      })
+      if (byLeiColumn) return byLeiColumn
+
+      const identifierRow = await prisma.companyIdentifier.findFirst({
+        where: { type: 'LEI', value: lei },
+        select: { companyId: true },
+      })
+      if (identifierRow) {
+        return prisma.company.findFirstOrThrow({
+          ...args,
+          where: { id: identifierRow.companyId },
+        })
+      }
+    }
+
     if (/^Q\d+$/.test(param)) {
+      const byWikidataColumn = await prisma.company.findFirst({
+        ...args,
+        where: { wikidataId: param },
+      })
+      if (byWikidataColumn) return byWikidataColumn
+
+      const identifierRow = await prisma.companyIdentifier.findFirst({
+        where: { type: 'WIKIDATA', value: param },
+        select: { companyId: true },
+      })
+      if (identifierRow) {
+        return prisma.company.findFirstOrThrow({
+          ...args,
+          where: { id: identifierRow.companyId },
+        })
+      }
+
       return prisma.company.findFirstOrThrow({
         ...args,
         where: { wikidataId: param },

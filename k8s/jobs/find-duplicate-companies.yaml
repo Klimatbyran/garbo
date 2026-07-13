@@ -1,0 +1,65 @@
+# One-off Job: scan Company rows for potential duplicates (read-only).
+# NOT applied by Flux — use: kubectl create -f k8s/jobs/find-duplicate-companies.yaml
+#
+# Requires a garbo image that includes scripts/find-duplicate-companies.ts (deploy after merge).
+# Pin `image:` to a specific tag if you need a known build.
+#
+# Examples (edit args before create):
+#   ["scripts/find-duplicate-companies.ts"]
+#   ["scripts/find-duplicate-companies.ts", "--reason=wikidata_conflict"]
+#   ["scripts/find-duplicate-companies.ts", "--limit=30"]
+#   ["scripts/find-duplicate-companies.ts", "--json=/tmp/duplicate-companies.json", "--csv=/tmp/duplicate-companies.csv"]
+#
+# Copy exports from the pod (while Job is still running or before ttl cleanup):
+#   kubectl cp -n garbo <pod>:/tmp/duplicate-companies.csv ./duplicate-companies.csv
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: find-duplicate-companies-
+  labels:
+    app: garbo
+    job-type: find-duplicate-companies
+spec:
+  ttlSecondsAfterFinished: 3600
+  backoffLimit: 0
+  activeDeadlineSeconds: 1800
+  template:
+    metadata:
+      labels:
+        app: garbo
+        job-type: find-duplicate-companies
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: scan
+          image: ghcr.io/klimatbyran/garbo
+          imagePullPolicy: Always
+          workingDir: /app
+          command: ['npx', '--yes', 'tsx']
+          args: ['scripts/find-duplicate-companies.ts']
+          resources:
+            requests:
+              cpu: '100m'
+              memory: '256Mi'
+            limits:
+              memory: '512Mi'
+          envFrom:
+            - secretRef:
+                name: env
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redis
+                  key: redis-password
+                  optional: true
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgresql
+                  key: postgres-password
+            - name: DATABASE_URL
+              value: postgresql://postgres:$(POSTGRES_PASSWORD)@postgresql:5432/garbo

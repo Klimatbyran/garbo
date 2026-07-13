@@ -2,6 +2,7 @@ import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { apiFetch } from '../lib/api'
 import { QUEUE_NAMES } from '../queues'
 import { withCompanySaveLock } from '../lib/companySaveLock'
+import { getCanonicalCompanyIdForThread } from '../lib/pipelineRunCompanyId'
 import { syncReportRunCompanyReportId } from '../lib/reportRunPersistence'
 import { companyReportIdFromPeriodSaveResponse } from './saveToAPI.utils'
 import { companyMutationPath } from '../lib/pipelineCompanyPath'
@@ -76,8 +77,16 @@ export const saveToAPI = new PipelineWorker<SaveToApiJob>(
   QUEUE_NAMES.SAVE_TO_API,
   async (job: SaveToApiJob) => {
     try {
-      const { companyName, companyId, wikidata, body, apiSubEndpoint } =
-        job.data
+      const { companyName, wikidata, body, apiSubEndpoint } = job.data
+      const { companyId, source } = await getCanonicalCompanyIdForThread(
+        job.data.threadId,
+        job.data.companyId
+      )
+      if (companyId !== job.data.companyId) {
+        job.log(
+          `Using canonical companyId=${companyId} from ${source} for save (job had ${job.data.companyId})`
+        )
+      }
 
       // remove all null values except for emissions where we want them to be explicit
       const sanitizedBody = removeNullValuesFromGarbo(body)

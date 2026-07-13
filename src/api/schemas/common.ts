@@ -37,6 +37,8 @@ export const companyInitiativeParamsSchema = z.object({
 export const pipelineCompanySearchHitSchema = z.object({
   id: companyIdSchema,
   name: z.string(),
+  wikidataId: wikidataIdSchema.nullable().optional(),
+  lei: z.string().nullable().optional(),
 })
 
 export const pipelineCompanySearchListSchema = z.array(

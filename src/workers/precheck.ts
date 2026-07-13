@@ -6,7 +6,10 @@ import { zodResponseFormat } from 'openai/helpers/zod'
 import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { z } from 'zod'
 import { QUEUE_NAMES } from '../queues'
-import { resolveOrCreatePipelineCompanyId } from '../lib/pipelineCompanyResolve'
+import apiConfig from '../config/api'
+import { apiFetch } from '../lib/api'
+import { resolvePipelineCompanyOutcome } from '../lib/pipelineCompanyResolve'
+import { syncCanonicalReportRunCompanyId } from '../lib/pipelineRunCompanyId'
 import { EXTRACT_EMISSIONS_CHILD_QUEUES } from './precheckFlow'
 import { withPipelineJobOpts } from '../lib/pipelineJobOptions'
 
@@ -15,6 +18,7 @@ class PrecheckJob extends PipelineJob {
     cachedMarkdown?: string
     companyName?: string
     companyId?: string
+    lei?: string
     waitingForCompanyName?: boolean
   }
 }
@@ -26,18 +30,120 @@ const companyNameSchema = z.object({
   companyName: z.string().nullable(),
 })
 
+async function createPipelineCompany(companyName: string): Promise<string> {
+  const created = await apiFetch('/companies/', {
+    body: { name: companyName },
+  })
+  if (!created?.id) {
+    throw new Error('Company create did not return id')
+  }
+  return created.id as string
+}
+
+async function syncRunCompanyIdFromPrecheck(
+  job: PrecheckJob,
+  companyId: string,
+  companyName: string
+) {
+  const threadId = job.data.threadId?.trim()
+  if (!threadId) return
+
+  await syncCanonicalReportRunCompanyId({
+    threadId,
+    companyId,
+    pdfUrl: job.data.url,
+    companyName,
+  })
+}
+
 async function ensurePipelineCompany(
   job: PrecheckJob,
   companyName: string
-): Promise<string> {
-  const { companyId, method } = await resolveOrCreatePipelineCompanyId(
-    job.data,
-    companyName
-  )
-  if (companyId !== job.data.companyId) {
-    await job.updateData({ ...job.data, companyId, companyName })
-    job.log(`Resolved pipeline company id=${companyId} method=${method}`)
+): Promise<string | null> {
+  if (job.data.approval?.type === 'companyLink' && job.isDataApproved()) {
+    const approved = job.getApprovedBody()
+    if (approved.createNew) {
+      const companyId = await createPipelineCompany(companyName)
+      await job.updateData({ ...job.data, companyId, companyName })
+      job.log(`Created new company after company-link approval id=${companyId}`)
+      await syncRunCompanyIdFromPrecheck(job, companyId, companyName)
+      return companyId
+    }
+    if (typeof approved.companyId === 'string' && approved.companyId.trim()) {
+      const companyId = approved.companyId.trim()
+      await job.updateData({ ...job.data, companyId, companyName })
+      job.log(`Using staff-selected company id=${companyId}`)
+      await syncRunCompanyIdFromPrecheck(job, companyId, companyName)
+      return companyId
+    }
   }
+
+  if (
+    job.data.approval?.type === 'companyLink' &&
+    job.hasApproval() &&
+    !job.isDataApproved()
+  ) {
+    job.log('Waiting for company link approval')
+    await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+    return null
+  }
+
+  const outcome = await resolvePipelineCompanyOutcome(job.data, companyName)
+
+  if (outcome.status === 'resolved') {
+    if (outcome.companyId !== job.data.companyId) {
+      await job.updateData({
+        ...job.data,
+        companyId: outcome.companyId,
+        companyName,
+      })
+      job.log(
+        `Resolved pipeline company id=${outcome.companyId} method=${outcome.method}`
+      )
+    }
+    await syncRunCompanyIdFromPrecheck(job, outcome.companyId, companyName)
+    return outcome.companyId
+  }
+
+  if (outcome.status === 'ambiguous') {
+    job.log(
+      `Ambiguous company link for "${companyName}" — ${outcome.candidates.length} candidates`
+    )
+    job.log(
+      `Company link candidates: ${JSON.stringify(outcome.candidates, null, 2)}`
+    )
+
+    const metadata = {
+      source: 'company-name-search',
+      comment:
+        'Multiple matching companies found — please select the correct company',
+    }
+
+    await job.requestApproval(
+      'companyLink',
+      {
+        type: 'companyLink',
+        newValue: {
+          extractedName: outcome.extractedName,
+          candidates: outcome.candidates,
+        },
+      },
+      false,
+      metadata,
+      `Company link for ${companyName}`
+    )
+
+    await job.sendMessage({
+      content: `Multiple companies match "${companyName}". Please select the correct company in Validate before the pipeline continues.`,
+    })
+    await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+    return null
+  }
+
+  const companyId = await createPipelineCompany(companyName)
+  await job.updateData({ ...job.data, companyId, companyName })
+  job.log(`Created pipeline company id=${companyId}`)
+  await syncRunCompanyIdFromPrecheck(job, companyId, companyName)
   return companyId
 }
 
@@ -102,13 +208,20 @@ const precheck = new PipelineWorker(
     if (!companyName) {
       if (waitingForCompanyName) {
         job.log('Still waiting for companyName in job data...')
-        await job.moveToDelayed(Date.now() + 30000)
+        await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
         return
       }
 
-      throw new Error(
-        'Could not identify company name from report. Re-run with companyName provided in job data.'
+      job.log(
+        'Could not identify company name from report — waiting for manual input'
       )
+      await job.updateData({ ...job.data, waitingForCompanyName: true })
+      await job.sendMessage({
+        content:
+          'Could not identify the company name from this report. Please enter the company name in Validate to continue.',
+      })
+      await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+      return
     }
 
     return processWithCompanyName(companyName)
@@ -117,9 +230,10 @@ const precheck = new PipelineWorker(
       job.log('Company name: ' + companyName)
 
       const companyId = await ensurePipelineCompany(job, companyName)
+      if (!companyId) return
 
       const base = {
-        data: { ...baseData, companyName, companyId },
+        data: { ...job.data, companyName, companyId },
         opts: withPipelineJobOpts({
           attempts: 3,
         }),

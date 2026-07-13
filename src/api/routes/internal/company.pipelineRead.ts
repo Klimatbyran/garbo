@@ -114,7 +114,12 @@ export async function pipelineCompanyReadRoutes(app: FastifyInstance) {
         onePeriodPerDataYear: true,
       })
       reply.send(
-        companies.map((company) => ({ id: company.id, name: company.name }))
+        companies.map((company) => ({
+          id: company.id,
+          name: company.name,
+          wikidataId: company.wikidataId ?? null,
+          lei: company.lei ?? null,
+        }))
       )
     }
   )
