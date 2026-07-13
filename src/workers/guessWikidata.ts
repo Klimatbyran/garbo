@@ -13,7 +13,10 @@ import {
   companyMutationPath,
   pipelineCompanyReadPath,
 } from '../lib/pipelineCompanyPath'
-import { findCompanyByWikidataId } from '../lib/pipelineCompanyResolve'
+import {
+  findCompanyByWikidataId,
+  resolveInternalCompanyId,
+} from '../lib/pipelineCompanyResolve'
 import type { CompanyLinkCandidate } from '../lib/companyLinkResolve'
 import { LEGAL_ENTITY_SUFFIXES } from '../lib/companyLegalEntitySuffixes'
 import { syncCanonicalReportRunCompanyId } from '../lib/pipelineRunCompanyId'
@@ -109,9 +112,13 @@ async function loadCompanyLinkCandidate(
     () => null
   )) as { id?: string; name?: string; wikidataId?: string | null } | null
 
+  const resolvedId = company?.id?.trim()
+    ? company.id.trim()
+    : await resolveInternalCompanyId(companyId)
+
   return {
-    id: companyId,
-    name: company?.name ?? companyId,
+    id: resolvedId,
+    name: company?.name ?? resolvedId,
     wikidataId: company?.wikidataId ?? null,
   }
 }
@@ -137,13 +144,16 @@ async function requestCompanyLinkIfWikidataConflict(
     throw new Error('Missing companyId on guessWikidata job')
   }
 
+  const resolvedPipelineCompanyId =
+    await resolveInternalCompanyId(pipelineCompanyId)
+
   const wikidataOwner = await findCompanyByWikidataId(wikidata.node)
-  if (!wikidataOwner || wikidataOwner.id === pipelineCompanyId) {
+  if (!wikidataOwner || wikidataOwner.id === resolvedPipelineCompanyId) {
     return true
   }
 
   job.log(
-    `Wikidata ${wikidata.node} belongs to company ${wikidataOwner.id}; pipeline company is ${pipelineCompanyId} — requesting staff confirmation`
+    `Wikidata ${wikidata.node} belongs to company ${wikidataOwner.id}; pipeline company is ${resolvedPipelineCompanyId} — requesting staff confirmation`
   )
 
   const pipelineCompany = await loadCompanyLinkCandidate(pipelineCompanyId)
@@ -188,15 +198,14 @@ async function ensureCompanyLinkBeforeWikidataPersist(
   return requestCompanyLinkIfWikidataConflict(job, companyName, wikidata)
 }
 
-function resolveCompanyIdFromCompanyLinkApproval(job: GuessWikidataJob): {
+async function resolveCompanyIdFromCompanyLinkApproval(
+  job: GuessWikidataJob
+): Promise<{
   companyId: string
   skipWikidataAssign: boolean
-} {
+}> {
   const approved = job.getApprovedBody()
-  const pipelineCompanyId = job.data.companyId
-  if (!pipelineCompanyId) {
-    throw new Error('Missing companyId on guessWikidata job')
-  }
+  const pipelineCompanyId = await resolveInternalCompanyId(job.data.companyId)
 
   if (approved.createNew) {
     throw new Error(
@@ -204,10 +213,11 @@ function resolveCompanyIdFromCompanyLinkApproval(job: GuessWikidataJob): {
     )
   }
 
-  const selectedCompanyId =
+  const selectedRaw =
     typeof approved.companyId === 'string' && approved.companyId.trim()
       ? approved.companyId.trim()
       : pipelineCompanyId
+  const selectedCompanyId = await resolveInternalCompanyId(selectedRaw)
 
   return {
     companyId: selectedCompanyId,
@@ -227,7 +237,9 @@ async function persistApprovedWikidata(
     skipWikidataAssign?: boolean
   }
 ) {
-  const companyId = options.companyId ?? job.data.companyId
+  const companyId = await resolveInternalCompanyId(
+    options.companyId ?? job.data.companyId
+  )
   if (!companyId) {
     throw new Error('Missing companyId on guessWikidata job')
   }
@@ -304,12 +316,19 @@ const guessWikidata = new PipelineWorker<GuessWikidataJob>(
   async (job: GuessWikidataJob) => {
     const {
       companyName,
-      companyId,
+      companyId: rawCompanyId,
       overrideWikidataId,
       wikidataSearchLanguage,
     } = job.data
     if (!companyName) throw new Error('No company name was provided')
-    if (!companyId) throw new Error('No companyId was provided')
+    if (!rawCompanyId) throw new Error('No companyId was provided')
+
+    const companyId = await resolveInternalCompanyId(rawCompanyId)
+    if (companyId !== rawCompanyId) {
+      job.log(`Normalized pipeline companyId ${rawCompanyId} -> ${companyId}`)
+      await job.updateData({ ...job.data, companyId })
+    }
+
     job.log('Company name: ' + companyName)
     job.log('Approval: ' + JSON.stringify(job.data.approval, null, 2))
 
@@ -321,7 +340,7 @@ const guessWikidata = new PipelineWorker<GuessWikidataJob>(
       pendingWikidata?.node
     ) {
       const { companyId: confirmedCompanyId, skipWikidataAssign } =
-        resolveCompanyIdFromCompanyLinkApproval(job)
+        await resolveCompanyIdFromCompanyLinkApproval(job)
       const metadata = job.data.approval?.metadata
 
       await persistApprovedWikidata(job, companyName, pendingWikidata, {

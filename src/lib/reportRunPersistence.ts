@@ -12,6 +12,25 @@ export function companyIdFromJobData(data: unknown): string | null {
   return typeof id === 'string' && id.trim() ? id.trim() : null
 }
 
+/** Fields to sync onto an existing ReportRun from the latest job snapshot. */
+export function reportRunSyncFieldsFromJob(input: {
+  companyName?: string | null
+  companyId?: string | null
+  wikidataId?: string | null
+  companyReportId?: string | null
+  batchDbId?: string | null
+}) {
+  return {
+    companyName: input.companyName ?? undefined,
+    ...(input.companyId ? { companyId: input.companyId } : {}),
+    ...(input.wikidataId ? { wikidataId: input.wikidataId } : {}),
+    ...(input.companyReportId
+      ? { companyReportId: input.companyReportId }
+      : {}),
+    ...(input.batchDbId ? { batchDbId: input.batchDbId } : {}),
+  }
+}
+
 /**
  * Resolve `job.data.batchId` to a stable Garbo `Batch.id` for `ReportRun.batchDbId`.
  *
