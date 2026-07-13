@@ -194,7 +194,10 @@ describe('resolveOrCreatePipelineCompanyId', () => {
   })
 
   it('returns null when wikidata lookup returns a record without id', async () => {
-    mockApiFetch.mockResolvedValue({ name: 'Alfa Laval', wikidataId: 'Q686030' })
+    mockApiFetch.mockResolvedValue({
+      name: 'Alfa Laval',
+      wikidataId: 'Q686030',
+    })
 
     await expect(findCompanyByWikidataId('Q686030')).resolves.toBeNull()
   })

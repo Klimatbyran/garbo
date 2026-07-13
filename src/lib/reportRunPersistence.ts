@@ -24,7 +24,9 @@ export function reportRunSyncFieldsFromJob(input: {
     companyName: input.companyName ?? undefined,
     ...(input.companyId ? { companyId: input.companyId } : {}),
     ...(input.wikidataId ? { wikidataId: input.wikidataId } : {}),
-    ...(input.companyReportId ? { companyReportId: input.companyReportId } : {}),
+    ...(input.companyReportId
+      ? { companyReportId: input.companyReportId }
+      : {}),
     ...(input.batchDbId ? { batchDbId: input.batchDbId } : {}),
   }
 }

@@ -13,7 +13,10 @@ import {
   companyMutationPath,
   pipelineCompanyReadPath,
 } from '../lib/pipelineCompanyPath'
-import { findCompanyByWikidataId, resolveInternalCompanyId } from '../lib/pipelineCompanyResolve'
+import {
+  findCompanyByWikidataId,
+  resolveInternalCompanyId,
+} from '../lib/pipelineCompanyResolve'
 import type { CompanyLinkCandidate } from '../lib/companyLinkResolve'
 import { LEGAL_ENTITY_SUFFIXES } from '../lib/companyLegalEntitySuffixes'
 import { syncCanonicalReportRunCompanyId } from '../lib/pipelineRunCompanyId'
