@@ -1,4 +1,9 @@
 import { apiFetch } from './api'
+import {
+  assessCompanyLinkResolution,
+  type CompanyLinkCandidate,
+  stripLegalEntitySuffixes,
+} from './companyLinkResolve'
 import { pipelineCompanyReadPath } from './pipelineCompanyPath'
 
 type PipelineCompanyRef = {
@@ -7,12 +12,11 @@ type PipelineCompanyRef = {
   wikidata?: { node?: string }
 }
 
-type CompanySearchHit = { id: string; name: string }
-
 export type CompanyResolutionMethod =
   | 'job_data'
   | 'wikidata'
   | 'exact_name'
+  | 'approved_link'
   | 'created'
 
 export type CompanyResolution = {
@@ -20,20 +24,84 @@ export type CompanyResolution = {
   method: CompanyResolutionMethod
 }
 
-function normalizeCompanyName(name: string): string {
-  return name.trim().toLocaleLowerCase('sv-SE')
+export type PipelineCompanyResolveOutcome =
+  | { status: 'resolved'; companyId: string; method: CompanyResolutionMethod }
+  | {
+      status: 'ambiguous'
+      extractedName: string
+      candidates: CompanyLinkCandidate[]
+    }
+  | { status: 'create'; extractedName: string }
+
+async function searchCompaniesByName(
+  companyName: string
+): Promise<CompanyLinkCandidate[]> {
+  const hits = (await apiFetch(
+    `/pipeline/companies/search?q=${encodeURIComponent(companyName)}`
+  ).catch(() => [])) as CompanyLinkCandidate[]
+  return Array.isArray(hits) ? hits : []
+}
+
+async function collectNameSearchCandidates(
+  companyName: string
+): Promise<CompanyLinkCandidate[]> {
+  const namesToTry = [companyName]
+  const strippedName = stripLegalEntitySuffixes(companyName)
+  if (strippedName !== companyName.trim()) {
+    namesToTry.push(strippedName)
+  }
+
+  const byId = new Map<string, CompanyLinkCandidate>()
+  for (const query of namesToTry) {
+    for (const hit of await searchCompaniesByName(query)) {
+      byId.set(hit.id, hit)
+    }
+  }
+  return [...byId.values()]
+}
+
+/** Look up which company already owns a Wikidata Q-id in the current API. */
+export async function findCompanyByWikidataId(
+  wikidataId: string
+): Promise<CompanyLinkCandidate | null> {
+  const existing = (await apiFetch(pipelineCompanyReadPath(wikidataId)).catch(
+    () => null
+  )) as { id?: string; name?: string; wikidataId?: string | null } | null
+
+  if (!existing?.id) return null
+  return {
+    id: existing.id,
+    name: existing.name ?? '',
+    wikidataId: existing.wikidataId ?? wikidataId,
+  }
+}
+
+/** @deprecated Use findCompanyByWikidataId; relink now requires staff approval in guessWikidata. */
+export async function resolveTargetCompanyIdForWikidata(
+  companyId: string,
+  wikidataId: string
+): Promise<{ companyId: string; relinked: boolean }> {
+  const owner = await findCompanyByWikidataId(wikidataId)
+  if (owner?.id && owner.id !== companyId) {
+    return { companyId: owner.id, relinked: true }
+  }
+  return { companyId, relinked: false }
 }
 
 /**
- * Resolve the stable Garbo company id for a pipeline run.
- * Prefer explicit job data, then wikidata lookup, then exact name match, else create.
+ * Resolve the stable Garbo company id for a pipeline run without creating a company.
+ * Returns ambiguous when staff must pick among multiple candidates.
  */
-export async function resolveOrCreatePipelineCompanyId(
+export async function resolvePipelineCompanyOutcome(
   jobData: PipelineCompanyRef,
   companyName: string
-): Promise<CompanyResolution> {
+): Promise<PipelineCompanyResolveOutcome> {
   if (jobData.companyId?.trim()) {
-    return { companyId: jobData.companyId.trim(), method: 'job_data' }
+    return {
+      status: 'resolved',
+      companyId: jobData.companyId.trim(),
+      method: 'job_data',
+    }
   }
 
   const wikidataId = jobData.wikidata?.node?.trim()
@@ -42,22 +110,49 @@ export async function resolveOrCreatePipelineCompanyId(
       pipelineCompanyReadPath(wikidataId)
     ).catch(() => null)
     if (byWikidata?.id) {
-      return { companyId: byWikidata.id as string, method: 'wikidata' }
+      return {
+        status: 'resolved',
+        companyId: byWikidata.id as string,
+        method: 'wikidata',
+      }
     }
   }
 
-  const searchHits = (await apiFetch(
-    `/pipeline/companies/search?q=${encodeURIComponent(companyName)}`
-  ).catch(() => [])) as CompanySearchHit[]
+  const candidates = await collectNameSearchCandidates(companyName)
+  const assessment = assessCompanyLinkResolution(companyName, candidates)
 
-  if (Array.isArray(searchHits)) {
-    const target = normalizeCompanyName(companyName)
-    const exactMatches = searchHits.filter(
-      (hit) => hit.name && normalizeCompanyName(hit.name) === target
-    )
-    if (exactMatches.length === 1) {
-      return { companyId: exactMatches[0].id, method: 'exact_name' }
+  if (assessment.action === 'resolve') {
+    return {
+      status: 'resolved',
+      companyId: assessment.companyId,
+      method: 'exact_name',
     }
+  }
+
+  if (assessment.action === 'ambiguous') {
+    return {
+      status: 'ambiguous',
+      extractedName: companyName,
+      candidates: assessment.candidates,
+    }
+  }
+
+  return { status: 'create', extractedName: companyName }
+}
+
+/**
+ * Resolve the stable Garbo company id for a pipeline run.
+ * Prefer explicit job data, then wikidata lookup, then exact name match, else create.
+ * Ambiguous matches fall through to create — use resolvePipelineCompanyOutcome in precheck.
+ */
+export async function resolveOrCreatePipelineCompanyId(
+  jobData: PipelineCompanyRef,
+  companyName: string
+): Promise<CompanyResolution> {
+  const outcome = await resolvePipelineCompanyOutcome(jobData, companyName)
+
+  if (outcome.status === 'resolved') {
+    return { companyId: outcome.companyId, method: outcome.method }
   }
 
   const created = await apiFetch('/companies/', {

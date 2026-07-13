@@ -137,9 +137,9 @@ No response shape change. `PartnerCompanyBase` keeps `id`, `wikidataId`, `lei` p
 
 **Baseline shipped in Phase 3 (branch `1338-wikidataWorker`):** `resolveOrCreatePipelineCompanyId` in `src/lib/pipelineCompanyResolve.ts` — prefer `job.data.companyId`, then Wikidata Q-id lookup, then exact normalized name match after fuzzy DB search, else `POST /companies/`. No approval gate yet.
 
-### Phase 3.5 — Company link resolution + Wikidata matching (deferred)
+### Phase 3.5 — Company link resolution + Wikidata matching
 
-**Scope:** garbo + validate. Small middle step between Phase 3 and Phase 4. **Paused for now** — implement when ambiguous matches show up in stage/prod, or before a large batch run where wrong `companyId` would be costly.
+**Scope:** garbo + validate. Small middle step between Phase 3 and Phase 4. **Shipped (2026-07)** after duplicate-company issues in stage (e.g. Alfa Laval AB vs Alfa Laval, multiple rows with Q686030).
 
 **Problem:** Phase 3 auto-links only when exactly one Garbo row has the same normalized name as the name extracted from the report. Fuzzy search can return several candidates (e.g. ICA Sweden vs ICA Finland) while the PDF gives a short generic name (`"ICA"`). Today that falls through to **create a new company** rather than silently linking to the wrong row — but duplicates and manual cleanup are still possible.
 
@@ -147,12 +147,15 @@ No response shape change. `PartnerCompanyBase` keeps `id`, `wikidataId`, `lei` p
 
 | Step  | Work                                                                                                                                                                                                                                           |
 | ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 3.5.1 | **Ambiguity heuristics** — pure function on fuzzy search candidates + extracted name: multiple exact matches; multiple fuzzy hits + short/generic name (e.g. one token or ≤4 chars); optional shared-prefix rule for ICA-style cases           |
-| 3.5.2 | **`precheck` approval gate** — when ambiguous, `requestApproval('companyLink', { extractedName, candidates })`, `moveToDelayed`; on approve read `companyId` (or explicit “create new”) from `approval.data.newValue` before spawning children |
-| 3.5.3 | **Validate `CompanyLinkApprovalDisplay`** — radio list of candidates (`id`, `name`, `wikidataId` if any) plus “Create new company”; mirror `WikidataApprovalDisplay` + `useJobRerunActions` approve/rerun pattern                              |
-| 3.5.4 | **Observability (optional, ~2–3 h)** — log/metric when candidates exist but no single exact match (measures how often the gate would fire without blocking yet)                                                                                |
-| 3.5.5 | **Re-run contract** — document/enforce pipeline-api passing `companyId` or `wikidataId` when re-processing a known company (most reliable path; name-only remains fallback)                                                                    |
-| 3.5.6 | **Tests** — unit tests for heuristics; precheck approval resume path; Validate parser for `approval.type === 'companyLink'`                                                                                                                    |
+| 3.5.1 | **Ambiguity heuristics** — `assessCompanyLinkResolution` in `src/lib/companyLinkResolve.ts` |
+| 3.5.2 | **`precheck` approval gate** — `requestApproval('companyLink', …)` when ambiguous; resume on approve |
+| 3.5.3 | **Validate `CompanyLinkApprovalDisplay`** — radio candidates + create-new; `useJobRerunActions` approve |
+| 3.5.4 | **Observability** — precheck logs candidate list when ambiguity gate fires |
+| 3.5.5 | **Re-run contract** — prefer `job.data.companyId` or `wikidata.node` on re-runs (documented in `resolvePipelineCompanyOutcome`) |
+| 3.5.6 | **Tests** — `companyLinkResolve.test.ts`, `pipelineCompanyResolve.test.ts`, Validate parser test |
+| 3.5.7 | **Wikidata relink gate** — when Q-id is already assigned elsewhere, `guessWikidata` requests `companyLink` approval instead of silent relink |
+| 3.5.9 | **Canonical run company id** — `ReportRun.companyId` synced from precheck/guessWikidata; `checkDB` waits for guessWikidata then resolves id before API save; `saveToAPI` re-resolves |
+| 3.5.8 | **Name suffix matching** — strip legal suffixes (`AB`, etc.) before exact name compare |
 
 **Repos / changes:**
 
