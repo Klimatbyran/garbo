@@ -8,7 +8,10 @@ import { ChatCompletionMessageParam } from 'openai/resources'
 import { QUEUE_NAMES } from '../queues'
 import { getWikidataEntities, searchCompany } from '@/lib/wikidata/read'
 import { apiFetch } from '../lib/api'
-import { companyMutationPath, pipelineCompanyReadPath } from '../lib/pipelineCompanyPath'
+import {
+  companyMutationPath,
+  pipelineCompanyReadPath,
+} from '../lib/pipelineCompanyPath'
 import { findCompanyByWikidataId } from '../lib/pipelineCompanyResolve'
 import type { CompanyLinkCandidate } from '../lib/companyLinkResolve'
 import { syncCanonicalReportRunCompanyId } from '../lib/pipelineRunCompanyId'
@@ -181,9 +184,10 @@ async function ensureCompanyLinkBeforeWikidataPersist(
   return false
 }
 
-function resolveCompanyIdFromCompanyLinkApproval(
-  job: GuessWikidataJob
-): { companyId: string; skipWikidataAssign: boolean } {
+function resolveCompanyIdFromCompanyLinkApproval(job: GuessWikidataJob): {
+  companyId: string
+  skipWikidataAssign: boolean
+} {
   const approved = job.getApprovedBody()
   const pipelineCompanyId = job.data.companyId
   if (!pipelineCompanyId) {

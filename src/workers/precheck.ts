@@ -29,9 +29,7 @@ const companyNameSchema = z.object({
   companyName: z.string().nullable(),
 })
 
-async function createPipelineCompany(
-  companyName: string
-): Promise<string> {
+async function createPipelineCompany(companyName: string): Promise<string> {
   const created = await apiFetch('/companies/', {
     body: { name: companyName },
   })
@@ -61,17 +59,12 @@ async function ensurePipelineCompany(
   job: PrecheckJob,
   companyName: string
 ): Promise<string | null> {
-  if (
-    job.data.approval?.type === 'companyLink' &&
-    job.isDataApproved()
-  ) {
+  if (job.data.approval?.type === 'companyLink' && job.isDataApproved()) {
     const approved = job.getApprovedBody()
     if (approved.createNew) {
       const companyId = await createPipelineCompany(companyName)
       await job.updateData({ ...job.data, companyId, companyName })
-      job.log(
-        `Created new company after company-link approval id=${companyId}`
-      )
+      job.log(`Created new company after company-link approval id=${companyId}`)
       await syncRunCompanyIdFromPrecheck(job, companyId, companyName)
       return companyId
     }

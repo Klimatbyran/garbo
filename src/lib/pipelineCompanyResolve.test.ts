@@ -98,7 +98,11 @@ describe('resolveOrCreatePipelineCompanyId', () => {
   it('finds the company that already owns a wikidata id', async () => {
     mockApiFetch.mockImplementation(async (path: unknown) => {
       if (path === '/pipeline/companies/Q686030') {
-        return { id: 'existing-alfa', name: 'Alfa Laval', wikidataId: 'Q686030' }
+        return {
+          id: 'existing-alfa',
+          name: 'Alfa Laval',
+          wikidataId: 'Q686030',
+        }
       }
       throw new Error(`unexpected path ${String(path)}`)
     })

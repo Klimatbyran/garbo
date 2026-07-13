@@ -50,10 +50,7 @@ describe('pipelineRunCompanyId', () => {
   it('falls back to job data when ReportRun has no companyId', async () => {
     prismaMock.reportRun.findUnique.mockResolvedValue({ companyId: null })
 
-    const result = await getCanonicalCompanyIdForThread(
-      'thread-1',
-      'job-id'
-    )
+    const result = await getCanonicalCompanyIdForThread('thread-1', 'job-id')
     expect(result).toEqual({
       companyId: 'job-id',
       source: 'job_data',

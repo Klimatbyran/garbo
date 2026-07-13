@@ -25,12 +25,12 @@ flowchart LR
 
 Data lifecycle after this plan:
 
-| Artifact | Store | Retention | Recreate cost |
-|---|---|---|---|
-| PDF | S3 (pipeline-api cache) | forever | — |
-| Docling markdown | Postgres `ReportMarkdown` | forever | minutes of Docling (avoided) |
-| Embeddings/index | Chroma | ~90 days since last use | cents, <1 min |
-| Retrieved context per job | Postgres `ReportRunJob.markdown` | forever (already exists) | — |
+| Artifact                  | Store                            | Retention                | Recreate cost                |
+| ------------------------- | -------------------------------- | ------------------------ | ---------------------------- |
+| PDF                       | S3 (pipeline-api cache)          | forever                  | —                            |
+| Docling markdown          | Postgres `ReportMarkdown`        | forever                  | minutes of Docling (avoided) |
+| Embeddings/index          | Chroma                           | ~90 days since last use  | cents, <1 min                |
+| Retrieved context per job | Postgres `ReportRunJob.markdown` | forever (already exists) | —                            |
 
 ---
 
@@ -64,6 +64,7 @@ f93df5ca-… (HNSW vector index):    5.5 G
    ```
 
    60 Gi = 25 G current + ~19 G vacuum scratch + headroom (PVCs cannot shrink later, but post-cleanup usage will stay far below). Update `volumeSize` in `infra/clusters/garbo/infrastructure/{prod,stage}/chromadb-helm.yaml` to match, with a comment that the value does not resize existing volumes. Verify `indexMarkdown` succeeds again.
+
 3. **Vacuum**: stop writes (scale the worker deployment to 0). Check whether the 1.x server image ships the CLI (`kubectl -n garbo exec chromadb-0 -- chroma utils vacuum --help`); if not, scale chromadb to 0 and run a one-off Job with a Python image (`pip install chromadb`, PVC mounted) running `chroma utils vacuum --path /data`. Reclaims deleted pages/WAL and ensures auto-purge stays enabled.
 4. **Delete duplicate sources**: script (garbo repo, `scripts/chroma-dedupe.ts`) that lists distinct `source` values in the collection, compares against the `Report` registry (`url`, `sourceUrl`, `s3Url` columns), and deletes Chroma sources that are non-canonical duplicates of the same registry row (same PDF indexed under a stale/alternate URL). Log everything deleted. Vacuum again after.
 
@@ -95,6 +96,7 @@ model ReportMarkdown {
 ```
 
 Notes:
+
 - Postgres TOAST compresses large text automatically; no manual gzip needed. Expect ~100–300 KB effective per report, low single-digit GB for the whole corpus.
 - `sha256` comes from the `Report` registry row when available (pipeline-api already computes it); a follow-up can make `Report` ↔ `ReportMarkdown` a real relation, not required for v1.
 
@@ -108,13 +110,13 @@ Small service with the story-telling names the codebase prefers:
 
 ### 1.3 Pipeline changes
 
-| File | Change |
-|---|---|
-| `src/workers/indexMarkdown.ts` | After receiving markdown from the Docling child, call `saveReportMarkdown(url, markdown)` **before** `vectorDB.addReport`. Saving to Postgres first means a Chroma failure no longer loses the parse. |
-| `src/workers/parsePdf.ts` | Cache check becomes `hasReportMarkdown(url)` (with `vectorDB.hasReport(url)` fallback during transition). `forceReindex` keeps its meaning: delete vector index AND stored markdown, re-run Docling. |
+| File                                  | Change                                                                                                                                                                                                                                               |
+| ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/workers/indexMarkdown.ts`        | After receiving markdown from the Docling child, call `saveReportMarkdown(url, markdown)` **before** `vectorDB.addReport`. Saving to Postgres first means a Chroma failure no longer loses the parse.                                                |
+| `src/workers/parsePdf.ts`             | Cache check becomes `hasReportMarkdown(url)` (with `vectorDB.hasReport(url)` fallback during transition). `forceReindex` keeps its meaning: delete vector index AND stored markdown, re-run Docling.                                                 |
 | `src/workers/precheck.ts` cached path | `parsePdf` currently builds `cachedMarkdown` via a Chroma similarity query just to find the company name. Replace with the stored markdown (first ~15k chars is what `extractCompanyName` walks through anyway). Fewer Chroma queries, better input. |
-| `scripts/delete-report.ts` | Also delete the `ReportMarkdown` row (behind the same confirmation). |
-| `scripts/dev-reset.ts` | Also truncate `ReportMarkdown`. |
+| `scripts/delete-report.ts`            | Also delete the `ReportMarkdown` row (behind the same confirmation).                                                                                                                                                                                 |
+| `scripts/dev-reset.ts`                | Also truncate `ReportMarkdown`.                                                                                                                                                                                                                      |
 
 ### 1.4 Rollout
 
@@ -175,10 +177,10 @@ Goal: Chroma holds only the working set, forever bounded; reruns on cold reports
 
 Third branch in the cache logic:
 
-| State | Action |
-|---|---|
-| no markdown stored | full flow: Docling → indexMarkdown → precheck (today's cold path) |
-| markdown stored + index exists | straight to precheck (today's warm path, now reading markdown from Postgres) |
+| State                               | Action                                                                                                                                                             |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| no markdown stored                  | full flow: Docling → indexMarkdown → precheck (today's cold path)                                                                                                  |
+| markdown stored + index exists      | straight to precheck (today's warm path, now reading markdown from Postgres)                                                                                       |
 | **markdown stored + index missing** | **new**: flow of indexMarkdown → precheck, passing the stored markdown in job data (`indexMarkdown` already accepts `job.data.markdown` — no Docling child needed) |
 
 This is the piece that makes deletion safe: any rerun against a pruned report costs one embedding pass (~$0.02–0.05, <1 min), never a Docling parse.
@@ -198,12 +200,12 @@ The rerun buttons in validate (`useJobRerunActions`, `useRunReportsPipeline`) go
 
 ## Cross-repo summary
 
-| Repo | Changes |
-|---|---|
-| **garbo** | Workstreams 1–4: prisma migration, `markdownStore`, `markdownChunking`, `vectordb.ts` slimming, `parsePdf`/`precheck`/`indexMarkdown` updates, retention worker, backfill + dedupe scripts, script updates (`delete-report`, `dev-reset`), env vars `CHROMA_RETENTION_DAYS` added to `k8s/base/worker.yaml` + `.env.example` |
-| **infra** | Workstream 0 (vacuum Job, optional volume bump in `chromadb-helm.yaml` stage+prod), monitoring section below |
-| **pipeline-api** | No required changes. Optional improvement: always enqueue with the cached S3 URL (it already does when `cachePdf: true`) and pass `sha256` through job data so `ReportMarkdown.sha256` is populated at write time instead of via registry lookup |
-| **validate** | No required changes. Optional: surface the "rebuilding index" message distinctly in run status UI |
+| Repo             | Changes                                                                                                                                                                                                                                                                                                                      |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **garbo**        | Workstreams 1–4: prisma migration, `markdownStore`, `markdownChunking`, `vectordb.ts` slimming, `parsePdf`/`precheck`/`indexMarkdown` updates, retention worker, backfill + dedupe scripts, script updates (`delete-report`, `dev-reset`), env vars `CHROMA_RETENTION_DAYS` added to `k8s/base/worker.yaml` + `.env.example` |
+| **infra**        | Workstream 0 (vacuum Job, optional volume bump in `chromadb-helm.yaml` stage+prod), monitoring section below                                                                                                                                                                                                                 |
+| **pipeline-api** | No required changes. Optional improvement: always enqueue with the cached S3 URL (it already does when `cachePdf: true`) and pass `sha256` through job data so `ReportMarkdown.sha256` is populated at write time instead of via registry lookup                                                                             |
+| **validate**     | No required changes. Optional: surface the "rebuilding index" message distinctly in run status UI                                                                                                                                                                                                                            |
 
 Order of operations (safety-critical): **W0 (vacuum/dedupe) → W1 (store) → W2 (backfill) → W3 (slim writes) → W4 (retention)**. W3 and W4 can land together; retention must not be enabled before W2 reports zero uncovered sources.
 
