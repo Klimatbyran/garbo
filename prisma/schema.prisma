@@ -625,6 +625,10 @@ model CoverageListYear {
   matchedCount     Int                 @default(0) @map("matched_count")
   ambiguousCount   Int                 @default(0) @map("ambiguous_count")
   coveragePercent  Int                 @default(0) @map("coverage_percent")
+  hasAnyReportCount  Int                 @default(0) @map("has_any_report_count")
+  prodReadyCount     Int                 @default(0) @map("prod_ready_count")
+  noReportCount      Int                 @default(0) @map("no_report_count")
+  registryRefreshedAt DateTime?          @map("registry_refreshed_at")
   createdAt        DateTime            @default(now()) @map("created_at")
   updatedAt        DateTime            @updatedAt @map("updated_at")
   entries          CoverageListEntry[]
@@ -646,8 +650,15 @@ model CoverageListEntry {
   matchedCompany   Company?         @relation(fields: [matchedCompanyId], references: [id], onDelete: SetNull)
   /// Staff confirmed this list name is not in the DB (overrides ambiguous suggestions).
   matchConfirmedMissing Boolean     @default(false) @map("match_confirmed_missing")
+  /// Cached registry report count for fast coverage filters.
+  registryReportCount   Int         @default(0) @map("registry_report_count")
+  /// Cached flag: at least one linked registry report is prod-ready.
+  hasProdReadyReport    Boolean     @default(false) @map("has_prod_ready_report")
+  registryRefreshedAt   DateTime?   @map("registry_refreshed_at")
 
   @@index([yearId])
   @@index([matchedCompanyId])
+  @@index([yearId, registryReportCount])
+  @@index([yearId, hasProdReadyReport])
   @@map("coverage_list_entries")
 }
