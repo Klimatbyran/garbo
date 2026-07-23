@@ -470,15 +470,15 @@ model DatapointNote {
   turnoverId             String?
   employeesId            String?
 
-  scope1               Scope1?               @relation(fields: [scope1Id], references: [id])
-  scope2               Scope2?               @relation(fields: [scope2Id], references: [id])
-  scope3               Scope3?               @relation(fields: [scope3Id], references: [id])
-  category             Scope3Category?       @relation(fields: [categoryId], references: [id])
-  scope1And2           Scope1And2?           @relation(fields: [scope1And2Id], references: [id])
-  statedTotalEmissions StatedTotalEmissions? @relation(fields: [statedTotalEmissionsId], references: [id])
-  biogenicEmissions    BiogenicEmissions?    @relation(fields: [biogenicEmissionsId], references: [id])
-  turnover             Turnover?             @relation(fields: [turnoverId], references: [id])
-  employees            Employees?            @relation(fields: [employeesId], references: [id])
+  scope1               Scope1?               @relation(fields: [scope1Id], references: [id], onDelete: Cascade)
+  scope2               Scope2?               @relation(fields: [scope2Id], references: [id], onDelete: Cascade)
+  scope3               Scope3?               @relation(fields: [scope3Id], references: [id], onDelete: Cascade)
+  category             Scope3Category?       @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  scope1And2           Scope1And2?           @relation(fields: [scope1And2Id], references: [id], onDelete: Cascade)
+  statedTotalEmissions StatedTotalEmissions? @relation(fields: [statedTotalEmissionsId], references: [id], onDelete: Cascade)
+  biogenicEmissions    BiogenicEmissions?    @relation(fields: [biogenicEmissionsId], references: [id], onDelete: Cascade)
+  turnover             Turnover?             @relation(fields: [turnoverId], references: [id], onDelete: Cascade)
+  employees            Employees?            @relation(fields: [employeesId], references: [id], onDelete: Cascade)
 
   userId    String
   user      User     @relation(fields: [userId], references: [id])

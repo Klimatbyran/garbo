@@ -80,31 +80,31 @@ ALTER TABLE "datapoint_notes" ADD CONSTRAINT "datapoint_notes_errorTypeId_fkey" 
 ALTER TABLE "datapoint_notes" ADD CONSTRAINT "datapoint_notes_reportRunId_fkey" FOREIGN KEY ("reportRunId") REFERENCES "ReportRun"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "datapoint_notes" ADD CONSTRAINT "datapoint_notes_scope1Id_fkey" FOREIGN KEY ("scope1Id") REFERENCES "Scope1"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "datapoint_notes" ADD CONSTRAINT "datapoint_notes_scope1Id_fkey" FOREIGN KEY ("scope1Id") REFERENCES "Scope1"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "datapoint_notes" ADD CONSTRAINT "datapoint_notes_scope2Id_fkey" FOREIGN KEY ("scope2Id") REFERENCES "Scope2"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "datapoint_notes" ADD CONSTRAINT "datapoint_notes_scope2Id_fkey" FOREIGN KEY ("scope2Id") REFERENCES "Scope2"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "datapoint_notes" ADD CONSTRAINT "datapoint_notes_scope3Id_fkey" FOREIGN KEY ("scope3Id") REFERENCES "Scope3"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "datapoint_notes" ADD CONSTRAINT "datapoint_notes_scope3Id_fkey" FOREIGN KEY ("scope3Id") REFERENCES "Scope3"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "datapoint_notes" ADD CONSTRAINT "datapoint_notes_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "Scope3Category"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "datapoint_notes" ADD CONSTRAINT "datapoint_notes_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "Scope3Category"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "datapoint_notes" ADD CONSTRAINT "datapoint_notes_scope1And2Id_fkey" FOREIGN KEY ("scope1And2Id") REFERENCES "Scope1And2"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "datapoint_notes" ADD CONSTRAINT "datapoint_notes_scope1And2Id_fkey" FOREIGN KEY ("scope1And2Id") REFERENCES "Scope1And2"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "datapoint_notes" ADD CONSTRAINT "datapoint_notes_statedTotalEmissionsId_fkey" FOREIGN KEY ("statedTotalEmissionsId") REFERENCES "StatedTotalEmissions"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "datapoint_notes" ADD CONSTRAINT "datapoint_notes_statedTotalEmissionsId_fkey" FOREIGN KEY ("statedTotalEmissionsId") REFERENCES "StatedTotalEmissions"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "datapoint_notes" ADD CONSTRAINT "datapoint_notes_biogenicEmissionsId_fkey" FOREIGN KEY ("biogenicEmissionsId") REFERENCES "BiogenicEmissions"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "datapoint_notes" ADD CONSTRAINT "datapoint_notes_biogenicEmissionsId_fkey" FOREIGN KEY ("biogenicEmissionsId") REFERENCES "BiogenicEmissions"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "datapoint_notes" ADD CONSTRAINT "datapoint_notes_turnoverId_fkey" FOREIGN KEY ("turnoverId") REFERENCES "Turnover"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "datapoint_notes" ADD CONSTRAINT "datapoint_notes_turnoverId_fkey" FOREIGN KEY ("turnoverId") REFERENCES "Turnover"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "datapoint_notes" ADD CONSTRAINT "datapoint_notes_employeesId_fkey" FOREIGN KEY ("employeesId") REFERENCES "Employees"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "datapoint_notes" ADD CONSTRAINT "datapoint_notes_employeesId_fkey" FOREIGN KEY ("employeesId") REFERENCES "Employees"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "datapoint_notes" ADD CONSTRAINT "datapoint_notes_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
