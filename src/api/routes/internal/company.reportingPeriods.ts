@@ -1,7 +1,6 @@
 import {
   FastifyInstance,
   AuthenticatedFastifyRequest,
-  FastifyRequest,
 } from 'fastify'
 import { emissionsService } from '../../services/emissionsService'
 import { companyService } from '../../services/companyService'
@@ -15,7 +14,6 @@ import {
   postReportingPeriodsSchema,
   companyIdParamSchema,
   okResponseSchema,
-  ReportingPeriodYearsSchema,
 } from '../../schemas'
 import { getTags } from '../../../config/openapi'
 import {
@@ -476,45 +474,6 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
         companyReportId: linkResult?.companyReportId ?? resolvedCompanyReportId,
         registryReportId: linkResult?.registryReportId ?? null,
       })
-    }
-  )
-}
-
-export async function companyPublicReportingPeriodsRoutes(
-  app: FastifyInstance
-) {
-  app.get(
-    '/years',
-    {
-      schema: {
-        summary: 'Get list of reporting periods',
-        description:
-          "Retrieve a list of all existing reporting periods identified by it's end date year",
-        tags: getTags('ReportingPeriods'),
-        response: {
-          200: ReportingPeriodYearsSchema,
-        },
-      },
-    },
-    async (_request: FastifyRequest, reply) => {
-      const reportingPeriods = await prisma.reportingPeriod.findMany({
-        select: {
-          endDate: true,
-        },
-      })
-
-      // Extract unique years from the endDate field in JavaScript
-      const distinctYears = Array.from(
-        new Set(
-          reportingPeriods.map((record) =>
-            record.endDate.getFullYear().toString()
-          )
-        )
-      )
-
-      distinctYears.sort()
-
-      reply.send(distinctYears)
     }
   )
 }
