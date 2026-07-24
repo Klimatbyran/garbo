@@ -624,26 +624,21 @@ export const RegionalSectorEmissionsSchema = z.object({
  * Regional data schemas
  */
 export const InputRegionalDataSchema = z.array(
-  z
-    .object({
-      region: z.string(),
-      logoUrl: z.string().nullable().optional(),
-      emissions: InputYearlyDataSchema,
-      total_trend: z.number(),
-      emissions_slope: z.number().optional(),
-      totalCarbonLaw: z.number(),
-      approximatedHistoricalEmission: InputYearlyDataSchema,
-      trend: InputYearlyDataSchema,
-      historicalEmissionChangePercent: z.number(),
-      meetsParis: z.string().transform((val) => val === 'True'),
-      municipalities: z.array(z.string()),
-    })
-    .transform((data) => ({
-      ...data,
-      totalTrend: data.total_trend,
-      total_trend: undefined,
-      emissions_slope: undefined,
-    }))
+  z.object({
+    region: z.string(),
+    logoUrl: z.string().nullable().optional(),
+    emissions: InputYearlyDataSchema,
+    totalTrend: z.number(),
+    emissionsSlope: z.number().optional(),
+    totalCarbonLaw: z.number(),
+    approximatedHistoricalEmission: InputYearlyDataSchema,
+    trend: InputYearlyDataSchema,
+    historicalEmissionChangePercent: z.number(),
+    meetsParis: z.string().transform((val) => val === 'True'),
+    municipalities: z.array(z.string()),
+    electricVehiclePerChargePoints: z.number().nullable().optional(),
+    totalConsumptionEmission: z.number().optional(),
+  })
 )
 
 export const RegionalDataSchema = z.object({
