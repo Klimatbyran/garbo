@@ -17,9 +17,6 @@
  * Usage:
  *   npx tsx scripts/dedupe-report-registry.ts --dry-run
  *   npx tsx scripts/dedupe-report-registry.ts --emit-mapping=./report-dedupe-mapping.csv
- *
- * Non-dry runs always invalidate the registry Redis cache (same keys as the API) so the
- * Validate registry tab refetches from Postgres instead of serving a stale list.
  */
 
 import 'dotenv/config'
@@ -28,21 +25,11 @@ import { writeFileSync } from 'node:fs'
 
 import type { Prisma } from '@prisma/client'
 import { prisma } from '../src/lib/prisma'
-import { invalidateRegistryCache } from '../src/api/services/registryCache'
-import { createServerCache, disconnectRedisCache } from '../src/createCache'
 import {
   findDuplicateReportGroups,
   mergeDuplicateReportRows,
 } from '../src/api/services/registryReportDedupe'
 import type { RegistryReportIdentityRow } from '../src/api/services/registryReportIdentity'
-
-async function invalidateRegistryRedisCache() {
-  const registryCache = createServerCache({ maxAge: 24 * 60 * 60 * 1000 })
-  await invalidateRegistryCache(registryCache, console)
-  console.log(
-    'Invalidated registry Redis cache so GET /reports/registry reflects the DB.'
-  )
-}
 
 async function mergeDuplicateGroup(
   rows: RegistryReportIdentityRow[],
@@ -115,9 +102,6 @@ async function main() {
       console.log(
         'No duplicate report identity groups found (same s3Url, sourceUrl, sha256, url, url↔sourceUrl link, or matching PDF basename per company).'
       )
-      if (!dryRun) {
-        await invalidateRegistryRedisCache()
-      }
       return
     }
 
@@ -145,10 +129,6 @@ async function main() {
         : `Deleted ${totalDeleted} duplicate row(s); kept rows updated.`
     )
 
-    if (!dryRun) {
-      await invalidateRegistryRedisCache()
-    }
-
     if (mappingPath && !dryRun) {
       writeFileSync(mappingPath, `${allMapping.join('\n')}\n`, 'utf8')
       console.log(`Wrote mapping CSV: ${mappingPath}`)
@@ -158,7 +138,6 @@ async function main() {
       )
     }
   } finally {
-    await disconnectRedisCache()
     await prisma.$disconnect()
   }
 }

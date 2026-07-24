@@ -6,8 +6,6 @@ import {
   registryDeleteRequestBodySchema,
 } from '../../schemas'
 import { registryService } from '@/api/services/registryService'
-import { redisCache } from '@/lib/redisCacheSingleton'
-import { invalidateRegistryCache } from '@/api/services/registryCache'
 import z from 'zod'
 
 export async function registryDeleteRoutes(app: FastifyInstance) {
@@ -31,10 +29,6 @@ export async function registryDeleteRoutes(app: FastifyInstance) {
         const deletedReports = await registryService.deleteReportFromRegistry(
           request.body as z.infer<typeof registryDeleteRequestBodySchema>
         )
-
-        if (deletedReports.length > 0) {
-          await invalidateRegistryCache(redisCache, request.log)
-        }
 
         const success = deletedReports.length > 0
         reply.send({
