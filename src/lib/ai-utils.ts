@@ -4,13 +4,15 @@ import {
   ChatCompletionUserMessageParam,
 } from 'openai/resources/chat/completions'
 import { zodResponseFormat } from 'openai/helpers/zod'
+import { AskOptions } from '../jobs/promptTestingFramework/types'
 import { z } from 'zod'
 
 export const askStreamWithContext = async (
   markdown: string,
   prompt: string,
   schema: z.ZodSchema,
-  type: string
+  type: string,
+  askOptions?: AskOptions
 ) => {
   const response = await askStream(
     [
@@ -33,7 +35,8 @@ export const askStreamWithContext = async (
       .filter((m) => m?.content),
     {
       response_format: zodResponseFormat(schema, type.replace(/\//g, '-')),
-    }
+    },
+    askOptions
   )
 
   return response
