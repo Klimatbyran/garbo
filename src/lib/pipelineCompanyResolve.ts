@@ -203,6 +203,82 @@ export async function resolvePipelineCompanyOutcome(
   return { status: 'create', extractedName: companyName }
 }
 
+type IdentifierFirstResolveInput = {
+  wikidata?: { node?: string }
+  lei?: string
+}
+
+/**
+ * Second-pass resolution for checkDB: prefer Wikidata and LEI over the precheck UUID.
+ * Does not short-circuit on job.data.companyId — that id is passed as fallback only.
+ */
+export async function resolvePipelineCompanyAfterIdentifiers(
+  identifiers: IdentifierFirstResolveInput,
+  companyName: string,
+  fallbackCompanyId: string
+): Promise<
+  | { status: 'resolved'; companyId: string; method: CompanyResolutionMethod }
+  | {
+      status: 'ambiguous'
+      extractedName: string
+      candidates: CompanyLinkCandidate[]
+    }
+> {
+  const wikidataId = identifiers.wikidata?.node?.trim()
+  if (wikidataId) {
+    const byWikidata = await findCompanyByWikidataId(wikidataId)
+    if (byWikidata?.id) {
+      return {
+        status: 'resolved',
+        companyId: byWikidata.id,
+        method: 'wikidata',
+      }
+    }
+  }
+
+  const normalizedLei = normalizeLei(identifiers.lei)
+  if (normalizedLei) {
+    const byLei = await findCompanyByLei(normalizedLei)
+    if (byLei?.id) {
+      return {
+        status: 'resolved',
+        companyId: byLei.id,
+        method: 'lei',
+      }
+    }
+  }
+
+  const candidates = await collectNameSearchCandidates(companyName)
+  const assessment = assessCompanyLinkResolution(companyName, candidates)
+
+  if (assessment.action === 'resolve') {
+    return {
+      status: 'resolved',
+      companyId: assessment.companyId,
+      method: 'exact_name',
+    }
+  }
+
+  if (assessment.action === 'ambiguous') {
+    return {
+      status: 'ambiguous',
+      extractedName: companyName,
+      candidates: assessment.candidates,
+    }
+  }
+
+  const fallback = fallbackCompanyId.trim()
+  if (!fallback) {
+    throw new Error('Missing fallback company id for pipeline save resolution')
+  }
+
+  return {
+    status: 'resolved',
+    companyId: await resolveInternalCompanyId(fallback),
+    method: 'job_data',
+  }
+}
+
 /**
  * Resolve the stable Garbo company id for a pipeline run.
  * Prefer explicit job data, then identifiers, then exact name match, else create.

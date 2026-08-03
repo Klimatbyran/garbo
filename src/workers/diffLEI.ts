@@ -1,5 +1,7 @@
 import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { enqueueSaveToAPIWithParentFallback } from '../lib/DiffWorker'
+import { findCompanyByLei } from '../lib/pipelineCompanyResolve'
+import { syncCanonicalReportRunCompanyId } from '../lib/pipelineRunCompanyId'
 import { QUEUE_NAMES } from '../queues'
 
 export class DiffLEIJob extends PipelineJob {
@@ -43,7 +45,34 @@ function compareLei(
 const diffLEI = new PipelineWorker<DiffLEIJob>(
   QUEUE_NAMES.DIFF_LEI,
   async (job: DiffLEIJob) => {
-    const { companyName, lei, existingCompany } = job.data
+    const { companyName, lei } = job.data
+    let { companyId, existingCompany } = job.data
+
+    if (lei?.trim()) {
+      const leiOwner = await findCompanyByLei(lei)
+      if (leiOwner?.id && leiOwner.id !== companyId) {
+        job.log(
+          `LEI ${lei} belongs to company ${leiOwner.id}; switching from ${companyId}`
+        )
+        companyId = leiOwner.id
+        await job.updateData({ ...job.data, companyId })
+        const threadId = job.data.threadId?.trim()
+        if (threadId) {
+          await syncCanonicalReportRunCompanyId({
+            threadId,
+            companyId,
+            pdfUrl: job.data.url,
+            companyName,
+            wikidataId: job.data.wikidata?.node ?? null,
+          })
+        }
+        existingCompany = {
+          ...existingCompany,
+          id: companyId,
+          lei: leiOwner.lei,
+        }
+      }
+    }
 
     const currentLei = existingCompany?.lei
 

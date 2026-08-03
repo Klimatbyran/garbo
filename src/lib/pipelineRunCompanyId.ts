@@ -130,6 +130,35 @@ export async function isCompanyLinkResolutionPendingForThread(
   return false
 }
 
+function wikidataNodeFromJobData(data: unknown): string | undefined {
+  if (!data || typeof data !== 'object') return undefined
+  const wikidata = (data as { wikidata?: { node?: string } }).wikidata
+  const node = wikidata?.node?.trim()
+  return node || undefined
+}
+
+/** Best-effort Wikidata Q-id from guessWikidata jobs on this pipeline thread. */
+export async function getWikidataNodeForThread(
+  threadId: string | undefined
+): Promise<string | undefined> {
+  const normalizedThreadId = threadId?.trim()
+  if (!normalizedThreadId) return undefined
+
+  const jobs = await listGuessWikidataJobsForThread(normalizedThreadId)
+  for (const job of jobs) {
+    const fromData = wikidataNodeFromJobData(job.data)
+    if (fromData) return fromData
+
+    const approval = job.data?.approval as
+      | { data?: { newValue?: { wikidata?: { node?: string } } } }
+      | undefined
+    const fromApproval = approval?.data?.newValue?.wikidata?.node?.trim()
+    if (fromApproval) return fromApproval
+  }
+
+  return undefined
+}
+
 /** @deprecated Prefer isCompanyLinkResolutionPendingForThread for save gating. */
 export async function isGuessWikidataPendingForThread(
   threadId: string
