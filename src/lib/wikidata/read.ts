@@ -64,6 +64,10 @@ export async function getLEINumber(
 }
 
 export async function getWikidataEntities(ids: `Q${number}`[]) {
+  if (ids.length === 0) {
+    return []
+  }
+
   const url = wbk.getEntities({
     ids,
     props: ['info', 'claims', 'descriptions', 'labels'],
@@ -76,6 +80,10 @@ export async function getWikidataEntities(ids: `Q${number}`[]) {
       expectedContentType: 'application/json',
       context: 'Wikidata entities',
     })
+
+  if (!entities) {
+    return []
+  }
 
   return Object.values(entities) as (Entity & {
     labels: { [lang: string]: { language: string; value: string } }
