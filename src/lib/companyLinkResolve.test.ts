@@ -34,6 +34,16 @@ describe('companyLegalEntitySuffixes', () => {
 })
 
 describe('companyLinkResolve', () => {
+  it('folds diacritics so accent variants match', () => {
+    expect(normalizeCompanyNameForMatch('Nestlé')).toBe('nestle')
+    expect(normalizeCompanyNameForMatch('Nestle')).toBe('nestle')
+    expect(
+      assessCompanyLinkResolution('Nestle', [
+        { id: 'nestle-1', name: 'Nestlé', wikidataId: 'Q160746' },
+      ])
+    ).toEqual({ action: 'resolve', companyId: 'nestle-1' })
+  })
+
   it('normalizes names by stripping legal entity suffixes', () => {
     expect(normalizeCompanyNameForMatch('Alfa Laval AB')).toBe('alfa laval')
     expect(normalizeCompanyNameForMatch('Alfa Laval')).toBe('alfa laval')

@@ -17,8 +17,13 @@ export type CompanyLinkResolution =
 
 export { stripLegalEntitySuffixes }
 
+/** Fold accents/diacritics so "Nestlé" and "Nestle" normalize to the same match key. */
+export function foldDiacriticsForCompanyMatch(text: string): string {
+  return text.normalize('NFD').replace(/\p{M}/gu, '')
+}
+
 export function normalizeCompanyNameForMatch(name: string): string {
-  return name
+  return foldDiacriticsForCompanyMatch(name)
     .trim()
     .toLocaleLowerCase('sv-SE')
     .split(/\s+/)
