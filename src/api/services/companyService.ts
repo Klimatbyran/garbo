@@ -29,12 +29,6 @@ import { pdf } from 'pdf-to-img'
 import ky from 'ky'
 import sharp from 'sharp'
 import { ReportsListResponseSchema } from '../schemas/response'
-
-/** Latin accents stripped in SQL search to align with pipeline name folding. */
-const SQL_ACCENT_FROM =
-  'ÀÁÂÃÄÅàáâãäåÈÉÊËèéêëÌÍÎÏìíîïÑñÒÓÔÕÖòóôõöÙÚÛÜùúûüÝýŸÿÇçÆæŒœ'
-const SQL_ACCENT_TO =
-  'AAAAAAaaaaaaEEEEeeeeIIIIiiiiNnOOOOooooUUUUuuuuYYyyCcAEaeOeoe'
 import { z } from 'zod'
 import { registryService } from './registryService'
 import { pickOnePeriodPerDataYear } from './reportingPeriodPublicRead'
@@ -44,6 +38,11 @@ import {
   getOrCreateServiceBotUser,
 } from './serviceBotUser'
 import type { ReportingPeriod } from '@/types'
+
+/** Latin accents stripped in SQL search (1:1 chars for Postgres translate). */
+const SQL_ACCENT_FROM =
+  'ÀÁÂÃÄÅàáâãäåÈÉÊËèéêëÌÍÎÏìíîïÑñÒÓÔÕÖòóôõöÙÚÛÜùúûüÝýŸÿÇçÆæŒœ'
+const SQL_ACCENT_TO = 'AAAAAAaaaaaaEEEEeeeeIIIIiiiiNnOOOOOoooooUUUUuuuuYyYyCcAaOo'
 
 const API_KEY = process.env.FIRECRAWL_API_KEY
 
