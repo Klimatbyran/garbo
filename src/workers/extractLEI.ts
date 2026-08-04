@@ -3,16 +3,22 @@ import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { QUEUE_NAMES } from '../queues'
 import { getLEINumbersFromGLEIF } from '../lib/gleif'
 import { ask } from '../lib/openai'
-import { leiPrompt, leiSchema, parseLeiLlmResponse } from '../prompts/lei'
+import { leiSchema, parseLeiLlmResponse } from '../prompts/lei'
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { ChatCompletionMessageParam } from 'openai/resources'
 import { getLEINumber } from '@/lib/wikidata/read'
+import {
+  buildLeiPrompt,
+  inferPreferSwedishLeiFromUrls,
+} from '../lib/reportLeiPreference'
 
 export class LEIJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
     companyName: string
     companyId: string
     wikidataId?: string
+    url?: string
+    sourceUrl?: string
   }
 }
 
@@ -28,6 +34,15 @@ async function selectLeiFromGleif(
     job.log(`❌ Could not find a valid LEI for '${companyName}' in GLEIF.`)
     return undefined
   }
+
+  const preferSwedishEntities = inferPreferSwedishLeiFromUrls([
+    job.data.url,
+    job.data.sourceUrl,
+  ])
+  job.log(
+    `LEI selection preferSwedishEntities=${preferSwedishEntities} (url=${job.data.url ?? job.data.sourceUrl ?? 'none'})`
+  )
+  const leiPrompt = buildLeiPrompt({ preferSwedishEntities })
 
   let response: string
   try {
