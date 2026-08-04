@@ -42,7 +42,8 @@ import type { ReportingPeriod } from '@/types'
 /** Latin accents stripped in SQL search (1:1 chars for Postgres translate). */
 const SQL_ACCENT_FROM =
   'ÀÁÂÃÄÅàáâãäåÈÉÊËèéêëÌÍÎÏìíîïÑñÒÓÔÕÖòóôõöÙÚÛÜùúûüÝýŸÿÇçÆæŒœ'
-const SQL_ACCENT_TO = 'AAAAAAaaaaaaEEEEeeeeIIIIiiiiNnOOOOOoooooUUUUuuuuYyYyCcAaOo'
+const SQL_ACCENT_TO =
+  'AAAAAAaaaaaaEEEEeeeeIIIIiiiiNnOOOOOoooooUUUUuuuuYyYyCcAaOo'
 
 const API_KEY = process.env.FIRECRAWL_API_KEY
 
