@@ -3,15 +3,16 @@ export type LeiPromptOptions = {
   preferSwedishEntities: boolean
 }
 
+/** Example shape for the LLM; must match {@link leiSchema} in `src/prompts/lei.ts`. */
 const LEI_JSON_FORMAT = `\`\`\`json
-{ 
+{
   "lei": "12345678901234567890",
-  "legalName": "Company Name",
+  "legalName": "Company Name"
 }
 \`\`\``
 
 const SWEDISH_URL_HINT =
-  /(?:^|[\/_.-])sv(?:[\/_.-]|$)|svenska|\.se\/|sverige/i
+  /(?:^|[\/_.-])sv(?:[\/_.-]|$)|svenska|\.se(?:[/?#:]|$)|sverige/i
 
 const NON_SWEDISH_URL_HINT =
   /(?:^|[\/_.-])en(?:[\/_.-]|$)|english|global/i
