@@ -15,7 +15,8 @@ describe('companyLegalEntitySuffixes', () => {
     expect(isLegalEntitySuffix('ASA.')).toBe(true)
     expect(isLegalEntitySuffix('GmbH')).toBe(true)
     expect(isLegalEntitySuffix('(AG)')).toBe(true)
-    expect(isLegalEntitySuffix('S.A.')).toBe(false)
+    expect(isLegalEntitySuffix('S.A.')).toBe(true)
+    expect(isLegalEntitySuffix('S.p.A.')).toBe(true)
     expect(isLegalEntitySuffix('SA')).toBe(true)
   })
 
@@ -35,6 +36,7 @@ describe('companyLegalEntitySuffixes', () => {
 
 describe('companyLinkResolve', () => {
   it('normalizes names by stripping legal entity suffixes', () => {
+    expect(normalizeCompanyNameForMatch('Example S.A.')).toBe('example')
     expect(normalizeCompanyNameForMatch('Alfa Laval AB')).toBe('alfa laval')
     expect(normalizeCompanyNameForMatch('Alfa Laval')).toBe('alfa laval')
     expect(normalizeCompanyNameForMatch('Equinor ASA')).toBe('equinor')
