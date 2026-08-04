@@ -8,7 +8,11 @@ import { z } from 'zod'
 import { QUEUE_NAMES } from '../queues'
 import apiConfig from '../config/api'
 import { apiFetch } from '../lib/api'
-import { resolvePipelineCompanyOutcome } from '../lib/pipelineCompanyResolve'
+import {
+  resolvePipelineCompanyOutcome,
+  findCompanyByWikidataId,
+} from '../lib/pipelineCompanyResolve'
+import { findOrCreatePipelineCompanyLocked } from '../lib/pipelineCompanyCreate'
 import { syncCanonicalReportRunCompanyId } from '../lib/pipelineRunCompanyId'
 import { EXTRACT_EMISSIONS_CHILD_QUEUES } from './precheckFlow'
 import { withPipelineJobOpts } from '../lib/pipelineJobOptions'
@@ -19,6 +23,7 @@ class PrecheckJob extends PipelineJob {
     companyName?: string
     companyId?: string
     lei?: string
+    wikidata?: { node?: string }
     waitingForCompanyName?: boolean
   }
 }
@@ -38,6 +43,40 @@ async function createPipelineCompany(companyName: string): Promise<string> {
     throw new Error('Company create did not return id')
   }
   return created.id as string
+}
+
+async function resolveOrCreateCompanyForPrecheck(
+  job: PrecheckJob,
+  companyName: string
+): Promise<
+  | { status: 'resolved'; companyId: string }
+  | {
+      status: 'ambiguous'
+      candidates: import('../lib/companyLinkResolve').CompanyLinkCandidate[]
+    }
+  | null
+> {
+  if (
+    job.data.approval?.type === 'companyLink' &&
+    job.hasApproval() &&
+    !job.isDataApproved()
+  ) {
+    return null
+  }
+
+  const outcome = await findOrCreatePipelineCompanyLocked(job.data, companyName)
+
+  if (outcome.status === 'ambiguous') {
+    return { status: 'ambiguous', candidates: outcome.candidates }
+  }
+
+  if (outcome.companyId !== job.data.companyId) {
+    job.log(
+      `Resolved pipeline company id=${outcome.companyId} method=${outcome.method}`
+    )
+  }
+
+  return { status: 'resolved', companyId: outcome.companyId }
 }
 
 async function syncRunCompanyIdFromPrecheck(
@@ -63,6 +102,15 @@ async function ensurePipelineCompany(
   if (job.data.approval?.type === 'companyLink' && job.isDataApproved()) {
     const approved = job.getApprovedBody()
     if (approved.createNew) {
+      const wikidataId = job.data.wikidata?.node?.trim()
+      if (wikidataId) {
+        const wikidataOwner = await findCompanyByWikidataId(wikidataId)
+        if (wikidataOwner?.id) {
+          throw new Error(
+            `Cannot create new company: Wikidata ${wikidataId} already belongs to ${wikidataOwner.id}`
+          )
+        }
+      }
       const companyId = await createPipelineCompany(companyName)
       await job.updateData({ ...job.data, companyId, companyName })
       job.log(`Created new company after company-link approval id=${companyId}`)
@@ -140,9 +188,36 @@ async function ensurePipelineCompany(
     return null
   }
 
-  const companyId = await createPipelineCompany(companyName)
+  const locked = await resolveOrCreateCompanyForPrecheck(job, companyName)
+  if (!locked) return null
+  if (locked.status === 'ambiguous') {
+    job.log(
+      `Ambiguous company link for "${companyName}" — ${locked.candidates.length} candidates`
+    )
+    await job.requestApproval(
+      'companyLink',
+      {
+        type: 'companyLink',
+        newValue: {
+          extractedName: companyName,
+          candidates: locked.candidates,
+        },
+      },
+      false,
+      {
+        source: 'company-name-search',
+        comment:
+          'Multiple matching companies found — please select the correct company',
+      },
+      `Company link for ${companyName}`
+    )
+    await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+    return null
+  }
+
+  const companyId = locked.companyId
   await job.updateData({ ...job.data, companyId, companyName })
-  job.log(`Created pipeline company id=${companyId}`)
+  job.log(`Created or reused pipeline company id=${companyId}`)
   await syncRunCompanyIdFromPrecheck(job, companyId, companyName)
   return companyId
 }

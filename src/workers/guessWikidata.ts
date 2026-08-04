@@ -152,6 +152,28 @@ async function requestCompanyLinkIfWikidataConflict(
     return true
   }
 
+  if (job.data.autoApprove) {
+    job.log(
+      `autoApprove: relinking pipeline company ${resolvedPipelineCompanyId} → wikidata owner ${wikidataOwner.id} (${wikidata.node})`
+    )
+    await job.updateData({
+      ...job.data,
+      companyId: wikidataOwner.id,
+      wikidata,
+    })
+    const threadId = job.data.threadId?.trim()
+    if (threadId) {
+      await syncCanonicalReportRunCompanyId({
+        threadId,
+        companyId: wikidataOwner.id,
+        pdfUrl: job.data.url,
+        companyName,
+        wikidataId: wikidata.node,
+      })
+    }
+    return true
+  }
+
   job.log(
     `Wikidata ${wikidata.node} belongs to company ${wikidataOwner.id}; pipeline company is ${resolvedPipelineCompanyId} — requesting staff confirmation`
   )

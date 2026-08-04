@@ -7,8 +7,11 @@ import { getCompanyURL } from '../lib/saveUtils'
 import { QUEUE_NAMES } from '../queues'
 import {
   getCanonicalCompanyIdForThread,
+  getWikidataNodeForThread,
   isCompanyLinkResolutionPendingForThread,
+  syncCanonicalReportRunCompanyId,
 } from '../lib/pipelineRunCompanyId'
+import { resolvePipelineCompanyAfterIdentifiers } from '../lib/pipelineCompanyResolve'
 import {
   extractScopeEntriesFromFollowUp,
   mergeScope1AndScope2Results,
@@ -52,11 +55,20 @@ export class CheckDBJob extends PipelineJob {
 const flow = new FlowProducer({ connection: redis })
 flow.on('error', (err) => console.error('FlowProducer connection error:', err))
 
+const CHECKDB_COMPANY_LINK_SOURCE = 'checkdb-company-resolve'
+
+function isCheckDbSaveTimeCompanyLinkApproval(job: CheckDBJob): boolean {
+  const approval = job.data.approval
+  if (approval?.type !== 'companyLink') return false
+  const source = (approval.metadata as { source?: string } | undefined)?.source
+  return source === CHECKDB_COMPANY_LINK_SOURCE
+}
+
 const checkDB = new PipelineWorker(
   QUEUE_NAMES.CHECK_DB,
   async (job: CheckDBJob) => {
-    let { companyName, companyId, url, sourceUrl, fiscalYear, wikidata } =
-      job.data
+    const { companyName, url, sourceUrl, fiscalYear } = job.data
+    let { companyId, wikidata } = job.data
 
     const threadId = job.data.threadId?.trim()
     if (threadId && (await isCompanyLinkResolutionPendingForThread(threadId))) {
@@ -77,6 +89,39 @@ const checkDB = new PipelineWorker(
       )
       companyId = canonicalCompany.companyId
       await job.updateData({ ...job.data, companyId })
+    }
+
+    if (isCheckDbSaveTimeCompanyLinkApproval(job) && job.isDataApproved()) {
+      const approved = job.getApprovedBody()
+      if (approved.createNew) {
+        throw new Error(
+          'Create-new is not allowed when resolving company link before save'
+        )
+      }
+      if (typeof approved.companyId === 'string' && approved.companyId.trim()) {
+        companyId = approved.companyId.trim()
+        await job.updateData({ ...job.data, companyId })
+        job.log(`Using staff-selected company id=${companyId} before save`)
+        if (threadId) {
+          await syncCanonicalReportRunCompanyId({
+            threadId,
+            companyId,
+            pdfUrl: url,
+            companyName,
+            wikidataId: wikidata?.node ?? null,
+          })
+        }
+      }
+    }
+
+    if (
+      isCheckDbSaveTimeCompanyLinkApproval(job) &&
+      job.hasApproval() &&
+      !job.isDataApproved()
+    ) {
+      job.log('Waiting for company link approval before API save')
+      await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+      return
     }
 
     const childrenEntries = await job.getChildrenEntries()
@@ -117,6 +162,87 @@ const checkDB = new PipelineWorker(
       extractScopeEntriesFromFollowUp(scope2),
       extractScopeEntriesFromFollowUp(legacyScope12)
     )
+
+    const extractedLei =
+      typeof lei === 'string' && lei.trim() ? lei.trim() : undefined
+    const mergedLei = extractedLei ?? job.data.lei?.trim()
+    const wikidataNode =
+      wikidata?.node?.trim() ??
+      job.data.wikidata?.node?.trim() ??
+      (threadId ? await getWikidataNodeForThread(threadId) : undefined)
+    const mergedWikidata = wikidataNode ? { node: wikidataNode } : wikidata
+
+    if (mergedLei && mergedLei !== job.data.lei) {
+      await job.updateData({ ...job.data, lei: mergedLei })
+    }
+    if (
+      mergedWikidata?.node &&
+      mergedWikidata.node !== job.data.wikidata?.node
+    ) {
+      await job.updateData({ ...job.data, wikidata: mergedWikidata })
+      wikidata = mergedWikidata
+    }
+
+    const staffResolvedCompanyLink =
+      isCheckDbSaveTimeCompanyLinkApproval(job) && job.isDataApproved()
+
+    if (!staffResolvedCompanyLink) {
+      const saveResolution = await resolvePipelineCompanyAfterIdentifiers(
+        { wikidata: mergedWikidata, lei: mergedLei },
+        companyName,
+        companyId
+      )
+
+      if (saveResolution.status === 'ambiguous') {
+        job.log(
+          `Ambiguous company link at save for "${companyName}" — ${saveResolution.candidates.length} candidates`
+        )
+        await job.requestApproval(
+          'companyLink',
+          {
+            type: 'companyLink',
+            newValue: {
+              extractedName: saveResolution.extractedName,
+              candidates: saveResolution.candidates,
+              allowCreateNew: false,
+            },
+          },
+          false,
+          {
+            source: 'checkdb-company-resolve',
+            comment:
+              'Multiple matching companies found before save — please select the correct company',
+          },
+          `Company link before save for ${companyName}`
+        )
+        await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+        return
+      }
+
+      if (
+        saveResolution.status === 'resolved' &&
+        saveResolution.companyId !== companyId
+      ) {
+        job.log(
+          `Re-resolved company for save id=${saveResolution.companyId} method=${saveResolution.method} (was ${companyId})`
+        )
+        companyId = saveResolution.companyId
+        await job.updateData({ ...job.data, companyId })
+        if (threadId) {
+          await syncCanonicalReportRunCompanyId({
+            threadId,
+            companyId,
+            pdfUrl: url,
+            companyName,
+            wikidataId: wikidata?.node ?? null,
+          })
+        }
+      }
+    } else {
+      job.log(
+        `Skipping save-time company re-resolve — staff already selected companyId=${companyId}`
+      )
+    }
 
     job.sendMessage(`🤖 Checking if ${companyName} already exists in API...`)
     const existingCompany = await apiFetch(
@@ -291,13 +417,13 @@ const checkDB = new PipelineWorker(
               },
             }
           : null,
-        lei
+        mergedLei
           ? {
               ...base,
               queueName: QUEUE_NAMES.DIFF_LEI,
               data: {
                 ...base.data,
-                lei,
+                lei: mergedLei,
               },
             }
           : null,

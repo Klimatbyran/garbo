@@ -328,3 +328,88 @@ describe('resolveInternalCompanyId', () => {
     )
   })
 })
+
+describe('resolvePipelineCompanyAfterIdentifiers', () => {
+  let resolvePipelineCompanyAfterIdentifiers: typeof import('./pipelineCompanyResolve').resolvePipelineCompanyAfterIdentifiers
+
+  beforeAll(async () => {
+    ;({ resolvePipelineCompanyAfterIdentifiers } = await import(
+      './pipelineCompanyResolve'
+    ))
+  })
+
+  beforeEach(() => {
+    mockApiFetch.mockReset()
+  })
+
+  it('prefers wikidata owner over fallback precheck UUID', async () => {
+    mockApiFetch.mockImplementation(async (path: unknown) => {
+      if (path === '/pipeline/companies/Q380') {
+        return { id: 'canonical-meta', name: 'Meta', wikidataId: 'Q380' }
+      }
+      throw new Error(`unexpected path ${String(path)}`)
+    })
+
+    const result = await resolvePipelineCompanyAfterIdentifiers(
+      { wikidata: { node: 'Q380' } },
+      'Meta Platforms',
+      'orphan-uuid'
+    )
+
+    expect(result).toEqual({
+      status: 'resolved',
+      companyId: 'canonical-meta',
+      method: 'wikidata',
+    })
+  })
+
+  it('resolves by LEI when wikidata is missing', async () => {
+    mockApiFetch.mockImplementation(async (path: unknown) => {
+      if (path === '/pipeline/companies/5493001KJTIIGC8Y1R12') {
+        return {
+          id: 'from-lei',
+          name: 'Acme',
+          lei: '5493001KJTIIGC8Y1R12',
+        }
+      }
+      throw new Error(`unexpected path ${String(path)}`)
+    })
+
+    const result = await resolvePipelineCompanyAfterIdentifiers(
+      { lei: '5493001KJTIIGC8Y1R12' },
+      'Acme AB',
+      'orphan-uuid'
+    )
+
+    expect(result).toEqual({
+      status: 'resolved',
+      companyId: 'from-lei',
+      method: 'lei',
+    })
+  })
+
+  it('falls back to precheck UUID when no identifier match exists', async () => {
+    mockApiFetch.mockImplementation(async (path: unknown) => {
+      if (
+        typeof path === 'string' &&
+        path.includes('/pipeline/companies/search')
+      ) {
+        return []
+      }
+      throw new Error(`unexpected path ${String(path)}`)
+    })
+
+    const fallback = '11111111-1111-4111-8111-111111111111'
+    const result = await resolvePipelineCompanyAfterIdentifiers(
+      {},
+      'Brand New Co',
+      fallback
+    )
+
+    expect(result).toEqual({
+      status: 'resolved',
+      companyId: fallback,
+      method: 'job_data',
+    })
+  })
+})
