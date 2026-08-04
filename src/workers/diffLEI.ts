@@ -1,5 +1,6 @@
 import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { enqueueSaveToAPIWithParentFallback } from '../lib/DiffWorker'
+import { preferRicherDiacriticCompanyName } from '../lib/companyLinkResolve'
 import { QUEUE_NAMES } from '../queues'
 
 export class DiffLEIJob extends PipelineJob {
@@ -60,9 +61,14 @@ const diffLEI = new PipelineWorker<DiffLEIJob>(
       return
     }
 
+    const name = preferRicherDiacriticCompanyName(
+      existingCompany?.name,
+      companyName
+    )
+
     const body = {
       lei,
-      name: companyName,
+      name,
       ...(job.data.wikidata?.node && { wikidataId: job.data.wikidata.node }),
     }
 

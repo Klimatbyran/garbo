@@ -24,6 +24,7 @@ import {
   companyMutationPath,
   pipelineCompanyReadPath,
 } from '../lib/pipelineCompanyPath'
+import { preferRicherDiacriticCompanyName } from '../lib/companyLinkResolve'
 
 export class CheckDBJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
@@ -67,8 +68,8 @@ function isCheckDbSaveTimeCompanyLinkApproval(job: CheckDBJob): boolean {
 const checkDB = new PipelineWorker(
   QUEUE_NAMES.CHECK_DB,
   async (job: CheckDBJob) => {
-    const { companyName, url, sourceUrl, fiscalYear } = job.data
-    let { companyId, wikidata } = job.data
+    const { url, sourceUrl, fiscalYear } = job.data
+    let { companyId, wikidata, companyName } = job.data
 
     const threadId = job.data.threadId?.trim()
     if (threadId && (await isCompanyLinkResolutionPendingForThread(threadId))) {
@@ -249,6 +250,13 @@ const checkDB = new PipelineWorker(
       pipelineCompanyReadPath(companyId)
     ).catch(() => null)
     job.log(existingCompany)
+
+    if (existingCompany) {
+      companyName = preferRicherDiacriticCompanyName(
+        existingCompany.name,
+        companyName
+      )
+    }
 
     if (!existingCompany) {
       job.log(
@@ -436,6 +444,8 @@ const checkDB = new PipelineWorker(
                 ...job.data,
                 fiscalYear: undefined,
                 companyId,
+                companyName,
+                existingCompany,
                 existingDescriptions: existingCompany?.descriptions,
                 descriptions: descriptions,
               },

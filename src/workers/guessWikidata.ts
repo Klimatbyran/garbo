@@ -18,6 +18,7 @@ import {
   resolveInternalCompanyId,
 } from '../lib/pipelineCompanyResolve'
 import type { CompanyLinkCandidate } from '../lib/companyLinkResolve'
+import { preferRicherDiacriticCompanyName } from '../lib/companyLinkResolve'
 import { LEGAL_ENTITY_SUFFIXES } from '../lib/companyLegalEntitySuffixes'
 import { syncCanonicalReportRunCompanyId } from '../lib/pipelineRunCompanyId'
 import { buildEarlyRegistryPayload } from './saveToAPI.utils'
@@ -271,8 +272,16 @@ async function persistApprovedWikidata(
     await job.updateData({ ...job.data, companyId })
   }
 
+  const existingCompany = (await apiFetch(
+    pipelineCompanyReadPath(companyId)
+  ).catch(() => null)) as { name?: string } | null
+  const name = preferRicherDiacriticCompanyName(
+    existingCompany?.name,
+    companyName
+  )
+
   const body: Record<string, unknown> = {
-    name: companyName,
+    name,
     metadata: options.metadata,
     verified: options.verified ?? false,
     ...(options.verifiedByUserId && {
@@ -296,7 +305,7 @@ async function persistApprovedWikidata(
       threadId,
       companyId,
       pdfUrl: job.data.url,
-      companyName,
+      companyName: name,
       wikidataId: options.skipWikidataAssign ? null : wikidata.node,
     })
   }

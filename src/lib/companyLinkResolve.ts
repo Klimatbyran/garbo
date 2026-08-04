@@ -22,6 +22,40 @@ export function foldDiacriticsForCompanyMatch(text: string): string {
   return text.normalize('NFD').replace(/\p{M}/gu, '')
 }
 
+/** True when the string contains accents/diacritics beyond ASCII folding. */
+export function companyNameHasDiacritics(text: string): boolean {
+  return foldDiacriticsForCompanyMatch(text) !== text
+}
+
+/**
+ * When two names match under diacritic folding, keep or upgrade to the richer
+ * spelling — never replace "Nestlé" with "Nestle" on PATCH.
+ */
+export function preferRicherDiacriticCompanyName(
+  existingName: string | null | undefined,
+  incomingName: string
+): string {
+  const incoming = incomingName.trim()
+  const existing = existingName?.trim()
+
+  if (!existing) return incoming
+  if (!incoming) return existing
+
+  if (
+    normalizeCompanyNameForMatch(existing) !==
+    normalizeCompanyNameForMatch(incoming)
+  ) {
+    return incoming
+  }
+
+  const existingHasDiacritics = companyNameHasDiacritics(existing)
+  const incomingHasDiacritics = companyNameHasDiacritics(incoming)
+
+  if (existingHasDiacritics && !incomingHasDiacritics) return existing
+  if (incomingHasDiacritics && !existingHasDiacritics) return incoming
+  return existing
+}
+
 export function normalizeCompanyNameForMatch(name: string): string {
   return foldDiacriticsForCompanyMatch(name)
     .trim()

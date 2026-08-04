@@ -1,5 +1,6 @@
 import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { enqueueSaveToAPIWithParentFallback } from '../lib/DiffWorker'
+import { preferRicherDiacriticCompanyName } from '../lib/companyLinkResolve'
 import { defaultMetadata } from '../lib/saveUtils'
 import { QUEUE_NAMES } from '../queues'
 import { Description } from '../api/types'
@@ -10,6 +11,7 @@ export class DiffDescriptionsJob extends PipelineJob {
     companyName: string
     companyId: string
     wikidataId?: string
+    existingCompany?: { name?: string }
     existingDescriptions: Description[]
     descriptions: Description[]
   }
@@ -18,12 +20,23 @@ export class DiffDescriptionsJob extends PipelineJob {
 const diffDescriptions = new PipelineWorker<DiffDescriptionsJob>(
   QUEUE_NAMES.DIFF_DESCRIPTIONS,
   async (job: DiffDescriptionsJob) => {
-    const { url, companyName, wikidataId, existingDescriptions, descriptions } =
-      job.data
+    const {
+      url,
+      companyName,
+      wikidataId,
+      existingCompany,
+      existingDescriptions,
+      descriptions,
+    } = job.data
     const metadata = defaultMetadata(url)
 
+    const name = preferRicherDiacriticCompanyName(
+      existingCompany?.name,
+      companyName
+    )
+
     const body = {
-      name: companyName,
+      name,
       ...(wikidataId && { wikidataId }),
       descriptions,
       metadata,
