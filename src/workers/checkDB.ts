@@ -55,6 +55,15 @@ export class CheckDBJob extends PipelineJob {
 const flow = new FlowProducer({ connection: redis })
 flow.on('error', (err) => console.error('FlowProducer connection error:', err))
 
+const CHECKDB_COMPANY_LINK_SOURCE = 'checkdb-company-resolve'
+
+function isCheckDbSaveTimeCompanyLinkApproval(job: CheckDBJob): boolean {
+  const approval = job.data.approval
+  if (approval?.type !== 'companyLink') return false
+  const source = (approval.metadata as { source?: string } | undefined)?.source
+  return source === CHECKDB_COMPANY_LINK_SOURCE
+}
+
 const checkDB = new PipelineWorker(
   QUEUE_NAMES.CHECK_DB,
   async (job: CheckDBJob) => {
@@ -82,7 +91,10 @@ const checkDB = new PipelineWorker(
       await job.updateData({ ...job.data, companyId })
     }
 
-    if (job.data.approval?.type === 'companyLink' && job.isDataApproved()) {
+    if (
+      isCheckDbSaveTimeCompanyLinkApproval(job) &&
+      job.isDataApproved()
+    ) {
       const approved = job.getApprovedBody()
       if (approved.createNew) {
         throw new Error(
@@ -106,7 +118,7 @@ const checkDB = new PipelineWorker(
     }
 
     if (
-      job.data.approval?.type === 'companyLink' &&
+      isCheckDbSaveTimeCompanyLinkApproval(job) &&
       job.hasApproval() &&
       !job.isDataApproved()
     ) {
@@ -175,7 +187,7 @@ const checkDB = new PipelineWorker(
     }
 
     const staffResolvedCompanyLink =
-      job.data.approval?.type === 'companyLink' && job.isDataApproved()
+      isCheckDbSaveTimeCompanyLinkApproval(job) && job.isDataApproved()
 
     if (!staffResolvedCompanyLink) {
       const saveResolution = await resolvePipelineCompanyAfterIdentifiers(
@@ -408,13 +420,13 @@ const checkDB = new PipelineWorker(
               },
             }
           : null,
-        lei
+        mergedLei
           ? {
               ...base,
               queueName: QUEUE_NAMES.DIFF_LEI,
               data: {
                 ...base.data,
-                lei,
+                lei: mergedLei,
               },
             }
           : null,
