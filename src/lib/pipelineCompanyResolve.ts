@@ -2,6 +2,7 @@ import { apiFetch } from './api'
 import {
   assessCompanyLinkResolution,
   type CompanyLinkCandidate,
+  normalizeCompanyNameForMatch,
   stripLegalEntitySuffixes,
 } from './companyLinkResolve'
 import { normalizeLei } from './normalizeLei'
@@ -93,6 +94,24 @@ async function searchCompaniesByName(
   return Array.isArray(hits) ? hits : []
 }
 
+async function addDiacriticInsensitiveNameHits(
+  companyName: string,
+  byId: Map<string, CompanyLinkCandidate>
+): Promise<void> {
+  const normalizedTarget = normalizeCompanyNameForMatch(companyName)
+  if (normalizedTarget.length < 3) return
+
+  const prefix = normalizedTarget.slice(
+    0,
+    Math.min(4, normalizedTarget.length)
+  )
+  for (const hit of await searchCompaniesByName(prefix)) {
+    if (normalizeCompanyNameForMatch(hit.name) === normalizedTarget) {
+      byId.set(hit.id, hit)
+    }
+  }
+}
+
 async function collectNameSearchCandidates(
   companyName: string
 ): Promise<CompanyLinkCandidate[]> {
@@ -107,6 +126,7 @@ async function collectNameSearchCandidates(
     for (const hit of await searchCompaniesByName(query)) {
       byId.set(hit.id, hit)
     }
+    await addDiacriticInsensitiveNameHits(query, byId)
   }
   return [...byId.values()]
 }
