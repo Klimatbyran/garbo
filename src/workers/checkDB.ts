@@ -24,7 +24,10 @@ import {
   companyMutationPath,
   pipelineCompanyReadPath,
 } from '../lib/pipelineCompanyPath'
-import { preferRicherDiacriticCompanyName } from '../lib/companyLinkResolve'
+import {
+  preferRicherDiacriticCompanyName,
+  normalizeCompanyNameForMatch,
+} from '../lib/companyLinkResolve'
 
 export class CheckDBJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
@@ -275,7 +278,9 @@ const checkDB = new PipelineWorker(
       )
     } else if (
       existingCompany.name &&
-      companyName !== existingCompany.name.trim()
+      companyName !== existingCompany.name.trim() &&
+      normalizeCompanyNameForMatch(existingCompany.name) ===
+        normalizeCompanyNameForMatch(companyName)
     ) {
       job.log(
         `Upgrading company display name '${existingCompany.name}' → '${companyName}'`
