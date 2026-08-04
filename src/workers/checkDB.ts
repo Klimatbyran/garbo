@@ -273,6 +273,22 @@ const checkDB = new PipelineWorker(
       await job.sendMessage(
         `✅ Synced company '${companyName}' (${companyId}). See: ${getCompanyURL(companyName, companyId, wikidata?.node)}`
       )
+    } else if (
+      existingCompany.name &&
+      companyName !== existingCompany.name.trim()
+    ) {
+      job.log(
+        `Upgrading company display name '${existingCompany.name}' → '${companyName}'`
+      )
+      await apiFetch(companyMutationPath(companyId), {
+        body: { name: companyName },
+      })
+      if (companyName !== job.data.companyName) {
+        await job.updateData({ ...job.data, companyName })
+      }
+      await job.sendMessage(
+        `✅ Updated company name to '${companyName}' (${companyId}). See: ${getCompanyURL(companyName, companyId, wikidata?.node)}`
+      )
     } else {
       job.log(`✅ The company '${companyName}' was found in the database.`)
       const leiLabel = existingCompany.lei ?? 'none'
