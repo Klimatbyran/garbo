@@ -22,12 +22,19 @@ import {
   calculatedTotalEmissions,
 } from '@/lib/company-emissions/companyEmissionsCalculator'
 import { calculateFutureEmissionTrend } from '@/lib/company-emissions/companyEmissionsFutureTrendCalculator'
+import { foldDiacriticsForCompanyMatch } from '../../lib/companyLinkResolve'
 import Firecrawl, { SearchResultWeb } from '@mendable/firecrawl-js'
 import { CompanyReports, SaveReportsBody, SaveReportsResult } from '../types'
 import { pdf } from 'pdf-to-img'
 import ky from 'ky'
 import sharp from 'sharp'
 import { ReportsListResponseSchema } from '../schemas/response'
+
+/** Latin accents stripped in SQL search to align with pipeline name folding. */
+const SQL_ACCENT_FROM =
+  'ÀÁÂÃÄÅàáâãäåÈÉÊËèéêëÌÍÎÏìíîïÑñÒÓÔÕÖòóôõöÙÚÛÜùúûüÝýŸÿÇçÆæŒœ'
+const SQL_ACCENT_TO =
+  'AAAAAAaaaaaaEEEEeeeeIIIIiiiiNnOOOOooooUUUUuuuuYYyyCcAEaeOeoe'
 import { z } from 'zod'
 import { registryService } from './registryService'
 import { pickOnePeriodPerDataYear } from './reportingPeriodPublicRead'
@@ -93,6 +100,11 @@ class CompanyService {
   ) {
     const normalizedSearchTerm = searchTerm.trim().toLocaleLowerCase('sv-SE')
     const likePattern = normalizedSearchTerm + '%'
+    const foldedSearchTerm =
+      foldDiacriticsForCompanyMatch(normalizedSearchTerm).toLocaleLowerCase(
+        'sv-SE'
+      )
+    const foldedLikePattern = foldedSearchTerm + '%'
 
     const matches = await prisma.$queryRaw<{ id: string }[]>(
       Prisma.sql`
@@ -103,8 +115,18 @@ class CompanyService {
               char_length(${normalizedSearchTerm}) >= 3
               AND to_tsvector('simple', name) @@ websearch_to_tsquery('simple', ${normalizedSearchTerm})
             )
+         OR (
+              char_length(${foldedSearchTerm}) >= 3
+              AND translate(lower(name), ${SQL_ACCENT_FROM}, ${SQL_ACCENT_TO}) LIKE ${foldedLikePattern}
+            )
       ORDER BY
         CASE WHEN lower(name) LIKE ${likePattern} THEN 0 ELSE 1 END,
+        CASE
+          WHEN char_length(${foldedSearchTerm}) >= 3
+               AND translate(lower(name), ${SQL_ACCENT_FROM}, ${SQL_ACCENT_TO}) LIKE ${foldedLikePattern}
+          THEN 0
+          ELSE 1
+        END,
         ts_rank(to_tsvector('simple', name), websearch_to_tsquery('simple', ${normalizedSearchTerm})) DESC,
         name ASC
       LIMIT 30
