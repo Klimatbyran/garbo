@@ -30,6 +30,7 @@ export async function withNormalizedCompanyNameLock<T>(
   const timeoutMs = options.timeoutMs ?? 120_000
   return prisma.$transaction(
     async (tx) => {
+      await tx.$executeRaw`SELECT set_config('statement_timeout', ${String(timeoutMs)}, true)`
       await tx.$executeRaw`SELECT pg_advisory_xact_lock(${key})`
       return fn()
     },

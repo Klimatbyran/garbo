@@ -23,6 +23,7 @@ class PrecheckJob extends PipelineJob {
     companyName?: string
     companyId?: string
     lei?: string
+    wikidata?: { node?: string }
     waitingForCompanyName?: boolean
   }
 }

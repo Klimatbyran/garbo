@@ -91,10 +91,7 @@ const checkDB = new PipelineWorker(
       await job.updateData({ ...job.data, companyId })
     }
 
-    if (
-      isCheckDbSaveTimeCompanyLinkApproval(job) &&
-      job.isDataApproved()
-    ) {
+    if (isCheckDbSaveTimeCompanyLinkApproval(job) && job.isDataApproved()) {
       const approved = job.getApprovedBody()
       if (approved.createNew) {
         throw new Error(

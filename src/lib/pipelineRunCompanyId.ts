@@ -137,6 +137,31 @@ function wikidataNodeFromJobData(data: unknown): string | undefined {
   return node || undefined
 }
 
+type GuessWikidataJobApproval = {
+  type?: string
+  approved?: boolean
+  data?: { newValue?: { wikidata?: { node?: string } } }
+}
+
+function wikidataNodeFromConfirmedGuessJob(
+  jobData: unknown,
+  approval: GuessWikidataJobApproval | undefined
+): string | undefined {
+  if (approval?.type === 'wikidata' && approval.approved === true) {
+    const fromApproval = approval.data?.newValue?.wikidata?.node?.trim()
+    if (fromApproval) return fromApproval
+  }
+
+  return wikidataNodeFromJobData(jobData)
+}
+
+function guessJobBlocksSaveTimeWikidata(
+  approval: GuessWikidataJobApproval | undefined
+): boolean {
+  if (!approval?.type || approval.approved === true) return false
+  return approval.type === 'wikidata' || approval.type === 'companyLink'
+}
+
 /** Best-effort Wikidata Q-id from guessWikidata jobs on this pipeline thread. */
 export async function getWikidataNodeForThread(
   threadId: string | undefined
@@ -146,14 +171,11 @@ export async function getWikidataNodeForThread(
 
   const jobs = await listGuessWikidataJobsForThread(normalizedThreadId)
   for (const job of jobs) {
-    const fromData = wikidataNodeFromJobData(job.data)
-    if (fromData) return fromData
+    const approval = job.data?.approval as GuessWikidataJobApproval | undefined
+    if (guessJobBlocksSaveTimeWikidata(approval)) continue
 
-    const approval = job.data?.approval as
-      | { data?: { newValue?: { wikidata?: { node?: string } } } }
-      | undefined
-    const fromApproval = approval?.data?.newValue?.wikidata?.node?.trim()
-    if (fromApproval) return fromApproval
+    const node = wikidataNodeFromConfirmedGuessJob(job.data, approval)
+    if (node) return node
   }
 
   return undefined
