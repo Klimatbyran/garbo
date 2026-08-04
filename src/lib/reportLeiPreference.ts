@@ -14,8 +14,7 @@ const LEI_JSON_FORMAT = `\`\`\`json
 const SWEDISH_URL_HINT =
   /(?:^|[\/_.-])sv(?:[\/_.-]|$)|svenska|\.se(?:[/?#:]|$)|sverige/i
 
-const NON_SWEDISH_URL_HINT =
-  /(?:^|[\/_.-])en(?:[\/_.-]|$)|english|global/i
+const NON_SWEDISH_URL_HINT = /(?:^|[\/_.-])en(?:[\/_.-]|$)|english|global/i
 
 /**
  * Infer whether LEI selection should prefer Swedish entities from report URLs.
