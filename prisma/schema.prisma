@@ -13,9 +13,9 @@ generator client {
 
 model Company {
   /// Primary key. Stable internal company id (UUID).
-  id         String  @id @default(uuid())
+  id           String        @id @default(uuid())
   /// Wikidata Q-id when known. Nullable until pipeline or editor assigns one.
-  wikidataId String? @unique
+  wikidataId   String?       @unique
   name         String
   description  String?
   descriptions Description[]
@@ -187,9 +187,10 @@ model StatedTotalEmissions {
   unit        String
   emissionsId String? @unique
 
-  emissions Emissions? @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
+  emissions Emissions?      @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
   metadata  Metadata[]
-  scope3    Scope3?    @relation(fields: [scope3Id], references: [id], onDelete: Cascade)
+  scope3    Scope3?         @relation(fields: [scope3Id], references: [id], onDelete: Cascade)
+  notes     DatapointNote[]
 }
 
 /// This is used when companies have bad reporting where they have combined scope 1+2 as one value
@@ -199,8 +200,9 @@ model Scope1And2 {
   emissionsId String? @unique
 
   unit      String
-  emissions Emissions? @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
+  emissions Emissions?      @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
   metadata  Metadata[]
+  notes     DatapointNote[]
 }
 
 /// Biogenic emissions are reported separately from scope 1-3
@@ -211,8 +213,9 @@ model BiogenicEmissions {
   unit        String
   emissionsId String? @unique
 
-  emissions Emissions? @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
+  emissions Emissions?      @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
   metadata  Metadata[]
+  notes     DatapointNote[]
 }
 
 model Scope1 {
@@ -221,8 +224,9 @@ model Scope1 {
   unit        String
   emissionsId String? @unique
 
-  emissions Emissions? @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
+  emissions Emissions?      @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
   metadata  Metadata[]
+  notes     DatapointNote[]
 }
 
 /// For scope 2 emissions, we choose either market-based, location-based or unknown (if the company didn't specify if mb or lb)
@@ -238,8 +242,9 @@ model Scope2 {
   unit        String
   emissionsId String? @unique
 
-  emissions Emissions? @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
+  emissions Emissions?      @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
   metadata  Metadata[]
+  notes     DatapointNote[]
 }
 
 model Scope3 {
@@ -257,6 +262,7 @@ model Scope3 {
   emissions            Emissions?            @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
   categories           Scope3Category[]
   metadata             Metadata[]
+  notes                DatapointNote[]
 }
 
 /// Details about scope 3 categories. Here's a list of valid categories and their names:
@@ -294,8 +300,9 @@ model Scope3Category {
   scope3Id String
   unit     String?
 
-  scope3   Scope3     @relation(fields: [scope3Id], references: [id], onDelete: Cascade)
+  scope3   Scope3          @relation(fields: [scope3Id], references: [id], onDelete: Cascade)
   metadata Metadata[]
+  notes    DatapointNote[]
 }
 
 model Economy {
@@ -314,8 +321,9 @@ model Turnover {
   currency  String?
   economyId String  @unique
 
-  economy  Economy    @relation(fields: [economyId], references: [id], onDelete: Cascade)
+  economy  Economy         @relation(fields: [economyId], references: [id], onDelete: Cascade)
   metadata Metadata[]
+  notes    DatapointNote[]
 }
 
 model Employees {
@@ -326,8 +334,9 @@ model Employees {
   unit      String?
   economyId String? @unique
 
-  economy  Economy?   @relation(fields: [economyId], references: [id], onDelete: Cascade)
+  economy  Economy?        @relation(fields: [economyId], references: [id], onDelete: Cascade)
   metadata Metadata[]
+  notes    DatapointNote[]
 }
 
 model Goal {
@@ -409,6 +418,90 @@ model Metadata {
   companyIdentifier    CompanyIdentifier?    @relation(fields: [companyIdentifierId], references: [id], onDelete: SetNull)
 }
 
+enum DatapointErrorStatus {
+  OPEN
+  RESOLVED
+  WONT_FIX
+}
+
+/// Lookup table for datapoint error categories (e.g. "missing", "unit-error", "rounding").
+/// Deliberately a table rather than an enum so new categories can be added without a migration.
+model ErrorType {
+  id          String  @id @default(cuid())
+  /// Stable slug used in code/UI, e.g. matches the discrepancy types Validate computes client-side.
+  key         String  @unique
+  label       String
+  description String?
+  active      Boolean @default(true)
+
+  notes DatapointNote[]
+
+  @@map("error_types")
+}
+
+/// A reviewer-authored note about a specific datapoint: a freeform comment, and/or an error
+/// classification with the value it changed from/to. Insert-only - never updated in place - so
+/// the full history for a datapoint is the set of notes attached to it, ordered by createdAt.
+model DatapointNote {
+  id      String  @id @default(cuid())
+  comment String?
+
+  errorTypeId String?
+  errorType   ErrorType?            @relation(fields: [errorTypeId], references: [id])
+  /// Why THIS occurrence is this errorType - distinct from ErrorType's general category label.
+  errorReason String?
+  status      DatapointErrorStatus?
+
+  previousValue Float?
+  newValue      Float?
+
+  /// Which pipeline run this note is about, when known.
+  reportRunId String?
+  reportRun   ReportRun? @relation(fields: [reportRunId], references: [id])
+
+  // Same polymorphic FK pattern as Metadata - exactly one of these should be set.
+  scope1Id               String?
+  scope2Id               String?
+  scope3Id               String?
+  categoryId             String?
+  scope1And2Id           String?
+  statedTotalEmissionsId String?
+  biogenicEmissionsId    String?
+  turnoverId             String?
+  employeesId            String?
+
+  scope1               Scope1?               @relation(fields: [scope1Id], references: [id], onDelete: Cascade)
+  scope2               Scope2?               @relation(fields: [scope2Id], references: [id], onDelete: Cascade)
+  scope3               Scope3?               @relation(fields: [scope3Id], references: [id], onDelete: Cascade)
+  category             Scope3Category?       @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  scope1And2           Scope1And2?           @relation(fields: [scope1And2Id], references: [id], onDelete: Cascade)
+  statedTotalEmissions StatedTotalEmissions? @relation(fields: [statedTotalEmissionsId], references: [id], onDelete: Cascade)
+  biogenicEmissions    BiogenicEmissions?    @relation(fields: [biogenicEmissionsId], references: [id], onDelete: Cascade)
+  turnover             Turnover?             @relation(fields: [turnoverId], references: [id], onDelete: Cascade)
+  employees            Employees?            @relation(fields: [employeesId], references: [id], onDelete: Cascade)
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // One note per datapoint - saving again updates it in place rather than
+  // creating a new row. Unique on nullable columns still allows many rows
+  // with that particular FK left null (all the other datapoint types).
+  @@unique([scope1Id])
+  @@unique([scope2Id])
+  @@unique([scope3Id])
+  @@unique([categoryId])
+  @@unique([scope1And2Id])
+  @@unique([statedTotalEmissionsId])
+  @@unique([biogenicEmissionsId])
+  @@unique([turnoverId])
+  @@unique([employeesId])
+  @@index([reportRunId])
+  @@index([errorTypeId])
+  @@map("datapoint_notes")
+}
+
 model User {
   id             String  @id @default(cuid())
   email          String?
@@ -420,8 +513,9 @@ model User {
 
   // TODO: connect with github ID
   // TODO: store github profile image - or get it via API
-  updated  Metadata[] @relation("metadata_user_id")
-  verified Metadata[] @relation("metadata_verified_by")
+  updated        Metadata[]      @relation("metadata_user_id")
+  verified       Metadata[]      @relation("metadata_verified_by")
+  datapointNotes DatapointNote[]
 }
 
 // Follows the ISO 639 language codes
@@ -443,26 +537,30 @@ model Description {
 }
 
 model Report {
-  id          String  @id @default(cuid())
-  url         String  @unique
+  id           String      @id @default(cuid())
+  url          String      @unique
   /// Canonical web source URL when available (preferred for humans/UI).
-  sourceUrl   String? @unique
+  sourceUrl    String?     @unique
   /// Public URL to the cached/uploaded PDF (e.g. S3/MinIO/CDN).
-  s3Url       String?
+  s3Url        String?
   /// Stable storage identity for the cached/uploaded PDF.
-  s3Key       String?
-  s3Bucket    String?
+  s3Key        String?
+  s3Bucket     String?
   /// Content hash for the cached/uploaded PDF when available.
-  sha256      String? @unique
-  companyName String?
-  wikidataId  String?
-  reportYear  String?
+  sha256       String?     @unique
+  companyName  String?
+  wikidataId   String?
+  reportYear   String?
   reportTypeId String?
   reportType   ReportType? @relation(fields: [reportTypeId], references: [id], onDelete: SetNull)
+  /// Optional registry batch for Validate filtering; most reports have no batch.
+  batchId      String?     @map("batch_id")
+  batch        Batch?      @relation(fields: [batchId], references: [id], onDelete: SetNull, onUpdate: Cascade)
 
   companyReports CompanyReport[]
 
   @@index([reportTypeId])
+  @@index([batchId])
 }
 
 /// One processed PDF per company (links to Report registry). Several per company when multiple PDFs exist.
@@ -490,23 +588,25 @@ model Batch {
   batchName  String      @unique @map("batch_name")
   createdAt  DateTime    @default(now())
   reportRuns ReportRun[]
+  reports    Report[]
 }
 
 model ReportRun {
-  id              String         @id @default(cuid())
-  threadId        String         @unique
+  id              String          @id @default(cuid())
+  threadId        String          @unique
   pdfUrl          String
   companyName     String?
   /// Stable Garbo company id when known (preferred over wikidataId for linking runs).
   companyId       String?
   wikidataId      String?
-  companyReportId String?        @map("company_report_id")
-  batchDbId       String?        @map("batch_db_id")
-  batch           Batch?         @relation(fields: [batchDbId], references: [id], onDelete: SetNull, onUpdate: Cascade)
-  status          String         @default("running") // 'running' | 'completed' | 'failed'
-  startedAt       DateTime       @default(now())
-  updatedAt       DateTime       @updatedAt
+  companyReportId String?         @map("company_report_id")
+  batchDbId       String?         @map("batch_db_id")
+  batch           Batch?          @relation(fields: [batchDbId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  status          String          @default("running") // 'running' | 'completed' | 'failed'
+  startedAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
   jobs            ReportRunJob[]
+  datapointNotes  DatapointNote[]
 
   @@index([pdfUrl])
   @@index([companyId])
@@ -541,8 +641,8 @@ model ReportRunJob {
 
 /// Permission codes for the client API key layer (browser/proxy + partner integrations) — see `src/api/security/routePermissions.ts`.
 model ClientApiPermission {
-  id    String @id @default(cuid())
-  code  String @unique
+  id    String  @id @default(cuid())
+  code  String  @unique
   label String?
 
   roles ClientApiRolePermission[]
@@ -551,8 +651,8 @@ model ClientApiPermission {
 }
 
 model ClientApiRole {
-  id    String @id @default(cuid())
-  slug  String @unique
+  id    String  @id @default(cuid())
+  slug  String  @unique
   label String?
 
   permissions ClientApiRolePermission[]
@@ -573,17 +673,17 @@ model ClientApiRolePermission {
 }
 
 model ClientApiKey {
-  id         String   @id @default(cuid())
+  id         String             @id @default(cuid())
   name       String
   /// Lookup segment (shown in logs); full key is `garb_<keyLookup>.<secret>`
-  keyLookup  String   @unique @map("key_lookup")
+  keyLookup  String             @unique @map("key_lookup")
   /// sha256 hex of `${keyLookup}.${secret}.${pepper}`
-  secretHash String   @map("secret_hash")
-  roleId     String   @map("role_id")
-  role       ClientApiRole @relation(fields: [roleId], references: [id], onDelete: Restrict)
-  revokedAt  DateTime? @map("revoked_at")
-  lastUsedAt DateTime? @map("last_used_at")
-  createdAt  DateTime @default(now()) @map("created_at")
+  secretHash String             @map("secret_hash")
+  roleId     String             @map("role_id")
+  role       ClientApiRole      @relation(fields: [roleId], references: [id], onDelete: Restrict)
+  revokedAt  DateTime?          @map("revoked_at")
+  lastUsedAt DateTime?          @map("last_used_at")
+  createdAt  DateTime           @default(now()) @map("created_at")
   requests   ClientApiRequest[]
 
   @@map("client_api_key")
@@ -617,21 +717,21 @@ model CoverageList {
 
 /// One edition per year for a coverage list.
 model CoverageListYear {
-  id               String              @id @default(cuid())
-  listId           String              @map("list_id")
-  list             CoverageList        @relation(fields: [listId], references: [id], onDelete: Cascade)
-  year             Int
-  totalNames       Int                 @default(0) @map("total_names")
-  matchedCount     Int                 @default(0) @map("matched_count")
-  ambiguousCount   Int                 @default(0) @map("ambiguous_count")
-  coveragePercent  Int                 @default(0) @map("coverage_percent")
-  hasAnyReportCount  Int                 @default(0) @map("has_any_report_count")
-  prodReadyCount     Int                 @default(0) @map("prod_ready_count")
-  noReportCount      Int                 @default(0) @map("no_report_count")
-  registryRefreshedAt DateTime?          @map("registry_refreshed_at")
-  createdAt        DateTime            @default(now()) @map("created_at")
-  updatedAt        DateTime            @updatedAt @map("updated_at")
-  entries          CoverageListEntry[]
+  id                  String              @id @default(cuid())
+  listId              String              @map("list_id")
+  list                CoverageList        @relation(fields: [listId], references: [id], onDelete: Cascade)
+  year                Int
+  totalNames          Int                 @default(0) @map("total_names")
+  matchedCount        Int                 @default(0) @map("matched_count")
+  ambiguousCount      Int                 @default(0) @map("ambiguous_count")
+  coveragePercent     Int                 @default(0) @map("coverage_percent")
+  hasAnyReportCount   Int                 @default(0) @map("has_any_report_count")
+  prodReadyCount      Int                 @default(0) @map("prod_ready_count")
+  noReportCount       Int                 @default(0) @map("no_report_count")
+  registryRefreshedAt DateTime?           @map("registry_refreshed_at")
+  createdAt           DateTime            @default(now()) @map("created_at")
+  updatedAt           DateTime            @updatedAt @map("updated_at")
+  entries             CoverageListEntry[]
 
   @@unique([listId, year])
   @@index([listId])
@@ -640,21 +740,21 @@ model CoverageListYear {
 
 /// Pasted company name line belonging to a list year edition.
 model CoverageListEntry {
-  id               String           @id @default(cuid())
-  yearId           String           @map("year_id")
-  year             CoverageListYear @relation(fields: [yearId], references: [id], onDelete: Cascade)
-  name             String
-  sortOrder        Int              @default(0) @map("sort_order")
+  id                    String           @id @default(cuid())
+  yearId                String           @map("year_id")
+  year                  CoverageListYear @relation(fields: [yearId], references: [id], onDelete: Cascade)
+  name                  String
+  sortOrder             Int              @default(0) @map("sort_order")
   /// Staff-confirmed DB company match; overrides auto-matching when set.
-  matchedCompanyId String?          @map("matched_company_id")
-  matchedCompany   Company?         @relation(fields: [matchedCompanyId], references: [id], onDelete: SetNull)
+  matchedCompanyId      String?          @map("matched_company_id")
+  matchedCompany        Company?         @relation(fields: [matchedCompanyId], references: [id], onDelete: SetNull)
   /// Staff confirmed this list name is not in the DB (overrides ambiguous suggestions).
-  matchConfirmedMissing Boolean     @default(false) @map("match_confirmed_missing")
+  matchConfirmedMissing Boolean          @default(false) @map("match_confirmed_missing")
   /// Cached registry report count for fast coverage filters.
-  registryReportCount   Int         @default(0) @map("registry_report_count")
+  registryReportCount   Int              @default(0) @map("registry_report_count")
   /// Cached flag: at least one linked registry report is prod-ready.
-  hasProdReadyReport    Boolean     @default(false) @map("has_prod_ready_report")
-  registryRefreshedAt   DateTime?   @map("registry_refreshed_at")
+  hasProdReadyReport    Boolean          @default(false) @map("has_prod_ready_report")
+  registryRefreshedAt   DateTime?        @map("registry_refreshed_at")
 
   @@index([yearId])
   @@index([matchedCompanyId])

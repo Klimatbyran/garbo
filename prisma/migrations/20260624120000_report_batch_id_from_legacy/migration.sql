@@ -1,0 +1,2 @@
+-- batch_id on Report was added in 20260610120000_report_registry_batch.
+-- This migration is a no-op placeholder (legacy data backfill was squashed).
