@@ -92,6 +92,7 @@ function normalizeWordForSuffixMatch(word: string): string {
     .toLowerCase()
     .replace(/^[([{]+/, '')
     .replace(/[)\]},.;:]+$/, '')
+    .replace(/\./g, '')
 }
 
 export function isLegalEntitySuffix(word: string): boolean {

@@ -24,6 +24,10 @@ import {
   companyMutationPath,
   pipelineCompanyReadPath,
 } from '../lib/pipelineCompanyPath'
+import {
+  preferRicherDiacriticCompanyName,
+  normalizeCompanyNameForMatch,
+} from '../lib/companyLinkResolve'
 
 export class CheckDBJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
@@ -67,8 +71,8 @@ function isCheckDbSaveTimeCompanyLinkApproval(job: CheckDBJob): boolean {
 const checkDB = new PipelineWorker(
   QUEUE_NAMES.CHECK_DB,
   async (job: CheckDBJob) => {
-    const { companyName, url, sourceUrl, fiscalYear } = job.data
-    let { companyId, wikidata } = job.data
+    const { url, sourceUrl, fiscalYear } = job.data
+    let { companyId, wikidata, companyName } = job.data
 
     const threadId = job.data.threadId?.trim()
     if (threadId && (await isCompanyLinkResolutionPendingForThread(threadId))) {
@@ -250,6 +254,13 @@ const checkDB = new PipelineWorker(
     ).catch(() => null)
     job.log(existingCompany)
 
+    if (existingCompany) {
+      companyName = preferRicherDiacriticCompanyName(
+        existingCompany.name,
+        companyName
+      )
+    }
+
     if (!existingCompany) {
       job.log(
         `Company ${companyId} not returned from pipeline read; syncing name (should exist from precheck)`
@@ -264,6 +275,24 @@ const checkDB = new PipelineWorker(
       }
       await job.sendMessage(
         `✅ Synced company '${companyName}' (${companyId}). See: ${getCompanyURL(companyName, companyId, wikidata?.node)}`
+      )
+    } else if (
+      existingCompany.name &&
+      companyName !== existingCompany.name.trim() &&
+      normalizeCompanyNameForMatch(existingCompany.name) ===
+        normalizeCompanyNameForMatch(companyName)
+    ) {
+      job.log(
+        `Upgrading company display name '${existingCompany.name}' → '${companyName}'`
+      )
+      await apiFetch(companyMutationPath(companyId), {
+        body: { name: companyName },
+      })
+      if (companyName !== job.data.companyName) {
+        await job.updateData({ ...job.data, companyName })
+      }
+      await job.sendMessage(
+        `✅ Updated company name to '${companyName}' (${companyId}). See: ${getCompanyURL(companyName, companyId, wikidata?.node)}`
       )
     } else {
       job.log(`✅ The company '${companyName}' was found in the database.`)
@@ -436,6 +465,8 @@ const checkDB = new PipelineWorker(
                 ...job.data,
                 fiscalYear: undefined,
                 companyId,
+                companyName,
+                existingCompany,
                 existingDescriptions: existingCompany?.descriptions,
                 descriptions: descriptions,
               },
