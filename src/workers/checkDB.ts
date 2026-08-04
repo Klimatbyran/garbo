@@ -174,55 +174,65 @@ const checkDB = new PipelineWorker(
       wikidata = mergedWikidata
     }
 
-    const saveResolution = await resolvePipelineCompanyAfterIdentifiers(
-      { wikidata: mergedWikidata, lei: mergedLei },
-      companyName,
-      companyId
-    )
+    const staffResolvedCompanyLink =
+      job.data.approval?.type === 'companyLink' && job.isDataApproved()
 
-    if (saveResolution.status === 'ambiguous') {
-      job.log(
-        `Ambiguous company link at save for "${companyName}" — ${saveResolution.candidates.length} candidates`
+    if (!staffResolvedCompanyLink) {
+      const saveResolution = await resolvePipelineCompanyAfterIdentifiers(
+        { wikidata: mergedWikidata, lei: mergedLei },
+        companyName,
+        companyId
       )
-      await job.requestApproval(
-        'companyLink',
-        {
-          type: 'companyLink',
-          newValue: {
-            extractedName: saveResolution.extractedName,
-            candidates: saveResolution.candidates,
+
+      if (saveResolution.status === 'ambiguous') {
+        job.log(
+          `Ambiguous company link at save for "${companyName}" — ${saveResolution.candidates.length} candidates`
+        )
+        await job.requestApproval(
+          'companyLink',
+          {
+            type: 'companyLink',
+            newValue: {
+              extractedName: saveResolution.extractedName,
+              candidates: saveResolution.candidates,
+              allowCreateNew: false,
+            },
           },
-        },
-        false,
-        {
-          source: 'checkdb-company-resolve',
-          comment:
-            'Multiple matching companies found before save — please select the correct company',
-        },
-        `Company link before save for ${companyName}`
-      )
-      await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
-      return
-    }
-
-    if (
-      saveResolution.status === 'resolved' &&
-      saveResolution.companyId !== companyId
-    ) {
-      job.log(
-        `Re-resolved company for save id=${saveResolution.companyId} method=${saveResolution.method} (was ${companyId})`
-      )
-      companyId = saveResolution.companyId
-      await job.updateData({ ...job.data, companyId })
-      if (threadId) {
-        await syncCanonicalReportRunCompanyId({
-          threadId,
-          companyId,
-          pdfUrl: url,
-          companyName,
-          wikidataId: wikidata?.node ?? null,
-        })
+          false,
+          {
+            source: 'checkdb-company-resolve',
+            comment:
+              'Multiple matching companies found before save — please select the correct company',
+          },
+          `Company link before save for ${companyName}`
+        )
+        await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+        return
       }
+
+      if (
+        saveResolution.status === 'resolved' &&
+        saveResolution.companyId !== companyId
+      ) {
+        job.log(
+          `Re-resolved company for save id=${saveResolution.companyId} method=${saveResolution.method} (was ${companyId})`
+        )
+        companyId = saveResolution.companyId
+        await job.updateData({ ...job.data, companyId })
+        if (threadId) {
+          await syncCanonicalReportRunCompanyId({
+            threadId,
+            companyId,
+            pdfUrl: url,
+            companyName,
+            wikidataId: wikidata?.node ?? null,
+          })
+        }
+      }
+    } else {
+      job.log(
+        `Skipping save-time company re-resolve — staff already selected companyId=${companyId}`
+      )
     }
 
     job.sendMessage(`🤖 Checking if ${companyName} already exists in API...`)

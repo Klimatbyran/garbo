@@ -34,7 +34,7 @@ describe('findOrCreatePipelineCompanyLocked', () => {
     mockWithLock.mockClear()
   })
 
-  it('reuses an existing company found inside the advisory lock', async () => {
+  it('reuses an existing company without taking the advisory lock', async () => {
     mockApiFetch.mockImplementation(async (path: unknown) => {
       if (
         typeof path === 'string' &&
@@ -55,7 +55,7 @@ describe('findOrCreatePipelineCompanyLocked', () => {
       companyId: 'existing-meta',
       method: 'exact_name',
     })
-    expect(mockWithLock).toHaveBeenCalledTimes(1)
+    expect(mockWithLock).not.toHaveBeenCalled()
     expect(mockApiFetch).not.toHaveBeenCalledWith(
       '/companies/',
       expect.anything()
@@ -85,5 +85,6 @@ describe('findOrCreatePipelineCompanyLocked', () => {
       companyId: 'new-company',
       method: 'created',
     })
+    expect(mockWithLock).toHaveBeenCalledTimes(1)
   })
 })

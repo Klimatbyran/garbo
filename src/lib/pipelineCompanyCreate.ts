@@ -44,19 +44,36 @@ export async function findOrCreatePipelineCompanyLocked(
 ): Promise<FindOrCreatePipelineCompanyResult> {
   const normalized = normalizeCompanyNameForMatch(companyName)
 
-  return withNormalizedCompanyNameLock(normalized, async () => {
-    const outcome = await resolvePipelineCompanyOutcome(jobData, companyName)
+  const outcome = await resolvePipelineCompanyOutcome(jobData, companyName)
 
-    if (outcome.status === 'resolved') {
+  if (outcome.status === 'resolved') {
+    return {
+      status: 'resolved',
+      companyId: outcome.companyId,
+      method: outcome.method,
+    }
+  }
+
+  if (outcome.status === 'ambiguous') {
+    return outcome
+  }
+
+  return withNormalizedCompanyNameLock(normalized, async () => {
+    const lockedOutcome = await resolvePipelineCompanyOutcome(
+      jobData,
+      companyName
+    )
+
+    if (lockedOutcome.status === 'resolved') {
       return {
         status: 'resolved',
-        companyId: outcome.companyId,
-        method: outcome.method,
+        companyId: lockedOutcome.companyId,
+        method: lockedOutcome.method,
       }
     }
 
-    if (outcome.status === 'ambiguous') {
-      return outcome
+    if (lockedOutcome.status === 'ambiguous') {
+      return lockedOutcome
     }
 
     const companyId = await createPipelineCompanyByName(companyName)

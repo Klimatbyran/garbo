@@ -10,19 +10,29 @@ export function advisoryLockKeyForNormalizedName(
   return hash.readBigInt64BE(0)
 }
 
+type AdvisoryLockOptions = {
+  /** Prisma interactive transaction timeout (ms). Create path may include HTTP calls. */
+  timeoutMs?: number
+}
+
 /**
  * Runs fn while holding a transaction-scoped advisory lock for the normalized name.
  * Prevents concurrent pipeline runs from creating duplicate name-only companies.
  */
 export async function withNormalizedCompanyNameLock<T>(
   normalizedName: string,
-  fn: () => Promise<T>
+  fn: () => Promise<T>,
+  options: AdvisoryLockOptions = {}
 ): Promise<T> {
   const key = advisoryLockKeyForNormalizedName(
     normalizedName.length > 0 ? normalizedName : 'unknown'
   )
-  return prisma.$transaction(async (tx) => {
-    await tx.$executeRaw`SELECT pg_advisory_xact_lock(${key})`
-    return fn()
-  })
+  const timeoutMs = options.timeoutMs ?? 120_000
+  return prisma.$transaction(
+    async (tx) => {
+      await tx.$executeRaw`SELECT pg_advisory_xact_lock(${key})`
+      return fn()
+    },
+    { timeout: timeoutMs }
+  )
 }
