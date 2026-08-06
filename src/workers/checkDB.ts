@@ -25,9 +25,14 @@ import {
   pipelineCompanyReadPath,
 } from '../lib/pipelineCompanyPath'
 import {
-  preferRicherDiacriticCompanyName,
   normalizeCompanyNameForMatch,
+  resolveCompanyDisplayName,
+  shareCompanyNameCore,
 } from '../lib/companyLinkResolve'
+import {
+  applyStaffCompanyLinkDisplayName,
+  staffApprovedDisplayName,
+} from '../lib/applyStaffCompanyLink'
 
 export class CheckDBJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
@@ -104,7 +109,16 @@ const checkDB = new PipelineWorker(
       }
       if (typeof approved.companyId === 'string' && approved.companyId.trim()) {
         companyId = approved.companyId.trim()
-        await job.updateData({ ...job.data, companyId })
+        const override = staffApprovedDisplayName(approved)
+        if (override) {
+          companyName = await applyStaffCompanyLinkDisplayName(
+            companyId,
+            override
+          )
+          await job.updateData({ ...job.data, companyId, companyName })
+        } else {
+          await job.updateData({ ...job.data, companyId })
+        }
         job.log(`Using staff-selected company id=${companyId} before save`)
         if (threadId) {
           await syncCanonicalReportRunCompanyId({
@@ -209,13 +223,18 @@ const checkDB = new PipelineWorker(
               extractedName: saveResolution.extractedName,
               candidates: saveResolution.candidates,
               allowCreateNew: false,
+              ...(saveResolution.partialNameMatch && {
+                partialNameMatch: true,
+                displayName: saveResolution.extractedName,
+              }),
             },
           },
           false,
           {
             source: 'checkdb-company-resolve',
-            comment:
-              'Multiple matching companies found before save — please select the correct company',
+            comment: saveResolution.partialNameMatch
+              ? 'Partial name match — select the correct company and optionally set display name'
+              : 'Multiple matching companies found before save — please select the correct company',
           },
           `Company link before save for ${companyName}`
         )
@@ -255,9 +274,17 @@ const checkDB = new PipelineWorker(
     job.log(existingCompany)
 
     if (existingCompany) {
-      companyName = preferRicherDiacriticCompanyName(
+      const staffDisplay =
+        isCheckDbSaveTimeCompanyLinkApproval(job) && job.isDataApproved()
+          ? staffApprovedDisplayName(job.getApprovedBody())
+          : undefined
+      companyName = resolveCompanyDisplayName(
         existingCompany.name,
-        companyName
+        companyName,
+        {
+          staffDisplayName: staffDisplay,
+          preferIncomingOnPartialMatch: true,
+        }
       )
     }
 
@@ -279,8 +306,9 @@ const checkDB = new PipelineWorker(
     } else if (
       existingCompany.name &&
       companyName !== existingCompany.name.trim() &&
-      normalizeCompanyNameForMatch(existingCompany.name) ===
-        normalizeCompanyNameForMatch(companyName)
+      (normalizeCompanyNameForMatch(existingCompany.name) ===
+        normalizeCompanyNameForMatch(companyName) ||
+        shareCompanyNameCore(existingCompany.name, companyName))
     ) {
       job.log(
         `Upgrading company display name '${existingCompany.name}' → '${companyName}'`

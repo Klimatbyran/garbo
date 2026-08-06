@@ -1,6 +1,7 @@
 import { apiFetch } from './api'
 import {
   assessCompanyLinkResolution,
+  companyNameCoreToken,
   type CompanyLinkCandidate,
   stripLegalEntitySuffixes,
 } from './companyLinkResolve'
@@ -36,6 +37,7 @@ export type PipelineCompanyResolveOutcome =
       status: 'ambiguous'
       extractedName: string
       candidates: CompanyLinkCandidate[]
+      partialNameMatch?: boolean
     }
   | { status: 'create'; extractedName: string }
 
@@ -96,14 +98,19 @@ async function searchCompaniesByName(
 async function collectNameSearchCandidates(
   companyName: string
 ): Promise<CompanyLinkCandidate[]> {
-  const namesToTry = [companyName]
+  const namesToTry = new Set<string>([companyName.trim()])
   const strippedName = stripLegalEntitySuffixes(companyName)
   if (strippedName !== companyName.trim()) {
-    namesToTry.push(strippedName)
+    namesToTry.add(strippedName)
+  }
+  const coreToken = companyNameCoreToken(companyName)
+  if (coreToken) {
+    namesToTry.add(coreToken)
   }
 
   const byId = new Map<string, CompanyLinkCandidate>()
   for (const query of namesToTry) {
+    if (!query) continue
     for (const hit of await searchCompaniesByName(query)) {
       byId.set(hit.id, hit)
     }
@@ -197,6 +204,7 @@ export async function resolvePipelineCompanyOutcome(
       status: 'ambiguous',
       extractedName: companyName,
       candidates: assessment.candidates,
+      partialNameMatch: assessment.partialNameMatch,
     }
   }
 
@@ -222,6 +230,7 @@ export async function resolvePipelineCompanyAfterIdentifiers(
       status: 'ambiguous'
       extractedName: string
       candidates: CompanyLinkCandidate[]
+      partialNameMatch?: boolean
     }
 > {
   const wikidataId = identifiers.wikidata?.node?.trim()
@@ -264,6 +273,7 @@ export async function resolvePipelineCompanyAfterIdentifiers(
       status: 'ambiguous',
       extractedName: companyName,
       candidates: assessment.candidates,
+      partialNameMatch: assessment.partialNameMatch,
     }
   }
 

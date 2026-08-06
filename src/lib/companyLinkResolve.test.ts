@@ -69,7 +69,11 @@ describe('companyLinkResolve', () => {
       { id: 'ica-no', name: 'ICA Norge AS' },
     ]
     const result = assessCompanyLinkResolution('ICA', candidates)
-    expect(result).toEqual({ action: 'ambiguous', candidates })
+    expect(result).toEqual({
+      action: 'ambiguous',
+      candidates,
+      partialNameMatch: true,
+    })
   })
 
   it('creates a new company when search returns no candidates', () => {

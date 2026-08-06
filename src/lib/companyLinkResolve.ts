@@ -12,8 +12,43 @@ export type CompanyLinkCandidate = {
 
 export type CompanyLinkResolution =
   | { action: 'resolve'; companyId: string }
-  | { action: 'ambiguous'; candidates: CompanyLinkCandidate[] }
+  | {
+      action: 'ambiguous'
+      candidates: CompanyLinkCandidate[]
+      /** True when candidates matched on shared core token (e.g. Sampo Group vs Sampo plc). */
+      partialNameMatch?: boolean
+    }
   | { action: 'create' }
+
+/** Minimum length for the first normalized token to count as a company core name. */
+const COMPANY_CORE_TOKEN_MIN_LENGTH = 3
+
+/**
+ * First significant token after legal-suffix normalization (e.g. "sampo" from "Sampo Group").
+ * Used to surface partial name matches for staff review.
+ */
+export function companyNameCoreToken(name: string): string | null {
+  const normalized = normalizeCompanyNameForMatch(name)
+  const token = normalized.split(/\s+/).filter(Boolean)[0]
+  if (!token || token.length < COMPANY_CORE_TOKEN_MIN_LENGTH) return null
+  return token
+}
+
+export function shareCompanyNameCore(a: string, b: string): boolean {
+  const coreA = companyNameCoreToken(a)
+  const coreB = companyNameCoreToken(b)
+  return coreA !== null && coreA === coreB
+}
+
+export function pickPartialNameMatches(
+  extractedName: string,
+  candidates: CompanyLinkCandidate[]
+): CompanyLinkCandidate[] {
+  return candidates.filter(
+    (candidate) =>
+      candidate.name && shareCompanyNameCore(extractedName, candidate.name)
+  )
+}
 
 export { stripLegalEntitySuffixes }
 
@@ -31,6 +66,41 @@ export function companyNameHasDiacritics(text: string): boolean {
  * When two names match under diacritic folding, keep or upgrade to the richer
  * spelling — never replace "Nestlé" with "Nestle" on PATCH.
  */
+export type ResolveCompanyDisplayNameOptions = {
+  staffDisplayName?: string | null
+  /** Prefer the pipeline-extracted name on partial core-token matches (e.g. Sampo Group vs Sampo plc). */
+  preferIncomingOnPartialMatch?: boolean
+}
+
+/**
+ * Pick the display name for a company row: staff override wins, then partial-match
+ * upgrade rules, then diacritic-safe merge.
+ */
+export function resolveCompanyDisplayName(
+  existingName: string | null | undefined,
+  incomingName: string,
+  options?: ResolveCompanyDisplayNameOptions
+): string {
+  const staff = options?.staffDisplayName?.trim()
+  if (staff) return staff
+
+  const incoming = incomingName.trim()
+  const existing = existingName?.trim()
+
+  if (
+    options?.preferIncomingOnPartialMatch &&
+    existing &&
+    incoming &&
+    shareCompanyNameCore(existing, incoming) &&
+    normalizeCompanyNameForMatch(existing) !==
+      normalizeCompanyNameForMatch(incoming)
+  ) {
+    return incoming
+  }
+
+  return preferRicherDiacriticCompanyName(existingName, incomingName)
+}
+
 export function preferRicherDiacriticCompanyName(
   existingName: string | null | undefined,
   incomingName: string
@@ -45,6 +115,9 @@ export function preferRicherDiacriticCompanyName(
     normalizeCompanyNameForMatch(existing) !==
     normalizeCompanyNameForMatch(incoming)
   ) {
+    // Partial core-token match (e.g. Sampo Group vs Sampo plc): keep existing
+    // display name — never downgrade on a later pipeline run.
+    if (shareCompanyNameCore(existing, incoming)) return existing
     return incoming
   }
 
@@ -89,9 +162,27 @@ export function pickExactNameMatches(
 }
 
 /**
+ * True when a Wikidata label is close enough to the pipeline company name to auto-approve.
+ * Blocks subsidiary / unrelated picks (e.g. Sampo Group → If P&C Insurance).
+ */
+export function wikidataSelectionMatchesCompanyName(
+  companyName: string,
+  wikidataLabel: string
+): boolean {
+  const label = wikidataLabel.trim()
+  if (!label) return false
+
+  const candidate: CompanyLinkCandidate = { id: '_', name: label }
+  if (pickExactNameMatches(companyName, [candidate]).length > 0) return true
+  if (shareCompanyNameCore(companyName, label)) return true
+  return false
+}
+
+/**
  * Decide whether to auto-link, ask a human, or create a new company.
  * Auto-link only when exactly one candidate matches the normalized name.
- * Any fuzzy hit without a single exact match goes to staff (including a lone non-exact hit).
+ * Partial core-token matches (e.g. Sampo Group vs Sampo plc) go to staff with a focused candidate list.
+ * Any other fuzzy hit without a single exact match also goes to staff.
  */
 export function assessCompanyLinkResolution(
   extractedName: string,
@@ -107,6 +198,22 @@ export function assessCompanyLinkResolution(
 
   if (exactMatches.length === 1) {
     return { action: 'resolve', companyId: exactMatches[0].id }
+  }
+
+  if (exactMatches.length > 1) {
+    return {
+      action: 'ambiguous',
+      candidates: dedupeCompanyLinkCandidates(exactMatches),
+    }
+  }
+
+  const partialMatches = pickPartialNameMatches(extractedName, uniqueCandidates)
+  if (partialMatches.length >= 1) {
+    return {
+      action: 'ambiguous',
+      candidates: dedupeCompanyLinkCandidates(partialMatches),
+      partialNameMatch: true,
+    }
   }
 
   return { action: 'ambiguous', candidates: uniqueCandidates }

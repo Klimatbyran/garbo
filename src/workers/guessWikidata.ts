@@ -18,7 +18,10 @@ import {
   resolveInternalCompanyId,
 } from '../lib/pipelineCompanyResolve'
 import type { CompanyLinkCandidate } from '../lib/companyLinkResolve'
-import { preferRicherDiacriticCompanyName } from '../lib/companyLinkResolve'
+import {
+  preferRicherDiacriticCompanyName,
+  wikidataSelectionMatchesCompanyName,
+} from '../lib/companyLinkResolve'
 import { LEGAL_ENTITY_SUFFIXES } from '../lib/companyLegalEntitySuffixes'
 import { syncCanonicalReportRunCompanyId } from '../lib/pipelineRunCompanyId'
 import { buildEarlyRegistryPayload } from './saveToAPI.utils'
@@ -648,48 +651,63 @@ const guessWikidata = new PipelineWorker<GuessWikidataJob>(
         const checkIfWikidataExistInProduction =
           await checkIfWikidataExistInProductionRes.json()
         if (checkIfWikidataExistInProduction.wikidataId) {
-          // Auto-approve since company exists in production
-          const metadata = {
-            source: 'production-database',
-            comment: 'Company found in production database',
-          }
-
-          await job.requestApproval(
-            'wikidata',
-            {
-              type: 'wikidata',
-              newValue: { wikidata: wikidataForApproval },
-            },
-            true,
-            metadata,
-            `Auto-approved wikidata for ${companyName}`
-          )
-
-          const ready = await ensureCompanyLinkBeforeWikidataPersist(
-            job,
+          const labelMatches = wikidataSelectionMatchesCompanyName(
             companyName,
-            wikidataForApproval
+            wikidataForApproval.label
           )
-          if (!ready) return
+          if (!labelMatches) {
+            job.log(
+              `Wikidata label "${wikidataForApproval.label}" does not match company "${companyName}" — skipping production auto-approve`
+            )
+          } else {
+            // Auto-approve since company exists in production
+            const metadata = {
+              source: 'production-database',
+              comment: 'Company found in production database',
+            }
 
-          await persistApprovedWikidata(job, companyName, wikidataForApproval, {
-            verified: false,
-            metadata,
-          })
-
-          job.sendMessage({
-            content: `🚀 Company found in production database, we will approve automatically: ${companyName}`,
-          })
-          return JSON.stringify(
-            {
-              status: 'approved',
-              wikidata: wikidataForApproval,
-              message: `Auto-approved wikidata for ${companyName} (found in production database)`,
+            await job.requestApproval(
+              'wikidata',
+              {
+                type: 'wikidata',
+                newValue: { wikidata: wikidataForApproval },
+              },
+              true,
               metadata,
-            },
-            null,
-            2
-          )
+              `Auto-approved wikidata for ${companyName}`
+            )
+
+            const ready = await ensureCompanyLinkBeforeWikidataPersist(
+              job,
+              companyName,
+              wikidataForApproval
+            )
+            if (!ready) return
+
+            await persistApprovedWikidata(
+              job,
+              companyName,
+              wikidataForApproval,
+              {
+                verified: false,
+                metadata,
+              }
+            )
+
+            job.sendMessage({
+              content: `🚀 Company found in production database, we will approve automatically: ${companyName}`,
+            })
+            return JSON.stringify(
+              {
+                status: 'approved',
+                wikidata: wikidataForApproval,
+                message: `Auto-approved wikidata for ${companyName} (found in production database)`,
+                metadata,
+              },
+              null,
+              2
+            )
+          }
         }
       }
     } catch (_error) {
@@ -705,7 +723,12 @@ const guessWikidata = new PipelineWorker<GuessWikidataJob>(
       comment: 'Wikidata found via search and LLM selection',
     }
 
-    if (job.data.autoApprove) {
+    const labelMatchesForAutoApprove = wikidataSelectionMatchesCompanyName(
+      companyName,
+      wikidataForApproval.label
+    )
+
+    if (job.data.autoApprove && labelMatchesForAutoApprove) {
       await job.requestApproval(
         'wikidata',
         {
@@ -745,6 +768,12 @@ const guessWikidata = new PipelineWorker<GuessWikidataJob>(
       )
     }
 
+    if (job.data.autoApprove && !labelMatchesForAutoApprove) {
+      job.log(
+        `Wikidata label "${wikidataForApproval.label}" does not match company "${companyName}" — requiring manual approval despite autoApprove`
+      )
+    }
+
     // Create approval request using standard pattern
     await job.requestApproval(
       'wikidata',
@@ -754,7 +783,9 @@ const guessWikidata = new PipelineWorker<GuessWikidataJob>(
       },
       false, // requires manual approval
       metadata,
-      `Wikidata selection for ${companyName}`
+      job.data.autoApprove && !labelMatchesForAutoApprove
+        ? `Wikidata mismatch for ${companyName} (selected: ${wikidataForApproval.label})`
+        : `Wikidata selection for ${companyName}`
     )
 
     await job.sendMessage({
