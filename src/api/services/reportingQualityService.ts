@@ -14,10 +14,7 @@ type ReportingQualityInput = {
 }
 
 class ReportingQualityService {
-  async upsert(
-    wikidataId: string,
-    input: ReportingQualityInput
-  ): Promise<void> {
+  async upsert(companyId: string, input: ReportingQualityInput): Promise<void> {
     const registryReport = await prisma.report.findFirst({
       where: { url: input.url },
       select: { id: true },
@@ -25,7 +22,7 @@ class ReportingQualityService {
 
     const companyReportId =
       await companyReportService.findOrCreateCompanyReport(
-        wikidataId,
+        companyId,
         registryReport?.id ?? null
       )
 

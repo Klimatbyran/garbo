@@ -1,13 +1,14 @@
 import { FastifyInstance, AuthenticatedFastifyRequest } from 'fastify'
 
 import { reportingQualityService } from '../../services/reportingQualityService'
+import { companyService } from '../../services/companyService'
 import {
-  wikidataIdParamSchema,
+  companyIdParamSchema,
   okResponseSchema,
   getErrorSchemas,
   postReportingQualitySchema,
 } from '../../schemas'
-import { WikidataIdParams } from '../../types'
+import { CompanyIdParams } from '../../types'
 import { getTags } from '../../../config/openapi'
 import { z } from 'zod'
 
@@ -15,12 +16,12 @@ type PostReportingQualityBody = z.infer<typeof postReportingQualitySchema>
 
 export async function companyReportingQualityRoutes(app: FastifyInstance) {
   app.post(
-    '/:wikidataId/reporting-quality',
+    '/:id/reporting-quality',
     {
       schema: {
         summary: 'Upsert reporting quality for a company report',
         tags: getTags('Internal'),
-        params: wikidataIdParamSchema,
+        params: companyIdParamSchema,
         body: postReportingQualitySchema,
         response: {
           200: okResponseSchema,
@@ -30,12 +31,12 @@ export async function companyReportingQualityRoutes(app: FastifyInstance) {
     },
     async (
       request: AuthenticatedFastifyRequest<{
-        Params: WikidataIdParams
+        Params: CompanyIdParams
         Body: PostReportingQualityBody
       }>,
       reply
     ) => {
-      const { wikidataId } = request.params
+      const { id } = request.params
       const {
         url,
         usesGhgProtocolCategories,
@@ -44,7 +45,8 @@ export async function companyReportingQualityRoutes(app: FastifyInstance) {
       } = request.body
 
       try {
-        await reportingQualityService.upsert(wikidataId, {
+        const company = await companyService.getCompanyByInternalId(id)
+        await reportingQualityService.upsert(company.id, {
           url,
           usesGhgProtocolCategories,
           methodChanges,
