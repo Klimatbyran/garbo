@@ -8,9 +8,13 @@ export type StaffCompanyLinkApprovalBody = {
 }
 
 export function staffApprovedDisplayName(
-  body: StaffCompanyLinkApprovalBody
+  body: StaffCompanyLinkApprovalBody | Record<string, unknown>
 ): string | undefined {
-  const name = body.displayName?.trim()
+  const raw =
+    'displayName' in body && typeof body.displayName === 'string'
+      ? body.displayName
+      : undefined
+  const name = raw?.trim()
   return name || undefined
 }
 

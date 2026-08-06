@@ -27,7 +27,6 @@ import {
 import {
   normalizeCompanyNameForMatch,
   resolveCompanyDisplayName,
-  shareCompanyNameCore,
 } from '../lib/companyLinkResolve'
 import {
   applyStaffCompanyLinkDisplayName,
@@ -283,7 +282,7 @@ const checkDB = new PipelineWorker(
         companyName,
         {
           staffDisplayName: staffDisplay,
-          preferIncomingOnPartialMatch: true,
+          preferIncomingOnPartialMatch: Boolean(staffDisplay),
         }
       )
     }
@@ -306,9 +305,8 @@ const checkDB = new PipelineWorker(
     } else if (
       existingCompany.name &&
       companyName !== existingCompany.name.trim() &&
-      (normalizeCompanyNameForMatch(existingCompany.name) ===
-        normalizeCompanyNameForMatch(companyName) ||
-        shareCompanyNameCore(existingCompany.name, companyName))
+      normalizeCompanyNameForMatch(existingCompany.name) ===
+        normalizeCompanyNameForMatch(companyName)
     ) {
       job.log(
         `Upgrading company display name '${existingCompany.name}' → '${companyName}'`

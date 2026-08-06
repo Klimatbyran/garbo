@@ -72,7 +72,11 @@ async function resolveOrCreateCompanyForPrecheck(
   const outcome = await findOrCreatePipelineCompanyLocked(job.data, companyName)
 
   if (outcome.status === 'ambiguous') {
-    return { status: 'ambiguous', candidates: outcome.candidates }
+    return {
+      status: 'ambiguous',
+      candidates: outcome.candidates,
+      partialNameMatch: outcome.partialNameMatch,
+    }
   }
 
   if (outcome.companyId !== job.data.companyId) {
