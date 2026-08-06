@@ -252,15 +252,5 @@ export function assessCompanyLinkResolution(
     }
   }
 
-  const nameRelevant = uniqueCandidates.filter(
-    (candidate) =>
-      candidate.name &&
-      (pickExactNameMatches(extractedName, [candidate]).length > 0 ||
-        isPartialCompanyNameMatch(extractedName, candidate.name))
-  )
-  if (nameRelevant.length === 0) {
-    return { action: 'create' }
-  }
-
-  return { action: 'ambiguous', candidates: nameRelevant }
+  return { action: 'ambiguous', candidates: uniqueCandidates }
 }
