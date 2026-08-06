@@ -192,7 +192,6 @@ async function ensurePipelineCompany(
           ...(outcome.partialNameMatch && {
             partialNameMatch: true,
             displayName: outcome.extractedName,
-            allowCreateNew: false,
           }),
         },
       },
@@ -224,7 +223,6 @@ async function ensurePipelineCompany(
           ...(locked.partialNameMatch && {
             partialNameMatch: true,
             displayName: companyName,
-            allowCreateNew: false,
           }),
         },
       },
