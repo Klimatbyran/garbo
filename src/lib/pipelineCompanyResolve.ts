@@ -2,6 +2,7 @@ import { apiFetch } from './api'
 import {
   assessCompanyLinkResolution,
   companyNameCoreToken,
+  isPartialCompanyNameMatch,
   type CompanyLinkCandidate,
   stripLegalEntitySuffixes,
 } from './companyLinkResolve'
@@ -103,10 +104,6 @@ async function collectNameSearchCandidates(
   if (strippedName !== companyName.trim()) {
     namesToTry.add(strippedName)
   }
-  const coreToken = companyNameCoreToken(companyName)
-  if (coreToken) {
-    namesToTry.add(coreToken)
-  }
 
   const byId = new Map<string, CompanyLinkCandidate>()
   for (const query of namesToTry) {
@@ -115,6 +112,18 @@ async function collectNameSearchCandidates(
       byId.set(hit.id, hit)
     }
   }
+
+  // Targeted partial-match expansion: core-token search can flood unrelated
+  // prefix hits, so only merge candidates that pass partial-match rules.
+  const coreToken = companyNameCoreToken(companyName)
+  if (coreToken) {
+    for (const hit of await searchCompaniesByName(coreToken)) {
+      if (hit.name && isPartialCompanyNameMatch(companyName, hit.name)) {
+        byId.set(hit.id, hit)
+      }
+    }
+  }
+
   return [...byId.values()]
 }
 

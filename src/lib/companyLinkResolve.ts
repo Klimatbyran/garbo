@@ -210,7 +210,7 @@ export function wikidataSelectionMatchesCompanyName(
 
   const candidate: CompanyLinkCandidate = { id: '_', name: label }
   if (pickExactNameMatches(companyName, [candidate]).length > 0) return true
-  if (shareCompanyNameCore(companyName, label)) return true
+  if (isPartialCompanyNameMatch(companyName, label)) return true
   return false
 }
 
@@ -252,5 +252,15 @@ export function assessCompanyLinkResolution(
     }
   }
 
-  return { action: 'ambiguous', candidates: uniqueCandidates }
+  const nameRelevant = uniqueCandidates.filter(
+    (candidate) =>
+      candidate.name &&
+      (pickExactNameMatches(extractedName, [candidate]).length > 0 ||
+        isPartialCompanyNameMatch(extractedName, candidate.name))
+  )
+  if (nameRelevant.length === 0) {
+    return { action: 'create' }
+  }
+
+  return { action: 'ambiguous', candidates: nameRelevant }
 }
