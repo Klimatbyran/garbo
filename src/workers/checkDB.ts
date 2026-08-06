@@ -221,7 +221,6 @@ const checkDB = new PipelineWorker(
             newValue: {
               extractedName: saveResolution.extractedName,
               candidates: saveResolution.candidates,
-              allowCreateNew: false,
               ...(saveResolution.partialNameMatch && {
                 partialNameMatch: true,
                 displayName: saveResolution.extractedName,
