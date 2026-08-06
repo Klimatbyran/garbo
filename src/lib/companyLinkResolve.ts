@@ -40,13 +40,49 @@ export function shareCompanyNameCore(a: string, b: string): boolean {
   return coreA !== null && coreA === coreB
 }
 
+/**
+ * True when names share a core token but differ beyond legal-entity suffixes
+ * (e.g. Sampo Group vs Sampo plc). Excludes same-core unrelated pairs like
+ * Nordic Capital vs Nordic Paper.
+ */
+export function isPartialCompanyNameMatch(a: string, b: string): boolean {
+  if (!shareCompanyNameCore(a, b)) return false
+
+  const normA = normalizeCompanyNameForMatch(a)
+  const normB = normalizeCompanyNameForMatch(b)
+  if (normA === normB) return false
+
+  const core = companyNameCoreToken(a)
+  if (!core) return false
+
+  const wordsA = normA.split(/\s+/).filter(Boolean)
+  const wordsB = normB.split(/\s+/).filter(Boolean)
+  if (wordsA[0] !== core || wordsB[0] !== core) return false
+
+  const significantA = wordsA
+    .slice(1)
+    .filter((word) => !isLegalEntitySuffix(word))
+  const significantB = wordsB
+    .slice(1)
+    .filter((word) => !isLegalEntitySuffix(word))
+  if (
+    significantA.length > 0 &&
+    significantB.length > 0 &&
+    significantA.join(' ') !== significantB.join(' ')
+  ) {
+    return false
+  }
+
+  return true
+}
+
 export function pickPartialNameMatches(
   extractedName: string,
   candidates: CompanyLinkCandidate[]
 ): CompanyLinkCandidate[] {
   return candidates.filter(
     (candidate) =>
-      candidate.name && shareCompanyNameCore(extractedName, candidate.name)
+      candidate.name && isPartialCompanyNameMatch(extractedName, candidate.name)
   )
 }
 
