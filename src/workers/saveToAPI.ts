@@ -1,19 +1,18 @@
-import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { apiFetch } from '../lib/api'
 import { QUEUE_NAMES } from '../queues'
-import { registryService } from '../api/services/registryService'
-import { createServerCache } from '../createCache'
-import { invalidateRegistryCache } from '../api/services/registryCache'
-import { buildRegistryPayload } from './saveToAPI.utils'
 import { withCompanySaveLock } from '../lib/companySaveLock'
+import { getCanonicalCompanyIdForThread } from '../lib/pipelineRunCompanyId'
+import { syncReportRunCompanyReportId } from '../lib/reportRunPersistence'
+import { companyReportIdFromPeriodSaveResponse } from './saveToAPI.utils'
+import { companyMutationPath } from '../lib/pipelineCompanyPath'
 
-const registryCache = createServerCache({ maxAge: 24 * 60 * 60 * 1000 })
-
-export interface SaveToApiJob extends DiscordJob {
-  data: DiscordJob['data'] & {
+export interface SaveToApiJob extends PipelineJob {
+  data: PipelineJob['data'] & {
     companyName?: string
+    companyId: string
     body: any
-    wikidata: { node: string }
+    wikidata?: { node: string }
     apiSubEndpoint: string
     /** Original report URL when pipeline cached PDF to S3 (parsePdf). */
     sourceUrl?: string
@@ -74,12 +73,20 @@ function removeNullValuesFromGarbo(
   }
 }
 
-export const saveToAPI = new DiscordWorker<SaveToApiJob>(
+export const saveToAPI = new PipelineWorker<SaveToApiJob>(
   QUEUE_NAMES.SAVE_TO_API,
   async (job: SaveToApiJob) => {
     try {
       const { companyName, wikidata, body, apiSubEndpoint } = job.data
-      const wikidataId = wikidata.node
+      const { companyId, source } = await getCanonicalCompanyIdForThread(
+        job.data.threadId,
+        job.data.companyId
+      )
+      if (companyId !== job.data.companyId) {
+        job.log(
+          `Using canonical companyId=${companyId} from ${source} for save (job had ${job.data.companyId})`
+        )
+      }
 
       // remove all null values except for emissions where we want them to be explicit
       const sanitizedBody = removeNullValuesFromGarbo(body)
@@ -96,20 +103,29 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
         }
       }
 
-      job.log(`Saving approved data for ID:${wikidataId} company:${companyName} to API ${apiSubEndpoint}:
+      job.log(`Saving approved data for companyId:${companyId} company:${companyName} to API ${apiSubEndpoint}:
           ${JSON.stringify(sanitizedBody)}`)
 
-      const method = apiSubEndpoint === 'tags' ? ('PATCH' as const) : undefined
+      const method =
+        apiSubEndpoint === 'tags' || apiSubEndpoint === 'registry-report-type'
+          ? ('PATCH' as const)
+          : undefined
       const endpoint =
-        typeof apiSubEndpoint === 'string' && apiSubEndpoint.trim().length > 0
-          ? `/companies/${wikidataId}/${apiSubEndpoint}`
-          : `/companies/${wikidataId}`
+        apiSubEndpoint === 'registry-report-type'
+          ? '/reports/registry'
+          : companyMutationPath(
+              companyId,
+              typeof apiSubEndpoint === 'string' &&
+                apiSubEndpoint.trim().length > 0
+                ? apiSubEndpoint.trim()
+                : undefined
+            )
       const chunk =
         typeof apiSubEndpoint === 'string' && apiSubEndpoint.trim().length > 0
           ? apiSubEndpoint.trim()
           : 'company'
-      await withCompanySaveLock(wikidataId, async () => {
-        const saved = await apiFetch(endpoint, {
+      const saved = await withCompanySaveLock(companyId, async () => {
+        const response = await apiFetch(endpoint, {
           body: sanitizedBody,
           ...(method && { method }),
           headers: {
@@ -117,35 +133,27 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
           },
         })
 
-        if (saved === null) {
+        if (response === null) {
           throw new Error(`API endpoint not found: ${endpoint}`)
         }
 
-        if (apiSubEndpoint === 'reporting-periods') {
-          const registryPayload = buildRegistryPayload({
-            data: {
-              ...job.data,
-              documentReportYear:
-                job.data.documentReportYear ??
-                sanitizedBody?.documentReportYear,
-              body: sanitizedBody,
-            },
-          })
-          if (registryPayload) {
-            try {
-              await registryService.upsertReportInRegistry(registryPayload)
-              await invalidateRegistryCache(registryCache, {
-                warn: (msg: string, ...args: unknown[]) =>
-                  job.log(
-                    [msg, ...args.map((a) => JSON.stringify(a))].join(' ')
-                  ),
-              })
-            } catch (e: any) {
-              job.log(`Registry upsert failed after save: ${e?.message ?? e}`)
-            }
+        return response
+      })
+
+      if (apiSubEndpoint === 'reporting-periods') {
+        const companyReportId = companyReportIdFromPeriodSaveResponse(saved)
+        if (companyReportId) {
+          const updated = await syncReportRunCompanyReportId(
+            job.data.threadId,
+            companyReportId
+          )
+          if (updated > 0) {
+            job.log(
+              `ReportRun.companyReportId synced to ${companyReportId} after period save.`
+            )
           }
         }
-      })
+      }
 
       return { success: true }
     } catch (error) {

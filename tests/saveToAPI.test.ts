@@ -1,5 +1,7 @@
 import {
+  buildEarlyRegistryPayload,
   buildRegistryPayload,
+  companyReportIdFromPeriodSaveResponse,
   resolveDocumentReportYear,
 } from '../src/workers/saveToAPI.utils'
 import type { RegistrySaveJobData } from '../src/workers/saveToAPI.utils'
@@ -7,11 +9,15 @@ import type { RegistrySaveJobData } from '../src/workers/saveToAPI.utils'
 function makeJob(overrides: Partial<RegistrySaveJobData> & { url: string }): {
   data: RegistrySaveJobData
 } {
+  const defaultPeriod = {
+    year: 2024,
+    emissions: { scope1: { total: 1, unit: 'tCO2e' } },
+  }
   return {
     data: {
       wikidata: { node: 'Q123' },
       companyName: 'Acme Corp',
-      body: { reportingPeriods: [{ year: 2024 }] },
+      body: { reportingPeriods: [defaultPeriod] },
       ...overrides,
     },
   }
@@ -28,15 +34,27 @@ describe('buildRegistryPayload', () => {
     ).toBeNull()
   })
 
-  it('returns null when wikidataId is not a Q-number', () => {
-    expect(
-      buildRegistryPayload(
-        makeJob({
-          url: 'https://company.com/report',
-          wikidata: { node: 'not-a-qid' },
-        })
-      )
-    ).toBeNull()
+  it('omits wikidataId when node is not a Q-number', () => {
+    const result = buildRegistryPayload(
+      makeJob({
+        url: 'https://company.com/report',
+        wikidata: { node: 'not-a-qid' },
+      })
+    )
+    expect(result).not.toBeNull()
+    expect(result!.wikidataId).toBeUndefined()
+    expect(result!.url).toBe('https://company.com/report')
+  })
+
+  it('builds payload without wikidata when node is omitted', () => {
+    const result = buildRegistryPayload(
+      makeJob({
+        url: 'https://company.com/report-2024',
+        wikidata: undefined,
+      })
+    )
+    expect(result).not.toBeNull()
+    expect(result!.wikidataId).toBeUndefined()
   })
 
   it('returns null when reportingPeriods is empty', () => {
@@ -111,21 +129,47 @@ describe('buildRegistryPayload', () => {
 
   // ── reportYear derived from period ──────────────────────────────────────────
 
-  it('uses max data year among periods when no explicit documentReportYear', () => {
+  it('uses max emissions/economy year among periods when no explicit documentReportYear', () => {
     const result = buildRegistryPayload(
       makeJob({
         url: 'https://company.com/report',
-        body: { reportingPeriods: [{ year: 2022 }, { year: 2024 }] },
+        body: {
+          reportingPeriods: [
+            { year: 2022, emissions: { scope1: { total: 1, unit: 'tCO2e' } } },
+            { year: 2024, emissions: { scope1: { total: 1, unit: 'tCO2e' } } },
+          ],
+        },
       })
     )
     expect(result!.reportYear).toBe('2024')
   })
 
-  it('falls back to max year when chosen period has no year', () => {
+  it('ignores periods with only a year and no emissions or economy data', () => {
     const result = buildRegistryPayload(
       makeJob({
         url: 'https://company.com/report',
-        body: { reportingPeriods: [{}, { year: 2023 }, { year: 2024 }] },
+        body: {
+          reportingPeriods: [
+            { year: 2025, emissions: { scope1: { total: 1, unit: 'tCO2e' } } },
+            { year: 2026 },
+          ],
+        },
+      })
+    )
+    expect(result!.reportYear).toBe('2025')
+  })
+
+  it('falls back to max emissions year when chosen period has no year', () => {
+    const result = buildRegistryPayload(
+      makeJob({
+        url: 'https://company.com/report',
+        body: {
+          reportingPeriods: [
+            {},
+            { year: 2023, emissions: { scope1: { total: 1, unit: 'tCO2e' } } },
+            { year: 2024, emissions: { scope1: { total: 1, unit: 'tCO2e' } } },
+          ],
+        },
       })
     )
     expect(result!.reportYear).toBe('2024')
@@ -169,6 +213,60 @@ describe('buildRegistryPayload', () => {
   })
 })
 
+describe('buildEarlyRegistryPayload', () => {
+  it('upserts from PDF identity without wikidata', () => {
+    const result = buildEarlyRegistryPayload({
+      companyName: 'Acme Corp',
+      url: 'https://company.com/report-2024',
+    })
+    expect(result).not.toBeNull()
+    expect(result!.companyName).toBe('Acme Corp')
+    expect(result!.url).toBe('https://company.com/report-2024')
+    expect(result!.wikidataId).toBeUndefined()
+    expect(result!.reportYear).toBe('2024')
+  })
+
+  it('includes wikidataId when present', () => {
+    const result = buildEarlyRegistryPayload({
+      companyName: 'Acme Corp',
+      wikidata: { node: 'Q123' },
+      url: 'https://company.com/report',
+    })
+    expect(result!.wikidataId).toBe('Q123')
+  })
+
+  it('returns null without company name or PDF URL', () => {
+    expect(
+      buildEarlyRegistryPayload({ companyName: 'Acme', url: '' })
+    ).toBeNull()
+    expect(
+      buildEarlyRegistryPayload({
+        url: 'https://company.com/report',
+      })
+    ).toBeNull()
+  })
+})
+
+describe('companyReportIdFromPeriodSaveResponse', () => {
+  it('reads companyReportId from a successful period save response', () => {
+    expect(
+      companyReportIdFromPeriodSaveResponse({
+        ok: true,
+        companyReportId: 'cm123abc',
+        registryReportId: 'rep1',
+      })
+    ).toBe('cm123abc')
+  })
+
+  it('returns null when the field is missing or empty', () => {
+    expect(companyReportIdFromPeriodSaveResponse({ ok: true })).toBeNull()
+    expect(
+      companyReportIdFromPeriodSaveResponse({ companyReportId: '  ' })
+    ).toBeNull()
+    expect(companyReportIdFromPeriodSaveResponse(null)).toBeNull()
+  })
+})
+
 describe('resolveDocumentReportYear', () => {
   it('prefers explicit documentReportYear', () => {
     expect(
@@ -181,18 +279,50 @@ describe('resolveDocumentReportYear', () => {
   it('falls back to max data year among periods', () => {
     expect(
       resolveDocumentReportYear([
-        { year: 2023 },
-        { year: 2025 },
-        { year: 2024 },
+        { year: 2023, emissions: { scope1: { total: 1 } } },
+        { year: 2025, emissions: { scope1: { total: 1 } } },
+        { year: 2024, economy: { turnover: { value: 1 } } },
       ])
     ).toBe('2025')
   })
 
-  it('prefers max data year over a misleading year in the report URL', () => {
+  it('uses endDate when period payloads omit year (pipeline save shape)', () => {
     expect(
-      resolveDocumentReportYear([{ year: 2023 }, { year: 2024 }], {
-        reportUrl: 'https://company.com/annual-report-2017.pdf',
-      })
+      resolveDocumentReportYear([
+        {
+          startDate: '2024-01-01',
+          endDate: '2024-12-31',
+          emissions: { scope1: { total: 1 } },
+        },
+        {
+          startDate: '2025-01-01',
+          endDate: '2025-12-31',
+          emissions: { scope1: { total: 2 } },
+        },
+      ])
+    ).toBe('2025')
+  })
+
+  it('ignores periods with only a year and no emissions or economy data', () => {
+    expect(
+      resolveDocumentReportYear([
+        { year: 2025, emissions: { scope1: { total: 1 } } },
+        { year: 2026 },
+      ])
+    ).toBe('2025')
+  })
+
+  it('prefers max emissions year over a misleading year in the report URL', () => {
+    expect(
+      resolveDocumentReportYear(
+        [
+          { year: 2023, emissions: { scope1: { total: 1 } } },
+          { year: 2024, emissions: { scope1: { total: 1 } } },
+        ],
+        {
+          reportUrl: 'https://company.com/annual-report-2017.pdf',
+        }
+      )
     ).toBe('2024')
   })
 

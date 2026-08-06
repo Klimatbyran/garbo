@@ -1,4 +1,8 @@
-import { pickOnePeriodPerDataYear } from '../src/api/services/reportingPeriodPublicRead'
+import {
+  pickOnePeriodPerDataYear,
+  toPartnerCompanyList,
+  toPartnerCompanyResponse,
+} from '../src/api/services/reportingPeriodPublicRead'
 
 function period(
   year: string,
@@ -52,5 +56,41 @@ describe('pickOnePeriodPerDataYear', () => {
       period('2024', '2024', 'report-a'),
     ])
     expect(result[0]).not.toHaveProperty('companyReport')
+  })
+})
+
+describe('toPartnerCompanyResponse', () => {
+  it('removes year, companyReportId, and companyReport from reporting periods', () => {
+    const result = toPartnerCompanyResponse({
+      wikidataId: 'Q1',
+      name: 'Acme',
+      reportingPeriods: [
+        {
+          startDate: '2024-01-01',
+          endDate: '2024-12-31',
+          year: '2024',
+          companyReportId: 'cr-1',
+          companyReport: { id: 'cr-1', reportYear: '2024' },
+          reportURL: 'https://example.com/report.pdf',
+        },
+      ],
+    })
+
+    expect(result.reportingPeriods[0]).toEqual({
+      startDate: '2024-01-01',
+      endDate: '2024-12-31',
+      reportURL: 'https://example.com/report.pdf',
+    })
+  })
+
+  it('maps a company list for external GET responses', () => {
+    const result = toPartnerCompanyList([
+      {
+        wikidataId: 'Q1',
+        reportingPeriods: [{ year: '2024', companyReportId: 'cr-1' }],
+      },
+    ])
+
+    expect(result[0].reportingPeriods[0]).toEqual({})
   })
 })

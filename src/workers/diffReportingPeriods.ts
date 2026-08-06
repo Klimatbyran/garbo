@@ -1,10 +1,10 @@
 import { canonicalPublicReportUrl, diffChanges } from '../lib/saveUtils'
 import { getReportingPeriodDates } from '../lib/reportingPeriodDates'
-import { resolveDocumentReportYear } from './saveToAPI.utils'
 import { QUEUE_NAMES } from '../queues'
 import { ChangeDescription, DiffWorker, DiffJob } from '../lib/DiffWorker'
 import apiConfig from '../config/api'
 import { apiFetch } from '../lib/api'
+import { pipelineCompanyReadPath } from '../lib/pipelineCompanyPath'
 import {
   buildPipelineReportIdentity,
   buildReportingPeriodsApiBodyExtras,
@@ -23,7 +23,8 @@ export class DiffReportingPeriodsJob extends DiffJob {
       sha256?: string
     }
     existingCompany: any
-    wikidata: { node: string }
+    companyId: string
+    wikidata?: { node: string }
     fiscalYear: any
     scope12?: any[]
     scope3?: any[]
@@ -35,8 +36,8 @@ export class DiffReportingPeriodsJob extends DiffJob {
   }
 }
 
-async function fetchFreshExistingCompany(wikidataId: string) {
-  return apiFetch(`/pipeline/companies/${wikidataId}`).catch(() => null)
+async function fetchFreshExistingCompany(companyId: string) {
+  return apiFetch(pipelineCompanyReadPath(companyId)).catch(() => null)
 }
 
 const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
@@ -68,18 +69,18 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
 
     if (job.isDataApproved()) {
       const approvedBody = job.getApprovedBody() ?? {}
-      const periods = approvedBody.reportingPeriods ?? []
-      const documentReportYear = resolveDocumentReportYear(periods, {
-        documentReportYear:
-          approvedBody.documentReportYear ?? job.data.documentReportYear,
-        reportUrl: reportURLForPeriod,
-        sourceUrl: trimmedSourceUrl,
-      })
+      const periods = Array.isArray(approvedBody.reportingPeriods)
+        ? approvedBody.reportingPeriods
+        : []
+      const saveBodyExtras = buildReportingPeriodsApiBodyExtras(
+        job.data,
+        periods
+      )
 
-      await job.enqueueSaveToAPI('reporting-periods', companyName, wikidata, {
+      await job.enqueueSaveToAPI('reporting-periods', companyName, {
         ...approvedBody,
+        ...saveBodyExtras,
         ...(job.data.replaceAllEmissions && { replaceAllEmissions: true }),
-        documentReportYear,
         reportUrl: reportURLForPeriod,
         reportSourceUrl: trimmedSourceUrl,
         reportS3Url: reportS3UrlForPeriod,
@@ -89,9 +90,9 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
     }
 
     if (!job.hasApproval()) {
-      const wikidataId = wikidata.node
+      const { companyId, wikidata } = job.data
       const freshCompany =
-        (await fetchFreshExistingCompany(wikidataId)) ??
+        (await fetchFreshExistingCompany(companyId)) ??
         existingCompanyFromCheckDb
       const reportIdentity = buildPipelineReportIdentity(job.data)
       const isNewReportIdentity = !isReportIdentityKnownInCompany(
@@ -101,7 +102,7 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
 
       if (isNewReportIdentity) {
         job.log(
-          `New report identity for ${wikidataId}: ${reportIdentity.reportURL}`
+          `New report identity for ${companyId}: ${reportIdentity.reportURL}`
         )
       }
 
@@ -205,8 +206,15 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
         newValue: { reportingPeriods: updatedReportingPeriods },
       }
 
+      const maxScopeYear =
+        years.size > 0 ? Math.max(...Array.from(years)) : undefined
       const saveBodyExtras = buildReportingPeriodsApiBodyExtras(
-        job.data,
+        {
+          ...job.data,
+          ...(maxScopeYear !== undefined && {
+            documentReportYear: job.data.documentReportYear ?? maxScopeYear,
+          }),
+        },
         updatedReportingPeriods
       )
 

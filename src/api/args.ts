@@ -27,6 +27,18 @@ export const reportingPeriodCompanyReportSelect = {
       id: true,
       reportYear: true,
       reportPublicationDate: true,
+      registryReportId: true,
+      createdAt: true,
+      report: {
+        select: {
+          id: true,
+          url: true,
+          sourceUrl: true,
+          s3Url: true,
+          reportYear: true,
+          sha256: true,
+        },
+      },
     },
   },
 } as const
@@ -245,6 +257,21 @@ export const detailedCompanyArgs = {
     },
     baseYear: {
       select: { id: true, year: true, metadata: metadataArgs },
+    },
+  },
+} satisfies Prisma.CompanyDefaultArgs
+
+/** Staff/pipeline company detail — includes identifiers (not on partner reads). */
+export const pipelineCompanyDetailArgs = {
+  select: {
+    ...detailedCompanyArgs.select,
+    identifiers: {
+      select: {
+        id: true,
+        type: true,
+        value: true,
+        metadata: metadataArgs,
+      },
     },
   },
 } satisfies Prisma.CompanyDefaultArgs

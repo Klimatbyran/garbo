@@ -14,6 +14,7 @@ import { emissionsArgs } from '../args'
 import _ from 'lodash'
 
 class EmissionsService {
+  // TODO(Klimatbyran/garbo#1333): upsertScope* flows create metadata then connect in separate writes; use $transaction.
   async upsertEmissions({
     emissionsId,
     reportingPeriodId,

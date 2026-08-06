@@ -1,12 +1,12 @@
-/* import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+/* import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { generateWikipediaArticleText, updateWikipediaContent } from '../lib/wikipedia'
 import { ReportingPeriod, Emissions } from '../lib/emissions'
 import wikipediaConfig from '../config/wikipedia'
 import { QUEUE_NAMES } from '../queues'
 import { getWikipediaTitle } from '@/lib/wikidata/read'
 
-export class WikipediaUploadJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+export class WikipediaUploadJob extends PipelineJob {
+  declare data: PipelineJob['data'] & {
     wikidata: { node: `Q${number}` }
     body: {
       reportingPeriods: ReportingPeriod[]
@@ -24,7 +24,7 @@ const checkEmissionsExist = (emissions: Emissions): boolean => {
   )
 }
 
-const wikipediaUpload = new DiscordWorker<WikipediaUploadJob>(
+const wikipediaUpload = new PipelineWorker<WikipediaUploadJob>(
   QUEUE_NAMES.WIKIPEDIA_UPLOAD,
   async (job) => {
     const {

@@ -16,6 +16,11 @@ const dateStringSchema = z.union([
 ])
 
 export const okResponseSchema = z.object({ ok: z.boolean() })
+
+export const createCompanyResponseSchema = z.object({
+  ok: z.boolean(),
+  id: z.string().uuid(),
+})
 export const redirectResponseSchema = z.object({ location: z.string() })
 
 export const tagOptionSchema = z.object({
@@ -24,6 +29,13 @@ export const tagOptionSchema = z.object({
   label: z.string().nullable(),
 })
 export const tagOptionListResponseSchema = z.array(tagOptionSchema)
+
+export const reportTypeSchema = z.object({
+  id: z.string(),
+  slug: z.string(),
+  label: z.string().nullable(),
+})
+export const reportTypeListResponseSchema = z.array(reportTypeSchema)
 export const emptyBodySchema = z.undefined()
 
 export const MetadataSchema = z.object({
@@ -50,9 +62,23 @@ export const MetadataSchema = z.object({
 
 export const MinimalMetadataSchema = MetadataSchema.pick({ verifiedBy: true })
 
+export const CompanyIdentifierTypeSchema = z.enum([
+  'WIKIDATA',
+  'LEI',
+  'ORG_NUMBER',
+  'ISIN',
+])
+
+export const CompanyIdentifierSchema = z.object({
+  id: z.string(),
+  type: CompanyIdentifierTypeSchema,
+  value: z.string(),
+  metadata: MetadataSchema.nullable(),
+})
+
 const CompanyBaseSchema = z.object({
   id: companyIdSchema,
-  wikidataId: wikidataIdSchema,
+  wikidataId: wikidataIdSchema.optional().nullable(),
   name: z.string(),
   lei: z.string().optional().nullable(),
   logoUrl: z.string().url().optional().nullable(),
@@ -396,6 +422,51 @@ export const MinimalReportingPeriodSchema = ReportingPeriodSchema.omit({
   economy: MinimalEconomySchema.nullable(),
 })
 
+/** External GET /api/companies* — prod-compatible period fields only. */
+export const PartnerReportingPeriodSchema = ReportingPeriodSchema.omit({
+  year: true,
+  companyReportId: true,
+  companyReport: true,
+})
+
+export const PartnerMinimalReportingPeriodSchema =
+  PartnerReportingPeriodSchema.omit({
+    id: true,
+    emissions: true,
+    economy: true,
+  }).extend({
+    emissions: MinimalEmissionsSchema.nullable(),
+    economy: MinimalEconomySchema.nullable(),
+  })
+
+export const PartnerCompanyBase = CompanyBaseSchema.extend({
+  description: z.string().optional().nullable(),
+  descriptions: z.array(ResponseDescriptionSchema).optional(),
+  reportingPeriods: z.array(PartnerMinimalReportingPeriodSchema),
+  futureEmissionsTrendSlope: z.number().nullable(),
+  industry: MinimalIndustrySchema.nullable(),
+  baseYear: BaseYearSchema.nullable().optional(),
+  logoUrl: z.string().url().optional().nullable(),
+  tags: z.array(z.string()),
+})
+
+export const PartnerCompanyList = z.array(PartnerCompanyBase)
+
+const PartnerCompanyFullBase = CompanyBaseSchema.extend({
+  description: z.string().optional().nullable(),
+  descriptions: z.array(ResponseDescriptionSchema).optional(),
+  reportingPeriods: z.array(PartnerReportingPeriodSchema),
+  futureEmissionsTrendSlope: z.number().nullable(),
+  industry: IndustrySchema.nullable(),
+  baseYear: BaseYearSchema.nullable().optional(),
+  logoUrl: z.string().url().optional().nullable(),
+})
+
+export const PartnerCompanyDetails = PartnerCompanyFullBase.extend({
+  goals: z.array(GoalSchema).nullable(),
+  initiatives: z.array(InitiativeSchema).nullable(),
+})
+
 export const MinimalCompanyBase = CompanyBaseSchema.extend({
   description: z.string().optional().nullable(),
   descriptions: z.array(ResponseDescriptionSchema).optional(),
@@ -446,6 +517,8 @@ export const RegistryReportSchema = z.object({
   companyName: z.string().optional().nullable(),
   wikidataId: z.string().optional().nullable(),
   reportYear: z.string().optional().nullable(),
+  reportTypeId: z.string().nullable().optional(),
+  reportType: reportTypeSchema.nullable().optional(),
 })
 
 export const RegistryList = z.array(RegistryReportSchema)
@@ -460,6 +533,7 @@ export const CompanyDetails = CompanyBase.extend({
  */
 export const InternalCompanyDetails = CompanyDetails.extend({
   tags: z.array(z.string()),
+  identifiers: z.array(CompanyIdentifierSchema).optional(),
 })
 
 function transformYearlyData(
@@ -550,26 +624,21 @@ export const RegionalSectorEmissionsSchema = z.object({
  * Regional data schemas
  */
 export const InputRegionalDataSchema = z.array(
-  z
-    .object({
-      region: z.string(),
-      logoUrl: z.string().nullable().optional(),
-      emissions: InputYearlyDataSchema,
-      total_trend: z.number(),
-      emissions_slope: z.number().optional(),
-      totalCarbonLaw: z.number(),
-      approximatedHistoricalEmission: InputYearlyDataSchema,
-      trend: InputYearlyDataSchema,
-      historicalEmissionChangePercent: z.number(),
-      meetsParis: z.string().transform((val) => val === 'True'),
-      municipalities: z.array(z.string()),
-    })
-    .transform((data) => ({
-      ...data,
-      totalTrend: data.total_trend,
-      total_trend: undefined,
-      emissions_slope: undefined,
-    }))
+  z.object({
+    region: z.string(),
+    logoUrl: z.string().nullable().optional(),
+    emissions: InputYearlyDataSchema,
+    totalTrend: z.number(),
+    emissionsSlope: z.number().optional(),
+    totalCarbonLaw: z.number(),
+    approximatedHistoricalEmission: InputYearlyDataSchema,
+    trend: InputYearlyDataSchema,
+    historicalEmissionChangePercent: z.number(),
+    meetsParis: z.string().transform((val) => val === 'True'),
+    municipalities: z.array(z.string()),
+    electricVehiclePerChargePoints: z.number().nullable().optional(),
+    totalConsumptionEmission: z.number().optional(),
+  })
 )
 
 export const RegionalDataSchema = z.object({
@@ -610,28 +679,29 @@ export const NationalSectorEmissionsSchema = z.object({
 
 export const InputNationalDataSchema = z.array(
   z.object({
-    country: z.object({ sv: z.string(), en: z.string() }),
+    country: z.string().transform((val) => ({
+      sv: val,
+      en: val === 'Sverige' ? 'Sweden' : val,
+    })),
     logoUrl: z.string().nullable().optional(),
-    emissions: InputYearlyDataSchema,
-    totalTrend: z.number(),
-    totalCarbonLaw: z.number(),
-    approximatedHistoricalEmission: InputYearlyDataSchema,
-    trend: InputYearlyDataSchema,
-    historicalEmissionChangePercent: z.number(),
-    meetsParis: z.string().transform((val) => val === 'True'),
+    territorialFossilEmissions: InputYearlyDataSchema,
+    productionBasedEmissions: InputYearlyDataSchema,
+    biogenicEmissions: InputYearlyDataSchema,
+    consumptionAbroadEmissions: InputYearlyDataSchema,
+    exportOfOilProductsEmissions: InputYearlyDataSchema,
+    eCommerceEmissions: InputYearlyDataSchema,
   })
 )
 
 export const NationDataSchema = z.object({
   country: z.object({ sv: z.string(), en: z.string() }),
   logoUrl: z.string().nullable().optional(),
-  emissions: z.array(YearlyDataSchema),
-  totalTrend: z.number(),
-  totalCarbonLaw: z.number(),
-  approximatedHistoricalEmission: z.array(YearlyDataSchema),
-  trend: z.array(YearlyDataSchema),
-  historicalEmissionChangePercent: z.number(),
-  meetsParis: z.boolean(),
+  territorialFossilEmissions: z.array(YearlyDataSchema),
+  productionBasedEmissions: z.array(YearlyDataSchema),
+  biogenicEmissions: z.array(YearlyDataSchema),
+  consumptionAbroadEmissions: z.array(YearlyDataSchema),
+  exportOfOilProductsEmissions: z.array(YearlyDataSchema),
+  eCommerceEmissions: z.array(YearlyDataSchema),
 })
 
 export const NationalDataListSchema = z.array(NationDataSchema)

@@ -1,14 +1,15 @@
-import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { enqueueSaveToAPIWithParentFallback } from '../lib/DiffWorker'
-import wikidata from '../prompts/wikidata'
+import { preferRicherDiacriticCompanyName } from '../lib/companyLinkResolve'
 import { QUEUE_NAMES } from '../queues'
 
-export class DiffLEIJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+export class DiffLEIJob extends PipelineJob {
+  declare data: PipelineJob['data'] & {
     companyName: string
-    lei?: string | undefined // Switching to lei
+    companyId: string
+    lei?: string | undefined
     existingCompany: any
-    wikidata: { node: string }
+    wikidata?: { node: string }
   }
 }
 
@@ -40,7 +41,7 @@ function compareLei(
   }
 }
 
-const diffLEI = new DiscordWorker<DiffLEIJob>(
+const diffLEI = new PipelineWorker<DiffLEIJob>(
   QUEUE_NAMES.DIFF_LEI,
   async (job: DiffLEIJob) => {
     const { companyName, lei, existingCompany } = job.data
@@ -60,10 +61,15 @@ const diffLEI = new DiscordWorker<DiffLEIJob>(
       return
     }
 
+    const name = preferRicherDiacriticCompanyName(
+      existingCompany?.name,
+      companyName
+    )
+
     const body = {
-      lei: lei,
-      wikidataId: job.data.wikidata.node,
-      name: companyName,
+      lei,
+      name,
+      ...(job.data.wikidata?.node && { wikidataId: job.data.wikidata.node }),
     }
 
     job.log(

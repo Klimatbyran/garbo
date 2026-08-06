@@ -7,6 +7,7 @@ import {
   getErrorSchemas,
 } from '../../schemas'
 import { registryService } from '@/api/services/registryService'
+import { reportTypeService } from '@/api/services/reportTypeService'
 import { redisCache } from '@/lib/redisCacheSingleton'
 import { invalidateRegistryCache } from '@/api/services/registryCache'
 import z from 'zod'
@@ -23,15 +24,25 @@ export async function registryUpdateRoutes(app: FastifyInstance) {
         body: registryUpdateRequestBodySchema,
         response: {
           200: registryUpdateResponseSchema,
-          ...getErrorSchemas(404, 409),
+          ...getErrorSchemas(400, 404, 409),
         },
       },
     },
     async (request, reply) => {
       try {
-        const updatedReport = await registryService.updateReportInRegistry(
-          request.body as z.infer<typeof registryUpdateRequestBodySchema>
-        )
+        const body = request.body as z.infer<
+          typeof registryUpdateRequestBodySchema
+        >
+        try {
+          await reportTypeService.assertValidReportTypeId(body.reportTypeId)
+        } catch (error) {
+          return reply.status(400).send({
+            message:
+              error instanceof Error ? error.message : 'Invalid report type',
+          })
+        }
+
+        const updatedReport = await registryService.updateReportInRegistry(body)
 
         if (!updatedReport) {
           return reply.status(404).send({ message: 'Report not found' })

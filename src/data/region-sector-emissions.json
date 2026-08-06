@@ -10,7 +10,7 @@
         "Industri (energi + processer)": 149664.13,
         "Jordbruk": 128891.62,
         "Produktanvändning (inkl. lösningsmedel)": 6936.83,
-        "Transporter": 275361.35,
+        "Transporter": 273974.27,
         "Utrikes transporter": 0.0
       },
       "2000": {
@@ -21,7 +21,7 @@
         "Industri (energi + processer)": 149628.37,
         "Jordbruk": 121835.67,
         "Produktanvändning (inkl. lösningsmedel)": 20084.27,
-        "Transporter": 284005.29,
+        "Transporter": 282637.02,
         "Utrikes transporter": 0.0
       },
       "2005": {
@@ -32,7 +32,7 @@
         "Industri (energi + processer)": 118087.49,
         "Jordbruk": 114675.18,
         "Produktanvändning (inkl. lösningsmedel)": 27168.95,
-        "Transporter": 302555.39,
+        "Transporter": 301084.27,
         "Utrikes transporter": 0.0
       },
       "2010": {
@@ -43,7 +43,7 @@
         "Industri (energi + processer)": 98438.91,
         "Jordbruk": 108258.38,
         "Produktanvändning (inkl. lösningsmedel)": 27340.02,
-        "Transporter": 305879.86,
+        "Transporter": 303879.89,
         "Utrikes transporter": 0.0
       },
       "2015": {
@@ -54,7 +54,7 @@
         "Industri (energi + processer)": 62514.3,
         "Jordbruk": 112092.02,
         "Produktanvändning (inkl. lösningsmedel)": 24000.32,
-        "Transporter": 265145.05,
+        "Transporter": 262966.87,
         "Utrikes transporter": 0.0
       },
       "2020": {
@@ -65,7 +65,7 @@
         "Industri (energi + processer)": 28783.11,
         "Jordbruk": 106190.84,
         "Produktanvändning (inkl. lösningsmedel)": 19156.21,
-        "Transporter": 217877.12,
+        "Transporter": 215692.65,
         "Utrikes transporter": 0.0
       },
       "2021": {
@@ -76,7 +76,7 @@
         "Industri (energi + processer)": 31584.14,
         "Jordbruk": 101269.86,
         "Produktanvändning (inkl. lösningsmedel)": 15620.66,
-        "Transporter": 218304.59,
+        "Transporter": 216120.12,
         "Utrikes transporter": 0.0
       },
       "2022": {
@@ -87,7 +87,7 @@
         "Industri (energi + processer)": 36738.62,
         "Jordbruk": 106304.43,
         "Produktanvändning (inkl. lösningsmedel)": 15204.06,
-        "Transporter": 197683.6,
+        "Transporter": 195499.17,
         "Utrikes transporter": 0.0
       },
       "2023": {
@@ -98,18 +98,18 @@
         "Industri (energi + processer)": 37999.6,
         "Jordbruk": 99322.27,
         "Produktanvändning (inkl. lösningsmedel)": 13933.47,
-        "Transporter": 196383.46,
+        "Transporter": 194199.0,
         "Utrikes transporter": 6.36
       },
       "2024": {
         "Arbetsmaskiner": 44559.68,
         "Avfall (inkl.avlopp)": 16277.31,
         "Egen uppvärmning av bostäder och lokaler": 23019.35,
-        "El och fjärrvärme": 14683.45,
+        "El och fjärrvärme": 56182.01,
         "Industri (energi + processer)": 37475.56,
         "Jordbruk": 97965.23,
         "Produktanvändning (inkl. lösningsmedel)": 16617.04,
-        "Transporter": 303941.98,
+        "Transporter": 301757.54,
         "Utrikes transporter": 5.5
       }
     }
@@ -125,7 +125,7 @@
         "Industri (energi + processer)": 777034.5,
         "Jordbruk": 167104.8,
         "Produktanvändning (inkl. lösningsmedel)": 82394.77,
-        "Transporter": 671532.97,
+        "Transporter": 671620.37,
         "Utrikes transporter": 0.0
       },
       "2000": {
@@ -136,7 +136,7 @@
         "Industri (energi + processer)": 928427.5,
         "Jordbruk": 159793.06,
         "Produktanvändning (inkl. lösningsmedel)": 54363.96,
-        "Transporter": 681793.76,
+        "Transporter": 681879.9,
         "Utrikes transporter": 0.0
       },
       "2005": {
@@ -147,7 +147,7 @@
         "Industri (energi + processer)": 1064473.94,
         "Jordbruk": 145021.86,
         "Produktanvändning (inkl. lösningsmedel)": 63131.04,
-        "Transporter": 721685.81,
+        "Transporter": 721778.65,
         "Utrikes transporter": 0.0
       },
       "2010": {
@@ -158,7 +158,7 @@
         "Industri (energi + processer)": 728040.63,
         "Jordbruk": 131590.28,
         "Produktanvändning (inkl. lösningsmedel)": 59479.13,
-        "Transporter": 711997.72,
+        "Transporter": 712124.01,
         "Utrikes transporter": 0.0
       },
       "2015": {
@@ -169,7 +169,7 @@
         "Industri (energi + processer)": 644158.75,
         "Jordbruk": 131534.77,
         "Produktanvändning (inkl. lösningsmedel)": 50570.89,
-        "Transporter": 621313.8,
+        "Transporter": 621451.15,
         "Utrikes transporter": 0.0
       },
       "2020": {
@@ -180,7 +180,7 @@
         "Industri (energi + processer)": 569488.93,
         "Jordbruk": 131518.72,
         "Produktanvändning (inkl. lösningsmedel)": 36049.79,
-        "Transporter": 483737.82,
+        "Transporter": 483875.63,
         "Utrikes transporter": 0.0
       },
       "2021": {
@@ -191,7 +191,7 @@
         "Industri (energi + processer)": 604344.12,
         "Jordbruk": 129981.79,
         "Produktanvändning (inkl. lösningsmedel)": 31131.76,
-        "Transporter": 483153.54,
+        "Transporter": 483291.26,
         "Utrikes transporter": 0.0
       },
       "2022": {
@@ -202,7 +202,7 @@
         "Industri (energi + processer)": 596832.07,
         "Jordbruk": 130806.51,
         "Produktanvändning (inkl. lösningsmedel)": 29276.52,
-        "Transporter": 435681.28,
+        "Transporter": 435819.06,
         "Utrikes transporter": 0.0
       },
       "2023": {
@@ -213,18 +213,18 @@
         "Industri (energi + processer)": 594338.41,
         "Jordbruk": 127046.93,
         "Produktanvändning (inkl. lösningsmedel)": 25859.77,
-        "Transporter": 432748.28,
+        "Transporter": 432886.09,
         "Utrikes transporter": 98.2
       },
       "2024": {
         "Arbetsmaskiner": 144652.88,
         "Avfall (inkl.avlopp)": 26426.53,
         "Egen uppvärmning av bostäder och lokaler": 17969.82,
-        "El och fjärrvärme": 101286.22,
+        "El och fjärrvärme": 105908.68,
         "Industri (energi + processer)": 585812.29,
         "Jordbruk": 124537.44,
         "Produktanvändning (inkl. lösningsmedel)": 31885.78,
-        "Transporter": 549915.21,
+        "Transporter": 550052.9,
         "Utrikes transporter": 84.92
       }
     }
@@ -240,7 +240,7 @@
         "Industri (energi + processer)": 1651495.22,
         "Jordbruk": 264574.54,
         "Produktanvändning (inkl. lösningsmedel)": 2275.73,
-        "Transporter": 189763.78,
+        "Transporter": 190024.77,
         "Utrikes transporter": 0.0
       },
       "2000": {
@@ -251,7 +251,7 @@
         "Industri (energi + processer)": 1746012.75,
         "Jordbruk": 264949.54,
         "Produktanvändning (inkl. lösningsmedel)": 7386.81,
-        "Transporter": 203109.61,
+        "Transporter": 203367.03,
         "Utrikes transporter": 0.0
       },
       "2005": {
@@ -262,7 +262,7 @@
         "Industri (energi + processer)": 1788081.32,
         "Jordbruk": 256693.32,
         "Produktanvändning (inkl. lösningsmedel)": 10074.69,
-        "Transporter": 216779.84,
+        "Transporter": 217056.63,
         "Utrikes transporter": 0.0
       },
       "2010": {
@@ -273,7 +273,7 @@
         "Industri (energi + processer)": 1732183.1,
         "Jordbruk": 252871.88,
         "Produktanvändning (inkl. lösningsmedel)": 10213.78,
-        "Transporter": 221322.71,
+        "Transporter": 221699.08,
         "Utrikes transporter": 0.0
       },
       "2015": {
@@ -284,7 +284,7 @@
         "Industri (energi + processer)": 1984496.05,
         "Jordbruk": 253731.43,
         "Produktanvändning (inkl. lösningsmedel)": 8828.11,
-        "Transporter": 228364.14,
+        "Transporter": 228774.05,
         "Utrikes transporter": 0.0
       },
       "2020": {
@@ -295,7 +295,7 @@
         "Industri (energi + processer)": 1617489.85,
         "Jordbruk": 247372.38,
         "Produktanvändning (inkl. lösningsmedel)": 7194.7,
-        "Transporter": 153550.88,
+        "Transporter": 153961.91,
         "Utrikes transporter": 0.0
       },
       "2021": {
@@ -306,7 +306,7 @@
         "Industri (energi + processer)": 1574469.18,
         "Jordbruk": 239850.38,
         "Produktanvändning (inkl. lösningsmedel)": 5951.01,
-        "Transporter": 146457.77,
+        "Transporter": 146868.79,
         "Utrikes transporter": 0.0
       },
       "2022": {
@@ -317,7 +317,7 @@
         "Industri (energi + processer)": 1521821.14,
         "Jordbruk": 242091.96,
         "Produktanvändning (inkl. lösningsmedel)": 5698.65,
-        "Transporter": 137467.7,
+        "Transporter": 137878.75,
         "Utrikes transporter": 0.0
       },
       "2023": {
@@ -328,18 +328,18 @@
         "Industri (energi + processer)": 1492443.83,
         "Jordbruk": 237782.66,
         "Produktanvändning (inkl. lösningsmedel)": 5336.46,
-        "Transporter": 130655.6,
+        "Transporter": 131066.65,
         "Utrikes transporter": 82.73
       },
       "2024": {
         "Arbetsmaskiner": 36078.28,
         "Avfall (inkl.avlopp)": 6250.76,
         "Egen uppvärmning av bostäder och lokaler": 11113.22,
-        "El och fjärrvärme": 1446.58,
+        "El och fjärrvärme": 2008.36,
         "Industri (energi + processer)": 1469102.06,
         "Jordbruk": 235691.11,
         "Produktanvändning (inkl. lösningsmedel)": 6342.16,
-        "Transporter": 152763.6,
+        "Transporter": 153174.62,
         "Utrikes transporter": 71.55
       }
     }
@@ -355,7 +355,7 @@
         "Industri (energi + processer)": 525472.63,
         "Jordbruk": 165848.06,
         "Produktanvändning (inkl. lösningsmedel)": 13951.21,
-        "Transporter": 752772.96,
+        "Transporter": 753115.46,
         "Utrikes transporter": 0.0
       },
       "2000": {
@@ -366,7 +366,7 @@
         "Industri (energi + processer)": 583288.62,
         "Jordbruk": 155401.98,
         "Produktanvändning (inkl. lösningsmedel)": 38865.41,
-        "Transporter": 784616.35,
+        "Transporter": 784953.93,
         "Utrikes transporter": 0.0
       },
       "2005": {
@@ -377,7 +377,7 @@
         "Industri (energi + processer)": 523266.16,
         "Jordbruk": 145596.6,
         "Produktanvändning (inkl. lösningsmedel)": 52490.27,
-        "Transporter": 837725.7,
+        "Transporter": 838088.83,
         "Utrikes transporter": 0.0
       },
       "2010": {
@@ -388,7 +388,7 @@
         "Industri (energi + processer)": 579305.92,
         "Jordbruk": 137926.13,
         "Produktanvändning (inkl. lösningsmedel)": 52744.27,
-        "Transporter": 830127.76,
+        "Transporter": 830621.4,
         "Utrikes transporter": 0.0
       },
       "2015": {
@@ -399,7 +399,7 @@
         "Industri (energi + processer)": 280342.84,
         "Jordbruk": 145439.34,
         "Produktanvändning (inkl. lösningsmedel)": 43893.04,
-        "Transporter": 664966.22,
+        "Transporter": 665503.93,
         "Utrikes transporter": 0.0
       },
       "2020": {
@@ -410,7 +410,7 @@
         "Industri (energi + processer)": 224457.02,
         "Jordbruk": 141066.9,
         "Produktanvändning (inkl. lösningsmedel)": 35041.3,
-        "Transporter": 546793.1,
+        "Transporter": 547332.34,
         "Utrikes transporter": 0.0
       },
       "2021": {
@@ -421,7 +421,7 @@
         "Industri (energi + processer)": 245440.84,
         "Jordbruk": 140496.74,
         "Produktanvändning (inkl. lösningsmedel)": 28796.59,
-        "Transporter": 548938.67,
+        "Transporter": 549477.92,
         "Utrikes transporter": 0.0
       },
       "2022": {
@@ -432,7 +432,7 @@
         "Industri (energi + processer)": 233163.28,
         "Jordbruk": 142529.75,
         "Produktanvändning (inkl. lösningsmedel)": 27533.33,
-        "Transporter": 494289.8,
+        "Transporter": 494829.14,
         "Utrikes transporter": 0.0
       },
       "2023": {
@@ -443,18 +443,18 @@
         "Industri (energi + processer)": 208335.73,
         "Jordbruk": 142267.43,
         "Produktanvändning (inkl. lösningsmedel)": 25750.14,
-        "Transporter": 531982.91,
+        "Transporter": 532522.22,
         "Utrikes transporter": 0.0
       },
       "2024": {
         "Arbetsmaskiner": 147060.31,
         "Avfall (inkl.avlopp)": 28445.69,
         "Egen uppvärmning av bostäder och lokaler": 13847.01,
-        "El och fjärrvärme": 44360.48,
+        "El och fjärrvärme": 54095.1,
         "Industri (energi + processer)": 205192.11,
         "Jordbruk": 142296.18,
         "Produktanvändning (inkl. lösningsmedel)": 30330.27,
-        "Transporter": 668249.29,
+        "Transporter": 668788.47,
         "Utrikes transporter": 0.0
       }
     }
@@ -470,7 +470,7 @@
         "Industri (energi + processer)": 522776.6,
         "Jordbruk": 388850.47,
         "Produktanvändning (inkl. lösningsmedel)": 11526.76,
-        "Transporter": 763155.19,
+        "Transporter": 764258.59,
         "Utrikes transporter": 0.0
       },
       "2000": {
@@ -481,7 +481,7 @@
         "Industri (energi + processer)": 385668.54,
         "Jordbruk": 372425.39,
         "Produktanvändning (inkl. lösningsmedel)": 33944.52,
-        "Transporter": 802416.02,
+        "Transporter": 803504.3,
         "Utrikes transporter": 0.0
       },
       "2005": {
@@ -492,7 +492,7 @@
         "Industri (energi + processer)": 402863.68,
         "Jordbruk": 358945.77,
         "Produktanvändning (inkl. lösningsmedel)": 46058.45,
-        "Transporter": 857250.2,
+        "Transporter": 858420.52,
         "Utrikes transporter": 0.0
       },
       "2010": {
@@ -503,7 +503,7 @@
         "Industri (energi + processer)": 315018.87,
         "Jordbruk": 357199.18,
         "Produktanvändning (inkl. lösningsmedel)": 46489.84,
-        "Transporter": 857894.48,
+        "Transporter": 859485.71,
         "Utrikes transporter": 0.0
       },
       "2015": {
@@ -514,7 +514,7 @@
         "Industri (energi + processer)": 110462.74,
         "Jordbruk": 354650.26,
         "Produktanvändning (inkl. lösningsmedel)": 48628.68,
-        "Transporter": 777047.44,
+        "Transporter": 778780.3,
         "Utrikes transporter": 0.0
       },
       "2020": {
@@ -525,7 +525,7 @@
         "Industri (energi + processer)": 91542.11,
         "Jordbruk": 357216.28,
         "Produktanvändning (inkl. lösningsmedel)": 40610.81,
-        "Transporter": 670056.81,
+        "Transporter": 671794.58,
         "Utrikes transporter": 0.0
       },
       "2021": {
@@ -536,7 +536,7 @@
         "Industri (energi + processer)": 106710.09,
         "Jordbruk": 350778.47,
         "Produktanvändning (inkl. lösningsmedel)": 33571.27,
-        "Transporter": 676032.33,
+        "Transporter": 677770.16,
         "Utrikes transporter": 0.0
       },
       "2022": {
@@ -547,7 +547,7 @@
         "Industri (energi + processer)": 97072.54,
         "Jordbruk": 355009.31,
         "Produktanvändning (inkl. lösningsmedel)": 32380.24,
-        "Transporter": 603535.27,
+        "Transporter": 605273.23,
         "Utrikes transporter": 0.0
       },
       "2023": {
@@ -558,18 +558,18 @@
         "Industri (energi + processer)": 105305.53,
         "Jordbruk": 342949.49,
         "Produktanvändning (inkl. lösningsmedel)": 30507.31,
-        "Transporter": 591515.79,
+        "Transporter": 593253.68,
         "Utrikes transporter": 906.62
       },
       "2024": {
         "Arbetsmaskiner": 94051.43,
         "Avfall (inkl.avlopp)": 20701.86,
         "Egen uppvärmning av bostäder och lokaler": 39628.32,
-        "El och fjärrvärme": 95650.37,
+        "El och fjärrvärme": 110718.07,
         "Industri (energi + processer)": 102534.74,
         "Jordbruk": 349023.83,
         "Produktanvändning (inkl. lösningsmedel)": 36275.13,
-        "Transporter": 731647.52,
+        "Transporter": 733385.35,
         "Utrikes transporter": 784.04
       }
     }
@@ -585,7 +585,7 @@
         "Industri (energi + processer)": 27774.84,
         "Jordbruk": 126290.46,
         "Produktanvändning (inkl. lösningsmedel)": 5889.47,
-        "Transporter": 381223.98,
+        "Transporter": 378135.17,
         "Utrikes transporter": 0.0
       },
       "2000": {
@@ -596,7 +596,7 @@
         "Industri (energi + processer)": 29070.35,
         "Jordbruk": 123963.16,
         "Produktanvändning (inkl. lösningsmedel)": 17857.09,
-        "Transporter": 396782.96,
+        "Transporter": 393735.98,
         "Utrikes transporter": 0.0
       },
       "2005": {
@@ -607,7 +607,7 @@
         "Industri (energi + processer)": 17848.99,
         "Jordbruk": 119561.39,
         "Produktanvändning (inkl. lösningsmedel)": 24277.86,
-        "Transporter": 423327.35,
+        "Transporter": 420051.38,
         "Utrikes transporter": 0.0
       },
       "2010": {
@@ -618,7 +618,7 @@
         "Industri (energi + processer)": 14444.66,
         "Jordbruk": 110101.98,
         "Produktanvändning (inkl. lösningsmedel)": 24548.48,
-        "Transporter": 440310.01,
+        "Transporter": 435856.25,
         "Utrikes transporter": 0.0
       },
       "2015": {
@@ -629,7 +629,7 @@
         "Industri (energi + processer)": 11934.86,
         "Jordbruk": 108003.91,
         "Produktanvändning (inkl. lösningsmedel)": 19824.95,
-        "Transporter": 357015.18,
+        "Transporter": 352164.5,
         "Utrikes transporter": 0.0
       },
       "2020": {
@@ -640,7 +640,7 @@
         "Industri (energi + processer)": 8506.74,
         "Jordbruk": 105065.98,
         "Produktanvändning (inkl. lösningsmedel)": 15725.98,
-        "Transporter": 197887.06,
+        "Transporter": 193022.49,
         "Utrikes transporter": 0.0
       },
       "2021": {
@@ -651,7 +651,7 @@
         "Industri (energi + processer)": 9478.84,
         "Jordbruk": 104081.14,
         "Produktanvändning (inkl. lösningsmedel)": 12933.37,
-        "Transporter": 197810.07,
+        "Transporter": 192945.55,
         "Utrikes transporter": 0.0
       },
       "2022": {
@@ -662,7 +662,7 @@
         "Industri (energi + processer)": 10049.56,
         "Jordbruk": 105637.48,
         "Produktanvändning (inkl. lösningsmedel)": 12445.27,
-        "Transporter": 175953.27,
+        "Transporter": 171088.76,
         "Utrikes transporter": 0.0
       },
       "2023": {
@@ -673,18 +673,18 @@
         "Industri (energi + processer)": 7931.07,
         "Jordbruk": 102943.98,
         "Produktanvändning (inkl. lösningsmedel)": 11670.9,
-        "Transporter": 177047.22,
+        "Transporter": 172182.66,
         "Utrikes transporter": 216.67
       },
       "2024": {
         "Arbetsmaskiner": 111646.25,
         "Avfall (inkl.avlopp)": 18902.98,
         "Egen uppvärmning av bostäder och lokaler": 9692.03,
-        "El och fjärrvärme": 4920.75,
+        "El och fjärrvärme": 4935.72,
         "Industri (energi + processer)": 9584.65,
         "Jordbruk": 103575.47,
         "Produktanvändning (inkl. lösningsmedel)": 13882.8,
-        "Transporter": 218045.84,
+        "Transporter": 213181.29,
         "Utrikes transporter": 187.37
       }
     }
@@ -700,7 +700,7 @@
         "Industri (energi + processer)": 169513.4,
         "Jordbruk": 397851.3,
         "Produktanvändning (inkl. lösningsmedel)": 16938.11,
-        "Transporter": 846424.37,
+        "Transporter": 843010.05,
         "Utrikes transporter": 0.0
       },
       "2000": {
@@ -711,7 +711,7 @@
         "Industri (energi + processer)": 182197.99,
         "Jordbruk": 391560.87,
         "Produktanvändning (inkl. lösningsmedel)": 44183.23,
-        "Transporter": 888878.09,
+        "Transporter": 885509.92,
         "Utrikes transporter": 0.0
       },
       "2005": {
@@ -722,7 +722,7 @@
         "Industri (energi + processer)": 115786.61,
         "Jordbruk": 390312.51,
         "Produktanvändning (inkl. lösningsmedel)": 59192.23,
-        "Transporter": 955719.31,
+        "Transporter": 952098.01,
         "Utrikes transporter": 0.0
       },
       "2010": {
@@ -733,7 +733,7 @@
         "Industri (energi + processer)": 92980.08,
         "Jordbruk": 377344.45,
         "Produktanvändning (inkl. lösningsmedel)": 59407.19,
-        "Transporter": 946304.32,
+        "Transporter": 941381.28,
         "Utrikes transporter": 0.0
       },
       "2015": {
@@ -744,7 +744,7 @@
         "Industri (energi + processer)": 94047.52,
         "Jordbruk": 382997.32,
         "Produktanvändning (inkl. lösningsmedel)": 54280.07,
-        "Transporter": 854869.74,
+        "Transporter": 849508.02,
         "Utrikes transporter": 0.0
       },
       "2020": {
@@ -755,7 +755,7 @@
         "Industri (energi + processer)": 57035.19,
         "Jordbruk": 375808.39,
         "Produktanvändning (inkl. lösningsmedel)": 44542.88,
-        "Transporter": 729703.71,
+        "Transporter": 724326.58,
         "Utrikes transporter": 0.0
       },
       "2021": {
@@ -766,7 +766,7 @@
         "Industri (energi + processer)": 58407.45,
         "Jordbruk": 369820.52,
         "Produktanvändning (inkl. lösningsmedel)": 36740.82,
-        "Transporter": 726866.35,
+        "Transporter": 721489.29,
         "Utrikes transporter": 0.0
       },
       "2022": {
@@ -777,7 +777,7 @@
         "Industri (energi + processer)": 53358.49,
         "Jordbruk": 369982.42,
         "Produktanvändning (inkl. lösningsmedel)": 35402.39,
-        "Transporter": 653350.16,
+        "Transporter": 647973.16,
         "Utrikes transporter": 0.0
       },
       "2023": {
@@ -788,18 +788,18 @@
         "Industri (energi + processer)": 55621.22,
         "Jordbruk": 366265.07,
         "Produktanvändning (inkl. lösningsmedel)": 33282.77,
-        "Transporter": 645909.09,
+        "Transporter": 640532.03,
         "Utrikes transporter": 619.67
       },
       "2024": {
         "Arbetsmaskiner": 116802.2,
         "Avfall (inkl.avlopp)": 40995.87,
         "Egen uppvärmning av bostäder och lokaler": 22040.32,
-        "El och fjärrvärme": 113100.86,
+        "El och fjärrvärme": 161434.35,
         "Industri (energi + processer)": 53450.76,
         "Jordbruk": 363376.75,
         "Produktanvändning (inkl. lösningsmedel)": 39406.66,
-        "Transporter": 791268.28,
+        "Transporter": 785891.03,
         "Utrikes transporter": 535.89
       }
     }
@@ -815,7 +815,7 @@
         "Industri (energi + processer)": 321567.13,
         "Jordbruk": 483678.61,
         "Produktanvändning (inkl. lösningsmedel)": 11630.42,
-        "Transporter": 554736.09,
+        "Transporter": 557091.33,
         "Utrikes transporter": 0.0
       },
       "2000": {
@@ -826,7 +826,7 @@
         "Industri (energi + processer)": 510187.82,
         "Jordbruk": 490403.52,
         "Produktanvändning (inkl. lösningsmedel)": 32341.94,
-        "Transporter": 578356.78,
+        "Transporter": 580679.94,
         "Utrikes transporter": 0.0
       },
       "2005": {
@@ -837,7 +837,7 @@
         "Industri (energi + processer)": 500514.23,
         "Jordbruk": 496895.37,
         "Produktanvändning (inkl. lösningsmedel)": 43654.02,
-        "Transporter": 614420.86,
+        "Transporter": 616918.73,
         "Utrikes transporter": 0.0
       },
       "2010": {
@@ -848,7 +848,7 @@
         "Industri (energi + processer)": 438244.03,
         "Jordbruk": 514354.47,
         "Produktanvändning (inkl. lösningsmedel)": 43834.66,
-        "Transporter": 595274.57,
+        "Transporter": 598670.86,
         "Utrikes transporter": 0.0
       },
       "2015": {
@@ -859,7 +859,7 @@
         "Industri (energi + processer)": 342852.62,
         "Jordbruk": 524977.83,
         "Produktanvändning (inkl. lösningsmedel)": 36916.53,
-        "Transporter": 544336.17,
+        "Transporter": 548034.88,
         "Utrikes transporter": 0.0
       },
       "2020": {
@@ -870,7 +870,7 @@
         "Industri (energi + processer)": 58788.36,
         "Jordbruk": 517184.0,
         "Produktanvändning (inkl. lösningsmedel)": 29865.18,
-        "Transporter": 438718.34,
+        "Transporter": 442427.63,
         "Utrikes transporter": 0.0
       },
       "2021": {
@@ -881,7 +881,7 @@
         "Industri (energi + processer)": 56922.97,
         "Jordbruk": 504976.67,
         "Produktanvändning (inkl. lösningsmedel)": 24613.58,
-        "Transporter": 438637.98,
+        "Transporter": 442347.3,
         "Utrikes transporter": 0.0
       },
       "2022": {
@@ -892,7 +892,7 @@
         "Industri (energi + processer)": 51805.56,
         "Jordbruk": 513190.86,
         "Produktanvändning (inkl. lösningsmedel)": 23633.17,
-        "Transporter": 402085.68,
+        "Transporter": 405795.01,
         "Utrikes transporter": 0.0
       },
       "2023": {
@@ -903,18 +903,18 @@
         "Industri (energi + processer)": 53562.25,
         "Jordbruk": 508429.0,
         "Produktanvändning (inkl. lösningsmedel)": 22134.16,
-        "Transporter": 396247.72,
+        "Transporter": 399957.11,
         "Utrikes transporter": 217.11
       },
       "2024": {
         "Arbetsmaskiner": 98649.34,
         "Avfall (inkl.avlopp)": 30308.77,
         "Egen uppvärmning av bostäder och lokaler": 21542.32,
-        "El och fjärrvärme": 70423.15,
+        "El och fjärrvärme": 72590.56,
         "Industri (energi + processer)": 52417.86,
         "Jordbruk": 516415.52,
         "Produktanvändning (inkl. lösningsmedel)": 26156.77,
-        "Transporter": 487356.95,
+        "Transporter": 491066.28,
         "Utrikes transporter": 187.75
       }
     }
@@ -930,7 +930,7 @@
         "Industri (energi + processer)": 139873.71,
         "Jordbruk": 229428.24,
         "Produktanvändning (inkl. lösningsmedel)": 8703.31,
-        "Transporter": 503566.59,
+        "Transporter": 503309.36,
         "Utrikes transporter": 0.0
       },
       "2000": {
@@ -941,7 +941,7 @@
         "Industri (energi + processer)": 99867.01,
         "Jordbruk": 217818.97,
         "Produktanvändning (inkl. lösningsmedel)": 24124.13,
-        "Transporter": 524981.51,
+        "Transporter": 524727.68,
         "Utrikes transporter": 0.0
       },
       "2005": {
@@ -952,7 +952,7 @@
         "Industri (energi + processer)": 50410.84,
         "Jordbruk": 218107.04,
         "Produktanvändning (inkl. lösningsmedel)": 32359.39,
-        "Transporter": 563164.15,
+        "Transporter": 562891.29,
         "Utrikes transporter": 0.0
       },
       "2010": {
@@ -963,7 +963,7 @@
         "Industri (energi + processer)": 35533.41,
         "Jordbruk": 209168.04,
         "Produktanvändning (inkl. lösningsmedel)": 32375.03,
-        "Transporter": 560078.58,
+        "Transporter": 559707.75,
         "Utrikes transporter": 0.0
       },
       "2015": {
@@ -974,7 +974,7 @@
         "Industri (energi + processer)": 26640.29,
         "Jordbruk": 203790.86,
         "Produktanvändning (inkl. lösningsmedel)": 29833.07,
-        "Transporter": 489652.63,
+        "Transporter": 489248.7,
         "Utrikes transporter": 0.0
       },
       "2020": {
@@ -985,7 +985,7 @@
         "Industri (energi + processer)": 25969.79,
         "Jordbruk": 201585.53,
         "Produktanvändning (inkl. lösningsmedel)": 24639.88,
-        "Transporter": 405754.09,
+        "Transporter": 405348.96,
         "Utrikes transporter": 0.0
       },
       "2021": {
@@ -996,7 +996,7 @@
         "Industri (energi + processer)": 26995.1,
         "Jordbruk": 199608.89,
         "Produktanvändning (inkl. lösningsmedel)": 20315.56,
-        "Transporter": 406509.01,
+        "Transporter": 406103.92,
         "Utrikes transporter": 0.0
       },
       "2022": {
@@ -1007,7 +1007,7 @@
         "Industri (energi + processer)": 24635.72,
         "Jordbruk": 202327.58,
         "Produktanvändning (inkl. lösningsmedel)": 19575.71,
-        "Transporter": 366894.98,
+        "Transporter": 366489.91,
         "Utrikes transporter": 0.0
       },
       "2023": {
@@ -1018,18 +1018,18 @@
         "Industri (energi + processer)": 22996.65,
         "Jordbruk": 197016.17,
         "Produktanvändning (inkl. lösningsmedel)": 18362.16,
-        "Transporter": 359709.6,
+        "Transporter": 359304.51,
         "Utrikes transporter": 1178.72
       },
       "2024": {
         "Arbetsmaskiner": 62430.97,
         "Avfall (inkl.avlopp)": 26008.89,
         "Egen uppvärmning av bostäder och lokaler": 13292.22,
-        "El och fjärrvärme": 28828.91,
+        "El och fjärrvärme": 32713.96,
         "Industri (energi + processer)": 22668.22,
         "Jordbruk": 196650.28,
         "Produktanvändning (inkl. lösningsmedel)": 21663.58,
-        "Transporter": 444039.36,
+        "Transporter": 443634.23,
         "Utrikes transporter": 1019.35
       }
     }
@@ -1045,7 +1045,7 @@
         "Industri (energi + processer)": 1813489.27,
         "Jordbruk": 151828.07,
         "Produktanvändning (inkl. lösningsmedel)": 13588.11,
-        "Transporter": 634228.43,
+        "Transporter": 627808.76,
         "Utrikes transporter": 0.0
       },
       "2000": {
@@ -1056,7 +1056,7 @@
         "Industri (energi + processer)": 1978868.82,
         "Jordbruk": 125007.11,
         "Produktanvändning (inkl. lösningsmedel)": 35692.86,
-        "Transporter": 664301.47,
+        "Transporter": 657968.9,
         "Utrikes transporter": 0.0
       },
       "2005": {
@@ -1067,7 +1067,7 @@
         "Industri (energi + processer)": 2052826.97,
         "Jordbruk": 130496.24,
         "Produktanvändning (inkl. lösningsmedel)": 47985.66,
-        "Transporter": 710072.13,
+        "Transporter": 703263.61,
         "Utrikes transporter": 0.0
       },
       "2010": {
@@ -1078,7 +1078,7 @@
         "Industri (energi + processer)": 2378381.64,
         "Jordbruk": 119306.04,
         "Produktanvändning (inkl. lösningsmedel)": 48007.75,
-        "Transporter": 724242.65,
+        "Transporter": 714986.18,
         "Utrikes transporter": 0.0
       },
       "2015": {
@@ -1089,7 +1089,7 @@
         "Industri (energi + processer)": 1701946.38,
         "Jordbruk": 116635.42,
         "Produktanvändning (inkl. lösningsmedel)": 39187.79,
-        "Transporter": 673789.6,
+        "Transporter": 663708.41,
         "Utrikes transporter": 0.0
       },
       "2020": {
@@ -1100,7 +1100,7 @@
         "Industri (energi + processer)": 2132569.31,
         "Jordbruk": 110614.64,
         "Produktanvändning (inkl. lösningsmedel)": 30657.73,
-        "Transporter": 527498.5,
+        "Transporter": 517388.33,
         "Utrikes transporter": 0.0
       },
       "2021": {
@@ -1111,7 +1111,7 @@
         "Industri (energi + processer)": 2153977.55,
         "Jordbruk": 109740.4,
         "Produktanvändning (inkl. lösningsmedel)": 25230.3,
-        "Transporter": 523015.86,
+        "Transporter": 512905.79,
         "Utrikes transporter": 0.0
       },
       "2022": {
@@ -1122,7 +1122,7 @@
         "Industri (energi + processer)": 2462286.95,
         "Jordbruk": 110779.61,
         "Produktanvändning (inkl. lösningsmedel)": 24147.81,
-        "Transporter": 471808.44,
+        "Transporter": 461698.34,
         "Utrikes transporter": 0.0
       },
       "2023": {
@@ -1133,18 +1133,18 @@
         "Industri (energi + processer)": 2394818.04,
         "Jordbruk": 106237.93,
         "Produktanvändning (inkl. lösningsmedel)": 22695.34,
-        "Transporter": 507060.22,
+        "Transporter": 496950.09,
         "Utrikes transporter": 709.72
       },
       "2024": {
         "Arbetsmaskiner": 401358.39,
         "Avfall (inkl.avlopp)": 36658.18,
         "Egen uppvärmning av bostäder och lokaler": 11624.9,
-        "El och fjärrvärme": 1657565.79,
+        "El och fjärrvärme": 1292427.05,
         "Industri (energi + processer)": 2361260.88,
         "Jordbruk": 104833.23,
         "Produktanvändning (inkl. lösningsmedel)": 26760.14,
-        "Transporter": 650908.64,
+        "Transporter": 640798.51,
         "Utrikes transporter": 613.76
       }
     }
@@ -1160,7 +1160,7 @@
         "Industri (energi + processer)": 1881777.26,
         "Jordbruk": 1243605.34,
         "Produktanvändning (inkl. lösningsmedel)": 49010.65,
-        "Transporter": 2273317.01,
+        "Transporter": 2273267.4,
         "Utrikes transporter": 0.0
       },
       "2000": {
@@ -1171,7 +1171,7 @@
         "Industri (energi + processer)": 1693035.85,
         "Jordbruk": 1159775.38,
         "Produktanvändning (inkl. lösningsmedel)": 141662.17,
-        "Transporter": 2380081.83,
+        "Transporter": 2380032.33,
         "Utrikes transporter": 0.0
       },
       "2005": {
@@ -1182,7 +1182,7 @@
         "Industri (energi + processer)": 1143873.29,
         "Jordbruk": 1074917.35,
         "Produktanvändning (inkl. lösningsmedel)": 191738.16,
-        "Transporter": 2545885.97,
+        "Transporter": 2545833.18,
         "Utrikes transporter": 0.0
       },
       "2010": {
@@ -1193,7 +1193,7 @@
         "Industri (energi + processer)": 1096460.16,
         "Jordbruk": 1046510.6,
         "Produktanvändning (inkl. lösningsmedel)": 193063.69,
-        "Transporter": 2467068.82,
+        "Transporter": 2466997.5,
         "Utrikes transporter": 0.0
       },
       "2015": {
@@ -1204,7 +1204,7 @@
         "Industri (energi + processer)": 906077.66,
         "Jordbruk": 1062309.44,
         "Produktanvändning (inkl. lösningsmedel)": 199690.71,
-        "Transporter": 2219111.35,
+        "Transporter": 2219033.34,
         "Utrikes transporter": 0.0
       },
       "2020": {
@@ -1215,7 +1215,7 @@
         "Industri (energi + processer)": 824039.61,
         "Jordbruk": 1084877.22,
         "Produktanvändning (inkl. lösningsmedel)": 165974.28,
-        "Transporter": 1873051.78,
+        "Transporter": 1872973.69,
         "Utrikes transporter": 0.0
       },
       "2021": {
@@ -1226,7 +1226,7 @@
         "Industri (energi + processer)": 872124.56,
         "Jordbruk": 1072363.45,
         "Produktanvändning (inkl. lösningsmedel)": 136852.21,
-        "Transporter": 1870186.73,
+        "Transporter": 1870108.52,
         "Utrikes transporter": 0.0
       },
       "2022": {
@@ -1237,7 +1237,7 @@
         "Industri (energi + processer)": 779463.25,
         "Jordbruk": 1083536.39,
         "Produktanvändning (inkl. lösningsmedel)": 132121.55,
-        "Transporter": 1672960.73,
+        "Transporter": 1672882.64,
         "Utrikes transporter": 0.0
       },
       "2023": {
@@ -1248,18 +1248,18 @@
         "Industri (energi + processer)": 660012.39,
         "Jordbruk": 1034915.49,
         "Produktanvändning (inkl. lösningsmedel)": 124494.45,
-        "Transporter": 1653791.2,
+        "Transporter": 1653713.36,
         "Utrikes transporter": 13069.52
       },
       "2024": {
         "Arbetsmaskiner": 374193.14,
         "Avfall (inkl.avlopp)": 116886.97,
         "Egen uppvärmning av bostäder och lokaler": 122982.54,
-        "El och fjärrvärme": 469252.3,
+        "El och fjärrvärme": 484432.32,
         "Industri (energi + processer)": 648488.2,
         "Jordbruk": 1069230.06,
         "Produktanvändning (inkl. lösningsmedel)": 148757.22,
-        "Transporter": 2087351.6,
+        "Transporter": 2087273.38,
         "Utrikes transporter": 11302.48
       }
     }
@@ -1275,7 +1275,7 @@
         "Industri (energi + processer)": 513223.21,
         "Jordbruk": 180129.45,
         "Produktanvändning (inkl. lösningsmedel)": 66127.16,
-        "Transporter": 2876164.76,
+        "Transporter": 2883506.44,
         "Utrikes transporter": 0.0
       },
       "2000": {
@@ -1286,7 +1286,7 @@
         "Industri (energi + processer)": 477267.53,
         "Jordbruk": 164262.49,
         "Produktanvändning (inkl. lösningsmedel)": 222174.14,
-        "Transporter": 3002351.22,
+        "Transporter": 3009592.92,
         "Utrikes transporter": 0.0
       },
       "2005": {
@@ -1297,7 +1297,7 @@
         "Industri (energi + processer)": 347216.77,
         "Jordbruk": 143929.62,
         "Produktanvändning (inkl. lösningsmedel)": 290129.93,
-        "Transporter": 3249833.34,
+        "Transporter": 3257619.75,
         "Utrikes transporter": 0.0
       },
       "2010": {
@@ -1308,7 +1308,7 @@
         "Industri (energi + processer)": 307356.63,
         "Jordbruk": 138946.3,
         "Produktanvändning (inkl. lösningsmedel)": 293901.13,
-        "Transporter": 3013270.43,
+        "Transporter": 3023857.36,
         "Utrikes transporter": 0.0
       },
       "2015": {
@@ -1319,7 +1319,7 @@
         "Industri (energi + processer)": 227279.67,
         "Jordbruk": 139240.36,
         "Produktanvändning (inkl. lösningsmedel)": 336136.72,
-        "Transporter": 2605775.96,
+        "Transporter": 2617305.38,
         "Utrikes transporter": 0.0
       },
       "2020": {
@@ -1330,7 +1330,7 @@
         "Industri (energi + processer)": 140837.09,
         "Jordbruk": 135183.85,
         "Produktanvändning (inkl. lösningsmedel)": 280609.78,
-        "Transporter": 2155126.71,
+        "Transporter": 2166689.47,
         "Utrikes transporter": 0.0
       },
       "2021": {
@@ -1341,7 +1341,7 @@
         "Industri (energi + processer)": 148865.38,
         "Jordbruk": 135579.42,
         "Produktanvändning (inkl. lösningsmedel)": 230417.75,
-        "Transporter": 2152925.26,
+        "Transporter": 2164488.02,
         "Utrikes transporter": 0.0
       },
       "2022": {
@@ -1352,7 +1352,7 @@
         "Industri (energi + processer)": 137138.85,
         "Jordbruk": 134492.18,
         "Produktanvändning (inkl. lösningsmedel)": 222507.16,
-        "Transporter": 1909894.12,
+        "Transporter": 1921456.89,
         "Utrikes transporter": 0.0
       },
       "2023": {
@@ -1363,18 +1363,18 @@
         "Industri (energi + processer)": 126691.56,
         "Jordbruk": 129676.41,
         "Produktanvändning (inkl. lösningsmedel)": 209301.51,
-        "Transporter": 1902570.2,
+        "Transporter": 1914133.09,
         "Utrikes transporter": 125710.0
       },
       "2024": {
         "Arbetsmaskiner": 404121.71,
         "Avfall (inkl.avlopp)": 114368.73,
         "Egen uppvärmning av bostäder och lokaler": 60499.66,
-        "El och fjärrvärme": 632020.54,
+        "El och fjärrvärme": 688338.28,
         "Industri (energi + processer)": 125354.86,
         "Jordbruk": 127848.42,
         "Produktanvändning (inkl. lösningsmedel)": 252075.68,
-        "Transporter": 2092450.89,
+        "Transporter": 2104013.65,
         "Utrikes transporter": 108713.35
       }
     }
@@ -1390,7 +1390,7 @@
         "Industri (energi + processer)": 2427146.98,
         "Jordbruk": 307088.42,
         "Produktanvändning (inkl. lösningsmedel)": 11576.65,
-        "Transporter": 656072.12,
+        "Transporter": 658272.39,
         "Utrikes transporter": 0.0
       },
       "2000": {
@@ -1401,7 +1401,7 @@
         "Industri (energi + processer)": 2566995.38,
         "Jordbruk": 273780.69,
         "Produktanvändning (inkl. lösningsmedel)": 33942.43,
-        "Transporter": 685145.75,
+        "Transporter": 687316.19,
         "Utrikes transporter": 0.0
       },
       "2005": {
@@ -1412,7 +1412,7 @@
         "Industri (energi + processer)": 2663787.98,
         "Jordbruk": 245573.36,
         "Produktanvändning (inkl. lösningsmedel)": 46006.54,
-        "Transporter": 728818.08,
+        "Transporter": 731151.76,
         "Utrikes transporter": 0.0
       },
       "2010": {
@@ -1423,7 +1423,7 @@
         "Industri (energi + processer)": 2312143.19,
         "Jordbruk": 240344.18,
         "Produktanvändning (inkl. lösningsmedel)": 46386.36,
-        "Transporter": 715370.54,
+        "Transporter": 718543.48,
         "Utrikes transporter": 0.0
       },
       "2015": {
@@ -1434,7 +1434,7 @@
         "Industri (energi + processer)": 2309585.9,
         "Jordbruk": 250850.92,
         "Produktanvändning (inkl. lösningsmedel)": 43755.41,
-        "Transporter": 663955.93,
+        "Transporter": 667411.46,
         "Utrikes transporter": 0.0
       },
       "2020": {
@@ -1445,7 +1445,7 @@
         "Industri (energi + processer)": 1582936.49,
         "Jordbruk": 238848.81,
         "Produktanvändning (inkl. lösningsmedel)": 36025.23,
-        "Transporter": 544486.16,
+        "Transporter": 547951.55,
         "Utrikes transporter": 0.0
       },
       "2021": {
@@ -1456,7 +1456,7 @@
         "Industri (energi + processer)": 1712936.87,
         "Jordbruk": 243673.45,
         "Produktanvändning (inkl. lösningsmedel)": 29719.08,
-        "Transporter": 546359.21,
+        "Transporter": 549824.59,
         "Utrikes transporter": 0.0
       },
       "2022": {
@@ -1467,7 +1467,7 @@
         "Industri (energi + processer)": 1717496.45,
         "Jordbruk": 245890.36,
         "Produktanvändning (inkl. lösningsmedel)": 28542.06,
-        "Transporter": 497073.74,
+        "Transporter": 500539.1,
         "Utrikes transporter": 0.0
       },
       "2023": {
@@ -1478,18 +1478,18 @@
         "Industri (energi + processer)": 1665654.73,
         "Jordbruk": 239991.15,
         "Produktanvändning (inkl. lösningsmedel)": 26762.62,
-        "Transporter": 489716.4,
+        "Transporter": 493181.82,
         "Utrikes transporter": 10345.09
       },
       "2024": {
         "Arbetsmaskiner": 107623.94,
         "Avfall (inkl.avlopp)": 34196.4,
         "Egen uppvärmning av bostäder och lokaler": 14941.06,
-        "El och fjärrvärme": 22373.44,
+        "El och fjärrvärme": 20078.57,
         "Industri (energi + processer)": 1638886.7,
         "Jordbruk": 237023.6,
         "Produktanvändning (inkl. lösningsmedel)": 31644.93,
-        "Transporter": 595346.8,
+        "Transporter": 598812.19,
         "Utrikes transporter": 8946.36
       }
     }
@@ -1505,7 +1505,7 @@
         "Industri (energi + processer)": 144698.68,
         "Jordbruk": 338750.98,
         "Produktanvändning (inkl. lösningsmedel)": 12237.87,
-        "Transporter": 762185.3,
+        "Transporter": 761492.36,
         "Utrikes transporter": 0.0
       },
       "2000": {
@@ -1516,7 +1516,7 @@
         "Industri (energi + processer)": 159842.03,
         "Jordbruk": 308842.02,
         "Produktanvändning (inkl. lösningsmedel)": 37108.51,
-        "Transporter": 792384.81,
+        "Transporter": 791701.28,
         "Utrikes transporter": 0.0
       },
       "2005": {
@@ -1527,7 +1527,7 @@
         "Industri (energi + processer)": 144797.64,
         "Jordbruk": 271151.23,
         "Produktanvändning (inkl. lösningsmedel)": 50419.39,
-        "Transporter": 852994.59,
+        "Transporter": 852259.58,
         "Utrikes transporter": 0.0
       },
       "2010": {
@@ -1538,7 +1538,7 @@
         "Industri (energi + processer)": 102165.36,
         "Jordbruk": 275222.2,
         "Produktanvändning (inkl. lösningsmedel)": 50951.03,
-        "Transporter": 819940.26,
+        "Transporter": 818941.14,
         "Utrikes transporter": 0.0
       },
       "2015": {
@@ -1549,7 +1549,7 @@
         "Industri (energi + processer)": 65968.82,
         "Jordbruk": 274113.33,
         "Produktanvändning (inkl. lösningsmedel)": 54270.79,
-        "Transporter": 789243.7,
+        "Transporter": 788155.54,
         "Utrikes transporter": 0.0
       },
       "2020": {
@@ -1560,7 +1560,7 @@
         "Industri (energi + processer)": 46424.97,
         "Jordbruk": 280400.39,
         "Produktanvändning (inkl. lösningsmedel)": 46363.76,
-        "Transporter": 635986.5,
+        "Transporter": 634895.04,
         "Utrikes transporter": 0.0
       },
       "2021": {
@@ -1571,7 +1571,7 @@
         "Industri (energi + processer)": 46135.98,
         "Jordbruk": 269585.3,
         "Produktanvändning (inkl. lösningsmedel)": 38492.49,
-        "Transporter": 638385.22,
+        "Transporter": 637294.01,
         "Utrikes transporter": 0.0
       },
       "2022": {
@@ -1582,7 +1582,7 @@
         "Industri (energi + processer)": 48799.16,
         "Jordbruk": 274401.73,
         "Produktanvändning (inkl. lösningsmedel)": 37354.41,
-        "Transporter": 583438.09,
+        "Transporter": 582346.75,
         "Utrikes transporter": 0.0
       },
       "2023": {
@@ -1593,18 +1593,18 @@
         "Industri (energi + processer)": 47840.28,
         "Jordbruk": 264950.32,
         "Produktanvändning (inkl. lösningsmedel)": 35364.65,
-        "Transporter": 568861.39,
+        "Transporter": 567770.18,
         "Utrikes transporter": 1713.26
       },
       "2024": {
         "Arbetsmaskiner": 120110.82,
         "Avfall (inkl.avlopp)": 19600.85,
         "Egen uppvärmning av bostäder och lokaler": 16793.37,
-        "El och fjärrvärme": 178206.31,
+        "El och fjärrvärme": 199121.56,
         "Industri (energi + processer)": 47045.49,
         "Jordbruk": 260093.39,
         "Produktanvändning (inkl. lösningsmedel)": 42352.55,
-        "Transporter": 674338.48,
+        "Transporter": 673247.09,
         "Utrikes transporter": 1481.62
       }
     }
@@ -1620,7 +1620,7 @@
         "Industri (energi + processer)": 501846.0,
         "Jordbruk": 201988.92,
         "Produktanvändning (inkl. lösningsmedel)": 13482.17,
-        "Transporter": 614496.72,
+        "Transporter": 611422.77,
         "Utrikes transporter": 0.0
       },
       "2000": {
@@ -1631,7 +1631,7 @@
         "Industri (energi + processer)": 709473.79,
         "Jordbruk": 194679.52,
         "Produktanvändning (inkl. lösningsmedel)": 37892.78,
-        "Transporter": 643073.63,
+        "Transporter": 640041.35,
         "Utrikes transporter": 0.0
       },
       "2005": {
@@ -1642,7 +1642,7 @@
         "Industri (energi + processer)": 568322.36,
         "Jordbruk": 180400.57,
         "Produktanvändning (inkl. lösningsmedel)": 51195.18,
-        "Transporter": 687090.87,
+        "Transporter": 683830.76,
         "Utrikes transporter": 0.0
       },
       "2010": {
@@ -1653,7 +1653,7 @@
         "Industri (energi + processer)": 304273.16,
         "Jordbruk": 174568.49,
         "Produktanvändning (inkl. lösningsmedel)": 51456.82,
-        "Transporter": 700982.68,
+        "Transporter": 696550.51,
         "Utrikes transporter": 0.0
       },
       "2015": {
@@ -1664,7 +1664,7 @@
         "Industri (energi + processer)": 204110.87,
         "Jordbruk": 172775.01,
         "Produktanvändning (inkl. lösningsmedel)": 42915.79,
-        "Transporter": 618357.44,
+        "Transporter": 613530.15,
         "Utrikes transporter": 0.0
       },
       "2020": {
@@ -1675,7 +1675,7 @@
         "Industri (energi + processer)": 186521.97,
         "Jordbruk": 177453.1,
         "Produktanvändning (inkl. lösningsmedel)": 34390.7,
-        "Transporter": 502370.9,
+        "Transporter": 497529.85,
         "Utrikes transporter": 0.0
       },
       "2021": {
@@ -1686,7 +1686,7 @@
         "Industri (energi + processer)": 193348.09,
         "Jordbruk": 166988.52,
         "Produktanvändning (inkl. lösningsmedel)": 28252.54,
-        "Transporter": 506694.56,
+        "Transporter": 501853.5,
         "Utrikes transporter": 0.0
       },
       "2022": {
@@ -1697,7 +1697,7 @@
         "Industri (energi + processer)": 165223.17,
         "Jordbruk": 169787.94,
         "Produktanvändning (inkl. lösningsmedel)": 27150.16,
-        "Transporter": 451406.94,
+        "Transporter": 446565.95,
         "Utrikes transporter": 0.0
       },
       "2023": {
@@ -1708,18 +1708,18 @@
         "Industri (energi + processer)": 178005.15,
         "Jordbruk": 170101.55,
         "Produktanvändning (inkl. lösningsmedel)": 25502.1,
-        "Transporter": 448511.69,
+        "Transporter": 443670.7,
         "Utrikes transporter": 170.62
       },
       "2024": {
         "Arbetsmaskiner": 138835.87,
         "Avfall (inkl.avlopp)": 32242.65,
         "Egen uppvärmning av bostäder och lokaler": 22417.04,
-        "El och fjärrvärme": 88341.38,
+        "El och fjärrvärme": 93026.86,
         "Industri (energi + processer)": 175620.07,
         "Jordbruk": 168499.79,
         "Produktanvändning (inkl. lösningsmedel)": 30090.82,
-        "Transporter": 563261.37,
+        "Transporter": 558420.22,
         "Utrikes transporter": 147.55
       }
     }
@@ -1735,7 +1735,7 @@
         "Industri (energi + processer)": 411961.72,
         "Jordbruk": 202535.59,
         "Produktanvändning (inkl. lösningsmedel)": 11411.11,
-        "Transporter": 558897.1,
+        "Transporter": 557932.14,
         "Utrikes transporter": 0.0
       },
       "2000": {
@@ -1746,7 +1746,7 @@
         "Industri (energi + processer)": 374897.0,
         "Jordbruk": 179004.45,
         "Produktanvändning (inkl. lösningsmedel)": 33059.67,
-        "Transporter": 587641.55,
+        "Transporter": 586689.7,
         "Utrikes transporter": 0.0
       },
       "2005": {
@@ -1757,7 +1757,7 @@
         "Industri (energi + processer)": 330469.02,
         "Jordbruk": 178173.86,
         "Produktanvändning (inkl. lösningsmedel)": 44749.1,
-        "Transporter": 630712.08,
+        "Transporter": 629688.69,
         "Utrikes transporter": 0.0
       },
       "2010": {
@@ -1768,7 +1768,7 @@
         "Industri (energi + processer)": 326021.36,
         "Jordbruk": 172891.02,
         "Produktanvändning (inkl. lösningsmedel)": 45057.41,
-        "Transporter": 630822.77,
+        "Transporter": 629431.53,
         "Utrikes transporter": 0.0
       },
       "2015": {
@@ -1779,7 +1779,7 @@
         "Industri (energi + processer)": 346628.55,
         "Jordbruk": 166685.05,
         "Produktanvändning (inkl. lösningsmedel)": 40758.33,
-        "Transporter": 635671.68,
+        "Transporter": 634156.39,
         "Utrikes transporter": 0.0
       },
       "2020": {
@@ -1790,7 +1790,7 @@
         "Industri (energi + processer)": 338127.91,
         "Jordbruk": 158393.89,
         "Produktanvändning (inkl. lösningsmedel)": 32971.78,
-        "Transporter": 486271.82,
+        "Transporter": 484752.24,
         "Utrikes transporter": 0.0
       },
       "2021": {
@@ -1801,7 +1801,7 @@
         "Industri (energi + processer)": 355895.09,
         "Jordbruk": 152094.38,
         "Produktanvändning (inkl. lösningsmedel)": 27117.58,
-        "Transporter": 487201.82,
+        "Transporter": 485682.24,
         "Utrikes transporter": 0.0
       },
       "2022": {
@@ -1812,7 +1812,7 @@
         "Industri (energi + processer)": 310170.94,
         "Jordbruk": 152496.41,
         "Produktanvändning (inkl. lösningsmedel)": 26141.77,
-        "Transporter": 441163.51,
+        "Transporter": 439643.93,
         "Utrikes transporter": 0.0
       },
       "2023": {
@@ -1823,18 +1823,18 @@
         "Industri (energi + processer)": 323352.45,
         "Jordbruk": 151640.84,
         "Produktanvändning (inkl. lösningsmedel)": 24749.16,
-        "Transporter": 457356.09,
+        "Transporter": 455836.54,
         "Utrikes transporter": 520.41
       },
       "2024": {
         "Arbetsmaskiner": 176611.67,
         "Avfall (inkl.avlopp)": 20812.17,
         "Egen uppvärmning av bostäder och lokaler": 14024.37,
-        "El och fjärrvärme": 105351.36,
+        "El och fjärrvärme": 104604.71,
         "Industri (energi + processer)": 319755.48,
         "Jordbruk": 149096.05,
         "Produktanvändning (inkl. lösningsmedel)": 29568.01,
-        "Transporter": 535920.0,
+        "Transporter": 534400.32,
         "Utrikes transporter": 450.05
       }
     }
@@ -1850,7 +1850,7 @@
         "Industri (energi + processer)": 1595396.65,
         "Jordbruk": 121549.13,
         "Produktanvändning (inkl. lösningsmedel)": 12490.41,
-        "Transporter": 538740.82,
+        "Transporter": 535229.93,
         "Utrikes transporter": 0.0
       },
       "2000": {
@@ -1861,7 +1861,7 @@
         "Industri (energi + processer)": 1217202.75,
         "Jordbruk": 110356.83,
         "Produktanvändning (inkl. lösningsmedel)": 35077.6,
-        "Transporter": 567614.07,
+        "Transporter": 564150.74,
         "Utrikes transporter": 0.0
       },
       "2005": {
@@ -1872,7 +1872,7 @@
         "Industri (energi + processer)": 1024674.99,
         "Jordbruk": 106352.25,
         "Produktanvändning (inkl. lösningsmedel)": 47371.57,
-        "Transporter": 613915.18,
+        "Transporter": 610191.57,
         "Utrikes transporter": 0.0
       },
       "2010": {
@@ -1883,7 +1883,7 @@
         "Industri (energi + processer)": 702797.64,
         "Jordbruk": 101839.87,
         "Produktanvändning (inkl. lösningsmedel)": 47594.36,
-        "Transporter": 621382.41,
+        "Transporter": 616320.02,
         "Utrikes transporter": 0.0
       },
       "2015": {
@@ -1894,7 +1894,7 @@
         "Industri (energi + processer)": 492401.16,
         "Jordbruk": 94509.02,
         "Produktanvändning (inkl. lösningsmedel)": 37895.95,
-        "Transporter": 540703.35,
+        "Transporter": 535189.79,
         "Utrikes transporter": 0.0
       },
       "2020": {
@@ -1905,7 +1905,7 @@
         "Industri (energi + processer)": 547387.47,
         "Jordbruk": 89235.13,
         "Produktanvändning (inkl. lösningsmedel)": 29703.06,
-        "Transporter": 412896.21,
+        "Transporter": 407366.86,
         "Utrikes transporter": 0.0
       },
       "2021": {
@@ -1916,7 +1916,7 @@
         "Industri (energi + processer)": 540557.04,
         "Jordbruk": 85253.96,
         "Produktanvändning (inkl. lösningsmedel)": 24319.59,
-        "Transporter": 414244.06,
+        "Transporter": 408714.83,
         "Utrikes transporter": 0.0
       },
       "2022": {
@@ -1927,7 +1927,7 @@
         "Industri (energi + processer)": 555997.51,
         "Jordbruk": 89572.21,
         "Produktanvändning (inkl. lösningsmedel)": 23234.67,
-        "Transporter": 371944.95,
+        "Transporter": 366415.75,
         "Utrikes transporter": 0.0
       },
       "2023": {
@@ -1938,18 +1938,18 @@
         "Industri (energi + processer)": 553435.1,
         "Jordbruk": 91137.45,
         "Produktanvändning (inkl. lösningsmedel)": 21747.82,
-        "Transporter": 366133.34,
+        "Transporter": 360604.02,
         "Utrikes transporter": 161.46
       },
       "2024": {
         "Arbetsmaskiner": 125453.34,
         "Avfall (inkl.avlopp)": 20946.23,
         "Egen uppvärmning av bostäder och lokaler": 15100.16,
-        "El och fjärrvärme": 160226.16,
+        "El och fjärrvärme": 135258.93,
         "Industri (energi + processer)": 538188.99,
         "Jordbruk": 90753.11,
         "Produktanvändning (inkl. lösningsmedel)": 25648.8,
-        "Transporter": 448925.22,
+        "Transporter": 443395.93,
         "Utrikes transporter": 139.63
       }
     }
@@ -1965,7 +1965,7 @@
         "Industri (energi + processer)": 693882.48,
         "Jordbruk": 179916.45,
         "Produktanvändning (inkl. lösningsmedel)": 11896.03,
-        "Transporter": 531050.01,
+        "Transporter": 530872.14,
         "Utrikes transporter": 0.0
       },
       "2000": {
@@ -1976,7 +1976,7 @@
         "Industri (energi + processer)": 683985.67,
         "Jordbruk": 168670.98,
         "Produktanvändning (inkl. lösningsmedel)": 32841.15,
-        "Transporter": 554689.47,
+        "Transporter": 554513.98,
         "Utrikes transporter": 0.0
       },
       "2005": {
@@ -1987,7 +1987,7 @@
         "Industri (energi + processer)": 717280.5,
         "Jordbruk": 145864.28,
         "Produktanvändning (inkl. lösningsmedel)": 44301.13,
-        "Transporter": 595759.29,
+        "Transporter": 595570.64,
         "Utrikes transporter": 0.0
       },
       "2010": {
@@ -1998,7 +1998,7 @@
         "Industri (energi + processer)": 573259.4,
         "Jordbruk": 137379.47,
         "Produktanvändning (inkl. lösningsmedel)": 44461.87,
-        "Transporter": 572332.53,
+        "Transporter": 572076.22,
         "Utrikes transporter": 0.0
       },
       "2015": {
@@ -2009,7 +2009,7 @@
         "Industri (energi + processer)": 299012.91,
         "Jordbruk": 144774.08,
         "Produktanvändning (inkl. lösningsmedel)": 40860.65,
-        "Transporter": 495687.34,
+        "Transporter": 495408.21,
         "Utrikes transporter": 0.0
       },
       "2020": {
@@ -2020,7 +2020,7 @@
         "Industri (energi + processer)": 224018.36,
         "Jordbruk": 153517.39,
         "Produktanvändning (inkl. lösningsmedel)": 33505.26,
-        "Transporter": 430746.24,
+        "Transporter": 430466.27,
         "Utrikes transporter": 0.0
       },
       "2021": {
@@ -2031,7 +2031,7 @@
         "Industri (energi + processer)": 244331.17,
         "Jordbruk": 147801.4,
         "Produktanvändning (inkl. lösningsmedel)": 27620.04,
-        "Transporter": 432505.83,
+        "Transporter": 432225.86,
         "Utrikes transporter": 0.0
       },
       "2022": {
@@ -2042,7 +2042,7 @@
         "Industri (energi + processer)": 221060.13,
         "Jordbruk": 151739.23,
         "Produktanvändning (inkl. lösningsmedel)": 26621.51,
-        "Transporter": 387886.15,
+        "Transporter": 387606.18,
         "Utrikes transporter": 0.0
       },
       "2023": {
@@ -2053,18 +2053,18 @@
         "Industri (energi + processer)": 185784.53,
         "Jordbruk": 148283.35,
         "Produktanvändning (inkl. lösningsmedel)": 25008.91,
-        "Transporter": 384135.87,
+        "Transporter": 383855.91,
         "Utrikes transporter": 496.69
       },
       "2024": {
         "Arbetsmaskiner": 89608.61,
         "Avfall (inkl.avlopp)": 26614.22,
         "Egen uppvärmning av bostäder och lokaler": 10400.94,
-        "El och fjärrvärme": 183140.48,
+        "El och fjärrvärme": 208009.81,
         "Industri (energi + processer)": 182261.34,
         "Jordbruk": 142200.85,
         "Produktanvändning (inkl. lösningsmedel)": 29645.33,
-        "Transporter": 478386.65,
+        "Transporter": 478106.63,
         "Utrikes transporter": 429.54
       }
     }
@@ -2080,7 +2080,7 @@
         "Industri (energi + processer)": 4334778.96,
         "Jordbruk": 1263937.44,
         "Produktanvändning (inkl. lösningsmedel)": 64761.37,
-        "Transporter": 3019148.04,
+        "Transporter": 3027470.58,
         "Utrikes transporter": 0.0
       },
       "2000": {
@@ -2091,7 +2091,7 @@
         "Industri (energi + processer)": 4858417.33,
         "Jordbruk": 1182071.02,
         "Produktanvändning (inkl. lösningsmedel)": 272535.9,
-        "Transporter": 3163430.7,
+        "Transporter": 3171639.74,
         "Utrikes transporter": 0.0
       },
       "2005": {
@@ -2102,7 +2102,7 @@
         "Industri (energi + processer)": 4835032.38,
         "Jordbruk": 1082818.13,
         "Produktanvändning (inkl. lösningsmedel)": 310575.87,
-        "Transporter": 3389416.05,
+        "Transporter": 3398242.9,
         "Utrikes transporter": 0.0
       },
       "2010": {
@@ -2113,7 +2113,7 @@
         "Industri (energi + processer)": 4930951.16,
         "Jordbruk": 1052573.58,
         "Produktanvändning (inkl. lösningsmedel)": 270776.48,
-        "Transporter": 3292443.09,
+        "Transporter": 3304444.06,
         "Utrikes transporter": 0.0
       },
       "2015": {
@@ -2124,7 +2124,7 @@
         "Industri (energi + processer)": 4622389.8,
         "Jordbruk": 1075407.01,
         "Produktanvändning (inkl. lösningsmedel)": 262329.37,
-        "Transporter": 2986756.48,
+        "Transporter": 2999826.55,
         "Utrikes transporter": 0.0
       },
       "2020": {
@@ -2135,7 +2135,7 @@
         "Industri (energi + processer)": 3817997.34,
         "Jordbruk": 1111312.0,
         "Produktanvändning (inkl. lösningsmedel)": 214289.18,
-        "Transporter": 2671795.94,
+        "Transporter": 2684903.05,
         "Utrikes transporter": 0.0
       },
       "2021": {
@@ -2146,7 +2146,7 @@
         "Industri (energi + processer)": 4659240.4,
         "Jordbruk": 1075976.59,
         "Produktanvändning (inkl. lösningsmedel)": 172892.9,
-        "Transporter": 2649993.72,
+        "Transporter": 2663101.08,
         "Utrikes transporter": 0.0
       },
       "2022": {
@@ -2157,7 +2157,7 @@
         "Industri (energi + processer)": 4353568.72,
         "Jordbruk": 1089422.52,
         "Produktanvändning (inkl. lösningsmedel)": 165061.13,
-        "Transporter": 2378526.37,
+        "Transporter": 2391633.98,
         "Utrikes transporter": 0.0
       },
       "2023": {
@@ -2168,18 +2168,18 @@
         "Industri (energi + processer)": 4261257.77,
         "Jordbruk": 1095209.32,
         "Produktanvändning (inkl. lösningsmedel)": 155595.45,
-        "Transporter": 2353952.36,
+        "Transporter": 2367060.22,
         "Utrikes transporter": 26305.84
       },
       "2024": {
         "Arbetsmaskiner": 539669.3,
         "Avfall (inkl.avlopp)": 129281.75,
         "Egen uppvärmning av bostäder och lokaler": 110207.15,
-        "El och fjärrvärme": 618510.37,
+        "El och fjärrvärme": 708056.11,
         "Industri (energi + processer)": 4196500.82,
         "Jordbruk": 1053635.98,
         "Produktanvändning (inkl. lösningsmedel)": 188058.88,
-        "Transporter": 2821327.2,
+        "Transporter": 2834434.56,
         "Utrikes transporter": 22749.16
       }
     }
@@ -2195,7 +2195,7 @@
         "Industri (energi + processer)": 410688.15,
         "Jordbruk": 229991.39,
         "Produktanvändning (inkl. lösningsmedel)": 13115.18,
-        "Transporter": 643430.41,
+        "Transporter": 641753.45,
         "Utrikes transporter": 0.0
       },
       "2000": {
@@ -2206,7 +2206,7 @@
         "Industri (energi + processer)": 287812.58,
         "Jordbruk": 221314.1,
         "Produktanvändning (inkl. lösningsmedel)": 36337.32,
-        "Transporter": 672184.5,
+        "Transporter": 670530.23,
         "Utrikes transporter": 0.0
       },
       "2005": {
@@ -2217,7 +2217,7 @@
         "Industri (energi + processer)": 221782.75,
         "Jordbruk": 200111.46,
         "Produktanvändning (inkl. lösningsmedel)": 49042.75,
-        "Transporter": 720529.91,
+        "Transporter": 718751.3,
         "Utrikes transporter": 0.0
       },
       "2010": {
@@ -2228,7 +2228,7 @@
         "Industri (energi + processer)": 149993.64,
         "Jordbruk": 192077.01,
         "Produktanvändning (inkl. lösningsmedel)": 49247.44,
-        "Transporter": 698946.23,
+        "Transporter": 696528.39,
         "Utrikes transporter": 0.0
       },
       "2015": {
@@ -2239,7 +2239,7 @@
         "Industri (energi + processer)": 150002.41,
         "Jordbruk": 195583.39,
         "Produktanvändning (inkl. lösningsmedel)": 45072.09,
-        "Transporter": 599746.71,
+        "Transporter": 597113.32,
         "Utrikes transporter": 0.0
       },
       "2020": {
@@ -2250,7 +2250,7 @@
         "Industri (energi + processer)": 129486.99,
         "Jordbruk": 202028.98,
         "Produktanvändning (inkl. lösningsmedel)": 36976.44,
-        "Transporter": 505077.61,
+        "Transporter": 502436.67,
         "Utrikes transporter": 0.0
       },
       "2021": {
@@ -2261,7 +2261,7 @@
         "Industri (energi + processer)": 147187.39,
         "Jordbruk": 194791.37,
         "Produktanvändning (inkl. lösningsmedel)": 30406.25,
-        "Transporter": 506752.89,
+        "Transporter": 504111.97,
         "Utrikes transporter": 0.0
       },
       "2022": {
@@ -2272,7 +2272,7 @@
         "Industri (energi + processer)": 139404.47,
         "Jordbruk": 194837.64,
         "Produktanvändning (inkl. lösningsmedel)": 29219.5,
-        "Transporter": 454512.47,
+        "Transporter": 451871.62,
         "Utrikes transporter": 0.0
       },
       "2023": {
@@ -2283,18 +2283,18 @@
         "Industri (energi + processer)": 119774.8,
         "Jordbruk": 188793.32,
         "Produktanvändning (inkl. lösningsmedel)": 27473.49,
-        "Transporter": 449031.05,
+        "Transporter": 446390.14,
         "Utrikes transporter": 1341.4
       },
       "2024": {
         "Arbetsmaskiner": 109835.62,
         "Avfall (inkl.avlopp)": 142205.69,
         "Egen uppvärmning av bostäder och lokaler": 15439.07,
-        "El och fjärrvärme": 67000.92,
+        "El och fjärrvärme": 76977.69,
         "Industri (energi + processer)": 118323.84,
         "Jordbruk": 192213.49,
         "Produktanvändning (inkl. lösningsmedel)": 32555.68,
-        "Transporter": 558401.59,
+        "Transporter": 555760.65,
         "Utrikes transporter": 1160.03
       }
     }
@@ -2310,7 +2310,7 @@
         "Industri (energi + processer)": 331550.01,
         "Jordbruk": 489225.51,
         "Produktanvändning (inkl. lösningsmedel)": 18530.61,
-        "Transporter": 991122.38,
+        "Transporter": 992929.19,
         "Utrikes transporter": 0.0
       },
       "2000": {
@@ -2321,7 +2321,7 @@
         "Industri (energi + processer)": 420506.96,
         "Jordbruk": 480118.0,
         "Produktanvändning (inkl. lösningsmedel)": 53705.14,
-        "Transporter": 1034103.86,
+        "Transporter": 1035886.18,
         "Utrikes transporter": 0.0
       },
       "2005": {
@@ -2332,7 +2332,7 @@
         "Industri (energi + processer)": 301160.07,
         "Jordbruk": 462432.94,
         "Produktanvändning (inkl. lösningsmedel)": 72724.85,
-        "Transporter": 1100334.06,
+        "Transporter": 1102250.15,
         "Utrikes transporter": 0.0
       },
       "2010": {
@@ -2343,7 +2343,7 @@
         "Industri (energi + processer)": 234195.42,
         "Jordbruk": 468218.8,
         "Produktanvändning (inkl. lösningsmedel)": 73264.11,
-        "Transporter": 1065905.3,
+        "Transporter": 1068510.77,
         "Utrikes transporter": 0.0
       },
       "2015": {
@@ -2354,7 +2354,7 @@
         "Industri (energi + processer)": 151707.4,
         "Jordbruk": 474869.32,
         "Produktanvändning (inkl. lösningsmedel)": 68678.23,
-        "Transporter": 895226.68,
+        "Transporter": 898064.11,
         "Utrikes transporter": 0.0
       },
       "2020": {
@@ -2365,7 +2365,7 @@
         "Industri (energi + processer)": 113752.42,
         "Jordbruk": 484349.46,
         "Produktanvändning (inkl. lösningsmedel)": 56218.76,
-        "Transporter": 760522.99,
+        "Transporter": 763368.53,
         "Utrikes transporter": 0.0
       },
       "2021": {
@@ -2376,7 +2376,7 @@
         "Industri (energi + processer)": 122404.71,
         "Jordbruk": 471814.84,
         "Produktanvändning (inkl. lösningsmedel)": 46260.21,
-        "Transporter": 763838.96,
+        "Transporter": 766684.51,
         "Utrikes transporter": 0.0
       },
       "2022": {
@@ -2387,7 +2387,7 @@
         "Industri (energi + processer)": 115879.43,
         "Jordbruk": 480862.42,
         "Produktanvändning (inkl. lösningsmedel)": 44521.5,
-        "Transporter": 692318.8,
+        "Transporter": 695164.41,
         "Utrikes transporter": 0.0
       },
       "2023": {
@@ -2398,18 +2398,18 @@
         "Industri (energi + processer)": 112503.33,
         "Jordbruk": 463302.43,
         "Produktanvändning (inkl. lösningsmedel)": 41819.57,
-        "Transporter": 682837.61,
+        "Transporter": 685683.28,
         "Utrikes transporter": 1649.85
       },
       "2024": {
         "Arbetsmaskiner": 147027.49,
         "Avfall (inkl.avlopp)": 27813.39,
         "Egen uppvärmning av bostäder och lokaler": 22051.25,
-        "El och fjärrvärme": 522501.46,
+        "El och fjärrvärme": 568272.39,
         "Industri (energi + processer)": 109132.26,
         "Jordbruk": 467416.55,
         "Produktanvändning (inkl. lösningsmedel)": 49615.64,
-        "Transporter": 838848.39,
+        "Transporter": 841693.88,
         "Utrikes transporter": 1426.78
       }
     }

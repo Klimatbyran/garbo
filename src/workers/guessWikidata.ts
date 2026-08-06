@@ -1,34 +1,44 @@
 import { EntityId, SearchResult } from 'wikibase-sdk'
+import type { SearchEntitiesOptions } from 'wikibase-sdk/dist/src/queries/search_entities'
 import { ask } from '../lib/openai'
 import { zodResponseFormat } from 'openai/helpers/zod'
-import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import wikidata, { Wikidata } from '../prompts/wikidata'
-import discord from '../discord'
 import apiConfig from '../config/api'
 import { ChatCompletionMessageParam } from 'openai/resources'
 import { QUEUE_NAMES } from '../queues'
 import { getWikidataEntities, searchCompany } from '@/lib/wikidata/read'
+import { apiFetch } from '../lib/api'
+import {
+  companyMutationPath,
+  pipelineCompanyReadPath,
+} from '../lib/pipelineCompanyPath'
+import {
+  findCompanyByWikidataId,
+  resolveInternalCompanyId,
+} from '../lib/pipelineCompanyResolve'
+import type { CompanyLinkCandidate } from '../lib/companyLinkResolve'
+import { preferRicherDiacriticCompanyName } from '../lib/companyLinkResolve'
+import { LEGAL_ENTITY_SUFFIXES } from '../lib/companyLegalEntitySuffixes'
+import { syncCanonicalReportRunCompanyId } from '../lib/pipelineRunCompanyId'
+import { buildEarlyRegistryPayload } from './saveToAPI.utils'
+import { registryService } from '../api/services/registryService'
 
-export class GuessWikidataJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+export class GuessWikidataJob extends PipelineJob {
+  declare data: PipelineJob['data'] & {
     companyName: string
+    companyId: string
     overrideWikidataId: EntityId
     wikidata?: Wikidata
+    /** Optional `wbsearchentities` language (e.g. `sv` for Swedish listings). Defaults to `searchCompany`'s `en`. */
+    wikidataSearchLanguage?: SearchEntitiesOptions['language']
+    sourceUrl?: string
+    pdfCache?: { publicUrl?: string; sha256?: string }
+    documentReportYear?: string | number
   }
 }
 
-const insignificantWords = new Set([
-  'ab',
-  'the',
-  'and',
-  'inc',
-  'co',
-  'publ',
-  '(publ)',
-  '(ab)',
-  'aktiebolag',
-  'aktiebolaget',
-])
+const insignificantWords = LEGAL_ENTITY_SUFFIXES
 
 async function handleOverrideWikidataId(
   job: GuessWikidataJob,
@@ -85,40 +95,349 @@ async function handleOverrideWikidataId(
     `Wikidata override for ${companyName} - please verify`
   )
 
-  const buttonRow = discord.createEditWikidataButtonRow(job)
-
   await job.sendMessage({
     content: `Override Wikidata ID provided. Please verify this is correct:
 \`\`\`md
 ${JSON.stringify(wikidataForApproval, null, 2)}
 \`\`\``,
-    components: [buttonRow],
   })
 
   await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
   return null
 }
 
-const guessWikidata = new DiscordWorker<GuessWikidataJob>(
+async function loadCompanyLinkCandidate(
+  companyId: string
+): Promise<CompanyLinkCandidate> {
+  const company = (await apiFetch(pipelineCompanyReadPath(companyId)).catch(
+    () => null
+  )) as { id?: string; name?: string; wikidataId?: string | null } | null
+
+  const resolvedId = company?.id?.trim()
+    ? company.id.trim()
+    : await resolveInternalCompanyId(companyId)
+
+  return {
+    id: resolvedId,
+    name: company?.name ?? resolvedId,
+    wikidataId: company?.wikidataId ?? null,
+  }
+}
+
+/**
+ * When Wikidata is already linked to a different company, ask staff to confirm
+ * the company id before persisting. Returns false when waiting on approval.
+ */
+async function requestCompanyLinkIfWikidataConflict(
+  job: GuessWikidataJob,
+  companyName: string,
+  wikidata: Wikidata,
+  options?: { source?: string; comment?: string }
+): Promise<boolean> {
+  if (job.data.approval?.type === 'companyLink' && !job.isDataApproved()) {
+    job.log('Waiting for company link approval before Wikidata persist')
+    await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+    return false
+  }
+
+  const pipelineCompanyId = job.data.companyId
+  if (!pipelineCompanyId) {
+    throw new Error('Missing companyId on guessWikidata job')
+  }
+
+  const resolvedPipelineCompanyId =
+    await resolveInternalCompanyId(pipelineCompanyId)
+
+  const wikidataOwner = await findCompanyByWikidataId(wikidata.node)
+  if (!wikidataOwner || wikidataOwner.id === resolvedPipelineCompanyId) {
+    return true
+  }
+
+  if (job.data.autoApprove) {
+    job.log(
+      `autoApprove: relinking pipeline company ${resolvedPipelineCompanyId} → wikidata owner ${wikidataOwner.id} (${wikidata.node})`
+    )
+    await job.updateData({
+      ...job.data,
+      companyId: wikidataOwner.id,
+      wikidata,
+    })
+    const threadId = job.data.threadId?.trim()
+    if (threadId) {
+      await syncCanonicalReportRunCompanyId({
+        threadId,
+        companyId: wikidataOwner.id,
+        pdfUrl: job.data.url,
+        companyName,
+        wikidataId: wikidata.node,
+      })
+    }
+    return true
+  }
+
+  job.log(
+    `Wikidata ${wikidata.node} belongs to company ${wikidataOwner.id}; pipeline company is ${resolvedPipelineCompanyId} — requesting staff confirmation`
+  )
+
+  const pipelineCompany = await loadCompanyLinkCandidate(pipelineCompanyId)
+  await job.updateData({ ...job.data, wikidata })
+
+  const metadata = {
+    source: options?.source ?? 'wikidata-relink',
+    comment:
+      options?.comment ??
+      `Wikidata ${wikidata.node} is already linked to another company. Confirm which company this report belongs to before saving.`,
+  }
+
+  await job.requestApproval(
+    'companyLink',
+    {
+      type: 'companyLink',
+      newValue: {
+        extractedName: companyName,
+        candidates: [wikidataOwner, pipelineCompany],
+        allowCreateNew: false,
+        wikidataNode: wikidata.node,
+      },
+    },
+    false,
+    metadata,
+    `Confirm company for ${wikidata.node} (${companyName})`
+  )
+
+  await job.sendMessage({
+    content: `Wikidata ${wikidata.node} is already linked to "${wikidataOwner.name}". Please confirm which company this report belongs to in Validate.`,
+  })
+
+  await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+  return false
+}
+
+async function ensureCompanyLinkBeforeWikidataPersist(
+  job: GuessWikidataJob,
+  companyName: string,
+  wikidata: Wikidata
+): Promise<boolean> {
+  return requestCompanyLinkIfWikidataConflict(job, companyName, wikidata)
+}
+
+async function resolveCompanyIdFromCompanyLinkApproval(
+  job: GuessWikidataJob
+): Promise<{
+  companyId: string
+  skipWikidataAssign: boolean
+}> {
+  const approved = job.getApprovedBody()
+  const pipelineCompanyId = await resolveInternalCompanyId(job.data.companyId)
+
+  if (approved.createNew) {
+    throw new Error(
+      'Create-new is not allowed when resolving a Wikidata company link conflict'
+    )
+  }
+
+  const selectedRaw =
+    typeof approved.companyId === 'string' && approved.companyId.trim()
+      ? approved.companyId.trim()
+      : pipelineCompanyId
+  const selectedCompanyId = await resolveInternalCompanyId(selectedRaw)
+
+  return {
+    companyId: selectedCompanyId,
+    skipWikidataAssign: selectedCompanyId === pipelineCompanyId,
+  }
+}
+
+async function persistApprovedWikidata(
+  job: GuessWikidataJob,
+  companyName: string,
+  wikidata: Wikidata,
+  options: {
+    verified?: boolean
+    metadata?: { source: string; comment: string }
+    verifiedByUserId?: string
+    companyId?: string
+    skipWikidataAssign?: boolean
+  }
+) {
+  const companyId = await resolveInternalCompanyId(
+    options.companyId ?? job.data.companyId
+  )
+  if (!companyId) {
+    throw new Error('Missing companyId on guessWikidata job')
+  }
+
+  if (companyId !== job.data.companyId) {
+    job.log(`Using staff-confirmed company id=${companyId}`)
+    await job.updateData({ ...job.data, companyId })
+  }
+
+  const existingCompany = (await apiFetch(
+    pipelineCompanyReadPath(companyId)
+  ).catch(() => null)) as { name?: string } | null
+  const name = preferRicherDiacriticCompanyName(
+    existingCompany?.name,
+    companyName
+  )
+
+  const body: Record<string, unknown> = {
+    name,
+    metadata: options.metadata,
+    verified: options.verified ?? false,
+    ...(options.verifiedByUserId && {
+      verifiedByUserId: options.verifiedByUserId,
+    }),
+  }
+
+  if (!options.skipWikidataAssign) {
+    body.wikidataId = wikidata.node
+  } else {
+    job.log(
+      `Keeping pipeline company ${companyId} without assigning Wikidata ${wikidata.node}`
+    )
+  }
+
+  await apiFetch(companyMutationPath(companyId), { body })
+
+  const threadId = job.data.threadId?.trim()
+  if (threadId) {
+    await syncCanonicalReportRunCompanyId({
+      threadId,
+      companyId,
+      pdfUrl: job.data.url,
+      companyName: name,
+      wikidataId: options.skipWikidataAssign ? null : wikidata.node,
+    })
+  }
+
+  await backfillRegistryWikidataFromJob(job, wikidata, {
+    skipWhenNotAssigned: options.skipWikidataAssign,
+  })
+}
+
+async function backfillRegistryWikidataFromJob(
+  job: GuessWikidataJob,
+  wikidata: Wikidata,
+  options?: { skipWhenNotAssigned?: boolean }
+) {
+  if (options?.skipWhenNotAssigned) return
+
+  const payload = buildEarlyRegistryPayload({
+    companyName: job.data.companyName,
+    wikidata: { node: wikidata.node },
+    url: job.data.url,
+    sourceUrl: job.data.sourceUrl,
+    pdfCache: job.data.pdfCache,
+    documentReportYear: job.data.documentReportYear,
+  })
+  if (!payload) return
+
+  try {
+    const report = await registryService.upsertReportInRegistry(payload)
+    job.log(`Registry wikidata backfill: ${report.id} → ${wikidata.node}`)
+  } catch (error: any) {
+    job.log(
+      `Registry wikidata backfill failed: ${error?.message ?? String(error)}`
+    )
+  }
+}
+
+const guessWikidata = new PipelineWorker<GuessWikidataJob>(
   QUEUE_NAMES.GUESS_WIKIDATA,
   async (job: GuessWikidataJob) => {
-    const { companyName, overrideWikidataId } = job.data
+    const {
+      companyName,
+      companyId: rawCompanyId,
+      overrideWikidataId,
+      wikidataSearchLanguage,
+    } = job.data
     if (!companyName) throw new Error('No company name was provided')
+    if (!rawCompanyId) throw new Error('No companyId was provided')
+
+    const companyId = await resolveInternalCompanyId(rawCompanyId)
+    if (companyId !== rawCompanyId) {
+      job.log(`Normalized pipeline companyId ${rawCompanyId} -> ${companyId}`)
+      await job.updateData({ ...job.data, companyId })
+    }
+
     job.log('Company name: ' + companyName)
     job.log('Approval: ' + JSON.stringify(job.data.approval, null, 2))
 
+    const pendingWikidata = job.data.wikidata as Wikidata | undefined
+
+    if (
+      job.data.approval?.type === 'companyLink' &&
+      job.isDataApproved() &&
+      pendingWikidata?.node
+    ) {
+      const { companyId: confirmedCompanyId, skipWikidataAssign } =
+        await resolveCompanyIdFromCompanyLinkApproval(job)
+      const metadata = job.data.approval?.metadata
+
+      await persistApprovedWikidata(job, companyName, pendingWikidata, {
+        verified: !job.data.autoApprove,
+        metadata,
+        verifiedByUserId: job.data.approval?.verifiedByUserId,
+        companyId: confirmedCompanyId,
+        skipWikidataAssign,
+      })
+
+      job.editMessage({
+        content: skipWikidataAssign
+          ? `Company link confirmed for ${companyName} (Wikidata not assigned to pipeline company)`
+          : `Company link confirmed for ${companyName}`,
+      })
+
+      return JSON.stringify(
+        {
+          status: 'approved',
+          wikidata: pendingWikidata,
+          companyId: confirmedCompanyId,
+          skipWikidataAssign,
+          message: `Company link confirmed for ${companyName}`,
+          metadata,
+        },
+        null,
+        2
+      )
+    }
+
+    if (
+      job.data.approval?.type === 'companyLink' &&
+      job.hasApproval() &&
+      !job.isDataApproved()
+    ) {
+      await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+      return
+    }
+
     // If approved, process the wikidata (takes precedence - don't override approved data)
-    if (job.isDataApproved()) {
-      const approvedWikidata = job.getApprovedBody().wikidata
+    if (job.data.approval?.type === 'wikidata' && job.isDataApproved()) {
+      const approvedWikidata = job.getApprovedBody().wikidata as
+        | Wikidata
+        | undefined
       if (!approvedWikidata) {
         throw new Error('Missing approved wikidata: ' + approvedWikidata)
       }
 
       const metadata = job.data.approval?.metadata
 
+      const ready = await ensureCompanyLinkBeforeWikidataPersist(
+        job,
+        companyName,
+        approvedWikidata
+      )
+      if (!ready) return
+
+      await persistApprovedWikidata(job, companyName, approvedWikidata, {
+        // verified false when job autoApprove is on; human approver id comes from Validate rerun.
+        verified: !job.data.autoApprove,
+        metadata,
+        verifiedByUserId: job.data.approval?.verifiedByUserId,
+      })
+
       job.editMessage({
         content: `Thanks for approving the wikidata for: ${companyName}`,
-        components: [],
       })
 
       return JSON.stringify(
@@ -186,7 +505,6 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
 
       job.sendMessage({
         content: `Company with the same name found in production auto-approving the wikidata for: ${companyName}`,
-        components: [],
       })
 
       return JSON.stringify({ wikidata }, null, 2)
@@ -203,7 +521,13 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
       if (retry > 3) return []
 
       job.log(`Searching for company name: ${companyName} (attempt ${retry})`)
-      const results = await searchCompany({ companyName })
+      const results = await searchCompany({
+        companyName,
+        useKnownIdLookup: true,
+        ...(wikidataSearchLanguage != null
+          ? { language: wikidataSearchLanguage }
+          : {}),
+      })
 
       job.log('Wikidata search results: ' + JSON.stringify(results, null, 2))
       if (results.length) return results
@@ -240,10 +564,15 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
 
       job.log('Results: ' + JSON.stringify(results, null, 2))
       if (results.length === 0) {
-        await job.sendMessage(`❌ Hittade inte Wikidata för: ${companyName}.`)
-        // TODO: If no wikidata entry was found, provide a link to create a new wikidata entry.
-        // TODO: allow providing the wikidata entry if it is known, to continue the job.
-        throw new Error(`No Wikidata entry for "${companyName}"`)
+        await job.sendMessage(
+          `❌ Hittade inte Wikidata för: ${companyName}. Pipeline continues without Wikidata.`
+        )
+        job.log(`No Wikidata entry for "${companyName}" — non-blocking`)
+        return JSON.stringify(
+          { status: 'not_found', message: `No Wikidata for ${companyName}` },
+          null,
+          2
+        )
       }
 
       const orderedResults = results
@@ -303,6 +632,13 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
       )
     }
 
+    const readyBeforeApproval = await requestCompanyLinkIfWikidataConflict(
+      job,
+      companyName,
+      wikidataForApproval
+    )
+    if (!readyBeforeApproval) return
+
     try {
       const checkIfWikidataExistInProductionRes = await fetch(
         apiConfig.prodBaseURL + '/companies/' + wikidataForApproval.node,
@@ -324,14 +660,25 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
               type: 'wikidata',
               newValue: { wikidata: wikidataForApproval },
             },
-            true, // auto-approved
+            true,
             metadata,
             `Auto-approved wikidata for ${companyName}`
           )
 
+          const ready = await ensureCompanyLinkBeforeWikidataPersist(
+            job,
+            companyName,
+            wikidataForApproval
+          )
+          if (!ready) return
+
+          await persistApprovedWikidata(job, companyName, wikidataForApproval, {
+            verified: false,
+            metadata,
+          })
+
           job.sendMessage({
             content: `🚀 Company found in production database, we will approve automatically: ${companyName}`,
-            components: [],
           })
           return JSON.stringify(
             {
@@ -347,8 +694,7 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
       }
     } catch (_error) {
       job.sendMessage({
-        content: `😫 Could not find the company in the production database, we will have to as the human.`,
-        components: [],
+        content: `😫 Could not find the company in the production database, we will have to ask the human.`,
       })
     }
 
@@ -357,6 +703,46 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
     const metadata = {
       source: 'wikidata-search',
       comment: 'Wikidata found via search and LLM selection',
+    }
+
+    if (job.data.autoApprove) {
+      await job.requestApproval(
+        'wikidata',
+        {
+          type: 'wikidata',
+          newValue: { wikidata: wikidataForApproval },
+        },
+        true,
+        metadata,
+        `Auto-approved wikidata for ${companyName}`
+      )
+
+      const ready = await ensureCompanyLinkBeforeWikidataPersist(
+        job,
+        companyName,
+        wikidataForApproval
+      )
+      if (!ready) return
+
+      await persistApprovedWikidata(job, companyName, wikidataForApproval, {
+        verified: false,
+        metadata,
+      })
+
+      await job.sendMessage({
+        content: `Auto-approved wikidata for ${companyName} (job autoApprove enabled)`,
+      })
+
+      return JSON.stringify(
+        {
+          status: 'approved',
+          wikidata: wikidataForApproval,
+          message: `Auto-approved wikidata for ${companyName}`,
+          metadata,
+        },
+        null,
+        2
+      )
     }
 
     // Create approval request using standard pattern
@@ -371,14 +757,11 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
       `Wikidata selection for ${companyName}`
     )
 
-    const buttonRow = discord.createEditWikidataButtonRow(job)
-
     await job.sendMessage({
       content: `Is this the correct company?:
 \`\`\`md
 ${JSON.stringify(wikidataForApproval, null, 2)}
 \`\`\``,
-      components: [buttonRow],
     })
 
     await job.moveToDelayed(Date.now() + apiConfig.jobDelay)

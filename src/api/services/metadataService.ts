@@ -2,6 +2,7 @@ import { Metadata, User } from '@prisma/client'
 import { prisma } from '../../lib/prisma'
 
 class MetadataService {
+  // TODO(Klimatbyran/garbo#1333): Callers should wrap createMetadata + datapoint writes in prisma.$transaction.
   async createMetadata({
     user,
     metadata,

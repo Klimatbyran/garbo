@@ -1,14 +1,15 @@
-import { DiscordWorker } from '../lib/DiscordWorker'
+import { PipelineWorker } from '../lib/PipelineWorker'
 import { FlowProducer } from 'bullmq'
 import redis from '../config/redis'
 import precheck from './precheck'
 import { vectorDB } from '../lib/vectordb'
 import { QUEUE_NAMES } from '../queues'
+import { withPipelineJobOpts } from '../lib/pipelineJobOptions'
 
 const flow = new FlowProducer({ connection: redis })
 flow.on('error', (err) => console.error('FlowProducer connection error:', err))
 
-const parsePdf = new DiscordWorker(
+const parsePdf = new PipelineWorker(
   QUEUE_NAMES.PARSE_PDF,
   async (job) => {
     const { url, forceReindex } = job.data as {
@@ -23,6 +24,9 @@ const parsePdf = new DiscordWorker(
       data: {
         ...job.data,
       },
+      opts: withPipelineJobOpts({
+        attempts: 3,
+      }),
     }
 
     job.log(`Docling pipeline starting for url: ${url}`)
@@ -62,10 +66,10 @@ const parsePdf = new DiscordWorker(
                   ...base,
                   name: 'doclingParsePDF',
                   queueName: QUEUE_NAMES.DOCLING_PARSE_PDF,
-                  opts: {
+                  opts: withPipelineJobOpts({
                     attempts: 3,
                     backoff: { type: 'fixed', delay: 120_000 },
-                  },
+                  }),
                 },
               ],
             },
@@ -79,10 +83,14 @@ const parsePdf = new DiscordWorker(
           'company name, annual report, about the company, introduction, company overview, who we are, our business, bolagets namn, årsredovisning, om bolaget',
         ])
 
-        const added = await precheck.queue.add('precheck', {
-          ...job.data,
-          cachedMarkdown: markdown,
-        })
+        const added = await precheck.queue.add(
+          'precheck',
+          {
+            ...job.data,
+            cachedMarkdown: markdown,
+          },
+          withPipelineJobOpts()
+        )
         return added.id
       }
       return true

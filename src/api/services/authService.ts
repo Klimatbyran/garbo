@@ -4,6 +4,7 @@ import { prisma } from '../../lib/prisma'
 import jwt from 'jsonwebtoken'
 import { serviceAuthenticationBody } from '../types'
 import { User } from '@prisma/client'
+import { getOrCreateServiceBotUser } from './serviceBotUser'
 
 interface GithubUserinfo {
   login: string
@@ -89,29 +90,7 @@ class AuthService {
       throw new Error('Invalid secret')
     }
 
-    let user = await prisma.user.findFirst({
-      where: {
-        name: serviceAuth.client_id,
-      },
-    })
-
-    if (!user) {
-      user = await prisma.user.upsert({
-        where: {
-          name: serviceAuth.client_id,
-        },
-        update: {
-          name: serviceAuth.client_id,
-          email: serviceAuth.client_id + '@klimatkollen.se',
-          bot: true,
-        },
-        create: {
-          name: serviceAuth.client_id,
-          email: serviceAuth.client_id + '@klimatkollen.se',
-          bot: true,
-        },
-      })
-    }
+    const user = await getOrCreateServiceBotUser(serviceAuth.client_id)
 
     return this.createToken(user)
   }

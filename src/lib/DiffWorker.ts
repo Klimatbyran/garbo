@@ -1,9 +1,12 @@
-import { DiscordJob, DiscordWorker } from './DiscordWorker'
+import { PipelineJob, PipelineWorker } from './PipelineWorker'
 import { Job, Queue, WorkerOptions } from 'bullmq'
 import redis from '../config/redis'
 import saveToAPI from '../workers/saveToAPI'
 import { canonicalPublicReportUrl, defaultMetadata } from './saveUtils'
-import discord from '../discord'
+import {
+  SAVE_TO_API_JOB_OPTIONS,
+  withPipelineJobOpts,
+} from './pipelineJobOptions'
 
 /**
  * Enqueue saveToAPI with a BullMQ parent link when possible. If the parent job
@@ -20,7 +23,11 @@ export async function enqueueSaveToAPIWithParentFallback(
     : undefined
 
   try {
-    await saveToAPI.queue.add(name, data, parentOpts)
+    await saveToAPI.queue.add(
+      name,
+      data,
+      withPipelineJobOpts({ ...parentOpts, ...SAVE_TO_API_JOB_OPTIONS })
+    )
   } catch (error) {
     const msg =
       error instanceof Error
@@ -33,7 +40,11 @@ export async function enqueueSaveToAPIWithParentFallback(
       await job.log(
         `saveToAPI enqueue: parent missing; retrying without parent. (${msg})`
       )
-      await saveToAPI.queue.add(name, data)
+      await saveToAPI.queue.add(
+        name,
+        data,
+        withPipelineJobOpts(SAVE_TO_API_JOB_OPTIONS)
+      )
       return
     }
 
@@ -47,17 +58,17 @@ export interface ChangeDescription {
   newValue
 }
 
-export class DiffJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+export class DiffJob extends PipelineJob {
+  declare data: PipelineJob['data'] & {
     companyName: string
-    wikidata: { node: string }
+    companyId: string
+    wikidata?: { node: string }
   }
 
   enqueueSaveToAPI: (
     apiSubEndpoint: string,
     companyName: string,
-    wikidata: { node: string },
-    body: any
+    body: Record<string, unknown>
   ) => Promise<void>
 
   handleDiff: (
@@ -73,17 +84,11 @@ export class DiffJob extends DiscordJob {
 }
 
 function addCustomMethods(job: DiffJob) {
-  job.enqueueSaveToAPI = async (
-    apiSubEndpoint,
-    companyName,
-    wikidata,
-    body
-  ) => {
+  job.enqueueSaveToAPI = async (apiSubEndpoint, companyName, body) => {
     const name = companyName + ' ' + apiSubEndpoint
     const data = {
       ...job.data,
       companyName,
-      wikidata,
       body,
       apiSubEndpoint,
     }
@@ -104,17 +109,10 @@ function addCustomMethods(job: DiffJob) {
       await job.sendMessage({
         content: `## ${apiSubEndpoint}\n\nNew changes for ${job.data.companyName}\n\n${diff}`,
       })
-      // If approval is required and not yet approved, send approval request
-      const buttonRow = discord.createApproveButtonRow(job)
-
-      await job.editMessage({
-        components: [buttonRow],
-      })
-
       await job.requestApproval(
         apiSubEndpoint,
         change,
-        job.data.autoApprove || !requiresApproval,
+        false,
         defaultMetadata(
           canonicalPublicReportUrl(
             job.data as { url: string; sourceUrl?: string }
@@ -128,30 +126,26 @@ function addCustomMethods(job: DiffJob) {
           'Forcing save to API: new report PDF identity is not in the database yet.'
         )
       }
-      await job.enqueueSaveToAPI(
-        apiSubEndpoint,
-        job.data.companyName,
-        job.data.wikidata,
-        {
-          ...change.newValue,
-          ...options?.saveBodyExtras,
-          metadata: defaultMetadata(
-            canonicalPublicReportUrl(
-              job.data as { url: string; sourceUrl?: string }
-            )
-          ),
-        }
-      )
+      await job.enqueueSaveToAPI(apiSubEndpoint, job.data.companyName, {
+        ...change.newValue,
+        ...options?.saveBodyExtras,
+        metadata: defaultMetadata(
+          canonicalPublicReportUrl(
+            job.data as { url: string; sourceUrl?: string }
+          )
+        ),
+      })
     }
   }
 
   return job
 }
-export class DiffWorker<T extends DiffJob> extends DiscordWorker<DiffJob> {
+
+export class DiffWorker<T extends DiffJob> extends PipelineWorker<DiffJob> {
   queue: Queue
   constructor(
     name: string,
-    callback: (job: T) => any,
+    callback: (job: T) => unknown,
     options?: WorkerOptions
   ) {
     super(name, (job: T) => callback(addCustomMethods(job) as T), {

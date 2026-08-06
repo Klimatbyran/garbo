@@ -1,17 +1,29 @@
-import { FlowProducer, DelayedError } from 'bullmq'
+import { FlowProducer } from 'bullmq'
 import redis from '../config/redis'
 import wikidata from '../prompts/wikidata'
-import { askPrompt, askStream } from '../lib/openai'
+import { askStream } from '../lib/openai'
 import { zodResponseFormat } from 'openai/helpers/zod'
-import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { z } from 'zod'
 import { QUEUE_NAMES } from '../queues'
-import discord from '../discord'
+import apiConfig from '../config/api'
+import { apiFetch } from '../lib/api'
+import {
+  resolvePipelineCompanyOutcome,
+  findCompanyByWikidataId,
+} from '../lib/pipelineCompanyResolve'
+import { findOrCreatePipelineCompanyLocked } from '../lib/pipelineCompanyCreate'
+import { syncCanonicalReportRunCompanyId } from '../lib/pipelineRunCompanyId'
+import { EXTRACT_EMISSIONS_CHILD_QUEUES } from './precheckFlow'
+import { withPipelineJobOpts } from '../lib/pipelineJobOptions'
 
-class PrecheckJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+class PrecheckJob extends PipelineJob {
+  declare data: PipelineJob['data'] & {
     cachedMarkdown?: string
     companyName?: string
+    companyId?: string
+    lei?: string
+    wikidata?: { node?: string }
     waitingForCompanyName?: boolean
   }
 }
@@ -23,7 +35,194 @@ const companyNameSchema = z.object({
   companyName: z.string().nullable(),
 })
 
-const precheck = new DiscordWorker(
+async function createPipelineCompany(companyName: string): Promise<string> {
+  const created = await apiFetch('/companies/', {
+    body: { name: companyName },
+  })
+  if (!created?.id) {
+    throw new Error('Company create did not return id')
+  }
+  return created.id as string
+}
+
+async function resolveOrCreateCompanyForPrecheck(
+  job: PrecheckJob,
+  companyName: string
+): Promise<
+  | { status: 'resolved'; companyId: string }
+  | {
+      status: 'ambiguous'
+      candidates: import('../lib/companyLinkResolve').CompanyLinkCandidate[]
+    }
+  | null
+> {
+  if (
+    job.data.approval?.type === 'companyLink' &&
+    job.hasApproval() &&
+    !job.isDataApproved()
+  ) {
+    return null
+  }
+
+  const outcome = await findOrCreatePipelineCompanyLocked(job.data, companyName)
+
+  if (outcome.status === 'ambiguous') {
+    return { status: 'ambiguous', candidates: outcome.candidates }
+  }
+
+  if (outcome.companyId !== job.data.companyId) {
+    job.log(
+      `Resolved pipeline company id=${outcome.companyId} method=${outcome.method}`
+    )
+  }
+
+  return { status: 'resolved', companyId: outcome.companyId }
+}
+
+async function syncRunCompanyIdFromPrecheck(
+  job: PrecheckJob,
+  companyId: string,
+  companyName: string
+) {
+  const threadId = job.data.threadId?.trim()
+  if (!threadId) return
+
+  await syncCanonicalReportRunCompanyId({
+    threadId,
+    companyId,
+    pdfUrl: job.data.url,
+    companyName,
+  })
+}
+
+async function ensurePipelineCompany(
+  job: PrecheckJob,
+  companyName: string
+): Promise<string | null> {
+  if (job.data.approval?.type === 'companyLink' && job.isDataApproved()) {
+    const approved = job.getApprovedBody()
+    if (approved.createNew) {
+      const wikidataId = job.data.wikidata?.node?.trim()
+      if (wikidataId) {
+        const wikidataOwner = await findCompanyByWikidataId(wikidataId)
+        if (wikidataOwner?.id) {
+          throw new Error(
+            `Cannot create new company: Wikidata ${wikidataId} already belongs to ${wikidataOwner.id}`
+          )
+        }
+      }
+      const companyId = await createPipelineCompany(companyName)
+      await job.updateData({ ...job.data, companyId, companyName })
+      job.log(`Created new company after company-link approval id=${companyId}`)
+      await syncRunCompanyIdFromPrecheck(job, companyId, companyName)
+      return companyId
+    }
+    if (typeof approved.companyId === 'string' && approved.companyId.trim()) {
+      const companyId = approved.companyId.trim()
+      await job.updateData({ ...job.data, companyId, companyName })
+      job.log(`Using staff-selected company id=${companyId}`)
+      await syncRunCompanyIdFromPrecheck(job, companyId, companyName)
+      return companyId
+    }
+  }
+
+  if (
+    job.data.approval?.type === 'companyLink' &&
+    job.hasApproval() &&
+    !job.isDataApproved()
+  ) {
+    job.log('Waiting for company link approval')
+    await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+    return null
+  }
+
+  const outcome = await resolvePipelineCompanyOutcome(job.data, companyName)
+
+  if (outcome.status === 'resolved') {
+    if (outcome.companyId !== job.data.companyId) {
+      await job.updateData({
+        ...job.data,
+        companyId: outcome.companyId,
+        companyName,
+      })
+      job.log(
+        `Resolved pipeline company id=${outcome.companyId} method=${outcome.method}`
+      )
+    }
+    await syncRunCompanyIdFromPrecheck(job, outcome.companyId, companyName)
+    return outcome.companyId
+  }
+
+  if (outcome.status === 'ambiguous') {
+    job.log(
+      `Ambiguous company link for "${companyName}" — ${outcome.candidates.length} candidates`
+    )
+    job.log(
+      `Company link candidates: ${JSON.stringify(outcome.candidates, null, 2)}`
+    )
+
+    const metadata = {
+      source: 'company-name-search',
+      comment:
+        'Multiple matching companies found — please select the correct company',
+    }
+
+    await job.requestApproval(
+      'companyLink',
+      {
+        type: 'companyLink',
+        newValue: {
+          extractedName: outcome.extractedName,
+          candidates: outcome.candidates,
+        },
+      },
+      false,
+      metadata,
+      `Company link for ${companyName}`
+    )
+
+    await job.sendMessage({
+      content: `Multiple companies match "${companyName}". Please select the correct company in Validate before the pipeline continues.`,
+    })
+    await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+    return null
+  }
+
+  const locked = await resolveOrCreateCompanyForPrecheck(job, companyName)
+  if (!locked) return null
+  if (locked.status === 'ambiguous') {
+    job.log(
+      `Ambiguous company link for "${companyName}" — ${locked.candidates.length} candidates`
+    )
+    await job.requestApproval(
+      'companyLink',
+      {
+        type: 'companyLink',
+        newValue: {
+          extractedName: companyName,
+          candidates: locked.candidates,
+        },
+      },
+      false,
+      {
+        source: 'company-name-search',
+        comment:
+          'Multiple matching companies found — please select the correct company',
+      },
+      `Company link for ${companyName}`
+    )
+    await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+    return null
+  }
+
+  const companyId = locked.companyId
+  await job.updateData({ ...job.data, companyId, companyName })
+  job.log(`Created or reused pipeline company id=${companyId}`)
+  await syncRunCompanyIdFromPrecheck(job, companyId, companyName)
+  return companyId
+}
+
+const precheck = new PipelineWorker(
   QUEUE_NAMES.PRECHECK,
   async (job: PrecheckJob) => {
     const {
@@ -34,7 +233,6 @@ const precheck = new DiscordWorker(
     } = job.data
     const { markdown = cachedMarkdown } = await job.getChildrenEntries()
 
-    // If we already have a company name provided by the user, use it directly
     if (existingCompanyName && waitingForCompanyName) {
       job.log('Using manually provided company name: ' + existingCompanyName)
       await job.updateData({ ...job.data, waitingForCompanyName: false })
@@ -76,35 +274,29 @@ const precheck = new DiscordWorker(
       )
     }
 
-    const companyName = await extractCompanyName(markdown)
+    const companyName = await extractCompanyName(markdown as string)
 
     if (companyName) {
-      // Update job data with companyName for grouping/UI in validation tool
       await job.updateData({ ...job.data, companyName })
     }
 
     if (!companyName) {
-      // If we're already waiting for manual input, don't send another message
       if (waitingForCompanyName) {
-        job.log('Still waiting for user to provide company name manually...')
-        await job.moveToDelayed(Date.now() + 30000) // Check again in 30 seconds
-        throw new DelayedError()
+        job.log('Still waiting for companyName in job data...')
+        await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+        return
       }
 
-      // Send message asking for manual input
-      job.log('Could not find company name, asking user for input')
-      const buttonRow = discord.createEditCompanyNameButtonRow(job)
-
+      job.log(
+        'Could not identify company name from report — waiting for manual input'
+      )
+      await job.updateData({ ...job.data, waitingForCompanyName: true })
       await job.sendMessage({
         content:
-          "❌ Could not automatically find the company's name in the document. Please enter the company name manually:",
-        components: [buttonRow],
+          'Could not identify the company name from this report. Please enter the company name in Validate to continue.',
       })
-
-      // Mark the job as waiting for company name
-      await job.updateData({ ...job.data, waitingForCompanyName: true })
-      await job.moveToDelayed(Date.now() + 300000) // Check again in 5 minutes
-      throw new DelayedError()
+      await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+      return
     }
 
     return processWithCompanyName(companyName)
@@ -112,15 +304,14 @@ const precheck = new DiscordWorker(
     async function processWithCompanyName(companyName: string) {
       job.log('Company name: ' + companyName)
 
-      if (job.hasValidThreadId()) {
-        await job.setThreadName(companyName)
-      }
+      const companyId = await ensurePipelineCompany(job, companyName)
+      if (!companyId) return
 
       const base = {
-        data: { ...baseData, companyName },
-        opts: {
+        data: { ...job.data, companyName, companyId },
+        opts: withPipelineJobOpts({
           attempts: 3,
-        },
+        }),
       }
 
       job.sendMessage('🤖 Asking questions about basic facts...')
@@ -133,23 +324,27 @@ const precheck = new DiscordWorker(
           children: [
             {
               ...base,
-              name: 'guessWikidata ' + companyName,
-              queueName: QUEUE_NAMES.GUESS_WIKIDATA,
-              data: {
-                ...base.data,
-                schema: zodResponseFormat(wikidata.schema, 'wikidata'),
-              },
-            },
-            {
-              ...base,
-              queueName: QUEUE_NAMES.FOLLOW_UP_FISCAL_YEAR,
+              queueName: EXTRACT_EMISSIONS_CHILD_QUEUES[0],
               name: 'fiscalYear ' + companyName,
             },
           ],
-          opts: {
+          opts: withPipelineJobOpts({
             attempts: 3,
-          },
+          }),
         })
+
+        await flow.add({
+          name: 'guessWikidata ' + companyName,
+          queueName: QUEUE_NAMES.GUESS_WIKIDATA,
+          data: {
+            ...base.data,
+            schema: zodResponseFormat(wikidata.schema, 'wikidata'),
+          },
+          opts: withPipelineJobOpts({
+            attempts: 3,
+          }),
+        })
+
         return extractEmissions.job?.id
       } catch (error) {
         job.log('Error: ' + error)

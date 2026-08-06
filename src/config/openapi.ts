@@ -71,6 +71,9 @@ const openAPITagDefinitions = {
   TagOptions: {
     description: 'Valid tag options for company tags',
   },
+  ReportTypes: {
+    description: 'Valid report types for registry reports',
+  },
   Newsletters: {
     description: 'Newsletters',
   },
@@ -163,6 +166,7 @@ We currently offer two key types:
 Provides access to core company data endpoints:
 
 - Company list
+- Company KPIs
 - Company detail
 - Company search
 

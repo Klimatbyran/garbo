@@ -13,10 +13,13 @@ Tools for running LLM prompt comparison tests across suites and analyzing the re
 
 ## Running a suite
 
-Using npm scripts:
+Using npm scripts (suite name matches the folder under `src/jobs/`):
 
 ```bash
+npm run test:scope1 -- [options]
+npm run test:scope2 -- [options]
 npm run test:scope12 -- [options]
+npm run test:scope3 -- [options]
 ```
 
 Example:

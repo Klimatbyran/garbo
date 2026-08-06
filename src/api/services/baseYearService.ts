@@ -1,16 +1,17 @@
-import { Company, BaseYear, Metadata } from '@prisma/client'
+import { BaseYear, Metadata } from '@prisma/client'
 import { prisma } from '../../lib/prisma'
 import { PostBaseYearBody } from '../types'
 import { companyService } from './companyService'
 
 class BaseYearService {
   async upsertBaseYear(
-    wikidataId: Company['wikidataId'],
+    companyId: string,
     baseYear: PostBaseYearBody['baseYear'],
     metadata: Metadata
   ) {
-    const existingBaseYearId = (await companyService.getCompany(wikidataId))
-      .baseYear?.id
+    const existingBaseYearId = (
+      await companyService.getCompanyByInternalId(companyId)
+    ).baseYear?.id
 
     return prisma.baseYear.upsert({
       where: { id: existingBaseYearId ?? '' },
@@ -21,7 +22,7 @@ class BaseYearService {
         },
         company: {
           connect: {
-            wikidataId,
+            id: companyId,
           },
         },
       },

@@ -6,6 +6,18 @@ import { economyArgs, emissionsArgs, reportingPeriodArgs } from './args'
 
 export type WikidataIdParams = z.infer<typeof schemas.wikidataIdParamSchema>
 
+export type CompanyIdParams = z.infer<typeof schemas.companyIdParamSchema>
+
+export type CompanyGoalParams = z.infer<typeof schemas.companyGoalParamsSchema>
+
+export type CompanyInitiativeParams = z.infer<
+  typeof schemas.companyInitiativeParamsSchema
+>
+
+export type CompanyIdentifierParams = z.infer<
+  typeof schemas.companyIdentifierParamSchema
+>
+
 export type CompanySearchQuery = z.infer<
   typeof schemas.companySearchQuerySchema
 >

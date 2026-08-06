@@ -23,7 +23,6 @@ Garbo workers do not care who enqueued the job; they only need `job.data.tags` t
 1. **Entry points**
 
    - **Pipeline-api:** Adds a **parsePdf** job with `job.data.tags` (and other fields). Garbo workers consume it.
-   - **Discord:** `/pdfs` with optional `tags` option (comma-separated slugs) → same parsePdf job data.
 
 2. **Pipeline**
 
@@ -52,7 +51,6 @@ Garbo workers do not care who enqueued the job; they only need `job.data.tags` t
 | saveToAPI (PATCH /companies/:id/tags)         | `src/workers/saveToAPI.ts`            |
 | companyTags follow-up (AI tags)               | `src/workers/followUp/companyTags.ts` |
 | extractEmissions (includes companyTags child) | `src/workers/extractEmissions.ts`     |
-| Discord /pdfs (optional tags)                 | `src/discord/commands/pdfs.ts`        |
 
 ---
 
@@ -64,7 +62,7 @@ Tags must be valid **tag option slugs** (from **GET /api/tag-options**). Invalid
 
 ## When do tag workers run?
 
-- **Full pipeline (no runOnly):** When a report is run without a `runOnly` filter (e.g. normal `/pdfs` or a run triggered via pipeline-api), **all** follow-up workers run, including **companyTags**. So tags are extracted by AI and then synced in checkDB/diffTags.
+- **Full pipeline (no runOnly):** When a report is run without a `runOnly` filter (e.g. via pipeline-api), **all** follow-up workers run, including **companyTags**. So tags are extracted by AI and then synced in checkDB/diffTags.
 - **Manual / selective run:** When something (e.g. validation frontend) triggers **extractEmissions** with a **runOnly** array (e.g. to re-run only Scope 1 and Scope 2), the tag worker runs **only if** `'companyTags'` is included in that array.
 
 So for tags to be **manually triggerable** like scope 1 or scope 2:

@@ -30,7 +30,6 @@ const diffInitiatives = new DiffWorker<DiffInitiativesJob>(
       await job.enqueueSaveToAPI(
         'initiatives',
         companyName,
-        wikidata,
         job.getApprovedBody()
       )
       return

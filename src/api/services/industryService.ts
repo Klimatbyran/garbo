@@ -1,14 +1,14 @@
-import { Company, Metadata } from '@prisma/client'
 import { prisma } from '../../lib/prisma'
+import { Metadata } from '@prisma/client'
 
 class IndustryService {
   async upsertIndustry(
-    wikidataId: Company['wikidataId'],
+    companyId: string,
     industry: { subIndustryCode: string },
     metadata: Metadata
   ) {
     return prisma.industry.upsert({
-      where: { companyWikidataId: wikidataId },
+      where: { companyId },
       update: {
         industryGics: {
           connect: {
@@ -23,7 +23,7 @@ class IndustryService {
       },
       create: {
         company: {
-          connect: { wikidataId },
+          connect: { id: companyId },
         },
         industryGics: {
           connect: {
@@ -40,9 +40,9 @@ class IndustryService {
     })
   }
 
-  async deleteIndustry(wikidataId: string) {
+  async deleteIndustry(companyId: string) {
     return await prisma.industry.findFirstOrThrow({
-      where: { companyWikidataId: wikidataId },
+      where: { companyId },
     })
   }
 }

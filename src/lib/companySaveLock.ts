@@ -38,13 +38,13 @@ function sleep(ms: number): Promise<void> {
 
 /**
  * Serialize API saves per company so concurrent pipeline runs for the same
- * wikidataId do not interleave registry / CompanyReport / period writes.
+ * company do not interleave registry / CompanyReport / period writes.
  */
 export async function withCompanySaveLock<T>(
-  wikidataId: string,
+  companyId: string,
   run: () => Promise<T>
 ): Promise<T> {
-  const key = `${LOCK_KEY_PREFIX}${wikidataId.trim()}`
+  const key = `${LOCK_KEY_PREFIX}${companyId.trim()}`
   const token = randomUUID()
   const redis = await getRedis()
   const waitStartedAt = Date.now()
@@ -55,7 +55,7 @@ export async function withCompanySaveLock<T>(
 
     if (Date.now() - waitStartedAt > MAX_WAIT_MS) {
       throw new Error(
-        `Timed out waiting for company save lock (${wikidataId}) after ${MAX_WAIT_MS}ms`
+        `Timed out waiting for company save lock (${companyId}) after ${MAX_WAIT_MS}ms`
       )
     }
     await sleep(POLL_INTERVAL_MS)

@@ -12,6 +12,7 @@ export interface RegistryReportIdentityRow {
   s3Key?: string | null
   s3Bucket?: string | null
   sha256?: string | null
+  reportTypeId?: string | null
 }
 
 const STORAGE_URL_PATTERNS = ['storage.googleapis.com']
@@ -26,6 +27,28 @@ export function trimStr(s: string | null | undefined): string | null {
   if (typeof s !== 'string') return null
   const trimmed = s.trim()
   return trimmed.length ? trimmed : null
+}
+
+export function isPlaceholderCompanyName(
+  name: string | null | undefined
+): boolean {
+  const trimmed = trimStr(name)
+  if (!trimmed) return true
+  return trimmed.toLowerCase() === 'unknown'
+}
+
+/** Registry upsert: keep existing name unless it is missing or the placeholder "Unknown". */
+export function mergeCompanyNameFromPipeline(
+  existing: string | null | undefined,
+  incoming: string | null | undefined
+): string | undefined {
+  if (!isPlaceholderCompanyName(existing)) {
+    return trimStr(existing) ?? undefined
+  }
+  if (isPlaceholderCompanyName(incoming)) {
+    return trimStr(existing) ?? trimStr(incoming) ?? undefined
+  }
+  return trimStr(incoming) ?? undefined
 }
 
 /** Backfill / one-off catalog year parsing (tight window for current registry cleanup). */
@@ -289,14 +312,23 @@ export function copyMissingFields(
     'companyName',
     'wikidataId',
     'reportYear',
+    'reportTypeId',
   ] as const
 
   for (const field of fields) {
-    if (
-      !trimStr(rowToKeep[field] as string | null) &&
-      trimStr(rowToDelete[field] as string | null)
-    ) {
-      patch[field] = trimStr(rowToDelete[field] as string | null) as any
+    const keepValue = rowToKeep[field] as string | null
+    const deleteValue = trimStr(rowToDelete[field] as string | null)
+    const keepIsEmpty =
+      field === 'companyName'
+        ? isPlaceholderCompanyName(keepValue)
+        : !trimStr(keepValue)
+    const deleteIsPresent =
+      field === 'companyName'
+        ? !isPlaceholderCompanyName(deleteValue)
+        : Boolean(deleteValue)
+
+    if (keepIsEmpty && deleteIsPresent) {
+      patch[field] = deleteValue as any
     }
   }
 

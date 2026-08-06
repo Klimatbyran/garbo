@@ -1,14 +1,23 @@
-import discord from './discord'
 import { workers } from './workers'
 import { QueueEvents, Queue } from 'bullmq'
 import redis from './config/redis'
 import { QUEUE_NAMES } from './queues'
 import { prisma } from './lib/prisma'
-import { resolveReportBatchDbId } from './lib/resolveReportBatchDbId'
+import {
+  resolveReportBatchDbId,
+  companyReportIdFromJobData,
+  companyIdFromJobData,
+  reportRunSyncFieldsFromJob,
+} from './lib/reportRunPersistence'
+import { DEFAULT_PIPELINE_JOB_OPTIONS } from './lib/pipelineJobOptions'
+import { requestPipelineRunPrune } from './lib/pipelineApiPrune'
 
 for (const queueName of Object.values(QUEUE_NAMES)) {
   const queueEvents = new QueueEvents(queueName, { connection: redis })
-  const queue = new Queue(queueName, { connection: redis })
+  const queue = new Queue(queueName, {
+    connection: redis,
+    defaultJobOptions: DEFAULT_PIPELINE_JOB_OPTIONS,
+  })
 
   const saveRun = async (
     jobId: string,
@@ -27,7 +36,9 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
       }
 
       const wikidataId = job.data?.wikidata?.node ?? null
+      const companyId = companyIdFromJobData(job.data)
       const companyName = job.data?.companyName ?? null
+      const companyReportId = companyReportIdFromJobData(job.data)
       const threadId = job.data?.threadId ?? null
       const rawBatchId = (job.data as { batchId?: unknown } | undefined)
         ?.batchId
@@ -39,15 +50,33 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
         return
       }
 
-      const reportRun = await prisma.reportRun.upsert({
+      const existingReportRun = await prisma.reportRun.findUnique({
         where: { threadId },
-        create: { threadId, pdfUrl, companyName, wikidataId, batchDbId },
-        update: {
-          companyName: companyName ?? undefined,
-          wikidataId: wikidataId ?? undefined,
-          ...(batchDbId ? { batchDbId } : {}),
-        },
+        select: { id: true },
       })
+
+      const reportRun = existingReportRun
+        ? await prisma.reportRun.update({
+            where: { threadId },
+            data: reportRunSyncFieldsFromJob({
+              companyName,
+              companyId,
+              wikidataId,
+              companyReportId,
+              batchDbId,
+            }),
+          })
+        : await prisma.reportRun.create({
+            data: {
+              threadId,
+              pdfUrl,
+              companyName,
+              companyId,
+              wikidataId,
+              companyReportId,
+              batchDbId,
+            },
+          })
 
       let returnValue: Record<string, any> | null = null
       if (job.returnvalue) {
@@ -66,6 +95,7 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
           jobId,
           queueName,
           status,
+          companyId,
           wikidataId: wikidataId ?? null,
           approvedTimestamp:
             status === 'completed' ? new Date().toISOString() : null,
@@ -95,6 +125,10 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
           where: { id: reportRun.id },
           data: { status: 'completed' },
         })
+
+        if (threadId) {
+          requestPipelineRunPrune({ threadId })
+        }
       }
     } catch (err) {
       console.error(`[ReportRun] failed to save run for job ${jobId}:`, err)
@@ -112,32 +146,10 @@ Promise.all(
     return worker.run()
   })
 )
-  .then(() => {})
+  .then(() => {
+    console.log('Workers started')
+  })
   .catch((error) => {
     console.error('Error starting workers:', error)
     process.exit(1)
   })
-
-async function connectWithRetry<T>(
-  fn: () => Promise<T>,
-  maxRetries = 5,
-  delay = 1000
-): Promise<T> {
-  for (let attempt = 1; attempt <= maxRetries; attempt++) {
-    try {
-      return await fn()
-    } catch (err) {
-      if (attempt === maxRetries) throw err
-      await new Promise((resolve) => setTimeout(resolve, delay))
-      delay *= 2 // Exponential backoff
-    }
-  }
-  throw new Error('Failed to connect after maximum retries')
-}
-
-try {
-  await connectWithRetry(() => discord.login())
-} catch (error) {
-  console.error('Failed to start Discord bot:', error)
-  process.exit(1)
-}

@@ -7,6 +7,12 @@ import {
 } from '../src/api/services/companyReportService'
 import { registryService } from '../src/api/services/registryService'
 
+const acmeCompany = {
+  id: 'company-1',
+  wikidataId: 'Q1',
+  name: 'Acme',
+} as const
+
 describe('companyReportService', () => {
   afterEach(() => {
     jest.restoreAllMocks()
@@ -18,7 +24,7 @@ describe('companyReportService', () => {
     } as never)
 
     const result = await companyReportService.resolveCompanyReportIdForSave(
-      { wikidataId: 'Q1', name: 'Acme' },
+      acmeCompany,
       [{ reportURL: 'https://example.com/2024.pdf', year: '2024' }],
       { companyReportId: 'cr-1' }
     )
@@ -31,7 +37,7 @@ describe('companyReportService', () => {
 
     await expect(
       companyReportService.resolveCompanyReportIdForSave(
-        { wikidataId: 'Q1', name: 'Acme' },
+        acmeCompany,
         [{ year: '2024' }],
         { companyReportId: 'cr-other' }
       )
@@ -47,7 +53,7 @@ describe('companyReportService', () => {
       .mockResolvedValueOnce({ id: 'cr-new' } as never)
 
     const result = await companyReportService.resolveCompanyReportIdForSave(
-      { wikidataId: 'Q1', name: 'Acme' },
+      acmeCompany,
       [
         {
           reportURL: 'https://example.com/sustainability-2024.pdf',
@@ -62,11 +68,11 @@ describe('companyReportService', () => {
       expect.objectContaining({
         where: {
           companyId_registryReportId: {
-            companyId: 'Q1',
+            companyId: 'company-1',
             registryReportId: 'report-1',
           },
         },
-        create: { companyId: 'Q1', registryReportId: 'report-1' },
+        create: { companyId: 'company-1', registryReportId: 'report-1' },
         update: {},
       })
     )
@@ -80,7 +86,7 @@ describe('companyReportService', () => {
       } as never)
 
     const result = await companyReportService.resolveCompanyReportIdForSave(
-      { wikidataId: 'Q1', name: 'Acme' },
+      acmeCompany,
       [{ year: '2024' }]
     )
 
@@ -101,7 +107,7 @@ describe('companyReportService', () => {
       .mockResolvedValueOnce(undefined)
 
     const result = await companyReportService.prepareCompanyReportForPeriodSave(
-      { wikidataId: 'Q1', name: 'Acme' },
+      acmeCompany,
       [{ year: '2024', reportURL: 'https://example.com/2024.pdf' }],
       {
         bodyCompanyReportId: 'cr-1',
@@ -119,12 +125,161 @@ describe('companyReportService', () => {
 
   it('companyReportIdForPeriodSave returns default when period has no override', async () => {
     const result = await companyReportService.companyReportIdForPeriodSave(
-      'Q1',
+      'company-1',
       'cr-default',
       undefined,
       '2024'
     )
     expect(result).toBe('cr-default')
+  })
+
+  it('ensureCompanyReportRegistryLink sets registryReportId on an unlinked shell', async () => {
+    jest.spyOn(prisma.companyReport, 'findUnique').mockResolvedValueOnce({
+      registryReportId: null,
+      companyId: 'company-1',
+    } as never)
+    jest
+      .spyOn(registryService, 'upsertReportInRegistry')
+      .mockResolvedValueOnce({ id: 'report-1' } as never)
+    jest.spyOn(prisma.companyReport, 'findFirst').mockResolvedValueOnce(null)
+    const update = jest
+      .spyOn(prisma.companyReport, 'update')
+      .mockResolvedValueOnce({} as never)
+    const setYear = jest
+      .spyOn(companyReportService, 'setCompanyReportYear')
+      .mockResolvedValueOnce(undefined)
+
+    const linked = await companyReportService.ensureCompanyReportRegistryLink(
+      'cr-unlinked',
+      acmeCompany,
+      [
+        {
+          reportURL: 'https://example.com/sustainability-2024.pdf',
+          year: '2024',
+        },
+      ],
+      {
+        reportUrl: 'https://example.com/sustainability-2024.pdf',
+        documentReportYear: '2024',
+      }
+    )
+
+    expect(linked).toEqual({
+      registryReportId: 'report-1',
+      companyReportId: 'cr-unlinked',
+    })
+    expect(update).toHaveBeenCalledWith({
+      where: { id: 'cr-unlinked' },
+      data: { registryReportId: 'report-1' },
+    })
+    expect(setYear).toHaveBeenCalledWith('cr-unlinked', '2024')
+  })
+
+  it('ensureCompanyReportRegistryLink reassigns periods when registry is on another shell', async () => {
+    jest.spyOn(prisma.companyReport, 'findUnique').mockResolvedValueOnce({
+      registryReportId: null,
+      companyId: 'company-1',
+    } as never)
+    jest
+      .spyOn(registryService, 'upsertReportInRegistry')
+      .mockResolvedValueOnce({ id: 'report-1' } as never)
+    jest.spyOn(prisma.companyReport, 'findFirst').mockResolvedValueOnce({
+      id: 'cr-canonical',
+    } as never)
+    jest
+      .spyOn(prisma.reportingPeriod, 'findFirst')
+      .mockResolvedValueOnce({ id: 'period-1' } as never)
+      .mockResolvedValueOnce(null)
+    const updatePeriod = jest
+      .spyOn(prisma.reportingPeriod, 'update')
+      .mockResolvedValueOnce({} as never)
+    jest.spyOn(prisma.companyReport, 'findUnique').mockResolvedValueOnce({
+      registryReportId: null,
+      _count: { reportingPeriods: 0 },
+    } as never)
+    const deleteShell = jest
+      .spyOn(prisma.companyReport, 'delete')
+      .mockResolvedValueOnce({} as never)
+    const setYear = jest
+      .spyOn(companyReportService, 'setCompanyReportYear')
+      .mockResolvedValueOnce(undefined)
+
+    const linked = await companyReportService.ensureCompanyReportRegistryLink(
+      'cr-wrong',
+      acmeCompany,
+      [
+        {
+          year: '2024',
+          reportURL: 'https://example.com/sustainability-2024.pdf',
+        },
+      ],
+      {
+        reportUrl: 'https://example.com/sustainability-2024.pdf',
+        documentReportYear: '2024',
+      }
+    )
+
+    expect(linked).toEqual({
+      registryReportId: 'report-1',
+      companyReportId: 'cr-canonical',
+    })
+    expect(setYear).toHaveBeenCalledWith('cr-canonical', '2024')
+    expect(updatePeriod).toHaveBeenCalledWith({
+      where: { id: 'period-1' },
+      data: { companyReportId: 'cr-canonical' },
+    })
+    expect(deleteShell).toHaveBeenCalledWith({ where: { id: 'cr-wrong' } })
+  })
+
+  it('setCompanyReportRegistryLink updates registryReportId when report belongs to company', async () => {
+    jest.spyOn(prisma.company, 'findFirstOrThrow').mockResolvedValueOnce({
+      id: 'company-1',
+      wikidataId: 'Q1',
+    } as never)
+    jest.spyOn(prisma.companyReport, 'findFirst').mockResolvedValueOnce({
+      id: 'cr-1',
+    } as never)
+    jest.spyOn(prisma.report, 'findUnique').mockResolvedValueOnce({
+      id: 'report-1',
+      wikidataId: 'Q1',
+    } as never)
+    jest.spyOn(prisma.companyReport, 'findFirst').mockResolvedValueOnce(null)
+    const update = jest
+      .spyOn(prisma.companyReport, 'update')
+      .mockResolvedValueOnce({} as never)
+
+    await companyReportService.setCompanyReportRegistryLink(
+      'cr-1',
+      'company-1',
+      'report-1'
+    )
+
+    expect(update).toHaveBeenCalledWith({
+      where: { id: 'cr-1' },
+      data: { registryReportId: 'report-1' },
+    })
+  })
+
+  it('resolveCompanyReportIdForSave uses period reportURL when top-level url is missing', async () => {
+    jest
+      .spyOn(registryService, 'upsertReportInRegistry')
+      .mockResolvedValueOnce({ id: 'report-1' } as never)
+    jest
+      .spyOn(prisma.companyReport, 'upsert')
+      .mockResolvedValueOnce({ id: 'cr-new' } as never)
+
+    const result = await companyReportService.resolveCompanyReportIdForSave(
+      acmeCompany,
+      [
+        {
+          reportURL: 'https://example.com/sustainability-2024.pdf',
+          year: '2024',
+        },
+      ]
+    )
+
+    expect(result).toEqual({ companyReportId: 'cr-new', inferred: true })
+    expect(registryService.upsertReportInRegistry).toHaveBeenCalled()
   })
 
   it('companyReportIdForPeriodSave uses period override and sets year when different', async () => {
@@ -136,7 +291,7 @@ describe('companyReportService', () => {
       .mockResolvedValueOnce(undefined)
 
     const result = await companyReportService.companyReportIdForPeriodSave(
-      'Q1',
+      'company-1',
       'cr-default',
       'cr-other',
       '2025'

@@ -55,7 +55,7 @@ class ReportingPeriodService {
         reportS3Url,
         reportSha256,
         year,
-        companyId: company.wikidataId,
+        companyId: company.id,
         companyReportId,
         metadata: {
           connect: {

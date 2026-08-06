@@ -48,6 +48,27 @@ Sets `ReportingPeriod.companyReportId` for all rows. One `CompanyReport` per com
 
 6. Watch logs: `kubectl logs -n garbo-stage job/link-periods-to-company-reports-<suffix> -f`
 
+## Find duplicate companies (read-only scan)
+
+Reports potential duplicate `Company` rows using the same normalized-name / LEI / Wikidata-conflict rules as the pipeline company-link logic. **Does not modify the database.**
+
+1. Deploy a garbo image that includes `scripts/find-duplicate-companies.ts` (or pin `image:` in the YAML to a tag that has it).
+2. Edit `find-duplicate-companies.yaml`: set `metadata.namespace` to `garbo-stage` or `garbo` (add a `namespace:` field under `metadata` before create, or `kubectl create -n <ns> -f ...`).
+3. Optional: edit `args`, e.g. `--reason=wikidata_conflict`, `--limit=50`, or write `--json=/tmp/duplicate-companies.json` / `--csv=/tmp/duplicate-companies.csv`.
+4. Create the job:
+
+   ```bash
+   kubectl create -n garbo-stage -f k8s/jobs/find-duplicate-companies.yaml
+   ```
+
+5. Watch logs: `kubectl logs -n garbo-stage job/find-duplicate-companies-<suffix> -f`
+
+6. If you used `--json` or `--csv` under `/tmp`, copy files before the job TTL expires:
+
+   ```bash
+   kubectl cp -n garbo-stage <pod-name>:/tmp/duplicate-companies.csv ./duplicate-companies.csv
+   ```
+
 ## Reporting periods per document (deploy order)
 
 After the link job has run in that environment (no `companyReportId IS NULL`):

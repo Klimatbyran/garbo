@@ -10,6 +10,7 @@ export enum FollowUpType {
   Initiatives = 'followUp/initiatives',
   FiscalYear = 'followUp/fiscalYear',
   CompanyTags = 'followUp/companyTags',
+  ReportType = 'followUp/reportType',
   BaseYear = 'followUp/baseYear',
   Lei = 'extractLEI',
   Wikidata = 'wikidata',

@@ -43,12 +43,12 @@ class TagOptionService {
       await prisma.$transaction(async (tx) => {
         const companies = await tx.company.findMany({
           where: { tags: { has: oldSlug } },
-          select: { wikidataId: true, tags: true },
+          select: { id: true, tags: true },
         })
         for (const company of companies) {
           const newTags = company.tags.map((t) => (t === oldSlug ? newSlug : t))
           await tx.company.update({
-            where: { wikidataId: company.wikidataId },
+            where: { id: company.id },
             data: { tags: newTags },
           })
         }
@@ -75,12 +75,12 @@ class TagOptionService {
     await prisma.$transaction(async (tx) => {
       const companies = await tx.company.findMany({
         where: { tags: { has: slug } },
-        select: { wikidataId: true, tags: true },
+        select: { id: true, tags: true },
       })
       for (const company of companies) {
         const newTags = company.tags.filter((t) => t !== slug)
         await tx.company.update({
-          where: { wikidataId: company.wikidataId },
+          where: { id: company.id },
           data: { tags: newTags },
         })
       }

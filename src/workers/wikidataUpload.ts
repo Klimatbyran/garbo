@@ -1,16 +1,18 @@
-import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { ReportingPeriod } from '../lib/emissions'
 import {
   bulkCreateOrEditCarbonFootprintClaim,
   reduceToMostRecentClaims,
 } from '../lib/wikidata/edit'
 import { Claim, transformEmissionsToClaims } from '../lib/wikidata/util'
+import { hasVerifiedWikidataIdentifier } from '../lib/pipelineCompanyResolve'
 
 const KLIMATKOLLEN_ARCHIVE_PREFIX =
   'https://storage.googleapis.com/klimatkollen-pdfs/'
-export class WikidataUploadJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+export class WikidataUploadJob extends PipelineJob {
+  declare data: PipelineJob['data'] & {
     companyName: string
+    companyId: string
     wikidata: { node: `Q${number}` }
     body: {
       reportingPeriods: ReportingPeriod[]
@@ -18,10 +20,22 @@ export class WikidataUploadJob extends DiscordJob {
   }
 }
 
-const wikidataUpload = new DiscordWorker<WikidataUploadJob>(
+const wikidataUpload = new PipelineWorker<WikidataUploadJob>(
   'wikidataUpload',
   async (job) => {
-    const { wikidata, body } = job.data
+    const { wikidata, body, companyId } = job.data
+    if (!companyId) {
+      job.log('Skipping Wikidata upload: missing companyId on job')
+      return { success: false, skipped: true, reason: 'missing_company_id' }
+    }
+
+    const verified = await hasVerifiedWikidataIdentifier(companyId)
+    if (!verified) {
+      job.log(
+        `Skipping Wikidata upload for ${companyId}: WIKIDATA identifier is not verified`
+      )
+      return { success: false, skipped: true, reason: 'wikidata_not_verified' }
+    }
 
     const allClaims: Claim[] = []
     body.reportingPeriods.forEach((reportingPeriod) => {

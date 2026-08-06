@@ -1,32 +1,33 @@
 import { FastifyInstance, AuthenticatedFastifyRequest } from 'fastify'
 
 import { goalService } from '../../services/goalService'
+import { companyService } from '../../services/companyService'
 import {
-  wikidataIdParamSchema,
+  companyIdParamSchema,
+  companyGoalParamsSchema,
   postGoalSchema,
   postGoalsSchema,
   okResponseSchema,
-  garboEntityIdSchema,
   getErrorSchemas,
 } from '../../schemas'
 import {
   PostGoalsBody,
   PostGoalBody,
-  GarboEntityId,
-  WikidataIdParams,
+  CompanyIdParams,
+  CompanyGoalParams,
 } from '../../types'
 import { metadataService } from '../../services/metadataService'
 import { getTags } from '../../../config/openapi'
 
 export async function companyGoalsRoutes(app: FastifyInstance) {
   app.post(
-    '/:wikidataId/goals',
+    '/:id/goals',
     {
       schema: {
         summary: 'Create company goals',
         description: 'Create new goals for a company',
         tags: getTags('Goals'),
-        params: wikidataIdParamSchema,
+        params: companyIdParamSchema,
         body: postGoalsSchema,
         response: {
           200: okResponseSchema,
@@ -36,7 +37,7 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
     },
     async (
       request: AuthenticatedFastifyRequest<{
-        Params: WikidataIdParams
+        Params: CompanyIdParams
         Body: PostGoalsBody
       }>,
       reply
@@ -44,11 +45,12 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
       const { goals, metadata } = request.body
 
       if (goals?.length) {
-        const { wikidataId } = request.params
+        const { id } = request.params
         const user = request.user
 
         try {
-          await goalService.createGoals(wikidataId, goals, () =>
+          const company = await companyService.getCompanyByInternalId(id)
+          await goalService.createGoals(company.id, goals, () =>
             metadataService.createMetadata({
               metadata,
               user,
@@ -66,13 +68,13 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
   )
 
   app.patch(
-    '/:wikidataId/goals/:id',
+    '/:id/goals/:goalId',
     {
       schema: {
         summary: 'Update company goal',
         description: 'Update a goal for a company',
         tags: getTags('Goals'),
-        params: garboEntityIdSchema,
+        params: companyGoalParamsSchema,
         body: postGoalSchema,
         response: {
           200: okResponseSchema,
@@ -82,12 +84,12 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
     },
     async (
       request: AuthenticatedFastifyRequest<{
-        Params: GarboEntityId
+        Params: CompanyGoalParams
         Body: PostGoalBody
       }>,
       reply
     ) => {
-      const { id } = request.params
+      const { goalId } = request.params
       const { goal } = request.body
       let createdMetadata
 
@@ -105,7 +107,7 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
       }
 
       try {
-        await goalService.updateGoal(id, { goal }, createdMetadata)
+        await goalService.updateGoal(goalId, { goal }, createdMetadata)
       } catch (error) {
         console.error('ERROR Update of goal failed:', error)
         return reply.status(500).send({ message: 'Update of goal failed.' })

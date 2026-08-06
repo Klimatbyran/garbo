@@ -2,6 +2,10 @@ export default {
   preset: 'ts-jest',
   testEnvironment: 'node',
   setupFiles: ['<rootDir>/jest.env-setup.cjs'],
+  // Live Wikidata search specs need WIKIDATA_LIVE_TESTS=smoke|regular|fringe|all
+  testPathIgnorePatterns: process.env.WIKIDATA_LIVE_TESTS
+    ? []
+    : ['<rootDir>/tests/wikidata/wikidata-search-company-.*\\.spec\\.ts'],
   extensionsToTreatAsEsm: ['.ts'],
   transform: {
     '^.+\\.tsx?$': [

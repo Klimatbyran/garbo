@@ -1,7 +1,8 @@
 import { FlowChildJob, FlowProducer } from 'bullmq'
 import redis from '../config/redis'
-import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { QUEUE_NAMES } from '../queues'
+import { withPipelineJobOpts } from '../lib/pipelineJobOptions'
 
 /** Keys for follow-up workers that can be run selectively via runOnly (e.g. manual re-run in validation UI). */
 export type FollowUpKey =
@@ -16,6 +17,7 @@ export type FollowUpKey =
   | 'initiatives'
   | 'baseYear'
   | 'companyTags'
+  | 'reportType'
   | 'lei'
   | 'descriptions'
   | 'reportingQuality'
@@ -33,29 +35,30 @@ export const FOLLOW_UP_KEYS: FollowUpKey[] = [
   'initiatives',
   'baseYear',
   'companyTags',
+  'reportType',
   'lei',
   'descriptions',
   'reportingQuality',
 ]
 
-class ExtractEmissionsJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+class ExtractEmissionsJob extends PipelineJob {
+  declare data: PipelineJob['data'] & {
     companyName: string
+    companyId: string
     runOnly?: (FollowUpKey | 'all')[]
+    wikidata?: { node: string }
   }
 }
 
 const flow = new FlowProducer({ connection: redis })
 flow.on('error', (err) => console.error('FlowProducer connection error:', err))
 
-const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
+const extractEmissions = new PipelineWorker<ExtractEmissionsJob>(
   QUEUE_NAMES.EXTRACT_EMISSIONS,
   async (job) => {
-    const { companyName, runOnly } = job.data
+    const { companyName, companyId, runOnly } = job.data
     job.sendMessage(`🤖 Fetching emissions data...`)
 
-    // Try to get wikidata/fiscalYear from children; if not present (e.g. manual rerun),
-    // fall back to values already on the job data.
     let entries: any
     try {
       entries = await job.getChildrenEntries()
@@ -63,31 +66,32 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
       entries = undefined
     }
 
-    const wikidataFromChildren =
-      (entries as any)?.value?.wikidata ?? (entries as any)?.wikidata
     const fiscalYearFromChildren =
       (entries as any)?.value?.fiscalYear ?? (entries as any)?.fiscalYear
 
-    const wikidata = wikidataFromChildren ?? (job.data as any)?.wikidata
+    const wikidata =
+      (job.data as any)?.wikidata ??
+      (entries as any)?.value?.wikidata ??
+      (entries as any)?.wikidata
     const fiscalYear = fiscalYearFromChildren ?? (job.data as any)?.fiscalYear
 
-    // updating the job data with the values we seek
     const base = {
       name: companyName,
-      data: { ...job.data, wikidata, fiscalYear },
-      opts: {
+      data: { ...job.data, companyId, wikidata, fiscalYear },
+      opts: withPipelineJobOpts({
         attempts: 3,
-      },
+      }),
     }
 
     job.log('🔍 Running these workers : ' + runOnly?.join(', '))
 
-    // a worker should run if it is explicitly in the runOnly array or if runOnly is 'all'
     const shouldRun = (key: FollowUpKey) => {
       if (!runOnly) return true
       if (runOnly.includes('all')) return true
       return runOnly.includes(key)
     }
+
+    const wikidataId = wikidata?.node
 
     const childrenJobs: { key: FollowUpKey; job: FlowChildJob }[] = [
       {
@@ -171,6 +175,14 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
         },
       },
       {
+        key: 'reportType',
+        job: {
+          ...base,
+          name: 'reportType ' + companyName,
+          queueName: QUEUE_NAMES.FOLLOW_UP_REPORT_TYPE,
+        },
+      },
+      {
         key: 'lei',
         job: {
           ...base,
@@ -178,7 +190,8 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
           queueName: QUEUE_NAMES.EXTRACT_LEI,
           data: {
             ...base.data,
-            wikidataId: base.data.wikidata.node,
+            companyId,
+            ...(wikidataId && { wikidataId }),
           },
         },
       },
@@ -190,7 +203,7 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
           queueName: QUEUE_NAMES.EXTRACT_DESCRIPTIONS,
           data: {
             ...job.data,
-            companyId: wikidata.node,
+            companyId,
             type: undefined,
           },
         },
@@ -216,9 +229,9 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
           .filter((child) => shouldRun(child.key))
           .map((child) => child.job),
       ].filter((e) => e !== null),
-      opts: {
+      opts: withPipelineJobOpts({
         attempts: 3,
-      },
+      }),
     })
 
     job.sendMessage(`🤖 Asking follow-up questions...`)

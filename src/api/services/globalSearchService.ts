@@ -99,7 +99,7 @@ class GlobalSearchService {
       ...companies.map((company) => ({
         name: company.name,
         id: company.id,
-        wikidataId: company.wikidataId,
+        wikidataId: company.wikidataId ?? undefined,
         type: 'company' as const,
       })),
       ...municipalities.map((municipality) => ({

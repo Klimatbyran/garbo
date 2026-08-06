@@ -1,10 +1,10 @@
-import { Company, Initiative, Metadata } from '@prisma/client'
+import { Initiative, Metadata } from '@prisma/client'
 import { OptionalNullable } from '../../lib/type-utils'
 import { prisma } from '../../lib/prisma'
 
 class InitiativeService {
   async createInitiatives(
-    wikidataId: Company['wikidataId'],
+    companyId: string,
     initiatives: OptionalNullable<
       Omit<Initiative, 'metadataId' | 'companyId' | 'id'>
     >[],
@@ -19,7 +19,7 @@ class InitiativeService {
             title: initiative.title,
             company: {
               connect: {
-                wikidataId,
+                id: companyId,
               },
             },
             metadata: {

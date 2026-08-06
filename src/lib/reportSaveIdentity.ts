@@ -12,7 +12,7 @@ type JobReportFields = {
   sourceUrl?: string
   pdfCache?: { publicUrl?: string; sha256?: string }
   documentReportYear?: string | number
-  replaceAllEmissions?: boolean
+  registryReportId?: string
 }
 
 function trimOptional(value: unknown): string | undefined {
@@ -98,6 +98,8 @@ export function buildReportingPeriodsApiBodyExtras(
   jobData: JobReportFields,
   reportingPeriods: unknown[]
 ): Record<string, unknown> {
+  // TODO(pipeline): registryReportId from checkDB is forwarded here so period save can resolve
+  // the CompanyReport shell without falling back to "latest shell for company".
   const identity = buildPipelineReportIdentity(jobData)
   const trimmedSourceUrl = trimOptional(jobData.sourceUrl)
   const documentReportYear = resolveDocumentReportYear(reportingPeriods, {
@@ -107,11 +109,13 @@ export function buildReportingPeriodsApiBodyExtras(
   })
 
   return {
-    ...(jobData.replaceAllEmissions && { replaceAllEmissions: true }),
     documentReportYear,
     reportUrl: identity.reportURL,
     reportSourceUrl: trimmedSourceUrl,
     reportS3Url: identity.reportS3Url,
     reportSha256: identity.reportSha256,
+    ...(trimOptional(jobData.registryReportId) && {
+      registryReportId: trimOptional(jobData.registryReportId),
+    }),
   }
 }
