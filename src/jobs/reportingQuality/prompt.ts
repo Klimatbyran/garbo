@@ -23,10 +23,10 @@ List every methodology change, restatement of figures, or updated emission facto
 ---
 
 **missingScopesExplained**
-If any of Scope 1, Scope 2, or Scope 3 is absent from the report for this year, does the company provide an explanation?
-- true:  All missing scopes have an explicit explanation (e.g. "we do not report Scope 3 because…") — OR all three scopes are reported (nothing is missing)
-- false: At least one scope is missing from the report without any explanation
-- null:  All scopes are reported — use this when nothing is missing
+Is at least one of Scope 1, Scope 2, or Scope 3 absent from the report for this year? If so, does the company explain why?
+- null:  Not applicable — all three scopes (1, 2, and 3) are reported. Nothing is missing.
+- true:  At least one scope is missing, and every missing scope has an explicit explanation (e.g. "we do not report Scope 3 because…")
+- false: At least one scope is missing, and at least one of the missing scopes has no explanation
 
 ---
 

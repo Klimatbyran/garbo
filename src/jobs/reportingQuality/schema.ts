@@ -20,9 +20,9 @@ export const reportingQualitySchema = z.object({
       })
     ),
     /**
-     * true  = all missing scopes have an explicit explanation — or no scopes are missing
-     * false = at least one scope is absent without explanation
-     * null  = all scopes are reported (nothing missing)
+     * null  = not applicable, all three scopes are reported (nothing missing)
+     * true  = at least one scope is missing, and every missing scope has an explicit explanation
+     * false = at least one scope is missing without explanation
      */
     missingScopesExplained: z.boolean().nullable(),
   }),
