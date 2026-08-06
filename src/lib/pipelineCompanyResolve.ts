@@ -1,6 +1,8 @@
 import { apiFetch } from './api'
 import {
   assessCompanyLinkResolution,
+  companyNameCoreToken,
+  isPartialCompanyNameMatch,
   type CompanyLinkCandidate,
   stripLegalEntitySuffixes,
 } from './companyLinkResolve'
@@ -36,6 +38,7 @@ export type PipelineCompanyResolveOutcome =
       status: 'ambiguous'
       extractedName: string
       candidates: CompanyLinkCandidate[]
+      partialNameMatch?: boolean
     }
   | { status: 'create'; extractedName: string }
 
@@ -96,18 +99,31 @@ async function searchCompaniesByName(
 async function collectNameSearchCandidates(
   companyName: string
 ): Promise<CompanyLinkCandidate[]> {
-  const namesToTry = [companyName]
+  const namesToTry = new Set<string>([companyName.trim()])
   const strippedName = stripLegalEntitySuffixes(companyName)
   if (strippedName !== companyName.trim()) {
-    namesToTry.push(strippedName)
+    namesToTry.add(strippedName)
   }
 
   const byId = new Map<string, CompanyLinkCandidate>()
   for (const query of namesToTry) {
+    if (!query) continue
     for (const hit of await searchCompaniesByName(query)) {
       byId.set(hit.id, hit)
     }
   }
+
+  // Targeted partial-match expansion: core-token search can flood unrelated
+  // prefix hits, so only merge candidates that pass partial-match rules.
+  const coreToken = companyNameCoreToken(companyName)
+  if (coreToken) {
+    for (const hit of await searchCompaniesByName(coreToken)) {
+      if (hit.name && isPartialCompanyNameMatch(companyName, hit.name)) {
+        byId.set(hit.id, hit)
+      }
+    }
+  }
+
   return [...byId.values()]
 }
 
@@ -197,6 +213,7 @@ export async function resolvePipelineCompanyOutcome(
       status: 'ambiguous',
       extractedName: companyName,
       candidates: assessment.candidates,
+      partialNameMatch: assessment.partialNameMatch,
     }
   }
 
@@ -222,6 +239,7 @@ export async function resolvePipelineCompanyAfterIdentifiers(
       status: 'ambiguous'
       extractedName: string
       candidates: CompanyLinkCandidate[]
+      partialNameMatch?: boolean
     }
 > {
   const wikidataId = identifiers.wikidata?.node?.trim()
@@ -264,6 +282,7 @@ export async function resolvePipelineCompanyAfterIdentifiers(
       status: 'ambiguous',
       extractedName: companyName,
       candidates: assessment.candidates,
+      partialNameMatch: assessment.partialNameMatch,
     }
   }
 

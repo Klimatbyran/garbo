@@ -58,6 +58,42 @@ export interface ChangeDescription {
   newValue
 }
 
+type JobWithApproval = {
+  data: {
+    approval?: { type?: string; approved?: boolean }
+  }
+}
+
+/** Staff approved this diff worker's own payload (not e.g. companyLink). */
+export function isApprovedForDiffType(
+  job: JobWithApproval,
+  apiSubEndpoint: string
+): boolean {
+  const approval = job.data.approval
+  return approval?.approved === true && approval?.type === apiSubEndpoint
+}
+
+/** This diff worker is waiting on its own approval gate. */
+export function isPendingApprovalForDiffType(
+  job: JobWithApproval,
+  apiSubEndpoint: string
+): boolean {
+  const approval = job.data.approval
+  return !!approval && approval.type === apiSubEndpoint && !approval.approved
+}
+
+/**
+ * Run diff computation when there is no pending approval for this endpoint.
+ * Ignores unrelated approvals already on the job (companyLink, wikidata, …).
+ */
+export function shouldRunDiffComputation(
+  job: JobWithApproval,
+  apiSubEndpoint: string
+): boolean {
+  if (isApprovedForDiffType(job, apiSubEndpoint)) return false
+  return !isPendingApprovalForDiffType(job, apiSubEndpoint)
+}
+
 export class DiffJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
     companyName: string

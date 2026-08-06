@@ -1,5 +1,12 @@
 import apiConfig from '../config/api'
-import { DiffJob, ChangeDescription, DiffWorker } from '../lib/DiffWorker'
+import {
+  DiffJob,
+  ChangeDescription,
+  DiffWorker,
+  isApprovedForDiffType,
+  isPendingApprovalForDiffType,
+  shouldRunDiffComputation,
+} from '../lib/DiffWorker'
 import { diffChanges } from '../lib/saveUtils'
 import { QUEUE_NAMES } from '../queues'
 
@@ -12,17 +19,23 @@ export class DiffIndustryJob extends DiffJob {
   }
 }
 
+const INDUSTRY_ENDPOINT = 'industry'
+
 const diffIndustry = new DiffWorker<DiffIndustryJob>(
   QUEUE_NAMES.DIFF_INDUSTRY,
   async (job) => {
     const { wikidata, companyName, existingCompany, industry } = job.data
 
-    if (job.isDataApproved()) {
-      await job.enqueueSaveToAPI('industry', companyName, job.getApprovedBody())
+    if (isApprovedForDiffType(job, INDUSTRY_ENDPOINT)) {
+      await job.enqueueSaveToAPI(
+        INDUSTRY_ENDPOINT,
+        companyName,
+        job.getApprovedBody()
+      )
       return
     }
 
-    if (!job.hasApproval()) {
+    if (shouldRunDiffComputation(job, INDUSTRY_ENDPOINT)) {
       const { diff, requiresApproval } = await diffChanges({
         existingCompany,
         before: existingCompany?.industry,
@@ -36,14 +49,14 @@ const diffIndustry = new DiffWorker<DiffIndustryJob>(
       }
 
       await job.handleDiff(
-        'industry',
+        INDUSTRY_ENDPOINT,
         diff,
         change,
         typeof requiresApproval == 'boolean' ? requiresApproval : false
       )
     }
 
-    if (job.hasApproval() && !job.isDataApproved()) {
+    if (isPendingApprovalForDiffType(job, INDUSTRY_ENDPOINT)) {
       await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
     }
   }
