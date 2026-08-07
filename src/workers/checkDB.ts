@@ -212,7 +212,7 @@ const checkDB = new PipelineWorker(
 
     if (!staffResolvedCompanyLink) {
       const saveResolution = await resolvePipelineCompanyAfterIdentifiers(
-        { wikidata: mergedWikidata, lei: mergedLei },
+        { wikidata: mergedWikidata, lei: mergedLei ?? undefined },
         companyName,
         companyId
       )
