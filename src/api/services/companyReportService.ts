@@ -175,14 +175,6 @@ class CompanyReportService {
       return row.id
     }
 
-    const existing = await prisma.companyReport.findFirst({
-      where: { companyId, registryReportId: null },
-      orderBy: { createdAt: 'desc' },
-      select: { id: true },
-    })
-
-    if (existing) return existing.id
-
     const created = await prisma.companyReport.create({
       data: { companyId, registryReportId: null },
       select: { id: true },
@@ -253,14 +245,6 @@ class CompanyReportService {
   }
 
   async getOrCreateFallbackCompanyReportId(companyId: string): Promise<string> {
-    const existing = await prisma.companyReport.findFirst({
-      where: { companyId },
-      orderBy: [{ reportYear: 'desc' }, { createdAt: 'desc' }],
-      select: { id: true },
-    })
-
-    if (existing) return existing.id
-
     return this.findOrCreateCompanyReport(companyId, null)
   }
 
@@ -316,7 +300,7 @@ class CompanyReportService {
       company.id
     )
     console.warn(
-      '[companyReportService] Inferred companyReportId from latest CompanyReport for company',
+      '[companyReportService] Created new CompanyReport shell (no report identity on save)',
       { companyId: company.id, companyReportId }
     )
     return { companyReportId, inferred: true }
