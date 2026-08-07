@@ -32,6 +32,7 @@ import {
   applyStaffCompanyLinkDisplayName,
   staffApprovedDisplayName,
 } from '../lib/applyStaffCompanyLink'
+import { resolvePipelineLei } from '../lib/normalizeLei'
 
 export class CheckDBJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
@@ -180,9 +181,15 @@ const checkDB = new PipelineWorker(
       extractScopeEntriesFromFollowUp(legacyScope12)
     )
 
-    const extractedLei =
-      typeof lei === 'string' && lei.trim() ? lei.trim() : undefined
-    const mergedLei = extractedLei ?? job.data.lei?.trim()
+    const { mergedLei, ignoredInvalidChildLei } = resolvePipelineLei(
+      lei,
+      job.data.lei
+    )
+    if (ignoredInvalidChildLei) {
+      job.log(
+        `Ignoring invalid LEI from extractLEI child: '${ignoredInvalidChildLei}'`
+      )
+    }
     const wikidataNode =
       wikidata?.node?.trim() ??
       job.data.wikidata?.node?.trim() ??
@@ -205,7 +212,7 @@ const checkDB = new PipelineWorker(
 
     if (!staffResolvedCompanyLink) {
       const saveResolution = await resolvePipelineCompanyAfterIdentifiers(
-        { wikidata: mergedWikidata, lei: mergedLei },
+        { wikidata: mergedWikidata, lei: mergedLei ?? undefined },
         companyName,
         companyId
       )
