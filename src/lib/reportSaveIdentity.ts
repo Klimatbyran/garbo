@@ -13,6 +13,7 @@ type JobReportFields = {
   pdfCache?: { publicUrl?: string; sha256?: string }
   documentReportYear?: string | number
   registryReportId?: string
+  companyReportId?: string
 }
 
 function trimOptional(value: unknown): string | undefined {
@@ -116,6 +117,9 @@ export function buildReportingPeriodsApiBodyExtras(
     reportSha256: identity.reportSha256,
     ...(trimOptional(jobData.registryReportId) && {
       registryReportId: trimOptional(jobData.registryReportId),
+    }),
+    ...(trimOptional(jobData.companyReportId) && {
+      companyReportId: trimOptional(jobData.companyReportId),
     }),
   }
 }
