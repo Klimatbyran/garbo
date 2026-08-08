@@ -1,18 +1,13 @@
 export const CLIENT_API_PERMISSION_CODES = [
   'api.companies.search',
-  'api.companies.export',
   'api.companies.list',
   'api.companies.read',
   'api.internal.companies',
   'api.internal.queue_archive',
   'api.internal.municipalities',
   'api.municipalities.read',
-  'api.municipalities.export',
   'api.regions.read',
-  'api.regions.export',
   'api.nation.read',
-  'api.reporting_period.years',
-  'api.mailing_list.download_request',
   'api.screenshots.read',
   'api.newsletters.download',
   'api.global_search.search',
@@ -44,12 +39,6 @@ export const clientApiRouteRules: Rule[] = [
     type: 'exact',
     path: '/api/companies/search',
     permission: 'api.companies.search',
-  },
-  {
-    method: 'GET',
-    type: 'prefix',
-    path: '/api/companies/export',
-    permission: 'api.companies.export',
   },
   {
     method: 'GET',
@@ -91,12 +80,6 @@ export const clientApiRouteRules: Rule[] = [
   {
     method: 'GET',
     type: 'prefix',
-    path: '/api/municipalities/export',
-    permission: 'api.municipalities.export',
-  },
-  {
-    method: 'GET',
-    type: 'prefix',
     path: '/api/municipalities/',
     permission: 'api.municipalities.read',
   },
@@ -105,12 +88,6 @@ export const clientApiRouteRules: Rule[] = [
     type: 'exact',
     path: '/api/municipalities',
     permission: 'api.municipalities.read',
-  },
-  {
-    method: 'GET',
-    type: 'prefix',
-    path: '/api/regions/export',
-    permission: 'api.regions.export',
   },
   {
     method: 'GET',
@@ -135,18 +112,6 @@ export const clientApiRouteRules: Rule[] = [
     type: 'exact',
     path: '/api/nation',
     permission: 'api.nation.read',
-  },
-  {
-    method: 'GET',
-    type: 'prefix',
-    path: '/api/reporting-period',
-    permission: 'api.reporting_period.years',
-  },
-  {
-    method: 'POST',
-    type: 'prefix',
-    path: '/api/download-request',
-    permission: 'api.mailing_list.download_request',
   },
   {
     method: 'GET',
