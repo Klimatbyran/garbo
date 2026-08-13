@@ -193,6 +193,10 @@ const extractEmissions = new PipelineWorker<ExtractEmissionsJob>(
             companyId,
             ...(wikidataId && { wikidataId }),
           },
+          opts: withPipelineJobOpts({
+            attempts: 3,
+            failParentOnFailure: false,
+          }),
         },
       },
       {

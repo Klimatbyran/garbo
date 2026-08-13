@@ -78,11 +78,11 @@ describe('companyReportService', () => {
     )
   })
 
-  it('falls back to the latest CompanyReport when no report identity', async () => {
-    const findFirst = jest
-      .spyOn(prisma.companyReport, 'findFirst')
+  it('creates a new CompanyReport shell when no report identity', async () => {
+    const create = jest
+      .spyOn(prisma.companyReport, 'create')
       .mockResolvedValueOnce({
-        id: 'cr-legacy',
+        id: 'cr-new',
       } as never)
 
     const result = await companyReportService.resolveCompanyReportIdForSave(
@@ -90,10 +90,10 @@ describe('companyReportService', () => {
       [{ year: '2024' }]
     )
 
-    expect(result).toEqual({ companyReportId: 'cr-legacy', inferred: true })
-    expect(findFirst).toHaveBeenCalledWith(
+    expect(result).toEqual({ companyReportId: 'cr-new', inferred: true })
+    expect(create).toHaveBeenCalledWith(
       expect.objectContaining({
-        orderBy: [{ reportYear: 'desc' }, { createdAt: 'desc' }],
+        data: { companyId: 'company-1', registryReportId: null },
       })
     )
   })

@@ -1,7 +1,14 @@
 import { canonicalPublicReportUrl, diffChanges } from '../lib/saveUtils'
 import { getReportingPeriodDates } from '../lib/reportingPeriodDates'
 import { QUEUE_NAMES } from '../queues'
-import { ChangeDescription, DiffWorker, DiffJob } from '../lib/DiffWorker'
+import {
+  ChangeDescription,
+  DiffWorker,
+  DiffJob,
+  isApprovedForDiffType,
+  isPendingApprovalForDiffType,
+  shouldRunDiffComputation,
+} from '../lib/DiffWorker'
 import apiConfig from '../config/api'
 import { apiFetch } from '../lib/api'
 import { pipelineCompanyReadPath } from '../lib/pipelineCompanyPath'
@@ -40,6 +47,8 @@ async function fetchFreshExistingCompany(companyId: string) {
   return apiFetch(pipelineCompanyReadPath(companyId)).catch(() => null)
 }
 
+const REPORTING_PERIODS_ENDPOINT = 'reporting-periods'
+
 const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
   QUEUE_NAMES.DIFF_REPORTING_PERIODS,
   async (job) => {
@@ -67,7 +76,7 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
         ? trimmedUrl
         : undefined)
 
-    if (job.isDataApproved()) {
+    if (isApprovedForDiffType(job, REPORTING_PERIODS_ENDPOINT)) {
       const approvedBody = job.getApprovedBody() ?? {}
       const periods = Array.isArray(approvedBody.reportingPeriods)
         ? approvedBody.reportingPeriods
@@ -77,7 +86,7 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
         periods
       )
 
-      await job.enqueueSaveToAPI('reporting-periods', companyName, {
+      await job.enqueueSaveToAPI(REPORTING_PERIODS_ENDPOINT, companyName, {
         ...approvedBody,
         ...saveBodyExtras,
         ...(job.data.replaceAllEmissions && { replaceAllEmissions: true }),
@@ -89,7 +98,7 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
       return
     }
 
-    if (!job.hasApproval()) {
+    if (shouldRunDiffComputation(job, REPORTING_PERIODS_ENDPOINT)) {
       const { companyId, wikidata } = job.data
       const freshCompany =
         (await fetchFreshExistingCompany(companyId)) ??
@@ -222,7 +231,7 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
         isNewReportIdentity && updatedReportingPeriods.length > 0
 
       await job.handleDiff(
-        'reporting-periods',
+        REPORTING_PERIODS_ENDPOINT,
         diff,
         change,
         typeof requiresApproval == 'boolean' ? requiresApproval : false,
@@ -230,7 +239,7 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
       )
     }
 
-    if (job.hasApproval() && !job.isDataApproved()) {
+    if (isPendingApprovalForDiffType(job, REPORTING_PERIODS_ENDPOINT)) {
       await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
     }
   }

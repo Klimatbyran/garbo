@@ -25,9 +25,14 @@ import {
   pipelineCompanyReadPath,
 } from '../lib/pipelineCompanyPath'
 import {
-  preferRicherDiacriticCompanyName,
   normalizeCompanyNameForMatch,
+  resolveCompanyDisplayName,
 } from '../lib/companyLinkResolve'
+import {
+  applyStaffCompanyLinkDisplayName,
+  staffApprovedDisplayName,
+} from '../lib/applyStaffCompanyLink'
+import { resolvePipelineLei } from '../lib/normalizeLei'
 
 export class CheckDBJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
@@ -104,7 +109,16 @@ const checkDB = new PipelineWorker(
       }
       if (typeof approved.companyId === 'string' && approved.companyId.trim()) {
         companyId = approved.companyId.trim()
-        await job.updateData({ ...job.data, companyId })
+        const override = staffApprovedDisplayName(approved)
+        if (override) {
+          companyName = await applyStaffCompanyLinkDisplayName(
+            companyId,
+            override
+          )
+          await job.updateData({ ...job.data, companyId, companyName })
+        } else {
+          await job.updateData({ ...job.data, companyId })
+        }
         job.log(`Using staff-selected company id=${companyId} before save`)
         if (threadId) {
           await syncCanonicalReportRunCompanyId({
@@ -168,9 +182,15 @@ const checkDB = new PipelineWorker(
       extractScopeEntriesFromFollowUp(legacyScope12)
     )
 
-    const extractedLei =
-      typeof lei === 'string' && lei.trim() ? lei.trim() : undefined
-    const mergedLei = extractedLei ?? job.data.lei?.trim()
+    const { mergedLei, ignoredInvalidChildLei } = resolvePipelineLei(
+      lei,
+      job.data.lei
+    )
+    if (ignoredInvalidChildLei) {
+      job.log(
+        `Ignoring invalid LEI from extractLEI child: '${ignoredInvalidChildLei}'`
+      )
+    }
     const wikidataNode =
       wikidata?.node?.trim() ??
       job.data.wikidata?.node?.trim() ??
@@ -193,7 +213,7 @@ const checkDB = new PipelineWorker(
 
     if (!staffResolvedCompanyLink) {
       const saveResolution = await resolvePipelineCompanyAfterIdentifiers(
-        { wikidata: mergedWikidata, lei: mergedLei },
+        { wikidata: mergedWikidata, lei: mergedLei ?? undefined },
         companyName,
         companyId
       )
@@ -209,14 +229,18 @@ const checkDB = new PipelineWorker(
             newValue: {
               extractedName: saveResolution.extractedName,
               candidates: saveResolution.candidates,
-              allowCreateNew: false,
+              ...(saveResolution.partialNameMatch && {
+                partialNameMatch: true,
+                displayName: saveResolution.extractedName,
+              }),
             },
           },
           false,
           {
             source: 'checkdb-company-resolve',
-            comment:
-              'Multiple matching companies found before save — please select the correct company',
+            comment: saveResolution.partialNameMatch
+              ? 'Partial name match — select the correct company and optionally set display name'
+              : 'Multiple matching companies found before save — please select the correct company',
           },
           `Company link before save for ${companyName}`
         )
@@ -256,9 +280,17 @@ const checkDB = new PipelineWorker(
     job.log(existingCompany)
 
     if (existingCompany) {
-      companyName = preferRicherDiacriticCompanyName(
+      const staffDisplay =
+        isCheckDbSaveTimeCompanyLinkApproval(job) && job.isDataApproved()
+          ? staffApprovedDisplayName(job.getApprovedBody())
+          : undefined
+      companyName = resolveCompanyDisplayName(
         existingCompany.name,
-        companyName
+        companyName,
+        {
+          staffDisplayName: staffDisplay,
+          preferIncomingOnPartialMatch: Boolean(staffDisplay),
+        }
       )
     }
 

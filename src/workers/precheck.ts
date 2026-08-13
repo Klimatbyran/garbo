@@ -14,6 +14,10 @@ import {
 } from '../lib/pipelineCompanyResolve'
 import { findOrCreatePipelineCompanyLocked } from '../lib/pipelineCompanyCreate'
 import { syncCanonicalReportRunCompanyId } from '../lib/pipelineRunCompanyId'
+import {
+  applyStaffCompanyLinkDisplayName,
+  staffApprovedDisplayName,
+} from '../lib/applyStaffCompanyLink'
 import { EXTRACT_EMISSIONS_CHILD_QUEUES } from './precheckFlow'
 import { withPipelineJobOpts } from '../lib/pipelineJobOptions'
 
@@ -53,6 +57,7 @@ async function resolveOrCreateCompanyForPrecheck(
   | {
       status: 'ambiguous'
       candidates: import('../lib/companyLinkResolve').CompanyLinkCandidate[]
+      partialNameMatch?: boolean
     }
   | null
 > {
@@ -67,7 +72,11 @@ async function resolveOrCreateCompanyForPrecheck(
   const outcome = await findOrCreatePipelineCompanyLocked(job.data, companyName)
 
   if (outcome.status === 'ambiguous') {
-    return { status: 'ambiguous', candidates: outcome.candidates }
+    return {
+      status: 'ambiguous',
+      candidates: outcome.candidates,
+      partialNameMatch: outcome.partialNameMatch,
+    }
   }
 
   if (outcome.companyId !== job.data.companyId) {
@@ -111,17 +120,22 @@ async function ensurePipelineCompany(
           )
         }
       }
-      const companyId = await createPipelineCompany(companyName)
-      await job.updateData({ ...job.data, companyId, companyName })
+      const createName = staffApprovedDisplayName(approved) ?? companyName
+      const companyId = await createPipelineCompany(createName)
+      await job.updateData({ ...job.data, companyId, companyName: createName })
       job.log(`Created new company after company-link approval id=${companyId}`)
-      await syncRunCompanyIdFromPrecheck(job, companyId, companyName)
+      await syncRunCompanyIdFromPrecheck(job, companyId, createName)
       return companyId
     }
     if (typeof approved.companyId === 'string' && approved.companyId.trim()) {
       const companyId = approved.companyId.trim()
-      await job.updateData({ ...job.data, companyId, companyName })
+      const override = staffApprovedDisplayName(approved)
+      const finalName = override
+        ? await applyStaffCompanyLinkDisplayName(companyId, override)
+        : companyName
+      await job.updateData({ ...job.data, companyId, companyName: finalName })
       job.log(`Using staff-selected company id=${companyId}`)
-      await syncRunCompanyIdFromPrecheck(job, companyId, companyName)
+      await syncRunCompanyIdFromPrecheck(job, companyId, finalName)
       return companyId
     }
   }
@@ -163,8 +177,9 @@ async function ensurePipelineCompany(
 
     const metadata = {
       source: 'company-name-search',
-      comment:
-        'Multiple matching companies found — please select the correct company',
+      comment: outcome.partialNameMatch
+        ? 'Partial name match — select the correct company and optionally set display name'
+        : 'Multiple matching companies found — please select the correct company',
     }
 
     await job.requestApproval(
@@ -174,6 +189,10 @@ async function ensurePipelineCompany(
         newValue: {
           extractedName: outcome.extractedName,
           candidates: outcome.candidates,
+          ...(outcome.partialNameMatch && {
+            partialNameMatch: true,
+            displayName: outcome.extractedName,
+          }),
         },
       },
       false,
@@ -201,13 +220,18 @@ async function ensurePipelineCompany(
         newValue: {
           extractedName: companyName,
           candidates: locked.candidates,
+          ...(locked.partialNameMatch && {
+            partialNameMatch: true,
+            displayName: companyName,
+          }),
         },
       },
       false,
       {
         source: 'company-name-search',
-        comment:
-          'Multiple matching companies found — please select the correct company',
+        comment: locked.partialNameMatch
+          ? 'Partial name match — select the correct company and optionally set display name'
+          : 'Multiple matching companies found — please select the correct company',
       },
       `Company link for ${companyName}`
     )
@@ -251,7 +275,16 @@ const precheck = new PipelineWorker(
         [
           {
             role: 'user',
-            content: `What is the name of the company? Respond only with the company name, leave null if you cannot find it. We will search Wikidata for this name. The following is an extract from a PDF:
+            content: `What is the name of the company this report belongs to? We will search Wikidata for this name.
+
+Rules:
+- Prefer the legal/reporting entity named on the cover page or report title.
+- If the report covers multiple companies (group, consolidated, or holding structure), return the ultimate parent / reporting entity — not a subsidiary listed only in the scope section.
+- If the report is clearly about a single subsidiary or division, return that entity instead.
+
+Respond only with the company name, or null if you cannot find it.
+
+Extract from this PDF:
             
             ${chunk}
             `,

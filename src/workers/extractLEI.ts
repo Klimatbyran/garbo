@@ -11,6 +11,10 @@ import {
   buildLeiPrompt,
   inferPreferSwedishLeiFromUrls,
 } from '../lib/reportLeiPreference'
+import { isValidLei } from '../lib/normalizeLei'
+
+const INVALID_LEI_MESSAGE =
+  'Invalid LEI: value does not match the required 20-character format with a valid checksum. LEI will not be saved.'
 
 export class LEIJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
@@ -115,11 +119,29 @@ const extractLEI = new PipelineWorker<LEIJob>(
       lei = await selectLeiFromGleif(job, companyName)
     }
 
-    if (lei) {
-      job.log(`✅ Found LEI for '${companyName}': ${lei}`)
+    if (!lei) {
+      job.log(`No LEI found for '${companyName}'.`)
+      return {
+        lei: null,
+        companyId,
+        ...(wikidataId && { wikidataId }),
+      }
     }
 
-    return { lei, companyId, ...(wikidataId && { wikidataId }) }
+    if (!isValidLei(lei)) {
+      job.log(`❌ ${INVALID_LEI_MESSAGE} Received: '${lei}'`)
+      await job.sendMessage(
+        `❌ ${INVALID_LEI_MESSAGE} (received '${lei}' for ${companyName})`
+      )
+      throw new Error(`${INVALID_LEI_MESSAGE} Received: '${lei}'`)
+    }
+
+    job.log(`✅ Found LEI for '${companyName}': ${lei}`)
+    return {
+      lei: lei.trim().toUpperCase(),
+      companyId,
+      ...(wikidataId && { wikidataId }),
+    }
   }
 )
 
