@@ -161,6 +161,49 @@ model ReportingPeriod {
   @@index([companyId, year])
 }
 
+enum Scope3CategoryReporting {
+  FULL
+  GROUPED
+  CUSTOM_LABELS
+  SINGLE_TOTAL
+}
+
+enum FragmentedValuesReporting {
+  NONE
+  PARTS_WITH_TOTAL
+  PARTS_ONLY_NO_TOTAL
+}
+
+/// Reporting quality flags derived from a processed PDF (one per CompanyReport)
+model ReportingQuality {
+  id                          String                     @id @default(cuid())
+  companyReportId             String                     @unique
+  /// FULL = the 15 official GHG Protocol Scope 3 categories reported individually; GROUPED = categories reported in bundled ranges (e.g. "Category 1-6"); CUSTOM_LABELS = own subcategory labels not mapped to the 15; SINGLE_TOTAL = only a Scope 3 total, no breakdown; null = Scope 3 not reported
+  usesGhgProtocolCategories   Scope3CategoryReporting?
+  /// Close-to-verbatim quote of how the company labels its Scope 3 breakdown, for spot-checking the classification above. Null when there's no breakdown to quote.
+  categoryLabelsExample       String?
+  /// JSON array of {year: number|null, description: string} — methodology changes mentioned in the document. Empty array = none.
+  methodChanges               Json                       @default("[]")
+  /// true = all missing scopes have an explanation (or none are missing); false = at least one scope absent without explanation; null = all scopes reported
+  missingScopesExplained      Boolean?
+  /// Free-text note on which scope(s) are missing and, if explained, a summary of the company's stated reason. Null when missingScopesExplained is null.
+  missingScopesReason         String?
+  /// true = company explicitly labels Scope 2 as market-based/location-based; false = mb/lb only inferred from two separate numbers, never explicitly named; null = Scope 2 has no mb/lb breakdown (single number, or not reported)
+  scope2MethodExplicit        Boolean?
+  /// NONE = Scope 1 reported as a clean total, no sub-part breakdown; PARTS_WITH_TOTAL = broken into sub-parts (by facility, region, etc.) but the company also states the aggregate — low risk; PARTS_ONLY_NO_TOTAL = only sub-parts given, no stated total — must be reconstructed by summation, flag for manual review; null = Scope 1 not reported
+  scope1FragmentedReporting   FragmentedValuesReporting?
+  /// Close-to-verbatim quote of the Scope 1 fragmented breakdown observed. Null when scope1FragmentedReporting is NONE or null.
+  scope1FragmentedExample     String?
+  /// Same classification as scope1FragmentedReporting, but for Scope 2.
+  scope2FragmentedReporting   FragmentedValuesReporting?
+  /// Close-to-verbatim quote of the Scope 2 fragmented breakdown observed. Null when scope2FragmentedReporting is NONE or null.
+  scope2FragmentedExample     String?
+  /// JSON array of {category: number, fragmentedReporting: 'PARTS_WITH_TOTAL'|'PARTS_ONLY_NO_TOTAL', example: string} — one entry per Scope 3 category (1-16) that is broken into sub-parts (by material, region, etc.), same classification as scope1/scope2FragmentedReporting but tracked per category since Scope 3 has 16 of them. Categories reported as a clean total are omitted. Empty array = no fragmented categories found.
+  scope3CategoryFragmentation Json                       @default("[]")
+
+  companyReport CompanyReport @relation(fields: [companyReportId], references: [id], onDelete: Cascade)
+}
+
 /// Reported emissions for a specific reporting period
 model Emissions {
   id                String  @id @default(cuid())
@@ -578,6 +621,7 @@ model CompanyReport {
   company          Company           @relation(fields: [companyId], references: [id], onDelete: Cascade)
   report           Report?           @relation(fields: [registryReportId], references: [id], onDelete: SetNull)
   reportingPeriods ReportingPeriod[]
+  reportingQuality ReportingQuality?
 
   @@unique([companyId, registryReportId])
 }

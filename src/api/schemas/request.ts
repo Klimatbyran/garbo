@@ -316,6 +316,40 @@ export const postReportingPeriodsSchema = z
   })
   .merge(createMetadataSchema)
 
+const fragmentedValuesReportingSchema = z
+  .enum(['NONE', 'PARTS_WITH_TOTAL', 'PARTS_ONLY_NO_TOTAL'])
+  .nullable()
+
+export const postReportingQualitySchema = z
+  .object({
+    url: z.string(),
+    usesGhgProtocolCategories: z
+      .enum(['FULL', 'GROUPED', 'CUSTOM_LABELS', 'SINGLE_TOTAL'])
+      .nullable(),
+    categoryLabelsExample: z.string().nullable(),
+    methodChanges: z.array(
+      z.object({ year: z.number().nullable(), description: z.string() })
+    ),
+    missingScopesExplained: z.boolean().nullable(),
+    missingScopesReason: z.string().nullable(),
+    scope2MethodExplicit: z.boolean().nullable(),
+    scope1FragmentedReporting: fragmentedValuesReportingSchema,
+    scope1FragmentedExample: z.string().nullable(),
+    scope2FragmentedReporting: fragmentedValuesReportingSchema,
+    scope2FragmentedExample: z.string().nullable(),
+    scope3CategoryFragmentation: z.array(
+      z.object({
+        category: z.number(),
+        fragmentedReporting: z.enum([
+          'PARTS_WITH_TOTAL',
+          'PARTS_ONLY_NO_TOTAL',
+        ]),
+        example: z.string(),
+      })
+    ),
+  })
+  .merge(createMetadataSchema)
+
 export const MunicipalityNameSchema = z.string()
 
 export const MunicipalityNameParamSchema = z.object({

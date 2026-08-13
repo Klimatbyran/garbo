@@ -165,6 +165,7 @@ const checkDB = new PipelineWorker(
       descriptions,
       lei,
       tags: extractedTags,
+      reportingQuality,
       reportType: extractedReportType,
     } = root || {}
 
@@ -511,6 +512,16 @@ const checkDB = new PipelineWorker(
               data: {
                 ...base.data,
                 tags,
+              },
+            }
+          : null,
+        reportingQuality != null
+          ? {
+              ...base,
+              queueName: QUEUE_NAMES.DIFF_REPORTING_QUALITY,
+              data: {
+                ...base.data,
+                reportingQuality,
               },
             }
           : null,

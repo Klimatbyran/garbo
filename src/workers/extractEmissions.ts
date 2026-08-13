@@ -20,6 +20,7 @@ export type FollowUpKey =
   | 'reportType'
   | 'lei'
   | 'descriptions'
+  | 'reportingQuality'
 
 /** All runnable follow-up keys; use for UI (e.g. "Re-run Scope 1", "Re-run Tags") or API validation. */
 export const FOLLOW_UP_KEYS: FollowUpKey[] = [
@@ -37,6 +38,7 @@ export const FOLLOW_UP_KEYS: FollowUpKey[] = [
   'reportType',
   'lei',
   'descriptions',
+  'reportingQuality',
 ]
 
 class ExtractEmissionsJob extends PipelineJob {
@@ -208,6 +210,14 @@ const extractEmissions = new PipelineWorker<ExtractEmissionsJob>(
             companyId,
             type: undefined,
           },
+        },
+      },
+      {
+        key: 'reportingQuality',
+        job: {
+          ...base,
+          name: 'reportingQuality ' + companyName,
+          queueName: QUEUE_NAMES.FOLLOW_UP_REPORTING_QUALITY,
         },
       },
     ]

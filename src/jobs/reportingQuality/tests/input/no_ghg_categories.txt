@@ -1,0 +1,22 @@
+## Climate Emissions 2023
+
+### Scope 1
+Direct emissions from our own operations: 12,400 tCO2e
+
+### Scope 2
+Electricity and heating (market-based): 3,200 tCO2e
+
+### Scope 3
+We report the following value chain emissions:
+
+| Category | tCO2e |
+|---|---|
+| Upstream logistics | 34,200 |
+| Business travel | 4,600 |
+| Employee commuting | 3,800 |
+| Product use phase | 510,000 |
+| Product end-of-life | 18,700 |
+
+Total value chain emissions: 571,300 tCO2e
+
+We do not report supplier emissions as we currently lack sufficient data from our supply chain.

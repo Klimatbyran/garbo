@@ -1,0 +1,17 @@
+## Climate Emissions 2023
+
+### Scope 1
+Direct emissions from our own operations: 8,100 tCO2e
+
+### Scope 2
+Electricity and heating (market-based): 2,300 tCO2e
+
+### Scope 3
+We do not currently report Scope 3 emissions. We lack the supply chain
+data required to produce a reliable estimate and plan to begin reporting
+once our supplier engagement program is complete in 2025.
+
+## Methodology
+
+Emission factors for Scope 1 and Scope 2 were updated to the IEA 2023
+dataset this year, restating our 2021 figures.

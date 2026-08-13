@@ -1,0 +1,25 @@
+## Climate Emissions 2023
+
+### Scope 1
+Direct emissions from our own operations: 5,200 tCO2e
+
+### Scope 2 (market-based)
+Reported per country of operation:
+- Sweden: 1,240 tCO2e
+- Germany: 860 tCO2e
+- Poland: 430 tCO2e
+
+### Scope 3
+We report Scope 3 emissions using the GHG Protocol's 15 categories.
+
+| Category | Description | tCO2e |
+|---|---|---|
+| Category 1 | Purchased goods and services | 22,000 |
+| Category 6 | Business travel | 3,100 |
+| Category 11 | Use of sold products | 145,000 |
+
+We do not report the remaining categories as they are not material to our operations.
+
+## Methodology
+
+No changes to calculation methodology were made compared to 2022.
