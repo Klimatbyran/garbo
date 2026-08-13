@@ -1,0 +1,28 @@
+## Climate Emissions 2023
+
+### Scope 1
+Direct emissions from our own operations: 4,000 tCO2e
+
+### Scope 2 (market-based)
+2,100 tCO2e
+
+### Scope 3
+We report Scope 3 emissions using the GHG Protocol's 15 categories.
+
+Category 1 (Purchased goods and services) by material:
+- Steel: 500 tCO2e
+- Plastic: 200 tCO2e
+- Aluminum: 90 tCO2e
+
+Category 6 (Business travel): 3,100 tCO2e
+
+Category 11 (Use of sold products) by product line:
+- Line A: 60,000 tCO2e
+- Line B: 40,000 tCO2e
+- Total Category 11: 100,000 tCO2e
+
+We do not report the remaining categories as they are not material to our operations.
+
+## Methodology
+
+No changes to calculation methodology were made compared to 2022.

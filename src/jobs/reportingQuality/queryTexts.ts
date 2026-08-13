@@ -5,4 +5,6 @@ export const queryTexts = [
   'emission factors updated boundary change',
   'not reporting scope 1 2 3 explanation boundary exclusion',
   'Scope 3 subcategories breakdown',
+  'scope 2 market-based location-based residual mix',
+  'emissions by facility region business unit material total sum',
 ]

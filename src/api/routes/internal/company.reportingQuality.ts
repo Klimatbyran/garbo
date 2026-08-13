@@ -40,8 +40,16 @@ export async function companyReportingQualityRoutes(app: FastifyInstance) {
       const {
         url,
         usesGhgProtocolCategories,
+        categoryLabelsExample,
         methodChanges,
         missingScopesExplained,
+        missingScopesReason,
+        scope2MethodExplicit,
+        scope1FragmentedReporting,
+        scope1FragmentedExample,
+        scope2FragmentedReporting,
+        scope2FragmentedExample,
+        scope3CategoryFragmentation,
       } = request.body
 
       try {
@@ -49,8 +57,16 @@ export async function companyReportingQualityRoutes(app: FastifyInstance) {
         await reportingQualityService.upsert(company.id, {
           url,
           usesGhgProtocolCategories,
+          categoryLabelsExample,
           methodChanges,
           missingScopesExplained,
+          missingScopesReason,
+          scope2MethodExplicit,
+          scope1FragmentedReporting,
+          scope1FragmentedExample,
+          scope2FragmentedReporting,
+          scope2FragmentedExample,
+          scope3CategoryFragmentation,
         })
       } catch (error) {
         console.error('ERROR Upsert of reporting quality failed:', error)

@@ -1,0 +1,23 @@
+## Scope 3 Emissions Split by Category 2024
+
+| Line item              | Scope 3 category | Tonnes CO2e |
+|-------------------------|-------------------|-------------|
+| Raw materials            | 1                 | 1,180,000   |
+| Fabric production         | 1                 | 3,872,000   |
+| Garment manufacturing     | 1                 | 280,000     |
+| Packaging                | 1                 | 110,000     |
+| Transport                | 4                 | 405,000     |
+| Fuel and energy related emissions | 3        | 28,000      |
+| Business travel           | 6                 | 26,000      |
+| Employee commuting        | 7                 | 25,000      |
+| Use of sold products      | 11                | 1,774,000   |
+
+## Scope 1 and Scope 2 Emissions 2024
+
+Total scope 1 emissions: 15,102 tCO2e
+Total location-based scope 2 emissions: 364,693 tCO2e
+Total market-based scope 2 emissions: 26,553 tCO2e
+
+## Methodology
+
+No changes to calculation methodology were made compared to 2023.
