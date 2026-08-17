@@ -20,6 +20,8 @@ type Scope3CategoryFragmentation = {
 
 type ReportingQualityInput = {
   url: string
+  /** Resolved once by checkDB; when present, use directly instead of re-deriving via url. */
+  companyReportId?: string
   usesGhgProtocolCategories:
     | 'FULL'
     | 'GROUPED'
@@ -40,16 +42,27 @@ type ReportingQualityInput = {
 
 class ReportingQualityService {
   async upsert(companyId: string, input: ReportingQualityInput): Promise<void> {
-    const registryReport = await prisma.report.findFirst({
-      where: { url: input.url },
-      select: { id: true },
-    })
+    let companyReportId: string
 
-    const companyReportId =
-      await companyReportService.findOrCreateCompanyReport(
+    if (input.companyReportId?.trim()) {
+      companyReportId = input.companyReportId.trim()
+      await companyReportService.assertCompanyReportBelongsToCompany(
+        companyReportId,
+        companyId
+      )
+    } else {
+      // Fallback for callers that don't have a resolved companyReportId yet
+      // (e.g. a manual API call) - re-derive it from the registry by url.
+      const registryReport = await prisma.report.findFirst({
+        where: { url: input.url },
+        select: { id: true },
+      })
+
+      companyReportId = await companyReportService.findOrCreateCompanyReport(
         companyId,
         registryReport?.id ?? null
       )
+    }
 
     const fields = {
       usesGhgProtocolCategories: input.usesGhgProtocolCategories,

@@ -39,6 +39,7 @@ export async function companyReportingQualityRoutes(app: FastifyInstance) {
       const { id } = request.params
       const {
         url,
+        companyReportId,
         usesGhgProtocolCategories,
         categoryLabelsExample,
         methodChanges,
@@ -56,6 +57,7 @@ export async function companyReportingQualityRoutes(app: FastifyInstance) {
         const company = await companyService.getCompanyByInternalId(id)
         await reportingQualityService.upsert(company.id, {
           url,
+          companyReportId,
           usesGhgProtocolCategories,
           categoryLabelsExample,
           methodChanges,
