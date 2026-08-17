@@ -323,6 +323,8 @@ const fragmentedValuesReportingSchema = z
 export const postReportingQualitySchema = z
   .object({
     url: z.string(),
+    /** Resolved once by checkDB; when present, skip re-deriving the report link from url. */
+    companyReportId: z.string().optional(),
     usesGhgProtocolCategories: z
       .enum(['FULL', 'GROUPED', 'CUSTOM_LABELS', 'SINGLE_TOTAL'])
       .nullable(),

@@ -16,6 +16,8 @@ type Scope3CategoryFragmentation = {
 export class DiffReportingQualityJob extends DiffJob {
   declare data: DiffJob['data'] & {
     companyName: string
+    /** Resolved once by checkDB; use directly instead of re-deriving via url at save time. */
+    companyReportId?: string
     reportingQuality: {
       usesGhgProtocolCategories:
         | 'FULL'
@@ -41,10 +43,11 @@ export class DiffReportingQualityJob extends DiffJob {
 const diffReportingQuality = new DiffWorker<DiffReportingQualityJob>(
   QUEUE_NAMES.DIFF_REPORTING_QUALITY,
   async (job) => {
-    const { companyName, url, reportingQuality } = job.data
+    const { companyName, url, companyReportId, reportingQuality } = job.data
 
     await job.enqueueSaveToAPI('reporting-quality', companyName, {
       url,
+      ...(companyReportId && { companyReportId }),
       usesGhgProtocolCategories: reportingQuality.usesGhgProtocolCategories,
       categoryLabelsExample: reportingQuality.categoryLabelsExample,
       methodChanges: reportingQuality.methodChanges,
