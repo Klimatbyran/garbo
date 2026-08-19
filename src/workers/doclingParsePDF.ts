@@ -3,6 +3,7 @@ import { UnrecoverableError } from 'bullmq'
 import { QUEUE_NAMES } from '../queues'
 import docling from '../config/docling'
 import redis from '../config/redis'
+import { fireCallback } from '../lib/webhook'
 
 // Berget AI payload structure
 interface BergetDoclingRequest {
@@ -55,6 +56,10 @@ class DoclingParsePDFJob extends PipelineJob {
     doclingSettings?: BergetDoclingRequest | DoclingServeRequest
     taskId?: string
     resultUrl?: string // For Berget AI
+    // When set (climate plans pipeline path), this job runs standalone —
+    // no indexMarkdown/precheck — and hands markdown straight to callbackUrl
+    // once parsing completes. See pollTaskAndGetResult.
+    callbackUrl?: string
   }
 }
 
@@ -574,6 +579,12 @@ async function pollTaskAndGetResult(
     job.editMessage(`PDF parsed successfully in ${totalTime}s`)
     job.log(`Task completed in ${totalTime}s`)
 
+    if (job.data.callbackUrl) {
+      await fireCallback(job.data.callbackUrl, { url: job.data.url, markdown }, (msg) =>
+        job.log(msg)
+      )
+    }
+
     return { markdown }
   } else {
     // Berget AI polling logic
@@ -615,6 +626,13 @@ async function pollTaskAndGetResult(
         job.log(
           `Task completed in ${totalTime}s - Pages: ${pages}, Characters: ${characters}`
         )
+
+        if (job.data.callbackUrl) {
+          await fireCallback(job.data.callbackUrl, { url: job.data.url, markdown }, (msg) =>
+            job.log(msg)
+          )
+        }
+
         return { markdown }
       } else if (response.status === 202) {
         const retryAfter = parseInt(response.headers.get('Retry-After') || '2')
