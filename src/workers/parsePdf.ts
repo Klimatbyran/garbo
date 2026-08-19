@@ -5,6 +5,7 @@ import precheck from './precheck'
 import { vectorDB } from '../lib/vectordb'
 import { QUEUE_NAMES } from '../queues'
 import { withPipelineJobOpts } from '../lib/pipelineJobOptions'
+import { fireCallback } from '../lib/webhook'
 
 const flow = new FlowProducer({ connection: redis })
 flow.on('error', (err) => console.error('FlowProducer connection error:', err))
@@ -12,11 +13,18 @@ flow.on('error', (err) => console.error('FlowProducer connection error:', err))
 const parsePdf = new PipelineWorker(
   QUEUE_NAMES.PARSE_PDF,
   async (job) => {
-    const { url, forceReindex } = job.data as {
+    const { url, forceReindex, callbackUrl } = job.data as {
       url: string
       forceReindex?: boolean
+      // When set, stop after Docling + indexMarkdown instead of continuing
+      // into precheck/emissions extraction — indexMarkdown POSTs {url} here
+      // once indexing is done, for callers (e.g. a separate document
+      // pipeline) that only need the PDF parsed and indexed into Chroma.
+      // Must match an entry in ALLOWED_CALLBACK_URLS.
+      callbackUrl?: string
     }
     job.log(`forceReindex flag: ${Boolean(forceReindex)}`)
+    job.log(`callbackUrl: ${callbackUrl ?? '(none)'}`)
     job.opts.attempts = 1
 
     const name = url.slice(-20)
@@ -52,30 +60,38 @@ const parsePdf = new PipelineWorker(
       if (!exists || forceReindex) {
         job.editMessage(`✅ PDF queued. Parsing via Docling and indexing...`)
 
-        const precheckFlow = await flow.add({
+        const indexMarkdownStep = {
           ...base,
-          name: 'precheck ' + name,
-          queueName: QUEUE_NAMES.PRECHECK,
+          name: 'indexMarkdown ' + name,
+          queueName: QUEUE_NAMES.INDEX_MARKDOWN,
           children: [
             {
               ...base,
-              name: 'indexMarkdown ' + name,
-              queueName: QUEUE_NAMES.INDEX_MARKDOWN,
-              children: [
-                {
-                  ...base,
-                  name: 'doclingParsePDF',
-                  queueName: QUEUE_NAMES.DOCLING_PARSE_PDF,
-                  opts: withPipelineJobOpts({
-                    attempts: 3,
-                    backoff: { type: 'fixed', delay: 120_000 },
-                  }),
-                },
-              ],
+              name: 'doclingParsePDF',
+              queueName: QUEUE_NAMES.DOCLING_PARSE_PDF,
+              opts: withPipelineJobOpts({
+                attempts: 3,
+                backoff: { type: 'fixed', delay: 120_000 },
+              }),
             },
           ],
-        })
-        job.log('flow started: ' + precheckFlow.job?.id)
+        }
+
+        const rootFlow = callbackUrl
+          ? indexMarkdownStep
+          : {
+              ...base,
+              name: 'precheck ' + name,
+              queueName: QUEUE_NAMES.PRECHECK,
+              children: [indexMarkdownStep],
+            }
+
+        const addedFlow = await flow.add(rootFlow)
+        job.log('flow started: ' + addedFlow.job?.id)
+      } else if (callbackUrl) {
+        job.editMessage(`✅ PDF already interpreted and indexed.`)
+        await fireCallback(callbackUrl, { url }, (msg) => job.log(msg))
+        return { url }
       } else {
         job.editMessage(`✅ PDF already interpreted and indexed. Continuing...`)
 
