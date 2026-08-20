@@ -127,6 +127,20 @@ function applyMergedRows(
 }
 
 class RegistryService {
+  /** Looks up the docling-parsed markdown persisted for a report URL (see
+   * doclingParsePDF's persistMarkdown) — lets consumers (reindexing, other
+   * pipelines via callbackUrl) get the document back without re-parsing. */
+  async getMarkdownByUrl(
+    url: string,
+    prismaClient = prisma
+  ): Promise<string | null> {
+    const report = await prismaClient.report.findUnique({
+      where: { url },
+      select: { markdown: true },
+    })
+    return report?.markdown ?? null
+  }
+
   async findMatchingReportInRegistry(
     input: ReportInput,
     prismaClient = prisma

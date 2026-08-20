@@ -4,6 +4,19 @@ import { QUEUE_NAMES } from '../queues'
 import docling from '../config/docling'
 import redis from '../config/redis'
 import { fireCallback } from '../lib/webhook'
+import { prisma } from '../lib/prisma'
+
+// Persists the parsed markdown on the Report registry row (keyed by the
+// source URL, same row company-matching later fills in) so it survives
+// independently of Chroma — reruns/reindexing and other consumers (e.g. the
+// callbackUrl plugins) can read it back without re-running docling.
+async function persistMarkdown(url: string, markdown: string): Promise<void> {
+  await prisma.report.upsert({
+    where: { url },
+    create: { url, markdown },
+    update: { markdown },
+  })
+}
 
 // Berget AI payload structure
 interface BergetDoclingRequest {
@@ -579,6 +592,8 @@ async function pollTaskAndGetResult(
     job.editMessage(`PDF parsed successfully in ${totalTime}s`)
     job.log(`Task completed in ${totalTime}s`)
 
+    await persistMarkdown(job.data.url, markdown)
+
     if (job.data.callbackUrl) {
       await fireCallback(job.data.callbackUrl, { url: job.data.url, markdown }, (msg) =>
         job.log(msg)
@@ -626,6 +641,8 @@ async function pollTaskAndGetResult(
         job.log(
           `Task completed in ${totalTime}s - Pages: ${pages}, Characters: ${characters}`
         )
+
+        await persistMarkdown(job.data.url, markdown)
 
         if (job.data.callbackUrl) {
           await fireCallback(job.data.callbackUrl, { url: job.data.url, markdown }, (msg) =>

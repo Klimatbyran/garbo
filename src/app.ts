@@ -37,6 +37,7 @@ import { reportTypesRoutes } from './api/routes/reportTypes'
 import { registryReadRoutes } from './api/routes/internal/registry.read'
 import { registryDeleteRoutes } from './api/routes/internal/registry.delete'
 import { registryUpdateRoutes } from './api/routes/internal/registry.update'
+import { registryMarkdownRoutes } from './api/routes/internal/registry.markdown'
 import { globalSearchReadRoutes } from './api/routes/internal/globalSearch.read'
 import { queueArchiveReadRoutes } from './api/routes/internal/queue.archive.read'
 import clientApiKeyGatePlugin from './api/plugins/clientApiKeyGate'
@@ -154,6 +155,7 @@ async function authenticatedContext(app: FastifyInstance) {
   app.register(registryReadRoutes, { prefix: 'api/reports/registry' })
   app.register(registryDeleteRoutes, { prefix: 'api/reports/registry' })
   app.register(registryUpdateRoutes, { prefix: 'api/reports/registry' })
+  app.register(registryMarkdownRoutes, { prefix: 'api/reports/registry' })
   app.register(reportsCreateRoutes, {
     prefix: 'api/internal-companies/reports',
   })
