@@ -62,6 +62,13 @@ export const MetadataSchema = z.object({
 
 export const MinimalMetadataSchema = MetadataSchema.pick({ verifiedBy: true })
 
+/**
+ * Serialized metadata on API responses. Prisma returns `metadata: Metadata[]`;
+ * `transformMetadata` collapses that to the latest row or `null` when empty.
+ */
+export const ResponseMetadataSchema = MetadataSchema.nullable()
+export const ResponseMinimalMetadataSchema = MinimalMetadataSchema.nullable()
+
 export const CompanyIdentifierTypeSchema = z.enum([
   'WIKIDATA',
   'LEI',
@@ -73,7 +80,7 @@ export const CompanyIdentifierSchema = z.object({
   id: z.string(),
   type: CompanyIdentifierTypeSchema,
   value: z.string(),
-  metadata: MetadataSchema.nullable(),
+  metadata: ResponseMetadataSchema,
 })
 
 const CompanyBaseSchema = z.object({
@@ -91,7 +98,7 @@ export const StatedTotalEmissionsSchema = z.object({
     .nullable()
     .openapi({ description: 'Total emissions value' }),
   unit: z.string().openapi({ description: 'Unit of measurement' }),
-  metadata: MetadataSchema,
+  metadata: ResponseMetadataSchema,
 })
 
 export const ResponseDescriptionSchema = z.object({
@@ -107,7 +114,7 @@ export const BiogenicSchema = z.object({
     .nullable()
     .openapi({ description: 'Total biogenic emissions' }),
   unit: z.string().openapi({ description: 'Unit of measurement' }),
-  metadata: MetadataSchema,
+  metadata: ResponseMetadataSchema,
 })
 
 export const Scope1Schema = z.object({
@@ -117,7 +124,7 @@ export const Scope1Schema = z.object({
     .nullable()
     .openapi({ description: 'Total scope 1 emissions' }),
   unit: z.string().openapi({ description: 'Unit of measurement' }),
-  metadata: MetadataSchema,
+  metadata: ResponseMetadataSchema,
 })
 
 export const Scope2BaseSchema = z.object({
@@ -135,7 +142,7 @@ export const Scope2BaseSchema = z.object({
     .nullable()
     .openapi({ description: 'Unspecified scope 2 emissions' }),
   unit: z.string().openapi({ description: 'Unit of measurement' }),
-  metadata: MetadataSchema,
+  metadata: ResponseMetadataSchema,
   calculatedTotalEmissions: z
     .number()
     .nullable()
@@ -169,7 +176,7 @@ export const Scope3CategorySchema = z.object({
     .nullable()
     .openapi({ description: 'Total emissions for this category' }),
   unit: emissionUnitSchemaGarbo.openapi({ description: 'Unit of measurement' }),
-  metadata: MetadataSchema,
+  metadata: ResponseMetadataSchema,
 })
 
 export const Scope3Schema = z.object({
@@ -180,14 +187,14 @@ export const Scope3Schema = z.object({
     .number()
     .nullable()
     .openapi({ description: 'Calculated total scope 3 emissions' }),
-  metadata: MetadataSchema,
+  metadata: ResponseMetadataSchema,
 })
 
 export const Scope1And2Schema = z.object({
   id: z.string(),
   total: z.number().nullable(),
   unit: z.string(),
-  metadata: MetadataSchema,
+  metadata: ResponseMetadataSchema,
 })
 
 export const EmissionsSchema = z.object({
@@ -208,14 +215,14 @@ export const TurnoverSchema = z.object({
   id: z.string(),
   value: z.number().nullable().openapi({ description: 'Turnover value' }),
   currency: z.string().nullable().openapi({ description: 'Currency code' }),
-  metadata: MetadataSchema,
+  metadata: ResponseMetadataSchema,
 })
 
 export const EmployeesSchema = z.object({
   id: z.string(),
   value: z.number().nullable().openapi({ description: 'Number of employees' }),
   unit: z.string().nullable().openapi({ description: 'Unit of measurement' }),
-  metadata: MetadataSchema,
+  metadata: ResponseMetadataSchema,
 })
 
 export const EconomySchema = z.object({
@@ -255,17 +262,17 @@ export const MinimalIndustryGicsSchema = IndustryGicsSchema.omit({
 export const BaseYearSchema = z.object({
   id: z.string(),
   year: z.number(),
-  metadata: MetadataSchema,
+  metadata: ResponseMetadataSchema,
 })
 export const IndustrySchema = z.object({
   id: z.string(),
   industryGics: IndustryGicsSchema,
-  metadata: MetadataSchema,
+  metadata: ResponseMetadataSchema,
 })
 
 export const MinimalIndustrySchema = z.object({
   industryGics: MinimalIndustryGicsSchema,
-  metadata: MinimalMetadataSchema,
+  metadata: ResponseMinimalMetadataSchema,
 })
 
 export const GoalSchema = z.object({
@@ -274,7 +281,7 @@ export const GoalSchema = z.object({
   year: z.string().nullable().openapi({ description: 'Target year' }),
   baseYear: z.string().nullable().openapi({ description: 'Base year' }),
   target: z.number().nullable().openapi({ description: 'Target value' }),
-  metadata: MetadataSchema,
+  metadata: ResponseMetadataSchema,
 })
 
 export const InitiativeSchema = z.object({
@@ -286,7 +293,7 @@ export const InitiativeSchema = z.object({
     .openapi({ description: 'Initiative description' }),
   year: z.string().nullable().openapi({ description: 'Initiative year' }),
   scope: z.string().nullable().openapi({ description: 'Affected scopes' }),
-  metadata: MetadataSchema,
+  metadata: ResponseMetadataSchema,
 })
 
 export const CompanyReportSummarySchema = z.object({
@@ -340,14 +347,14 @@ const MinimalTurnoverSchema = TurnoverSchema.omit({
   id: true,
   metadata: true,
 }).extend({
-  metadata: MinimalMetadataSchema,
+  metadata: ResponseMinimalMetadataSchema,
 })
 
 const MinimalEmployeeSchema = EmployeesSchema.omit({
   id: true,
   metadata: true,
 }).extend({
-  metadata: MinimalMetadataSchema,
+  metadata: ResponseMinimalMetadataSchema,
 })
 
 const MinimalEconomySchema = EconomySchema.omit({
@@ -362,24 +369,24 @@ const MinimalEconomySchema = EconomySchema.omit({
 const MinimalScope1Schema = Scope1Schema.omit({
   id: true,
   metadata: true,
-}).extend({ metadata: MinimalMetadataSchema })
+}).extend({ metadata: ResponseMinimalMetadataSchema })
 
 const MinimalScope2Schema = withScope2Refinement(
   Scope2BaseSchema.omit({
     id: true,
     metadata: true,
-  }).extend({ metadata: MinimalMetadataSchema })
+  }).extend({ metadata: ResponseMinimalMetadataSchema })
 )
 
 const MinimalStatedTotalEmissionsSchema = StatedTotalEmissionsSchema.omit({
   id: true,
   metadata: true,
-}).extend({ metadata: MinimalMetadataSchema })
+}).extend({ metadata: ResponseMinimalMetadataSchema })
 
 const MinimalScope3CategorySchema = Scope3CategorySchema.omit({
   id: true,
   metadata: true,
-}).extend({ metadata: MinimalMetadataSchema })
+}).extend({ metadata: ResponseMinimalMetadataSchema })
 
 const MinimalScope3Schema = Scope3Schema.omit({
   id: true,
@@ -387,7 +394,7 @@ const MinimalScope3Schema = Scope3Schema.omit({
   categories: true,
   statedTotalEmissions: true,
 }).extend({
-  metadata: MinimalMetadataSchema,
+  metadata: ResponseMinimalMetadataSchema,
   statedTotalEmissions: MinimalStatedTotalEmissionsSchema.nullable(),
   categories: z.array(MinimalScope3CategorySchema),
 })
@@ -395,7 +402,7 @@ const MinimalScope3Schema = Scope3Schema.omit({
 const MinimalScope1And2Schema = Scope1And2Schema.omit({
   id: true,
   metadata: true,
-}).extend({ metadata: MinimalMetadataSchema })
+}).extend({ metadata: ResponseMinimalMetadataSchema })
 
 const MinimalEmissionsSchema = EmissionsSchema.omit({
   id: true,
