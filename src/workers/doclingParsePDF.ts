@@ -3,6 +3,7 @@ import { UnrecoverableError } from 'bullmq'
 import { QUEUE_NAMES } from '../queues'
 import docling from '../config/docling'
 import redis from '../config/redis'
+import { doclingMarkdownWithPageMarkers } from '../lib/doclingPageMarkers'
 
 // Berget AI payload structure
 interface BergetDoclingRequest {
@@ -70,7 +71,7 @@ function createRequestPayload(
     const doclingServePayload: DoclingServeRequest = {
       options: {
         from_formats: ['pdf'],
-        to_formats: ['md'],
+        to_formats: ['md', 'json'],
         image_export_mode: 'placeholder',
         do_ocr: false,
         force_ocr: false,
@@ -563,7 +564,7 @@ async function pollTaskAndGetResult(
     const resultData = await resultResponse.json()
     job.log(`Result data keys: ${Object.keys(resultData).join(', ')}`)
 
-    const markdown = resultData.document?.md_content
+    const markdown = doclingMarkdownWithPageMarkers(resultData)
 
     if (!markdown) {
       job.log(`Full result data: ${JSON.stringify(resultData, null, 2)}`)

@@ -1,11 +1,85 @@
 import { z } from 'zod'
 import { emissionUnitSchemaGarbo } from '@/api/schemas'
+import { sourceReferenceFields } from '@/lib/sourceReferenceSchema'
+
+const scope2ValueSchema = z
+  .object({
+    mentionOfLocationBasedOrMarketBased: z
+      .union([z.array(z.string()), z.null()])
+      .optional(),
+    listOfMaxThreeSummarizedElectricityAndHeatingValuesToGetFullScope2Values: z
+      .union([
+        z.array(
+          z.object({
+            totalValue: z.number(),
+            method: z.string(),
+            unit: z.string(),
+            comment: z.string(),
+          })
+        ),
+        z.null(),
+      ])
+      .nullable()
+      .optional()
+      .describe(
+        'Max three summarized electricity and heating values to get full scope 2 values'
+      ),
+    explanationOfWhyYouPutValuesToMbOrLbOrUnknown: z
+      .string()
+      .nullable()
+      .optional(),
+    fullScope2mbValuesWeNeedToSummarize: z
+      .union([z.array(z.number()), z.null()])
+      .nullable()
+      .optional(),
+    fullScope2lbValuesWeNeedToSummarize: z
+      .union([z.array(z.number()), z.null()])
+      .nullable()
+      .optional(),
+    fullUnknownScope2ValuesWeNeedToSummarize: z
+      .union([z.array(z.number()), z.null()])
+      .nullable()
+      .optional(),
+    mb: z
+      .union([
+        z.number({ description: 'Market-based scope 2 emissions' }),
+        z.null(),
+      ])
+      .optional(),
+    lb: z
+      .union([
+        z.number({ description: 'Location-based scope 2 emissions' }),
+        z.null(),
+      ])
+      .optional(),
+    unknown: z
+      .union([
+        z.number({ description: 'Unspecified Scope 2 emissions' }),
+        z.null(),
+      ])
+      .optional(),
+    unit: emissionUnitSchemaGarbo,
+    ...sourceReferenceFields,
+  })
+  .refine(({ mb, lb, unknown }) => mb || lb || unknown, {
+    message:
+      'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',
+  })
+
+const scope1And2ValueSchema = z
+  .object({
+    total: z.number(),
+    unit: emissionUnitSchemaGarbo,
+    ...sourceReferenceFields,
+  })
+  .nullable()
 
 export const schema = z.object({
   scope2: z.array(
     z.object({
       absoluteMostRecentYearInReport: z.number(),
       year: z.number(),
+      ...sourceReferenceFields,
       listOfAllScope2NumbersForThisYearAndTheirMethods: z.union([
         z.array(
           z.object({
@@ -51,83 +125,8 @@ export const schema = z.object({
         ),
         z.null(),
       ]),
-      scope2: z
-        .union([
-          z
-            .object({
-              mentionOfLocationBasedOrMarketBased: z
-                .union([z.array(z.string()), z.null()])
-                .optional(),
-              listOfMaxThreeSummarizedElectricityAndHeatingValuesToGetFullScope2Values:
-                z
-                  .union([
-                    z.array(
-                      z.object({
-                        totalValue: z.number(),
-                        method: z.string(),
-                        unit: z.string(),
-                        comment: z.string(),
-                      })
-                    ),
-                    z.null(),
-                  ])
-                  .nullable()
-                  .optional()
-                  .describe(
-                    'Max three summarized electricity and heating values to get full scope 2 values'
-                  ),
-              explanationOfWhyYouPutValuesToMbOrLbOrUnknown: z
-                .string()
-                .nullable()
-                .optional(),
-              fullScope2mbValuesWeNeedToSummarize: z
-                .union([z.array(z.number()), z.null()])
-                .nullable()
-                .optional(),
-              fullScope2lbValuesWeNeedToSummarize: z
-                .union([z.array(z.number()), z.null()])
-                .nullable()
-                .optional(),
-              fullUnknownScope2ValuesWeNeedToSummarize: z
-                .union([z.array(z.number()), z.null()])
-                .nullable()
-                .optional(),
-              mb: z
-                .union([
-                  z.number({ description: 'Market-based scope 2 emissions' }),
-                  z.null(),
-                ])
-                .optional(),
-              lb: z
-                .union([
-                  z.number({ description: 'Location-based scope 2 emissions' }),
-                  z.null(),
-                ])
-                .optional(),
-              unknown: z
-                .union([
-                  z.number({ description: 'Unspecified Scope 2 emissions' }),
-                  z.null(),
-                ])
-                .optional(),
-              unit: emissionUnitSchemaGarbo,
-            })
-            .refine(({ mb, lb, unknown }) => mb || lb || unknown, {
-              message:
-                'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',
-            }),
-          z.null(),
-        ])
-        .optional(),
-      scope1And2: z
-        .union([
-          z.object({
-            total: z.number(),
-            unit: emissionUnitSchemaGarbo,
-          }),
-          z.null(),
-        ])
-        .optional(),
+      scope2: z.union([scope2ValueSchema, z.null()]).optional(),
+      scope1And2: z.union([scope1And2ValueSchema, z.null()]).optional(),
     })
   ),
 })
