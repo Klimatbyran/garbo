@@ -41,6 +41,9 @@ model Company {
   /// Tags to help categorize and filter companies. Each string must match TagOption.slug.
   tags String[]
 
+  /// Other known names for internal search and company linking. Do not duplicate `name`.
+  alternativeNames String[] @default([])
+
   logoUrl String?
 
   identifiers CompanyIdentifier[]

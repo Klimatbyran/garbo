@@ -43,6 +43,7 @@ describe('companyLinkResolve', () => {
     expect(normalizeCompanyNameForMatch('Siemens AG')).toBe('siemens')
     expect(normalizeCompanyNameForMatch('Acme Corp.')).toBe('acme')
     expect(normalizeCompanyNameForMatch('Example LLC')).toBe('example')
+    expect(normalizeCompanyNameForMatch('VOLVO A.B.')).toBe('volvo')
     expect(stripLegalEntitySuffixes('Nokia Oyj')).toBe('Nokia')
   })
 
