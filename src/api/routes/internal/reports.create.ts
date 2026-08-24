@@ -16,8 +16,6 @@ import {
   SaveReportSuccess,
 } from '../../types'
 import { reportsService } from '../../services/reportsService'
-import { redisCache } from '@/lib/redisCacheSingleton'
-import { invalidateRegistryCache } from '@/api/services/registryCache'
 
 export async function reportsCreateRoutes(app: FastifyInstance) {
   app.post(
@@ -85,10 +83,6 @@ export async function reportsCreateRoutes(app: FastifyInstance) {
           (r: SaveReportError | SaveReportSuccess): r is SaveReportSuccess =>
             !('error' in r)
         )
-
-        if (successes.length > 0) {
-          await invalidateRegistryCache(redisCache, request.log)
-        }
 
         if (failed.length === 0) {
           return reply.send({
