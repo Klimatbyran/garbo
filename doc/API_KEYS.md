@@ -57,12 +57,12 @@ The gate only consults this registry; it does not infer permissions from route h
 
 Defined in `**prisma/schema.prisma**` (tables mapped with `@@map`):
 
-| Model                         | Purpose                                                                                                                                                                                 |
-| ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `**ClientApiPermission**`     | One row per permission **code** (e.g. `api.companies.list`).                                                                                                                            |
-| `**ClientApiRole**`           | Named role (`**slug**`) e.g. `all_access`, `base`.                                                                                                                                      |
-| `**ClientApiRolePermission**` | Many-to-many: which permissions a role has.                                                                                                                                             |
-| `**ClientApiKey**`            | `**keyLookup**` (public id segment), `**secretHash**`, `**roleId**`, `**revokedAt**`, `**lastUsedAt**`. Full plaintext key is `**garb_<keyLookup>.<secret>**`; only the hash is stored. |
+| Model                         | Purpose                                                                                                                                                                                         |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `**ClientApiPermission**`     | One row per permission **code** (e.g. `api.companies.list`).                                                                                                                                    |
+| `**ClientApiRole**`           | Named role (`**slug**`) e.g. `all_access`, `base`.                                                                                                                                              |
+| `**ClientApiRolePermission**` | Many-to-many: which permissions a role has.                                                                                                                                                     |
+| `**ClientApiKey**`            | `**keyLookup**` (public id segment), `**secretHash**`, `**roleId**`, `**revokedAt**`, `**lastUsedAt**`. Full plaintext key is `**garb_<keyLookup>.<secret>**`; only the hash is stored.         |
 | `**ClientApiRequest**`        | One row per successful authenticated request. Fields: `**keyId**`, `**path**`, `**method**`, `**statusCode**`, `**service**` (`garbo` \| `unearth`), `**timestamp**`. Used for usage analytics. |
 
 Migrations: `prisma/migrations/20260413120000_client_api_keys/` (core tables), `20260512100000_client_api_key_last_used_at/` (`last_used_at` column), `20260513120000_client_api_request/` (usage tracking table).
