@@ -196,7 +196,7 @@ async function clientApiKeyGatePlugin(app: FastifyInstance) {
 
   app.addHook('onResponse', (request, reply, done) => {
     const keyId = request.clientApiKeyId
-    if (keyId && request.clientApiKeyRoleSlug !== 'all_access') {
+    if (keyId) {
       prisma.clientApiRequest
         .create({
           data: {
@@ -204,6 +204,7 @@ async function clientApiKeyGatePlugin(app: FastifyInstance) {
             path: pathnameOnly(request.url),
             method: request.method,
             statusCode: reply.statusCode,
+            service: 'garbo',
           },
         })
         .catch((err) =>

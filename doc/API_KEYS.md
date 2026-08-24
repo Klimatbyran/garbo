@@ -63,7 +63,7 @@ Defined in `**prisma/schema.prisma**` (tables mapped with `@@map`):
 | `**ClientApiRole**`           | Named role (`**slug**`) e.g. `all_access`, `base`.                                                                                                                                      |
 | `**ClientApiRolePermission**` | Many-to-many: which permissions a role has.                                                                                                                                             |
 | `**ClientApiKey**`            | `**keyLookup**` (public id segment), `**secretHash**`, `**roleId**`, `**revokedAt**`, `**lastUsedAt**`. Full plaintext key is `**garb_<keyLookup>.<secret>**`; only the hash is stored. |
-| `**ClientApiRequest**`        | One row per successful authenticated request (excluding `all_access` role). Fields: `**keyId**`, `**path**`, `**method**`, `**statusCode**`, `**timestamp**`. Used for usage analytics. |
+| `**ClientApiRequest**`        | One row per successful authenticated request. Fields: `**keyId**`, `**path**`, `**method**`, `**statusCode**`, `**service**` (`garbo` \| `unearth`), `**timestamp**`. Used for usage analytics. |
 
 Migrations: `prisma/migrations/20260413120000_client_api_keys/` (core tables), `20260512100000_client_api_key_last_used_at/` (`last_used_at` column), `20260513120000_client_api_request/` (usage tracking table).
 
@@ -71,7 +71,7 @@ Migrations: `prisma/migrations/20260413120000_client_api_keys/` (core tables), `
 
 ## Usage tracking (`ClientApiRequest`)
 
-Every successful request authenticated with a non-`all_access` key is logged to `**ClientApiRequest**`. The `all_access` role (used internally by Validate/Bolt) is excluded to avoid polluting the table with first-party traffic.
+Every successful request authenticated with a client API key is logged to `**ClientApiRequest**`, including `all_access` (Validate/Bolt). The `**service**` column records which API process handled the call (`garbo` or `unearth`) so Metabase/usage can split shared-DB traffic.
 
 Logging happens in the `**onResponse**` hook in `**clientApiKeyGate.ts**` — fire-and-forget, so it never blocks the response. Any write failure is logged with `**event: 'client_api_request_log_error'**`.
 

@@ -739,12 +739,15 @@ model ClientApiRequest {
   path       String
   method     String
   statusCode Int      @map("status_code")
+  /// Which API wrote this row (`garbo` | `unearth`). Null for rows logged before this column existed.
+  service    String?  @map("service")
   timestamp  DateTime @default(now())
 
   key ClientApiKey @relation(fields: [keyId], references: [id], onDelete: Cascade)
 
   @@index([keyId])
   @@index([timestamp])
+  @@index([service])
   @@map("client_api_request")
 }
 
