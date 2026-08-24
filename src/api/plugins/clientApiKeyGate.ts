@@ -196,6 +196,10 @@ async function clientApiKeyGatePlugin(app: FastifyInstance) {
 
   app.addHook('onResponse', (request, reply, done) => {
     const keyId = request.clientApiKeyId
+    // TODO: Once Garbo/Unearth client endpoint deduplication is complete, skip
+    // logging `all_access` again (Validate/Bolt first-party traffic) so
+    // `client_api_request` only retains partner/client usage. Mirror the same
+    // filter in Unearth's clientApiKeyGate and the usage summary if needed.
     if (keyId) {
       prisma.clientApiRequest
         .create({
