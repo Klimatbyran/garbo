@@ -6,8 +6,6 @@ import redis from '../config/redis'
 import { fireCallback } from '../lib/webhook'
 import { prisma } from '../lib/prisma'
 import { buildReportMatchConditions } from '@/api/services/registryReportIdentity'
-import { invalidateRegistryCache } from '@/api/services/registryCache'
-import { redisCache } from '@/lib/redisCacheSingleton'
 import { buildPipelineReportIdentity } from '../lib/reportSaveIdentity'
 
 // "municipal-climate-plan" -> "Municipal climate plan", matching the style
@@ -49,8 +47,7 @@ type MarkdownJobData = {
 async function persistMarkdown(
   jobData: MarkdownJobData,
   markdown: string,
-  reportTypeSlug?: string,
-  log: (msg: string) => void = console.log
+  reportTypeSlug?: string
 ): Promise<void> {
   const reportType = reportTypeSlug
     ? await prisma.reportType.upsert({
@@ -93,8 +90,6 @@ async function persistMarkdown(
       },
     })
   }
-
-  await invalidateRegistryCache(redisCache, { warn: log })
 }
 
 // Berget AI payload structure
@@ -680,9 +675,7 @@ async function pollTaskAndGetResult(
     job.editMessage(`PDF parsed successfully in ${totalTime}s`)
     job.log(`Task completed in ${totalTime}s`)
 
-    await persistMarkdown(job.data, markdown, job.data.reportTypeSlug, (msg) =>
-      job.log(msg)
-    )
+    await persistMarkdown(job.data, markdown, job.data.reportTypeSlug)
 
     if (job.data.callbackUrl) {
       // A failed/unreachable callbackUrl must not fail this job — BullMQ
@@ -744,12 +737,7 @@ async function pollTaskAndGetResult(
           `Task completed in ${totalTime}s - Pages: ${pages}, Characters: ${characters}`
         )
 
-        await persistMarkdown(
-          job.data,
-          markdown,
-          job.data.reportTypeSlug,
-          (msg) => job.log(msg)
-        )
+        await persistMarkdown(job.data, markdown, job.data.reportTypeSlug)
 
         if (job.data.callbackUrl) {
           try {
