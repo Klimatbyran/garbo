@@ -25,6 +25,7 @@ const REPORT_TYPES = [
   },
   { slug: 'modern-slavery-statement', label: 'Modern slavery statement' },
   { slug: 'other', label: 'Other' },
+  { slug: 'municipal-climate-plan', label: 'Municipal climate plan' },
 ] as const
 
 async function main() {

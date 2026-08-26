@@ -6,15 +6,46 @@ import redis from '../config/redis'
 import { fireCallback } from '../lib/webhook'
 import { prisma } from '../lib/prisma'
 
+const CLIMATE_PLAN_REPORT_TYPE_SLUG = 'municipal-climate-plan'
+
 // Persists the parsed markdown on the Report registry row (keyed by the
 // source URL, same row company-matching later fills in) so it survives
 // independently of Chroma — reruns/reindexing and other consumers (e.g. the
 // callbackUrl plugins) can read it back without re-running docling.
-async function persistMarkdown(url: string, markdown: string): Promise<void> {
+//
+// isClimatePlan (true whenever the job carried a callbackUrl) also tags the
+// row with the "municipal climate plan" ReportType, so it doesn't sit
+// unclassified in the same registry as garbo's own company reports. Only
+// climate-plan rows get their type set automatically this way — a normal
+// company report's reportTypeId is left alone, same as before, for a human
+// to set later via the registry review UI.
+async function persistMarkdown(
+  url: string,
+  markdown: string,
+  isClimatePlan: boolean
+): Promise<void> {
+  const reportType = isClimatePlan
+    ? await prisma.reportType.upsert({
+        where: { slug: CLIMATE_PLAN_REPORT_TYPE_SLUG },
+        create: {
+          slug: CLIMATE_PLAN_REPORT_TYPE_SLUG,
+          label: 'Municipal climate plan',
+        },
+        update: {},
+      })
+    : null
+
   await prisma.report.upsert({
     where: { url },
-    create: { url, markdown },
-    update: { markdown },
+    create: {
+      url,
+      markdown,
+      ...(reportType ? { reportType: { connect: { id: reportType.id } } } : {}),
+    },
+    update: {
+      markdown,
+      ...(reportType ? { reportType: { connect: { id: reportType.id } } } : {}),
+    },
   })
 }
 
@@ -592,7 +623,7 @@ async function pollTaskAndGetResult(
     job.editMessage(`PDF parsed successfully in ${totalTime}s`)
     job.log(`Task completed in ${totalTime}s`)
 
-    await persistMarkdown(job.data.url, markdown)
+    await persistMarkdown(job.data.url, markdown, Boolean(job.data.callbackUrl))
 
     if (job.data.callbackUrl) {
       await fireCallback(
@@ -644,7 +675,11 @@ async function pollTaskAndGetResult(
           `Task completed in ${totalTime}s - Pages: ${pages}, Characters: ${characters}`
         )
 
-        await persistMarkdown(job.data.url, markdown)
+        await persistMarkdown(
+          job.data.url,
+          markdown,
+          Boolean(job.data.callbackUrl)
+        )
 
         if (job.data.callbackUrl) {
           await fireCallback(
