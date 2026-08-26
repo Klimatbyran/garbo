@@ -8,8 +8,6 @@ import {
 } from '../../schemas'
 import { registryService } from '@/api/services/registryService'
 import { reportTypeService } from '@/api/services/reportTypeService'
-import { redisCache } from '@/lib/redisCacheSingleton'
-import { invalidateRegistryCache } from '@/api/services/registryCache'
 import z from 'zod'
 
 export async function registryUpdateRoutes(app: FastifyInstance) {
@@ -47,8 +45,6 @@ export async function registryUpdateRoutes(app: FastifyInstance) {
         if (!updatedReport) {
           return reply.status(404).send({ message: 'Report not found' })
         }
-
-        await invalidateRegistryCache(redisCache, request.log)
 
         reply.send(updatedReport)
       } catch (error) {

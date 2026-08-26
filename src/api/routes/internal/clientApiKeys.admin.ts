@@ -39,6 +39,8 @@ const clientApiKeyListItemSchema = z.object({
 const usageEndpointSchema = z.object({
   method: z.string(),
   path: z.string(),
+  /** `garbo` | `unearth`; null for rows logged before service was recorded. */
+  service: z.string().nullable(),
   count: z.number(),
 })
 
@@ -342,7 +344,7 @@ export async function clientApiKeysAdminRoutes(app: FastifyInstance) {
       schema: {
         summary: 'Client API key usage summary',
         description:
-          'Staff only. Returns aggregated request counts per key and endpoint. Excludes all_access keys (internal traffic). Optional `since` query param (ISO date) to filter by time window.',
+          'Staff only. Returns aggregated request counts per key and endpoint for all roles (including all_access). Each endpoint row includes `service` (`garbo` | `unearth`, or null for legacy rows). Optional `since` query param (ISO date) to filter by time window.',
         tags: getTags('Internal'),
         querystring: z.object({
           since: z.string().datetime({ offset: true }).optional(),
@@ -359,7 +361,7 @@ export async function clientApiKeysAdminRoutes(app: FastifyInstance) {
       const where = since ? { timestamp: { gte: new Date(since) } } : {}
 
       const rows = await prisma.clientApiRequest.groupBy({
-        by: ['keyId', 'method', 'path'],
+        by: ['keyId', 'method', 'path', 'service'],
         where,
         _count: { id: true },
         _max: { timestamp: true },
@@ -384,7 +386,12 @@ export async function clientApiKeysAdminRoutes(app: FastifyInstance) {
           roleSlug: string
           totalRequests: number
           lastRequestAt: Date | null
-          endpoints: { method: string; path: string; count: number }[]
+          endpoints: {
+            method: string
+            path: string
+            service: string | null
+            count: number
+          }[]
         }
       >()
 
@@ -412,7 +419,12 @@ export async function clientApiKeysAdminRoutes(app: FastifyInstance) {
         if (ts && (!entry.lastRequestAt || ts > entry.lastRequestAt)) {
           entry.lastRequestAt = ts
         }
-        entry.endpoints.push({ method: row.method, path: row.path, count })
+        entry.endpoints.push({
+          method: row.method,
+          path: row.path,
+          service: row.service,
+          count,
+        })
       }
 
       return reply.send(

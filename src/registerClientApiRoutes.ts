@@ -4,9 +4,6 @@ import { resolve } from 'path'
 
 import openAPIConfig from './config/openapi'
 import { companyReadRoutes } from './api/routes/external/company.read'
-import { municipalityReadRoutes } from './api/routes/external/municipality.read'
-import { regionalReadRoutes } from './api/routes/external/regional.read'
-import { nationalReadRoutes } from './api/routes/external/national.read'
 import { authentificationRoutes } from './api/routes/internal/auth'
 import { companyExportRoutes } from './api/routes/external/company.export'
 import { municipalityExportRoutes } from './api/routes/external/municipality.export'
@@ -53,11 +50,8 @@ export async function registerClientApiRoutes(app: FastifyInstance) {
   app.register(authentificationRoutes, { prefix: 'api/auth' })
   app.register(companyReadRoutes, { prefix: 'api/companies' })
   app.register(companyExportRoutes, { prefix: 'api/companies' })
-  app.register(municipalityReadRoutes, { prefix: 'api/municipalities' })
   app.register(municipalityExportRoutes, { prefix: 'api/municipalities' })
-  app.register(regionalReadRoutes, { prefix: 'api/regions' })
   app.register(regionalExportRoutes, { prefix: 'api/regions' })
-  app.register(nationalReadRoutes, { prefix: 'api/nation' })
   app.register(companyPublicReportingPeriodsRoutes, {
     prefix: 'api/reporting-period',
   })
