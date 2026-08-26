@@ -5,6 +5,10 @@ import docling from '../config/docling'
 import redis from '../config/redis'
 import { fireCallback } from '../lib/webhook'
 import { prisma } from '../lib/prisma'
+import { buildReportMatchConditions } from '@/api/services/registryReportIdentity'
+import { invalidateRegistryCache } from '@/api/services/registryCache'
+import { redisCache } from '@/lib/redisCacheSingleton'
+import { buildPipelineReportIdentity } from '../lib/reportSaveIdentity'
 
 // "municipal-climate-plan" -> "Municipal climate plan", matching the style
 // of the hand-written labels in scripts/seed-report-types.ts, so a
@@ -17,10 +21,23 @@ function humanizeSlug(slug: string): string {
     .join(' ')
 }
 
-// Persists the parsed markdown on the Report registry row (keyed by the
-// source URL, same row company-matching later fills in) so it survives
+type MarkdownJobData = {
+  url: string
+  sourceUrl?: string
+  pdfCache?: { publicUrl?: string; sha256?: string }
+}
+
+// Persists the parsed markdown on the Report registry row so it survives
 // independently of Chroma — reruns/reindexing and other consumers (e.g. the
 // callbackUrl plugins) can read it back without re-running docling.
+//
+// Identity is resolved the same way the rest of the pipeline resolves it
+// (buildPipelineReportIdentity: prefers the original sourceUrl over the S3
+// cache URL) and matched against existing rows the same way the registry
+// does (buildReportMatchConditions: sourceUrl/s3Url/sha256/url) — a plain
+// upsert on the raw job url would create a second Report row instead of
+// updating the "real" one, since jobData.url is often the S3 cache URL
+// rather than the document's actual identity.
 //
 // reportTypeSlug is an explicit opt-in from the caller (sent alongside
 // callbackUrl), not inferred from callbackUrl's mere presence — callbackUrl
@@ -30,9 +47,10 @@ function humanizeSlug(slug: string): string {
 // same as a normal company report, for a human to classify later via the
 // registry review UI.
 async function persistMarkdown(
-  url: string,
+  jobData: MarkdownJobData,
   markdown: string,
-  reportTypeSlug?: string
+  reportTypeSlug?: string,
+  log: (msg: string) => void = console.log
 ): Promise<void> {
   const reportType = reportTypeSlug
     ? await prisma.reportType.upsert({
@@ -41,19 +59,42 @@ async function persistMarkdown(
         update: {},
       })
     : null
+  const reportTypeConnect = reportType
+    ? { reportType: { connect: { id: reportType.id } } }
+    : {}
 
-  await prisma.report.upsert({
-    where: { url },
-    create: {
-      url,
-      markdown,
-      ...(reportType ? { reportType: { connect: { id: reportType.id } } } : {}),
-    },
-    update: {
-      markdown,
-      ...(reportType ? { reportType: { connect: { id: reportType.id } } } : {}),
-    },
+  const identity = buildPipelineReportIdentity(jobData)
+  const matchConditions = buildReportMatchConditions({
+    url: identity.reportURL,
+    sourceUrl: jobData.sourceUrl,
+    s3Url: identity.reportS3Url,
+    sha256: identity.reportSha256,
   })
+  const existing = await prisma.report.findFirst({
+    where:
+      matchConditions.length > 0
+        ? { OR: matchConditions }
+        : { url: identity.reportURL },
+    orderBy: { id: 'asc' },
+  })
+
+  if (existing) {
+    await prisma.report.update({
+      where: { id: existing.id },
+      data: { markdown, ...reportTypeConnect },
+    })
+  } else {
+    await prisma.report.create({
+      data: {
+        url: identity.reportURL,
+        sourceUrl: jobData.sourceUrl ?? undefined,
+        markdown,
+        ...reportTypeConnect,
+      },
+    })
+  }
+
+  await invalidateRegistryCache(redisCache, { warn: log })
 }
 
 // Berget AI payload structure
@@ -107,6 +148,10 @@ class DoclingParsePDFJob extends PipelineJob {
     doclingSettings?: BergetDoclingRequest | DoclingServeRequest
     taskId?: string
     resultUrl?: string // For Berget AI
+    // Original document URL when job.data.url is an S3 cache URL instead
+    // (set by pipeline-api's cachePdf path). See persistMarkdown.
+    sourceUrl?: string
+    pdfCache?: { publicUrl?: string; sha256?: string }
     // When set (climate plans pipeline path), this job runs standalone —
     // no indexMarkdown/precheck — and hands markdown straight to callbackUrl
     // once parsing completes. See pollTaskAndGetResult.
@@ -635,14 +680,26 @@ async function pollTaskAndGetResult(
     job.editMessage(`PDF parsed successfully in ${totalTime}s`)
     job.log(`Task completed in ${totalTime}s`)
 
-    await persistMarkdown(job.data.url, markdown, job.data.reportTypeSlug)
+    await persistMarkdown(job.data, markdown, job.data.reportTypeSlug, (msg) =>
+      job.log(msg)
+    )
 
     if (job.data.callbackUrl) {
-      await fireCallback(
-        job.data.callbackUrl,
-        { url: job.data.url, markdown },
-        (msg) => job.log(msg)
-      )
+      // A failed/unreachable callbackUrl must not fail this job — BullMQ
+      // would retry it on the concurrency-1 Docling worker, which re-parses
+      // the PDF and blocks every other job (including garbo's own pipeline)
+      // for as long as the callback keeps failing.
+      try {
+        await fireCallback(
+          job.data.callbackUrl,
+          { url: job.data.url, markdown },
+          (msg) => job.log(msg)
+        )
+      } catch (err) {
+        job.log(
+          `Callback failed, continuing without retry: ${err instanceof Error ? err.message : String(err)}`
+        )
+      }
     }
 
     return { markdown }
@@ -687,14 +744,25 @@ async function pollTaskAndGetResult(
           `Task completed in ${totalTime}s - Pages: ${pages}, Characters: ${characters}`
         )
 
-        await persistMarkdown(job.data.url, markdown, job.data.reportTypeSlug)
+        await persistMarkdown(
+          job.data,
+          markdown,
+          job.data.reportTypeSlug,
+          (msg) => job.log(msg)
+        )
 
         if (job.data.callbackUrl) {
-          await fireCallback(
-            job.data.callbackUrl,
-            { url: job.data.url, markdown },
-            (msg) => job.log(msg)
-          )
+          try {
+            await fireCallback(
+              job.data.callbackUrl,
+              { url: job.data.url, markdown },
+              (msg) => job.log(msg)
+            )
+          } catch (err) {
+            job.log(
+              `Callback failed, continuing without retry: ${err instanceof Error ? err.message : String(err)}`
+            )
+          }
         }
 
         return { markdown }
