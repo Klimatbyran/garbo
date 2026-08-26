@@ -6,31 +6,38 @@ import redis from '../config/redis'
 import { fireCallback } from '../lib/webhook'
 import { prisma } from '../lib/prisma'
 
-const CLIMATE_PLAN_REPORT_TYPE_SLUG = 'municipal-climate-plan'
+// "municipal-climate-plan" -> "Municipal climate plan", matching the style
+// of the hand-written labels in scripts/seed-report-types.ts, so a
+// first-time slug from any future caller still gets a readable default
+// instead of a null label.
+function humanizeSlug(slug: string): string {
+  const words = slug.split('-').filter(Boolean)
+  return words
+    .map((word, i) => (i === 0 ? word[0].toUpperCase() + word.slice(1) : word))
+    .join(' ')
+}
 
 // Persists the parsed markdown on the Report registry row (keyed by the
 // source URL, same row company-matching later fills in) so it survives
 // independently of Chroma — reruns/reindexing and other consumers (e.g. the
 // callbackUrl plugins) can read it back without re-running docling.
 //
-// isClimatePlan (true whenever the job carried a callbackUrl) also tags the
-// row with the "municipal climate plan" ReportType, so it doesn't sit
-// unclassified in the same registry as garbo's own company reports. Only
-// climate-plan rows get their type set automatically this way — a normal
-// company report's reportTypeId is left alone, same as before, for a human
-// to set later via the registry review UI.
+// reportTypeSlug is an explicit opt-in from the caller (sent alongside
+// callbackUrl), not inferred from callbackUrl's mere presence — callbackUrl
+// is a generic hand-off mechanism any future consumer could use for
+// documents that aren't climate plans, so garbo shouldn't assume what kind
+// of document it is. No slug means the row's reportTypeId is left alone,
+// same as a normal company report, for a human to classify later via the
+// registry review UI.
 async function persistMarkdown(
   url: string,
   markdown: string,
-  isClimatePlan: boolean
+  reportTypeSlug?: string
 ): Promise<void> {
-  const reportType = isClimatePlan
+  const reportType = reportTypeSlug
     ? await prisma.reportType.upsert({
-        where: { slug: CLIMATE_PLAN_REPORT_TYPE_SLUG },
-        create: {
-          slug: CLIMATE_PLAN_REPORT_TYPE_SLUG,
-          label: 'Municipal climate plan',
-        },
+        where: { slug: reportTypeSlug },
+        create: { slug: reportTypeSlug, label: humanizeSlug(reportTypeSlug) },
         update: {},
       })
     : null
@@ -104,6 +111,11 @@ class DoclingParsePDFJob extends PipelineJob {
     // no indexMarkdown/precheck — and hands markdown straight to callbackUrl
     // once parsing completes. See pollTaskAndGetResult.
     callbackUrl?: string
+    // Explicit ReportType.slug the caller wants persisted markdown tagged
+    // with (e.g. "municipal-climate-plan") — not inferred from callbackUrl,
+    // since that's a generic mechanism any future consumer could use for
+    // documents that aren't climate plans. See persistMarkdown.
+    reportTypeSlug?: string
   }
 }
 
@@ -623,7 +635,7 @@ async function pollTaskAndGetResult(
     job.editMessage(`PDF parsed successfully in ${totalTime}s`)
     job.log(`Task completed in ${totalTime}s`)
 
-    await persistMarkdown(job.data.url, markdown, Boolean(job.data.callbackUrl))
+    await persistMarkdown(job.data.url, markdown, job.data.reportTypeSlug)
 
     if (job.data.callbackUrl) {
       await fireCallback(
@@ -675,11 +687,7 @@ async function pollTaskAndGetResult(
           `Task completed in ${totalTime}s - Pages: ${pages}, Characters: ${characters}`
         )
 
-        await persistMarkdown(
-          job.data.url,
-          markdown,
-          Boolean(job.data.callbackUrl)
-        )
+        await persistMarkdown(job.data.url, markdown, job.data.reportTypeSlug)
 
         if (job.data.callbackUrl) {
           await fireCallback(
