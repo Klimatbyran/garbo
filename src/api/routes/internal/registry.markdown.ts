@@ -30,7 +30,9 @@ export async function registryMarkdownRoutes(app: FastifyInstance) {
       },
     },
     async (
-      request: FastifyRequest<{ Querystring: z.infer<typeof markdownQuerySchema> }>,
+      request: FastifyRequest<{
+        Querystring: z.infer<typeof markdownQuerySchema>
+      }>,
       reply
     ) => {
       const { url } = request.query

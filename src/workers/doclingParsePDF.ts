@@ -595,8 +595,10 @@ async function pollTaskAndGetResult(
     await persistMarkdown(job.data.url, markdown)
 
     if (job.data.callbackUrl) {
-      await fireCallback(job.data.callbackUrl, { url: job.data.url, markdown }, (msg) =>
-        job.log(msg)
+      await fireCallback(
+        job.data.callbackUrl,
+        { url: job.data.url, markdown },
+        (msg) => job.log(msg)
       )
     }
 
@@ -645,8 +647,10 @@ async function pollTaskAndGetResult(
         await persistMarkdown(job.data.url, markdown)
 
         if (job.data.callbackUrl) {
-          await fireCallback(job.data.callbackUrl, { url: job.data.url, markdown }, (msg) =>
-            job.log(msg)
+          await fireCallback(
+            job.data.callbackUrl,
+            { url: job.data.url, markdown },
+            (msg) => job.log(msg)
           )
         }
 

@@ -27,6 +27,8 @@ export async function fireCallback(
   })
   log(`Callback response: ${res.status}`)
   if (!res.ok) {
-    throw new Error(`Callback to ${callbackUrl} failed with status ${res.status}`)
+    throw new Error(
+      `Callback to ${callbackUrl} failed with status ${res.status}`
+    )
   }
 }
