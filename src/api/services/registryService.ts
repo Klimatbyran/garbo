@@ -120,6 +120,7 @@ function applyMergedRows(
     s3Key: input.s3Key !== undefined ? input.s3Key : merged.s3Key,
     s3Bucket: input.s3Bucket !== undefined ? input.s3Bucket : merged.s3Bucket,
     sha256: input.sha256 !== undefined ? input.sha256 : merged.sha256,
+    markdown: merged.markdown,
     ...(merged.reportTypeId
       ? { reportType: { connect: { id: merged.reportTypeId } } }
       : {}),
