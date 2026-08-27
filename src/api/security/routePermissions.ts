@@ -2,12 +2,7 @@ export const CLIENT_API_PERMISSION_CODES = [
   'api.companies.search',
   'api.companies.list',
   'api.companies.read',
-  'api.internal.companies',
   'api.internal.queue_archive',
-  'api.internal.municipalities',
-  'api.screenshots.read',
-  'api.newsletters.download',
-  'api.global_search.search',
 ] as const
 
 export type ClientApiPermissionCode =
@@ -55,42 +50,12 @@ export const clientApiRouteRules: Rule[] = [
     path: '/api/companies/',
     permission: 'api.companies.read',
   },
-  {
-    method: 'GET',
-    type: 'prefix',
-    path: '/api/internal-companies',
-    permission: 'api.internal.companies',
-  },
   // Twin of api/queue-archive (staff JWT). See queue.archive.read.ts.
   {
     method: 'GET',
     type: 'prefix',
     path: '/api/internal-queue-archive',
     permission: 'api.internal.queue_archive',
-  },
-  {
-    method: 'GET',
-    type: 'prefix',
-    path: '/api/internal-municipalities',
-    permission: 'api.internal.municipalities',
-  },
-  {
-    method: 'GET',
-    type: 'prefix',
-    path: '/api/screenshots/',
-    permission: 'api.screenshots.read',
-  },
-  {
-    method: 'GET',
-    type: 'prefix',
-    path: '/api/newsletters',
-    permission: 'api.newsletters.download',
-  },
-  {
-    method: 'POST',
-    type: 'prefix',
-    path: '/api/global-search',
-    permission: 'api.global_search.search',
   },
 ]
 
