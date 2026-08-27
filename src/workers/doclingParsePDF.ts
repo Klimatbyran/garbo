@@ -78,7 +78,21 @@ async function persistMarkdown(
   if (existing) {
     await prisma.report.update({
       where: { id: existing.id },
-      data: { markdown, ...reportTypeConnect },
+      data: {
+        markdown,
+        ...reportTypeConnect,
+        // Backfill only — never overwrite an identity field the row
+        // already has, only fill in what this job resolved and the row
+        // was missing (e.g. a row first created with just a web url now
+        // getting its s3Url/sha256 from a cachePdf-backed job).
+        ...(existing.sourceUrl
+          ? {}
+          : { sourceUrl: jobData.sourceUrl ?? undefined }),
+        ...(existing.s3Url ? {} : { s3Url: identity.reportS3Url ?? undefined }),
+        ...(existing.sha256
+          ? {}
+          : { sha256: identity.reportSha256 ?? undefined }),
+      },
     })
   } else {
     await prisma.report.create({
@@ -681,11 +695,21 @@ async function pollTaskAndGetResult(
     job.editMessage(`PDF parsed successfully in ${totalTime}s`)
     job.log(`Task completed in ${totalTime}s`)
 
-    const { url: canonicalUrl } = await persistMarkdown(
-      job.data,
-      markdown,
-      job.data.reportTypeSlug
-    )
+    // A registry DB error must not fail this job — persistMarkdown runs on
+    // every parse (not just callbackUrl jobs), and BullMQ would otherwise
+    // retry the whole (already-completed, expensive) Docling parse on the
+    // concurrency-1 worker for a write failure, same stall class as an
+    // unhandled callback error above.
+    let canonicalUrl = job.data.sourceUrl ?? job.data.url
+    try {
+      canonicalUrl = (
+        await persistMarkdown(job.data, markdown, job.data.reportTypeSlug)
+      ).url
+    } catch (err) {
+      job.log(
+        `persistMarkdown failed, continuing without registry update: ${err instanceof Error ? err.message : String(err)}`
+      )
+    }
 
     if (job.data.callbackUrl) {
       // A failed/unreachable callbackUrl must not fail this job — BullMQ
@@ -747,11 +771,16 @@ async function pollTaskAndGetResult(
           `Task completed in ${totalTime}s - Pages: ${pages}, Characters: ${characters}`
         )
 
-        const { url: canonicalUrl } = await persistMarkdown(
-          job.data,
-          markdown,
-          job.data.reportTypeSlug
-        )
+        let canonicalUrl = job.data.sourceUrl ?? job.data.url
+        try {
+          canonicalUrl = (
+            await persistMarkdown(job.data, markdown, job.data.reportTypeSlug)
+          ).url
+        } catch (err) {
+          job.log(
+            `persistMarkdown failed, continuing without registry update: ${err instanceof Error ? err.message : String(err)}`
+          )
+        }
 
         if (job.data.callbackUrl) {
           try {
