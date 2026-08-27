@@ -78,5 +78,11 @@ const validEmissionsUnits = z.enum(['tCO2e', 'tCO2'])
 
 export const emissionUnitSchemaGarbo = validEmissionsUnits.nullable()
 
-export const emissionUnitSchemaWithDefault =
-  validEmissionsUnits.default('tCO2e')
+/**
+ * Zod `.default()` only applies to `undefined`, not `null`. LLM extraction
+ * often returns `"unit": null`, so coerce nullish values to tCO2e.
+ */
+export const emissionUnitSchemaWithDefault = z.preprocess(
+  (value) => (value == null ? 'tCO2e' : value),
+  validEmissionsUnits
+)
