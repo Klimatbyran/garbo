@@ -399,7 +399,7 @@ const doclingParsePDF = new PipelineWorker(
     logConfigurationOnce(job)
 
     // Fail fast, before burning an expensive Docling call, when the
-    // caller's callbackUrl was never going to be deliverable — this is a
+    // caller's callbackUrl is not in ALLOWED_CALLBACK_URLS — this is a
     // permanent misconfiguration (a retry can't fix it), unlike a
     // transient failure in the actual fireCallback call later (see below),
     // which intentionally doesn't fail the job — markdown is already
