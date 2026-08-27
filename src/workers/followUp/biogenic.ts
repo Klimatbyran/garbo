@@ -1,7 +1,7 @@
 import { QUEUE_NAMES } from '../../queues'
 import { FollowUpJob, FollowUpWorker } from '../../lib/FollowUpWorker'
 import { z } from 'zod'
-import { emissionUnitSchemaWithDefault } from '../../api/schemas'
+import { emissionUnitSchemaGarbo } from '../../api/schemas'
 import { FollowUpType } from '../../types'
 
 const schema = z.object({
@@ -10,7 +10,7 @@ const schema = z.object({
       year: z.number(),
       biogenic: z.object({
         total: z.number(),
-        unit: emissionUnitSchemaWithDefault,
+        unit: emissionUnitSchemaGarbo,
       }),
     })
   ),
