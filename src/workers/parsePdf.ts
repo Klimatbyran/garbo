@@ -12,11 +12,17 @@ flow.on('error', (err) => console.error('FlowProducer connection error:', err))
 const parsePdf = new PipelineWorker(
   QUEUE_NAMES.PARSE_PDF,
   async (job) => {
-    const { url, forceReindex } = job.data as {
+    const { url, forceReindex, callbackUrl } = job.data as {
       url: string
       forceReindex?: boolean
+      // When set, run Docling only — no indexMarkdown/Chroma, no precheck.
+      // doclingParsePDF POSTs {url, markdown} here once parsing completes,
+      // for callers (e.g. a separate document pipeline) that want the raw
+      // markdown directly. Must match an entry in ALLOWED_CALLBACK_URLS.
+      callbackUrl?: string
     }
     job.log(`forceReindex flag: ${Boolean(forceReindex)}`)
+    job.log(`callbackUrl: ${callbackUrl ?? '(none)'}`)
     job.opts.attempts = 1
 
     const name = url.slice(-20)
@@ -32,6 +38,29 @@ const parsePdf = new PipelineWorker(
     job.log(`Docling pipeline starting for url: ${url}`)
 
     try {
+      if (callbackUrl) {
+        // climate plans pipeline path — always re-parse and hand markdown
+        // straight to callbackUrl (fired from doclingParsePDF once it has the
+        // result), skipping indexMarkdown/Chroma and precheck entirely.
+        // vectorDB.hasReport() below only reflects the *other* flow's Chroma
+        // index, so it doesn't tell us anything useful here.
+        job.editMessage(
+          `✅ PDF queued. Parsing via Docling (climate plans pipeline)...`
+        )
+
+        const doclingFlow = await flow.add({
+          ...base,
+          name: 'doclingParsePDF',
+          queueName: QUEUE_NAMES.DOCLING_PARSE_PDF,
+          opts: withPipelineJobOpts({
+            attempts: 3,
+            backoff: { type: 'fixed', delay: 120_000 },
+          }),
+        })
+        job.log('docling-only flow started: ' + doclingFlow.job?.id)
+        return { url, callbackUrl }
+      }
+
       const exists = await vectorDB.hasReport(url)
       job.log(`vector index exists for url: ${exists}`)
 

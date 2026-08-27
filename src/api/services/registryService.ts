@@ -120,6 +120,7 @@ function applyMergedRows(
     s3Key: input.s3Key !== undefined ? input.s3Key : merged.s3Key,
     s3Bucket: input.s3Bucket !== undefined ? input.s3Bucket : merged.s3Bucket,
     sha256: input.sha256 !== undefined ? input.sha256 : merged.sha256,
+    markdown: merged.markdown,
     ...(merged.reportTypeId
       ? { reportType: { connect: { id: merged.reportTypeId } } }
       : {}),
@@ -127,6 +128,28 @@ function applyMergedRows(
 }
 
 class RegistryService {
+  /** Looks up the docling-parsed markdown persisted for a report URL (see
+   * doclingParsePDF's persistMarkdown) — lets consumers (reindexing, other
+   * pipelines via callbackUrl) get the document back without re-parsing.
+   * Matches the same identity conditions persistMarkdown writes under
+   * (sourceUrl/s3Url/url cross-links), not just an exact `url` match — the
+   * caller's url string could be the original link or the S3 cache URL. */
+  async getMarkdownByUrl(
+    url: string,
+    prismaClient = prisma
+  ): Promise<string | null> {
+    const matchConditions = buildReportMatchConditions({
+      url,
+      sourceUrl: url,
+      s3Url: url,
+    })
+    const report = await prismaClient.report.findFirst({
+      where: matchConditions.length > 0 ? { OR: matchConditions } : { url },
+      select: { markdown: true },
+    })
+    return report?.markdown ?? null
+  }
+
   async findMatchingReportInRegistry(
     input: ReportInput,
     prismaClient = prisma

@@ -591,6 +591,10 @@ model Report {
   s3Bucket     String?
   /// Content hash for the cached/uploaded PDF when available.
   sha256       String?     @unique
+  /// Full docling-parsed markdown, persisted independently of Chroma so
+  /// reindexing/reruns and other consumers (callbackUrl plugins) don't need
+  /// to re-run docling to get it back.
+  markdown     String?
   companyName  String?
   wikidataId   String?
   reportYear   String?

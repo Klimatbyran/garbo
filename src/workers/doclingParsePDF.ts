@@ -3,6 +3,114 @@ import { UnrecoverableError } from 'bullmq'
 import { QUEUE_NAMES } from '../queues'
 import docling from '../config/docling'
 import redis from '../config/redis'
+import { fireCallback } from '../lib/webhook'
+import { prisma } from '../lib/prisma'
+import { buildReportMatchConditions } from '@/api/services/registryReportIdentity'
+import { buildPipelineReportIdentity } from '../lib/reportSaveIdentity'
+
+// "municipal-climate-plan" -> "Municipal climate plan", matching the style
+// of the hand-written labels in scripts/seed-report-types.ts, so a
+// first-time slug from any future caller still gets a readable default
+// instead of a null label.
+function humanizeSlug(slug: string): string {
+  const words = slug.split('-').filter(Boolean)
+  return words
+    .map((word, i) => (i === 0 ? word[0].toUpperCase() + word.slice(1) : word))
+    .join(' ')
+}
+
+type MarkdownJobData = {
+  url: string
+  sourceUrl?: string
+  pdfCache?: { publicUrl?: string; sha256?: string }
+}
+
+// Persists the parsed markdown on the Report registry row so it survives
+// independently of Chroma — reruns/reindexing and other consumers (e.g. the
+// callbackUrl plugins) can read it back without re-running docling.
+//
+// Identity is resolved the same way the rest of the pipeline resolves it
+// (buildPipelineReportIdentity: prefers the original sourceUrl over the S3
+// cache URL) and matched against existing rows the same way the registry
+// does (buildReportMatchConditions: sourceUrl/s3Url/sha256/url) — a plain
+// upsert on the raw job url would create a second Report row instead of
+// updating the "real" one, since jobData.url is often the S3 cache URL
+// rather than the document's actual identity.
+//
+// reportTypeSlug is an explicit opt-in from the caller (sent alongside
+// callbackUrl), not inferred from callbackUrl's mere presence — callbackUrl
+// is a generic hand-off mechanism any future consumer could use for
+// documents that aren't climate plans, so garbo shouldn't assume what kind
+// of document it is. No slug means the row's reportTypeId is left alone,
+// same as a normal company report, for a human to classify later via the
+// registry review UI.
+async function persistMarkdown(
+  jobData: MarkdownJobData,
+  markdown: string,
+  reportTypeSlug?: string
+): Promise<{ url: string }> {
+  const reportType = reportTypeSlug
+    ? await prisma.reportType.upsert({
+        where: { slug: reportTypeSlug },
+        create: { slug: reportTypeSlug, label: humanizeSlug(reportTypeSlug) },
+        update: {},
+      })
+    : null
+  const reportTypeConnect = reportType
+    ? { reportType: { connect: { id: reportType.id } } }
+    : {}
+
+  const identity = buildPipelineReportIdentity(jobData)
+  const matchConditions = buildReportMatchConditions({
+    url: identity.reportURL,
+    sourceUrl: jobData.sourceUrl,
+    s3Url: identity.reportS3Url,
+    sha256: identity.reportSha256,
+  })
+  const existing = await prisma.report.findFirst({
+    where:
+      matchConditions.length > 0
+        ? { OR: matchConditions }
+        : { url: identity.reportURL },
+    orderBy: { id: 'asc' },
+  })
+
+  if (existing) {
+    await prisma.report.update({
+      where: { id: existing.id },
+      data: {
+        markdown,
+        ...reportTypeConnect,
+        // Backfill only — never overwrite an identity field the row
+        // already has, only fill in what this job resolved and the row
+        // was missing (e.g. a row first created with just a web url now
+        // getting its s3Url/sha256 from a cachePdf-backed job).
+        ...(existing.sourceUrl
+          ? {}
+          : { sourceUrl: jobData.sourceUrl ?? undefined }),
+        ...(existing.s3Url ? {} : { s3Url: identity.reportS3Url ?? undefined }),
+        ...(existing.sha256
+          ? {}
+          : { sha256: identity.reportSha256 ?? undefined }),
+      },
+    })
+  } else {
+    await prisma.report.create({
+      data: {
+        url: identity.reportURL,
+        sourceUrl: jobData.sourceUrl ?? undefined,
+        s3Url: identity.reportS3Url ?? undefined,
+        sha256: identity.reportSha256 ?? undefined,
+        markdown,
+        ...reportTypeConnect,
+      },
+    })
+  }
+
+  // Callers should send this (not job.data.url) onward — job.data.url is
+  // often the S3 cache URL, not the document's actual identity.
+  return { url: identity.reportURL }
+}
 
 // Berget AI payload structure
 interface BergetDoclingRequest {
@@ -55,6 +163,19 @@ class DoclingParsePDFJob extends PipelineJob {
     doclingSettings?: BergetDoclingRequest | DoclingServeRequest
     taskId?: string
     resultUrl?: string // For Berget AI
+    // Original document URL when job.data.url is an S3 cache URL instead
+    // (set by pipeline-api's cachePdf path). See persistMarkdown.
+    sourceUrl?: string
+    pdfCache?: { publicUrl?: string; sha256?: string }
+    // When set (climate plans pipeline path), this job runs standalone —
+    // no indexMarkdown/precheck — and hands markdown straight to callbackUrl
+    // once parsing completes. See pollTaskAndGetResult.
+    callbackUrl?: string
+    // Explicit ReportType.slug the caller wants persisted markdown tagged
+    // with (e.g. "municipal-climate-plan") — not inferred from callbackUrl,
+    // since that's a generic mechanism any future consumer could use for
+    // documents that aren't climate plans. See persistMarkdown.
+    reportTypeSlug?: string
   }
 }
 
@@ -574,6 +695,40 @@ async function pollTaskAndGetResult(
     job.editMessage(`PDF parsed successfully in ${totalTime}s`)
     job.log(`Task completed in ${totalTime}s`)
 
+    // A registry DB error must not fail this job — persistMarkdown runs on
+    // every parse (not just callbackUrl jobs), and BullMQ would otherwise
+    // retry the whole (already-completed, expensive) Docling parse on the
+    // concurrency-1 worker for a write failure, same stall class as an
+    // unhandled callback error above.
+    let canonicalUrl = job.data.sourceUrl ?? job.data.url
+    try {
+      canonicalUrl = (
+        await persistMarkdown(job.data, markdown, job.data.reportTypeSlug)
+      ).url
+    } catch (err) {
+      job.log(
+        `persistMarkdown failed, continuing without registry update: ${err instanceof Error ? err.message : String(err)}`
+      )
+    }
+
+    if (job.data.callbackUrl) {
+      // A failed/unreachable callbackUrl must not fail this job — BullMQ
+      // would retry it on the concurrency-1 Docling worker, which re-parses
+      // the PDF and blocks every other job (including garbo's own pipeline)
+      // for as long as the callback keeps failing.
+      try {
+        await fireCallback(
+          job.data.callbackUrl,
+          { url: canonicalUrl, markdown },
+          (msg) => job.log(msg)
+        )
+      } catch (err) {
+        job.log(
+          `Callback failed, continuing without retry: ${err instanceof Error ? err.message : String(err)}`
+        )
+      }
+    }
+
     return { markdown }
   } else {
     // Berget AI polling logic
@@ -615,6 +770,32 @@ async function pollTaskAndGetResult(
         job.log(
           `Task completed in ${totalTime}s - Pages: ${pages}, Characters: ${characters}`
         )
+
+        let canonicalUrl = job.data.sourceUrl ?? job.data.url
+        try {
+          canonicalUrl = (
+            await persistMarkdown(job.data, markdown, job.data.reportTypeSlug)
+          ).url
+        } catch (err) {
+          job.log(
+            `persistMarkdown failed, continuing without registry update: ${err instanceof Error ? err.message : String(err)}`
+          )
+        }
+
+        if (job.data.callbackUrl) {
+          try {
+            await fireCallback(
+              job.data.callbackUrl,
+              { url: canonicalUrl, markdown },
+              (msg) => job.log(msg)
+            )
+          } catch (err) {
+            job.log(
+              `Callback failed, continuing without retry: ${err instanceof Error ? err.message : String(err)}`
+            )
+          }
+        }
+
         return { markdown }
       } else if (response.status === 202) {
         const retryAfter = parseInt(response.headers.get('Retry-After') || '2')
