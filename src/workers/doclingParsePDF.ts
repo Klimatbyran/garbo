@@ -3,7 +3,7 @@ import { UnrecoverableError } from 'bullmq'
 import { QUEUE_NAMES } from '../queues'
 import docling from '../config/docling'
 import redis from '../config/redis'
-import { fireCallback } from '../lib/webhook'
+import { fireCallback, isAllowedCallbackUrl } from '../lib/webhook'
 import { prisma } from '../lib/prisma'
 import { buildReportMatchConditions } from '@/api/services/registryReportIdentity'
 import { buildPipelineReportIdentity } from '../lib/reportSaveIdentity'
@@ -397,6 +397,19 @@ const doclingParsePDF = new PipelineWorker(
 
     // Log configuration once (first job only) - appears in BullMQ logs
     logConfigurationOnce(job)
+
+    // Fail fast, before burning an expensive Docling call, when the
+    // caller's callbackUrl is not in ALLOWED_CALLBACK_URLS — this is a
+    // permanent misconfiguration (a retry can't fix it), unlike a
+    // transient failure in the actual fireCallback call later (see below),
+    // which intentionally doesn't fail the job — markdown is already
+    // persisted by then, so nothing is lost, and it can be recovered via
+    // GET /api/reports/registry/markdown?url=... without re-parsing.
+    if (job.data.callbackUrl && !isAllowedCallbackUrl(job.data.callbackUrl)) {
+      throw new UnrecoverableError(
+        `Callback URL not in whitelist: ${job.data.callbackUrl}`
+      )
+    }
 
     try {
       if (taskId) {
