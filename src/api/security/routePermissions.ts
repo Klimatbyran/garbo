@@ -1,18 +1,8 @@
 export const CLIENT_API_PERMISSION_CODES = [
   'api.companies.search',
-  'api.companies.export',
   'api.companies.list',
   'api.companies.read',
-  'api.internal.companies',
   'api.internal.queue_archive',
-  'api.internal.municipalities',
-  'api.municipalities.export',
-  'api.regions.export',
-  'api.reporting_period.years',
-  'api.mailing_list.download_request',
-  'api.screenshots.read',
-  'api.newsletters.download',
-  'api.global_search.search',
 ] as const
 
 export type ClientApiPermissionCode =
@@ -44,12 +34,6 @@ export const clientApiRouteRules: Rule[] = [
   },
   {
     method: 'GET',
-    type: 'prefix',
-    path: '/api/companies/export',
-    permission: 'api.companies.export',
-  },
-  {
-    method: 'GET',
     type: 'exact',
     path: '/api/companies',
     permission: 'api.companies.list',
@@ -66,66 +50,12 @@ export const clientApiRouteRules: Rule[] = [
     path: '/api/companies/',
     permission: 'api.companies.read',
   },
-  {
-    method: 'GET',
-    type: 'prefix',
-    path: '/api/internal-companies',
-    permission: 'api.internal.companies',
-  },
   // Twin of api/queue-archive (staff JWT). See queue.archive.read.ts.
   {
     method: 'GET',
     type: 'prefix',
     path: '/api/internal-queue-archive',
     permission: 'api.internal.queue_archive',
-  },
-  {
-    method: 'GET',
-    type: 'prefix',
-    path: '/api/internal-municipalities',
-    permission: 'api.internal.municipalities',
-  },
-  {
-    method: 'GET',
-    type: 'prefix',
-    path: '/api/municipalities/export',
-    permission: 'api.municipalities.export',
-  },
-  {
-    method: 'GET',
-    type: 'prefix',
-    path: '/api/regions/export',
-    permission: 'api.regions.export',
-  },
-  {
-    method: 'GET',
-    type: 'prefix',
-    path: '/api/reporting-period',
-    permission: 'api.reporting_period.years',
-  },
-  {
-    method: 'POST',
-    type: 'prefix',
-    path: '/api/download-request',
-    permission: 'api.mailing_list.download_request',
-  },
-  {
-    method: 'GET',
-    type: 'prefix',
-    path: '/api/screenshots/',
-    permission: 'api.screenshots.read',
-  },
-  {
-    method: 'GET',
-    type: 'prefix',
-    path: '/api/newsletters',
-    permission: 'api.newsletters.download',
-  },
-  {
-    method: 'POST',
-    type: 'prefix',
-    path: '/api/global-search',
-    permission: 'api.global_search.search',
   },
 ]
 
