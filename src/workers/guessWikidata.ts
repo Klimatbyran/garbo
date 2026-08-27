@@ -129,7 +129,8 @@ async function loadCompanyLinkCandidate(
 
 /**
  * When Wikidata is already linked to a different company, ask staff to confirm
- * the company id before persisting. Returns false when waiting on approval.
+ * the company id before persisting — including when job autoApprove is on.
+ * Returns false when waiting on approval.
  */
 async function requestCompanyLinkIfWikidataConflict(
   job: GuessWikidataJob,
@@ -156,30 +157,13 @@ async function requestCompanyLinkIfWikidataConflict(
     return true
   }
 
-  if (job.data.autoApprove) {
-    job.log(
-      `autoApprove: relinking pipeline company ${resolvedPipelineCompanyId} → wikidata owner ${wikidataOwner.id} (${wikidata.node})`
-    )
-    await job.updateData({
-      ...job.data,
-      companyId: wikidataOwner.id,
-      wikidata,
-    })
-    const threadId = job.data.threadId?.trim()
-    if (threadId) {
-      await syncCanonicalReportRunCompanyId({
-        threadId,
-        companyId: wikidataOwner.id,
-        pdfUrl: job.data.url,
-        companyName,
-        wikidataId: wikidata.node,
-      })
-    }
-    return true
-  }
-
+  // Always require staff confirmation when Q-id is already owned by another
+  // company — even with job autoApprove. Silent auto-relink previously skipped
+  // review and then failed the unique Wikidata constraint when persist still
+  // targeted the pipeline company.
   job.log(
-    `Wikidata ${wikidata.node} belongs to company ${wikidataOwner.id}; pipeline company is ${resolvedPipelineCompanyId} — requesting staff confirmation`
+    `Wikidata ${wikidata.node} belongs to company ${wikidataOwner.id}; pipeline company is ${resolvedPipelineCompanyId} — requesting staff confirmation` +
+      (job.data.autoApprove ? ' (despite autoApprove)' : '')
   )
 
   const pipelineCompany = await loadCompanyLinkCandidate(pipelineCompanyId)
