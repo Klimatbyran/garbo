@@ -5,15 +5,10 @@ import { resolve } from 'path'
 import openAPIConfig from './config/openapi'
 import { companyReadRoutes } from './api/routes/external/company.read'
 import { authentificationRoutes } from './api/routes/internal/auth'
-import { companyExportRoutes } from './api/routes/external/company.export'
-import { municipalityExportRoutes } from './api/routes/external/municipality.export'
-import { regionalExportRoutes } from './api/routes/external/regional.export'
-import { mailingListDownloadsRoute } from './api/routes/internal/mailing-list.downloads'
 import { screenshotsReadRoutes } from './api/routes/external/screenshots.read'
 import { newsletterArchiveDownloadsRoute } from './api/routes/external/newsletter-archive.downloads'
 import { internalCompanyReadRoutes } from './api/routes/internal/internal.company.read'
 import { internalMunicipalityReadRoutes } from './api/routes/internal/internal.municipality.read'
-import { companyPublicReportingPeriodsRoutes } from './api/routes/internal/company.reportingPeriods'
 import { globalSearchReadRoutes } from './api/routes/internal/globalSearch.read'
 import { queueArchiveInternalReadRoutes } from './api/routes/internal/queue.archive.read'
 
@@ -49,13 +44,6 @@ export async function registerClientApiRoutes(app: FastifyInstance) {
 
   app.register(authentificationRoutes, { prefix: 'api/auth' })
   app.register(companyReadRoutes, { prefix: 'api/companies' })
-  app.register(companyExportRoutes, { prefix: 'api/companies' })
-  app.register(municipalityExportRoutes, { prefix: 'api/municipalities' })
-  app.register(regionalExportRoutes, { prefix: 'api/regions' })
-  app.register(companyPublicReportingPeriodsRoutes, {
-    prefix: 'api/reporting-period',
-  })
-  app.register(mailingListDownloadsRoute, { prefix: 'api' })
   app.register(screenshotsReadRoutes, { prefix: 'api/screenshots' })
 
   app.register(newsletterArchiveDownloadsRoute, {
