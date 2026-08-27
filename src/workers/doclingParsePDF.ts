@@ -732,7 +732,7 @@ async function pollTaskAndGetResult(
       try {
         await fireCallback(
           job.data.callbackUrl,
-          { url: canonicalUrl, markdown },
+          { url: canonicalUrl, markdown, threadId: job.data.threadId },
           (msg) => job.log(msg)
         )
       } catch (err) {
@@ -799,7 +799,7 @@ async function pollTaskAndGetResult(
           try {
             await fireCallback(
               job.data.callbackUrl,
-              { url: canonicalUrl, markdown },
+              { url: canonicalUrl, markdown, threadId: job.data.threadId },
               (msg) => job.log(msg)
             )
           } catch (err) {
