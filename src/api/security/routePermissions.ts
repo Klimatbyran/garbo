@@ -1,16 +1,8 @@
 export const CLIENT_API_PERMISSION_CODES = [
   'api.companies.search',
-  'api.companies.export',
   'api.companies.list',
   'api.companies.read',
   'api.internal.queue_archive',
-  'api.municipalities.read',
-  'api.municipalities.export',
-  'api.regions.read',
-  'api.regions.export',
-  'api.nation.read',
-  'api.reporting_period.years',
-  'api.mailing_list.download_request',
 ] as const
 
 export type ClientApiPermissionCode =
@@ -42,12 +34,6 @@ export const clientApiRouteRules: Rule[] = [
   },
   {
     method: 'GET',
-    type: 'prefix',
-    path: '/api/companies/export',
-    permission: 'api.companies.export',
-  },
-  {
-    method: 'GET',
     type: 'exact',
     path: '/api/companies',
     permission: 'api.companies.list',
@@ -70,66 +56,6 @@ export const clientApiRouteRules: Rule[] = [
     type: 'prefix',
     path: '/api/internal-queue-archive',
     permission: 'api.internal.queue_archive',
-  },
-  {
-    method: 'GET',
-    type: 'prefix',
-    path: '/api/municipalities/export',
-    permission: 'api.municipalities.export',
-  },
-  {
-    method: 'GET',
-    type: 'prefix',
-    path: '/api/municipalities/',
-    permission: 'api.municipalities.read',
-  },
-  {
-    method: 'GET',
-    type: 'exact',
-    path: '/api/municipalities',
-    permission: 'api.municipalities.read',
-  },
-  {
-    method: 'GET',
-    type: 'prefix',
-    path: '/api/regions/export',
-    permission: 'api.regions.export',
-  },
-  {
-    method: 'GET',
-    type: 'prefix',
-    path: '/api/regions/',
-    permission: 'api.regions.read',
-  },
-  {
-    method: 'GET',
-    type: 'exact',
-    path: '/api/regions',
-    permission: 'api.regions.read',
-  },
-  {
-    method: 'GET',
-    type: 'prefix',
-    path: '/api/nation/',
-    permission: 'api.nation.read',
-  },
-  {
-    method: 'GET',
-    type: 'exact',
-    path: '/api/nation',
-    permission: 'api.nation.read',
-  },
-  {
-    method: 'GET',
-    type: 'prefix',
-    path: '/api/reporting-period',
-    permission: 'api.reporting_period.years',
-  },
-  {
-    method: 'POST',
-    type: 'prefix',
-    path: '/api/download-request',
-    permission: 'api.mailing_list.download_request',
   },
 ]
 

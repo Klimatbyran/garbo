@@ -43,8 +43,6 @@ import {
   pdfBasenameFromUrl,
   trimStr,
 } from '../src/api/services/registryReportIdentity'
-import { invalidateRegistryCache } from '../src/api/services/registryCache'
-import { createServerCache, disconnectRedisCache } from '../src/createCache'
 
 // ── Union-find ────────────────────────────────────────────────────────────────
 
@@ -427,12 +425,6 @@ async function main() {
         : `Upserted ${updated} Report row(s)${errors > 0 ? `; ${errors} error(s) — check output above` : '.'}`
     )
 
-    if (!dryRun) {
-      const registryCache = createServerCache({ maxAge: 24 * 60 * 60 * 1000 })
-      await invalidateRegistryCache(registryCache, console)
-      console.log('Invalidated registry Redis cache.')
-    }
-
     if (mappingPath) {
       if (dryRun) {
         console.log(
@@ -444,7 +436,6 @@ async function main() {
       }
     }
   } finally {
-    await disconnectRedisCache()
     await prisma.$disconnect()
   }
 }
