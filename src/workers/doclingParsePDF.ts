@@ -48,7 +48,7 @@ async function persistMarkdown(
   jobData: MarkdownJobData,
   markdown: string,
   reportTypeSlug?: string
-): Promise<void> {
+): Promise<{ url: string }> {
   const reportType = reportTypeSlug
     ? await prisma.reportType.upsert({
         where: { slug: reportTypeSlug },
@@ -85,11 +85,17 @@ async function persistMarkdown(
       data: {
         url: identity.reportURL,
         sourceUrl: jobData.sourceUrl ?? undefined,
+        s3Url: identity.reportS3Url ?? undefined,
+        sha256: identity.reportSha256 ?? undefined,
         markdown,
         ...reportTypeConnect,
       },
     })
   }
+
+  // Callers should send this (not job.data.url) onward — job.data.url is
+  // often the S3 cache URL, not the document's actual identity.
+  return { url: identity.reportURL }
 }
 
 // Berget AI payload structure
@@ -675,7 +681,11 @@ async function pollTaskAndGetResult(
     job.editMessage(`PDF parsed successfully in ${totalTime}s`)
     job.log(`Task completed in ${totalTime}s`)
 
-    await persistMarkdown(job.data, markdown, job.data.reportTypeSlug)
+    const { url: canonicalUrl } = await persistMarkdown(
+      job.data,
+      markdown,
+      job.data.reportTypeSlug
+    )
 
     if (job.data.callbackUrl) {
       // A failed/unreachable callbackUrl must not fail this job — BullMQ
@@ -685,7 +695,7 @@ async function pollTaskAndGetResult(
       try {
         await fireCallback(
           job.data.callbackUrl,
-          { url: job.data.url, markdown },
+          { url: canonicalUrl, markdown },
           (msg) => job.log(msg)
         )
       } catch (err) {
@@ -737,13 +747,17 @@ async function pollTaskAndGetResult(
           `Task completed in ${totalTime}s - Pages: ${pages}, Characters: ${characters}`
         )
 
-        await persistMarkdown(job.data, markdown, job.data.reportTypeSlug)
+        const { url: canonicalUrl } = await persistMarkdown(
+          job.data,
+          markdown,
+          job.data.reportTypeSlug
+        )
 
         if (job.data.callbackUrl) {
           try {
             await fireCallback(
               job.data.callbackUrl,
-              { url: job.data.url, markdown },
+              { url: canonicalUrl, markdown },
               (msg) => job.log(msg)
             )
           } catch (err) {
