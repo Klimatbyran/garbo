@@ -106,7 +106,7 @@ export const BiogenicSchema = z.object({
     .number()
     .nullable()
     .openapi({ description: 'Total biogenic emissions' }),
-  unit: z.string().openapi({ description: 'Unit of measurement' }),
+  unit: emissionUnitSchemaGarbo.openapi({ description: 'Unit of measurement' }),
   metadata: MetadataSchema,
 })
 

@@ -226,7 +226,7 @@ export const emissionsSchema = z
     biogenic: z
       .object({
         total: z.number().nullable().optional(),
-        unit: emissionUnitSchemaWithDefault,
+        unit: emissionUnitSchemaGarbo,
         verified: z.boolean().optional(),
       })
       .nullable()

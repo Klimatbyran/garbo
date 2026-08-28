@@ -253,7 +253,7 @@ model BiogenicEmissions {
   id          String  @id @default(cuid())
   /// Sometimes companies break it down into scope 1-3 - however these should always be stored as a total number according to the GHG protocol.
   total       Float?
-  unit        String
+  unit        String?
   emissionsId String? @unique
 
   emissions Emissions?      @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
