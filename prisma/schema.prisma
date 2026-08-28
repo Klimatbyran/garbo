@@ -45,7 +45,8 @@ model Company {
 
   identifiers CompanyIdentifier[]
 
-  coverageListEntries CoverageListEntry[]
+  coverageListEntries            CoverageListEntry[] @relation("CoverageEntryMatchedCompany")
+  coverageListEntrySuggestions   CoverageListEntry[] @relation("CoverageEntrySuggestedCompany")
 }
 
 enum CompanyIdentifierType {
@@ -604,7 +605,8 @@ model Report {
   batchId      String?     @map("batch_id")
   batch        Batch?      @relation(fields: [batchId], references: [id], onDelete: SetNull, onUpdate: Cascade)
 
-  companyReports CompanyReport[]
+  companyReports       CompanyReport[]
+  coverageEntryReports CoverageEntryReport[]
 
   @@index([reportTypeId])
   @@index([batchId])
@@ -789,27 +791,78 @@ model CoverageListYear {
   @@map("coverage_list_years")
 }
 
+enum CoverageMatchStatus {
+  matched
+  ambiguous
+  missing
+}
+
+enum CoverageMatchMethod {
+  auto
+  manual
+}
+
+enum CoverageReportLinkStatus {
+  matched
+  ambiguous
+  rejected
+}
+
+enum CoverageReportMatchSource {
+  wikidata
+  name
+  manual
+}
+
 /// Pasted company name line belonging to a list year edition.
 model CoverageListEntry {
-  id                    String           @id @default(cuid())
-  yearId                String           @map("year_id")
-  year                  CoverageListYear @relation(fields: [yearId], references: [id], onDelete: Cascade)
+  id                    String               @id @default(cuid())
+  yearId                String               @map("year_id")
+  year                  CoverageListYear     @relation(fields: [yearId], references: [id], onDelete: Cascade)
   name                  String
-  sortOrder             Int              @default(0) @map("sort_order")
-  /// Staff-confirmed DB company match; overrides auto-matching when set.
-  matchedCompanyId      String?          @map("matched_company_id")
-  matchedCompany        Company?         @relation(fields: [matchedCompanyId], references: [id], onDelete: SetNull)
+  sortOrder             Int                  @default(0) @map("sort_order")
+  /// Persisted company match outcome; null until rematch or staff override.
+  matchStatus           CoverageMatchStatus? @map("match_status")
+  matchMethod           CoverageMatchMethod? @map("match_method")
+  /// DB company match (auto or staff-confirmed).
+  matchedCompanyId      String?              @map("matched_company_id")
+  matchedCompany        Company?             @relation("CoverageEntryMatchedCompany", fields: [matchedCompanyId], references: [id], onDelete: SetNull)
+  /// Primary suggestion when status is ambiguous.
+  suggestedCompanyId    String?              @map("suggested_company_id")
+  suggestedCompany      Company?             @relation("CoverageEntrySuggestedCompany", fields: [suggestedCompanyId], references: [id], onDelete: SetNull)
   /// Staff confirmed this list name is not in the DB (overrides ambiguous suggestions).
-  matchConfirmedMissing Boolean          @default(false) @map("match_confirmed_missing")
+  matchConfirmedMissing Boolean              @default(false) @map("match_confirmed_missing")
+  matchedAt             DateTime?            @map("matched_at")
   /// Cached registry report count for fast coverage filters.
-  registryReportCount   Int              @default(0) @map("registry_report_count")
+  registryReportCount   Int                  @default(0) @map("registry_report_count")
   /// Cached flag: at least one linked registry report is prod-ready.
-  hasProdReadyReport    Boolean          @default(false) @map("has_prod_ready_report")
-  registryRefreshedAt   DateTime?        @map("registry_refreshed_at")
+  hasProdReadyReport    Boolean              @default(false) @map("has_prod_ready_report")
+  registryRefreshedAt   DateTime?            @map("registry_refreshed_at")
+  reportLinks           CoverageEntryReport[]
 
   @@index([yearId])
   @@index([matchedCompanyId])
+  @@index([suggestedCompanyId])
+  @@index([yearId, matchStatus])
   @@index([yearId, registryReportCount])
   @@index([yearId, hasProdReadyReport])
   @@map("coverage_list_entries")
+}
+
+/// Persisted Coverage entry ↔ registry Report discovery links.
+model CoverageEntryReport {
+  id          String                     @id @default(cuid())
+  entryId     String                     @map("entry_id")
+  entry       CoverageListEntry          @relation(fields: [entryId], references: [id], onDelete: Cascade)
+  reportId    String                     @map("report_id")
+  report      Report                     @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  linkStatus  CoverageReportLinkStatus   @default(matched) @map("link_status")
+  matchSource CoverageReportMatchSource  @map("match_source")
+  createdAt   DateTime                   @default(now()) @map("created_at")
+  updatedAt   DateTime                   @updatedAt @map("updated_at")
+
+  @@unique([entryId, reportId])
+  @@index([entryId])
+  @@index([reportId])
+  @@map("coverage_entry_reports")
 }
