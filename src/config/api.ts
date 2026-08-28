@@ -1,16 +1,8 @@
 import 'dotenv/config'
 import { FastifyServerOptions } from 'fastify'
-import { dirname, resolve } from 'path'
-import { fileURLToPath } from 'node:url'
 import { z } from 'zod'
 
 import { parseEnvBoolean } from './parseEnvBoolean'
-
-/** Jest/ts-jest may not define `import.meta.dirname` (Node 20.11+). */
-const configDir =
-  typeof import.meta.dirname === 'string'
-    ? import.meta.dirname
-    : dirname(fileURLToPath(import.meta.url))
 
 const envSchema = z.object({
   API_SECRET: z.string(),
@@ -129,27 +121,6 @@ const apiConfig = {
   allowAnonymousClientApi: env.ALLOW_ANONYMOUS_CLIENT_API,
   clientApiKeyPepper: env.CLIENT_API_KEY_PEPPER ?? env.API_SECRET,
   clientApiRateLimitPerMinute: env.CLIENT_API_RATE_LIMIT_PER_MINUTE,
-
-  municipalityDataPath: resolve(configDir, '../data/municipality-data.json'),
-
-  municipalitySectorEmissionsPath: resolve(
-    configDir,
-    '../data/municipality-sector-emissions.json'
-  ),
-
-  regionDataPath: resolve(configDir, '../data/region-data.json'),
-
-  regionSectorEmissionsPath: resolve(
-    configDir,
-    '../data/region-sector-emissions.json'
-  ),
-
-  nationDataPath: resolve(configDir, '../data/nation-data.json'),
-
-  nationSectorEmissionsPath: resolve(
-    configDir,
-    '../data/nation-sector-emissions.json'
-  ),
 
   bullBoardBasePath: '/admin/queues',
 
