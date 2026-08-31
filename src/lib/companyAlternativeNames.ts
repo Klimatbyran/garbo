@@ -14,7 +14,7 @@ function preferDisplayForm(existing: string, incoming: string): string {
   if (companyNameHasDiacritics(existing) !== companyNameHasDiacritics(incoming)) {
     return preferRicherDiacriticCompanyName(existing, incoming)
   }
-  // Prefer the form that looks more like a proper name (more letters / casing).
+  // Prefer the form with more letters when keys collide (e.g. "AB" vs "Aktiebolag" noise already stripped by key).
   const existingLetterCount = (existing.match(/\p{L}/gu) ?? []).length
   const incomingLetterCount = (incoming.match(/\p{L}/gu) ?? []).length
   if (incomingLetterCount > existingLetterCount) return incoming.trim()
@@ -40,7 +40,7 @@ export function mergeAlternativeNames({
   const byKey = new Map<string, string>()
 
   for (const raw of [...existingAlternativeNames, ...incomingNames]) {
-    const trimmed = raw?.trim()
+    const trimmed = raw.trim()
     if (!trimmed) continue
 
     const key = companyNameMatchKey(trimmed)

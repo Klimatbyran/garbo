@@ -26,6 +26,17 @@ describe('companyNameMatchKey', () => {
     expect(companyNameMatchKey('H&M')).toBe('h m')
     expect(companyNameMatchKey('H & M')).toBe('h m')
   })
+
+  it('strips Nordic slash-form legal suffixes (A/S, AS/A)', () => {
+    expect(companyNameMatchKey('Company A/S')).toBe('company')
+    expect(companyNameMatchKey('Equinor A/S')).toBe('equinor')
+    expect(companyNameMatchKey('Foo AS/A')).toBe('foo')
+  })
+
+  it('normalizes hyphens so spacing variants share a key', () => {
+    expect(companyNameMatchKey('Coca-Cola')).toBe('coca cola')
+    expect(companyNameMatchKey('Coca - Cola')).toBe('coca cola')
+  })
 })
 
 describe('mergeAlternativeNames', () => {

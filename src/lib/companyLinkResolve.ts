@@ -174,10 +174,12 @@ export function companyNameMatchKey(name: string): string {
   return foldDiacriticsForCompanyMatch(name)
     .trim()
     .toLocaleLowerCase('sv-SE')
+    // Preserve Nordic slash-form suffixes before `/` becomes a separator.
+    .replace(/\ba\s*\/\s*s\b/g, 'as')
+    .replace(/\bas\s*\/\s*a\b/g, 'asa')
     // "A.B." → "ab" so legal-suffix stripping still sees a single token
     .replace(/\./g, '')
-    .replace(/[&/,()'"’´`+]/g, ' ')
-    .replace(/[^\p{L}\p{N}\s-]/gu, ' ')
+    .replace(/[^\p{L}\p{N}\s]/gu, ' ')
     .replace(/\s+/g, ' ')
     .split(' ')
     .filter((word) => word.length > 0 && !isLegalEntitySuffix(word))
