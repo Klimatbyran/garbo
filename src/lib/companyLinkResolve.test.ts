@@ -56,19 +56,24 @@ describe('companyLinkResolve', () => {
     expect(result).toEqual({ action: 'resolve', companyId: 'alfa-1' })
   })
 
-  it('resolves when exactly one candidate matches via an alternative name', () => {
-    const result = assessCompanyLinkResolution('AB Volvo', [
+  it('sends alias-only exact hits to staff review (never auto-links)', () => {
+    const candidates = [
       {
         id: 'volvo-1',
         name: 'Volvo Group',
         alternativeNames: ['Volvo AB', 'AB Volvo'],
       },
       { id: 'other', name: 'Other Co' },
-    ])
-    expect(result).toEqual({ action: 'resolve', companyId: 'volvo-1' })
+    ]
+    const result = assessCompanyLinkResolution('AB Volvo', candidates)
+    expect(result).toEqual({
+      action: 'ambiguous',
+      candidates: [candidates[0]],
+      matchedViaAlternativeName: true,
+    })
   })
 
-  it('does not auto-resolve Volvo Cars against Volvo AB aliases', () => {
+  it('still auto-resolves Volvo Cars via canonical name, not Volvo AB aliases', () => {
     const candidates = [
       {
         id: 'volvo-ab',

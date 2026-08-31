@@ -18,6 +18,11 @@ export type CompanyLinkResolution =
       candidates: CompanyLinkCandidate[]
       /** True when candidates matched on shared core token (e.g. Sampo Group vs Sampo plc). */
       partialNameMatch?: boolean
+      /**
+       * True when the extracted name matched an alternative name (not the canonical
+       * `name`). These never auto-link — staff must confirm.
+       */
+      matchedViaAlternativeName?: boolean
     }
   | { action: 'create' }
 
@@ -213,29 +218,34 @@ export function dedupeCompanyLinkCandidates(
   })
 }
 
-function companyLinkCandidateMatchKeys(
-  candidate: CompanyLinkCandidate
-): string[] {
-  const keys = new Set<string>()
-  if (candidate.name) {
-    const nameKey = normalizeCompanyNameForMatch(candidate.name)
-    if (nameKey) keys.add(nameKey)
-  }
-  for (const alternativeName of candidate.alternativeNames ?? []) {
-    const key = normalizeCompanyNameForMatch(alternativeName)
-    if (key) keys.add(key)
-  }
-  return [...keys]
-}
-
+/** Exact match against canonical `name` only — used for auto-link. */
 export function pickExactNameMatches(
   extractedName: string,
   candidates: CompanyLinkCandidate[]
 ): CompanyLinkCandidate[] {
   const target = normalizeCompanyNameForMatch(extractedName)
   if (!target) return []
+  return candidates.filter(
+    (candidate) =>
+      candidate.name && normalizeCompanyNameForMatch(candidate.name) === target
+  )
+}
+
+/**
+ * Exact match against `alternativeNames` only. Used to propose review
+ * candidates — never for auto-link.
+ */
+export function pickExactAlternativeNameMatches(
+  extractedName: string,
+  candidates: CompanyLinkCandidate[]
+): CompanyLinkCandidate[] {
+  const target = normalizeCompanyNameForMatch(extractedName)
+  if (!target) return []
   return candidates.filter((candidate) =>
-    companyLinkCandidateMatchKeys(candidate).includes(target)
+    (candidate.alternativeNames ?? []).some(
+      (alternativeName) =>
+        normalizeCompanyNameForMatch(alternativeName) === target
+    )
   )
 }
 
@@ -258,9 +268,10 @@ export function wikidataSelectionMatchesCompanyName(
 
 /**
  * Decide whether to auto-link, ask a human, or create a new company.
- * Auto-link only when exactly one candidate matches the normalized name.
+ * Auto-link only when exactly one candidate matches the canonical name.
+ * Exact alternative-name hits always go to staff (strong proposals, no auto-link).
  * Partial core-token matches (e.g. Sampo Group vs Sampo plc) go to staff with a focused candidate list.
- * Any other fuzzy hit without a single exact match also goes to staff.
+ * Any other fuzzy hit without a single exact canonical match also goes to staff.
  */
 export function assessCompanyLinkResolution(
   extractedName: string,
@@ -272,16 +283,31 @@ export function assessCompanyLinkResolution(
     return { action: 'create' }
   }
 
-  const exactMatches = pickExactNameMatches(extractedName, uniqueCandidates)
+  const exactCanonicalMatches = pickExactNameMatches(
+    extractedName,
+    uniqueCandidates
+  )
 
-  if (exactMatches.length === 1) {
-    return { action: 'resolve', companyId: exactMatches[0].id }
+  if (exactCanonicalMatches.length === 1) {
+    return { action: 'resolve', companyId: exactCanonicalMatches[0].id }
   }
 
-  if (exactMatches.length > 1) {
+  if (exactCanonicalMatches.length > 1) {
     return {
       action: 'ambiguous',
-      candidates: dedupeCompanyLinkCandidates(exactMatches),
+      candidates: dedupeCompanyLinkCandidates(exactCanonicalMatches),
+    }
+  }
+
+  const exactAlternativeMatches = pickExactAlternativeNameMatches(
+    extractedName,
+    uniqueCandidates
+  )
+  if (exactAlternativeMatches.length >= 1) {
+    return {
+      action: 'ambiguous',
+      candidates: dedupeCompanyLinkCandidates(exactAlternativeMatches),
+      matchedViaAlternativeName: true,
     }
   }
 

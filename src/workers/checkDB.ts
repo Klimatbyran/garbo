@@ -233,14 +233,19 @@ const checkDB = new PipelineWorker(
                 partialNameMatch: true,
                 displayName: saveResolution.extractedName,
               }),
+              ...(saveResolution.matchedViaAlternativeName && {
+                matchedViaAlternativeName: true,
+              }),
             },
           },
           false,
           {
             source: 'checkdb-company-resolve',
-            comment: saveResolution.partialNameMatch
-              ? 'Partial name match — select the correct company and optionally set display name'
-              : 'Multiple matching companies found before save — please select the correct company',
+            comment: saveResolution.matchedViaAlternativeName
+              ? 'Matched via alternative name — confirm the correct company before continuing'
+              : saveResolution.partialNameMatch
+                ? 'Partial name match — select the correct company and optionally set display name'
+                : 'Multiple matching companies found before save — please select the correct company',
           },
           `Company link before save for ${companyName}`
         )

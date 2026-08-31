@@ -39,6 +39,7 @@ export type PipelineCompanyResolveOutcome =
       extractedName: string
       candidates: CompanyLinkCandidate[]
       partialNameMatch?: boolean
+      matchedViaAlternativeName?: boolean
     }
   | { status: 'create'; extractedName: string }
 
@@ -223,6 +224,7 @@ export async function resolvePipelineCompanyOutcome(
       extractedName: companyName,
       candidates: assessment.candidates,
       partialNameMatch: assessment.partialNameMatch,
+      matchedViaAlternativeName: assessment.matchedViaAlternativeName,
     }
   }
 
@@ -249,6 +251,7 @@ export async function resolvePipelineCompanyAfterIdentifiers(
       extractedName: string
       candidates: CompanyLinkCandidate[]
       partialNameMatch?: boolean
+      matchedViaAlternativeName?: boolean
     }
 > {
   const wikidataId = identifiers.wikidata?.node?.trim()
@@ -292,6 +295,7 @@ export async function resolvePipelineCompanyAfterIdentifiers(
       extractedName: companyName,
       candidates: assessment.candidates,
       partialNameMatch: assessment.partialNameMatch,
+      matchedViaAlternativeName: assessment.matchedViaAlternativeName,
     }
   }
 
