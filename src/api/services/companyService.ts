@@ -471,6 +471,45 @@ class CompanyService {
     })
   }
 
+  /**
+   * After a confirmed company link, store the extracted report name as an
+   * alternative name when it is not just a formatting variant of `name`.
+   * Never changes canonical `name`. No-op when merge yields no change.
+   */
+  async collectAlternativeNameFromResolvedLink(
+    companyId: string,
+    extractedName: string
+  ): Promise<string[] | null> {
+    const trimmed = extractedName.trim()
+    if (!trimmed) return null
+
+    const company = await prisma.company.findUnique({
+      where: { id: companyId },
+      select: { name: true, alternativeNames: true },
+    })
+    if (!company) return null
+
+    const existing = company.alternativeNames ?? []
+    const merged = mergeAlternativeNames({
+      canonicalName: company.name,
+      existingAlternativeNames: existing,
+      incomingNames: [trimmed],
+    })
+
+    if (
+      merged.length === existing.length &&
+      merged.every((name, index) => name === existing[index])
+    ) {
+      return null
+    }
+
+    await prisma.company.update({
+      where: { id: companyId },
+      data: { alternativeNames: merged },
+    })
+    return merged
+  }
+
   async deleteCompany(companyId: string) {
     return prisma.company.delete({ where: { id: companyId } })
   }
