@@ -28,17 +28,27 @@ describe('collectAlternativeNameAfterConfirmedLink merge decision', () => {
       wouldCollectAlternativeName({
         canonicalName: 'Volvo AB',
         existingAlternativeNames: [],
+        extractedName: 'Volvo Group',
+      })
+    ).toBe(true)
+  })
+
+  it('does not collect legal-suffix / formatting variants of the canonical name', () => {
+    expect(
+      wouldCollectAlternativeName({
+        canonicalName: 'Volvo AB',
+        existingAlternativeNames: [],
         extractedName: 'AB Volvo',
       })
     ).toBe(false)
 
     expect(
       wouldCollectAlternativeName({
-        canonicalName: 'Volvo AB',
+        canonicalName: 'Nestlé Sverige',
         existingAlternativeNames: [],
-        extractedName: 'Volvo Group',
+        extractedName: 'Nestle Sverige',
       })
-    ).toBe(true)
+    ).toBe(false)
   })
 
   it('does not collect when the extracted name is already stored', () => {
@@ -47,16 +57,6 @@ describe('collectAlternativeNameAfterConfirmedLink merge decision', () => {
         canonicalName: 'Acme Corp',
         existingAlternativeNames: ['Acme Trading'],
         extractedName: 'Acme Trading',
-      })
-    ).toBe(false)
-  })
-
-  it('does not collect formatting variants of the canonical name', () => {
-    expect(
-      wouldCollectAlternativeName({
-        canonicalName: 'Nestlé Sverige',
-        existingAlternativeNames: [],
-        extractedName: 'Nestle Sverige',
       })
     ).toBe(false)
   })

@@ -11,6 +11,7 @@ import { apiFetch } from '../lib/api'
 import {
   resolvePipelineCompanyOutcome,
   findCompanyByWikidataId,
+  type CompanyResolutionMethod,
 } from '../lib/pipelineCompanyResolve'
 import { findOrCreatePipelineCompanyLocked } from '../lib/pipelineCompanyCreate'
 import { syncCanonicalReportRunCompanyId } from '../lib/pipelineRunCompanyId'
@@ -57,7 +58,7 @@ async function resolveOrCreateCompanyForPrecheck(
   | {
       status: 'resolved'
       companyId: string
-      method: import('../lib/pipelineCompanyResolve').CompanyResolutionMethod
+      method: CompanyResolutionMethod
     }
   | {
       status: 'ambiguous'
@@ -180,13 +181,11 @@ async function ensurePipelineCompany(
       )
     }
     await syncRunCompanyIdFromPrecheck(job, outcome.companyId, companyName)
-    if (outcome.method !== 'job_data') {
-      await collectAlternativeNameAfterConfirmedLink({
-        companyId: outcome.companyId,
-        extractedName: companyName,
-        log: (message) => job.log(message),
-      })
-    }
+    await collectAlternativeNameAfterConfirmedLink({
+      companyId: outcome.companyId,
+      extractedName: companyName,
+      log: (message) => job.log(message),
+    })
     return outcome.companyId
   }
 
