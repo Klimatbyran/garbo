@@ -1,5 +1,4 @@
 import 'dotenv/config'
-import { descriptions } from 'wikibase-sdk/dist/src/helpers/simplify'
 import { z } from 'zod'
 
 const envSchema = z.object({
@@ -52,18 +51,6 @@ const openAPITagDefinitions = {
   },
   BaseYear: {
     description: 'First year of comparable data',
-  },
-  Municipalities: {
-    description: 'Climate data related to Swedish municipalities',
-  },
-  Regions: {
-    description: 'Climate data related to Swedish regions',
-  },
-  Nation: {
-    description: 'Climate data related to Sweden as a nation',
-  },
-  Search: {
-    description: 'Endpoints related to search functionality',
   },
   ReportValidations: {
     description: 'Report validations',
@@ -123,13 +110,7 @@ export const publicTagNames = new Set<TagName>([
   'Auth',
   'Companies',
   'Internal',
-  'Municipalities',
-  'Nation',
-  'Newsletters',
-  'Regions',
   'ReportingPeriods',
-  'Screenshots',
-  'Search',
 ])
 
 const env = parsedEnv.data
@@ -172,7 +153,7 @@ Provides access to core company data endpoints:
 
 ### All-Access Key (\`all_access\`)
 
-Provides access to the full client API surface, including municipalities, regions, nation-level data, newsletters, screenshots, and more.
+Provides access to the full client API surface.
 
 This key is intended for deeper integrations and data pipelines.
 

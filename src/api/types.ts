@@ -44,23 +44,6 @@ export type PostCompanyBody = z.infer<typeof schemas.postCompanyBodySchema>
 
 export type GarboEntityId = z.infer<typeof schemas.garboEntityIdSchema>
 
-export interface SectorEmissionsData {
-  name: string
-  sectors: Record<string, Record<string, number>>
-}
-
-export type Municipality = z.infer<typeof schemas.MunicipalitySchema>
-
-export type MunicipalityNameParams = z.infer<
-  typeof schemas.MunicipalityNameParamSchema
->
-
-export type RegionalData = z.infer<typeof schemas.RegionalDataSchema>
-
-export type RegionalNameParams = z.infer<typeof schemas.RegionalNameParamSchema>
-
-export type NationData = z.infer<typeof schemas.NationDataSchema>
-
 export type userAuthenticationBody = z.infer<
   typeof schemas.userAuthenticationBodySchema
 >
@@ -68,8 +51,6 @@ export type userAuthenticationBody = z.infer<
 export type serviceAuthenticationBody = z.infer<
   typeof schemas.serviceAuthenticationBodySchema
 >
-
-export type exportQuery = z.infer<typeof schemas.exportQuerySchema>
 
 export type ValidationClaims = z.infer<typeof schemas.ValidationClaimsSchema>
 export type ClaimValidation = z.infer<typeof schemas.claimValidationSchema>
@@ -100,11 +81,3 @@ export type SaveReportError = {
   message: string
 }
 export type SaveReportsResult = (SaveReportSuccess | SaveReportError)[]
-
-export type GlobalSearchResponse = z.infer<
-  typeof schemas.globalSearchResponseSchema
->
-
-export type GlobalSearchRequest = z.infer<
-  typeof schemas.globalSearchRequestSchema
->

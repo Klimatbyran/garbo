@@ -352,18 +352,6 @@ export const postReportingQualitySchema = z
   })
   .merge(createMetadataSchema)
 
-export const MunicipalityNameSchema = z.string()
-
-export const MunicipalityNameParamSchema = z.object({
-  name: MunicipalityNameSchema,
-})
-
-export const RegionalNameSchema = z.string()
-
-export const RegionalNameParamSchema = z.object({
-  name: RegionalNameSchema,
-})
-
 export const userAuthenticationBodySchema = z.object({
   code: z.string(),
   state: z.string().optional(),
@@ -376,11 +364,6 @@ export const postWikidataBodySchema = z.object({
 export const serviceAuthenticationBodySchema = z.object({
   client_id: z.string(),
   client_secret: z.string(),
-})
-
-export const exportQuerySchema = z.object({
-  type: z.enum(['csv', 'json', 'xlsx']).optional(),
-  year: z.string().optional(),
 })
 
 export const claimValidationSchema = z.object({
@@ -484,8 +467,3 @@ export const registryDeleteRequestBodySchema = z.array(
     id: z.string().min(1, 'id is required'),
   })
 )
-
-export const globalSearchRequestSchema = z.object({
-  name: z.string().min(1, 'name is required'),
-  currentLanguage: z.enum(['sv', 'en']),
-})

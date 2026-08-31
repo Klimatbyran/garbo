@@ -212,7 +212,7 @@ export const scope1and2TotalEmissionsArray = [
   { year: 8, emissions: 23 },
 ]
 
-// municipality emissions data to compare model result with municipality model in python
+// Sample yearly series used to compare the trend slope with a known baseline
 export const aleEmissionsArray = [
   { year: 2015, emissions: 153825.085295 },
   { year: 2016, emissions: 152178.7955 },
