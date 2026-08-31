@@ -165,14 +165,33 @@ export function preferRicherDiacriticCompanyName(
   return existing
 }
 
+/**
+ * Stable match key for company names: fold diacritics, lowercase, strip
+ * punctuation/noise, collapse whitespace, drop legal-entity tokens.
+ * Use for equality checks and alternative-name dedupe — not for display.
+ */
+export function companyNameMatchKey(name: string): string {
+  return (
+    foldDiacriticsForCompanyMatch(name)
+      .trim()
+      .toLocaleLowerCase('sv-SE')
+      // Preserve Nordic slash-form suffixes before `/` becomes a separator.
+      .replace(/\ba\s*\/\s*s\b/g, 'as')
+      .replace(/\bas\s*\/\s*a\b/g, 'asa')
+      // "A.B." → "ab" so legal-suffix stripping still sees a single token
+      .replace(/\./g, '')
+      .replace(/[^\p{L}\p{N}\s]/gu, ' ')
+      .replace(/\s+/g, ' ')
+      .split(' ')
+      .filter((word) => word.length > 0 && !isLegalEntitySuffix(word))
+      .join(' ')
+      .trim()
+  )
+}
+
+/** Historical name; delegates to {@link companyNameMatchKey}. */
 export function normalizeCompanyNameForMatch(name: string): string {
-  return foldDiacriticsForCompanyMatch(name)
-    .trim()
-    .toLocaleLowerCase('sv-SE')
-    .split(/\s+/)
-    .filter((word) => !isLegalEntitySuffix(word))
-    .join(' ')
-    .trim()
+  return companyNameMatchKey(name)
 }
 
 export function dedupeCompanyLinkCandidates(
