@@ -1,4 +1,5 @@
 import { extractDataFromMarkdown } from '../utils/extractWithAI'
+import { AskOptions } from './types'
 import { writeFileSync, existsSync, mkdirSync, readFileSync } from 'fs'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
@@ -65,6 +66,7 @@ interface PromptConfig {
   prompt: string
   schema?: z.ZodSchema
   baseline?: boolean
+  askOptions?: AskOptions
 }
 
 interface ComparisonTestConfig {
@@ -412,14 +414,16 @@ const executeTestRun = async (
   markdown: string,
   prompt: string,
   schema: z.ZodSchema,
-  dataKey: string
+  dataKey: string,
+  askOptions?: AskOptions
 ): Promise<{ result: any; duration: number }> => {
   const runStartTime = Date.now()
   const result = await extractDataFromMarkdown(
     markdown,
     dataKey,
     prompt,
-    schema
+    schema,
+    askOptions
   )
   return {
     result,
@@ -442,7 +446,7 @@ const executeMultipleRuns = async (
   const schema = promptConfig.schema || baseSchema
 
   const promises = Array.from({ length: runsPerTest }, () =>
-    executeTestRun(testFile.markdown, promptConfig.prompt, schema, dataKey)
+    executeTestRun(testFile.markdown, promptConfig.prompt, schema, dataKey, promptConfig.askOptions)
   )
 
   const settledResults = await Promise.allSettled(promises)
@@ -826,8 +830,13 @@ export const runComparisonTest = async (
 
         results.push(testResult)
 
+        const timingStr = timings.map((t) => `${t}ms`).join(', ')
+        const avgTiming = calculateAverage(timings)
         console.log(
           `    ✅ ${testFile.name} - Accuracy: ${accuracy.toFixed(1)}%, Success: ${successRate.toFixed(1)}%`
+        )
+        console.log(
+          `       ⏱  Timings: [${timingStr}] avg: ${avgTiming.toFixed(0)}ms`
         )
         console.log(
           `       🔗 Prompt: ${promptHash}, Schema: ${schemaHash}, File: ${fileHash}`
