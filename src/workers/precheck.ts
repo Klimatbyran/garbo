@@ -11,6 +11,7 @@ import { apiFetch } from '../lib/api'
 import {
   resolvePipelineCompanyOutcome,
   findCompanyByWikidataId,
+  type CompanyResolutionMethod,
 } from '../lib/pipelineCompanyResolve'
 import { findOrCreatePipelineCompanyLocked } from '../lib/pipelineCompanyCreate'
 import { syncCanonicalReportRunCompanyId } from '../lib/pipelineRunCompanyId'
@@ -18,6 +19,7 @@ import {
   applyStaffCompanyLinkDisplayName,
   staffApprovedDisplayName,
 } from '../lib/applyStaffCompanyLink'
+import { collectAlternativeNameAfterConfirmedLink } from '../lib/collectAlternativeNameAfterConfirmedLink'
 import { EXTRACT_EMISSIONS_CHILD_QUEUES } from './precheckFlow'
 import { withPipelineJobOpts } from '../lib/pipelineJobOptions'
 
@@ -53,7 +55,11 @@ async function resolveOrCreateCompanyForPrecheck(
   job: PrecheckJob,
   companyName: string
 ): Promise<
-  | { status: 'resolved'; companyId: string }
+  | {
+      status: 'resolved'
+      companyId: string
+      method: CompanyResolutionMethod
+    }
   | {
       status: 'ambiguous'
       candidates: import('../lib/companyLinkResolve').CompanyLinkCandidate[]
@@ -87,7 +93,11 @@ async function resolveOrCreateCompanyForPrecheck(
     )
   }
 
-  return { status: 'resolved', companyId: outcome.companyId }
+  return {
+    status: 'resolved',
+    companyId: outcome.companyId,
+    method: outcome.method,
+  }
 }
 
 async function syncRunCompanyIdFromPrecheck(
@@ -138,6 +148,11 @@ async function ensurePipelineCompany(
       await job.updateData({ ...job.data, companyId, companyName: finalName })
       job.log(`Using staff-selected company id=${companyId}`)
       await syncRunCompanyIdFromPrecheck(job, companyId, finalName)
+      await collectAlternativeNameAfterConfirmedLink({
+        companyId,
+        extractedName: companyName,
+        log: (message) => job.log(message),
+      })
       return companyId
     }
   }
@@ -166,6 +181,11 @@ async function ensurePipelineCompany(
       )
     }
     await syncRunCompanyIdFromPrecheck(job, outcome.companyId, companyName)
+    await collectAlternativeNameAfterConfirmedLink({
+      companyId: outcome.companyId,
+      extractedName: companyName,
+      log: (message) => job.log(message),
+    })
     return outcome.companyId
   }
 
@@ -255,6 +275,14 @@ async function ensurePipelineCompany(
   await job.updateData({ ...job.data, companyId, companyName })
   job.log(`Created or reused pipeline company id=${companyId}`)
   await syncRunCompanyIdFromPrecheck(job, companyId, companyName)
+  // Skip create: extracted name becomes canonical `name`. Collect on reuse.
+  if (locked.method !== 'created') {
+    await collectAlternativeNameAfterConfirmedLink({
+      companyId,
+      extractedName: companyName,
+      log: (message) => job.log(message),
+    })
+  }
   return companyId
 }
 

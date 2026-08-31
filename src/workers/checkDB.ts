@@ -32,6 +32,7 @@ import {
   applyStaffCompanyLinkDisplayName,
   staffApprovedDisplayName,
 } from '../lib/applyStaffCompanyLink'
+import { collectAlternativeNameAfterConfirmedLink } from '../lib/collectAlternativeNameAfterConfirmedLink'
 import { resolvePipelineLei } from '../lib/normalizeLei'
 
 export class CheckDBJob extends PipelineJob {
@@ -109,6 +110,7 @@ const checkDB = new PipelineWorker(
       }
       if (typeof approved.companyId === 'string' && approved.companyId.trim()) {
         companyId = approved.companyId.trim()
+        const extractedNameForAlias = companyName
         const override = staffApprovedDisplayName(approved)
         if (override) {
           companyName = await applyStaffCompanyLinkDisplayName(
@@ -129,6 +131,11 @@ const checkDB = new PipelineWorker(
             wikidataId: wikidata?.node ?? null,
           })
         }
+        await collectAlternativeNameAfterConfirmedLink({
+          companyId,
+          extractedName: extractedNameForAlias,
+          log: (message) => job.log(message),
+        })
       }
     }
 
@@ -271,6 +278,11 @@ const checkDB = new PipelineWorker(
             wikidataId: wikidata?.node ?? null,
           })
         }
+        await collectAlternativeNameAfterConfirmedLink({
+          companyId,
+          extractedName: companyName,
+          log: (message) => job.log(message),
+        })
       }
     } else {
       job.log(
