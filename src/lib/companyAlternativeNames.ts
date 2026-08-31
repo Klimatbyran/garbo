@@ -11,7 +11,9 @@ export type MergeAlternativeNamesOptions = {
 }
 
 function preferDisplayForm(existing: string, incoming: string): string {
-  if (companyNameHasDiacritics(existing) !== companyNameHasDiacritics(incoming)) {
+  if (
+    companyNameHasDiacritics(existing) !== companyNameHasDiacritics(incoming)
+  ) {
     return preferRicherDiacriticCompanyName(existing, incoming)
   }
   // Prefer the form with more letters when keys collide (e.g. "AB" vs "Aktiebolag" noise already stripped by key).

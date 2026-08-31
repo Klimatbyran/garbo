@@ -83,7 +83,9 @@ describe('mergeAlternativeNames', () => {
 describe('isFormattingVariantOfCompanyName', () => {
   it('treats punctuation and suffix-only differences as formatting variants', () => {
     expect(isFormattingVariantOfCompanyName('Volvo AB', 'AB Volvo')).toBe(true)
-    expect(isFormattingVariantOfCompanyName('Volvo AB', 'VOLVO A.B.')).toBe(true)
+    expect(isFormattingVariantOfCompanyName('Volvo AB', 'VOLVO A.B.')).toBe(
+      true
+    )
   })
 
   it('does not treat Volvo Cars as a formatting variant of Volvo AB', () => {
