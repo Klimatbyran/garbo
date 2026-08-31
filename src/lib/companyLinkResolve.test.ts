@@ -56,6 +56,42 @@ describe('companyLinkResolve', () => {
     expect(result).toEqual({ action: 'resolve', companyId: 'alfa-1' })
   })
 
+  it('sends alias-only exact hits to staff review (never auto-links)', () => {
+    const candidates = [
+      {
+        id: 'volvo-1',
+        name: 'Volvo Group',
+        alternativeNames: ['Volvo AB', 'AB Volvo'],
+      },
+      { id: 'other', name: 'Other Co' },
+    ]
+    const result = assessCompanyLinkResolution('AB Volvo', candidates)
+    expect(result).toEqual({
+      action: 'ambiguous',
+      candidates: [candidates[0]],
+      matchedViaAlternativeName: true,
+    })
+  })
+
+  it('still auto-resolves Volvo Cars via canonical name, not Volvo AB aliases', () => {
+    const candidates = [
+      {
+        id: 'volvo-ab',
+        name: 'Volvo AB',
+        alternativeNames: ['AB Volvo'],
+      },
+      {
+        id: 'volvo-cars',
+        name: 'Volvo Cars',
+      },
+    ]
+    const result = assessCompanyLinkResolution('Volvo Cars', candidates)
+    expect(result).toEqual({
+      action: 'resolve',
+      companyId: 'volvo-cars',
+    })
+  })
+
   it('flags ambiguity when multiple candidates share the normalized name', () => {
     const candidates = [
       { id: 'alfa-1', name: 'Alfa Laval', wikidataId: 'Q686030' },

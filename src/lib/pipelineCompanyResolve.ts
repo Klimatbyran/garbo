@@ -39,6 +39,7 @@ export type PipelineCompanyResolveOutcome =
       extractedName: string
       candidates: CompanyLinkCandidate[]
       partialNameMatch?: boolean
+      matchedViaAlternativeName?: boolean
     }
   | { status: 'create'; extractedName: string }
 
@@ -47,6 +48,7 @@ type PipelineCompanyRecord = {
   name?: string
   wikidataId?: string | null
   lei?: string | null
+  alternativeNames?: string[] | null
 }
 
 /** Resolve wikidata Q-id / LEI / UUID prefix to the internal Company.id used for mutations. */
@@ -84,6 +86,7 @@ function toCompanyLinkCandidate(
     name: record.name ?? '',
     wikidataId: record.wikidataId ?? null,
     lei: record.lei ?? null,
+    alternativeNames: record.alternativeNames ?? [],
   }
 }
 
@@ -118,7 +121,14 @@ async function collectNameSearchCandidates(
   const coreToken = companyNameCoreToken(companyName)
   if (coreToken) {
     for (const hit of await searchCompaniesByName(coreToken)) {
-      if (hit.name && isPartialCompanyNameMatch(companyName, hit.name)) {
+      const namesToCompare = [hit.name, ...(hit.alternativeNames ?? [])].filter(
+        Boolean
+      )
+      if (
+        namesToCompare.some((candidateName) =>
+          isPartialCompanyNameMatch(companyName, candidateName)
+        )
+      ) {
         byId.set(hit.id, hit)
       }
     }
@@ -214,6 +224,7 @@ export async function resolvePipelineCompanyOutcome(
       extractedName: companyName,
       candidates: assessment.candidates,
       partialNameMatch: assessment.partialNameMatch,
+      matchedViaAlternativeName: assessment.matchedViaAlternativeName,
     }
   }
 
@@ -240,6 +251,7 @@ export async function resolvePipelineCompanyAfterIdentifiers(
       extractedName: string
       candidates: CompanyLinkCandidate[]
       partialNameMatch?: boolean
+      matchedViaAlternativeName?: boolean
     }
 > {
   const wikidataId = identifiers.wikidata?.node?.trim()
@@ -283,6 +295,7 @@ export async function resolvePipelineCompanyAfterIdentifiers(
       extractedName: companyName,
       candidates: assessment.candidates,
       partialNameMatch: assessment.partialNameMatch,
+      matchedViaAlternativeName: assessment.matchedViaAlternativeName,
     }
   }
 

@@ -58,6 +58,7 @@ async function resolveOrCreateCompanyForPrecheck(
       status: 'ambiguous'
       candidates: import('../lib/companyLinkResolve').CompanyLinkCandidate[]
       partialNameMatch?: boolean
+      matchedViaAlternativeName?: boolean
     }
   | null
 > {
@@ -76,6 +77,7 @@ async function resolveOrCreateCompanyForPrecheck(
       status: 'ambiguous',
       candidates: outcome.candidates,
       partialNameMatch: outcome.partialNameMatch,
+      matchedViaAlternativeName: outcome.matchedViaAlternativeName,
     }
   }
 
@@ -177,9 +179,11 @@ async function ensurePipelineCompany(
 
     const metadata = {
       source: 'company-name-search',
-      comment: outcome.partialNameMatch
-        ? 'Partial name match — select the correct company and optionally set display name'
-        : 'Multiple matching companies found — please select the correct company',
+      comment: outcome.matchedViaAlternativeName
+        ? 'Matched via alternative name — confirm the correct company before continuing'
+        : outcome.partialNameMatch
+          ? 'Partial name match — select the correct company and optionally set display name'
+          : 'Multiple matching companies found — please select the correct company',
     }
 
     await job.requestApproval(
@@ -192,6 +196,9 @@ async function ensurePipelineCompany(
           ...(outcome.partialNameMatch && {
             partialNameMatch: true,
             displayName: outcome.extractedName,
+          }),
+          ...(outcome.matchedViaAlternativeName && {
+            matchedViaAlternativeName: true,
           }),
         },
       },
@@ -224,14 +231,19 @@ async function ensurePipelineCompany(
             partialNameMatch: true,
             displayName: companyName,
           }),
+          ...(locked.matchedViaAlternativeName && {
+            matchedViaAlternativeName: true,
+          }),
         },
       },
       false,
       {
         source: 'company-name-search',
-        comment: locked.partialNameMatch
-          ? 'Partial name match — select the correct company and optionally set display name'
-          : 'Multiple matching companies found — please select the correct company',
+        comment: locked.matchedViaAlternativeName
+          ? 'Matched via alternative name — confirm the correct company before continuing'
+          : locked.partialNameMatch
+            ? 'Partial name match — select the correct company and optionally set display name'
+            : 'Multiple matching companies found — please select the correct company',
       },
       `Company link for ${companyName}`
     )

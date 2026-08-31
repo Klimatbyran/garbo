@@ -476,6 +476,7 @@ export const MinimalCompanyBase = CompanyBaseSchema.extend({
   baseYear: BaseYearSchema.nullable().optional(),
   logoUrl: z.string().url().optional().nullable(),
   tags: z.array(z.string()),
+  alternativeNames: z.array(z.string()).optional(),
 })
 
 const CompanyBase = CompanyBaseSchema.extend({
@@ -533,6 +534,7 @@ export const CompanyDetails = CompanyBase.extend({
  */
 export const InternalCompanyDetails = CompanyDetails.extend({
   tags: z.array(z.string()),
+  alternativeNames: z.array(z.string()).default([]),
   identifiers: z.array(CompanyIdentifierSchema).optional(),
 })
 

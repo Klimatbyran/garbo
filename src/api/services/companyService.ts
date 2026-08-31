@@ -23,6 +23,7 @@ import {
 } from '@/lib/company-emissions/companyEmissionsCalculator'
 import { calculateFutureEmissionTrend } from '@/lib/company-emissions/companyEmissionsFutureTrendCalculator'
 import { foldDiacriticsForCompanyMatch } from '../../lib/companyLinkResolve'
+import { mergeAlternativeNames } from '../../lib/companyAlternativeNames'
 import Firecrawl, { SearchResultWeb } from '@mendable/firecrawl-js'
 import { CompanyReports, SaveReportsBody, SaveReportsResult } from '../types'
 import { pdf } from 'pdf-to-img'
@@ -111,13 +112,32 @@ class CompanyService {
       SELECT "id"
       FROM "Company"
       WHERE lower(name) LIKE ${likePattern}
+         OR EXISTS (
+              SELECT 1
+              FROM unnest(COALESCE("alternativeNames", ARRAY[]::text[])) AS alt
+              WHERE lower(alt) LIKE ${likePattern}
+            )
          OR (
               char_length(${normalizedSearchTerm}) >= 3
-              AND to_tsvector('simple', name) @@ websearch_to_tsquery('simple', ${normalizedSearchTerm})
+              AND (
+                to_tsvector('simple', name) @@ websearch_to_tsquery('simple', ${normalizedSearchTerm})
+                OR EXISTS (
+                  SELECT 1
+                  FROM unnest(COALESCE("alternativeNames", ARRAY[]::text[])) AS alt
+                  WHERE to_tsvector('simple', alt) @@ websearch_to_tsquery('simple', ${normalizedSearchTerm})
+                )
+              )
             )
          OR (
               char_length(${foldedSearchTerm}) >= 3
-              AND translate(lower(name), ${SQL_ACCENT_FROM}, ${SQL_ACCENT_TO}) LIKE ${foldedLikePattern}
+              AND (
+                translate(lower(name), ${SQL_ACCENT_FROM}, ${SQL_ACCENT_TO}) LIKE ${foldedLikePattern}
+                OR EXISTS (
+                  SELECT 1
+                  FROM unnest(COALESCE("alternativeNames", ARRAY[]::text[])) AS alt
+                  WHERE translate(lower(alt), ${SQL_ACCENT_FROM}, ${SQL_ACCENT_TO}) LIKE ${foldedLikePattern}
+                )
+              )
             )
       ORDER BY
         CASE WHEN lower(name) LIKE ${likePattern} THEN 0 ELSE 1 END,
@@ -358,6 +378,7 @@ class CompanyService {
   async createCompany({
     wikidataId,
     user,
+    alternativeNames,
     ...data
   }: {
     wikidataId?: string | null
@@ -366,6 +387,7 @@ class CompanyService {
     logoUrl?: string
     internalComment?: string
     tags?: string[]
+    alternativeNames?: string[]
     lei?: string
     user?: User
   }) {
@@ -386,6 +408,14 @@ class CompanyService {
       data: {
         ...data,
         wikidataId: wikidataId ?? null,
+        ...(alternativeNames !== undefined
+          ? {
+              alternativeNames: mergeAlternativeNames({
+                canonicalName: data.name,
+                incomingNames: alternativeNames,
+              }),
+            }
+          : {}),
       },
     })
 
@@ -405,13 +435,25 @@ class CompanyService {
       logoUrl?: string
       internalComment?: string
       tags?: string[]
+      alternativeNames?: string[]
       lei?: string
     },
     user?: User
   ) {
+    const { alternativeNames, ...rest } = data
     const company = await prisma.company.update({
       where: { id: companyId },
-      data,
+      data: {
+        ...rest,
+        ...(alternativeNames !== undefined
+          ? {
+              alternativeNames: mergeAlternativeNames({
+                canonicalName: data.name,
+                incomingNames: alternativeNames,
+              }),
+            }
+          : {}),
+      },
     })
 
     await companyIdentifierService.syncFromLegacyColumns(company, {

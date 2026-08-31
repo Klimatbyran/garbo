@@ -163,6 +163,7 @@ describe('resolveOrCreatePipelineCompanyId', () => {
       name: 'Alfa Laval',
       wikidataId: 'Q686030',
       lei: null,
+      alternativeNames: [],
     })
   })
 
@@ -184,6 +185,7 @@ describe('resolveOrCreatePipelineCompanyId', () => {
       name: 'Acme',
       wikidataId: null,
       lei: '5493001KJTIIGC8Y1R12',
+      alternativeNames: [],
     })
   })
 

@@ -39,6 +39,7 @@ export const pipelineCompanySearchHitSchema = z.object({
   name: z.string(),
   wikidataId: wikidataIdSchema.nullable().optional(),
   lei: z.string().nullable().optional(),
+  alternativeNames: z.array(z.string()).optional(),
 })
 
 export const pipelineCompanySearchListSchema = z.array(
