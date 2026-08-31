@@ -104,6 +104,7 @@ export const detailedCompanyArgs = {
     },
     lei: true,
     tags: true,
+    alternativeNames: true,
     reportingPeriods: {
       select: {
         id: true,
@@ -295,6 +296,7 @@ export const companyListArgs = {
       select: { id: true, year: true, metadata: metadataArgs },
     },
     tags: true,
+    alternativeNames: true,
     reportingPeriods: {
       select: {
         startDate: true,
@@ -418,6 +420,7 @@ export const companyExportArgs = (year?) => {
         select: { id: true, year: true },
       },
       tags: true,
+      alternativeNames: true,
       reportingPeriods: {
         select: {
           startDate: true,

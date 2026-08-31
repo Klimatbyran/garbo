@@ -75,8 +75,16 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
       request: AuthenticatedFastifyRequest<{ Body: PostCompanyBody }>,
       reply
     ) => {
-      const { wikidataId, tags, name, internalComment, url, logoUrl, lei } =
-        request.body
+      const {
+        wikidataId,
+        tags,
+        name,
+        internalComment,
+        url,
+        logoUrl,
+        lei,
+        alternativeNames,
+      } = request.body
       if (!(await validateTags(tags, reply))) return
 
       try {
@@ -85,6 +93,7 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
           wikidataId,
           internalComment,
           tags,
+          alternativeNames,
           url,
           logoUrl: logoUrl ?? undefined,
           lei,
@@ -144,6 +153,7 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
         url,
         logoUrl,
         lei,
+        alternativeNames,
         metadata,
         verified,
         verifiedByUserId,
@@ -178,6 +188,7 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
             name,
             internalComment,
             tags,
+            alternativeNames,
             url,
             logoUrl: logoUrl ?? undefined,
             lei,

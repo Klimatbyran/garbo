@@ -8,6 +8,7 @@ export type CompanyLinkCandidate = {
   name: string
   wikidataId?: string | null
   lei?: string | null
+  alternativeNames?: string[] | null
 }
 
 export type CompanyLinkResolution =
@@ -80,10 +81,17 @@ export function pickPartialNameMatches(
   extractedName: string,
   candidates: CompanyLinkCandidate[]
 ): CompanyLinkCandidate[] {
-  return candidates.filter(
-    (candidate) =>
-      candidate.name && isPartialCompanyNameMatch(extractedName, candidate.name)
-  )
+  return candidates.filter((candidate) => {
+    if (
+      candidate.name &&
+      isPartialCompanyNameMatch(extractedName, candidate.name)
+    ) {
+      return true
+    }
+    return (candidate.alternativeNames ?? []).some((alternativeName) =>
+      isPartialCompanyNameMatch(extractedName, alternativeName)
+    )
+  })
 }
 
 export { stripLegalEntitySuffixes }
@@ -205,14 +213,29 @@ export function dedupeCompanyLinkCandidates(
   })
 }
 
+function companyLinkCandidateMatchKeys(
+  candidate: CompanyLinkCandidate
+): string[] {
+  const keys = new Set<string>()
+  if (candidate.name) {
+    const nameKey = normalizeCompanyNameForMatch(candidate.name)
+    if (nameKey) keys.add(nameKey)
+  }
+  for (const alternativeName of candidate.alternativeNames ?? []) {
+    const key = normalizeCompanyNameForMatch(alternativeName)
+    if (key) keys.add(key)
+  }
+  return [...keys]
+}
+
 export function pickExactNameMatches(
   extractedName: string,
   candidates: CompanyLinkCandidate[]
 ): CompanyLinkCandidate[] {
   const target = normalizeCompanyNameForMatch(extractedName)
-  return candidates.filter(
-    (candidate) =>
-      candidate.name && normalizeCompanyNameForMatch(candidate.name) === target
+  if (!target) return []
+  return candidates.filter((candidate) =>
+    companyLinkCandidateMatchKeys(candidate).includes(target)
   )
 }
 

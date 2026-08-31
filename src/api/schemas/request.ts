@@ -80,6 +80,8 @@ export const postCompanyBodySchema = z
     logoUrl: z.string().url().optional().nullable(),
     internalComment: z.string().optional(),
     tags: z.array(z.string()).optional(),
+    /// Other known names for internal matching; cleaned/deduped on write.
+    alternativeNames: z.array(z.string()).optional(),
     lei: z.string().optional(),
   })
   .merge(createMetadataSchema)

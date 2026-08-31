@@ -119,6 +119,7 @@ export async function pipelineCompanyReadRoutes(app: FastifyInstance) {
           name: company.name,
           wikidataId: company.wikidataId ?? null,
           lei: company.lei ?? null,
+          alternativeNames: company.alternativeNames ?? [],
         }))
       )
     }
