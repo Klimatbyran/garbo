@@ -21,7 +21,6 @@ export const createCompanyResponseSchema = z.object({
   ok: z.boolean(),
   id: z.string().uuid(),
 })
-export const redirectResponseSchema = z.object({ location: z.string() })
 
 export const tagOptionSchema = z.object({
   id: z.string(),
@@ -491,21 +490,6 @@ const CompanyBase = CompanyBaseSchema.extend({
 
 export const CompanyList = z.array(MinimalCompanyBase)
 
-export const ReportsReportingPeriodSchema = ReportingPeriodSchema.omit({
-  emissions: true,
-  economy: true,
-})
-
-export const ReportsCompanyList = z.array(
-  z.object({
-    id: companyIdSchema,
-    name: z.string(),
-    wikidataId: wikidataIdSchema,
-    tags: z.array(z.string()),
-    reportingPeriods: z.array(ReportsReportingPeriodSchema),
-  })
-)
-
 // Read/response shape: allow legacy non-URL strings in DB so PATCH/GET do not 500 on serialize.
 export const RegistryReportSchema = z.object({
   id: z.string(),
@@ -544,10 +528,6 @@ export const AuthentificationResponseScheme = z.object({
   redirect_uri: z.string().url().optional(),
 })
 
-export const ReportingPeriodYearsSchema = z.array(z.string())
-
-export const ValidationClaimsSchema = z.record(wikidataIdSchema, z.string())
-
 export const ReportsListSchema = z.array(
   z.object({
     companyName: z.string(),
@@ -584,11 +564,6 @@ export const saveReportsListResponseSchema = z.object({
 })
 
 export const ReportsListResponseSchema = ReportsListSchema
-
-// Preview endpoint schemas
-export const previewResponseSchema = z.object({
-  previewUrl: z.string().nullable(),
-})
 
 export const errorResponseSchema = z.object({
   message: z.string(),

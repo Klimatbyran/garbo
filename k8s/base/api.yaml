@@ -117,11 +117,6 @@ spec:
                 secretKeyRef:
                   name: env
                   key: DOCLING_URL
-            - name: NLM_INGESTOR_URL
-              valueFrom:
-                secretKeyRef:
-                  name: env
-                  key: NLM_INGESTOR_URL
             - name: BERGET_AI_TOKEN
               valueFrom:
                 secretKeyRef:
@@ -147,21 +142,6 @@ spec:
                 secretKeyRef:
                   name: env
                   key: GITHUB_REDIRECT_URI
-            - name: MAILCHIMP_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: env
-                  key: MAILCHIMP_API_KEY
-            - name: MAILCHIMP_SERVER_PREFIX
-              valueFrom:
-                secretKeyRef:
-                  name: env
-                  key: MAILCHIMP_SERVER_PREFIX
-            - name: MAILCHIMP_LIST_ID
-              valueFrom:
-                secretKeyRef:
-                  name: env
-                  key: MAILCHIMP_LIST_ID
             - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
@@ -197,11 +177,6 @@ spec:
                 secretKeyRef:
                   name: env
                   key: FIRECRAWL_API_KEY
-            - name: GOOGLE_SCREENSHOT_BUCKET_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: env
-                  key: GOOGLE_SCREENSHOT_BUCKET_KEY
             - name: ALLOW_ANONYMOUS_CLIENT_API
               valueFrom:
                 secretKeyRef:

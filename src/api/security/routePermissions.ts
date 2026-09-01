@@ -94,15 +94,9 @@ export function samplePathsForRegistryRules(): {
     if (rule.type === 'exact') {
       out.push({ method: rule.method, path: rule.path })
     } else {
-      let p: string
-      // TODO: remove hardcoded special case — drive sample path from rule metadata instead
-      if (rule.method === 'POST' && rule.path === '/api/download-request') {
-        p = '/api/download-request'
-      } else if (rule.path.endsWith('/')) {
-        p = `${rule.path}synthetic`
-      } else {
-        p = `${rule.path}/synthetic`
-      }
+      const p = rule.path.endsWith('/')
+        ? `${rule.path}synthetic`
+        : `${rule.path}/synthetic`
       out.push({ method: rule.method, path: p })
     }
   }
