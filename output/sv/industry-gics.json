@@ -32,7 +32,7 @@
     "groupName": "Energi",
     "industryName": "Olja, gas och förbrukningsbränslen",
     "subIndustryName": "Raffinering och marknadsföring av olja och gas",
-    "subIndustryDescription": "Företag som sysslar med raffinering och marknadsföring av olja, gas och/eller raffinerade produkter som inte klassificeras i underbranscherna Integrated Oil och Gas eller Independent Power Producers och Energy Traders."
+    "subIndustryDescription": "Företag som sysslar med raffinering och marknadsföring av olja, gas och/eller raffinerade produkter som inte klassificeras i underbranscherna Integrerad olje- och gasverksamhet eller Oberoende elproducenter och energihandlare."
   },
   "10102040": {
     "sectorName": "Energi",
@@ -46,21 +46,21 @@
     "groupName": "Energi",
     "industryName": "Olja, gas och förbrukningsbränslen",
     "subIndustryName": "Kol och förbrukningsbränslen",
-    "subIndustryDescription": "Företag som främst är involverade i produktion och brytning av kol, relaterade produkter och andra förbrukningsbränslen relaterade till energiproduktion.  Exkluderar företag som främst producerar gaser klassificerade i underbranschen Industrial Gases och företag som främst utvinner metallurgiskt kol (kokskol) som används för stålproduktion."
+    "subIndustryDescription": "Företag som främst är involverade i produktion och brytning av kol, relaterade produkter och andra förbrukningsbränslen relaterade till energiproduktion. Exkluderar företag som främst producerar gaser klassificerade i underbranschen Industrigaser och företag som främst utvinner metallurgiskt kol (kokskol) som används för stålproduktion."
   },
   "15101010": {
     "sectorName": "Material",
     "groupName": "Material",
     "industryName": "Kemikalier",
     "subIndustryName": "Råvarukemikalier",
-    "subIndustryDescription": "Företag som främst producerar industrikemikalier och baskemikalier. Inklusive men inte begränsat till plast, syntetiska fibrer, filmer, råvarubaserade färger och pigment, sprängämnen och petrokemikalier. Utesluter kemiföretag som klassificeras i underbranscherna diversifierade kemikalier, gödselmedel och jordbrukskemikalier, industrigaser eller specialkemikalier."
+    "subIndustryDescription": "Företag som främst producerar industrikemikalier och baskemikalier. Inklusive men inte begränsat till plast, syntetiska fibrer, filmer, råvarubaserade färger och pigment, sprängämnen och petrokemikalier. Utesluter kemiföretag som klassificeras i underbranscherna Diversifierade kemikalier, Gödselmedel och jordbrukskemikalier, Industrigaser eller Specialkemikalier."
   },
   "15101020": {
     "sectorName": "Material",
     "groupName": "Material",
     "industryName": "Kemikalier",
     "subIndustryName": "Diversifierade kemikalier",
-    "subIndustryDescription": "Tillverkare av ett diversifierat utbud av kemiska produkter som inte klassificeras i underbranscherna industrigaser, råvarukemikalier, specialkemikalier eller gödselmedel och jordbrukskemikalier."
+    "subIndustryDescription": "Tillverkare av ett diversifierat utbud av kemiska produkter som inte klassificeras i underbranscherna Industrigaser, Råvarukemikalier, Specialkemikalier eller Gödselmedel och jordbrukskemikalier."
   },
   "15101030": {
     "sectorName": "Material",
@@ -87,8 +87,8 @@
     "sectorName": "Material",
     "groupName": "Material",
     "industryName": "Konstruktionsmaterial",
-    "subIndustryName": "Konstruktionsmaterial",
-    "subIndustryDescription": "Tillverkare av byggmaterial, inklusive sand, lera, gips, kalk, ballast, cement, betong och tegelstenar. Andra färdiga eller halvfärdiga byggnadsmaterial klassificeras i underbranschen för byggnadsprodukter."
+    "subIndustryName": "Byggmaterial",
+    "subIndustryDescription": "Tillverkare av byggmaterial, inklusive sand, lera, gips, kalk, ballast, cement, betong och tegelstenar. Andra färdiga eller halvfärdiga byggnadsmaterial klassificeras i underbranschen Byggprodukter."
   },
   "15103010": {
     "sectorName": "Material",
@@ -109,14 +109,14 @@
     "groupName": "Material",
     "industryName": "Metaller och gruvor",
     "subIndustryName": "Aluminium",
-    "subIndustryDescription": "Producenter av aluminium och relaterade produkter, inklusive företag som bryter eller bearbetar bauxit och företag som återvinner aluminium för att producera färdiga eller halvfärdiga produkter. Exkluderar företag som främst tillverkar byggnadsmaterial i aluminium som klassificeras i underbranschen byggprodukter."
+    "subIndustryDescription": "Producenter av aluminium och relaterade produkter, inklusive företag som bryter eller bearbetar bauxit och företag som återvinner aluminium för att producera färdiga eller halvfärdiga produkter. Exkluderar företag som främst tillverkar byggnadsmaterial i aluminium som klassificeras i underbranschen Byggprodukter."
   },
   "15104020": {
     "sectorName": "Material",
     "groupName": "Material",
     "industryName": "Metaller och gruvor",
     "subIndustryName": "Diversifierad metall- och gruvindustri",
-    "subIndustryDescription": "Företag som ägnar sig åt diversifierad produktion eller utvinning av metaller och mineraler som inte klassificeras någon annanstans. Inklusive, men inte begränsat till, brytning av icke-järnmetaller (utom bauxit), salt- och boratbrytning, brytning av fosfatsten och diversifierad gruvverksamhet. Omfattar inte järnmalmsbrytning, som klassificeras i underbranschen stål, bauxitbrytning, som klassificeras i underbranschen aluminium, och kolbrytning, som klassificeras i underbranschen stål eller kol och förbrukningsbränslen."
+    "subIndustryDescription": "Företag som ägnar sig åt diversifierad produktion eller utvinning av metaller och mineraler som inte klassificeras någon annanstans. Inklusive, men inte begränsat till, brytning av icke-järnmetaller (utom bauxit), salt- och boratbrytning, brytning av fosfatsten och diversifierad gruvverksamhet. Omfattar inte järnmalmsbrytning, som klassificeras i underbranschen Stål, bauxitbrytning, som klassificeras i underbranschen Aluminium, och kolbrytning, som klassificeras i underbranscherna Stål och Kol och förbrukningsbränslen."
   },
   "15104025": {
     "sectorName": "Material",
@@ -137,7 +137,7 @@
     "groupName": "Material",
     "industryName": "Metaller och gruvor",
     "subIndustryName": "Ädelmetaller och mineraler",
-    "subIndustryDescription": "Företag som utvinner ädelmetaller och mineraler som inte klassificeras i underbranschen guld. Omfattar företag som främst utvinner platina."
+    "subIndustryDescription": "Företag som utvinner ädelmetaller och mineraler som inte klassificeras i underbranschen Guld. Omfattar företag som främst utvinner platina."
   },
   "15104045": {
     "sectorName": "Material",
@@ -179,28 +179,28 @@
     "groupName": "Kapitalvaror",
     "industryName": "Byggprodukter",
     "subIndustryName": "Byggprodukter",
-    "subIndustryDescription": "Tillverkare av byggkomponenter och produkter och utrustning för renovering. Omfattar inte timmer och plywood som klassificeras under skogsprodukter samt cement och andra material som klassificeras under underbranschen för byggmaterial."
+    "subIndustryDescription": "Tillverkare av byggkomponenter och produkter och utrustning för renovering. Omfattar inte timmer och plywood som klassificeras under skogsprodukter samt cement och andra material som klassificeras under underbranschen Byggmaterial."
   },
   "20103010": {
     "sectorName": "Industriprodukter",
     "groupName": "Kapitalvaror",
     "industryName": "Bygg- och anläggningsverksamhet",
     "subIndustryName": "Bygg- och anläggningsverksamhet",
-    "subIndustryDescription": "Företag som huvudsakligen är verksamma inom byggande av kommersiella lokaler. Inkluderar anläggningsföretag och storskaliga entreprenörer. Exkluderar företag som klassificeras i underbranschen för husbyggnad."
+    "subIndustryDescription": "Företag som huvudsakligen är verksamma inom byggande av kommersiella lokaler. Inkluderar anläggningsföretag och storskaliga entreprenörer. Exkluderar företag som klassificeras i underbranschen Husbyggnad."
   },
   "20104010": {
     "sectorName": "Industriprodukter",
     "groupName": "Kapitalvaror",
     "industryName": "Elektrisk utrustning",
     "subIndustryName": "Elektriska komponenter och utrustning",
-    "subIndustryDescription": "Företag som producerar elektriska kablar och ledningar, elektriska komponenter eller utrustning som inte klassificeras i underbranschen för tung elektrisk utrustning."
+    "subIndustryDescription": "Företag som producerar elektriska kablar och ledningar, elektriska komponenter eller utrustning som inte klassificeras i underbranschen Tung elektrisk utrustning."
   },
   "20104020": {
     "sectorName": "Industriprodukter",
     "groupName": "Kapitalvaror",
     "industryName": "Elektrisk utrustning",
     "subIndustryName": "Tung elektrisk utrustning",
-    "subIndustryDescription": "Tillverkare av kraftgenererande utrustning och annan tung elektrisk utrustning, inklusive kraftturbiner, tunga elektriska maskiner avsedda för fast användning och stora elektriska system. Omfattar inte kablar och ledningar, som klassificeras i underbranschen för elektriska komponenter och utrustning."
+    "subIndustryDescription": "Tillverkare av kraftgenererande utrustning och annan tung elektrisk utrustning, inklusive kraftturbiner, tunga elektriska maskiner avsedda för fast användning och stora elektriska system. Omfattar inte kablar och ledningar, som klassificeras i underbranschen Elektriska komponenter och utrustning."
   },
   "20105010": {
     "sectorName": "Industriprodukter",
@@ -220,8 +220,8 @@
     "sectorName": "Industriprodukter",
     "groupName": "Kapitalvaror",
     "industryName": "Maskiner",
-    "subIndustryName": "Lantbruks- och jordbruksmaskiner",
-    "subIndustryDescription": "Företag som tillverkar jordbruksmaskiner, lantbruksmaskiner och tillhörande delar. Omfattar maskiner som används för produktion av grödor och boskap, jordbrukstraktorer, planterings- och gödslingsmaskiner, utrustning för spridning av gödningsmedel och kemikalier samt spannmålstorkar och blåsmaskiner."
+    "subIndustryName": "Jordbruks- och lantbruksmaskiner",
+    "subIndustryDescription": "Företag som tillverkar jordbruksmaskiner och tillhörande delar. Omfattar maskiner som används för produktion av grödor och boskap, jordbrukstraktorer, planterings- och gödslingsmaskiner, utrustning för spridning av gödningsmedel och kemikalier samt spannmålstorkar och blåsmaskiner."
   },
   "20106020": {
     "sectorName": "Industriprodukter",
@@ -249,7 +249,7 @@
     "groupName": "Kommersiella och professionella tjänster",
     "industryName": "Kommersiella tjänster och förnödenheter",
     "subIndustryName": "Miljö- och fastighetstjänster",
-    "subIndustryDescription": "Företag som tillhandahåller tjänster inom miljö- och anläggningsunderhåll. Omfattar tjänster för avfallshantering, fastighetsförvaltning och föroreningskontroll.  Exklusive storskaliga vattenreningssystem som klassificeras i underbranschen vattenförsörjning."
+    "subIndustryDescription": "Företag som tillhandahåller tjänster inom miljö- och anläggningsunderhåll. Omfattar tjänster för avfallshantering, fastighetsförvaltning och föroreningskontroll. Exklusive storskaliga vattenreningssystem som klassificeras i underbranschen Vattenförsörjning."
   },
   "20201060": {
     "sectorName": "Industriprodukter",
@@ -263,20 +263,20 @@
     "groupName": "Kommersiella och professionella tjänster",
     "industryName": "Kommersiella tjänster och förnödenheter",
     "subIndustryName": "Diversifierade stödtjänster",
-    "subIndustryDescription": "Företag som främst tillhandahåller arbetsorienterade stödtjänster till företag och myndigheter.  Omfattar kommersiell städning, restaurang- och cateringtjänster, reparation av utrustning, industriellt underhåll, industriauktioner, lagring och magasinering, transaktionstjänster, uthyrning av uniformer och andra stödtjänster till företag."
+    "subIndustryDescription": "Företag som främst tillhandahåller arbetsorienterade stödtjänster till företag och myndigheter. Omfattar kommersiell städning, restaurang- och cateringtjänster, reparation av utrustning, industriellt underhåll, industriauktioner, lagring och magasinering, transaktionstjänster, uthyrning av uniformer och andra stödtjänster till företag."
   },
   "20201080": {
     "sectorName": "Industriprodukter",
     "groupName": "Kommersiella och professionella tjänster",
     "industryName": "Kommersiella tjänster och förnödenheter",
     "subIndustryName": "Säkerhets- och larmtjänster",
-    "subIndustryDescription": "Företag som tillhandahåller säkerhets- och skyddstjänster till företag och myndigheter. Omfattar företag som tillhandahåller tjänster såsom kriminalvårdsanstalter, säkerhets- och larmtjänster, värdetransporter och bevakning.  Exkluderar företag som tillhandahåller säkerhetsprogramvara som klassificeras under underbranschen Programvara för system och hemsäkerhetstjänster som klassificeras under underbranschen Specialiserade konsumenttjänster. Omfattar inte heller företag som tillverkar utrustning för säkerhetssystem klassificerade under underbranschen Electronic Equipment och Instruments."
+    "subIndustryDescription": "Företag som tillhandahåller säkerhets- och skyddstjänster till företag och myndigheter. Omfattar företag som tillhandahåller tjänster såsom kriminalvårdsanstalter, säkerhets- och larmtjänster, värdetransporter och bevakning. Exkluderar företag som tillhandahåller säkerhetsprogramvara som klassificeras under underbranschen Programvara för system och hemsäkerhetstjänster som klassificeras under underbranschen Specialiserade konsumenttjänster. Omfattar inte heller företag som tillverkar utrustning för säkerhetssystem klassificerade under underbranschen Elektronisk utrustning och instrument."
   },
   "20202010": {
     "sectorName": "Industriprodukter",
     "groupName": "Kommersiella och professionella tjänster",
     "industryName": "Professionella tjänster",
-    "subIndustryName": "Human Resource och Arbetsförmedling",
+    "subIndustryName": "Personal- och arbetsförmedlingstjänster",
     "subIndustryDescription": "Företag som tillhandahåller affärsstödjande tjänster relaterade till hantering av humankapital. Denna underbransch omfattar arbetsförmedlingar, utbildning av anställda, lönebearbetning, stödtjänster för förmåner och pensioner, rekryteringstjänster för företag och arbetssökande samt jobbportaler på nätet som genererar intäkter från avgifter eller provisioner för att erbjuda rekryteringstjänster till företag eller arbetssökande."
   },
   "20202020": {
@@ -284,7 +284,7 @@
     "groupName": "Kommersiella och professionella tjänster",
     "industryName": "Professionella tjänster",
     "subIndustryName": "Forskning och konsulttjänster",
-    "subIndustryDescription": "Företag som huvudsakligen tillhandahåller forsknings- och konsulttjänster till företag och myndigheter som inte klassificeras någon annanstans.  Omfattar företag som arbetar med managementkonsulttjänster, arkitektonisk design, affärsinformation eller vetenskaplig forskning, marknadsföring samt test- och certifieringstjänster. Exkluderar företag som tillhandahåller konsulttjänster inom informationsteknologi som klassificeras i underbranschen IT-konsulttjänster och andra tjänster."
+    "subIndustryDescription": "Företag som huvudsakligen tillhandahåller forsknings- och konsulttjänster till företag och myndigheter som inte klassificeras någon annanstans. Omfattar företag som arbetar med managementkonsulttjänster, arkitektonisk design, affärsinformation eller vetenskaplig forskning, marknadsföring samt test- och certifieringstjänster. Exkluderar företag som tillhandahåller konsulttjänster inom informationsteknologi som klassificeras i underbranschen IT-konsulttjänster och andra tjänster."
   },
   "20202030": {
     "sectorName": "Industriprodukter",
@@ -298,7 +298,7 @@
     "groupName": "Transport",
     "industryName": "Flygfrakt och logistik",
     "subIndustryName": "Flygfrakt och logistik",
-    "subIndustryDescription": "Företag som tillhandahåller flygfrakt, kurir- och logistiktjänster, inklusive paket- och postleveranser samt tullombud. Utesluter de företag som klassificeras i underbranscherna Airlines, Marine eller Trucking."
+    "subIndustryDescription": "Företag som tillhandahåller flygfrakt, kurir- och logistiktjänster, inklusive paket- och postleveranser samt tullombud. Utesluter de företag som klassificeras i underbranscherna Flygbolag, Sjöfart eller Lastbilstransporter."
   },
   "20302010": {
     "sectorName": "Industriprodukter",
@@ -382,7 +382,7 @@
     "groupName": "Bilar och komponenter",
     "industryName": "Bilar",
     "subIndustryName": "Tillverkare av motorcyklar",
-    "subIndustryDescription": "Företag som tillverkar motorcyklar, skotrar eller trehjulingar. Exkluderar cyklar som klassificeras i underbranschen för fritidsprodukter."
+    "subIndustryDescription": "Företag som tillverkar motorcyklar, skotrar eller trehjulingar. Exkluderar cyklar som klassificeras i underbranschen Fritidsprodukter."
   },
   "25201010": {
     "sectorName": "Sällanköpsvaror",
@@ -410,7 +410,7 @@
     "groupName": "Konsumentvaror och kläder",
     "industryName": "Sällanköpsvaror för hushåll",
     "subIndustryName": "Hushållsapparater",
-    "subIndustryDescription": "Tillverkare av elektriska hushållsapparater och relaterade produkter.  Inkluderar tillverkare av el- och handverktyg, inklusive verktyg för trädgårdsskötsel.  Exkluderar TV-apparater och andra ljud- och videoprodukter som klassificeras i underbranschen Konsumentelektronik och persondatorer som klassificeras i underbranschen Teknik Hårdvara, lagring och kringutrustning."
+    "subIndustryDescription": "Tillverkare av elektriska hushållsapparater och relaterade produkter. Inkluderar tillverkare av el- och handverktyg, inklusive verktyg för trädgårdsskötsel. Exkluderar TV-apparater och andra ljud- och videoprodukter som klassificeras i underbranschen Konsumentelektronik och persondatorer som klassificeras i underbranschen Teknik Hårdvara, lagring och kringutrustning."
   },
   "25201050": {
     "sectorName": "Sällanköpsvaror",
@@ -431,7 +431,7 @@
     "groupName": "Konsumentvaror och kläder",
     "industryName": "Textilier, kläder och lyxvaror",
     "subIndustryName": "Kläder, accessoarer och lyxvaror",
-    "subIndustryDescription": "Tillverkare av kläder, accessoarer och lyxvaror. Inkluderar företag som främst tillverkar designerhandväskor, plånböcker, bagage, smycken och klockor. Exkluderar skor som klassificeras i underbranschen för skor."
+    "subIndustryDescription": "Tillverkare av kläder, accessoarer och lyxvaror. Inkluderar företag som främst tillverkar designerhandväskor, plånböcker, bagage, smycken och klockor. Exkluderar skor som klassificeras i underbranschen Skor."
   },
   "25203020": {
     "sectorName": "Sällanköpsvaror",
@@ -445,7 +445,7 @@
     "groupName": "Konsumentvaror och kläder",
     "industryName": "Textilier, kläder och lyxvaror",
     "subIndustryName": "Textilier",
-    "subIndustryDescription": "Tillverkare av textil och relaterade produkter som inte klassificeras i underbranscherna kläder, accessoarer och lyxvaror, skor eller heminredning."
+    "subIndustryDescription": "Tillverkare av textil och relaterade produkter som inte klassificeras i underbranscherna Kläder, accessoarer och lyxvaror, Skor eller Heminredning."
   },
   "25301010": {
     "sectorName": "Sällanköpsvaror",
@@ -487,7 +487,7 @@
     "groupName": "Konsumenttjänster",
     "industryName": "Diversifierade konsumenttjänster",
     "subIndustryName": "Specialiserade konsumenttjänster",
-    "subIndustryDescription": "Företag som tillhandahåller konsumenttjänster som inte klassificeras någon annanstans.  Omfattar bostadstjänster, hemsäkerhet, juridiska tjänster, personliga tjänster, renoverings- och inredningstjänster, konsumentauktioner samt bröllops- och begravningstjänster."
+    "subIndustryDescription": "Företag som tillhandahåller konsumenttjänster som inte klassificeras någon annanstans. Omfattar bostadstjänster, hemsäkerhet, juridiska tjänster, personliga tjänster, renoverings- och inredningstjänster, konsumentauktioner samt bröllops- och begravningstjänster."
   },
   "25501010": {
     "sectorName": "Sällanköpsvaror",
@@ -499,8 +499,8 @@
   "25503030": {
     "sectorName": "Sällanköpsvaror",
     "groupName": "Distribution och detaljhandel för sällanköpsvaror",
-    "industryName": "Broadline Detaljhandel",
-    "subIndustryName": "Broadline Detaljhandel",
+    "industryName": "Bred detaljhandel",
+    "subIndustryName": "Bred detaljhandel",
     "subIndustryDescription": "Återförsäljare som erbjuder ett brett sortiment av sällanköpsvaror. Denna delbransch omfattar detaljister som säljer allmänna varor och lågprisvaror, varuhus och online-återförsäljare och marknadsplatser som främst säljer sällanköpsvaror."
   },
   "25504010": {
@@ -536,21 +536,21 @@
     "groupName": "Distribution och detaljhandel för sällanköpsvaror",
     "industryName": "Specialiserad butikshandel",
     "subIndustryName": "Detaljhandel med fordon",
-    "subIndustryDescription": "Ägare och operatörer av butiker som specialiserar sig på detaljhandel med fordon.  Omfattar bilhandlare, bensinstationer och återförsäljare av biltillbehör, motorcyklar och reservdelar, bilglas samt bilutrustning och reservdelar."
+    "subIndustryDescription": "Ägare och operatörer av butiker som specialiserar sig på detaljhandel med fordon. Omfattar bilhandlare, bensinstationer och återförsäljare av biltillbehör, motorcyklar och reservdelar, bilglas samt bilutrustning och reservdelar."
   },
   "25504060": {
     "sectorName": "Sällanköpsvaror",
     "groupName": "Distribution och detaljhandel för sällanköpsvaror",
     "industryName": "Specialiserad butikshandel",
     "subIndustryName": "Detaljhandel med heminredning",
-    "subIndustryDescription": "Ägare och operatörer av möbel- och heminredningsbutiker.  Omfattar möbler för bostäder, heminredning, hushållsartiklar och inredningsdesign.  Exklusive butiker för hem- och trädgårdsförbättringar, klassificerade i underbranschen för detaljhandel med hemförbättringar."
+    "subIndustryDescription": "Ägare och operatörer av möbel- och heminredningsbutiker. Omfattar möbler för bostäder, heminredning, hushållsartiklar och inredningsdesign. Exklusive butiker för hem- och trädgårdsförbättringar, klassificerade i underbranschen Detaljhandel för hemförbättringar."
   },
   "30101010": {
     "sectorName": "Dagligvaror",
     "groupName": "Distribution och detaljhandel för dagligvaror",
     "industryName": "Distribution och detaljhandel för dagligvaror",
     "subIndustryName": "Detaljhandel med läkemedel",
-    "subIndustryDescription": "Ägare och operatörer av främst drug retail-butiker och apotek."
+    "subIndustryDescription": "Ägare och operatörer av främst detaljhandelsbutiker för läkemedel och apotek."
   },
   "30101020": {
     "sectorName": "Dagligvaror",
@@ -570,8 +570,8 @@
     "sectorName": "Dagligvaror",
     "groupName": "Distribution och detaljhandel för dagligvaror",
     "industryName": "Distribution och detaljhandel för dagligvaror",
-    "subIndustryName": "Konsumentvaror Dagligvaror Detaljhandel",
-    "subIndustryDescription": "Återförsäljare som erbjuder ett brett sortiment av dagligvaror såsom livsmedel, hushållsprodukter och produkter för personlig vård. Denna delbransch omfattar hypermarkets, supercenters och andra detaljister som säljer dagligvaror, t.ex. lågprisbutiker och marknadsplatser på nätet som främst säljer dagligvaror."
+    "subIndustryName": "Detaljhandel med dagligvaror",
+    "subIndustryDescription": "Återförsäljare som erbjuder ett brett sortiment av dagligvaror såsom livsmedel, hushållsprodukter och produkter för personlig vård. Denna delbransch omfattar stormarknader, varuhus med stort sortiment och andra detaljister som säljer dagligvaror, t.ex. lågprisbutiker och marknadsplatser på nätet som främst säljer dagligvaror."
   },
   "30201010": {
     "sectorName": "Dagligvaror",
@@ -585,7 +585,7 @@
     "groupName": "Livsmedel, drycker och tobak",
     "industryName": "Drycker",
     "subIndustryName": "Destillerier och vinodlare",
-    "subIndustryDescription": "Destillatörer, vinodlare och producenter av alkoholhaltiga drycker som inte klassificeras i underbranschen bryggerier."
+    "subIndustryDescription": "Destillatörer, vinodlare och producenter av alkoholhaltiga drycker som inte klassificeras i underbranschen Bryggerier."
   },
   "30201030": {
     "sectorName": "Dagligvaror",
@@ -599,7 +599,7 @@
     "groupName": "Livsmedel, drycker och tobak",
     "industryName": "Livsmedelsprodukter",
     "subIndustryName": "Jordbruksprodukter och tjänster",
-    "subIndustryDescription": "Producenter av jordbruksprodukter. Omfattar växtodlare, ägare av plantager och företag som producerar och bearbetar livsmedel men inte förpackar och marknadsför dem. Utesluter företag som klassificeras i underbranschen för skogsprodukter och de som förpackar och marknadsför livsmedelsprodukter som klassificeras i underbranschen för förpackade livsmedel."
+    "subIndustryDescription": "Producenter av jordbruksprodukter. Omfattar växtodlare, ägare av plantager och företag som producerar och bearbetar livsmedel men inte förpackar och marknadsför dem. Utesluter företag som klassificeras i underbranschen Skogsprodukter och de som förpackar och marknadsför livsmedelsprodukter som klassificeras i underbranschen för förpackade livsmedel."
   },
   "30202030": {
     "sectorName": "Dagligvaror",
@@ -620,7 +620,7 @@
     "groupName": "Personvårdsprodukter",
     "industryName": "Hushållsprodukter",
     "subIndustryName": "Hushållsprodukter",
-    "subIndustryDescription": "Tillverkare av icke varaktiga hushållsprodukter, inklusive tvättmedel, tvål, blöjor och andra mjukpapper och hushållspapper som inte klassificeras i underbranschen för pappersprodukter."
+    "subIndustryDescription": "Tillverkare av icke varaktiga hushållsprodukter, inklusive tvättmedel, tvål, blöjor och andra mjukpapper och hushållspapper som inte klassificeras i underbranschen Pappersprodukter."
   },
   "30302010": {
     "sectorName": "Dagligvaror",
@@ -668,22 +668,22 @@
     "sectorName": "Hälsovård",
     "groupName": "Medicinteknisk utrustning och vårdtjänster",
     "industryName": "Vårdgivare och tjänster inom hälso- och sjukvård",
-    "subIndustryName": "Managed Health Care",
-    "subIndustryDescription": "Ägare och operatörer av Health Maintenance Organizations (HMOs) och andra managed plans."
+    "subIndustryName": "Organiserad hälso- och sjukvård",
+    "subIndustryDescription": "Ägare och operatörer av organisationer för organiserad hälso- och sjukvård (HMO) och andra vårdplaner."
   },
   "35103010": {
     "sectorName": "Hälsovård",
     "groupName": "Medicinteknisk utrustning och vårdtjänster",
     "industryName": "Hälsovårdsteknik",
     "subIndustryName": "Hälsovårdsteknik",
-    "subIndustryDescription": "Företag som tillhandahåller informationsteknologitjänster främst till vårdgivare.  Inkluderar företag som tillhandahåller programvaror för applikationer, system och/eller databehandling, internetbaserade verktyg och IT-konsulttjänster till läkare, sjukhus eller företag som huvudsakligen är verksamma inom hälso- och sjukvårdssektorn"
+    "subIndustryDescription": "Företag som tillhandahåller informationsteknologitjänster främst till vårdgivare. Inkluderar företag som tillhandahåller programvaror för applikationer, system och/eller databehandling, internetbaserade verktyg och IT-konsulttjänster till läkare, sjukhus eller företag som huvudsakligen är verksamma inom hälso- och sjukvårdssektorn"
   },
   "35201010": {
     "sectorName": "Hälsovård",
     "groupName": "Läkemedel, bioteknik och life sciences",
     "industryName": "Bioteknik",
     "subIndustryName": "Bioteknik",
-    "subIndustryDescription": "Företag som främst ägnar sig åt forskning, utveckling, tillverkning och/eller marknadsföring av produkter baserade på genetisk analys och genteknik.  Inkluderar företag som specialiserar sig på proteinbaserade läkemedel för behandling av sjukdomar hos människor. Utesluter företag som tillverkar produkter med hjälp av bioteknik men utan tillämpning inom hälso- och sjukvården."
+    "subIndustryDescription": "Företag som främst ägnar sig åt forskning, utveckling, tillverkning och/eller marknadsföring av produkter baserade på genetisk analys och genteknik. Inkluderar företag som specialiserar sig på proteinbaserade läkemedel för behandling av sjukdomar hos människor. Utesluter företag som tillverkar produkter med hjälp av bioteknik men utan tillämpning inom hälso- och sjukvården."
   },
   "35202010": {
     "sectorName": "Hälsovård",
@@ -697,21 +697,21 @@
     "groupName": "Läkemedel, bioteknik och life sciences",
     "industryName": "Verktyg och tjänster för biovetenskap",
     "subIndustryName": "Verktyg och tjänster för biovetenskap",
-    "subIndustryDescription": "Företag som möjliggör läkemedelsupptäckt, utveckling och produktion genom att tillhandahålla analytiska verktyg, instrument, förbrukningsvaror och tillbehör, tjänster för kliniska prövningar och kontraktsforskningstjänster.  Inkluderar företag som främst betjänar läkemedels- och bioteknikindustrin."
+    "subIndustryDescription": "Företag som möjliggör läkemedelsupptäckt, utveckling och produktion genom att tillhandahålla analytiska verktyg, instrument, förbrukningsvaror och tillbehör, tjänster för kliniska prövningar och kontraktsforskningstjänster. Inkluderar företag som främst betjänar läkemedels- och bioteknikindustrin."
   },
   "40101010": {
     "sectorName": "Finans",
     "groupName": "Banker",
     "industryName": "Banker",
     "subIndustryName": "Diversifierade banker",
-    "subIndustryDescription": "Stora, geografiskt diversifierade banker med nationell täckning vars intäkter främst härrör från konventionell bankverksamhet, som har betydande affärsverksamhet inom retail banking och utlåning till små och medelstora företag och som tillhandahåller ett brett utbud av finansiella tjänster.  Exkluderar banker klassificerade i underbranscherna Regionala banker och Finansiering av kommersiella och privata bostadslån. Exkluderar även investmentbanker klassificerade i underbranschen Investmentbanking och mäkleri."
+    "subIndustryDescription": "Stora, geografiskt diversifierade banker med nationell täckning vars intäkter främst härrör från konventionell bankverksamhet, som har betydande affärsverksamhet inom retail banking och utlåning till små och medelstora företag och som tillhandahåller ett brett utbud av finansiella tjänster. Exkluderar banker klassificerade i underbranscherna Regionala banker och Finansiering av kommersiella och privata bostadslån. Exkluderar även investmentbanker klassificerade i underbranschen Investmentbankverksamhet och mäkleri."
   },
   "40101015": {
     "sectorName": "Finans",
     "groupName": "Banker",
     "industryName": "Banker",
     "subIndustryName": "Regionala banker",
-    "subIndustryDescription": "Affärsbanker, sparbanker och thrifts vars verksamhet huvudsakligen består av konventionell bankverksamhet såsom bankverksamhet för privatpersoner och mindre företag, utlåning till företag och olika typer av hypotekslån till bostäder och kommersiella fastigheter som huvudsakligen finansieras genom inlåning. Regionbanker tenderar att bedriva verksamhet i begränsade geografiska regioner. Exkluderar företag som klassificeras i underbranscherna Diversifierade banker och Finansiering av kommersiella och privata bostadslån. Utesluter även investmentbanker som klassificeras i underbranschen Investmentbanking och mäkleri."
+    "subIndustryDescription": "Affärsbanker, sparbanker och thrifts vars verksamhet huvudsakligen består av konventionell bankverksamhet såsom bankverksamhet för privatpersoner och mindre företag, utlåning till företag och olika typer av hypotekslån till bostäder och kommersiella fastigheter som huvudsakligen finansieras genom inlåning. Regionbanker tenderar att bedriva verksamhet i begränsade geografiska regioner. Exkluderar företag som klassificeras i underbranscherna Diversifierade banker och Finansiering av kommersiella och privata bostadslån. Utesluter även investmentbanker som klassificeras i underbranschen Investmentbankverksamhet och mäkleri."
   },
   "40201020": {
     "sectorName": "Finans",
@@ -725,7 +725,7 @@
     "groupName": "Finansiella tjänster",
     "industryName": "Finansiella tjänster",
     "subIndustryName": "Multisektoriella innehav",
-    "subIndustryDescription": "Ett företag med betydande diversifierade innehav i tre eller flera sektorer, där ingen av dessa bidrar med en majoritet av vinsten och/eller försäljningen. Innehavet är till övervägande del av icke-kontrollerande karaktär.  Inkluderar diversifierade finansbolag där ägarandelarna är av kontrollerande karaktär. Utesluter andra diversifierade företag som klassificeras i underbranschen Industriella konglomerat."
+    "subIndustryDescription": "Ett företag med betydande diversifierade innehav i tre eller flera sektorer där ingen av dessa bidrar med en majoritet av vinsten och/eller försäljningen. Innehavet är till övervägande del av icke-kontrollerande karaktär. Inkluderar diversifierade finansbolag där ägarandelarna är av kontrollerande karaktär. Utesluter andra diversifierade företag som klassificeras i underbranschen Industriella konglomerat."
   },
   "40201040": {
     "sectorName": "Finans",
@@ -753,20 +753,20 @@
     "groupName": "Finansiella tjänster",
     "industryName": "Konsumentfinansiering",
     "subIndustryName": "Konsumentfinansiering",
-    "subIndustryDescription": "Leverantörer av konsumentfinansieringstjänster, inklusive personliga krediter, kreditkort, leasingfinansiering, reserelaterade penningtjänster och pantbanker.  Omfattar inte hypotekslångivare som klassificeras i underbranschen Finansiering av kommersiella och privata bostadslån."
+    "subIndustryDescription": "Leverantörer av konsumentfinansieringstjänster, inklusive personliga krediter, kreditkort, leasingfinansiering, reserelaterade penningtjänster och pantbanker. Omfattar inte hypotekslångivare som klassificeras i underbranschen Finansiering av kommersiella och privata bostadslån."
   },
   "40203010": {
     "sectorName": "Finans",
     "groupName": "Finansiella tjänster",
     "industryName": "Kapitalmarknader",
     "subIndustryName": "Kapitalförvaltning och depåbanker",
-    "subIndustryDescription": "Finansiella institutioner som främst ägnar sig åt investeringsförvaltning och/eller relaterade depåförvarings- och värdepapperstjänster. Inkluderar företag som driver värdepappersfonder, slutna fonder och investeringsfonder.  Exkluderar banker och andra finansiella institutioner som främst ägnar sig åt kommersiell utlåning, investment banking, mäkleri och annan specialiserad finansiell verksamhet."
+    "subIndustryDescription": "Finansiella institutioner som främst ägnar sig åt investeringsförvaltning och/eller relaterade depåförvarings- och värdepapperstjänster. Inkluderar företag som driver värdepappersfonder, slutna fonder och investeringsfonder. Exkluderar banker och andra finansiella institutioner som främst ägnar sig åt kommersiell utlåning, investment banking, mäkleri och annan specialiserad finansiell verksamhet."
   },
   "40203020": {
     "sectorName": "Finans",
     "groupName": "Finansiella tjänster",
     "industryName": "Kapitalmarknader",
-    "subIndustryName": "Investmentbanking och mäkleri",
+    "subIndustryName": "Investmentbankverksamhet och mäkleri",
     "subIndustryDescription": "Finansiella institutioner som främst ägnar sig åt investment banking och mäklartjänster, inklusive aktie- och skuldgarantier, fusioner och förvärv, värdepapperslån och rådgivning. Exkluderar banker och andra finansinstitut som främst ägnar sig åt kommersiell utlåning, kapitalförvaltning och specialiserad finansiell verksamhet."
   },
   "40203030": {
@@ -774,7 +774,7 @@
     "groupName": "Finansiella tjänster",
     "industryName": "Kapitalmarknader",
     "subIndustryName": "Diversifierade kapitalmarknader",
-    "subIndustryDescription": "Finansiella institutioner som främst ägnar sig åt diversifierad kapitalmarknadsverksamhet, inklusive en betydande närvaro inom minst två av följande områden: utlåning till stora företag, investment banking, mäkleri och kapitalförvaltning. Utesluter mindre diversifierade företag som klassificeras i underbranscherna Asset Management och Custody Banks eller Investmentbanking och mäkleri.  Utesluter även företag som klassificeras i branschgrupperna Banker eller Försäkringar eller underbranschen Konsumentfinansiering."
+    "subIndustryDescription": "Finansiella institutioner som främst ägnar sig åt diversifierad kapitalmarknadsverksamhet, inklusive en betydande närvaro inom minst två av följande områden: utlåning till stora företag, investmentbankverksamhet, mäkleri och kapitalförvaltning. Utesluter mindre diversifierade företag som klassificeras i underbranscherna Kapitalförvaltning och depåbanker eller Investmentbankverksamhet och mäkleri. Utesluter även företag som klassificeras i branschgrupperna Banker och Försäkringar eller underbranschen Konsumentfinansiering."
   },
   "40203040": {
     "sectorName": "Finans",
@@ -786,9 +786,9 @@
   "40204010": {
     "sectorName": "Finans",
     "groupName": "Finansiella tjänster",
-    "industryName": "Hypotekslån Fastighetsinvesteringar\nTrusts (REITs)",
-    "subIndustryName": "REITs för hypotekslån",
-    "subIndustryDescription": "Företag eller stiftelser som tillhandahåller, genererar, köper och/eller värdepapperiserar bostadslån och/eller kommersiella hypotekslån.  Inkluderar truster som investerar i värdepapper med säkerhet i hypotekslån och andra tillgångar relaterade till hypotekslån."
+    "industryName": "Hypoteks-REITs",
+    "subIndustryName": "Hypoteks-REITs",
+    "subIndustryDescription": "Företag eller stiftelser som tillhandahåller, genererar, köper och/eller värdepapperiserar bostadslån och/eller kommersiella hypotekslån. Inkluderar truster som investerar i värdepapper med säkerhet i hypotekslån och andra tillgångar relaterade till hypotekslån."
   },
   "40301010": {
     "sectorName": "Finans",
@@ -802,13 +802,13 @@
     "groupName": "Försäkringar",
     "industryName": "Försäkringar",
     "subIndustryName": "Liv- och sjukförsäkring",
-    "subIndustryDescription": "Företag som främst tillhandahåller liv-, invaliditets-, skade- eller kompletterande sjukförsäkring. Exkluderar managed care-bolag som klassificeras i underbranschen Managed Health Care."
+    "subIndustryDescription": "Företag som främst tillhandahåller liv-, invaliditets-, skade- eller kompletterande sjukförsäkring. Exkluderar företag inom organiserad hälso- och sjukvård som klassificeras i underbranschen Organiserad hälso- och sjukvård."
   },
   "40301030": {
     "sectorName": "Finans",
     "groupName": "Försäkringar",
     "industryName": "Försäkringar",
-    "subIndustryName": "Multi-line försäkring",
+    "subIndustryName": "Diversifierade försäkringar",
     "subIndustryDescription": "Försäkringsbolag med diversifierade intressen inom liv-, sjuk-, sak- och olycksfallsförsäkring."
   },
   "40301040": {
@@ -830,14 +830,14 @@
     "groupName": "Programvara och tjänster",
     "industryName": "IT-tjänster",
     "subIndustryName": "IT-konsulttjänster och andra tjänster",
-    "subIndustryDescription": "Leverantörer av tjänster inom informationsteknik och systemintegration som inte klassificeras i underbranschen Databehandling och outsourcade tjänster.  Omfattar konsulttjänster inom informationsteknik och informationshantering."
+    "subIndustryDescription": "Leverantörer av tjänster inom informationsteknik och systemintegration som inte klassificeras i underbranschen Databehandling och outsourcade tjänster. Omfattar konsulttjänster inom informationsteknik och informationshantering."
   },
   "45102030": {
     "sectorName": "IT",
     "groupName": "Programvara och tjänster",
     "industryName": "IT-tjänster",
     "subIndustryName": "Internettjänster och infrastruktur",
-    "subIndustryDescription": "Företag som tillhandahåller tjänster och infrastruktur för internetindustrin, inklusive datacenter och molnbaserade nätverks- och lagringsinfrastrukturer. Inkluderar även företag som tillhandahåller webbhotellstjänster. Exkluderar företag som klassificeras i Software Industry."
+    "subIndustryDescription": "Företag som tillhandahåller tjänster och infrastruktur för internetindustrin, inklusive datacenter och molnbaserade nätverks- och lagringsinfrastrukturer. Inkluderar även företag som tillhandahåller webbhotellstjänster. Exkluderar företag som klassificeras branschen Programvara."
   },
   "45103010": {
     "sectorName": "IT",
@@ -858,13 +858,13 @@
     "groupName": "Teknisk hårdvara och utrustning",
     "industryName": "Kommunikationsutrustning",
     "subIndustryName": "Kommunikationsutrustning",
-    "subIndustryDescription": "Tillverkare av kommunikationsutrustning och -produkter, inklusive LAN, WAN, routrar, telefoner, växlar och centraler. Omfattar inte tillverkare av mobiltelefoner som klassificeras i underbranschen för teknisk hårdvara, lagring och kringutrustning."
+    "subIndustryDescription": "Tillverkare av kommunikationsutrustning och -produkter, inklusive LAN, WAN, routrar, telefoner, växlar och centraler. Omfattar inte tillverkare av mobiltelefoner som klassificeras i underbranschen Teknisk hårdvara, lagring och kringutrustning."
   },
   "45202030": {
     "sectorName": "IT",
     "groupName": "Teknisk hårdvara och utrustning",
-    "industryName": "Teknik Hårdvara, lagring och kringutrustning",
-    "subIndustryName": "Teknik Hårdvara, lagring och kringutrustning",
+    "industryName": "Teknisk hårdvara, lagring och kringutrustning",
+    "subIndustryName": "Teknisk hårdvara, lagring och kringutrustning",
     "subIndustryDescription": "Tillverkare av mobiltelefoner, persondatorer, servrar, elektroniska datorkomponenter och kringutrustning. Inkluderar datalagringskomponenter, moderkort, ljud- och bildkort, bildskärmar, tangentbord, skrivare och annan kringutrustning. Omfattar inte halvledare som klassificeras i underbranschen Halvledare."
   },
   "45203010": {
@@ -886,7 +886,7 @@
     "groupName": "Teknisk hårdvara och utrustning",
     "industryName": "Elektronisk utrustning, instrument och komponenter",
     "subIndustryName": "Tjänster för elektronisk tillverkning",
-    "subIndustryDescription": "Tillverkare av elektronisk utrustning, främst för OEM-marknaden (Original Equipment Manufacturers)."
+    "subIndustryDescription": "Tillverkare av elektronisk utrustning, främst för OEM-marknaden (tillverkare av originalutrustning)."
   },
   "45203030": {
     "sectorName": "IT",
@@ -913,7 +913,7 @@
     "sectorName": "Kommunikation",
     "groupName": "Telekommunikationstjänster",
     "industryName": "Diversifierade telekommunikationstjänster",
-    "subIndustryName": "Alternativa transportörer",
+    "subIndustryName": "Alternativa teleoperatörer",
     "subIndustryDescription": "Leverantör av kommunikations- och dataöverföringstjänster med hög densitet, främst genom ett fiberoptiskt kabelnätverk med hög bandbredd."
   },
   "50101020": {
@@ -991,13 +991,13 @@
     "groupName": "Kraftförsörjning",
     "industryName": "Gasförsörjning",
     "subIndustryName": "Gasförsörjning",
-    "subIndustryDescription": "Företag vars huvuduppgift är att distribuera och överföra naturgas och tillverkad gas. Exkluderar företag som huvudsakligen är involverade i prospektering eller produktion av gas, klassificerade i underbranschen Oil och Gas Exploration och Production. Omfattar inte heller företag som sysslar med lagring och/eller transport av olja, gas och/eller raffinerade produkter, klassificerade i underbranschen Oil och Gas Storage och Transportation Sub-Industry."
+    "subIndustryDescription": "Företag vars huvuduppgift är att distribuera och överföra naturgas och tillverkad gas. Exkluderar företag som huvudsakligen är involverade i prospektering eller produktion av gas, klassificerade i underbranschen Prospektering och produktion av olja och gas. Omfattar inte heller företag som sysslar med lagring och/eller transport av olja, gas och/eller raffinerade produkter, klassificerade i underbranschen Lagring och transport av olja och gas."
   },
   "55103010": {
     "sectorName": "Kraftförsörjning",
     "groupName": "Kraftförsörjning",
-    "industryName": "Flera användningsområden",
-    "subIndustryName": "Flera användningsområden",
+    "industryName": "Diversifierade allmännyttiga tjänster",
+    "subIndustryName": "Diversifierade allmännyttiga tjänster",
     "subIndustryDescription": "Allmännyttiga företag med betydande diversifierad verksamhet utöver kärnverksamheten inom el, gas och/eller vatten."
   },
   "55104010": {
@@ -1088,7 +1088,7 @@
     "sectorName": "Fastigheter",
     "groupName": "Equity Real Estate Investment Trusts (REITs)",
     "industryName": "Specialiserade REITs",
-    "subIndustryName": "REITs för självförvarare",
+    "subIndustryName": "REITs för förrådsfastigheter",
     "subIndustryDescription": "Företag eller stiftelser som ägnar sig åt förvärv, utveckling, ägande, uthyrning, förvaltning och drift av lagerfastigheter."
   },
   "60108030": {
@@ -1102,7 +1102,7 @@
     "sectorName": "Fastigheter",
     "groupName": "Equity Real Estate Investment Trusts (REITs)",
     "industryName": "Specialiserade REITs",
-    "subIndustryName": "REITs för skog",
+    "subIndustryName": "REITs för skogsfastigheter",
     "subIndustryDescription": "Företag eller stiftelser som ägnar sig åt förvärv, utveckling, ägande, uthyrning, förvaltning och drift av skogsmark och skogsrelaterade fastigheter."
   },
   "60108050": {
