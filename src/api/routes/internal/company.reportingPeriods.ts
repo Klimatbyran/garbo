@@ -21,6 +21,7 @@ import {
 import { metadataService } from '../../services/metadataService'
 import _ from 'lodash'
 import { prisma } from '../../../lib/prisma'
+import { resolveSourcePageUrl } from '../../../lib/sourceReference'
 import type {
   BiogenicEmissions,
   Metadata,
@@ -64,6 +65,7 @@ type BiogenicUpsertInput = OptionalNullable<
 type ProvenancePayload = {
   sourceReference?: string
   pageNumber?: number
+  sourcePageUrl?: string
   verified?: boolean
 }
 
@@ -72,18 +74,28 @@ async function createDatapointMetadata({
   provenance,
   user,
   verified,
+  reportS3Url,
 }: {
   baseMetadata?: Partial<Metadata>
   provenance?: ProvenancePayload
   user: User
   verified: boolean
+  reportS3Url?: string | null
 }) {
+  const sourcePageUrl = resolveSourcePageUrl({
+    storagePdfUrl: reportS3Url,
+    pageNumber: provenance?.pageNumber,
+    sourceReference: provenance?.sourceReference,
+    sourcePageUrl: provenance?.sourcePageUrl,
+  })
+
   return metadataService.createMetadata({
     metadata: {
       ...baseMetadata,
       ...(provenance?.sourceReference
         ? { sourceReference: provenance.sourceReference }
         : {}),
+      ...(sourcePageUrl ? { sourcePageUrl } : {}),
     },
     user,
     verified,
@@ -91,7 +103,13 @@ async function createDatapointMetadata({
 }
 
 function stripProvenanceFields<T extends ProvenancePayload>(payload: T) {
-  return _.omit(payload, 'verified', 'sourceReference', 'pageNumber')
+  return _.omit(
+    payload,
+    'verified',
+    'sourceReference',
+    'pageNumber',
+    'sourcePageUrl'
+  )
 }
 
 // Helper functions for emission deletion
@@ -137,7 +155,8 @@ async function buildScope1Promise(
   scope1Payload: BodyEmissions['scope1'],
   dbEmissions: DefaultEmissions,
   baseMetadata: Partial<Metadata> | undefined,
-  user: User
+  user: User,
+  reportS3Url?: string | null
 ) {
   const existingScope1Id = dbEmissions.scope1?.id
 
@@ -154,6 +173,7 @@ async function buildScope1Promise(
     provenance: scope1Payload,
     user,
     verified: scope1Payload.verified ?? false,
+    reportS3Url,
   })
 
   return emissionsService.upsertScope1(
@@ -167,7 +187,8 @@ async function buildScope2Promise(
   scope2Payload: BodyEmissions['scope2'],
   dbEmissions: DefaultEmissions,
   baseMetadata: Partial<Metadata> | undefined,
-  user: User
+  user: User,
+  reportS3Url?: string | null
 ) {
   const existingScope2Id = dbEmissions.scope2?.id
 
@@ -184,6 +205,7 @@ async function buildScope2Promise(
     provenance: scope2Payload,
     user,
     verified: scope2Payload.verified ?? false,
+    reportS3Url,
   })
 
   return emissionsService.upsertScope2(
@@ -387,9 +409,23 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
               turnover.currency = turnover.currency.trim().toUpperCase()
             }
 
+            const storagePdfUrl = reportS3Url ?? request.body.reportS3Url
+
             await Promise.allSettled([
-              buildScope1Promise(scope1, dbEmissions, metadata, user),
-              buildScope2Promise(scope2, dbEmissions, metadata, user),
+              buildScope1Promise(
+                scope1,
+                dbEmissions,
+                metadata,
+                user,
+                storagePdfUrl
+              ),
+              buildScope2Promise(
+                scope2,
+                dbEmissions,
+                metadata,
+                user,
+                storagePdfUrl
+              ),
               scope3 !== undefined &&
                 emissionsService.upsertScope3(
                   dbEmissions,
@@ -414,6 +450,7 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
                       provenance: opts,
                       user,
                       verified: opts.verified,
+                      reportS3Url: storagePdfUrl,
                     })
                 ),
               statedTotalEmissions !== undefined &&
@@ -423,6 +460,7 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
                     provenance: statedTotalEmissions ?? undefined,
                     user,
                     verified: statedTotalEmissions?.verified ?? false,
+                    reportS3Url: storagePdfUrl,
                   })
                   return emissionsService.upsertStatedTotalEmissions(
                     dbEmissions,
@@ -439,6 +477,7 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
                     provenance: biogenic ?? undefined,
                     user,
                     verified: biogenic?.verified ?? false,
+                    reportS3Url: storagePdfUrl,
                   })
                   return emissionsService.upsertBiogenic(
                     dbEmissions,
@@ -453,6 +492,7 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
                     provenance: scope1And2 ?? undefined,
                     user,
                     verified: scope1And2?.verified ?? false,
+                    reportS3Url: storagePdfUrl,
                   })
                   return emissionsService.upsertScope1And2(
                     dbEmissions,

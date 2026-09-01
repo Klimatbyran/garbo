@@ -422,6 +422,8 @@ model Metadata {
   source           String?
   /// Where in the original report this datapoint came from (e.g. "p. 42", "p. 42, GHG table"). Internal only.
   sourceReference  String?
+  /// Deep link to the internal stored PDF at the relevant page (e.g. GCS URL + #page=N). Internal only.
+  sourcePageUrl    String?
   updatedAt        DateTime @default(now()) @updatedAt
   /// The userId who last updated the associated datapoint
   userId           String

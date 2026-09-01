@@ -11,6 +11,7 @@ export const sourceReferenceFields = {
   pageNumber: z
     .number()
     .int()
+    .positive()
     .optional()
     .describe('Report page number when known from <!-- PAGE: N --> markers'),
 }

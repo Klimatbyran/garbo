@@ -12,6 +12,12 @@ const createMetadataSchema = z.object({
       source: z.string().optional(),
       comment: z.string().optional(),
       sourceReference: z.string().optional(),
+      sourcePageUrl: z
+        .string()
+        .optional()
+        .describe(
+          'Internal stored PDF URL with #page=N deep link to the relevant page'
+        ),
     })
     .optional(),
   verified: z.boolean().optional(),

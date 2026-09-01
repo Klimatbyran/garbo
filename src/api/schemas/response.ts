@@ -52,6 +52,13 @@ export const MetadataSchema = z.object({
       description:
         'Where in the original report this datapoint came from (internal)',
     }),
+  sourcePageUrl: z
+    .string()
+    .nullable()
+    .openapi({
+      description:
+        'Internal stored PDF URL with #page=N deep link to the relevant page (internal)',
+    }),
   updatedAt: dateStringSchema.openapi({ description: 'Last update timestamp' }),
   user: z.object({
     name: z
