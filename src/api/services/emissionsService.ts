@@ -177,6 +177,7 @@ class EmissionsService {
         verified?: boolean
         sourceReference?: string
         pageNumber?: number
+        sourcePageUrl?: string
       }[]
       statedTotalEmissions?: Omit<
         StatedTotalEmissions,
@@ -185,11 +186,14 @@ class EmissionsService {
         verified?: boolean
         sourceReference?: string
         pageNumber?: number
+        sourcePageUrl?: string
       }
     },
     createMetadata: (opts: {
       verified: boolean
       sourceReference?: string
+      pageNumber?: number
+      sourcePageUrl?: string
     }) => Promise<Metadata>
   ) {
     const existingScope3Id = emissions.scope3?.id
@@ -199,6 +203,8 @@ class EmissionsService {
     const metadata = await createMetadata({
       verified: stated?.verified ?? false,
       sourceReference: stated?.sourceReference,
+      pageNumber: stated?.pageNumber,
+      sourcePageUrl: stated?.sourcePageUrl,
     })
 
     const updatedScope3 = await prisma.scope3.upsert({
@@ -240,12 +246,15 @@ class EmissionsService {
         const metadataForScope3Category = await createMetadata({
           verified: scope3Category.verified ?? false,
           sourceReference: scope3Category.sourceReference,
+          pageNumber: scope3Category.pageNumber,
+          sourcePageUrl: scope3Category.sourcePageUrl,
         })
         const categoryData = _.omit(
           scope3Category,
           'verified',
           'sourceReference',
-          'pageNumber'
+          'pageNumber',
+          'sourcePageUrl'
         )
         const matching = updatedScope3.categories.find(
           ({ category }) => categoryData.category === category
