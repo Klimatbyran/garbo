@@ -1,12 +1,9 @@
 import { z } from 'zod'
 import { emissionUnitSchemaGarbo } from '@/api/schemas'
-import { sourceReferenceFields } from '@/lib/sourceReferenceSchema'
-
 const scope1ValueSchema = z
   .object({
     total: z.number(),
     unit: emissionUnitSchemaGarbo,
-    ...sourceReferenceFields,
   })
   .nullable()
 
@@ -14,7 +11,6 @@ const scope1And2ValueSchema = z
   .object({
     total: z.number(),
     unit: emissionUnitSchemaGarbo,
-    ...sourceReferenceFields,
   })
   .describe('The combined scope 1 and 2 emissions, if other fields are not available')
   .nullable()
@@ -24,7 +20,6 @@ export const schema = z.object({
     z.object({
       absoluteMostRecentYearInReport: z.number(),
       year: z.number(),
-      ...sourceReferenceFields,
       listOfAllPossibleScope1Numbers: z.union([
         z.array(
           z.object({

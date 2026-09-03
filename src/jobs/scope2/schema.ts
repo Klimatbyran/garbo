@@ -1,7 +1,5 @@
 import { z } from 'zod'
 import { emissionUnitSchemaGarbo } from '@/api/schemas'
-import { sourceReferenceFields } from '@/lib/sourceReferenceSchema'
-
 const scope2ValueSchema = z
   .object({
     mentionOfLocationBasedOrMarketBased: z
@@ -59,7 +57,6 @@ const scope2ValueSchema = z
       ])
       .optional(),
     unit: emissionUnitSchemaGarbo,
-    ...sourceReferenceFields,
   })
   .refine(({ mb, lb, unknown }) => mb || lb || unknown, {
     message:
@@ -70,7 +67,6 @@ const scope1And2ValueSchema = z
   .object({
     total: z.number(),
     unit: emissionUnitSchemaGarbo,
-    ...sourceReferenceFields,
   })
   .nullable()
 
@@ -79,7 +75,6 @@ export const schema = z.object({
     z.object({
       absoluteMostRecentYearInReport: z.number(),
       year: z.number(),
-      ...sourceReferenceFields,
       listOfAllScope2NumbersForThisYearAndTheirMethods: z.union([
         z.array(
           z.object({

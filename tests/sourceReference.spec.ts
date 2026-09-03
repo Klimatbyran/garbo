@@ -4,7 +4,13 @@ import {
   buildSourcePageUrl,
   resolveSourcePageUrl,
   pageNumberFromSourceReference,
+  attachPageProvenanceToExtraction,
 } from '../src/lib/sourceReference'
+import {
+  pageSnippetsFromDoclingJson,
+  pageNumberForMarkdownSnippet,
+  extractDoclingMarkdown,
+} from '../src/lib/doclingPageLookup'
 import { mergeScope1AndScope2Results } from '../src/lib/mergeScopeResults'
 
 describe('sourceReference', () => {
@@ -66,6 +72,107 @@ describe('sourceReference', () => {
       sourceReference: 'p. 12',
       extractionResult: returnValue,
     })
+  })
+
+  it('attaches page provenance from retrieved Chroma paragraphs without LLM', () => {
+    const value = {
+      scope1: [
+        {
+          year: 2023,
+          scope1: { total: 12.3, unit: 'tCO2e' },
+          listOfAllPossibleScope1Numbers: [
+            {
+              number: 12.3,
+              sourceText: 'Scope 1 emissions were 12.3 tCO2e',
+            },
+          ],
+        },
+      ],
+    }
+
+    const enriched = attachPageProvenanceToExtraction(value, [
+      {
+        text: 'Other text on page 9',
+        pageNumber: 9,
+      },
+      {
+        text: 'Scope 1 emissions were 12.3 tCO2e according to the GHG table',
+        pageNumber: 42,
+      },
+    ])
+
+    expect(enriched).toEqual({
+      scope1: [
+        {
+          year: 2023,
+          scope1: {
+            total: 12.3,
+            unit: 'tCO2e',
+            pageNumber: 42,
+            sourceReference: 'p. 42',
+          },
+          listOfAllPossibleScope1Numbers: [
+            {
+              number: 12.3,
+              sourceText: 'Scope 1 emissions were 12.3 tCO2e',
+            },
+          ],
+        },
+      ],
+    })
+  })
+})
+
+describe('doclingPageLookup', () => {
+  it('keeps Docling markdown unchanged and only extracts page snippets from JSON', () => {
+    const markdown = '# Report\n\n| Scope | Value |\n| --- | --- |\n| 1 | 12 |'
+    const result = extractDoclingMarkdown({
+      document: {
+        md_content: markdown,
+        json_content: {
+          texts: [
+            { text: 'Introduction text', prov: [{ page_no: 1 }] },
+            { text: 'Scope 1 emissions', prov: [{ page_no: 4 }] },
+          ],
+          tables: [
+            {
+              prov: [{ page_no: 4 }],
+              data: { table_cells: [{ text: '12.3 tCO2e Scope 1 total' }, { text: 'Scope 1' }] },
+            },
+          ],
+        },
+      },
+    })
+
+    expect(result.markdown).toBe(markdown)
+    expect(result.pageSnippets).toEqual(
+      expect.arrayContaining([
+        { text: 'Introduction text', pageNumber: 1 },
+        { text: 'Scope 1 emissions', pageNumber: 4 },
+        { text: '12.3 tCO2e Scope 1 total', pageNumber: 4 },
+      ])
+    )
+  })
+
+  it('matches markdown chunks to page snippets including table cells', () => {
+    const snippets = pageSnippetsFromDoclingJson({
+      texts: [{ text: 'Company overview', prov: [{ page_no: 2 }] }],
+      tables: [
+        {
+          prov: [{ page_no: 7 }],
+          data: {
+            table_cells: [{ text: 'Market-based Scope 2' }, { text: '55' }],
+          },
+        },
+      ],
+    })
+
+    expect(
+      pageNumberForMarkdownSnippet(
+        '## Emissions\n\nMarket-based Scope 2 was 55 tCO2e',
+        snippets
+      )
+    ).toBe(7)
   })
 })
 

@@ -1,7 +1,5 @@
 import { z } from 'zod'
 import { emissionUnitSchemaGarbo } from '@/api/schemas'
-import { sourceReferenceFields } from '@/lib/sourceReferenceSchema'
-
 const scope3CategorySchema = z.object({
   originalUnitInReport: z.string(),
   unitNeedsConversionToMatchStandardUnit: z.boolean(),
@@ -11,14 +9,12 @@ const scope3CategorySchema = z.object({
   subValuesForCategory: z.union([z.array(z.number()), z.null()]),
   total: z.union([z.number(), z.null()]),
   unit: emissionUnitSchemaGarbo,
-  ...sourceReferenceFields,
 })
 
 export const schema = z.object({
   scope3: z.array(
     z.object({
       year: z.number(),
-      ...sourceReferenceFields,
       scope3: z.union([
         z.object({
           categories: z.array(scope3CategorySchema),
@@ -27,7 +23,6 @@ export const schema = z.object({
               .object({
                 total: z.union([z.number(), z.null()]),
                 unit: emissionUnitSchemaGarbo,
-                ...sourceReferenceFields,
               })
               .nullable(),
             z.null(),

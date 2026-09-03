@@ -10,6 +10,7 @@ type Scope2Entry = Scope2Result['scope2'][number]
 type ScopeValueWithProvenance = {
   sourceReference?: string
   pageNumber?: number
+  [key: string]: unknown
 }
 
 export type ScopeEntry = {
@@ -168,9 +169,15 @@ function provenanceFromEntry(
 ): Pick<ScopeEntry, 'sourceReference' | 'pageNumber'> {
   if (!entry) return {}
 
-  const fromScope1 = provenanceFromScopeValue(entry.scope1 ?? undefined)
-  const fromScope2 = provenanceFromScopeValue(entry.scope2 ?? undefined)
-  const fromScope12 = provenanceFromScopeValue(entry.scope1And2 ?? undefined)
+  const fromScope1 = provenanceFromScopeValue(
+    entry.scope1 as ScopeValueWithProvenance | null | undefined
+  )
+  const fromScope2 = provenanceFromScopeValue(
+    entry.scope2 as ScopeValueWithProvenance | null | undefined
+  )
+  const fromScope12 = provenanceFromScopeValue(
+    entry.scope1And2 as ScopeValueWithProvenance | null | undefined
+  )
 
   return {
     sourceReference:
