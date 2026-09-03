@@ -45,6 +45,20 @@ export const MetadataSchema = z.object({
     .nullable()
     .openapi({ description: 'Comment about the data' }),
   source: z.string().nullable().openapi({ description: 'Source of the data' }),
+  sourceReference: z
+    .string()
+    .nullable()
+    .openapi({
+      description:
+        'Where in the original report this datapoint came from (internal)',
+    }),
+  sourcePageUrl: z
+    .string()
+    .nullable()
+    .openapi({
+      description:
+        'Internal stored PDF URL with #page=N deep link to the relevant page (internal)',
+    }),
   updatedAt: dateStringSchema.openapi({ description: 'Last update timestamp' }),
   user: z.object({
     name: z

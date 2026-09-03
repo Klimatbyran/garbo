@@ -4,12 +4,20 @@ import {
   emissionUnitSchemaGarbo,
   wikidataIdSchema,
 } from './common'
+import { sourceReferenceFields } from '../../lib/sourceReferenceSchema'
 
 const createMetadataSchema = z.object({
   metadata: z
     .object({
       source: z.string().optional(),
       comment: z.string().optional(),
+      sourceReference: z.string().optional(),
+      sourcePageUrl: z
+        .string()
+        .optional()
+        .describe(
+          'Internal stored PDF URL with #page=N deep link to the relevant page'
+        ),
     })
     .optional(),
   verified: z.boolean().optional(),
@@ -145,6 +153,7 @@ export const statedTotalEmissionsSchema = z
     total: z.number().nullable().optional(),
     unit: emissionUnitSchemaWithDefault,
     verified: z.boolean().optional(),
+    ...sourceReferenceFields,
   })
   .nullish()
 
@@ -155,6 +164,7 @@ export const emissionsSchema = z
         total: z.number().nullable().optional(),
         unit: emissionUnitSchemaWithDefault,
         verified: z.boolean().optional(),
+        ...sourceReferenceFields,
       })
       .nullable()
       .optional(),
@@ -174,6 +184,7 @@ export const emissionsSchema = z
           .optional(),
         unit: emissionUnitSchemaGarbo.optional(),
         verified: z.boolean().optional(),
+        ...sourceReferenceFields,
       })
       .refine(
         ({ mb, lb, unknown, verified }) =>
@@ -218,6 +229,7 @@ export const emissionsSchema = z
               total: z.number().nullable().optional(),
               unit: emissionUnitSchemaGarbo,
               verified: z.boolean().optional(),
+              ...sourceReferenceFields,
             })
           )
           .optional(),
@@ -230,6 +242,7 @@ export const emissionsSchema = z
         total: z.number().nullable().optional(),
         unit: emissionUnitSchemaGarbo,
         verified: z.boolean().optional(),
+        ...sourceReferenceFields,
       })
       .nullable()
       .optional(),
@@ -239,6 +252,7 @@ export const emissionsSchema = z
         total: z.number().nullable().optional(),
         unit: emissionUnitSchemaWithDefault,
         verified: z.boolean().optional(),
+        ...sourceReferenceFields,
       })
       .nullable()
       .optional(),
