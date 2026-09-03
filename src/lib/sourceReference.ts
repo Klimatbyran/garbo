@@ -1,8 +1,5 @@
 import type { Prisma } from '@prisma/client'
-
-const PAGE_MARKER_PATTERN = /<!-- PAGE: (\d+) -->/
-
-export const SOURCE_REFERENCE_PROMPT = `When the context includes \`<!-- PAGE: N -->\` markers, set both sourceReference and pageNumber on each chosen emission value you report. sourceReference should be a short locator (e.g. "p. 42", "p. 42, GHG table", "p. 42–43"). pageNumber must be the numeric page from the nearest \`<!-- PAGE: N -->\` marker above the quoted data (use the first page if the value spans a range). If no page marker is available, set sourceReference from the nearest table or section title and omit pageNumber.`
+import type { RetrievedParagraph } from './vectordb'
 
 const scopeValueKeys = ['scope1', 'scope2', 'scope1And2'] as const
 
@@ -92,26 +89,11 @@ export function archiveFieldsFromFollowUpReturnValue(
 }
 
 export function pageNumberFromSourceReference(
-  sourceReference?: string
+  sourceReference?: string | null
 ): number | undefined {
   const explicit = sourceReference?.match(/p\.?\s*(\d+)/i)?.[1]
   if (!explicit) return undefined
   const page = Number.parseInt(explicit, 10)
-  return Number.isFinite(page) && page >= 1 ? page : undefined
-}
-
-export function pageNumberFromMarkdownContext(
-  markdown: string,
-  sourceReference?: string
-): number | undefined {
-  const fromReference = pageNumberFromSourceReference(sourceReference)
-  if (fromReference !== undefined) return fromReference
-
-  const markers = [...markdown.matchAll(new RegExp(PAGE_MARKER_PATTERN, 'g'))]
-  if (markers.length === 0) return undefined
-  const last = markers[markers.length - 1]?.[1]
-  if (!last) return undefined
-  const page = Number.parseInt(last, 10)
   return Number.isFinite(page) && page >= 1 ? page : undefined
 }
 
@@ -154,7 +136,178 @@ export function resolveSourcePageUrl(args: {
     args.pageNumber >= 1
       ? Math.floor(args.pageNumber)
       : undefined) ??
-    pageNumberFromSourceReference(args.sourceReference ?? undefined)
+    pageNumberFromSourceReference(args.sourceReference)
 
   return buildSourcePageUrl(args.storagePdfUrl, pageNumber)
+}
+
+function normalizeSearchText(text: string): string {
+  return text.toLowerCase().replace(/\s+/g, ' ').trim()
+}
+
+function numberNeedles(value: number): string[] {
+  const asDot = String(value)
+  const asComma = asDot.replace('.', ',')
+  return Array.from(new Set([asDot, asComma]))
+}
+
+function pageNumberForNeedles(
+  needles: string[],
+  paragraphs: RetrievedParagraph[]
+): number | undefined {
+  const usable = needles
+    .map((needle) => normalizeSearchText(needle))
+    .filter((needle) => needle.length >= 2)
+
+  for (const paragraph of paragraphs) {
+    if (paragraph.pageNumber === undefined) continue
+    const haystack = normalizeSearchText(paragraph.text)
+    if (usable.some((needle) => haystack.includes(needle))) {
+      return paragraph.pageNumber
+    }
+  }
+  return undefined
+}
+
+function withProvenance<T extends Record<string, unknown>>(
+  value: T,
+  pageNumber: number | undefined
+): T {
+  if (pageNumber === undefined) return value
+  if (typeof value.pageNumber === 'number' || typeof value.sourceReference === 'string') {
+    return value
+  }
+  return {
+    ...value,
+    pageNumber,
+    sourceReference: `p. ${pageNumber}`,
+  }
+}
+
+function collectEntryNeedles(entry: Record<string, unknown>): string[] {
+  const needles: string[] = []
+
+  for (const key of scopeValueKeys) {
+    const scopeValue = entry[key]
+    if (!scopeValue || typeof scopeValue !== 'object') continue
+    const record = scopeValue as Record<string, unknown>
+    for (const field of ['total', 'mb', 'lb', 'unknown'] as const) {
+      if (typeof record[field] === 'number') {
+        needles.push(...numberNeedles(record[field]))
+      }
+    }
+  }
+
+  const candidates = entry.listOfAllPossibleScope1Numbers
+  if (Array.isArray(candidates)) {
+    for (const candidate of candidates) {
+      if (!candidate || typeof candidate !== 'object') continue
+      const sourceText = (candidate as { sourceText?: unknown }).sourceText
+      if (typeof sourceText === 'string' && sourceText.trim()) {
+        needles.push(sourceText.trim())
+      }
+    }
+  }
+
+  return needles
+}
+
+function enrichYearEntry(
+  entry: unknown,
+  paragraphs: RetrievedParagraph[]
+): unknown {
+  if (!entry || typeof entry !== 'object') return entry
+  const record = { ...(entry as Record<string, unknown>) }
+  const pageNumber = pageNumberForNeedles(
+    collectEntryNeedles(record),
+    paragraphs
+  )
+
+  for (const key of scopeValueKeys) {
+    const scopeValue = record[key]
+    if (!scopeValue || typeof scopeValue !== 'object') continue
+    record[key] = withProvenance(
+      { ...(scopeValue as Record<string, unknown>) },
+      pageNumber
+    )
+  }
+
+  return record
+}
+
+function enrichScope3Entry(
+  entry: unknown,
+  paragraphs: RetrievedParagraph[]
+): unknown {
+  if (!entry || typeof entry !== 'object') return entry
+  const record = { ...(entry as Record<string, unknown>) }
+  const scope3 = record.scope3
+  if (!scope3 || typeof scope3 !== 'object') return record
+
+  const scope3Record = { ...(scope3 as Record<string, unknown>) }
+  const categories = Array.isArray(scope3Record.categories)
+    ? scope3Record.categories.map((category) => {
+        if (!category || typeof category !== 'object') return category
+        const categoryRecord = { ...(category as Record<string, unknown>) }
+        const needles =
+          typeof categoryRecord.total === 'number'
+            ? numberNeedles(categoryRecord.total)
+            : []
+        return withProvenance(
+          categoryRecord,
+          pageNumberForNeedles(needles, paragraphs)
+        )
+      })
+    : scope3Record.categories
+
+  const stated = scope3Record.statedTotalEmissions
+  const statedEnriched =
+    stated && typeof stated === 'object'
+      ? withProvenance(
+          { ...(stated as Record<string, unknown>) },
+          pageNumberForNeedles(
+            typeof (stated as { total?: unknown }).total === 'number'
+              ? numberNeedles((stated as { total: number }).total)
+              : [],
+            paragraphs
+          )
+        )
+      : stated
+
+  record.scope3 = {
+    ...scope3Record,
+    categories,
+    statedTotalEmissions: statedEnriched,
+  }
+  return record
+}
+
+/**
+ * Attach page provenance from Chroma-retrieved paragraph metadata.
+ * Does not ask the LLM for page numbers — matches extracted values/snippets
+ * against retrieved paragraphs that already carry `pageNumber`.
+ */
+export function attachPageProvenanceToExtraction(
+  value: unknown,
+  paragraphs: RetrievedParagraph[]
+): unknown {
+  if (!value || typeof value !== 'object' || paragraphs.length === 0) {
+    return value
+  }
+
+  const record = { ...(value as Record<string, unknown>) }
+
+  for (const key of ['scope1', 'scope2', 'scope12'] as const) {
+    const entries = record[key]
+    if (!Array.isArray(entries)) continue
+    record[key] = entries.map((entry) => enrichYearEntry(entry, paragraphs))
+  }
+
+  if (Array.isArray(record.scope3)) {
+    record.scope3 = record.scope3.map((entry) =>
+      enrichScope3Entry(entry, paragraphs)
+    )
+  }
+
+  return record
 }
