@@ -94,7 +94,7 @@
     "sectorName": "Materials",
     "groupName": "Materials",
     "industryName": "Containers & Packaging",
-    "subIndustryName": "Metal, Glass & Plastic Containers ",
+    "subIndustryName": "Metal, Glass & Plastic Containers",
     "subIndustryDescription": "Manufacturers of metal, glass or plastic containers. Includes corks and caps."
   },
   "15103020": {
@@ -290,7 +290,7 @@
     "sectorName": "Industrials",
     "groupName": "Commercial  & Professional Services",
     "industryName": "Professional Services",
-    "subIndustryName": "Data Processing & Outsourced Services ",
+    "subIndustryName": "Data Processing & Outsourced Services",
     "subIndustryDescription": "Providers of commercial data processing and/or business process outsourcing services. This Sub-Industry includes companies providing services for customer experience management, back-office automation, call center management, and investor communications."
   },
   "20301010": {
@@ -325,7 +325,7 @@
     "sectorName": "Industrials",
     "groupName": "Transportation",
     "industryName": "Ground Transportation",
-    "subIndustryName": "Cargo Ground Transportation ",
+    "subIndustryName": "Cargo Ground Transportation",
     "subIndustryDescription": "Companies providing ground transportation services for goods and freight."
   },
   "20304040": {
@@ -360,7 +360,7 @@
     "sectorName": "Consumer Discretionary",
     "groupName": "Automobiles & Components",
     "industryName": "Automobile Components",
-    "subIndustryName": "Automotive Parts & Equipment ",
+    "subIndustryName": "Automotive Parts & Equipment",
     "subIndustryDescription": "Manufacturers of parts and accessories for  automobiles and motorcycles. Excludes companies classified in the Tires & Rubber Sub-Industry."
   },
   "25101020": {
@@ -570,7 +570,7 @@
     "sectorName": "Consumer Staples",
     "groupName": "Consumer Staples Distribution & Retail",
     "industryName": "Consumer Staples Distribution & Retail",
-    "subIndustryName": "Consumer Staples Merchandise Retail ",
+    "subIndustryName": "Consumer Staples Merchandise Retail",
     "subIndustryDescription": "Retailers offering a wide range of consumer staples merchandise such as food, household, and personal care products. This Sub-Industry includes hypermarkets, super centers and other consumer staples retailers such as discount retail spaces and on-line marketplaces selling mostly consumer staples goods."
   },
   "30201010": {
@@ -626,7 +626,7 @@
     "sectorName": "Consumer Staples",
     "groupName": "Personal Care Products",
     "industryName": "Personal Care Products",
-    "subIndustryName": "Personal Care Products ",
+    "subIndustryName": "Personal Care Products",
     "subIndustryDescription": "Manufacturers of personal and beauty care products, including cosmetics and perfumes."
   },
   "35101010": {
@@ -738,14 +738,14 @@
     "sectorName": "Financials",
     "groupName": "Financial Services",
     "industryName": "Financial Services",
-    "subIndustryName": "Commercial & Residential Mortgage Finance ",
+    "subIndustryName": "Commercial & Residential Mortgage Finance",
     "subIndustryDescription": "Financial companies providing commercial and residential mortgage financing and related mortgage services. This Sub-Industry includes non-deposit funded mortgage lending institutions, building societies, companies providing real estate financing products, loan servicing, mortgage broker services, and mortgage insurance. "
   },
   "40201060": {
     "sectorName": "Financials",
     "groupName": "Financial Services",
     "industryName": "Financial Services",
-    "subIndustryName": "Transaction & Payment Processing Services ",
+    "subIndustryName": "Transaction & Payment Processing Services",
     "subIndustryDescription": "Providers of transaction & payment processing services and related payment services including digital/mobile payment processors, payment service providers & gateways, and digital wallet providers."
   },
   "40202010": {
@@ -871,7 +871,7 @@
     "sectorName": "Information Technology",
     "groupName": "Technology Hardware & Equipment",
     "industryName": "Electronic Equipment, Instruments & Components",
-    "subIndustryName": "Electronic Equipment & Instruments ",
+    "subIndustryName": "Electronic Equipment & Instruments",
     "subIndustryDescription": "Manufacturers of electronic equipment and instruments including analytical, electronic test and measurement instruments, scanner/barcode products, lasers, display screens, point-of-sales machines, and security system equipment."
   },
   "45203015": {
@@ -1018,7 +1018,7 @@
     "sectorName": "Utilities",
     "groupName": "Utilities",
     "industryName": "Independent Power and Renewable Electricity Producers",
-    "subIndustryName": "Renewable Electricity ",
+    "subIndustryName": "Renewable Electricity",
     "subIndustryDescription": "Companies that engage in the generation and distribution of electricity using renewable sources, including, but not limited to, companies that produce electricity using biomass, geothermal energy, solar energy, hydropower, and wind power. Excludes companies manufacturing capital equipment used to generate electricity using renewable sources, such as manufacturers of solar power systems, installers of photovoltaic cells,  and companies involved in the provision of technology, components, and services mainly to this market. "
   },
   "60101010": {
@@ -1067,7 +1067,7 @@
     "sectorName": "Real Estate",
     "groupName": "Equity Real Estate Investment Trusts (REITs)",
     "industryName": "Residential REITs",
-    "subIndustryName": "Single-Family Residential REITs ",
+    "subIndustryName": "Single-Family Residential REITs",
     "subIndustryDescription": "Companies or Trusts engaged in the acquisition, development, ownership, leasing, management and operation of single-family residential housing including manufactured homes."
   },
   "60107010": {
