@@ -155,6 +155,13 @@ interface DoclingServeRequest {
     kind: string
     url: string
   }>
+  // Voluntary opt-in, forwarded from the caller's job data — our custom
+  // garbo-docling-server reads these; the real do_ocr/images_scale fields
+  // above are for the upstream docling-serve/Berget schema shape and are
+  // ignored by our server. Omitted entirely (not just false) unless the
+  // caller explicitly asked for it, so no image cost is incurred by default.
+  readImages?: boolean
+  languages?: string[]
 }
 
 class DoclingParsePDFJob extends PipelineJob {
@@ -176,11 +183,19 @@ class DoclingParsePDFJob extends PipelineJob {
     // since that's a generic mechanism any future consumer could use for
     // documents that aren't climate plans. See persistMarkdown.
     reportTypeSlug?: string
+    // Voluntary opt-in: OCR pictures and describe genuine diagrams with a
+    // vision model instead of leaving them as bare placeholders. Costs
+    // extra time/money per picture — false/omitted by default, for any
+    // caller, not just the climate plans pipeline. See createRequestPayload.
+    readImages?: boolean
+    languages?: string[]
   }
 }
 
 function createRequestPayload(
-  url: string
+  url: string,
+  readImages?: boolean,
+  languages?: string[]
 ): BergetDoclingRequest | DoclingServeRequest {
   // Use local format controls the payload structure
   // This is independent of which API endpoint we hit
@@ -207,6 +222,11 @@ function createRequestPayload(
         do_picture_classification: false,
         do_picture_description: false,
       },
+      // Only sent when the caller explicitly opts in — omitted (not just
+      // false) otherwise, so our custom server's own default (no image
+      // processing) is what actually governs when nothing is specified here.
+      ...(readImages !== undefined ? { readImages } : {}),
+      ...(languages?.length ? { languages } : {}),
       sources: [
         {
           kind: 'http',
@@ -434,7 +454,11 @@ const doclingParsePDF = new PipelineWorker(
         await sleep(staggerDelay)
       }
 
-      const requestPayload = createRequestPayload(url)
+      const requestPayload = createRequestPayload(
+        url,
+        job.data.readImages,
+        job.data.languages
+      )
       job.updateData({
         ...job.data,
         doclingSettings: requestPayload,
