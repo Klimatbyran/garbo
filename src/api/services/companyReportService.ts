@@ -244,6 +244,32 @@ class CompanyReportService {
     }
   }
 
+  /**
+   * During reporting-period saves, only overwrite CompanyReport.reportYear when the
+   * caller sent an explicit documentReportYear (pipeline / intentional catalog set).
+   * Inferred years (period endDate / URL) may backfill an empty shell, but must not
+   * clobber a catalog year that staff already set in the editor.
+   */
+  async maybeSetCompanyReportYearOnPeriodSave(
+    companyReportId: string,
+    documentReportYear: string | undefined,
+    options?: { explicitDocumentReportYear?: string | null }
+  ): Promise<void> {
+    const explicit = options?.explicitDocumentReportYear?.trim()
+    if (explicit && /^\d{4}$/.test(explicit)) {
+      await this.setCompanyReportYear(companyReportId, explicit)
+      return
+    }
+
+    const existing = await prisma.companyReport.findUnique({
+      where: { id: companyReportId },
+      select: { reportYear: true },
+    })
+    if (existing?.reportYear?.trim()) return
+
+    await this.setCompanyReportYear(companyReportId, documentReportYear)
+  }
+
   async getOrCreateFallbackCompanyReportId(companyId: string): Promise<string> {
     return this.findOrCreateCompanyReport(companyId, null)
   }
@@ -261,6 +287,14 @@ class CompanyReportService {
     if (explicitId) {
       await this.assertCompanyReportBelongsToCompany(explicitId, company.id)
       return { companyReportId: explicitId, inferred: false }
+    }
+
+    const periodShellId = reportingPeriods
+      .map((period) => period.companyReportId?.trim())
+      .find((id): id is string => Boolean(id))
+    if (periodShellId) {
+      await this.assertCompanyReportBelongsToCompany(periodShellId, company.id)
+      return { companyReportId: periodShellId, inferred: false }
     }
 
     const pipelineRegistryId = options?.registryReportId?.trim()
@@ -340,7 +374,11 @@ class CompanyReportService {
       sourceUrl: input.reportSourceUrl,
     })
 
-    await this.setCompanyReportYear(companyReportId, documentReportYear)
+    await this.maybeSetCompanyReportYearOnPeriodSave(
+      companyReportId,
+      documentReportYear,
+      { explicitDocumentReportYear: input.documentReportYear }
+    )
 
     return { companyReportId, documentReportYear }
   }
@@ -366,7 +404,11 @@ class CompanyReportService {
         reportUrl: input.reportUrl,
         sourceUrl: input.reportSourceUrl,
       })
-      await this.setCompanyReportYear(companyReportId, documentReportYear)
+      await this.maybeSetCompanyReportYearOnPeriodSave(
+        companyReportId,
+        documentReportYear,
+        { explicitDocumentReportYear: input.documentReportYear }
+      )
       return {
         registryReportId: existing.registryReportId,
         companyReportId,
@@ -412,7 +454,11 @@ class CompanyReportService {
         reportUrl: input.reportUrl,
         sourceUrl: input.reportSourceUrl,
       })
-      await this.setCompanyReportYear(alreadyLinked.id, documentReportYear)
+      await this.maybeSetCompanyReportYearOnPeriodSave(
+        alreadyLinked.id,
+        documentReportYear,
+        { explicitDocumentReportYear: input.documentReportYear }
+      )
       return {
         registryReportId: report.id,
         companyReportId: alreadyLinked.id,
@@ -429,7 +475,11 @@ class CompanyReportService {
       reportUrl: input.reportUrl,
       sourceUrl: input.reportSourceUrl,
     })
-    await this.setCompanyReportYear(companyReportId, documentReportYear)
+    await this.maybeSetCompanyReportYearOnPeriodSave(
+      companyReportId,
+      documentReportYear,
+      { explicitDocumentReportYear: input.documentReportYear }
+    )
 
     return {
       registryReportId: report.id,
@@ -493,7 +543,8 @@ class CompanyReportService {
     companyId: string,
     defaultCompanyReportId: string,
     periodCompanyReportId: string | undefined,
-    documentReportYear: string | undefined
+    documentReportYear: string | undefined,
+    options?: { explicitDocumentReportYear?: string | null }
   ): Promise<string> {
     if (!periodCompanyReportId) {
       return defaultCompanyReportId
@@ -505,7 +556,11 @@ class CompanyReportService {
     )
 
     if (periodCompanyReportId !== defaultCompanyReportId) {
-      await this.setCompanyReportYear(periodCompanyReportId, documentReportYear)
+      await this.maybeSetCompanyReportYearOnPeriodSave(
+        periodCompanyReportId,
+        documentReportYear,
+        options
+      )
     }
 
     return periodCompanyReportId

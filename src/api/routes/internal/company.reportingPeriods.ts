@@ -283,19 +283,22 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
             economy = {},
             startDate,
             endDate,
+            year: periodYear,
             companyReportId: periodCompanyReportId,
             reportURL,
             reportS3Url,
             reportSha256,
           }) => {
-            const year = endDate.getFullYear().toString()
+            const year =
+              periodYear?.trim() || endDate.getFullYear().toString()
 
             const companyReportIdForPeriod =
               await companyReportService.companyReportIdForPeriodSave(
                 company.id,
                 resolvedCompanyReportId,
                 periodCompanyReportId,
-                documentReportYear
+                documentReportYear,
+                { explicitDocumentReportYear: bodyDocumentReportYear }
               )
 
             const createdMetadata = await metadataService.createMetadata({
