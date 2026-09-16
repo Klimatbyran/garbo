@@ -760,14 +760,27 @@ model ClientApiRequest {
   @@map("client_api_request")
 }
 
+/// Staff-defined groupings for coverage lists (e.g. country indexes, client lists).
+model CoverageListGroup {
+  id    String         @id @default(cuid())
+  slug  String         @unique
+  label String
+  lists CoverageList[]
+
+  @@map("coverage_list_groups")
+}
+
 /// Validate Coverage tab: named index lists (e.g. MSCI World Index).
 model CoverageList {
-  id        String             @id @default(cuid())
-  name      String             @unique
-  createdAt DateTime           @default(now()) @map("created_at")
-  updatedAt DateTime           @updatedAt @map("updated_at")
+  id        String              @id @default(cuid())
+  name      String              @unique
+  groupId   String?             @map("group_id")
+  group     CoverageListGroup?  @relation(fields: [groupId], references: [id], onDelete: SetNull)
+  createdAt DateTime            @default(now()) @map("created_at")
+  updatedAt DateTime            @updatedAt @map("updated_at")
   years     CoverageListYear[]
 
+  @@index([groupId])
   @@map("coverage_lists")
 }
 
