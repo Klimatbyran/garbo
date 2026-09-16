@@ -17,16 +17,11 @@ services:
     container_name: garbo_chroma
     ports:
       - '8000:8000'
-  # ingestor:
-  #   image: ghcr.io/nlmatics/nlm-ingestor
-  #   container_name: garbo_ingestor
-  #   ports:
-  #     - "5001:5001"
-  #docling: # Uncomment to for local Docling deployment
+  #docling: # Uncomment for local Docling deployment
   #   image: quay.io/docling-project/docling-serve
   #   container_name: garbo_docling
   #   ports:
-  #     - "5001:5001" # Mapped to a different host port to avoid conflict with NLM
+  #     - "5001:5001"
   #   environment:
   #     - DOCLING_SERVE_ENABLE_UI=true
   #     - DOCLING_SERVE_MAX_SYNC_WAIT=3600

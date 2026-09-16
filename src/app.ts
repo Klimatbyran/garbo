@@ -28,8 +28,6 @@ import { clientApiKeysAdminRoutes } from './api/routes/internal/clientApiKeys.ad
 import { reportsCreateRoutes } from './api/routes/internal/reports.create'
 import { companyBaseYearRoutes } from './api/routes/internal/company.baseYear'
 import { companyReportingQualityRoutes } from './api/routes/internal/company.reportingQuality'
-import { validationsReadRoutes } from './api/routes/external/validation.read'
-import { validationsUpdateRoutes } from './api/routes/internal/validation.update'
 import { emissionsAssessmentRoutes } from './api/routes/internal/emissionsAssessment'
 import { industryGicsRoute } from './api/routes/external/industryGics.read'
 import { tagOptionsRoutes } from './api/routes/tagOptions'
@@ -142,8 +140,6 @@ async function authenticatedContext(app: FastifyInstance) {
   app.register(companyInitiativesRoutes, { prefix: 'api/companies' })
 
   app.register(companyDeleteRoutes, { prefix: 'api/companies' })
-  app.register(validationsReadRoutes, { prefix: 'api/validation' })
-  app.register(validationsUpdateRoutes, { prefix: 'api/validation' })
 
   app.register(emissionsAssessmentRoutes, {
     prefix: 'api/emissions-assessment',

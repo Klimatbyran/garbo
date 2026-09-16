@@ -30,9 +30,6 @@ const openAPITagDefinitions = {
   Companies: {
     description: 'Companies and related resources',
   },
-  CompanyDescription: {
-    description: 'Description of a company',
-  },
   Industry: {
     description: 'Company industry',
   },
@@ -52,20 +49,11 @@ const openAPITagDefinitions = {
   BaseYear: {
     description: 'First year of comparable data',
   },
-  ReportValidations: {
-    description: 'Report validations',
-  },
   TagOptions: {
     description: 'Valid tag options for company tags',
   },
   ReportTypes: {
     description: 'Valid report types for registry reports',
-  },
-  Newsletters: {
-    description: 'Newsletters',
-  },
-  Screenshots: {
-    description: 'Screenshots of PDF tables from reports',
   },
   Reports: {
     description: 'Company reports',

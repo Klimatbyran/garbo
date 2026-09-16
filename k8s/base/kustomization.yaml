@@ -6,4 +6,3 @@ resources:
   - service.yaml
   - ingress.yaml
   - worker.yaml
-  - nlm-ingestor.yaml

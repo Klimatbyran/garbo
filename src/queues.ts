@@ -45,7 +45,6 @@ export const queues = {
   parsePdf: new PipelineQueue(QUEUE_NAMES.PARSE_PDF),
   doclingParsePDF: new PipelineQueue(QUEUE_NAMES.DOCLING_PARSE_PDF),
   indexMarkdown: new PipelineQueue(QUEUE_NAMES.INDEX_MARKDOWN),
-  // nlmExtractTables: new PipelineQueue(QUEUE_NAMES.NLM_EXTRACT_TABLES),
   precheck: new PipelineQueue(QUEUE_NAMES.PRECHECK),
   checkDB: new PipelineQueue(QUEUE_NAMES.CHECK_DB),
   diffBaseYear: new PipelineQueue(QUEUE_NAMES.DIFF_BASE_YEAR),

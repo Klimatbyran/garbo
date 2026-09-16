@@ -52,8 +52,6 @@ export type serviceAuthenticationBody = z.infer<
   typeof schemas.serviceAuthenticationBodySchema
 >
 
-export type ValidationClaims = z.infer<typeof schemas.ValidationClaimsSchema>
-export type ClaimValidation = z.infer<typeof schemas.claimValidationSchema>
 export type Description = z.infer<typeof schemas.descriptionSchema>
 
 export type PostReportsBodySchema = z.infer<

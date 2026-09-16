@@ -359,17 +359,9 @@ export const userAuthenticationBodySchema = z.object({
   state: z.string().optional(),
 })
 
-export const postWikidataBodySchema = z.object({
-  wikidataId: wikidataIdSchema,
-})
-
 export const serviceAuthenticationBodySchema = z.object({
   client_id: z.string(),
   client_secret: z.string(),
-})
-
-export const claimValidationSchema = z.object({
-  steal: z.boolean(),
 })
 
 export const companyReport = z.object({
@@ -406,10 +398,6 @@ export const saveReportsBodySchema = z.array(
       .optional(),
   })
 )
-
-export const previewQuerySchema = z.object({
-  pdfUrl: z.string().url(),
-})
 
 export const registryUpdateRequestBodySchema = z
   .object({

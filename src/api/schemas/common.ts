@@ -50,13 +50,6 @@ export const companySearchQuerySchema = z.object({ q: z.string() })
 
 export const garboEntityIdSchema = z.object({ id: z.string() })
 
-/**
- * This allows reporting periods like 2022-2023
- */
-export const yearSchema = z.string().regex(/\d{4}(?:-\d{4})?/)
-
-export const yearParamSchema = z.object({ year: yearSchema })
-
 export const errorSchema = z.object({
   code: z.string().openapi('Error code'),
   message: z.string().optional().openapi('Error message'),
