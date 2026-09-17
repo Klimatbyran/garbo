@@ -24,6 +24,7 @@ const REPORT_TYPES = [
     label: 'Corporate responsibility report',
   },
   { slug: 'modern-slavery-statement', label: 'Modern slavery statement' },
+  { slug: 'green-bond-report', label: 'Green bond report' },
   { slug: 'other', label: 'Other' },
   { slug: 'municipal-climate-plan', label: 'Municipal climate plan' },
 ] as const
