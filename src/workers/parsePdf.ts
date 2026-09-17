@@ -5,9 +5,29 @@ import precheck from './precheck'
 import { vectorDB } from '../lib/vectordb'
 import { QUEUE_NAMES } from '../queues'
 import { withPipelineJobOpts } from '../lib/pipelineJobOptions'
+import { registryService } from '../api/services/registryService'
 
 const flow = new FlowProducer({ connection: redis })
 flow.on('error', (err) => console.error('FlowProducer connection error:', err))
+
+async function findStoredReportMarkdown(jobData: {
+  url: string
+  sourceUrl?: string
+  pdfCache?: { publicUrl?: string }
+}): Promise<string | null> {
+  const candidateUrls = [
+    jobData.url,
+    jobData.sourceUrl,
+    jobData.pdfCache?.publicUrl,
+  ].filter((value): value is string => Boolean(value))
+
+  for (const candidateUrl of [...new Set(candidateUrls)]) {
+    const markdown = await registryService.getMarkdownByUrl(candidateUrl)
+    if (markdown?.trim()) return markdown
+  }
+
+  return null
+}
 
 const parsePdf = new PipelineWorker(
   QUEUE_NAMES.PARSE_PDF,
@@ -15,6 +35,8 @@ const parsePdf = new PipelineWorker(
     const { url, forceReindex, callbackUrl } = job.data as {
       url: string
       forceReindex?: boolean
+      sourceUrl?: string
+      pdfCache?: { publicUrl?: string }
       // When set, run Docling only — no indexMarkdown/Chroma, no precheck.
       // doclingParsePDF POSTs {url, markdown} here once parsing completes,
       // for callers (e.g. a separate document pipeline) that want the raw
@@ -79,6 +101,42 @@ const parsePdf = new PipelineWorker(
       }
 
       if (!exists || forceReindex) {
+        // Chroma miss (or force): prefer re-embedding Report.markdown over a
+        // full Docling pass. forceReindex still means "re-parse the PDF".
+        if (!forceReindex) {
+          const storedMarkdown = await findStoredReportMarkdown(job.data)
+          if (storedMarkdown) {
+            job.log(
+              `markdown cache hit (postgres): re-indexing ${storedMarkdown.length} chars into Chroma`
+            )
+            job.editMessage(
+              `✅ PDF markdown found in registry. Re-indexing into Chroma...`
+            )
+
+            const reindexFlow = await flow.add({
+              ...base,
+              name: 'precheck ' + name,
+              queueName: QUEUE_NAMES.PRECHECK,
+              children: [
+                {
+                  name: 'indexMarkdown ' + name,
+                  queueName: QUEUE_NAMES.INDEX_MARKDOWN,
+                  data: {
+                    ...job.data,
+                    markdown: storedMarkdown,
+                  },
+                  opts: withPipelineJobOpts({
+                    attempts: 3,
+                  }),
+                },
+              ],
+            })
+            job.log('reindex-from-markdown flow started: ' + reindexFlow.job?.id)
+            return true
+          }
+          job.log('markdown cache miss (postgres); running Docling')
+        }
+
         job.editMessage(`✅ PDF queued. Parsing via Docling and indexing...`)
 
         const precheckFlow = await flow.add({
