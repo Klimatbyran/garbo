@@ -29,9 +29,13 @@ import { askPrompt } from './openai'
 
 export { canonicalPublicReportUrl } from './canonicalPublicReportUrl'
 
-export const defaultMetadata = (url: string) => ({
+export const defaultMetadata = (
+  url: string,
+  sourceReference?: string
+) => ({
   source: url,
   comment: 'Parsed by Garbo AI',
+  ...(sourceReference ? { sourceReference } : {}),
 })
 
 /**

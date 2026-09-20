@@ -86,6 +86,7 @@ Set scope1and2 to null if there are already separate values for scope 2!
 
 Use a specific value ONLY ONCE! A value only belongs to one category, it cannot be used as final value in multiple categories!
 
+
 *** Example***
 //   This is only an example format; do not include this specific data in the output and do not use markdown in the output:
 

@@ -21,12 +21,14 @@ import {
 import { metadataService } from '../../services/metadataService'
 import _ from 'lodash'
 import { prisma } from '../../../lib/prisma'
+import { resolveSourcePageUrl } from '../../../lib/sourceReference'
 import type {
   BiogenicEmissions,
   Metadata,
   Scope1,
   Scope1And2,
   StatedTotalEmissions,
+  User,
 } from '@prisma/client'
 import type { OptionalNullable } from '../../../lib/type-utils'
 
@@ -59,6 +61,56 @@ type StatedTotalUpsertInput = Omit<
 type BiogenicUpsertInput = OptionalNullable<
   Omit<BiogenicEmissions, 'id' | 'metadataId' | 'emissionsId'>
 >
+
+type ProvenancePayload = {
+  sourceReference?: string
+  pageNumber?: number
+  sourcePageUrl?: string
+  verified?: boolean
+}
+
+async function createDatapointMetadata({
+  baseMetadata,
+  provenance,
+  user,
+  verified,
+  reportS3Url,
+}: {
+  baseMetadata?: Partial<Metadata>
+  provenance?: ProvenancePayload
+  user: User
+  verified: boolean
+  reportS3Url?: string | null
+}) {
+  const sourcePageUrl = resolveSourcePageUrl({
+    storagePdfUrl: reportS3Url,
+    pageNumber: provenance?.pageNumber,
+    sourceReference: provenance?.sourceReference,
+    sourcePageUrl: provenance?.sourcePageUrl,
+  })
+
+  return metadataService.createMetadata({
+    metadata: {
+      ...baseMetadata,
+      ...(provenance?.sourceReference
+        ? { sourceReference: provenance.sourceReference }
+        : {}),
+      ...(sourcePageUrl ? { sourcePageUrl } : {}),
+    },
+    user,
+    verified,
+  })
+}
+
+function stripProvenanceFields<T extends ProvenancePayload>(payload: T) {
+  return _.omit(
+    payload,
+    'verified',
+    'sourceReference',
+    'pageNumber',
+    'sourcePageUrl'
+  )
+}
 
 // Helper functions for emission deletion
 async function deleteScope3Emissions(emissions: EmissionsDeletionTarget) {
@@ -99,11 +151,12 @@ async function deleteStatedTotalEmissions(emissions: EmissionsDeletionTarget) {
   }
 }
 
-function buildScope1Promise(
+async function buildScope1Promise(
   scope1Payload: BodyEmissions['scope1'],
   dbEmissions: DefaultEmissions,
-  createdMetadata: Metadata,
-  verifiedMetadata: Metadata
+  baseMetadata: Partial<Metadata> | undefined,
+  user: User,
+  reportS3Url?: string | null
 ) {
   const existingScope1Id = dbEmissions.scope1?.id
 
@@ -112,26 +165,30 @@ function buildScope1Promise(
   }
 
   if (scope1Payload === undefined || scope1Payload === null) {
-    // No change requested for scope1
     return false
   }
 
-  const metadataForScope1 = scope1Payload.verified
-    ? verifiedMetadata
-    : createdMetadata
+  const metadataForScope1 = await createDatapointMetadata({
+    baseMetadata,
+    provenance: scope1Payload,
+    user,
+    verified: scope1Payload.verified ?? false,
+    reportS3Url,
+  })
 
   return emissionsService.upsertScope1(
     dbEmissions,
-    _.omit(scope1Payload, 'verified') as Scope1UpsertInput,
+    stripProvenanceFields(scope1Payload) as Scope1UpsertInput,
     metadataForScope1
   )
 }
 
-function buildScope2Promise(
+async function buildScope2Promise(
   scope2Payload: BodyEmissions['scope2'],
   dbEmissions: DefaultEmissions,
-  createdMetadata: Metadata,
-  verifiedMetadata: Metadata
+  baseMetadata: Partial<Metadata> | undefined,
+  user: User,
+  reportS3Url?: string | null
 ) {
   const existingScope2Id = dbEmissions.scope2?.id
 
@@ -140,17 +197,20 @@ function buildScope2Promise(
   }
 
   if (scope2Payload === undefined || scope2Payload === null) {
-    // No change requested for scope2
     return false
   }
 
-  const metadataForScope2 = scope2Payload.verified
-    ? verifiedMetadata
-    : createdMetadata
+  const metadataForScope2 = await createDatapointMetadata({
+    baseMetadata,
+    provenance: scope2Payload,
+    user,
+    verified: scope2Payload.verified ?? false,
+    reportS3Url,
+  })
 
   return emissionsService.upsertScope2(
     dbEmissions,
-    _.omit(scope2Payload, 'verified') as Scope2UpsertInput,
+    stripProvenanceFields(scope2Payload) as Scope2UpsertInput,
     metadataForScope2
   )
 }
@@ -349,18 +409,22 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
               turnover.currency = turnover.currency.trim().toUpperCase()
             }
 
+            const storagePdfUrl = reportS3Url ?? request.body.reportS3Url
+
             await Promise.allSettled([
               buildScope1Promise(
                 scope1,
                 dbEmissions,
-                createdMetadata,
-                verifiedMetadata
+                metadata,
+                user,
+                storagePdfUrl
               ),
               buildScope2Promise(
                 scope2,
                 dbEmissions,
-                createdMetadata,
-                verifiedMetadata
+                metadata,
+                user,
+                storagePdfUrl
               ),
               scope3 !== undefined &&
                 emissionsService.upsertScope3(
@@ -380,36 +444,62 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
                             }
                           : undefined,
                       },
-                  (verified: boolean) =>
-                    metadataService.createMetadata({
-                      metadata,
+                  (opts) =>
+                    createDatapointMetadata({
+                      baseMetadata: metadata,
+                      provenance: opts,
                       user,
-                      verified,
+                      verified: opts.verified,
+                      reportS3Url: storagePdfUrl,
                     })
                 ),
               statedTotalEmissions !== undefined &&
-                emissionsService.upsertStatedTotalEmissions(
-                  dbEmissions,
-                  statedTotalEmissions?.verified
-                    ? verifiedMetadata
-                    : createdMetadata,
-                  _.omit(
-                    statedTotalEmissions,
-                    'verified'
-                  ) as StatedTotalUpsertInput
-                ),
+                (async () => {
+                  const metadataForStatedTotal = await createDatapointMetadata({
+                    baseMetadata: metadata,
+                    provenance: statedTotalEmissions ?? undefined,
+                    user,
+                    verified: statedTotalEmissions?.verified ?? false,
+                    reportS3Url: storagePdfUrl,
+                  })
+                  return emissionsService.upsertStatedTotalEmissions(
+                    dbEmissions,
+                    metadataForStatedTotal,
+                    stripProvenanceFields(
+                      statedTotalEmissions!
+                    ) as StatedTotalUpsertInput
+                  )
+                })(),
               biogenic !== undefined &&
-                emissionsService.upsertBiogenic(
-                  dbEmissions,
-                  _.omit(biogenic, 'verified') as BiogenicUpsertInput,
-                  biogenic?.verified ? verifiedMetadata : createdMetadata
-                ),
+                (async () => {
+                  const metadataForBiogenic = await createDatapointMetadata({
+                    baseMetadata: metadata,
+                    provenance: biogenic ?? undefined,
+                    user,
+                    verified: biogenic?.verified ?? false,
+                    reportS3Url: storagePdfUrl,
+                  })
+                  return emissionsService.upsertBiogenic(
+                    dbEmissions,
+                    stripProvenanceFields(biogenic!) as BiogenicUpsertInput,
+                    metadataForBiogenic
+                  )
+                })(),
               scope1And2 !== undefined &&
-                emissionsService.upsertScope1And2(
-                  dbEmissions,
-                  _.omit(scope1And2, 'verified') as Scope1And2UpsertInput,
-                  scope1And2?.verified ? verifiedMetadata : createdMetadata
-                ),
+                (async () => {
+                  const metadataForScope1And2 = await createDatapointMetadata({
+                    baseMetadata: metadata,
+                    provenance: scope1And2 ?? undefined,
+                    user,
+                    verified: scope1And2?.verified ?? false,
+                    reportS3Url: storagePdfUrl,
+                  })
+                  return emissionsService.upsertScope1And2(
+                    dbEmissions,
+                    stripProvenanceFields(scope1And2!) as Scope1And2UpsertInput,
+                    metadataForScope1And2
+                  )
+                })(),
               turnover &&
                 companyService.upsertTurnover({
                   economy: dbEconomy,

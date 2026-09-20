@@ -16,6 +16,8 @@ class MetadataService {
       data: {
         comment: metadata?.comment,
         source: metadata?.source,
+        sourceReference: metadata?.sourceReference,
+        sourcePageUrl: metadata?.sourcePageUrl,
         user: {
           connect: {
             id: user.id,

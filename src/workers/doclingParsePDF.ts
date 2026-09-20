@@ -3,6 +3,8 @@ import { UnrecoverableError } from 'bullmq'
 import { QUEUE_NAMES } from '../queues'
 import docling from '../config/docling'
 import redis from '../config/redis'
+import { extractDoclingMarkdown } from '../lib/doclingPageLookup'
+import type { DoclingPageSnippet } from '../lib/doclingPageLookup'
 import { fireCallback, isAllowedCallbackUrl } from '../lib/webhook'
 import { prisma } from '../lib/prisma'
 import { buildReportMatchConditions } from '@/api/services/registryReportIdentity'
@@ -206,7 +208,7 @@ function createRequestPayload(
     const doclingServePayload: DoclingServeRequest = {
       options: {
         from_formats: ['pdf'],
-        to_formats: ['md'],
+        to_formats: ['md', 'json'],
         image_export_mode: 'placeholder',
         do_ocr: false,
         force_ocr: false,
@@ -605,7 +607,7 @@ async function pollTaskAndGetResult(
   taskId: string,
   useLocalFormat: boolean,
   useBackupAPI: boolean
-): Promise<{ markdown: string }> {
+): Promise<{ markdown: string; pageSnippets?: DoclingPageSnippet[] }> {
   const startTime = Date.now()
 
   job.editMessage(`Parsing PDF... (Task ID: ${taskId})`)
@@ -721,7 +723,10 @@ async function pollTaskAndGetResult(
     const resultData = await resultResponse.json()
     job.log(`Result data keys: ${Object.keys(resultData).join(', ')}`)
 
-    const markdown = resultData.document?.md_content
+    const { markdown, pageSnippets } = extractDoclingMarkdown(resultData)
+    job.log(
+      `Docling markdown kept as-is; page snippets from JSON: ${pageSnippets.length}`
+    )
 
     if (!markdown) {
       job.log(`Full result data: ${JSON.stringify(resultData, null, 2)}`)
@@ -766,7 +771,7 @@ async function pollTaskAndGetResult(
       }
     }
 
-    return { markdown }
+    return { markdown, pageSnippets }
   } else {
     // Berget AI polling logic
     const resultUrl = job.data.resultUrl
