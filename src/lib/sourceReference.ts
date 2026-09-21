@@ -68,6 +68,10 @@ export function extractSourceReferenceFromExtractionValue(
   return null
 }
 
+/**
+ * Persist follow-up audit fields without duplicating the large retrieved
+ * markdown already stored on ReportRunJob.markdown.
+ */
 export function archiveFieldsFromFollowUpReturnValue(
   returnValue: Record<string, unknown> | null
 ): {
@@ -81,17 +85,32 @@ export function archiveFieldsFromFollowUpReturnValue(
   const extractionValue =
     'value' in returnValue ? returnValue.value : returnValue
 
+  let extractionResult: Prisma.InputJsonValue = returnValue as Prisma.InputJsonValue
+  if (
+    returnValue.metadata &&
+    typeof returnValue.metadata === 'object' &&
+    !Array.isArray(returnValue.metadata)
+  ) {
+    const { context: _unusedContext, ...metadataWithoutContext } =
+      returnValue.metadata as Record<string, unknown>
+    extractionResult = {
+      ...returnValue,
+      metadata: metadataWithoutContext,
+    } as Prisma.InputJsonValue
+  }
+
   return {
     sourceReference:
       extractSourceReferenceFromExtractionValue(extractionValue),
-    extractionResult: returnValue as Prisma.InputJsonValue,
+    extractionResult,
   }
 }
 
+/** Require a page marker form like "p. 42" / "p 42", not "top 5" / "group 3". */
 export function pageNumberFromSourceReference(
   sourceReference?: string | null
 ): number | undefined {
-  const explicit = sourceReference?.match(/p\.?\s*(\d+)/i)?.[1]
+  const explicit = sourceReference?.match(/(?:^|[^\p{L}\p{N}])p\.?\s*(\d+)\b/iu)?.[1]
   if (!explicit) return undefined
   const page = Number.parseInt(explicit, 10)
   return Number.isFinite(page) && page >= 1 ? page : undefined
@@ -100,6 +119,7 @@ export function pageNumberFromSourceReference(
 /**
  * Build a deep link to the internally stored report PDF at a given page.
  * Uses the PDF open-parameter fragment `#page=N` (supported by browser PDF viewers).
+ * Docling `page_no` is the physical PDF page index.
  */
 export function buildSourcePageUrl(
   storagePdfUrl: string | null | undefined,
@@ -151,6 +171,35 @@ function numberNeedles(value: number): string[] {
   return Array.from(new Set([asDot, asComma]))
 }
 
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
+/** Prefer longer / more distinctive needles so "12.3" beats "12". */
+function needleScore(needle: string): number {
+  const hasSeparator = /[.,]/.test(needle)
+  return needle.length * 10 + (hasSeparator ? 50 : 0)
+}
+
+/**
+ * Match a needle as a standalone token (not a substring of a larger number).
+ * "55" matches "55 tCO2e" but not "2055" or "550".
+ */
+function haystackContainsStandaloneNeedle(
+  haystack: string,
+  needle: string
+): boolean {
+  if (!needle) return false
+  if (/^\d([.,]\d+)?$/.test(needle) || /^\d+$/.test(needle)) {
+    const pattern = new RegExp(
+      `(?<![\\d])${escapeRegExp(needle)}(?![\\d])`,
+      'i'
+    )
+    return pattern.test(haystack)
+  }
+  return haystack.includes(needle)
+}
+
 function pageNumberForNeedles(
   needles: string[],
   paragraphs: RetrievedParagraph[]
@@ -158,15 +207,27 @@ function pageNumberForNeedles(
   const usable = needles
     .map((needle) => normalizeSearchText(needle))
     .filter((needle) => needle.length >= 2)
+    .sort((a, b) => needleScore(b) - needleScore(a))
+
+  if (usable.length === 0) return undefined
+
+  let best: { pageNumber: number; score: number } | undefined
 
   for (const paragraph of paragraphs) {
     if (paragraph.pageNumber === undefined) continue
     const haystack = normalizeSearchText(paragraph.text)
-    if (usable.some((needle) => haystack.includes(needle))) {
-      return paragraph.pageNumber
+    for (const needle of usable) {
+      if (!haystackContainsStandaloneNeedle(haystack, needle)) continue
+      const score = needleScore(needle)
+      if (!best || score > best.score) {
+        best = { pageNumber: paragraph.pageNumber, score }
+      }
+      // Needles are sorted best-first; first hit in this paragraph is enough.
+      break
     }
   }
-  return undefined
+
+  return best?.pageNumber
 }
 
 function withProvenance<T extends Record<string, unknown>>(
@@ -174,7 +235,10 @@ function withProvenance<T extends Record<string, unknown>>(
   pageNumber: number | undefined
 ): T {
   if (pageNumber === undefined) return value
-  if (typeof value.pageNumber === 'number' || typeof value.sourceReference === 'string') {
+  if (
+    typeof value.pageNumber === 'number' ||
+    typeof value.sourceReference === 'string'
+  ) {
     return value
   }
   return {
@@ -184,31 +248,34 @@ function withProvenance<T extends Record<string, unknown>>(
   }
 }
 
-function collectEntryNeedles(entry: Record<string, unknown>): string[] {
+function quoteNeedlesFromList(
+  list: unknown,
+  quoteKeys: string[]
+): string[] {
+  if (!Array.isArray(list)) return []
   const needles: string[] = []
-
-  for (const key of scopeValueKeys) {
-    const scopeValue = entry[key]
-    if (!scopeValue || typeof scopeValue !== 'object') continue
-    const record = scopeValue as Record<string, unknown>
-    for (const field of ['total', 'mb', 'lb', 'unknown'] as const) {
-      if (typeof record[field] === 'number') {
-        needles.push(...numberNeedles(record[field]))
+  for (const candidate of list) {
+    if (!candidate || typeof candidate !== 'object') continue
+    const record = candidate as Record<string, unknown>
+    for (const key of quoteKeys) {
+      const quote = record[key]
+      if (typeof quote === 'string' && quote.trim()) {
+        needles.push(quote.trim())
       }
     }
   }
+  return needles
+}
 
-  const candidates = entry.listOfAllPossibleScope1Numbers
-  if (Array.isArray(candidates)) {
-    for (const candidate of candidates) {
-      if (!candidate || typeof candidate !== 'object') continue
-      const sourceText = (candidate as { sourceText?: unknown }).sourceText
-      if (typeof sourceText === 'string' && sourceText.trim()) {
-        needles.push(sourceText.trim())
-      }
+function numericNeedlesFromScopeValue(
+  scopeValue: Record<string, unknown>
+): string[] {
+  const needles: string[] = []
+  for (const field of ['total', 'mb', 'lb', 'unknown'] as const) {
+    if (typeof scopeValue[field] === 'number') {
+      needles.push(...numberNeedles(scopeValue[field]))
     }
   }
-
   return needles
 }
 
@@ -218,17 +285,32 @@ function enrichYearEntry(
 ): unknown {
   if (!entry || typeof entry !== 'object') return entry
   const record = { ...(entry as Record<string, unknown>) }
-  const pageNumber = pageNumberForNeedles(
-    collectEntryNeedles(record),
-    paragraphs
-  )
+
+  const sharedQuotes = [
+    ...quoteNeedlesFromList(record.listOfAllPossibleScope1Numbers, [
+      'sourceText',
+    ]),
+    ...quoteNeedlesFromList(
+      record.listOfAllScope2NumbersForThisYearAndTheirMethods,
+      [
+        'exactQuoteOfNumberInTheDocumentBeforeAnyConversion',
+        'sourceText',
+        'comment',
+      ]
+    ),
+  ]
 
   for (const key of scopeValueKeys) {
     const scopeValue = record[key]
     if (!scopeValue || typeof scopeValue !== 'object') continue
+    const scopeRecord = { ...(scopeValue as Record<string, unknown>) }
+    const needles = [
+      ...sharedQuotes,
+      ...numericNeedlesFromScopeValue(scopeRecord),
+    ]
     record[key] = withProvenance(
-      { ...(scopeValue as Record<string, unknown>) },
-      pageNumber
+      scopeRecord,
+      pageNumberForNeedles(needles, paragraphs)
     )
   }
 
@@ -249,10 +331,14 @@ function enrichScope3Entry(
     ? scope3Record.categories.map((category) => {
         if (!category || typeof category !== 'object') return category
         const categoryRecord = { ...(category as Record<string, unknown>) }
-        const needles =
-          typeof categoryRecord.total === 'number'
+        const needles = [
+          ...(typeof categoryRecord.total === 'number'
             ? numberNeedles(categoryRecord.total)
-            : []
+            : []),
+          ...(typeof categoryRecord.originalUnitInReport === 'string'
+            ? [categoryRecord.originalUnitInReport]
+            : []),
+        ]
         return withProvenance(
           categoryRecord,
           pageNumberForNeedles(needles, paragraphs)
@@ -286,6 +372,8 @@ function enrichScope3Entry(
  * Attach page provenance from Chroma-retrieved paragraph metadata.
  * Does not ask the LLM for page numbers — matches extracted values/snippets
  * against retrieved paragraphs that already carry `pageNumber`.
+ *
+ * Prefers missing provenance over a weak numeric substring match.
  */
 export function attachPageProvenanceToExtraction(
   value: unknown,

@@ -114,6 +114,8 @@ async function addReport(
   }[] = []
 
   let pagesResolved = 0
+  // pageSnippets is empty on Berget (md-only) parses and callbackUrl-only flows —
+  // chunks still index; they just won't carry pageNumber.
   mergedParagraphs.forEach((paragraph) => {
     const paragraphPage = pageNumberForMarkdownSnippet(paragraph, pageSnippets)
     for (let i = 0; i < paragraph.length; i += config.chunkSize - overlapSize) {

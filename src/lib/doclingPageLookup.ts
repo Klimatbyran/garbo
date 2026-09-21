@@ -1,5 +1,7 @@
 export type DoclingPageSnippet = {
   text: string
+  /** Precomputed once for matching — avoids re-normalizing every chunk. */
+  normalized: string
   pageNumber: number
 }
 
@@ -11,6 +13,12 @@ type DoclingTextLike = {
 type DoclingTableLike = {
   prov?: Array<{ page_no?: number }>
   data?: { table_cells?: Array<{ text?: string }> }
+}
+
+type PendingSnippet = {
+  text: string
+  pageNumber: number
+  kind: 'text' | 'table'
 }
 
 const MIN_SNIPPET_LENGTH = 12
@@ -26,7 +34,7 @@ function pageNumberFromProv(
     : undefined
 }
 
-function normalizeForMatch(text: string): string {
+export function normalizeForMatch(text: string): string {
   return text
     .toLowerCase()
     .replace(/\s+/g, ' ')
@@ -35,11 +43,12 @@ function normalizeForMatch(text: string): string {
     .trim()
 }
 
-function pushSnippet(
-  snippets: DoclingPageSnippet[],
+function pushPending(
+  pending: PendingSnippet[],
   seen: Set<string>,
   text: string | undefined,
-  pageNumber: number | undefined
+  pageNumber: number | undefined,
+  kind: 'text' | 'table'
 ) {
   if (typeof text !== 'string' || pageNumber === undefined) return
   const trimmed = text.replace(/\s+/g, ' ').trim()
@@ -52,13 +61,16 @@ function pushSnippet(
   const key = `${pageNumber}:${normalizeForMatch(clipped)}`
   if (seen.has(key)) return
   seen.add(key)
-  snippets.push({ text: clipped, pageNumber })
+  pending.push({ text: clipped, pageNumber, kind })
 }
 
 /**
  * Build a compact text→page index from Docling JSON.
  * Includes both `texts` and table cell strings (tables are not in `texts`).
  * Used only for page lookup — never to replace Docling markdown.
+ *
+ * Snippets are interleaved by page (texts + tables together) so the
+ * MAX_SNIPPETS cap does not starve later GHG table pages.
  */
 export function pageSnippetsFromDoclingJson(
   jsonContent: unknown
@@ -69,24 +81,39 @@ export function pageSnippetsFromDoclingJson(
     texts?: DoclingTextLike[]
     tables?: DoclingTableLike[]
   }
-  const snippets: DoclingPageSnippet[] = []
+  const pending: PendingSnippet[] = []
   const seen = new Set<string>()
 
   for (const item of document.texts ?? []) {
-    if (snippets.length >= MAX_SNIPPETS) break
-    pushSnippet(snippets, seen, item.text, pageNumberFromProv(item.prov))
+    pushPending(
+      pending,
+      seen,
+      item.text,
+      pageNumberFromProv(item.prov),
+      'text'
+    )
   }
 
   for (const table of document.tables ?? []) {
-    if (snippets.length >= MAX_SNIPPETS) break
     const pageNumber = pageNumberFromProv(table.prov)
     for (const cell of table.data?.table_cells ?? []) {
-      if (snippets.length >= MAX_SNIPPETS) break
-      pushSnippet(snippets, seen, cell.text, pageNumber)
+      pushPending(pending, seen, cell.text, pageNumber, 'table')
     }
   }
 
-  return snippets
+  // Prefer earlier pages first, but keep table cells interleaved with texts
+  // on the same page so emissions tables are not dropped by the cap.
+  pending.sort((a, b) => {
+    if (a.pageNumber !== b.pageNumber) return a.pageNumber - b.pageNumber
+    if (a.kind !== b.kind) return a.kind === 'table' ? -1 : 1
+    return 0
+  })
+
+  return pending.slice(0, MAX_SNIPPETS).map(({ text, pageNumber }) => ({
+    text,
+    pageNumber,
+    normalized: normalizeForMatch(text),
+  }))
 }
 
 /**
@@ -104,7 +131,7 @@ export function pageNumberForMarkdownSnippet(
   let best: { pageNumber: number; score: number } | undefined
 
   for (const snippet of pageSnippets) {
-    const needle = normalizeForMatch(snippet.text)
+    const needle = snippet.normalized || normalizeForMatch(snippet.text)
     if (needle.length < MIN_SNIPPET_LENGTH) continue
 
     let score = 0
@@ -129,9 +156,12 @@ export function pageNumberForMarkdownSnippet(
   return best?.pageNumber
 }
 
-export function extractDoclingMarkdown(resultData: {
-  document?: { md_content?: string | null; json_content?: unknown }
-}): {
+export function extractDoclingMarkdown(
+  resultData: {
+    document?: { md_content?: string | null; json_content?: unknown }
+  },
+  options: { includePageSnippets?: boolean } = {}
+): {
   markdown: string
   pageSnippets: DoclingPageSnippet[]
 } {
@@ -140,10 +170,12 @@ export function extractDoclingMarkdown(resultData: {
     throw new Error('No markdown content found in result')
   }
 
+  const includePageSnippets = options.includePageSnippets !== false
+
   return {
     markdown,
-    pageSnippets: pageSnippetsFromDoclingJson(
-      resultData.document?.json_content
-    ),
+    pageSnippets: includePageSnippets
+      ? pageSnippetsFromDoclingJson(resultData.document?.json_content)
+      : [],
   }
 }

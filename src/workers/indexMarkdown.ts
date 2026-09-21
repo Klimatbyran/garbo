@@ -22,8 +22,18 @@ function pageSnippetsFromUnknown(value: unknown): DoclingPageSnippet[] {
     if (!item || typeof item !== 'object') return []
     const text = (item as { text?: unknown }).text
     const pageNumber = (item as { pageNumber?: unknown }).pageNumber
+    const normalized = (item as { normalized?: unknown }).normalized
     if (typeof text !== 'string' || typeof pageNumber !== 'number') return []
-    return [{ text, pageNumber }]
+    return [
+      {
+        text,
+        pageNumber,
+        normalized:
+          typeof normalized === 'string' && normalized
+            ? normalized
+            : text.toLowerCase().replace(/\s+/g, ' ').trim(),
+      },
+    ]
   })
 }
 

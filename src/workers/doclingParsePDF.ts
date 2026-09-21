@@ -699,9 +699,16 @@ async function pollTaskAndGetResult(
     const resultData = await resultResponse.json()
     job.log(`Result data keys: ${Object.keys(resultData).join(', ')}`)
 
-    const { markdown, pageSnippets } = extractDoclingMarkdown(resultData)
+    // Climate-plans callback-only parses never index into Chroma — skip the
+    // page-snippet payload so BullMQ return values stay small.
+    const includePageSnippets = !job.data.callbackUrl
+    const { markdown, pageSnippets } = extractDoclingMarkdown(resultData, {
+      includePageSnippets,
+    })
     job.log(
-      `Docling markdown kept as-is; page snippets from JSON: ${pageSnippets.length}`
+      includePageSnippets
+        ? `Docling markdown kept as-is; page snippets from JSON: ${pageSnippets.length}`
+        : 'Docling markdown kept as-is; skipped page snippets (callbackUrl-only parse)'
     )
 
     if (!markdown) {
