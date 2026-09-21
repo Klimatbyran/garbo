@@ -294,7 +294,13 @@ class EmissionsService {
       await this.upsertStatedTotalEmissions(
         emissions,
         metadata,
-        _.omit(scope3.statedTotalEmissions, 'verified'),
+        _.omit(
+          scope3.statedTotalEmissions,
+          'verified',
+          'sourceReference',
+          'pageNumber',
+          'sourcePageUrl'
+        ),
         updatedScope3
       )
     }

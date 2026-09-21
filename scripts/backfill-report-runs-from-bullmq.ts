@@ -29,6 +29,7 @@ import redis from '../src/config/redis'
 import { prisma } from '../src/lib/prisma'
 import { resolveReportBatchDbId } from '../src/lib/resolveReportBatchDbId'
 import { archiveFieldsFromFollowUpReturnValue } from '../src/lib/sourceReference'
+import { QUEUE_NAMES } from '../src/queues'
 
 const ALL_QUEUE_NAMES = [...new Set(Object.values(QUEUE_NAMES))] as string[]
 
