@@ -728,6 +728,37 @@ async function pollTaskAndGetResult(
       throw new Error('No markdown content found in result')
     }
 
+    // Only present when readImages was on — the custom server's own
+    // per-picture OCR/VLM counts, so it's visible how much of a document
+    // actually got image content recovered without reading the markdown.
+    const imageRecovery = resultData.result?.image_recovery as
+      | {
+          pictures_total: number
+          pictures_dropped_small: number
+          pictures_dropped_duplicate: number
+          pictures_described: number
+          // Per-picture QA info (thumbnail + description/OCR text + page)
+          // for the ones that made it into the markdown — only present
+          // once the server ships it; older/incompatible servers just omit
+          // the field, so this stays optional rather than defaulted.
+          pictures?: {
+            index: number
+            page: number | null
+            description: string | null
+            ocr_text: string | null
+            thumbnail: string
+          }[]
+        }
+      | undefined
+    if (imageRecovery) {
+      job.log(
+        `Image recovery: ${imageRecovery.pictures_total} picture(s), ` +
+          `${imageRecovery.pictures_dropped_small} too small, ` +
+          `${imageRecovery.pictures_dropped_duplicate} duplicate, ` +
+          `${imageRecovery.pictures_described} described`
+      )
+    }
+
     const totalTime = Math.floor((Date.now() - startTime) / 1000)
     job.editMessage(`PDF parsed successfully in ${totalTime}s`)
     job.log(`Task completed in ${totalTime}s`)
@@ -756,7 +787,16 @@ async function pollTaskAndGetResult(
       try {
         await fireCallback(
           job.data.callbackUrl,
-          { url: canonicalUrl, markdown, threadId: job.data.threadId },
+          {
+            url: canonicalUrl,
+            markdown,
+            threadId: job.data.threadId,
+            // The municipality's own site routinely has no CORS headers,
+            // so a browser-side PDF viewer can't fetch canonicalUrl
+            // directly — this gives the receiver a same-infra copy to
+            // proxy through instead, when pipeline-api cached one.
+            pdfCacheUrl: job.data.pdfCache?.publicUrl,
+          },
           (msg) => job.log(msg)
         )
       } catch (err) {
@@ -766,7 +806,7 @@ async function pollTaskAndGetResult(
       }
     }
 
-    return { markdown }
+    return { markdown, ...(imageRecovery ? { imageRecovery } : {}) }
   } else {
     // Berget AI polling logic
     const resultUrl = job.data.resultUrl
@@ -823,7 +863,12 @@ async function pollTaskAndGetResult(
           try {
             await fireCallback(
               job.data.callbackUrl,
-              { url: canonicalUrl, markdown, threadId: job.data.threadId },
+              {
+                url: canonicalUrl,
+                markdown,
+                threadId: job.data.threadId,
+                pdfCacheUrl: job.data.pdfCache?.publicUrl,
+              },
               (msg) => job.log(msg)
             )
           } catch (err) {
