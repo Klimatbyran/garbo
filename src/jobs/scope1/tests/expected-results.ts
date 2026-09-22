@@ -5,7 +5,7 @@ export const expectedResults = {
   // Default result for most test files
 
   lundbergs_fastigheter: {
-    scope12: [
+    scope1: [
       {
         year: 2024,
         scope1: {
@@ -17,7 +17,7 @@ export const expectedResults = {
     ],
   },
   coor: {
-    scope12: [
+    scope1: [
       {
         year: 2024,
         scope1: {
@@ -29,7 +29,7 @@ export const expectedResults = {
     ],
   },
   bergmanbeving: {
-    scope12: [
+    scope1: [
       {
         year: 2024,
         scope1: null,
@@ -41,7 +41,7 @@ export const expectedResults = {
     ],
   },
   duni: {
-    scope12: [
+    scope1: [
       {
         year: 2024,
         scope1: {
@@ -53,7 +53,7 @@ export const expectedResults = {
     ],
   },
   nibe: {
-    scope12: [
+    scope1: [
       {
         year: 2024,
         scope1: {
@@ -65,7 +65,7 @@ export const expectedResults = {
     ],
   },
   powercell: {
-    scope12: [
+    scope1: [
       {
         year: 2024,
         scope1: {
@@ -77,7 +77,7 @@ export const expectedResults = {
     ],
   },
   hemnet: {
-    scope12: [
+    scope1: [
       {
         year: 2024,
         scope1: {
@@ -89,7 +89,7 @@ export const expectedResults = {
     ],
   },
   vitec: {
-    scope12: [
+    scope1: [
       {
         year: 2024,
         scope1: {
@@ -101,7 +101,7 @@ export const expectedResults = {
     ],
   },
   bico: {
-    scope12: [
+    scope1: [
       {
         year: 2024,
         scope1: {
@@ -113,7 +113,7 @@ export const expectedResults = {
     ],
   },
   nivika: {
-    scope12: [
+    scope1: [
       {
         year: 2024,
         scope1: {
@@ -126,7 +126,7 @@ export const expectedResults = {
   },
 
   eastnine: {
-    scope12: [
+    scope1: [
       {
         year: 2024,
         scope1: {
@@ -138,7 +138,7 @@ export const expectedResults = {
     ],
   },
   castellum: {
-    scope12: [
+    scope1: [
       {
         year: 2024,
         scope1: {
@@ -150,7 +150,7 @@ export const expectedResults = {
     ],
   },
   heba: {
-    scope12: [
+    scope1: [
       {
         year: 2024,
         scope1: {
@@ -162,7 +162,7 @@ export const expectedResults = {
     ],
   },
   aqgroup: {
-    scope12: [
+    scope1: [
       {
         absoluteMostRecentYearInReport: 2024,
         year: 2024,
@@ -175,7 +175,7 @@ export const expectedResults = {
     ],
   },
   systembolaget: {
-    scope12: [
+    scope1: [
       {
         year: 2024,
         scope1: {
@@ -187,7 +187,7 @@ export const expectedResults = {
     ],
   },
   swedavia: {
-    scope12: [
+    scope1: [
       {
         absoluteMostRecentYearInReport: 2024,
         year: 2024,
@@ -200,7 +200,7 @@ export const expectedResults = {
     ],
   },
   alfalaval: {
-    scope12: [
+    scope1: [
       {
         year: 2024,
         scope1: {
@@ -212,7 +212,7 @@ export const expectedResults = {
     ],
   },
   storaenso: {
-    scope12: [
+    scope1: [
       {
         year: 2024,
         scope1: {
@@ -224,7 +224,7 @@ export const expectedResults = {
     ],
   },
   thule: {
-    scope12: [
+    scope1: [
       {
         year: 2024,
         scope1: {
@@ -236,7 +236,7 @@ export const expectedResults = {
     ],
   },
   lantmannen: {
-    scope12: [
+    scope1: [
       {
         year: 2024,
         scope1: {
@@ -248,7 +248,7 @@ export const expectedResults = {
     ],
   },
   rusta: {
-    scope12: [
+    scope1: [
       {
         year: 2024,
         scope1: {
@@ -260,7 +260,7 @@ export const expectedResults = {
     ],
   },
   folksam: {
-    scope12: [
+    scope1: [
       {
         year: 2024,
         scope1: {
@@ -272,7 +272,7 @@ export const expectedResults = {
     ],
   },
   catena: {
-    scope12: [
+    scope1: [
       {
         year: 2024,
         scope1: null,
@@ -281,7 +281,7 @@ export const expectedResults = {
     ],
   },
   xvivo: {
-    scope12: [
+    scope1: [
       {
         year: 2024,
         scope1: {
@@ -293,7 +293,7 @@ export const expectedResults = {
     ],
   },
   'svensk-exportkredit': {
-    scope12: [
+    scope1: [
       {
         year: 2024,
         scope1: null,
@@ -302,7 +302,7 @@ export const expectedResults = {
     ],
   },
   epiroc: {
-    scope12: [
+    scope1: [
       {
         year: 2024,
         scope1: {
@@ -314,7 +314,7 @@ export const expectedResults = {
     ],
   },
   vattenfall: {
-    scope12: [
+    scope1: [
       {
         year: 2024,
         scope1: {
@@ -326,7 +326,7 @@ export const expectedResults = {
     ],
   },
   icagruppen: {
-    scope12: [
+    scope1: [
       {
         year: 2024,
         scope1: {
@@ -338,7 +338,7 @@ export const expectedResults = {
     ],
   },
   scandic: {
-    scope12: [
+    scope1: [
       {
         year: 2024,
         scope1: {
@@ -350,7 +350,7 @@ export const expectedResults = {
     ],
   },
   sas: {
-    scope12: [
+    scope1: [
       {
         absoluteMostRecentYearInReport: 2024,
         year: 2024,
@@ -363,7 +363,7 @@ export const expectedResults = {
     ],
   },
   nyfosa: {
-    scope12: [
+    scope1: [
       {
         year: 2024,
         scope1: {
@@ -375,7 +375,7 @@ export const expectedResults = {
     ],
   },
   emilshus: {
-    scope12: [
+    scope1: [
       {
         absoluteMostRecentYearInReport: 2024,
         year: 2024,
@@ -388,7 +388,7 @@ export const expectedResults = {
     ],
   },
   rise: {
-    scope12: [
+    scope1: [
       {
         year: 2024,
         scope1: {
@@ -400,7 +400,7 @@ export const expectedResults = {
     ],
   },
   garo: {
-    scope12: [
+    scope1: [
       {
         year: 2024,
         scope1: null,
@@ -412,7 +412,7 @@ export const expectedResults = {
     ],
   },
   byggmax: {
-    scope12: [
+    scope1: [
       {
         year: 2024,
         scope1: {

@@ -13,6 +13,7 @@ import {
 import openaiConfig from '../config/openai'
 import { Stream } from 'openai/streaming'
 import { RequestOptions } from 'openai/core'
+import { AskOptions } from '../jobs/promptTestingFramework/types'
 
 const openai = new OpenAI({
   apiKey: openaiConfig.apiKey,
@@ -56,22 +57,32 @@ const askStream = async (
   )[],
   options: RequestOptions & {
     onParagraph?: (response: string, paragraph: string) => void
-  } & { response_format?: ResponseFormatJSONSchema }
+  } & { response_format?: ResponseFormatJSONSchema },
+  askOptions?: AskOptions
 ) => {
   const { stream: _, ...safeOpenAIOptions } = options
 
+  const client =
+    askOptions?.baseURL || askOptions?.apiKey
+      ? new OpenAI({ baseURL: askOptions.baseURL, apiKey: askOptions.apiKey })
+      : openai
+
+  const model = askOptions?.model ?? 'gpt-4o-2024-08-06'
   const config = {
     messages: messages.filter((m) => m.content),
-    model: 'gpt-4o-2024-08-06',
-    temperature: 0.1,
+    model,
+    temperature: askOptions?.temperature ?? 0.1,
     stream: true,
-    max_tokens: 16384,
+    max_tokens: askOptions?.max_tokens ?? 16384,
     response_format: options.response_format,
     ...safeOpenAIOptions,
   } satisfies ChatCompletionCreateParamsStreaming
 
+  console.log(`[askStream] → ${model} @ ${askOptions?.baseURL ?? 'OpenAI'}`)
+  const t0 = Date.now()
+
   const stream: Stream<ChatCompletionChunk> =
-    await openai.chat.completions.create(config)
+    await client.chat.completions.create(config)
 
   let response = ''
   let paragraph = ''
@@ -87,6 +98,8 @@ const askStream = async (
   // send the rest if there is any
   if (options?.onParagraph && paragraph)
     options?.onParagraph(response, paragraph)
+
+  console.log(`[askStream] ← ${model} ${Date.now() - t0}ms, ${response.length} chars`)
 
   return response
 }
