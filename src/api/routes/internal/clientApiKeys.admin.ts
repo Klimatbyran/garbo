@@ -9,6 +9,10 @@ import { hashClientApiSecret } from '../../../lib/clientApiKeyCrypto'
 import { prisma } from '../../../lib/prisma'
 import { getErrorSchemas } from '../../schemas'
 import { clientApiRouteRules } from '../../security/routePermissions'
+import {
+  CLIENT_API_COMPANY_SCOPE_SWEDEN,
+  TRIAL_KEY_TTL_MS,
+} from '../../lib/clientApiCompanyScope'
 
 const permissionCodeSchema = z.object({
   code: z.string(),
@@ -28,6 +32,8 @@ const clientApiKeyListItemSchema = z.object({
   keyLookup: z.string(),
   revokedAt: z.string().nullable(),
   lastUsedAt: z.string().nullable(),
+  expiresAt: z.string().nullable(),
+  companyScope: z.string().nullable(),
   createdAt: z.string(),
   role: z.object({
     id: z.string(),
@@ -71,6 +77,11 @@ const createClientApiKeyBodySchema = z.object({
     .max(64)
     .regex(/^[a-zA-Z0-9_-]+$/)
     .optional(),
+  /**
+   * When true, key expires in 7 days, companyScope=sweden, and role must be
+   * `partner-trial`.
+   */
+  trial: z.boolean().optional(),
 })
 
 const createClientApiKeyResponseSchema = z.object({
@@ -78,9 +89,37 @@ const createClientApiKeyResponseSchema = z.object({
   name: z.string(),
   keyLookup: z.string(),
   roleId: z.string(),
+  expiresAt: z.string().nullable(),
+  companyScope: z.string().nullable(),
   /** Full `garb_<lookup>.<secret>` — returned only in this response; store it safely. */
   apiKey: z.string(),
 })
+
+const PARTNER_TRIAL_ROLE_SLUG = 'partner-trial'
+
+function mapKeyListItem(k: {
+  id: string
+  name: string
+  keyLookup: string
+  revokedAt: Date | null
+  lastUsedAt: Date | null
+  expiresAt: Date | null
+  companyScope: string | null
+  createdAt: Date
+  role: { id: string; slug: string; label: string | null }
+}) {
+  return {
+    id: k.id,
+    name: k.name,
+    keyLookup: k.keyLookup,
+    revokedAt: k.revokedAt?.toISOString() ?? null,
+    lastUsedAt: k.lastUsedAt?.toISOString() ?? null,
+    expiresAt: k.expiresAt?.toISOString() ?? null,
+    companyScope: k.companyScope,
+    createdAt: k.createdAt.toISOString(),
+    role: k.role,
+  }
+}
 
 function generateKeyLookup(): string {
   return `k${randomBytes(12).toString('hex')}`
@@ -168,15 +207,7 @@ export async function clientApiKeysAdminRoutes(app: FastifyInstance) {
         },
       })
       return reply.send(
-        keys.map((k) => ({
-          id: k.id,
-          name: k.name,
-          keyLookup: k.keyLookup,
-          revokedAt: k.revokedAt?.toISOString() ?? null,
-          lastUsedAt: k.lastUsedAt?.toISOString() ?? null,
-          createdAt: k.createdAt.toISOString(),
-          role: k.role,
-        }))
+        keys.map((k) => mapKeyListItem(k))
       )
     }
   )
@@ -187,7 +218,7 @@ export async function clientApiKeysAdminRoutes(app: FastifyInstance) {
       schema: {
         summary: 'Create a client API key',
         description:
-          'Staff only. Creates a key for the given role. The full `apiKey` string is returned once; it cannot be retrieved again.',
+          'Staff only. Creates a key for the given role. The full `apiKey` string is returned once; it cannot be retrieved again. Set `trial: true` for a 7-day Sweden-scoped partner-trial key.',
         tags: getTags('Internal'),
         body: createClientApiKeyBodySchema,
         response: {
@@ -202,16 +233,35 @@ export async function clientApiKeysAdminRoutes(app: FastifyInstance) {
       }>,
       reply
     ) => {
-      const { name, roleId, keyLookup: keyLookupInput } = request.body
+      const {
+        name,
+        roleId,
+        keyLookup: keyLookupInput,
+        trial = false,
+      } = request.body
 
       const role = await prisma.clientApiRole.findUnique({
         where: { id: roleId },
-        select: { id: true },
+        select: { id: true, slug: true },
       })
       if (!role) {
         return reply.status(404).send({
           code: '404',
           message: 'Role not found',
+        })
+      }
+
+      if (trial && role.slug !== PARTNER_TRIAL_ROLE_SLUG) {
+        return reply.status(400).send({
+          code: '400',
+          message: `Trial keys require the ${PARTNER_TRIAL_ROLE_SLUG} role`,
+        })
+      }
+
+      if (!trial && role.slug === PARTNER_TRIAL_ROLE_SLUG) {
+        return reply.status(400).send({
+          code: '400',
+          message: `The ${PARTNER_TRIAL_ROLE_SLUG} role requires trial: true`,
         })
       }
 
@@ -241,14 +291,26 @@ export async function clientApiKeysAdminRoutes(app: FastifyInstance) {
         apiConfig.clientApiKeyPepper
       )
 
+      const expiresAt = trial ? new Date(Date.now() + TRIAL_KEY_TTL_MS) : null
+      const companyScope = trial ? CLIENT_API_COMPANY_SCOPE_SWEDEN : null
+
       const created = await prisma.clientApiKey.create({
         data: {
           name,
           keyLookup,
           secretHash,
           roleId,
+          expiresAt,
+          companyScope,
         },
-        select: { id: true, name: true, keyLookup: true, roleId: true },
+        select: {
+          id: true,
+          name: true,
+          keyLookup: true,
+          roleId: true,
+          expiresAt: true,
+          companyScope: true,
+        },
       })
 
       request.log.info(
@@ -257,6 +319,9 @@ export async function clientApiKeysAdminRoutes(app: FastifyInstance) {
           clientApiKeyId: created.id,
           keyLookup: created.keyLookup,
           roleId: created.roleId,
+          trial,
+          expiresAt: created.expiresAt?.toISOString() ?? null,
+          companyScope: created.companyScope,
           createdByUserId: request.user.id,
         },
         'Staff created client API key'
@@ -267,6 +332,8 @@ export async function clientApiKeysAdminRoutes(app: FastifyInstance) {
         name: created.name,
         keyLookup: created.keyLookup,
         roleId: created.roleId,
+        expiresAt: created.expiresAt?.toISOString() ?? null,
+        companyScope: created.companyScope,
         apiKey,
       })
     }
@@ -326,15 +393,7 @@ export async function clientApiKeysAdminRoutes(app: FastifyInstance) {
         'Staff revoked client API key'
       )
 
-      return reply.send({
-        id: revoked.id,
-        name: revoked.name,
-        keyLookup: revoked.keyLookup,
-        revokedAt: revoked.revokedAt?.toISOString() ?? null,
-        lastUsedAt: revoked.lastUsedAt?.toISOString() ?? null,
-        createdAt: revoked.createdAt.toISOString(),
-        role: revoked.role,
-      })
+      return reply.send(mapKeyListItem(revoked))
     }
   )
 

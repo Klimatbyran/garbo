@@ -30,6 +30,8 @@ jest.unstable_mockModule('../../../lib/prisma', () => ({
 let buildApp: () => FastifyInstance
 let mockFindUnique: jest.Mock<() => Promise<unknown>>
 let mockUpdate: jest.Mock<() => Promise<unknown>>
+let mockCreate: jest.Mock<() => Promise<unknown>>
+let mockRoleFindUnique: jest.Mock<() => Promise<unknown>>
 
 beforeAll(async () => {
   const [
@@ -54,6 +56,16 @@ beforeAll(async () => {
       update: jest.Mock<() => Promise<unknown>>
     }
   ).update
+  mockCreate = (
+    prismaModule.prisma.clientApiKey as unknown as {
+      create: jest.Mock<() => Promise<unknown>>
+    }
+  ).create
+  mockRoleFindUnique = (
+    prismaModule.prisma.clientApiRole as unknown as {
+      findUnique: jest.Mock<() => Promise<unknown>>
+    }
+  ).findUnique
 
   buildApp = () => {
     const app = Fastify({ logger: false })
@@ -148,6 +160,8 @@ const baseKey = {
   roleId: 'role-1',
   revokedAt: null,
   lastUsedAt: null,
+  expiresAt: null,
+  companyScope: null,
   createdAt: new Date('2026-01-01T00:00:00Z'),
   role: { id: 'role-1', slug: 'company_data', label: 'Base Corporate' },
 }
@@ -218,6 +232,144 @@ describe('POST /:id/revoke', () => {
 
     expect(res.statusCode).toBe(200)
     expect(body.lastUsedAt).toBe(lastUsedAt.toISOString())
+
+    await app.close()
+  })
+})
+
+// ---------------------------------------------------------------------------
+// POST /  (create, including trial)
+// ---------------------------------------------------------------------------
+
+describe('POST /', () => {
+  it('rejects trial=true when role is not partner-trial', async () => {
+    mockRoleFindUnique.mockResolvedValueOnce({
+      id: 'role-1',
+      slug: 'company_data',
+    })
+    const app = buildApp()
+    await app.ready()
+
+    const res = await app.inject({
+      method: 'POST',
+      url: '/',
+      payload: {
+        name: 'Trial attempt',
+        roleId: 'role-1',
+        trial: true,
+      },
+    })
+
+    expect(res.statusCode).toBe(400)
+    expect(mockCreate).not.toHaveBeenCalled()
+
+    await app.close()
+  })
+
+  it('creates a trial key with expiresAt and sweden scope', async () => {
+    const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+    mockRoleFindUnique.mockResolvedValueOnce({
+      id: 'role-trial',
+      slug: 'partner-trial',
+    })
+    mockFindUnique.mockResolvedValue(null)
+    mockCreate.mockResolvedValueOnce({
+      id: 'key-trial',
+      name: 'Trial Key',
+      keyLookup: 'triallookup',
+      roleId: 'role-trial',
+      expiresAt,
+      companyScope: 'sweden',
+    })
+    const app = buildApp()
+    await app.ready()
+
+    const before = Date.now()
+    const res = await app.inject({
+      method: 'POST',
+      url: '/',
+      payload: {
+        name: 'Trial Key',
+        roleId: 'role-trial',
+        keyLookup: 'triallookup',
+        trial: true,
+      },
+    })
+    const after = Date.now()
+
+    expect(res.statusCode).toBe(200)
+    const body = res.json<{
+      apiKey: string
+      expiresAt: string | null
+      companyScope: string | null
+    }>()
+    expect(body.apiKey.startsWith('garb_triallookup.')).toBe(true)
+    expect(body.companyScope).toBe('sweden')
+    expect(body.expiresAt).toBe(expiresAt.toISOString())
+
+    expect(mockCreate).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: expect.objectContaining({
+          companyScope: 'sweden',
+          expiresAt: expect.any(Date),
+          roleId: 'role-trial',
+        }),
+      })
+    )
+    const createCalls = mockCreate.mock.calls as unknown as Array<
+      [{ data: { expiresAt: Date } }]
+    >
+    const createArg = createCalls[0]?.[0]
+    expect(createArg).toBeDefined()
+    const ms = createArg!.data.expiresAt.getTime()
+    expect(ms).toBeGreaterThanOrEqual(before + 7 * 24 * 60 * 60 * 1000 - 1000)
+    expect(ms).toBeLessThanOrEqual(after + 7 * 24 * 60 * 60 * 1000 + 1000)
+
+    await app.close()
+  })
+
+  it('creates a non-trial key without expiry or scope', async () => {
+    mockRoleFindUnique.mockResolvedValueOnce({
+      id: 'role-1',
+      slug: 'company_data',
+    })
+    mockFindUnique.mockResolvedValue(null)
+    mockCreate.mockResolvedValueOnce({
+      id: 'key-full',
+      name: 'Full Key',
+      keyLookup: 'fulllok',
+      roleId: 'role-1',
+      expiresAt: null,
+      companyScope: null,
+    })
+    const app = buildApp()
+    await app.ready()
+
+    const res = await app.inject({
+      method: 'POST',
+      url: '/',
+      payload: {
+        name: 'Full Key',
+        roleId: 'role-1',
+        keyLookup: 'fulllok',
+      },
+    })
+
+    expect(res.statusCode).toBe(200)
+    const body = res.json<{
+      expiresAt: string | null
+      companyScope: string | null
+    }>()
+    expect(body.expiresAt).toBeNull()
+    expect(body.companyScope).toBeNull()
+    expect(mockCreate).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: expect.objectContaining({
+          expiresAt: null,
+          companyScope: null,
+        }),
+      })
+    )
 
     await app.close()
   })

@@ -13,12 +13,15 @@ import {
   resolveClientApiPermission,
   type ClientApiPermissionCode,
 } from '../security/routePermissions'
+import { isClientApiKeyExpired } from '../lib/clientApiCompanyScope'
 
 declare module 'fastify' {
   interface FastifyRequest {
     clientApiKeyId?: string
     clientApiPermission?: ClientApiPermissionCode
     clientApiKeyRoleSlug?: string
+    /** Null/undefined = unrestricted; `sweden` for trial keys. */
+    clientApiCompanyScope?: string | null
   }
 }
 
@@ -143,6 +146,20 @@ async function enforceClientApiKey(
     })
   }
 
+  if (isClientApiKeyExpired(keyRow.expiresAt)) {
+    request.log.warn({
+      event: 'client_api_key_auth',
+      outcome: 'expired_key',
+      clientApiKeyId: keyRow.id,
+      permission,
+      path: pathname,
+    })
+    return reply.status(401).send({
+      error: 'Invalid API key',
+      message: 'API key has expired.',
+    })
+  }
+
   const allowed = new Set(
     keyRow.role.permissions.map((rp) => rp.permission.code)
   )
@@ -177,6 +194,7 @@ async function enforceClientApiKey(
   request.clientApiKeyId = keyRow.id
   request.clientApiPermission = permission
   request.clientApiKeyRoleSlug = keyRow.role.slug
+  request.clientApiCompanyScope = keyRow.companyScope
   request.log.info({
     event: 'client_api_key_auth',
     outcome: 'allowed',

@@ -18,6 +18,10 @@ import {
   companySearchQuerySchema,
 } from '../../schemas'
 import { redisCache } from '../../../lib/redisCacheSingleton'
+import {
+  companyInClientApiScope,
+  filterCompaniesByClientApiScope,
+} from '../../lib/clientApiCompanyScope'
 
 async function getCompaniesDatabaseFingerprint() {
   const [
@@ -95,9 +99,14 @@ export async function companyReadRoutes(app: FastifyInstance) {
         await redisCache.set(dataCacheKey, JSON.stringify(companies))
       }
 
+      const scoped = filterCompaniesByClientApiScope(
+        companies,
+        request.clientApiCompanyScope
+      )
+
       reply.header('ETag', `${currentEtag}`)
 
-      reply.send(toPartnerCompanyList(companies))
+      reply.send(toPartnerCompanyList(scoped))
     }
   )
 
@@ -124,7 +133,11 @@ export async function companyReadRoutes(app: FastifyInstance) {
       const companies = await companyService.getAllCompaniesBySearchTerm(q, {
         onePeriodPerDataYear: true,
       })
-      reply.send(toPartnerCompanyList(companies))
+      const scoped = filterCompaniesByClientApiScope(
+        companies,
+        request.clientApiCompanyScope
+      )
+      reply.send(toPartnerCompanyList(scoped))
     }
   )
 
@@ -146,6 +159,12 @@ export async function companyReadRoutes(app: FastifyInstance) {
     async (request: FastifyRequest<{ Params: WikidataIdParams }>, reply) => {
       const { wikidataId } = request.params
       const company = await companyService.getCompanyForPublicRead(wikidataId)
+      if (!companyInClientApiScope(company, request.clientApiCompanyScope)) {
+        return reply.status(404).send({
+          code: 'NOT_FOUND',
+          message: `There is no company with id '${wikidataId}'`,
+        })
+      }
       reply.send(
         toPartnerCompanyResponse({
           ...company,
