@@ -131,7 +131,9 @@ const parsePdf = new PipelineWorker(
                 },
               ],
             })
-            job.log('reindex-from-markdown flow started: ' + reindexFlow.job?.id)
+            job.log(
+              'reindex-from-markdown flow started: ' + reindexFlow.job?.id
+            )
             return true
           }
           job.log('markdown cache miss (postgres); running Docling')
