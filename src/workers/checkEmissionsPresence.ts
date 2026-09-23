@@ -2,9 +2,7 @@ import { PipelineWorker, PipelineJob } from '../lib/PipelineWorker'
 import { QUEUE_NAMES } from '../queues'
 import { detectEmissionsPresence } from '../lib/emissionsPresence'
 import { prisma } from '../lib/prisma'
-import {
-  buildReportMatchConditions,
-} from '../api/services/registryReportIdentity'
+import { buildReportMatchConditions } from '../api/services/registryReportIdentity'
 import precheck from './precheck'
 import { withPipelineJobOpts } from '../lib/pipelineJobOptions'
 
@@ -31,7 +29,10 @@ async function resolveMarkdown(
 
   try {
     const childEntries = await job.getChildrenEntries()
-    if (typeof childEntries.markdown === 'string' && childEntries.markdown.trim()) {
+    if (
+      typeof childEntries.markdown === 'string' &&
+      childEntries.markdown.trim()
+    ) {
       return childEntries.markdown
     }
   } catch {

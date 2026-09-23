@@ -33,7 +33,8 @@ describe('detectEmissionsPresence', () => {
         .hasEmissionsMentions
     ).toBe(true)
     expect(
-      detectEmissionsPresence('Vi rapporterar scopes 1, 2 och 3.').hasEmissionsMentions
+      detectEmissionsPresence('Vi rapporterar scopes 1, 2 och 3.')
+        .hasEmissionsMentions
     ).toBe(true)
   })
 

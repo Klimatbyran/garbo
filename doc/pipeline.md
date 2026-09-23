@@ -202,7 +202,7 @@ flowchart LR
     C --> G[checkEmissionsPresence]
 ```
 
-  and `checkEmissionsPresence` conditionally enqueues `precheck` when mentions are found.
+and `checkEmissionsPresence` conditionally enqueues `precheck` when mentions are found.
 
 Return Value: Job id when enqueuing `precheck` from the cache path; otherwise true after starting the flow.
 
