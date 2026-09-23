@@ -736,6 +736,10 @@ model ClientApiKey {
   role       ClientApiRole      @relation(fields: [roleId], references: [id], onDelete: Restrict)
   revokedAt  DateTime?          @map("revoked_at")
   lastUsedAt DateTime?          @map("last_used_at")
+  /// When set, the key is rejected after this time (trial keys).
+  expiresAt  DateTime?          @map("expires_at")
+  /// Null = full corpus; `sweden` = only companies tagged sweden (trial). Forward-compatible for later scopes.
+  companyScope String?          @map("company_scope")
   createdAt  DateTime           @default(now()) @map("created_at")
   requests   ClientApiRequest[]
 
