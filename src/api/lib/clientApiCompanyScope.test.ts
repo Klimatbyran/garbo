@@ -2,9 +2,11 @@ import { describe, expect, it } from '@jest/globals'
 
 import {
   CLIENT_API_COMPANY_SCOPE_SWEDEN,
+  clientApiCompanyScopeEtagSegment,
   companyInClientApiScope,
   filterCompaniesByClientApiScope,
   isClientApiKeyExpired,
+  isKnownClientApiCompanyScope,
 } from './clientApiCompanyScope'
 
 describe('clientApiCompanyScope', () => {
@@ -28,6 +30,17 @@ describe('clientApiCompanyScope', () => {
     ).toBe(false)
   })
 
+  it('fails closed for unrecognized scopes', () => {
+    expect(companyInClientApiScope({ tags: ['sweden'] }, 'SWEDEN')).toBe(false)
+    expect(companyInClientApiScope({ tags: ['sweden'] }, 'sweden ')).toBe(false)
+    expect(companyInClientApiScope({ tags: ['sweden'] }, 'allowlist')).toBe(
+      false
+    )
+    expect(isKnownClientApiCompanyScope('sweden')).toBe(true)
+    expect(isKnownClientApiCompanyScope(null)).toBe(true)
+    expect(isKnownClientApiCompanyScope('SWEDEN')).toBe(false)
+  })
+
   it('filters company lists by scope', () => {
     const companies = [
       { id: '1', tags: ['sweden'] },
@@ -40,6 +53,13 @@ describe('clientApiCompanyScope', () => {
         (c) => c.id
       )
     ).toEqual(['1', '3'])
+    expect(filterCompaniesByClientApiScope(companies, 'unknown')).toEqual([])
+  })
+
+  it('builds distinct etag segments for scoped vs full', () => {
+    expect(clientApiCompanyScopeEtagSegment(null)).toBe('all')
+    expect(clientApiCompanyScopeEtagSegment(undefined)).toBe('all')
+    expect(clientApiCompanyScopeEtagSegment('sweden')).toBe('scope=sweden')
   })
 })
 

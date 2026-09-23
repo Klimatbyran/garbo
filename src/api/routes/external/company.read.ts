@@ -21,6 +21,7 @@ import { redisCache } from '../../../lib/redisCacheSingleton'
 import {
   companyInClientApiScope,
   filterCompaniesByClientApiScope,
+  clientApiCompanyScopeEtagSegment,
 } from '../../lib/clientApiCompanyScope'
 
 async function getCompaniesDatabaseFingerprint() {
@@ -104,7 +105,10 @@ export async function companyReadRoutes(app: FastifyInstance) {
         request.clientApiCompanyScope
       )
 
-      reply.header('ETag', `${currentEtag}`)
+      const etag = `${currentEtag}:${clientApiCompanyScopeEtagSegment(
+        request.clientApiCompanyScope
+      )}`
+      reply.header('ETag', etag)
 
       reply.send(toPartnerCompanyList(scoped))
     }
