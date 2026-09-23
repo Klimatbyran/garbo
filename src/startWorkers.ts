@@ -114,7 +114,9 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
         },
       })
 
-      // Mark the run as completed when sendCompanyLink finishes, failed on any failure
+      // Mark the run as completed when sendCompanyLink finishes, failed on any
+      // failure, or skipped_no_emissions when the emissions presence gate stops
+      // the pipeline before precheck.
       if (status === 'failed') {
         await prisma.reportRun.update({
           where: { id: reportRun.id },
@@ -124,6 +126,18 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
         await prisma.reportRun.update({
           where: { id: reportRun.id },
           data: { status: 'completed' },
+        })
+
+        if (threadId) {
+          requestPipelineRunPrune({ threadId })
+        }
+      } else if (
+        queueName === QUEUE_NAMES.CHECK_EMISSIONS_PRESENCE &&
+        returnValue?.gated === true
+      ) {
+        await prisma.reportRun.update({
+          where: { id: reportRun.id },
+          data: { status: 'skipped_no_emissions' },
         })
 
         if (threadId) {

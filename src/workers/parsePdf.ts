@@ -2,9 +2,11 @@ import { PipelineWorker } from '../lib/PipelineWorker'
 import { FlowProducer } from 'bullmq'
 import redis from '../config/redis'
 import precheck from './precheck'
+import checkEmissionsPresence from './checkEmissionsPresence'
 import { vectorDB } from '../lib/vectordb'
 import { QUEUE_NAMES } from '../queues'
 import { withPipelineJobOpts } from '../lib/pipelineJobOptions'
+import { registryService } from '../api/services/registryService'
 
 const flow = new FlowProducer({ connection: redis })
 flow.on('error', (err) => console.error('FlowProducer connection error:', err))
@@ -12,16 +14,21 @@ flow.on('error', (err) => console.error('FlowProducer connection error:', err))
 const parsePdf = new PipelineWorker(
   QUEUE_NAMES.PARSE_PDF,
   async (job) => {
-    const { url, forceReindex, callbackUrl } = job.data as {
-      url: string
-      forceReindex?: boolean
-      // When set, run Docling only — no indexMarkdown/Chroma, no precheck.
-      // doclingParsePDF POSTs {url, markdown} here once parsing completes,
-      // for callers (e.g. a separate document pipeline) that want the raw
-      // markdown directly. Must match an entry in ALLOWED_CALLBACK_URLS.
-      callbackUrl?: string
-    }
+    const { url, forceReindex, callbackUrl, requireEmissionsPresence } =
+      job.data as {
+        url: string
+        forceReindex?: boolean
+        requireEmissionsPresence?: boolean
+        // When set, run Docling only — no indexMarkdown/Chroma, no precheck.
+        // doclingParsePDF POSTs {url, markdown} here once parsing completes,
+        // for callers (e.g. a separate document pipeline) that want the raw
+        // markdown directly. Must match an entry in ALLOWED_CALLBACK_URLS.
+        callbackUrl?: string
+      }
     job.log(`forceReindex flag: ${Boolean(forceReindex)}`)
+    job.log(
+      `requireEmissionsPresence flag: ${Boolean(requireEmissionsPresence)}`
+    )
     job.log(`callbackUrl: ${callbackUrl ?? '(none)'}`)
     job.opts.attempts = 1
 
@@ -81,30 +88,65 @@ const parsePdf = new PipelineWorker(
       if (!exists || forceReindex) {
         job.editMessage(`✅ PDF queued. Parsing via Docling and indexing...`)
 
-        const precheckFlow = await flow.add({
+        const indexMarkdownChild = {
           ...base,
-          name: 'precheck ' + name,
-          queueName: QUEUE_NAMES.PRECHECK,
+          name: 'indexMarkdown ' + name,
+          queueName: QUEUE_NAMES.INDEX_MARKDOWN,
           children: [
             {
               ...base,
-              name: 'indexMarkdown ' + name,
-              queueName: QUEUE_NAMES.INDEX_MARKDOWN,
-              children: [
-                {
-                  ...base,
-                  name: 'doclingParsePDF',
-                  queueName: QUEUE_NAMES.DOCLING_PARSE_PDF,
-                  opts: withPipelineJobOpts({
-                    attempts: 3,
-                    backoff: { type: 'fixed', delay: 120_000 },
-                  }),
-                },
-              ],
+              name: 'doclingParsePDF',
+              queueName: QUEUE_NAMES.DOCLING_PARSE_PDF,
+              opts: withPipelineJobOpts({
+                attempts: 3,
+                backoff: { type: 'fixed', delay: 120_000 },
+              }),
             },
           ],
-        })
-        job.log('flow started: ' + precheckFlow.job?.id)
+        }
+
+        if (requireEmissionsPresence) {
+          // Gate is the flow parent so it can choose whether to enqueue
+          // precheck — do not nest under precheck (FlowProducer parents
+          // always run after children succeed).
+          const gateFlow = await flow.add({
+            ...base,
+            name: 'checkEmissionsPresence ' + name,
+            queueName: QUEUE_NAMES.CHECK_EMISSIONS_PRESENCE,
+            children: [indexMarkdownChild],
+          })
+          job.log('emissions-gate flow started: ' + gateFlow.job?.id)
+        } else {
+          const precheckFlow = await flow.add({
+            ...base,
+            name: 'precheck ' + name,
+            queueName: QUEUE_NAMES.PRECHECK,
+            children: [indexMarkdownChild],
+          })
+          job.log('flow started: ' + precheckFlow.job?.id)
+        }
+      } else if (requireEmissionsPresence) {
+        job.editMessage(
+          `✅ PDF already indexed. Checking for Scope 1/2/3 mentions...`
+        )
+
+        // Full markdown from registry — not the RAG company-name snippet.
+        const fullMarkdown = await registryService.getMarkdownByUrl(url)
+        if (!fullMarkdown || !fullMarkdown.trim()) {
+          job.log(
+            'requireEmissionsPresence: no registry markdown on cache hit; gating'
+          )
+        }
+
+        const added = await checkEmissionsPresence.queue.add(
+          'checkEmissionsPresence',
+          {
+            ...job.data,
+            ...(fullMarkdown ? { markdown: fullMarkdown } : {}),
+          },
+          withPipelineJobOpts()
+        )
+        return added.id
       } else {
         job.editMessage(`✅ PDF already interpreted and indexed. Continuing...`)
 

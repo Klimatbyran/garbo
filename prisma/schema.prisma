@@ -600,6 +600,10 @@ model Report {
   /// reindexing/reruns and other consumers (callbackUrl plugins) don't need
   /// to re-run docling to get it back.
   markdown     String?
+  /// Last cheap Scope 1/2/3 mention scan result (null = never checked).
+  hasEmissionsMentions       Boolean?  @map("has_emissions_mentions")
+  /// When the emissions presence gate last ran against this report's markdown.
+  emissionsPresenceCheckedAt DateTime? @map("emissions_presence_checked_at")
   companyName  String?
   wikidataId   String?
   reportYear   String?
@@ -656,7 +660,7 @@ model ReportRun {
   companyReportId String?         @map("company_report_id")
   batchDbId       String?         @map("batch_db_id")
   batch           Batch?          @relation(fields: [batchDbId], references: [id], onDelete: SetNull, onUpdate: Cascade)
-  status          String          @default("running") // 'running' | 'completed' | 'failed'
+  status          String          @default("running") // 'running' | 'completed' | 'failed' | 'skipped_no_emissions'
   startedAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
   jobs            ReportRunJob[]

@@ -5,6 +5,7 @@ export const QUEUE_NAMES = {
   PARSE_PDF: 'parsePdf',
   DOCLING_PARSE_PDF: 'doclingParsePDF',
   INDEX_MARKDOWN: 'indexMarkdown',
+  CHECK_EMISSIONS_PRESENCE: 'checkEmissionsPresence',
   PRECHECK: 'precheck',
   GUESS_WIKIDATA: 'guessWikidata',
   FOLLOW_UP_SCOPE_1: 'followUpScope1',
@@ -45,6 +46,9 @@ export const queues = {
   parsePdf: new PipelineQueue(QUEUE_NAMES.PARSE_PDF),
   doclingParsePDF: new PipelineQueue(QUEUE_NAMES.DOCLING_PARSE_PDF),
   indexMarkdown: new PipelineQueue(QUEUE_NAMES.INDEX_MARKDOWN),
+  checkEmissionsPresence: new PipelineQueue(
+    QUEUE_NAMES.CHECK_EMISSIONS_PRESENCE
+  ),
   precheck: new PipelineQueue(QUEUE_NAMES.PRECHECK),
   checkDB: new PipelineQueue(QUEUE_NAMES.CHECK_DB),
   diffBaseYear: new PipelineQueue(QUEUE_NAMES.DIFF_BASE_YEAR),
