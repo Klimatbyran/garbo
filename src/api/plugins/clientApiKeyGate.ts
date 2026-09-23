@@ -13,7 +13,7 @@ import {
   resolveClientApiPermission,
   type ClientApiPermissionCode,
 } from '../security/routePermissions'
-import { isClientApiKeyExpired } from '../lib/clientApiCompanyScope'
+import { isClientApiKeyExpired, isKnownClientApiCompanyScope } from '../lib/clientApiCompanyScope'
 
 declare module 'fastify' {
   interface FastifyRequest {
@@ -157,6 +157,21 @@ async function enforceClientApiKey(
     return reply.status(401).send({
       error: 'Invalid API key',
       message: 'API key has expired.',
+    })
+  }
+
+  if (!isKnownClientApiCompanyScope(keyRow.companyScope)) {
+    request.log.warn({
+      event: 'client_api_key_auth',
+      outcome: 'unknown_company_scope',
+      clientApiKeyId: keyRow.id,
+      companyScope: keyRow.companyScope,
+      permission,
+      path: pathname,
+    })
+    return reply.status(403).send({
+      error: 'Forbidden',
+      message: 'This API key has an unrecognized company scope.',
     })
   }
 
