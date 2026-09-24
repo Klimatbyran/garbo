@@ -41,7 +41,7 @@ export function buildLeiPrompt(options: LeiPromptOptions): string {
 
   return `Please choose the appropriate lei number and return it as json.
 
-Needs to be valid json. No comments etc here. Never guess any values. Only use the information from the context. Company Name should be filled from the wikidata node. Keep the syntax below:
+Needs to be valid json. No comments etc here. Never guess any values. Only use the information from the context. Each candidate has "lei", "legalName", and optional "jurisdiction" — pick the entity "lei" field only. Keep the syntax below:
 ${LEI_JSON_FORMAT}
 
 

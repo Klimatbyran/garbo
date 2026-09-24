@@ -1,7 +1,10 @@
 import { EntityId } from 'wikibase-sdk'
 import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { QUEUE_NAMES } from '../queues'
-import { getLEINumbersFromGLEIF } from '../lib/gleif'
+import {
+  getLEINumbersFromGLEIF,
+  acceptLeiFromGleifCandidates,
+} from '../lib/gleif'
 import { ask } from '../lib/openai'
 import { leiSchema, parseLeiLlmResponse } from '../prompts/lei'
 import { zodResponseFormat } from 'openai/helpers/zod'
@@ -11,7 +14,7 @@ import {
   buildLeiPrompt,
   inferPreferSwedishLeiFromUrls,
 } from '../lib/reportLeiPreference'
-import { isValidLei } from '../lib/normalizeLei'
+import { isValidLei, normalizeLei } from '../lib/normalizeLei'
 
 const INVALID_LEI_MESSAGE =
   'Invalid LEI: value does not match the required 20-character format with a valid checksum. LEI will not be saved.'
@@ -94,7 +97,35 @@ async function selectLeiFromGleif(
     return undefined
   }
 
-  return parsed.data.lei
+  return acceptLeiFromGleifCandidates(
+    parsed.data.lei,
+    searchResults,
+    (message) => job.log(message)
+  )
+}
+
+async function leiFromWikidata(
+  job: LEIJob,
+  companyName: string,
+  wikidataId: string
+): Promise<string | undefined> {
+  const fromWikidata = await getLEINumber(wikidataId as EntityId)
+  if (!fromWikidata) {
+    job.log(
+      `❌ Could not find a valid LEI for '${companyName}' in Wikidata; trying GLEIF.`
+    )
+    return undefined
+  }
+
+  const normalized = normalizeLei(fromWikidata)
+  if (!normalized) {
+    job.log(
+      `❌ Wikidata P1278 value '${fromWikidata}' is not a valid LEI; trying GLEIF.`
+    )
+    return undefined
+  }
+
+  return normalized
 }
 
 const extractLEI = new PipelineWorker<LEIJob>(
@@ -105,14 +136,7 @@ const extractLEI = new PipelineWorker<LEIJob>(
     let lei: string | undefined
 
     if (wikidataId) {
-      const fromWikidata = await getLEINumber(wikidataId as EntityId)
-      if (fromWikidata) {
-        lei = fromWikidata
-      } else {
-        job.log(
-          `❌ Could not find a valid LEI for '${companyName}' in Wikidata; trying GLEIF.`
-        )
-      }
+      lei = await leiFromWikidata(job, companyName, wikidataId)
     }
 
     if (!lei) {
