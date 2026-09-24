@@ -96,7 +96,11 @@ flowchart TD
     subgraph ingest["PDF ingestion"]
         A[parsePdf] -->|not cached| B[doclingParsePDF]
         B --> C[indexMarkdown]
-        C --> D[precheck]
+        C -->|requireEmissionsPresence| G0[checkEmissionsPresence]
+        G0 -->|mentions found| D[precheck]
+        G0 -->|no mentions| SKIP[skipped_no_emissions]
+        C -->|default| D
+        A -->|cached + gate| G0
         A -->|cached| D
     end
 
@@ -160,10 +164,11 @@ In BullMQ flows, child jobs finish before their parent runs. Diff jobs and `save
     threadId: string,
     autoApprove: boolean
     forceReindex?: boolean
+    requireEmissionsPresence?: boolean
 }
 ```
 
-`url` defines the report URL, `threadId` is the run identifier used for report run tracking, `autoApprove` controls whether user approvals are required for data updates, and `forceReindex` forces a fresh Docling parse even when the report is already indexed.
+`url` defines the report URL, `threadId` is the run identifier used for report run tracking, `autoApprove` controls whether user approvals are required for data updates, and `forceReindex` forces a fresh Docling parse even when the report is already indexed. When `requireEmissionsPresence` is true, the pipeline inserts `checkEmissionsPresence` after markdown is ready and only continues to `precheck` if Scope 1/2/3 language is found.
 
 **Functionality:**
 
@@ -179,6 +184,7 @@ In BullMQ flows, child jobs finish before their parent runs. Diff jobs and `save
 }
 ```
 
+- If `requireEmissionsPresence` is set on a cache hit, loads full markdown from the registry `Report` row and queues `checkEmissionsPresence` instead (which may then enqueue `precheck`).
 - If `forceReindex` is set, deletes the existing vector index (if any) and re-parses via Docling.
 - If not cached (or re-indexing), creates a flow:
 
@@ -187,6 +193,16 @@ flowchart LR
     B[doclingParsePDF] --> C[indexMarkdown]
     C --> D[precheck]
 ```
+
+- With `requireEmissionsPresence`, the fresh-parse flow is:
+
+```mermaid
+flowchart LR
+    B[doclingParsePDF] --> C[indexMarkdown]
+    C --> G[checkEmissionsPresence]
+```
+
+and `checkEmissionsPresence` conditionally enqueues `precheck` when mentions are found.
 
 Return Value: Job id when enqueuing `precheck` from the cache path; otherwise true after starting the flow.
 
@@ -235,11 +251,48 @@ The job receives the standard properties and awaits the `markdown` output from i
 **Functionality:**
 Indexes the parsed markdown into the VectorDB for downstream retrieval.
 
-**Return Value:** _none_
+**Return Value:** `{ url, markdown }`
+
+### checkEmissionsPresence
+
+**Called By:** [parsePdf](#parsepdf) when `requireEmissionsPresence` is true — either as the flow parent of `indexMarkdown` (fresh parse) or enqueued directly on a cache hit with full registry markdown.
+
+**Input Data:**
+
+```typescript
+{
+  url: string
+  threadId: string
+  autoApprove: boolean
+  markdown?: string
+  cachedMarkdown?: string
+  requireEmissionsPresence?: boolean
+}
+```
+
+**Functionality:**
+
+- Resolves full markdown from child `indexMarkdown`, job data, or registry `Report.markdown`.
+- Runs a cheap regex scan for Scope 1/2/3 language (`src/lib/emissionsPresence.ts`).
+- Persists `Report.hasEmissionsMentions` and `Report.emissionsPresenceCheckedAt`.
+- If mentions found: enqueues `precheck` and continues the pipeline.
+- If none found: completes successfully with `gated: true` (does not fail). `startWorkers` then sets `ReportRun.status` to `skipped_no_emissions` and requests run prune.
+
+**Return Value:**
+
+```typescript
+{
+  gated: boolean
+  reason?: 'no_emissions_mentions' | 'no_markdown'
+  hasEmissionsMentions: boolean
+  matchedTerms: string[]
+  precheckJobId?: string
+}
+```
 
 ### precheck
 
-**Called By:** Either by flow construction in the job [parsePdf](#parsepdf) defined in `src/workers/parsePdf.ts` or directly by the job [parsePdf](#parsepdf) when using cached markdown.
+**Called By:** Either by flow construction in the job [parsePdf](#parsepdf) defined in `src/workers/parsePdf.ts`, directly by [parsePdf](#parsepdf) when using cached markdown, or by [checkEmissionsPresence](#checkemissionspresence) when the gate passes.
 
 **Input Data:**
 

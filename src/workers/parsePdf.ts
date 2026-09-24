@@ -2,6 +2,7 @@ import { PipelineWorker } from '../lib/PipelineWorker'
 import { FlowProducer } from 'bullmq'
 import redis from '../config/redis'
 import precheck from './precheck'
+import checkEmissionsPresence from './checkEmissionsPresence'
 import { vectorDB } from '../lib/vectordb'
 import { QUEUE_NAMES } from '../queues'
 import { withPipelineJobOpts } from '../lib/pipelineJobOptions'
@@ -9,6 +10,31 @@ import { registryService } from '../api/services/registryService'
 
 const flow = new FlowProducer({ connection: redis })
 flow.on('error', (err) => console.error('FlowProducer connection error:', err))
+
+function buildIndexMarkdownChild(
+  base: {
+    data: Record<string, unknown>
+    opts: ReturnType<typeof withPipelineJobOpts>
+  },
+  name: string
+) {
+  return {
+    ...base,
+    name: 'indexMarkdown ' + name,
+    queueName: QUEUE_NAMES.INDEX_MARKDOWN,
+    children: [
+      {
+        ...base,
+        name: 'doclingParsePDF',
+        queueName: QUEUE_NAMES.DOCLING_PARSE_PDF,
+        opts: withPipelineJobOpts({
+          attempts: 3,
+          backoff: { type: 'fixed', delay: 120_000 },
+        }),
+      },
+    ],
+  }
+}
 
 async function findStoredReportMarkdown(jobData: {
   url: string
@@ -32,18 +58,23 @@ async function findStoredReportMarkdown(jobData: {
 const parsePdf = new PipelineWorker(
   QUEUE_NAMES.PARSE_PDF,
   async (job) => {
-    const { url, forceReindex, callbackUrl } = job.data as {
-      url: string
-      forceReindex?: boolean
-      sourceUrl?: string
-      pdfCache?: { publicUrl?: string }
-      // When set, run Docling only — no indexMarkdown/Chroma, no precheck.
-      // doclingParsePDF POSTs {url, markdown} here once parsing completes,
-      // for callers (e.g. a separate document pipeline) that want the raw
-      // markdown directly. Must match an entry in ALLOWED_CALLBACK_URLS.
-      callbackUrl?: string
-    }
+    const { url, forceReindex, callbackUrl, requireEmissionsPresence } =
+      job.data as {
+        url: string
+        forceReindex?: boolean
+        requireEmissionsPresence?: boolean
+        sourceUrl?: string
+        pdfCache?: { publicUrl?: string }
+        // When set, run Docling only — no indexMarkdown/Chroma, no precheck.
+        // doclingParsePDF POSTs {url, markdown} here once parsing completes,
+        // for callers (e.g. a separate document pipeline) that want the raw
+        // markdown directly. Must match an entry in ALLOWED_CALLBACK_URLS.
+        callbackUrl?: string
+      }
     job.log(`forceReindex flag: ${Boolean(forceReindex)}`)
+    job.log(
+      `requireEmissionsPresence flag: ${Boolean(requireEmissionsPresence)}`
+    )
     job.log(`callbackUrl: ${callbackUrl ?? '(none)'}`)
     job.opts.attempts = 1
 
@@ -100,6 +131,34 @@ const parsePdf = new PipelineWorker(
         }
       }
 
+      const startFreshParseFlow = async (reason: string) => {
+        job.log(`Starting Docling + index flow (${reason})`)
+        job.editMessage(`✅ PDF queued. Parsing via Docling and indexing...`)
+
+        const indexMarkdownChild = buildIndexMarkdownChild(base, name)
+
+        if (requireEmissionsPresence) {
+          // Gate is the flow parent so it can choose whether to enqueue
+          // precheck — do not nest under precheck (FlowProducer parents
+          // always run after children succeed).
+          const gateFlow = await flow.add({
+            ...base,
+            name: 'checkEmissionsPresence ' + name,
+            queueName: QUEUE_NAMES.CHECK_EMISSIONS_PRESENCE,
+            children: [indexMarkdownChild],
+          })
+          job.log('emissions-gate flow started: ' + gateFlow.job?.id)
+        } else {
+          const precheckFlow = await flow.add({
+            ...base,
+            name: 'precheck ' + name,
+            queueName: QUEUE_NAMES.PRECHECK,
+            children: [indexMarkdownChild],
+          })
+          job.log('flow started: ' + precheckFlow.job?.id)
+        }
+      }
+
       if (!exists || forceReindex) {
         // Chroma miss (or force): prefer re-embedding Report.markdown over a
         // full Docling pass. forceReindex still means "re-parse the PDF".
@@ -113,58 +172,72 @@ const parsePdf = new PipelineWorker(
               `✅ PDF markdown found in registry. Re-indexing into Chroma...`
             )
 
-            const reindexFlow = await flow.add({
-              ...base,
-              name: 'precheck ' + name,
-              queueName: QUEUE_NAMES.PRECHECK,
-              children: [
-                {
-                  name: 'indexMarkdown ' + name,
-                  queueName: QUEUE_NAMES.INDEX_MARKDOWN,
-                  data: {
-                    ...job.data,
-                    markdown: storedMarkdown,
-                  },
-                  opts: withPipelineJobOpts({
-                    attempts: 3,
-                  }),
-                },
-              ],
-            })
-            job.log(
-              'reindex-from-markdown flow started: ' + reindexFlow.job?.id
-            )
+            const indexMarkdownChild = {
+              name: 'indexMarkdown ' + name,
+              queueName: QUEUE_NAMES.INDEX_MARKDOWN,
+              data: {
+                ...job.data,
+                markdown: storedMarkdown,
+              },
+              opts: withPipelineJobOpts({
+                attempts: 3,
+              }),
+            }
+
+            if (requireEmissionsPresence) {
+              const gateFlow = await flow.add({
+                ...base,
+                name: 'checkEmissionsPresence ' + name,
+                queueName: QUEUE_NAMES.CHECK_EMISSIONS_PRESENCE,
+                children: [indexMarkdownChild],
+              })
+              job.log(
+                'reindex-from-markdown emissions-gate flow started: ' +
+                  gateFlow.job?.id
+              )
+            } else {
+              const reindexFlow = await flow.add({
+                ...base,
+                name: 'precheck ' + name,
+                queueName: QUEUE_NAMES.PRECHECK,
+                children: [indexMarkdownChild],
+              })
+              job.log(
+                'reindex-from-markdown flow started: ' + reindexFlow.job?.id
+              )
+            }
             return true
           }
           job.log('markdown cache miss (postgres); running Docling')
         }
 
-        job.editMessage(`✅ PDF queued. Parsing via Docling and indexing...`)
-
-        const precheckFlow = await flow.add({
-          ...base,
-          name: 'precheck ' + name,
-          queueName: QUEUE_NAMES.PRECHECK,
-          children: [
+        await startFreshParseFlow(
+          forceReindex ? 'forceReindex' : 'no chroma index'
+        )
+      } else if (requireEmissionsPresence) {
+        // Full markdown from registry — not the RAG company-name snippet.
+        const fullMarkdown = await registryService.getMarkdownByUrl(url)
+        if (!fullMarkdown || !fullMarkdown.trim()) {
+          // Chroma can exist for legacy reports without Report.markdown.
+          // Re-parse so the gate scans real text instead of falsely skipping.
+          job.log(
+            'requireEmissionsPresence: chroma hit but no registry markdown — re-parsing via Docling'
+          )
+          await startFreshParseFlow('cache hit without registry markdown')
+        } else {
+          job.editMessage(
+            `✅ PDF already indexed. Checking for Scope 1/2/3 mentions...`
+          )
+          const added = await checkEmissionsPresence.queue.add(
+            'checkEmissionsPresence',
             {
-              ...base,
-              name: 'indexMarkdown ' + name,
-              queueName: QUEUE_NAMES.INDEX_MARKDOWN,
-              children: [
-                {
-                  ...base,
-                  name: 'doclingParsePDF',
-                  queueName: QUEUE_NAMES.DOCLING_PARSE_PDF,
-                  opts: withPipelineJobOpts({
-                    attempts: 3,
-                    backoff: { type: 'fixed', delay: 120_000 },
-                  }),
-                },
-              ],
+              ...job.data,
+              markdown: fullMarkdown,
             },
-          ],
-        })
-        job.log('flow started: ' + precheckFlow.job?.id)
+            withPipelineJobOpts()
+          )
+          return added.id
+        }
       } else {
         job.editMessage(`✅ PDF already interpreted and indexed. Continuing...`)
 

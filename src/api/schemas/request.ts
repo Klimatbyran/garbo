@@ -286,6 +286,11 @@ export const reportingPeriodSchema = z
   .object({
     startDate: z.coerce.date(),
     endDate: z.coerce.date(),
+    /** Prefer DB data year when provided so fiscal periods upsert the same row. */
+    year: z
+      .string()
+      .regex(/^\d{4}$/)
+      .optional(),
     companyReportId: z.string().optional(),
     reportURL: z.string().optional().nullable(),
     reportS3Url: z.preprocess(

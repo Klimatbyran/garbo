@@ -93,6 +93,8 @@ describe('getReportRegistry', () => {
         s3Key: true,
         s3Bucket: true,
         sha256: true,
+        hasEmissionsMentions: true,
+        emissionsPresenceCheckedAt: true,
         ...registryReportTypeSelect,
       },
     })
@@ -149,6 +151,8 @@ describe('updateReportInRegistry', () => {
         s3Key: true,
         s3Bucket: true,
         sha256: true,
+        hasEmissionsMentions: true,
+        emissionsPresenceCheckedAt: true,
         ...registryReportTypeSelect,
       },
     })

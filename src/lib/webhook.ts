@@ -1,4 +1,5 @@
 import 'dotenv/config'
+import pipelineApiConfig from '../config/pipelineApi'
 
 const allowedCallbackUrls = (process.env.ALLOWED_CALLBACK_URLS ?? '')
   .split(',')
@@ -30,7 +31,18 @@ export async function fireCallback(
   try {
     res = await fetch(callbackUrl, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        // climate-plans-pipeline's /webhook requires this — same shared
+        // secret already used for our own pipeline-api calls (see
+        // config/pipelineApi.ts), so no new secret to provision.
+        ...(pipelineApiConfig.internalServiceToken
+          ? {
+              'x-internal-service-token':
+                pipelineApiConfig.internalServiceToken,
+            }
+          : {}),
+      },
       body: JSON.stringify(payload),
       signal: controller.signal,
     })
