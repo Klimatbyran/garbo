@@ -88,22 +88,27 @@ const checkEmissionsPresence = new PipelineWorker(
 
     const markdown = await resolveMarkdown(job)
     if (!markdown || !markdown.trim()) {
-      job.log('No markdown available for emissions presence check')
-      job.editMessage(
-        '⚠️ No markdown available — skipping emissions extraction (gated).'
+      // Prefer continuing over false "no emissions" — missing text is not a
+      // negative scope scan. parsePdf should re-Docling when registry markdown
+      // is absent on a chroma hit; this is a last-resort fail-open.
+      job.log(
+        'No markdown available for emissions presence check — continuing to precheck without gating'
       )
-      try {
-        await persistPresenceResult(url, false)
-      } catch (err) {
-        job.log(
-          `Failed to persist emissions presence on Report: ${err instanceof Error ? err.message : String(err)}`
-        )
-      }
+      job.editMessage(
+        '⚠️ No markdown for Scope check — continuing to precheck (not marked as checked).'
+      )
+      const added = await precheck.queue.add(
+        'precheck',
+        { ...job.data },
+        withPipelineJobOpts()
+      )
+      job.log(`Enqueued precheck job ${added.id} (no markdown to scan)`)
       return {
-        gated: true,
+        gated: false,
         reason: 'no_markdown',
-        hasEmissionsMentions: false,
+        hasEmissionsMentions: null,
         matchedTerms: [] as string[],
+        precheckJobId: added.id,
       }
     }
 

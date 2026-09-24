@@ -38,6 +38,15 @@ describe('detectEmissionsPresence', () => {
     ).toBe(true)
   })
 
+  it('detects hyphen and underscore separators', () => {
+    expect(
+      detectEmissionsPresence('Scope-1 and Scope-2 totals').hasEmissionsMentions
+    ).toBe(true)
+    expect(
+      detectEmissionsPresence('scope_3 categories').hasEmissionsMentions
+    ).toBe(true)
+  })
+
   it('detects roman numeral scopes', () => {
     const result = detectEmissionsPresence('Scope I / Scope II / Scope III')
     expect(result.hasEmissionsMentions).toBe(true)

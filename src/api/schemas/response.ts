@@ -504,6 +504,11 @@ export const RegistryReportSchema = z.object({
   reportYear: z.string().optional().nullable(),
   reportTypeId: z.string().nullable().optional(),
   reportType: reportTypeSchema.nullable().optional(),
+  hasEmissionsMentions: z.boolean().nullable().optional(),
+  emissionsPresenceCheckedAt: z
+    .union([z.date(), z.string()])
+    .nullable()
+    .optional(),
 })
 
 export const RegistryList = z.array(RegistryReportSchema)

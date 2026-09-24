@@ -11,6 +11,31 @@ import { registryService } from '../api/services/registryService'
 const flow = new FlowProducer({ connection: redis })
 flow.on('error', (err) => console.error('FlowProducer connection error:', err))
 
+function buildIndexMarkdownChild(
+  base: {
+    data: Record<string, unknown>
+    opts: ReturnType<typeof withPipelineJobOpts>
+  },
+  name: string
+) {
+  return {
+    ...base,
+    name: 'indexMarkdown ' + name,
+    queueName: QUEUE_NAMES.INDEX_MARKDOWN,
+    children: [
+      {
+        ...base,
+        name: 'doclingParsePDF',
+        queueName: QUEUE_NAMES.DOCLING_PARSE_PDF,
+        opts: withPipelineJobOpts({
+          attempts: 3,
+          backoff: { type: 'fixed', delay: 120_000 },
+        }),
+      },
+    ],
+  }
+}
+
 const parsePdf = new PipelineWorker(
   QUEUE_NAMES.PARSE_PDF,
   async (job) => {
@@ -85,25 +110,11 @@ const parsePdf = new PipelineWorker(
         }
       }
 
-      if (!exists || forceReindex) {
+      const startFreshParseFlow = async (reason: string) => {
+        job.log(`Starting Docling + index flow (${reason})`)
         job.editMessage(`✅ PDF queued. Parsing via Docling and indexing...`)
 
-        const indexMarkdownChild = {
-          ...base,
-          name: 'indexMarkdown ' + name,
-          queueName: QUEUE_NAMES.INDEX_MARKDOWN,
-          children: [
-            {
-              ...base,
-              name: 'doclingParsePDF',
-              queueName: QUEUE_NAMES.DOCLING_PARSE_PDF,
-              opts: withPipelineJobOpts({
-                attempts: 3,
-                backoff: { type: 'fixed', delay: 120_000 },
-              }),
-            },
-          ],
-        }
+        const indexMarkdownChild = buildIndexMarkdownChild(base, name)
 
         if (requireEmissionsPresence) {
           // Gate is the flow parent so it can choose whether to enqueue
@@ -125,28 +136,36 @@ const parsePdf = new PipelineWorker(
           })
           job.log('flow started: ' + precheckFlow.job?.id)
         }
-      } else if (requireEmissionsPresence) {
-        job.editMessage(
-          `✅ PDF already indexed. Checking for Scope 1/2/3 mentions...`
-        )
+      }
 
+      if (!exists || forceReindex) {
+        await startFreshParseFlow(
+          forceReindex ? 'forceReindex' : 'no chroma index'
+        )
+      } else if (requireEmissionsPresence) {
         // Full markdown from registry — not the RAG company-name snippet.
         const fullMarkdown = await registryService.getMarkdownByUrl(url)
         if (!fullMarkdown || !fullMarkdown.trim()) {
+          // Chroma can exist for legacy reports without Report.markdown.
+          // Re-parse so the gate scans real text instead of falsely skipping.
           job.log(
-            'requireEmissionsPresence: no registry markdown on cache hit; gating'
+            'requireEmissionsPresence: chroma hit but no registry markdown — re-parsing via Docling'
           )
+          await startFreshParseFlow('cache hit without registry markdown')
+        } else {
+          job.editMessage(
+            `✅ PDF already indexed. Checking for Scope 1/2/3 mentions...`
+          )
+          const added = await checkEmissionsPresence.queue.add(
+            'checkEmissionsPresence',
+            {
+              ...job.data,
+              markdown: fullMarkdown,
+            },
+            withPipelineJobOpts()
+          )
+          return added.id
         }
-
-        const added = await checkEmissionsPresence.queue.add(
-          'checkEmissionsPresence',
-          {
-            ...job.data,
-            ...(fullMarkdown ? { markdown: fullMarkdown } : {}),
-          },
-          withPipelineJobOpts()
-        )
-        return added.id
       } else {
         job.editMessage(`✅ PDF already interpreted and indexed. Continuing...`)
 
