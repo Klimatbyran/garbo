@@ -289,8 +289,7 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
             reportS3Url,
             reportSha256,
           }) => {
-            const year =
-              periodYear?.trim() || endDate.getFullYear().toString()
+            const year = periodYear?.trim() || endDate.getFullYear().toString()
 
             const companyReportIdForPeriod =
               await companyReportService.companyReportIdForPeriodSave(
