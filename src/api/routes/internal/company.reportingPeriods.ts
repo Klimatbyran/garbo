@@ -461,7 +461,7 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
           {
             bodyCompanyReportId,
             registryReportId: bodyRegistryReportId,
-            documentReportYear,
+            documentReportYear: bodyDocumentReportYear,
             reportUrl,
             reportSourceUrl,
             reportS3Url,

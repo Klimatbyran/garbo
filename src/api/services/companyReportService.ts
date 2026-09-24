@@ -5,7 +5,10 @@ import {
   buildRegistryPayload,
   resolveDocumentReportYear,
 } from '../../workers/saveToAPI.utils'
-import { mergeReportYearFromPipeline } from './registryReportIdentity'
+import {
+  isValidReportCatalogYear,
+  mergeReportYearFromPipeline,
+} from './registryReportIdentity'
 import { registryService } from './registryService'
 
 export type ReportingPeriodIdentity = {
@@ -39,6 +42,18 @@ export type SaveReportIdentity = {
 
 function trimOptional(value: unknown): string | undefined {
   return typeof value === 'string' && value.trim() ? value.trim() : undefined
+}
+
+function sharedCompanyReportId(
+  reportingPeriods: ReportingPeriodIdentity[]
+): string | undefined {
+  if (reportingPeriods.length === 0) return undefined
+  const first = reportingPeriods[0]?.companyReportId?.trim()
+  if (!first) return undefined
+  const allShareFirst = reportingPeriods.every(
+    (period) => period.companyReportId?.trim() === first
+  )
+  return allShareFirst ? first : undefined
 }
 
 function mergeReportIdentityFromPeriods(
@@ -256,7 +271,7 @@ class CompanyReportService {
     options?: { explicitDocumentReportYear?: string | null }
   ): Promise<void> {
     const explicit = options?.explicitDocumentReportYear?.trim()
-    if (explicit && /^\d{4}$/.test(explicit)) {
+    if (explicit && isValidReportCatalogYear(explicit)) {
       await this.setCompanyReportYear(companyReportId, explicit)
       return
     }
@@ -289,12 +304,13 @@ class CompanyReportService {
       return { companyReportId: explicitId, inferred: false }
     }
 
-    const periodShellId = reportingPeriods
-      .map((period) => period.companyReportId?.trim())
-      .find((id): id is string => Boolean(id))
-    if (periodShellId) {
-      await this.assertCompanyReportBelongsToCompany(periodShellId, company.id)
-      return { companyReportId: periodShellId, inferred: false }
+    const sharedPeriodShellId = sharedCompanyReportId(reportingPeriods)
+    if (sharedPeriodShellId) {
+      await this.assertCompanyReportBelongsToCompany(
+        sharedPeriodShellId,
+        company.id
+      )
+      return { companyReportId: sharedPeriodShellId, inferred: false }
     }
 
     const pipelineRegistryId = options?.registryReportId?.trim()
