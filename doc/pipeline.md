@@ -1151,3 +1151,17 @@ scope3: [
     }
 ]
 ```
+
+## Pipeline auto-run (backlog drain)
+
+Validate can enable a soft-gated backlog runner that enqueues saved registry `Report` rows into `parsePdf` overnight / in the background.
+
+- **Config API (staff JWT):** `GET|PATCH /api/pipeline-auto-run`
+- **Worker:** `pipelineAutoRun` repeatable tick (~60s). When `enabled=false`, it never enqueues new jobs (soft disable — in-flight work finishes).
+- **Defaults:** off; `maxConcurrent=1`; `autoApprove=true`; `forceReindex=false`; `requireEmissionsPresence=true` (passed through to the emissions presence gate).
+- **Filters:** `reportTypeIds`, registry `batchId`s, `coverageListIds` (Garbo coverage tables — no Unearth hop).
+- **Concurrency:** counts only auto-run jobs on early queues (`parsePdf`, `doclingParsePDF`, `indexMarkdown`, `checkEmissionsPresence`). Jobs delayed waiting for human approval **free** the slot so Docling can keep draining the backlog.
+- **Safety:** Docling unreachable → pause (`pausedReason=docling_unreachable`); 3 consecutive Docling failures or 5 consecutive report failures → soft disable.
+- **Attribution:** job data includes `autoRun: true`; `ReportRun.autoRun` is set for counter / status queries.
+
+Operators must ensure RunPod Docling is up before enabling.
