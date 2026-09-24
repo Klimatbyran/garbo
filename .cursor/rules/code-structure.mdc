@@ -1,0 +1,32 @@
+---
+description: Placement, size, reuse, and simplicity for Garbo code
+alwaysApply: true
+---
+
+# Code structure
+
+Naming, comments, and TypeScript style in `CLAUDE.md` still apply. Use judgment on structure. The goal is readable modules, not a folder of tiny wrappers.
+
+## Where code lives
+
+- HTTP handlers stay in `src/api/routes`. A route parses, authorizes, calls a service, and shapes the response.
+- Business logic used by a route, or by more than one route, goes in `src/api/services`.
+- Pipeline work stays in the existing `src/jobs` domain folder. Worker process wiring stays in `src/workers`.
+- Pure helpers, parsers, and clients go in `src/lib`.
+- Request and response shapes go in `src/api/schemas`.
+- Keep a helper or service local until a second real caller needs it. Inline logic is better when a new file would only wrap one call.
+
+## Size and reuse
+
+- Aim for about 300 lines when a clean split exists. A file past ~500 lines that mixes concerns should be split when a clear boundary exists.
+- Pull a second responsibility into its own module. Leave tightly coupled steps together when splitting them would force the reader to jump.
+- Prefer a few clear files over one huge file or many pass-through wrappers.
+- Extend an existing job, service, or helper before adding a parallel one.
+- Only split files this change touches, unless asked for a broader cleanup.
+
+## How to build
+
+- Reuse an existing service, job helper, or lib function when it already fits.
+- Keep each function on one responsibility, with a name that says what it does.
+- Prefer a simple, explicit solution that handles the real edge cases. Skip extra layers, config, and indirection this change does not need.
+- Match the coding style of the surrounding code: patterns, naming, error handling, and file layout already used in this repo.
