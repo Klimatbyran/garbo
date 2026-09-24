@@ -36,6 +36,25 @@ function buildIndexMarkdownChild(
   }
 }
 
+async function findStoredReportMarkdown(jobData: {
+  url: string
+  sourceUrl?: string
+  pdfCache?: { publicUrl?: string }
+}): Promise<string | null> {
+  const candidateUrls = [
+    jobData.url,
+    jobData.sourceUrl,
+    jobData.pdfCache?.publicUrl,
+  ].filter((value): value is string => Boolean(value))
+
+  for (const candidateUrl of [...new Set(candidateUrls)]) {
+    const markdown = await registryService.getMarkdownByUrl(candidateUrl)
+    if (markdown?.trim()) return markdown
+  }
+
+  return null
+}
+
 const parsePdf = new PipelineWorker(
   QUEUE_NAMES.PARSE_PDF,
   async (job) => {
@@ -44,6 +63,8 @@ const parsePdf = new PipelineWorker(
         url: string
         forceReindex?: boolean
         requireEmissionsPresence?: boolean
+        sourceUrl?: string
+        pdfCache?: { publicUrl?: string }
         // When set, run Docling only — no indexMarkdown/Chroma, no precheck.
         // doclingParsePDF POSTs {url, markdown} here once parsing completes,
         // for callers (e.g. a separate document pipeline) that want the raw
@@ -139,6 +160,57 @@ const parsePdf = new PipelineWorker(
       }
 
       if (!exists || forceReindex) {
+        // Chroma miss (or force): prefer re-embedding Report.markdown over a
+        // full Docling pass. forceReindex still means "re-parse the PDF".
+        if (!forceReindex) {
+          const storedMarkdown = await findStoredReportMarkdown(job.data)
+          if (storedMarkdown) {
+            job.log(
+              `markdown cache hit (postgres): re-indexing ${storedMarkdown.length} chars into Chroma`
+            )
+            job.editMessage(
+              `✅ PDF markdown found in registry. Re-indexing into Chroma...`
+            )
+
+            const indexMarkdownChild = {
+              name: 'indexMarkdown ' + name,
+              queueName: QUEUE_NAMES.INDEX_MARKDOWN,
+              data: {
+                ...job.data,
+                markdown: storedMarkdown,
+              },
+              opts: withPipelineJobOpts({
+                attempts: 3,
+              }),
+            }
+
+            if (requireEmissionsPresence) {
+              const gateFlow = await flow.add({
+                ...base,
+                name: 'checkEmissionsPresence ' + name,
+                queueName: QUEUE_NAMES.CHECK_EMISSIONS_PRESENCE,
+                children: [indexMarkdownChild],
+              })
+              job.log(
+                'reindex-from-markdown emissions-gate flow started: ' +
+                  gateFlow.job?.id
+              )
+            } else {
+              const reindexFlow = await flow.add({
+                ...base,
+                name: 'precheck ' + name,
+                queueName: QUEUE_NAMES.PRECHECK,
+                children: [indexMarkdownChild],
+              })
+              job.log(
+                'reindex-from-markdown flow started: ' + reindexFlow.job?.id
+              )
+            }
+            return true
+          }
+          job.log('markdown cache miss (postgres); running Docling')
+        }
+
         await startFreshParseFlow(
           forceReindex ? 'forceReindex' : 'no chroma index'
         )
