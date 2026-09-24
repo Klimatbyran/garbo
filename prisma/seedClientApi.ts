@@ -11,6 +11,8 @@ const BASE_PERMISSION_CODES = [
   'api.companies.search',
 ] as const
 
+const PARTNER_TRIAL_PERMISSION_CODES = BASE_PERMISSION_CODES
+
 function pepper(): string {
   return process.env.CLIENT_API_KEY_PEPPER ?? process.env.API_SECRET ?? ''
 }
@@ -49,6 +51,19 @@ export async function seedClientApi(prisma: PrismaClient) {
     update: { label: 'Company Data — company list, detail, search only' },
   })
 
+  const partnerTrialRole = await prisma.clientApiRole.upsert({
+    where: { slug: 'partner-trial' },
+    create: {
+      slug: 'partner-trial',
+      label:
+        'Partner trial — companies list/search/read, Sweden only, 7-day expiry',
+    },
+    update: {
+      label:
+        'Partner trial — companies list/search/read, Sweden only, 7-day expiry',
+    },
+  })
+
   const allPermissions = await prisma.clientApiPermission.findMany()
   const idByCode = new Map(allPermissions.map((p) => [p.code, p.id]))
 
@@ -69,6 +84,18 @@ export async function seedClientApi(prisma: PrismaClient) {
       data: BASE_PERMISSION_CODES.map((code) => idByCode.get(code))
         .filter((id): id is string => id !== undefined)
         .map((permissionId) => ({ roleId: baseRole.id, permissionId })),
+    })
+
+    await tx.clientApiRolePermission.deleteMany({
+      where: { roleId: partnerTrialRole.id },
+    })
+    await tx.clientApiRolePermission.createMany({
+      data: PARTNER_TRIAL_PERMISSION_CODES.map((code) => idByCode.get(code))
+        .filter((id): id is string => id !== undefined)
+        .map((permissionId) => ({
+          roleId: partnerTrialRole.id,
+          permissionId,
+        })),
     })
   })
 

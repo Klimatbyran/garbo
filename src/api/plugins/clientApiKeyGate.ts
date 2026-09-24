@@ -13,12 +13,15 @@ import {
   resolveClientApiPermission,
   type ClientApiPermissionCode,
 } from '../security/routePermissions'
+import { isClientApiKeyExpired, isKnownClientApiCompanyScope } from '../lib/clientApiCompanyScope'
 
 declare module 'fastify' {
   interface FastifyRequest {
     clientApiKeyId?: string
     clientApiPermission?: ClientApiPermissionCode
     clientApiKeyRoleSlug?: string
+    /** Null/undefined = unrestricted; `sweden` for trial keys. */
+    clientApiCompanyScope?: string | null
   }
 }
 
@@ -143,6 +146,35 @@ async function enforceClientApiKey(
     })
   }
 
+  if (isClientApiKeyExpired(keyRow.expiresAt)) {
+    request.log.warn({
+      event: 'client_api_key_auth',
+      outcome: 'expired_key',
+      clientApiKeyId: keyRow.id,
+      permission,
+      path: pathname,
+    })
+    return reply.status(401).send({
+      error: 'Invalid API key',
+      message: 'API key has expired.',
+    })
+  }
+
+  if (!isKnownClientApiCompanyScope(keyRow.companyScope)) {
+    request.log.warn({
+      event: 'client_api_key_auth',
+      outcome: 'unknown_company_scope',
+      clientApiKeyId: keyRow.id,
+      companyScope: keyRow.companyScope,
+      permission,
+      path: pathname,
+    })
+    return reply.status(403).send({
+      error: 'Forbidden',
+      message: 'This API key has an unrecognized company scope.',
+    })
+  }
+
   const allowed = new Set(
     keyRow.role.permissions.map((rp) => rp.permission.code)
   )
@@ -177,6 +209,7 @@ async function enforceClientApiKey(
   request.clientApiKeyId = keyRow.id
   request.clientApiPermission = permission
   request.clientApiKeyRoleSlug = keyRow.role.slug
+  request.clientApiCompanyScope = keyRow.companyScope
   request.log.info({
     event: 'client_api_key_auth',
     outcome: 'allowed',
