@@ -39,6 +39,7 @@ import {
   getOrCreateServiceBotUser,
 } from './serviceBotUser'
 import type { ReportingPeriod } from '@/types'
+import { normalizeLei } from '../../lib/normalizeLei'
 
 /** Latin accents stripped in SQL search (1:1 chars for Postgres translate). */
 const SQL_ACCENT_FROM =
@@ -177,16 +178,16 @@ class CompanyService {
     param: string,
     args: typeof detailedCompanyArgs = detailedCompanyArgs
   ) {
-    const lei = param.trim().toUpperCase()
-    if (/^[A-Z0-9]{20}$/.test(lei)) {
+    const normalizedLei = normalizeLei(param)
+    if (normalizedLei) {
       const byLeiColumn = await prisma.company.findFirst({
         ...args,
-        where: { lei },
+        where: { lei: normalizedLei },
       })
       if (byLeiColumn) return byLeiColumn
 
       const identifierRow = await prisma.companyIdentifier.findFirst({
-        where: { type: 'LEI', value: lei },
+        where: { type: 'LEI', value: normalizedLei },
         select: { companyId: true },
       })
       if (identifierRow) {
@@ -298,6 +299,17 @@ class CompanyService {
     lei?: string
     user?: User
   }) {
+    if (data.lei) {
+      const existing = await prisma.company.findUnique({
+        where: { wikidataId },
+        select: { id: true },
+      })
+      await companyIdentifierService.assertLeiNotOwnedByOtherCompany(
+        existing?.id ?? null,
+        data.lei
+      )
+    }
+
     const company = await prisma.company.upsert({
       where: {
         wikidataId,
@@ -404,6 +416,13 @@ class CompanyService {
       }
     }
 
+    if (data.lei) {
+      await companyIdentifierService.assertLeiNotOwnedByOtherCompany(
+        null,
+        data.lei
+      )
+    }
+
     const company = await prisma.company.create({
       data: {
         ...data,
@@ -440,6 +459,13 @@ class CompanyService {
     },
     user?: User
   ) {
+    if (data.lei) {
+      await companyIdentifierService.assertLeiNotOwnedByOtherCompany(
+        companyId,
+        data.lei
+      )
+    }
+
     const { alternativeNames, ...rest } = data
     const company = await prisma.company.update({
       where: { id: companyId },

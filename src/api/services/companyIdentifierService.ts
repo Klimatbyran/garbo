@@ -1,11 +1,65 @@
 import { CompanyIdentifierType, User } from '@prisma/client'
 import { prisma } from '../../lib/prisma'
+import { normalizeLei } from '../../lib/normalizeLei'
 import {
   GARBO_SERVICE_CLIENT_ID,
   getOrCreateServiceBotUser,
 } from './serviceBotUser'
 
 class CompanyIdentifierService {
+  /**
+   * Returns another company's id if it already owns this LEI (column or identifier row).
+   */
+  async findOtherCompanyOwningLei(
+    lei: string,
+    excludeCompanyId?: string | null
+  ): Promise<string | null> {
+    const normalized = normalizeLei(lei)
+    if (!normalized) return null
+
+    const byColumn = await prisma.company.findFirst({
+      where: {
+        lei: normalized,
+        ...(excludeCompanyId
+          ? { NOT: { id: excludeCompanyId } }
+          : {}),
+      },
+      select: { id: true },
+    })
+    if (byColumn) return byColumn.id
+
+    const byIdentifier = await prisma.companyIdentifier.findFirst({
+      where: {
+        type: 'LEI',
+        value: normalized,
+        ...(excludeCompanyId
+          ? { NOT: { companyId: excludeCompanyId } }
+          : {}),
+      },
+      select: { companyId: true },
+    })
+    return byIdentifier?.companyId ?? null
+  }
+
+  async assertLeiNotOwnedByOtherCompany(
+    companyId: string | null | undefined,
+    lei: string
+  ): Promise<void> {
+    const normalized = normalizeLei(lei)
+    if (!normalized) return
+
+    const ownerId = await this.findOtherCompanyOwningLei(
+      normalized,
+      companyId ?? null
+    )
+    if (ownerId) {
+      throw Object.assign(
+        new Error(`LEI ${normalized} is already in use by company ${ownerId}`),
+        { code: 409 }
+      )
+    }
+  }
+
   async upsertIdentifier({
     companyId,
     type,
@@ -25,6 +79,10 @@ class CompanyIdentifierService {
   }): Promise<{ id: string; value: string } | null> {
     const trimmedValue = value.trim()
     if (!trimmedValue) return null
+
+    if (type === 'LEI') {
+      await this.assertLeiNotOwnedByOtherCompany(companyId, trimmedValue)
+    }
 
     const existing = await prisma.companyIdentifier.findUnique({
       where: {

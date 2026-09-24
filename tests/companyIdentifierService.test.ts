@@ -7,8 +7,12 @@ const prismaMock = {
   metadata: {
     create: jest.fn<() => Promise<unknown>>(),
   },
+  company: {
+    findFirst: jest.fn<() => Promise<unknown>>(),
+  },
   companyIdentifier: {
     findUnique: jest.fn<() => Promise<unknown>>(),
+    findFirst: jest.fn<() => Promise<unknown>>(),
     upsert: jest.fn<() => Promise<unknown>>(),
   },
   $transaction: jest.fn(
@@ -35,6 +39,8 @@ const botUser = { id: 'user-garbo', name: 'garbo', bot: true }
 describe('companyIdentifierService', () => {
   beforeEach(() => {
     jest.clearAllMocks()
+    prismaMock.company.findFirst.mockResolvedValue(null)
+    prismaMock.companyIdentifier.findFirst.mockResolvedValue(null)
   })
 
   it('upsertIdentifier creates row and metadata for new identifier', async () => {
@@ -80,6 +86,24 @@ describe('companyIdentifierService', () => {
 
     expect(result).toEqual({ id: 'id-1', value: 'Q123' })
     expect(prismaMock.metadata.create).not.toHaveBeenCalled()
+    expect(prismaMock.companyIdentifier.upsert).not.toHaveBeenCalled()
+  })
+
+  it('upsertIdentifier rejects LEI already owned by another company', async () => {
+    prismaMock.company.findFirst.mockResolvedValue({ id: 'other-company' })
+
+    await expect(
+      companyIdentifierService.upsertIdentifier({
+        companyId: 'company-1',
+        type: 'LEI',
+        value: '5493001KJTIIGC8Y1R12',
+        user: botUser as any,
+      })
+    ).rejects.toMatchObject({
+      message: expect.stringContaining('already in use'),
+      code: 409,
+    })
+
     expect(prismaMock.companyIdentifier.upsert).not.toHaveBeenCalled()
   })
 
