@@ -287,17 +287,20 @@ describe('companyReportService', () => {
       id: 'cr-other',
     } as never)
     const setYear = jest
-      .spyOn(companyReportService, 'setCompanyReportYear')
+      .spyOn(companyReportService, 'maybeSetCompanyReportYearOnPeriodSave')
       .mockResolvedValueOnce(undefined)
 
     const result = await companyReportService.companyReportIdForPeriodSave(
       'company-1',
       'cr-default',
       'cr-other',
-      '2025'
+      '2025',
+      { explicitDocumentReportYear: '2025' }
     )
 
     expect(result).toBe('cr-other')
-    expect(setYear).toHaveBeenCalledWith('cr-other', '2025')
+    expect(setYear).toHaveBeenCalledWith('cr-other', '2025', {
+      explicitDocumentReportYear: '2025',
+    })
   })
 })
