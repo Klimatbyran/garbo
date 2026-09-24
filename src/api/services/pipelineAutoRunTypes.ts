@@ -75,6 +75,44 @@ export function reportRunnableUrl(report: {
   return { url: report.url }
 }
 
+export function reportUrlVariants(report: {
+  url: string
+  sourceUrl: string | null
+  s3Url: string | null
+}): string[] {
+  return [report.url, report.sourceUrl, report.s3Url]
+    .filter((u): u is string => typeof u === 'string' && u.trim().length > 0)
+    .map((u) => u.trim())
+}
+
+export type AutoRunCandidateReportRow = {
+  id: string
+  url: string
+  sourceUrl: string | null
+  s3Url: string | null
+  companyName: string | null
+  wikidataId: string | null
+}
+
+/** Pure page filter for candidate selection (unit-tested). */
+export function pickCandidatesFromPage(
+  rows: AutoRunCandidateReportRow[],
+  claimedUrls: Set<string>,
+  limit: number
+): AutoRunCandidateReportRow[] {
+  const selected: AutoRunCandidateReportRow[] = []
+  for (const row of rows) {
+    if (selected.length >= limit) break
+    const variants = reportUrlVariants(row)
+    if (variants.length === 0) continue
+    if (variants.some((u) => claimedUrls.has(u))) continue
+    const runnable = reportRunnableUrl(row)
+    if (!runnable.url?.trim()) continue
+    selected.push(row)
+  }
+  return selected
+}
+
 /** Early queues that occupy an auto-run concurrency slot. */
 export const AUTO_RUN_ACTIVE_QUEUES = [
   'parsePdf',

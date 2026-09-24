@@ -1162,6 +1162,7 @@ Validate can enable a soft-gated backlog runner that enqueues saved registry `Re
 - **Filters:** `reportTypeIds`, registry `batchId`s, `coverageListIds` (Garbo coverage tables — no Unearth hop).
 - **Concurrency:** counts only auto-run jobs on early queues (`parsePdf`, `doclingParsePDF`, `indexMarkdown`, `checkEmissionsPresence`). Jobs delayed waiting for human approval **free** the slot so Docling can keep draining the backlog.
 - **Safety:** Docling unreachable → pause (`pausedReason=docling_unreachable`); 3 consecutive Docling failures or 5 consecutive report failures → soft disable.
+- **Candidates:** pages past claimed/completed/`skipped_no_emissions`/failed auto-run URLs; when `requireEmissionsPresence` is on, SQL excludes `hasEmissionsMentions=false`. Redis/queue read failures fail closed (no enqueue). Stale `running` claims older than 6h are ignored.
 - **Attribution:** job data includes `autoRun: true`; `ReportRun.autoRun` is set for counter / status queries.
 
 Operators must ensure RunPod Docling is up before enabling.

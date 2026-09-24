@@ -18,7 +18,10 @@ import {
   type PipelineAutoRunPatch,
   type PipelineAutoRunStatus,
   reportRunnableUrl,
+  pickCandidatesFromPage,
 } from './pipelineAutoRunTypes'
+
+export { pickCandidatesFromPage } from './pipelineAutoRunTypes'
 
 const CONFIG_ID = 'default'
 
@@ -134,16 +137,6 @@ export async function patchPipelineAutoRunConfig(
   return getPipelineAutoRunStatus()
 }
 
-function reportUrlVariants(report: {
-  url: string
-  sourceUrl: string | null
-  s3Url: string | null
-}): string[] {
-  return [report.url, report.sourceUrl, report.s3Url]
-    .filter((u): u is string => typeof u === 'string' && u.trim().length > 0)
-    .map((u) => u.trim())
-}
-
 function jobIsAutoRun(job: Job): boolean {
   return Boolean((job.data as { autoRun?: unknown } | undefined)?.autoRun)
 }
@@ -164,6 +157,11 @@ function jobIsWaitingForApproval(job: Job): boolean {
   return false
 }
 
+/** Running auto-run rows older than this are treated as abandoned (crash between claim and progress). */
+const STALE_RUNNING_CLAIM_MS = 6 * 60 * 60 * 1000
+const CANDIDATE_PAGE_SIZE = 100
+const CANDIDATE_MAX_PAGES = 50
+
 async function getJobsFromQueues(
   queueNames: readonly string[],
   statuses: Array<'waiting' | 'active' | 'delayed' | 'paused'>
@@ -176,8 +174,6 @@ async function getJobsFromQueues(
       for (const job of jobs) {
         if (job) out.push({ queueName, job })
       }
-    } catch {
-      // Queue may not exist yet (e.g. checkEmissionsPresence before that PR).
     } finally {
       await q.close().catch(() => undefined)
     }
@@ -216,13 +212,18 @@ export async function countParkedOnApprovalAutoRuns(): Promise<number> {
 
 async function collectClaimedPdfUrls(): Promise<Set<string>> {
   const claimed = new Set<string>()
+  const staleBefore = new Date(Date.now() - STALE_RUNNING_CLAIM_MS)
 
   const openRuns = await prisma.reportRun.findMany({
     where: {
       OR: [
-        { status: 'running' },
-        // Terminal gate from emissions-presence PR — still "claimed" for re-enqueue.
+        // Fresh running claims only — abandoned creates (crash before progress) age out.
+        { status: 'running', updatedAt: { gte: staleBefore } },
+        // Terminal outcomes must not be re-enqueued.
         { status: 'skipped_no_emissions' },
+        { status: 'completed' },
+        // Failed auto-runs are poison until an operator retries manually outside this ticker.
+        { status: 'failed', autoRun: true },
       ],
     },
     select: { pdfUrl: true },
@@ -247,95 +248,85 @@ async function collectClaimedPdfUrls(): Promise<Set<string>> {
   return claimed
 }
 
+function buildReportFilterWhere(
+  filters: PipelineAutoRunFilters,
+  runOptions: PipelineAutoRunOptions
+): Prisma.ReportWhereInput {
+  const parts: Prisma.ReportWhereInput[] = [
+    { companyReports: { none: {} } },
+  ]
+  // Known no-emissions PDFs stay in registry without CompanyReport; skip in SQL
+  // so they cannot fill a paged window and starve later candidates.
+  if (runOptions.requireEmissionsPresence) {
+    parts.push({ NOT: { hasEmissionsMentions: false } })
+  }
+  if (filters.reportTypeIds.length) {
+    parts.push({ reportTypeId: { in: filters.reportTypeIds } })
+  }
+  if (filters.registryBatchIds.length) {
+    parts.push({ batchId: { in: filters.registryBatchIds } })
+  }
+  if (filters.coverageListIds.length) {
+    parts.push({
+      coverageEntryReports: {
+        some: {
+          linkStatus: 'matched',
+          entry: {
+            year: { listId: { in: filters.coverageListIds } },
+          },
+        },
+      },
+    })
+  }
+  return { AND: parts }
+}
+
+type CandidateReportRow = {
+  id: string
+  url: string
+  sourceUrl: string | null
+  s3Url: string | null
+  companyName: string | null
+  wikidataId: string | null
+}
+
 export async function selectAutoRunCandidates(
   filters: PipelineAutoRunFilters,
   runOptions: PipelineAutoRunOptions,
   limit: number
-): Promise<
-  Array<{
-    id: string
-    url: string
-    sourceUrl: string | null
-    s3Url: string | null
-    companyName: string | null
-    wikidataId: string | null
-  }>
-> {
+): Promise<CandidateReportRow[]> {
   if (limit <= 0) return []
 
   const claimed = await collectClaimedPdfUrls()
+  const baseWhere = buildReportFilterWhere(filters, runOptions)
 
-  // Avoid referencing hasEmissionsMentions until the column exists in the client.
-  const baseWhere: Prisma.ReportWhereInput = {
-    AND: [
-      { companyReports: { none: {} } },
-      ...(filters.reportTypeIds.length
-        ? [{ reportTypeId: { in: filters.reportTypeIds } }]
-        : []),
-      ...(filters.registryBatchIds.length
-        ? [{ batchId: { in: filters.registryBatchIds } }]
-        : []),
-      ...(filters.coverageListIds.length
-        ? [
-            {
-              coverageEntryReports: {
-                some: {
-                  linkStatus: 'matched' as const,
-                  entry: {
-                    year: { listId: { in: filters.coverageListIds } },
-                  },
-                },
-              },
-            },
-          ]
-        : []),
-    ],
-  }
+  const selected: CandidateReportRow[] = []
+  let afterId: string | undefined
+  for (let page = 0; page < CANDIDATE_MAX_PAGES && selected.length < limit; page++) {
+    const rows = await prisma.report.findMany({
+      where: {
+        AND: [
+          baseWhere,
+          ...(afterId ? [{ id: { gt: afterId } }] : []),
+        ],
+      },
+      orderBy: { id: 'asc' },
+      take: CANDIDATE_PAGE_SIZE,
+      select: {
+        id: true,
+        url: true,
+        sourceUrl: true,
+        s3Url: true,
+        companyName: true,
+        wikidataId: true,
+      },
+    })
+    if (rows.length === 0) break
+    afterId = rows[rows.length - 1]?.id
 
-  // Fetch a window larger than limit so we can filter claimed URLs in memory.
-  const rows = await prisma.report.findMany({
-    where: baseWhere,
-    orderBy: { id: 'asc' },
-    take: Math.max(limit * 20, 50),
-    select: {
-      id: true,
-      url: true,
-      sourceUrl: true,
-      s3Url: true,
-      companyName: true,
-      wikidataId: true,
-    },
-  })
-
-  // Exclude reports that already have a completed (or skipped) run for any URL variant.
-  const completedUrls = new Set(
-    (
-      await prisma.reportRun.findMany({
-        where: {
-          status: { in: ['completed', 'skipped_no_emissions'] },
-          pdfUrl: {
-            in: rows.flatMap((r) => reportUrlVariants(r)),
-          },
-        },
-        select: { pdfUrl: true },
-      })
-    ).map((r) => r.pdfUrl)
-  )
-
-  const selected: typeof rows = []
-  for (const row of rows) {
-    const variants = reportUrlVariants(row)
-    if (variants.some((u) => claimed.has(u) || completedUrls.has(u))) {
-      continue
-    }
-    // Prefer rows with a runnable URL
-    try {
-      reportRunnableUrl(row)
-    } catch {
-      continue
-    }
-    selected.push(row)
-    if (selected.length >= limit) break
+    const need = limit - selected.length
+    const picked = pickCandidatesFromPage(rows, claimed, need)
+    selected.push(...picked)
   }
 
   return selected
@@ -343,37 +334,14 @@ export async function selectAutoRunCandidates(
 
 export async function estimateRemainingCandidates(
   filters: PipelineAutoRunFilters,
-  _runOptions: PipelineAutoRunOptions
+  runOptions: PipelineAutoRunOptions
 ): Promise<number | null> {
   try {
-    // Approximate: count reports with no CompanyReport matching filters.
-    // Claimed/completed fine-filter is expensive; UI shows estimate.
-    const simplified: Prisma.ReportWhereInput = {
-      AND: [
-        { companyReports: { none: {} } },
-        ...(filters.reportTypeIds.length
-          ? [{ reportTypeId: { in: filters.reportTypeIds } }]
-          : []),
-        ...(filters.registryBatchIds.length
-          ? [{ batchId: { in: filters.registryBatchIds } }]
-          : []),
-        ...(filters.coverageListIds.length
-          ? [
-              {
-                coverageEntryReports: {
-                  some: {
-                    linkStatus: 'matched' as const,
-                    entry: {
-                      year: { listId: { in: filters.coverageListIds } },
-                    },
-                  },
-                },
-              },
-            ]
-          : []),
-      ],
-    }
-    return await prisma.report.count({ where: simplified })
+    // Approximate: filter-matched reports with no CompanyReport (and not known
+    // no-emissions when the gate is on). Live claimed/failed fine-filter is omitted.
+    return await prisma.report.count({
+      where: buildReportFilterWhere(filters, runOptions),
+    })
   } catch {
     return null
   }
@@ -619,7 +587,19 @@ export async function runPipelineAutoRunTick(): Promise<{
 
   const filters = parseFilters(latest.filters)
   const runOptions = parseOptions(latest.runOptions)
-  const active = await countActivelyProcessingAutoRuns()
+  let active: number
+  try {
+    active = await countActivelyProcessingAutoRuns()
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err)
+    await prisma.pipelineAutoRunConfig.update({
+      where: { id: CONFIG_ID },
+      data: {
+        lastError: `Queue read failed — skipped enqueue: ${message}`,
+      },
+    })
+    return { enqueued: 0, skippedReason: 'queue_unavailable' }
+  }
   const slots = Math.max(0, latest.maxConcurrent - active)
   if (slots <= 0) {
     return { enqueued: 0, skippedReason: 'at_capacity' }

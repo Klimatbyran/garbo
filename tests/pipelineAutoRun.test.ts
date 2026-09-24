@@ -5,6 +5,7 @@ import {
   DOCLING_FAILURE_AUTO_OFF,
   REPORT_FAILURE_AUTO_OFF,
   reportRunnableUrl,
+  pickCandidatesFromPage,
 } from '../src/api/services/pipelineAutoRunTypes'
 
 describe('pipelineAutoRunTypes', () => {
@@ -69,5 +70,65 @@ describe('reportRunnableUrl', () => {
         s3Url: null,
       })
     ).toEqual({ url: 'https://example.com/r.pdf' })
+  })
+})
+
+describe('pickCandidatesFromPage', () => {
+  const row = (
+    id: string,
+    url: string,
+    extra?: Partial<{ sourceUrl: string | null; s3Url: string | null }>
+  ) => ({
+    id,
+    url,
+    sourceUrl: extra?.sourceUrl ?? null,
+    s3Url: extra?.s3Url ?? null,
+    companyName: null,
+    wikidataId: null,
+  })
+
+  it('skips claimed URL variants and keeps later unclaimed rows', () => {
+    const claimed = new Set(['https://claimed.example/a.pdf'])
+    const picked = pickCandidatesFromPage(
+      [
+        row('1', 'https://claimed.example/a.pdf'),
+        row('2', 'https://ok.example/b.pdf'),
+        row('3', 'https://ok.example/c.pdf'),
+      ],
+      claimed,
+      2
+    )
+    expect(picked.map((r) => r.id)).toEqual(['2', '3'])
+  })
+
+  it('respects limit so a page full of claimed rows yields nothing', () => {
+    const claimed = new Set([
+      'https://claimed.example/a.pdf',
+      'https://claimed.example/b.pdf',
+    ])
+    const picked = pickCandidatesFromPage(
+      [
+        row('1', 'https://claimed.example/a.pdf'),
+        row('2', 'https://claimed.example/b.pdf'),
+      ],
+      claimed,
+      1
+    )
+    expect(picked).toEqual([])
+  })
+
+  it('matches claim via s3Url variant', () => {
+    const claimed = new Set(['https://storage.example/a.pdf'])
+    const picked = pickCandidatesFromPage(
+      [
+        row('1', 'https://web.example/a.pdf', {
+          s3Url: 'https://storage.example/a.pdf',
+        }),
+        row('2', 'https://ok.example/b.pdf'),
+      ],
+      claimed,
+      1
+    )
+    expect(picked.map((r) => r.id)).toEqual(['2'])
   })
 })
