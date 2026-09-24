@@ -205,6 +205,8 @@ class RegistryService {
         s3Key: true,
         s3Bucket: true,
         sha256: true,
+        hasEmissionsMentions: true,
+        emissionsPresenceCheckedAt: true,
         ...registryReportTypeSelect,
       },
     })
@@ -301,6 +303,8 @@ class RegistryService {
           s3Key: true,
           s3Bucket: true,
           sha256: true,
+          hasEmissionsMentions: true,
+          emissionsPresenceCheckedAt: true,
           ...registryReportTypeSelect,
         },
       })
