@@ -456,6 +456,89 @@ const guessWikidata = new PipelineWorker<GuessWikidataJob>(
       return
     }
 
+    // Caller already knows the exact company (e.g. Validate's urlContexts.wikidataId,
+    // set on this job as job.data.wikidata) - trust it outright: no name search, no
+    // approval step. Distinct from overrideWikidataId above, which is a human
+    // explicitly correcting a guess and still needs to verify that correction.
+    if (pendingWikidata?.node) {
+      const trustedEntities = await getWikidataEntities([
+        pendingWikidata.node as `Q${number}`,
+      ])
+
+      if (trustedEntities.length) {
+        const [{ id, labels, descriptions }] = trustedEntities
+
+        const trustedWikidata = {
+          node: id,
+          url: `https://wikidata.org/wiki/${id}`,
+          label:
+            labels?.sv?.value ??
+            labels?.en?.value ??
+            Object.values(labels ?? {})[0]?.value ??
+            companyName,
+          description:
+            descriptions?.sv?.value ??
+            descriptions?.en?.value ??
+            Object.values(descriptions ?? {})[0]?.value ??
+            '',
+        } satisfies Wikidata
+
+        // Still guard against this wikidataId already belonging to a different
+        // pipeline company (e.g. a duplicate-company situation) - cheap id-based
+        // check, not a name search, so it doesn't reintroduce the guessing this
+        // fast path exists to skip.
+        const readyBeforeApproval = await requestCompanyLinkIfWikidataConflict(
+          job,
+          companyName,
+          trustedWikidata
+        )
+        if (!readyBeforeApproval) return
+
+        const metadata = {
+          source: 'pipeline-supplied-wikidata',
+          comment:
+            'Wikidata ID explicitly supplied by the caller (e.g. a Validate rerun) - trusted, no search performed',
+        }
+
+        await job.requestApproval(
+          'wikidata',
+          { type: 'wikidata', newValue: { wikidata: trustedWikidata } },
+          true, // auto-approved
+          metadata,
+          `Auto-approved wikidata for ${companyName} (caller-supplied)`
+        )
+
+        const ready = await ensureCompanyLinkBeforeWikidataPersist(
+          job,
+          companyName,
+          trustedWikidata
+        )
+        if (!ready) return
+
+        await persistApprovedWikidata(job, companyName, trustedWikidata, {
+          verified: false,
+          metadata,
+        })
+
+        await job.sendMessage({
+          content: `Wikidata already known for ${companyName} — skipped search.`,
+        })
+
+        return JSON.stringify(
+          {
+            status: 'approved',
+            wikidata: trustedWikidata,
+            message: `Auto-approved wikidata for ${companyName} (caller-supplied, no search)`,
+            metadata,
+          },
+          null,
+          2
+        )
+      }
+      // If the id doesn't resolve to a real entity, fall through to the normal
+      // search-based flow below as a safety net rather than failing outright.
+    }
+
     /* NOTE: Can be activated once the corresponding endpoint is ready in prod
 
     const queryProductionRes = await fetch(apiConfig.prod_base_url + '/companies/search?q=' + companyName , {method: 'GET', headers: {'Content-Type': 'application/json'}});    
