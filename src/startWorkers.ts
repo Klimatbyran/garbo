@@ -50,33 +50,29 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
         return
       }
 
-      const existingReportRun = await prisma.reportRun.findUnique({
+      // Upsert by threadId so concurrent completion handlers (e.g. parsePdf +
+      // checkEmissionsPresence finishing within ms on a gated cache hit) do not
+      // race on findUnique → create and drop the unique-constraint loser —
+      // which previously could leave archive status stuck at "running".
+      const reportRun = await prisma.reportRun.upsert({
         where: { threadId },
-        select: { id: true },
+        create: {
+          threadId,
+          pdfUrl,
+          companyName,
+          companyId,
+          wikidataId,
+          companyReportId,
+          batchDbId,
+        },
+        update: reportRunSyncFieldsFromJob({
+          companyName,
+          companyId,
+          wikidataId,
+          companyReportId,
+          batchDbId,
+        }),
       })
-
-      const reportRun = existingReportRun
-        ? await prisma.reportRun.update({
-            where: { threadId },
-            data: reportRunSyncFieldsFromJob({
-              companyName,
-              companyId,
-              wikidataId,
-              companyReportId,
-              batchDbId,
-            }),
-          })
-        : await prisma.reportRun.create({
-            data: {
-              threadId,
-              pdfUrl,
-              companyName,
-              companyId,
-              wikidataId,
-              companyReportId,
-              batchDbId,
-            },
-          })
 
       let returnValue: Record<string, any> | null = null
       if (job.returnvalue) {
