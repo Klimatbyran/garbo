@@ -113,15 +113,52 @@ export function pickCandidatesFromPage(
   return selected
 }
 
-/** Early queues that occupy an auto-run concurrency slot. */
-export const AUTO_RUN_ACTIVE_QUEUES = [
+/**
+ * Queues whose waiting/active/paused (and non-approval delayed) auto-run jobs
+ * occupy a concurrency slot. Includes mid-pipeline LLM/API work — not only
+ * Docling-early queues — so maxConcurrent bounds overnight drain cost.
+ * Jobs delayed waiting for staff approval are excluded in the counter.
+ */
+export const AUTO_RUN_SLOT_QUEUES = [
   'parsePdf',
   'doclingParsePDF',
   'indexMarkdown',
   'checkEmissionsPresence',
+  'precheck',
+  'guessWikidata',
+  'extractEmissions',
+  'extractDescriptions',
+  'extractLEI',
+  'followUpScope1',
+  'followUpScope2',
+  'followUpScope12',
+  'followUpScope3',
+  'followUpBiogenic',
+  'followUpEconomy',
+  'followUpGoals',
+  'followUpInitiatives',
+  'followUpFiscalYear',
+  'followUpCompanyTags',
+  'followUpReportType',
+  'followUpBaseYear',
+  'followUpIndustryGics',
+  'followUpReportingQuality',
+  'checkDB',
+  'diffBaseYear',
+  'diffGoals',
+  'diffIndustry',
+  'diffInitiatives',
+  'diffReportingPeriods',
+  'diffTags',
+  'diffReportType',
+  'diffDescriptions',
+  'diffLEI',
+  'diffReportingQuality',
+  'saveToAPI',
+  'sendCompanyLink',
 ] as const
 
-/** Queues where a delayed job may be waiting for staff approval. */
+/** Queues where a delayed job may be waiting for staff approval (slot freed). */
 export const AUTO_RUN_APPROVAL_QUEUES = [
   'precheck',
   'guessWikidata',

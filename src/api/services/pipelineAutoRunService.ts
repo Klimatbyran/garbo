@@ -7,7 +7,7 @@ import { queues } from '../../queues'
 import { withPipelineJobOpts } from '../../lib/pipelineJobOptions'
 import { resolveReportBatchDbId } from '../../lib/reportRunPersistence'
 import {
-  AUTO_RUN_ACTIVE_QUEUES,
+  AUTO_RUN_SLOT_QUEUES,
   AUTO_RUN_APPROVAL_QUEUES,
   DOCLING_FAILURE_AUTO_OFF,
   REPORT_FAILURE_AUTO_OFF,
@@ -20,6 +20,7 @@ import {
   reportRunnableUrl,
   pickCandidatesFromPage,
 } from './pipelineAutoRunTypes'
+import { tryWithPipelineAutoRunTickLock } from '../../lib/pipelineAutoRunLock'
 
 export { pickCandidatesFromPage } from './pipelineAutoRunTypes'
 
@@ -75,8 +76,8 @@ export async function getPipelineAutoRunStatus(): Promise<PipelineAutoRunStatus>
   const runOptions = parseOptions(row.runOptions)
   const [activelyProcessing, parkedOnApproval, remainingEstimate, docling] =
     await Promise.all([
-      countActivelyProcessingAutoRuns(),
-      countParkedOnApprovalAutoRuns(),
+      countActivelyProcessingAutoRuns().catch(() => 0),
+      countParkedOnApprovalAutoRuns().catch(() => 0),
       estimateRemainingCandidates(filters, runOptions),
       checkDoclingReachable(),
     ])
@@ -173,6 +174,8 @@ function jobIsWaitingForApproval(job: Job): boolean {
 const STALE_RUNNING_CLAIM_MS = 6 * 60 * 60 * 1000
 const CANDIDATE_PAGE_SIZE = 100
 const CANDIDATE_MAX_PAGES = 50
+const QUEUE_JOB_PAGE_SIZE = 500
+const QUEUE_JOB_MAX_PAGES = 10
 
 async function getJobsFromQueues(
   queueNames: readonly string[],
@@ -182,9 +185,14 @@ async function getJobsFromQueues(
   for (const queueName of queueNames) {
     const q = new Queue(queueName, { connection: redis })
     try {
-      const jobs = await q.getJobs([...statuses], 0, 499)
-      for (const job of jobs) {
-        if (job) out.push({ queueName, job })
+      for (let page = 0; page < QUEUE_JOB_MAX_PAGES; page++) {
+        const start = page * QUEUE_JOB_PAGE_SIZE
+        const end = start + QUEUE_JOB_PAGE_SIZE - 1
+        const jobs = await q.getJobs([...statuses], start, end)
+        for (const job of jobs) {
+          if (job) out.push({ queueName, job })
+        }
+        if (jobs.length < QUEUE_JOB_PAGE_SIZE) break
       }
     } finally {
       await q.close().catch(() => undefined)
@@ -193,19 +201,30 @@ async function getJobsFromQueues(
   return out
 }
 
+/**
+ * Auto-run jobs that occupy a concurrency slot: any mid-pipeline work except
+ * delayed jobs waiting for staff approval (those free the slot for Docling).
+ */
 export async function countActivelyProcessingAutoRuns(): Promise<number> {
-  const jobs = await getJobsFromQueues(AUTO_RUN_ACTIVE_QUEUES, [
-    'waiting',
-    'active',
-    'delayed',
-    'paused',
+  const [activeish, delayed] = await Promise.all([
+    getJobsFromQueues(AUTO_RUN_SLOT_QUEUES, ['waiting', 'active', 'paused']),
+    getJobsFromQueues(AUTO_RUN_SLOT_QUEUES, ['delayed']),
   ])
   const threadIds = new Set<string>()
-  for (const { job } of jobs) {
-    if (!jobIsAutoRun(job)) continue
+  const add = (job: Job) => {
     const threadId = (job.data as { threadId?: string })?.threadId
     if (threadId) threadIds.add(threadId)
     else threadIds.add(job.id ?? job.name)
+  }
+  for (const { job } of activeish) {
+    if (!jobIsAutoRun(job)) continue
+    add(job)
+  }
+  for (const { job } of delayed) {
+    if (!jobIsAutoRun(job)) continue
+    // Parked on human approval — free the slot so Docling can keep draining.
+    if (jobIsWaitingForApproval(job)) continue
+    add(job)
   }
   return threadIds.size
 }
@@ -244,10 +263,12 @@ async function collectClaimedPdfUrls(): Promise<Set<string>> {
     if (run.pdfUrl) claimed.add(run.pdfUrl)
   }
 
-  const live = await getJobsFromQueues(
-    [...AUTO_RUN_ACTIVE_QUEUES, ...AUTO_RUN_APPROVAL_QUEUES],
-    ['waiting', 'active', 'delayed', 'paused']
-  )
+  const live = await getJobsFromQueues(AUTO_RUN_SLOT_QUEUES, [
+    'waiting',
+    'active',
+    'delayed',
+    'paused',
+  ])
   for (const { job } of live) {
     const url = (job.data as { url?: string })?.url
     if (typeof url === 'string' && url.trim()) claimed.add(url.trim())
@@ -555,8 +576,36 @@ export async function enqueueAutoRunReport(
 
 /**
  * One ticker iteration: observe outcomes, Docling preflight, maybe enqueue.
+ * Multi-replica safe via Redis tick lock (overlapping ticks skip enqueue).
  */
 export async function runPipelineAutoRunTick(): Promise<{
+  enqueued: number
+  skippedReason?: string
+}> {
+  let locked: Awaited<ReturnType<typeof tryWithPipelineAutoRunTickLock<
+    { enqueued: number; skippedReason?: string }
+  >>>
+  try {
+    locked = await tryWithPipelineAutoRunTickLock(() =>
+      runPipelineAutoRunTickLocked()
+    )
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err)
+    await prisma.pipelineAutoRunConfig.update({
+      where: { id: CONFIG_ID },
+      data: {
+        lastError: `Tick lock / Redis unavailable — skipped enqueue: ${message}`,
+      },
+    })
+    return { enqueued: 0, skippedReason: 'queue_unavailable' }
+  }
+  if (!locked.acquired) {
+    return { enqueued: 0, skippedReason: 'tick_locked' }
+  }
+  return locked.result
+}
+
+async function runPipelineAutoRunTickLocked(): Promise<{
   enqueued: number
   skippedReason?: string
 }> {
@@ -600,8 +649,14 @@ export async function runPipelineAutoRunTick(): Promise<{
   const filters = parseFilters(latest.filters)
   const runOptions = parseOptions(latest.runOptions)
   let active: number
+  let candidates: Awaited<ReturnType<typeof selectAutoRunCandidates>>
   try {
     active = await countActivelyProcessingAutoRuns()
+    const slots = Math.max(0, latest.maxConcurrent - active)
+    if (slots <= 0) {
+      return { enqueued: 0, skippedReason: 'at_capacity' }
+    }
+    candidates = await selectAutoRunCandidates(filters, runOptions, slots)
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err)
     await prisma.pipelineAutoRunConfig.update({
@@ -612,12 +667,7 @@ export async function runPipelineAutoRunTick(): Promise<{
     })
     return { enqueued: 0, skippedReason: 'queue_unavailable' }
   }
-  const slots = Math.max(0, latest.maxConcurrent - active)
-  if (slots <= 0) {
-    return { enqueued: 0, skippedReason: 'at_capacity' }
-  }
 
-  const candidates = await selectAutoRunCandidates(filters, runOptions, slots)
   let enqueued = 0
   for (const report of candidates) {
     try {
