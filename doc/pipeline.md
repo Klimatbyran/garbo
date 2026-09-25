@@ -1151,3 +1151,18 @@ scope3: [
     }
 ]
 ```
+
+## Pipeline auto-run (backlog drain)
+
+Validate can enable a soft-gated backlog runner that enqueues saved registry `Report` rows into `parsePdf` overnight / in the background.
+
+- **Config API (staff JWT):** `GET|PATCH /api/pipeline-auto-run`
+- **Worker:** `pipelineAutoRun` repeatable tick (~60s). When `enabled=false`, it never enqueues new jobs (soft disable — in-flight work finishes).
+- **Defaults:** off; `maxConcurrent=1`; `autoApprove=true`; `forceReindex=false`; `requireEmissionsPresence=true` (passed through to the emissions presence gate).
+- **Filters:** `reportTypeIds`, registry `batchId`s, `coverageListIds` (Garbo coverage tables — no Unearth hop).
+- **Concurrency:** counts auto-run jobs on pipeline queues (Docling-early **and** mid-pipeline LLM/API). Jobs **delayed waiting for human approval free** the slot so Docling can keep draining. Overlapping ticks across replicas are serialized with a Redis tick lock.
+- **Safety:** Docling unreachable → pause (`pausedReason=docling_unreachable`); 3 consecutive Docling failures or 5 consecutive report failures → soft disable.
+- **Candidates:** pages past claimed/completed/`skipped_no_emissions`/failed auto-run URLs; when `requireEmissionsPresence` is on, SQL excludes `hasEmissionsMentions=false`. Redis/queue read failures fail closed (no enqueue). Stale `running` claims older than 6h are ignored.
+- **Attribution:** job data includes `autoRun: true`; `ReportRun.autoRun` is set for counter / status queries.
+
+Operators must ensure RunPod Docling is up before enabling. Keep auto-run **Off** until filters are set; treat long unattended drains as needing operator monitoring until failure-counter watermarks have more integration coverage.

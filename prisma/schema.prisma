@@ -661,12 +661,15 @@ model ReportRun {
   batchDbId       String?         @map("batch_db_id")
   batch           Batch?          @relation(fields: [batchDbId], references: [id], onDelete: SetNull, onUpdate: Cascade)
   status          String          @default("running") // 'running' | 'completed' | 'failed' | 'skipped_no_emissions'
+  /// True when this run was started by the pipeline auto-run ticker.
+  autoRun         Boolean         @default(false) @map("auto_run")
   startedAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
   jobs            ReportRunJob[]
   datapointNotes  DatapointNote[]
 
   @@index([pdfUrl])
+  @@index([autoRun, status])
   @@index([companyId])
   @@index([wikidataId])
   @@index([companyReportId])
@@ -917,4 +920,27 @@ model CoverageCrawlState {
   @@index([needsManualFind])
   @@index([crawlSkipUntil])
   @@map("coverage_crawl_states")
+}
+
+/// Durable on/off + filters for Validate pipeline auto-run (backlog drain).
+model PipelineAutoRunConfig {
+  id                         String    @id @default("default")
+  enabled                    Boolean   @default(false)
+  maxConcurrent              Int       @default(1) @map("max_concurrent")
+  /// { reportTypeIds?: string[], registryBatchIds?: string[], coverageListIds?: string[] }
+  filters                    Json      @default("{}")
+  /// { autoApprove, forceReindex, runOnly?, tags?, batchId?, requireEmissionsPresence? }
+  runOptions                 Json      @default("{}")
+  consecutiveDoclingFailures Int       @default(0) @map("consecutive_docling_failures")
+  consecutiveReportFailures  Int       @default(0) @map("consecutive_report_failures")
+  pausedReason               String?   @map("paused_reason")
+  disabledReason             String?   @map("disabled_reason")
+  lastTickAt                 DateTime? @map("last_tick_at")
+  lastEnqueuedAt             DateTime? @map("last_enqueued_at")
+  lastError                  String?   @map("last_error")
+  updatedBy                  String?   @map("updated_by")
+  createdAt                  DateTime  @default(now()) @map("created_at")
+  updatedAt                  DateTime  @updatedAt @map("updated_at")
+
+  @@map("pipeline_auto_run_config")
 }
