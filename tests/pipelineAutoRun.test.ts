@@ -38,6 +38,19 @@ describe('pipelineAutoRunTypes', () => {
     expect(DOCLING_FAILURE_AUTO_OFF).toBe(3)
     expect(REPORT_FAILURE_AUTO_OFF).toBe(5)
   })
+
+  it('accepts null batchId to clear a prior selection', () => {
+    const opts = pipelineAutoRunOptionsSchema.parse({
+      batchId: null,
+      autoApprove: true,
+    })
+    expect(opts.batchId).toBeNull()
+
+    const patch = pipelineAutoRunPatchSchema.parse({
+      runOptions: { batchId: null },
+    })
+    expect(patch.runOptions?.batchId).toBeNull()
+  })
 })
 
 describe('reportRunnableUrl', () => {

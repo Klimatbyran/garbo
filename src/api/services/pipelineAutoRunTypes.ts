@@ -15,8 +15,8 @@ export const pipelineAutoRunOptionsSchema = z.object({
   requireEmissionsPresence: z.boolean().optional().default(true),
   runOnly: z.array(z.string().min(1)).optional(),
   tags: z.array(z.string().min(1)).optional(),
-  /** Garbo Batch.id or batchName string for Jobbstatus filtering. */
-  batchId: z.string().min(1).optional(),
+  /** Garbo Batch.id or batchName string for Jobbstatus filtering. Null clears. */
+  batchId: z.string().min(1).nullable().optional(),
 })
 
 export const pipelineAutoRunPatchSchema = z.object({

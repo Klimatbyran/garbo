@@ -47,7 +47,16 @@ function parseFilters(raw: unknown): PipelineAutoRunFilters {
 }
 
 function parseOptions(raw: unknown): PipelineAutoRunOptions {
-  return pipelineAutoRunOptionsSchema.parse(raw ?? {})
+  return normalizeRunOptions(pipelineAutoRunOptionsSchema.parse(raw ?? {}))
+}
+
+/** Drop cleared batchId so stored JSON and enqueue both treat it as unset. */
+function normalizeRunOptions(
+  options: PipelineAutoRunOptions
+): PipelineAutoRunOptions {
+  if (options.batchId != null) return options
+  const { batchId: _cleared, ...rest } = options
+  return rest
 }
 
 export async function ensurePipelineAutoRunConfig(): Promise<ConfigRow> {
@@ -108,8 +117,11 @@ export async function patchPipelineAutoRunConfig(
   const nextFilters = patch.filters
     ? parseFilters({ ...currentFilters, ...patch.filters })
     : currentFilters
+  // null batchId means "clear" (JSON omits undefined, so clients must send null).
   const nextOptions = patch.runOptions
-    ? parseOptions({ ...currentOptions, ...patch.runOptions })
+    ? normalizeRunOptions(
+        parseOptions({ ...currentOptions, ...patch.runOptions })
+      )
     : currentOptions
 
   await prisma.pipelineAutoRunConfig.update({
