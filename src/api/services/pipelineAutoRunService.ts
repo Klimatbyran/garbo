@@ -11,8 +11,10 @@ import {
   AUTO_RUN_APPROVAL_QUEUES,
   DOCLING_FAILURE_AUTO_OFF,
   REPORT_FAILURE_AUTO_OFF,
+  foldAutoRunOutcomeEvents,
   pipelineAutoRunFiltersSchema,
   pipelineAutoRunOptionsSchema,
+  type AutoRunOutcomeEvent,
   type PipelineAutoRunFilters,
   type PipelineAutoRunOptions,
   type PipelineAutoRunPatch,
@@ -37,6 +39,7 @@ type ConfigRow = {
   disabledReason: string | null
   lastTickAt: Date | null
   lastEnqueuedAt: Date | null
+  outcomeObservedThrough: Date | null
   lastError: string | null
   updatedBy: string | null
   updatedAt: Date
@@ -464,79 +467,104 @@ async function softDisable(
 }
 
 /**
- * Observe recent auto-run ReportRun outcomes and update failure counters /
- * soft-disable thresholds. Approval waits are ignored.
+ * Observe recent auto-run outcomes and update failure counters / soft-disable.
+ * Uses `outcomeObservedThrough` (not `lastTickAt`) so heartbeat updates cannot
+ * double-count or skip jobs. Events are folded in time order so a success in
+ * the same window as failures does not blindly wipe an earlier streak.
  */
 export async function observeAutoRunOutcomes(): Promise<void> {
   const row = await ensurePipelineAutoRunConfig()
-  const since = row.lastTickAt ?? new Date(Date.now() - 10 * 60 * 1000)
+  const since =
+    row.outcomeObservedThrough ??
+    row.lastTickAt ??
+    new Date(Date.now() - 10 * 60 * 1000)
 
-  const recentJobs = await prisma.reportRunJob.findMany({
-    where: {
-      finishedAt: { gte: since },
-      reportRun: { autoRun: true },
-    },
-    select: {
-      status: true,
-      queueName: true,
-      failedReason: true,
-      reportRunId: true,
-      reportRun: { select: { status: true, threadId: true } },
-    },
-    orderBy: { finishedAt: 'asc' },
-    take: 200,
-  })
+  const [recentJobs, terminalRuns] = await Promise.all([
+    prisma.reportRunJob.findMany({
+      where: {
+        finishedAt: { gt: since },
+        reportRun: { autoRun: true },
+      },
+      select: {
+        id: true,
+        status: true,
+        queueName: true,
+        finishedAt: true,
+      },
+      orderBy: [{ finishedAt: 'asc' }, { id: 'asc' }],
+      take: 500,
+    }),
+    prisma.reportRun.findMany({
+      where: {
+        autoRun: true,
+        status: { in: ['completed', 'skipped_no_emissions'] },
+        updatedAt: { gt: since },
+      },
+      select: {
+        id: true,
+        status: true,
+        updatedAt: true,
+      },
+      orderBy: [{ updatedAt: 'asc' }, { id: 'asc' }],
+      take: 200,
+    }),
+  ])
 
-  let doclingFails = row.consecutiveDoclingFailures
-  let reportFails = row.consecutiveReportFailures
+  const events: AutoRunOutcomeEvent[] = []
+  let maxThrough = since.getTime()
 
   for (const job of recentJobs) {
-    if (job.status === 'failed') {
-      if (job.queueName === 'doclingParsePDF') {
-        doclingFails += 1
-      }
-      reportFails += 1
-    } else if (job.status === 'completed') {
-      if (job.queueName === 'doclingParsePDF') {
-        doclingFails = 0
-      }
-      if (job.queueName === 'sendCompanyLink') {
-        doclingFails = 0
-        reportFails = 0
-      }
+    if (job.status !== 'failed' && job.status !== 'completed') continue
+    const atMs = job.finishedAt.getTime()
+    maxThrough = Math.max(maxThrough, atMs)
+    events.push({
+      atMs,
+      id: `job:${job.id}`,
+      kind: 'job',
+      status: job.status,
+      queueName: job.queueName,
+    })
+  }
+  for (const run of terminalRuns) {
+    if (run.status !== 'completed' && run.status !== 'skipped_no_emissions') {
+      continue
     }
+    const atMs = run.updatedAt.getTime()
+    maxThrough = Math.max(maxThrough, atMs)
+    events.push({
+      atMs,
+      id: `run:${run.id}`,
+      kind: 'run',
+      status: run.status,
+    })
   }
 
-  // Also reset on completed auto-run ReportRuns
-  const completedRuns = await prisma.reportRun.count({
-    where: {
-      autoRun: true,
-      status: { in: ['completed', 'skipped_no_emissions'] },
-      updatedAt: { gte: since },
+  const folded = foldAutoRunOutcomeEvents(
+    {
+      doclingFails: row.consecutiveDoclingFailures,
+      reportFails: row.consecutiveReportFailures,
     },
-  })
-  if (completedRuns > 0) {
-    doclingFails = 0
-    reportFails = 0
-  }
-
-  const data: Prisma.PipelineAutoRunConfigUpdateInput = {
-    consecutiveDoclingFailures: doclingFails,
-    consecutiveReportFailures: reportFails,
-  }
+    events
+  )
 
   await prisma.pipelineAutoRunConfig.update({
     where: { id: CONFIG_ID },
-    data,
+    data: {
+      consecutiveDoclingFailures: folded.doclingFails,
+      consecutiveReportFailures: folded.reportFails,
+      ...(events.length > 0
+        ? { outcomeObservedThrough: new Date(maxThrough) }
+        : {}),
+    },
   })
 
-  if (doclingFails >= DOCLING_FAILURE_AUTO_OFF && row.enabled) {
+  if (folded.doclingFails >= DOCLING_FAILURE_AUTO_OFF && row.enabled) {
     await softDisable('docling_failures', {
-      lastError: `Auto-disabled after ${doclingFails} consecutive Docling failures`,
+      lastError: `Auto-disabled after ${folded.doclingFails} consecutive Docling failures`,
     })
-  } else if (reportFails >= REPORT_FAILURE_AUTO_OFF && row.enabled) {
+  } else if (folded.reportFails >= REPORT_FAILURE_AUTO_OFF && row.enabled) {
     await softDisable('report_failures', {
-      lastError: `Auto-disabled after ${reportFails} consecutive report failures`,
+      lastError: `Auto-disabled after ${folded.reportFails} consecutive report failures`,
     })
   }
 }

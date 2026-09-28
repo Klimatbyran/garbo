@@ -937,6 +937,8 @@ model PipelineAutoRunConfig {
   disabledReason             String?   @map("disabled_reason")
   lastTickAt                 DateTime? @map("last_tick_at")
   lastEnqueuedAt             DateTime? @map("last_enqueued_at")
+  /// Exclusive lower bound for observeAutoRunOutcomes (not the tick heartbeat).
+  outcomeObservedThrough     DateTime? @map("outcome_observed_through")
   lastError                  String?   @map("last_error")
   updatedBy                  String?   @map("updated_by")
   createdAt                  DateTime  @default(now()) @map("created_at")
