@@ -613,7 +613,8 @@ export async function enqueueAutoRunReport(
     threadId,
     autoApprove: Boolean(runOptions.autoApprove),
     forceReindex: Boolean(runOptions.forceReindex),
-    replaceAllEmissions: true,
+    // Do not set replaceAllEmissions: candidates already have no CompanyReport,
+    // and the staff HTTP API forbids replaceAllEmissions in production (403).
     autoRun: true,
     autoRunReportId: report.id,
     ...(runOptions.requireEmissionsPresence
