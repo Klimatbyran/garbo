@@ -930,7 +930,7 @@ model PipelineAutoRunConfig {
   /// { reportTypeIds?: string[], registryBatchIds?: string[], coverageListIds?: string[] }
   filters                    Json      @default("{}")
   /// { autoApprove, forceReindex, runOnly?, tags?, batchId?, requireEmissionsPresence? }
-  runOptions                 Json      @default("{}")
+  runOptions                 Json      @default("{}") @map("run_options")
   consecutiveDoclingFailures Int       @default(0) @map("consecutive_docling_failures")
   consecutiveReportFailures  Int       @default(0) @map("consecutive_report_failures")
   pausedReason               String?   @map("paused_reason")
