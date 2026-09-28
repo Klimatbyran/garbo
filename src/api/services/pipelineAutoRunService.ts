@@ -283,9 +283,7 @@ function buildReportFilterWhere(
   filters: PipelineAutoRunFilters,
   runOptions: PipelineAutoRunOptions
 ): Prisma.ReportWhereInput {
-  const parts: Prisma.ReportWhereInput[] = [
-    { companyReports: { none: {} } },
-  ]
+  const parts: Prisma.ReportWhereInput[] = [{ companyReports: { none: {} } }]
   // Known no-emissions PDFs stay in registry without CompanyReport; skip in SQL
   // so they cannot fill a paged window and starve later candidates.
   if (runOptions.requireEmissionsPresence) {
@@ -333,13 +331,14 @@ export async function selectAutoRunCandidates(
 
   const selected: CandidateReportRow[] = []
   let afterId: string | undefined
-  for (let page = 0; page < CANDIDATE_MAX_PAGES && selected.length < limit; page++) {
+  for (
+    let page = 0;
+    page < CANDIDATE_MAX_PAGES && selected.length < limit;
+    page++
+  ) {
     const rows = await prisma.report.findMany({
       where: {
-        AND: [
-          baseWhere,
-          ...(afterId ? [{ id: { gt: afterId } }] : []),
-        ],
+        AND: [baseWhere, ...(afterId ? [{ id: { gt: afterId } }] : [])],
       },
       orderBy: { id: 'asc' },
       take: CANDIDATE_PAGE_SIZE,
@@ -580,9 +579,14 @@ export async function runPipelineAutoRunTick(): Promise<{
   enqueued: number
   skippedReason?: string
 }> {
-  let locked: Awaited<ReturnType<typeof tryWithPipelineAutoRunTickLock<
-    { enqueued: number; skippedReason?: string }
-  >>>
+  let locked: Awaited<
+    ReturnType<
+      typeof tryWithPipelineAutoRunTickLock<{
+        enqueued: number
+        skippedReason?: string
+      }>
+    >
+  >
   try {
     locked = await tryWithPipelineAutoRunTickLock(() =>
       runPipelineAutoRunTickLocked()
