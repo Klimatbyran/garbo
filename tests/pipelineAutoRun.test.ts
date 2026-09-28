@@ -7,6 +7,8 @@ import {
   reportRunnableUrl,
   pickCandidatesFromPage,
   emissionsPresenceCandidateFilter,
+  poisonLinkedReportRunFilter,
+  linkedReportRunExclusion,
   foldAutoRunOutcomeEvents,
 } from '../src/api/services/pipelineAutoRunTypes'
 
@@ -176,6 +178,30 @@ describe('emissionsPresenceCandidateFilter', () => {
   it('keeps true and null (Not checked), excludes only known false', () => {
     expect(emissionsPresenceCandidateFilter()).toEqual({
       OR: [{ hasEmissionsMentions: true }, { hasEmissionsMentions: null }],
+    })
+  })
+})
+
+describe('linkedReportRunExclusion', () => {
+  const staleBefore = new Date('2026-01-01T00:00:00.000Z')
+
+  it('excludes skipped, auto-run terminals, and fresh running via FK', () => {
+    expect(poisonLinkedReportRunFilter(staleBefore)).toEqual({
+      OR: [
+        { status: 'skipped_no_emissions' },
+        { autoRun: true, status: { in: ['failed', 'completed'] } },
+        { status: 'running', updatedAt: { gte: staleBefore } },
+      ],
+    })
+  })
+
+  it('wraps poison as an indexed reportRuns anti-join (no URL IN list)', () => {
+    expect(linkedReportRunExclusion(staleBefore)).toEqual({
+      NOT: {
+        reportRuns: {
+          some: poisonLinkedReportRunFilter(staleBefore),
+        },
+      },
     })
   })
 })

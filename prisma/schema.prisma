@@ -615,6 +615,8 @@ model Report {
 
   companyReports       CompanyReport[]
   coverageEntryReports CoverageEntryReport[]
+  /// Pipeline runs started from this registry row (auto-run candidate exclusion).
+  reportRuns           ReportRun[]
 
   @@index([reportTypeId])
   @@index([batchId])
@@ -650,23 +652,26 @@ model Batch {
 }
 
 model ReportRun {
-  id              String          @id @default(cuid())
-  threadId        String          @unique
-  pdfUrl          String
-  companyName     String?
+  id               String          @id @default(cuid())
+  threadId         String          @unique
+  pdfUrl           String
+  companyName      String?
   /// Stable Garbo company id when known (preferred over wikidataId for linking runs).
-  companyId       String?
-  wikidataId      String?
-  companyReportId String?         @map("company_report_id")
-  batchDbId       String?         @map("batch_db_id")
-  batch           Batch?          @relation(fields: [batchDbId], references: [id], onDelete: SetNull, onUpdate: Cascade)
-  status          String          @default("running") // 'running' | 'completed' | 'failed' | 'skipped_no_emissions'
+  companyId        String?
+  wikidataId       String?
+  companyReportId  String?         @map("company_report_id")
+  batchDbId        String?         @map("batch_db_id")
+  batch            Batch?          @relation(fields: [batchDbId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  /// Registry Report this run was started from (set by auto-run; backfilled by URL when possible).
+  registryReportId String?         @map("registry_report_id")
+  registryReport   Report?         @relation(fields: [registryReportId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  status           String          @default("running") // 'running' | 'completed' | 'failed' | 'skipped_no_emissions'
   /// True when this run was started by the pipeline auto-run ticker.
-  autoRun         Boolean         @default(false) @map("auto_run")
-  startedAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
-  jobs            ReportRunJob[]
-  datapointNotes  DatapointNote[]
+  autoRun          Boolean         @default(false) @map("auto_run")
+  startedAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+  jobs             ReportRunJob[]
+  datapointNotes   DatapointNote[]
 
   @@index([pdfUrl])
   @@index([autoRun, status])
@@ -674,6 +679,8 @@ model ReportRun {
   @@index([wikidataId])
   @@index([companyReportId])
   @@index([batchDbId])
+  @@index([registryReportId])
+  @@index([registryReportId, status])
 }
 
 model ReportRunJob {

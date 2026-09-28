@@ -178,6 +178,34 @@ export function emissionsPresenceCandidateFilter(): {
 }
 
 /**
+ * ReportRuns linked via `registryReportId` that must not be re-selected.
+ * Used as an indexed SQL anti-join so 10k+ backlogs do not need URL IN lists.
+ */
+export function poisonLinkedReportRunFilter(staleBefore: Date) {
+  return {
+    OR: [
+      { status: 'skipped_no_emissions' as const },
+      {
+        autoRun: true,
+        status: { in: ['failed' as const, 'completed' as const] },
+      },
+      { status: 'running' as const, updatedAt: { gte: staleBefore } },
+    ],
+  }
+}
+
+/** Prisma `ReportWhereInput` fragment: no linked poison / in-flight ReportRun. */
+export function linkedReportRunExclusion(staleBefore: Date) {
+  return {
+    NOT: {
+      reportRuns: {
+        some: poisonLinkedReportRunFilter(staleBefore),
+      },
+    },
+  }
+}
+
+/**
  * Queues whose waiting/active/paused (and non-approval delayed) auto-run jobs
  * occupy a concurrency slot. Includes mid-pipeline LLM/API work — not only
  * Docling-early queues — so maxConcurrent bounds overnight drain cost.
