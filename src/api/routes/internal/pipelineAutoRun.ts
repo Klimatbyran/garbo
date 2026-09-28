@@ -2,6 +2,7 @@ import type { FastifyInstance } from 'fastify'
 import {
   getPipelineAutoRunStatus,
   patchPipelineAutoRunConfig,
+  PipelineAutoRunConfigUnavailableError,
 } from '../../services/pipelineAutoRunService'
 import {
   pipelineAutoRunPatchSchema,
@@ -22,9 +23,20 @@ export async function pipelineAutoRunRoutes(app: FastifyInstance) {
         hide: true,
       },
     },
-    async (_request, reply) => {
-      const status = await getPipelineAutoRunStatus()
-      return reply.send(status)
+    async (request, reply) => {
+      try {
+        const status = await getPipelineAutoRunStatus()
+        return reply.send(status)
+      } catch (err) {
+        request.log.error({ err }, 'pipeline-auto-run GET failed')
+        if (err instanceof PipelineAutoRunConfigUnavailableError) {
+          return reply.status(503).send({
+            code: err.code,
+            message: err.message,
+          })
+        }
+        throw err
+      }
     }
   )
 
@@ -50,6 +62,12 @@ export async function pipelineAutoRunRoutes(app: FastifyInstance) {
         return reply.send(status)
       } catch (err) {
         request.log.error({ err }, 'pipeline-auto-run PATCH failed')
+        if (err instanceof PipelineAutoRunConfigUnavailableError) {
+          return reply.status(503).send({
+            code: err.code,
+            message: err.message,
+          })
+        }
         return reply.status(400).send({
           error: err instanceof Error ? err.message : 'Invalid auto-run config',
         })

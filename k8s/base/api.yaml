@@ -19,11 +19,11 @@ spec:
           command: ['npm', 'run', 'migrate']
           resources:
             requests:
-              memory: '64Mi'
+              memory: '256Mi'
               cpu: '100m'
             limits:
-              memory: '128Mi'
-              cpu: '200m'
+              memory: '512Mi'
+              cpu: '500m'
           env:
             - name: POSTGRES_PASSWORD
               valueFrom:

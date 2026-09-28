@@ -42,11 +42,20 @@ type ConfigRow = {
 }
 
 function parseFilters(raw: unknown): PipelineAutoRunFilters {
-  return pipelineAutoRunFiltersSchema.parse(raw ?? {})
+  const parsed = pipelineAutoRunFiltersSchema.safeParse(
+    raw && typeof raw === 'object' && !Array.isArray(raw) ? raw : {}
+  )
+  if (parsed.success) return parsed.data
+  return pipelineAutoRunFiltersSchema.parse({})
 }
 
 function parseOptions(raw: unknown): PipelineAutoRunOptions {
-  return normalizeRunOptions(pipelineAutoRunOptionsSchema.parse(raw ?? {}))
+  const parsed = pipelineAutoRunOptionsSchema.safeParse(
+    raw && typeof raw === 'object' && !Array.isArray(raw) ? raw : {}
+  )
+  return normalizeRunOptions(
+    parsed.success ? parsed.data : pipelineAutoRunOptionsSchema.parse({})
+  )
 }
 
 /** Drop cleared batchId so stored JSON and enqueue both treat it as unset. */
@@ -58,26 +67,55 @@ function normalizeRunOptions(
   return rest
 }
 
+function isMissingRelationError(err: unknown): boolean {
+  if (err instanceof Prisma.PrismaClientKnownRequestError) {
+    // P2021 table does not exist; P2022 column does not exist.
+    return err.code === 'P2021' || err.code === 'P2022'
+  }
+  const message = err instanceof Error ? err.message : String(err)
+  return /pipeline_auto_run_config|does not exist|Unknown arg/i.test(message)
+}
+
+export class PipelineAutoRunConfigUnavailableError extends Error {
+  readonly code = 'AUTO_RUN_CONFIG_UNAVAILABLE'
+  constructor(cause: unknown) {
+    const detail = cause instanceof Error ? cause.message : String(cause)
+    super(
+      `Pipeline auto-run config is unavailable. Apply migration 20260924120000_pipeline_auto_run (prisma migrate deploy) and restart API. Cause: ${detail}`
+    )
+    this.name = 'PipelineAutoRunConfigUnavailableError'
+  }
+}
+
 export async function ensurePipelineAutoRunConfig(): Promise<ConfigRow> {
-  const existing = await prisma.pipelineAutoRunConfig.findUnique({
-    where: { id: CONFIG_ID },
-  })
-  if (existing) return existing as ConfigRow
-  return (await prisma.pipelineAutoRunConfig.create({
-    data: { id: CONFIG_ID },
-  })) as ConfigRow
+  try {
+    const existing = await prisma.pipelineAutoRunConfig.findUnique({
+      where: { id: CONFIG_ID },
+    })
+    if (existing) return existing as ConfigRow
+    return (await prisma.pipelineAutoRunConfig.create({
+      data: { id: CONFIG_ID },
+    })) as ConfigRow
+  } catch (err) {
+    if (isMissingRelationError(err)) {
+      throw new PipelineAutoRunConfigUnavailableError(err)
+    }
+    throw err
+  }
 }
 
 export async function getPipelineAutoRunStatus(): Promise<PipelineAutoRunStatus> {
   const row = await ensurePipelineAutoRunConfig()
   const filters = parseFilters(row.filters)
   const runOptions = parseOptions(row.runOptions)
+  // Status polls should stay cheap and Redis-independent. Tick path still uses
+  // precise queue scans for concurrency gating.
   const [activelyProcessing, parkedOnApproval, remainingEstimate, docling] =
     await Promise.all([
-      countActivelyProcessingAutoRuns().catch(() => 0),
+      countRunningAutoRunClaims().catch(() => 0),
       countParkedOnApprovalAutoRuns().catch(() => 0),
       estimateRemainingCandidates(filters, runOptions),
-      checkDoclingReachable(),
+      checkDoclingReachable().catch(() => null),
     ])
 
   return {
@@ -225,6 +263,18 @@ export async function countActivelyProcessingAutoRuns(): Promise<number> {
     add(job)
   }
   return threadIds.size
+}
+
+/** Cheap status metric: fresh auto-run ReportRun rows still marked running. */
+async function countRunningAutoRunClaims(): Promise<number> {
+  const staleBefore = new Date(Date.now() - STALE_RUNNING_CLAIM_MS)
+  return prisma.reportRun.count({
+    where: {
+      autoRun: true,
+      status: 'running',
+      updatedAt: { gte: staleBefore },
+    },
+  })
 }
 
 export async function countParkedOnApprovalAutoRuns(): Promise<number> {

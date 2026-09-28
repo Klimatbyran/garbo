@@ -51,8 +51,32 @@ describe('pipelineAutoRunTypes', () => {
     })
     expect(patch.runOptions?.batchId).toBeNull()
   })
-})
 
+  it('coerces null JSON array/bool fields to defaults', () => {
+    expect(
+      pipelineAutoRunFiltersSchema.parse({
+        reportTypeIds: null,
+        registryBatchIds: null,
+        coverageListIds: null,
+      })
+    ).toEqual({
+      reportTypeIds: [],
+      registryBatchIds: [],
+      coverageListIds: [],
+    })
+    expect(
+      pipelineAutoRunOptionsSchema.parse({
+        tags: null,
+        runOnly: null,
+        requireEmissionsPresence: null,
+      })
+    ).toMatchObject({
+      requireEmissionsPresence: true,
+      autoApprove: true,
+      forceReindex: false,
+    })
+  })
+})
 describe('reportRunnableUrl', () => {
   it('prefers s3Url and keeps sourceUrl', () => {
     expect(
