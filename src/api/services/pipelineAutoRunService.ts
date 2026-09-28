@@ -67,41 +67,14 @@ function normalizeRunOptions(
   return rest
 }
 
-function isMissingRelationError(err: unknown): boolean {
-  if (err instanceof Prisma.PrismaClientKnownRequestError) {
-    // P2021 table does not exist; P2022 column does not exist.
-    return err.code === 'P2021' || err.code === 'P2022'
-  }
-  const message = err instanceof Error ? err.message : String(err)
-  return /pipeline_auto_run_config|does not exist|Unknown arg/i.test(message)
-}
-
-export class PipelineAutoRunConfigUnavailableError extends Error {
-  readonly code = 'AUTO_RUN_CONFIG_UNAVAILABLE'
-  constructor(cause: unknown) {
-    const detail = cause instanceof Error ? cause.message : String(cause)
-    super(
-      `Pipeline auto-run config is unavailable. Apply migration 20260924120000_pipeline_auto_run (prisma migrate deploy) and restart API. Cause: ${detail}`
-    )
-    this.name = 'PipelineAutoRunConfigUnavailableError'
-  }
-}
-
 export async function ensurePipelineAutoRunConfig(): Promise<ConfigRow> {
-  try {
-    const existing = await prisma.pipelineAutoRunConfig.findUnique({
-      where: { id: CONFIG_ID },
-    })
-    if (existing) return existing as ConfigRow
-    return (await prisma.pipelineAutoRunConfig.create({
-      data: { id: CONFIG_ID },
-    })) as ConfigRow
-  } catch (err) {
-    if (isMissingRelationError(err)) {
-      throw new PipelineAutoRunConfigUnavailableError(err)
-    }
-    throw err
-  }
+  const existing = await prisma.pipelineAutoRunConfig.findUnique({
+    where: { id: CONFIG_ID },
+  })
+  if (existing) return existing as ConfigRow
+  return (await prisma.pipelineAutoRunConfig.create({
+    data: { id: CONFIG_ID },
+  })) as ConfigRow
 }
 
 async function withBudget<T>(
