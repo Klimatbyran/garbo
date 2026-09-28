@@ -1,4 +1,4 @@
-import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
+import { ChromaClient, IncludeEnum, OpenAIEmbeddingFunction } from 'chromadb'
 import OpenAI from 'openai'
 
 import config from '../config/chromadb'
@@ -181,7 +181,7 @@ async function reportHasPageProvenance(url: string): Promise<boolean> {
   const result = await collection.get({
     where: { source: url },
     limit: 25,
-    include: ['metadatas'],
+    include: [IncludeEnum.Metadatas],
   })
   return (result.metadatas ?? []).some((metadata) => {
     const rawPage = metadata?.pageNumber

@@ -86,7 +86,8 @@ export function archiveFieldsFromFollowUpReturnValue(
   const extractionValue =
     'value' in returnValue ? returnValue.value : returnValue
 
-  let extractionResult: Prisma.InputJsonValue = returnValue as Prisma.InputJsonValue
+  let extractionResult: Prisma.InputJsonValue =
+    returnValue as Prisma.InputJsonValue
   if (
     returnValue.metadata &&
     typeof returnValue.metadata === 'object' &&
@@ -101,8 +102,7 @@ export function archiveFieldsFromFollowUpReturnValue(
   }
 
   return {
-    sourceReference:
-      extractSourceReferenceFromExtractionValue(extractionValue),
+    sourceReference: extractSourceReferenceFromExtractionValue(extractionValue),
     extractionResult,
   }
 }
@@ -111,7 +111,9 @@ export function archiveFieldsFromFollowUpReturnValue(
 export function pageNumberFromSourceReference(
   sourceReference?: string | null
 ): number | undefined {
-  const explicit = sourceReference?.match(/(?:^|[^\p{L}\p{N}])p\.?\s*(\d+)\b/iu)?.[1]
+  const explicit = sourceReference?.match(
+    /(?:^|[^\p{L}\p{N}])p\.?\s*(\d+)\b/iu
+  )?.[1]
   if (!explicit) return undefined
   const page = Number.parseInt(explicit, 10)
   return Number.isFinite(page) && page >= 1 ? page : undefined
@@ -155,8 +157,7 @@ export function resolveSourcePageUrl(args: {
     Number.isFinite(args.pageNumber) &&
     args.pageNumber >= 1
       ? Math.floor(args.pageNumber)
-      : undefined) ??
-    pageNumberFromSourceReference(args.sourceReference)
+      : undefined) ?? pageNumberFromSourceReference(args.sourceReference)
 
   return buildSourcePageUrl(args.storagePdfUrl, pageNumber)
 }
@@ -248,10 +249,7 @@ function withProvenance<T extends Record<string, unknown>>(
   }
 }
 
-function quoteNeedlesFromList(
-  list: unknown,
-  quoteKeys: string[]
-): string[] {
+function quoteNeedlesFromList(list: unknown, quoteKeys: string[]): string[] {
   if (!Array.isArray(list)) return []
   const needles: string[] = []
   for (const candidate of list) {

@@ -89,12 +89,10 @@ async function createDatapointMetadata({
 
   // Never persist client-supplied sourcePageUrl from baseMetadata — always
   // derive from allowlisted storage URL + pageNumber / sourceReference.
-  const {
-    sourcePageUrl: _ignoredClientSourcePageUrl,
-    ...safeBaseMetadata
-  } = (baseMetadata ?? {}) as Partial<Metadata> & {
-    sourcePageUrl?: string | null
-  }
+  const { sourcePageUrl: _ignoredClientSourcePageUrl, ...safeBaseMetadata } =
+    (baseMetadata ?? {}) as Partial<Metadata> & {
+      sourcePageUrl?: string | null
+    }
 
   return metadataService.createMetadata({
     metadata: {

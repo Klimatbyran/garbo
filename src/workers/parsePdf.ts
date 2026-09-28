@@ -132,9 +132,7 @@ const parsePdf = new PipelineWorker(
       // If forcing reindex (or pages are missing), delete existing indexed report.
       if (forceReindex || lacksPageProvenance) {
         try {
-          job.log(
-            'reindex required: deleting existing vector index (if any)'
-          )
+          job.log('reindex required: deleting existing vector index (if any)')
           await vectorDB.deleteReport(url)
           job.log('deleteReport completed')
         } catch (_) {

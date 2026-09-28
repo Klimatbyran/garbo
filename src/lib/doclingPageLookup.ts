@@ -121,13 +121,7 @@ export function pageSnippetsFromDoclingJson(
   const seen = new Set<string>()
 
   for (const item of document.texts ?? []) {
-    pushPending(
-      pending,
-      seen,
-      item.text,
-      pageNumberFromProv(item.prov),
-      'text'
-    )
+    pushPending(pending, seen, item.text, pageNumberFromProv(item.prov), 'text')
   }
 
   for (const table of document.tables ?? []) {

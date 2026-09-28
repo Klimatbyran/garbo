@@ -155,7 +155,8 @@ function provenanceFromScopeValue(
 ): Pick<ScopeEntry, 'sourceReference' | 'pageNumber'> {
   if (!value || typeof value !== 'object') return {}
   return {
-    ...(typeof value.sourceReference === 'string' && value.sourceReference.trim()
+    ...(typeof value.sourceReference === 'string' &&
+    value.sourceReference.trim()
       ? { sourceReference: value.sourceReference.trim() }
       : {}),
     ...(typeof value.pageNumber === 'number'
@@ -198,9 +199,11 @@ function pickSourceReference(
   scope2Entry?: ScopeEntry,
   legacyEntry?: ScopeEntry
 ): string | undefined {
-  return provenanceFromEntry(scope1Entry).sourceReference ??
+  return (
+    provenanceFromEntry(scope1Entry).sourceReference ??
     provenanceFromEntry(scope2Entry).sourceReference ??
     provenanceFromEntry(legacyEntry).sourceReference
+  )
 }
 
 function pickPageNumber(
@@ -208,9 +211,11 @@ function pickPageNumber(
   scope2Entry?: ScopeEntry,
   legacyEntry?: ScopeEntry
 ): number | undefined {
-  return provenanceFromEntry(scope1Entry).pageNumber ??
+  return (
+    provenanceFromEntry(scope1Entry).pageNumber ??
     provenanceFromEntry(scope2Entry).pageNumber ??
     provenanceFromEntry(legacyEntry).pageNumber
+  )
 }
 
 function findLegacyEntryForYear(

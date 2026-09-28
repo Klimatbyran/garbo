@@ -161,7 +161,9 @@ describe('sourceReference', () => {
       { text: 'Base year 2055 emissions inventory', pageNumber: 3 },
       { text: 'Market-based Scope 2 was 55 tCO2e', pageNumber: 11 },
     ]) as {
-      scope2: Array<{ scope2: { pageNumber?: number; sourceReference?: string } }>
+      scope2: Array<{
+        scope2: { pageNumber?: number; sourceReference?: string }
+      }>
     }
 
     expect(enriched.scope2[0].scope2.pageNumber).toBe(11)
