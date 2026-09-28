@@ -37,6 +37,7 @@ import { registryDeleteRoutes } from './api/routes/internal/registry.delete'
 import { registryUpdateRoutes } from './api/routes/internal/registry.update'
 import { registryMarkdownRoutes } from './api/routes/internal/registry.markdown'
 import { queueArchiveReadRoutes } from './api/routes/internal/queue.archive.read'
+import { pipelineAutoRunRoutes } from './api/routes/internal/pipelineAutoRun'
 import clientApiKeyGatePlugin from './api/plugins/clientApiKeyGate'
 import { registerClientApiRoutes } from './registerClientApiRoutes'
 
@@ -157,6 +158,9 @@ async function authenticatedContext(app: FastifyInstance) {
   // Staff JWT — twin: api/internal-queue-archive (X-API-Key, same handler).
   app.register(queueArchiveReadRoutes, {
     prefix: 'api/queue-archive',
+  })
+  app.register(pipelineAutoRunRoutes, {
+    prefix: 'api/pipeline-auto-run',
   })
   app.register(clientApiKeysAdminRoutes, {
     prefix: 'api/internal/client-api-keys',

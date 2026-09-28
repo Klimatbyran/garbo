@@ -50,6 +50,10 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
         return
       }
 
+      const autoRun = Boolean(
+        (job.data as { autoRun?: unknown } | undefined)?.autoRun
+      )
+
       // Upsert by threadId so concurrent completion handlers (e.g. parsePdf +
       // checkEmissionsPresence finishing within ms on a gated cache hit) do not
       // race on findUnique → create and drop the unique-constraint loser —
@@ -64,14 +68,18 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
           wikidataId,
           companyReportId,
           batchDbId,
+          autoRun,
         },
-        update: reportRunSyncFieldsFromJob({
-          companyName,
-          companyId,
-          wikidataId,
-          companyReportId,
-          batchDbId,
-        }),
+        update: {
+          ...reportRunSyncFieldsFromJob({
+            companyName,
+            companyId,
+            wikidataId,
+            companyReportId,
+            batchDbId,
+          }),
+          ...(autoRun ? { autoRun: true } : {}),
+        },
       })
 
       let returnValue: Record<string, any> | null = null
