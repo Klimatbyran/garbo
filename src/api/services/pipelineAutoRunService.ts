@@ -104,18 +104,45 @@ export async function ensurePipelineAutoRunConfig(): Promise<ConfigRow> {
   }
 }
 
+async function withBudget<T>(
+  work: Promise<T>,
+  ms: number,
+  fallback: T
+): Promise<T> {
+  let timer: ReturnType<typeof setTimeout> | undefined
+  try {
+    return await Promise.race([
+      work,
+      new Promise<T>((resolve) => {
+        timer = setTimeout(() => resolve(fallback), ms)
+      }),
+    ])
+  } finally {
+    if (timer) clearTimeout(timer)
+  }
+}
+
 export async function getPipelineAutoRunStatus(): Promise<PipelineAutoRunStatus> {
   const row = await ensurePipelineAutoRunConfig()
   const filters = parseFilters(row.filters)
   const runOptions = parseOptions(row.runOptions)
-  // Status polls should stay cheap and Redis-independent. Tick path still uses
-  // precise queue scans for concurrency gating.
+  // Status polls must stay under proxy budgets. Tick path still uses full
+  // Redis queue scans for concurrency gating; GET approximates active via DB
+  // and caps Redis/Docling probes so Validate polling cannot 500/504.
   const [activelyProcessing, parkedOnApproval, remainingEstimate, docling] =
     await Promise.all([
       countRunningAutoRunClaims().catch(() => 0),
-      countParkedOnApprovalAutoRuns().catch(() => 0),
+      withBudget(
+        countParkedOnApprovalAutoRuns().catch(() => 0),
+        2_000,
+        0
+      ),
       estimateRemainingCandidates(filters, runOptions),
-      checkDoclingReachable().catch(() => null),
+      withBudget(
+        checkDoclingReachable().catch(() => null),
+        3_000,
+        null
+      ),
     ])
 
   return {
