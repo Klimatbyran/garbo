@@ -7,6 +7,7 @@ import {
   reportRunnableUrl,
   pickCandidatesFromPage,
   emissionsPresenceCandidateFilter,
+  foldAutoRunOutcomeEvents,
 } from '../src/api/services/pipelineAutoRunTypes'
 
 describe('pipelineAutoRunTypes', () => {
@@ -176,5 +177,113 @@ describe('emissionsPresenceCandidateFilter', () => {
     expect(emissionsPresenceCandidateFilter()).toEqual({
       OR: [{ hasEmissionsMentions: true }, { hasEmissionsMentions: null }],
     })
+  })
+})
+
+describe('foldAutoRunOutcomeEvents', () => {
+  it('keeps a Docling fail streak when a later unrelated success is absent', () => {
+    const folded = foldAutoRunOutcomeEvents(
+      { doclingFails: 0, reportFails: 0 },
+      [
+        {
+          atMs: 1,
+          id: 'a',
+          kind: 'job',
+          status: 'failed',
+          queueName: 'doclingParsePDF',
+        },
+        {
+          atMs: 2,
+          id: 'b',
+          kind: 'job',
+          status: 'failed',
+          queueName: 'doclingParsePDF',
+        },
+        {
+          atMs: 3,
+          id: 'c',
+          kind: 'job',
+          status: 'failed',
+          queueName: 'doclingParsePDF',
+        },
+      ]
+    )
+    expect(folded).toEqual({ doclingFails: 3, reportFails: 3 })
+  })
+
+  it('does not wipe Docling fails that happen after an earlier success in the same window', () => {
+    const folded = foldAutoRunOutcomeEvents(
+      { doclingFails: 0, reportFails: 0 },
+      [
+        {
+          atMs: 1,
+          id: 'early-ok',
+          kind: 'run',
+          status: 'completed',
+        },
+        {
+          atMs: 2,
+          id: 'f1',
+          kind: 'job',
+          status: 'failed',
+          queueName: 'doclingParsePDF',
+        },
+        {
+          atMs: 3,
+          id: 'f2',
+          kind: 'job',
+          status: 'failed',
+          queueName: 'doclingParsePDF',
+        },
+        {
+          atMs: 4,
+          id: 'f3',
+          kind: 'job',
+          status: 'failed',
+          queueName: 'doclingParsePDF',
+        },
+      ]
+    )
+    // Old blanket reset wiped these; chronological fold keeps the streak.
+    expect(folded).toEqual({ doclingFails: 3, reportFails: 3 })
+  })
+
+  it('auto-off path: three Docling fails without intervening success stay at 3', () => {
+    const folded = foldAutoRunOutcomeEvents(
+      { doclingFails: 0, reportFails: 0 },
+      [
+        {
+          atMs: 1,
+          id: '1',
+          kind: 'job',
+          status: 'failed',
+          queueName: 'doclingParsePDF',
+        },
+        {
+          atMs: 2,
+          id: '2',
+          kind: 'job',
+          status: 'failed',
+          queueName: 'doclingParsePDF',
+        },
+        {
+          atMs: 3,
+          id: '3',
+          kind: 'job',
+          status: 'failed',
+          queueName: 'doclingParsePDF',
+        },
+        // A concurrent terminal success that finished BEFORE the third fail
+        // should not erase the third fail when ordered correctly.
+        {
+          atMs: 2.5,
+          id: 'early-ok',
+          kind: 'run',
+          status: 'skipped_no_emissions',
+        },
+      ]
+    )
+    // Order: fail, fail, run-reset, fail → 1/1
+    expect(folded).toEqual({ doclingFails: 1, reportFails: 1 })
   })
 })
