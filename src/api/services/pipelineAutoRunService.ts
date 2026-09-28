@@ -42,11 +42,20 @@ type ConfigRow = {
 }
 
 function parseFilters(raw: unknown): PipelineAutoRunFilters {
-  return pipelineAutoRunFiltersSchema.parse(raw ?? {})
+  const parsed = pipelineAutoRunFiltersSchema.safeParse(
+    raw && typeof raw === 'object' && !Array.isArray(raw) ? raw : {}
+  )
+  if (parsed.success) return parsed.data
+  return pipelineAutoRunFiltersSchema.parse({})
 }
 
 function parseOptions(raw: unknown): PipelineAutoRunOptions {
-  return normalizeRunOptions(pipelineAutoRunOptionsSchema.parse(raw ?? {}))
+  const parsed = pipelineAutoRunOptionsSchema.safeParse(
+    raw && typeof raw === 'object' && !Array.isArray(raw) ? raw : {}
+  )
+  return normalizeRunOptions(
+    parsed.success ? parsed.data : pipelineAutoRunOptionsSchema.parse({})
+  )
 }
 
 /** Drop cleared batchId so stored JSON and enqueue both treat it as unset. */
@@ -68,16 +77,45 @@ export async function ensurePipelineAutoRunConfig(): Promise<ConfigRow> {
   })) as ConfigRow
 }
 
+async function withBudget<T>(
+  work: Promise<T>,
+  ms: number,
+  fallback: T
+): Promise<T> {
+  let timer: ReturnType<typeof setTimeout> | undefined
+  try {
+    return await Promise.race([
+      work,
+      new Promise<T>((resolve) => {
+        timer = setTimeout(() => resolve(fallback), ms)
+      }),
+    ])
+  } finally {
+    if (timer) clearTimeout(timer)
+  }
+}
+
 export async function getPipelineAutoRunStatus(): Promise<PipelineAutoRunStatus> {
   const row = await ensurePipelineAutoRunConfig()
   const filters = parseFilters(row.filters)
   const runOptions = parseOptions(row.runOptions)
+  // Status polls must stay under proxy budgets. Tick path still uses full
+  // Redis queue scans for concurrency gating; GET approximates active via DB
+  // and caps Redis/Docling probes so Validate polling cannot 500/504.
   const [activelyProcessing, parkedOnApproval, remainingEstimate, docling] =
     await Promise.all([
-      countActivelyProcessingAutoRuns().catch(() => 0),
-      countParkedOnApprovalAutoRuns().catch(() => 0),
+      countRunningAutoRunClaims().catch(() => 0),
+      withBudget(
+        countParkedOnApprovalAutoRuns().catch(() => 0),
+        2_000,
+        0
+      ),
       estimateRemainingCandidates(filters, runOptions),
-      checkDoclingReachable(),
+      withBudget(
+        checkDoclingReachable().catch(() => null),
+        3_000,
+        null
+      ),
     ])
 
   return {
@@ -225,6 +263,18 @@ export async function countActivelyProcessingAutoRuns(): Promise<number> {
     add(job)
   }
   return threadIds.size
+}
+
+/** Cheap status metric: fresh auto-run ReportRun rows still marked running. */
+async function countRunningAutoRunClaims(): Promise<number> {
+  const staleBefore = new Date(Date.now() - STALE_RUNNING_CLAIM_MS)
+  return prisma.reportRun.count({
+    where: {
+      autoRun: true,
+      status: 'running',
+      updatedAt: { gte: staleBefore },
+    },
+  })
 }
 
 export async function countParkedOnApprovalAutoRuns(): Promise<number> {

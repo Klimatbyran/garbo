@@ -3,18 +3,22 @@ import { z } from 'zod'
 export const DOCLING_FAILURE_AUTO_OFF = 3
 export const REPORT_FAILURE_AUTO_OFF = 5
 
+/** Zod treats `null` as invalid for optional fields; JSON/DB often stores null. */
+const nullishArray = z.array(z.string().min(1)).nullish()
+const nullishBool = z.boolean().nullish()
+
 export const pipelineAutoRunFiltersSchema = z.object({
-  reportTypeIds: z.array(z.string().min(1)).optional().default([]),
-  registryBatchIds: z.array(z.string().min(1)).optional().default([]),
-  coverageListIds: z.array(z.string().min(1)).optional().default([]),
+  reportTypeIds: nullishArray.transform((v) => v ?? []),
+  registryBatchIds: nullishArray.transform((v) => v ?? []),
+  coverageListIds: nullishArray.transform((v) => v ?? []),
 })
 
 export const pipelineAutoRunOptionsSchema = z.object({
-  autoApprove: z.boolean().optional().default(true),
-  forceReindex: z.boolean().optional().default(false),
-  requireEmissionsPresence: z.boolean().optional().default(true),
-  runOnly: z.array(z.string().min(1)).optional(),
-  tags: z.array(z.string().min(1)).optional(),
+  autoApprove: nullishBool.transform((v) => v ?? true),
+  forceReindex: nullishBool.transform((v) => v ?? false),
+  requireEmissionsPresence: nullishBool.transform((v) => v ?? true),
+  runOnly: nullishArray.transform((v) => v ?? undefined),
+  tags: nullishArray.transform((v) => v ?? undefined),
   /** Garbo Batch.id or batchName string for Jobbstatus filtering. Null clears. */
   batchId: z.string().min(1).nullable().optional(),
 })
