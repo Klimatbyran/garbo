@@ -6,6 +6,7 @@ import {
   REPORT_FAILURE_AUTO_OFF,
   reportRunnableUrl,
   pickCandidatesFromPage,
+  emissionsPresenceCandidateFilter,
 } from '../src/api/services/pipelineAutoRunTypes'
 
 describe('pipelineAutoRunTypes', () => {
@@ -167,5 +168,13 @@ describe('pickCandidatesFromPage', () => {
       1
     )
     expect(picked.map((r) => r.id)).toEqual(['2'])
+  })
+})
+
+describe('emissionsPresenceCandidateFilter', () => {
+  it('keeps true and null (Not checked), excludes only known false', () => {
+    expect(emissionsPresenceCandidateFilter()).toEqual({
+      OR: [{ hasEmissionsMentions: true }, { hasEmissionsMentions: null }],
+    })
   })
 })
