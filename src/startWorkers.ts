@@ -8,6 +8,7 @@ import {
   companyReportIdFromJobData,
   companyIdFromJobData,
   reportRunSyncFieldsFromJob,
+  resolveRegistryReportIdForRun,
 } from './lib/reportRunPersistence'
 import { DEFAULT_PIPELINE_JOB_OPTIONS } from './lib/pipelineJobOptions'
 import { requestPipelineRunPrune } from './lib/pipelineApiPrune'
@@ -53,11 +54,17 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
       const autoRun = Boolean(
         (job.data as { autoRun?: unknown } | undefined)?.autoRun
       )
+      const registryReportId = await resolveRegistryReportIdForRun({
+        jobData: job.data,
+        pdfUrl,
+      })
 
       // Upsert by threadId so concurrent completion handlers (e.g. parsePdf +
       // checkEmissionsPresence finishing within ms on a gated cache hit) do not
       // race on findUnique → create and drop the unique-constraint loser —
       // which previously could leave archive status stuck at "running".
+      // Only fill registryReportId on update when still null so we do not
+      // overwrite an enqueue-time FK with a weaker URL match.
       const reportRun = await prisma.reportRun.upsert({
         where: { threadId },
         create: {
@@ -68,6 +75,7 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
           wikidataId,
           companyReportId,
           batchDbId,
+          registryReportId,
           autoRun,
         },
         update: {
@@ -81,6 +89,12 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
           ...(autoRun ? { autoRun: true } : {}),
         },
       })
+      if (registryReportId && !reportRun.registryReportId) {
+        await prisma.reportRun.update({
+          where: { id: reportRun.id },
+          data: { registryReportId },
+        })
+      }
 
       let returnValue: Record<string, any> | null = null
       if (job.returnvalue) {

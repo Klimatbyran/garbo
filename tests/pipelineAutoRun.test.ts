@@ -7,6 +7,9 @@ import {
   reportRunnableUrl,
   pickCandidatesFromPage,
   emissionsPresenceCandidateFilter,
+  poisonLinkedReportRunFilter,
+  linkedReportRunExclusion,
+  isPoisonLinkedReportRun,
   foldAutoRunOutcomeEvents,
 } from '../src/api/services/pipelineAutoRunTypes'
 
@@ -176,6 +179,70 @@ describe('emissionsPresenceCandidateFilter', () => {
   it('keeps true and null (Not checked), excludes only known false', () => {
     expect(emissionsPresenceCandidateFilter()).toEqual({
       OR: [{ hasEmissionsMentions: true }, { hasEmissionsMentions: null }],
+    })
+  })
+})
+
+describe('linkedReportRunExclusion', () => {
+  const staleBefore = new Date('2026-01-01T00:00:00.000Z')
+  const fresh = new Date('2026-01-02T00:00:00.000Z')
+  const stale = new Date('2025-12-01T00:00:00.000Z')
+
+  it('treats all completed and skipped as poison, failed only when autoRun', () => {
+    expect(
+      isPoisonLinkedReportRun(
+        { status: 'completed', autoRun: false, updatedAt: fresh },
+        staleBefore
+      )
+    ).toBe(true)
+    expect(
+      isPoisonLinkedReportRun(
+        { status: 'skipped_no_emissions', autoRun: false, updatedAt: fresh },
+        staleBefore
+      )
+    ).toBe(true)
+    expect(
+      isPoisonLinkedReportRun(
+        { status: 'failed', autoRun: true, updatedAt: fresh },
+        staleBefore
+      )
+    ).toBe(true)
+    expect(
+      isPoisonLinkedReportRun(
+        { status: 'failed', autoRun: false, updatedAt: fresh },
+        staleBefore
+      )
+    ).toBe(false)
+  })
+
+  it('treats fresh running as poison and stale running as eligible', () => {
+    expect(
+      isPoisonLinkedReportRun(
+        { status: 'running', autoRun: true, updatedAt: fresh },
+        staleBefore
+      )
+    ).toBe(true)
+    expect(
+      isPoisonLinkedReportRun(
+        { status: 'running', autoRun: true, updatedAt: stale },
+        staleBefore
+      )
+    ).toBe(false)
+  })
+
+  it('Prisma filter matches the pure poison predicate cases', () => {
+    expect(poisonLinkedReportRunFilter(staleBefore)).toEqual({
+      OR: [
+        { status: 'skipped_no_emissions' },
+        { status: 'completed' },
+        { autoRun: true, status: 'failed' },
+        { status: 'running', updatedAt: { gte: staleBefore } },
+      ],
+    })
+    expect(linkedReportRunExclusion(staleBefore)).toEqual({
+      reportRuns: {
+        none: poisonLinkedReportRunFilter(staleBefore),
+      },
     })
   })
 })

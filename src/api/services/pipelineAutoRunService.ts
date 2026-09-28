@@ -22,6 +22,7 @@ import {
   reportRunnableUrl,
   pickCandidatesFromPage,
   emissionsPresenceCandidateFilter,
+  linkedReportRunExclusion,
 } from './pipelineAutoRunTypes'
 import { tryWithPipelineAutoRunTickLock } from '../../lib/pipelineAutoRunLock'
 
@@ -114,7 +115,7 @@ export async function getPipelineAutoRunStatus(): Promise<PipelineAutoRunStatus>
         2_000,
         0
       ),
-      estimateRemainingCandidates(filters, runOptions),
+      withBudget(estimateRemainingCandidates(filters, runOptions), 2_000, null),
       withBudget(
         checkDoclingReachable().catch(() => null),
         3_000,
@@ -213,6 +214,7 @@ function jobIsWaitingForApproval(job: Job): boolean {
 /** Running auto-run rows older than this are treated as abandoned (crash between claim and progress). */
 const STALE_RUNNING_CLAIM_MS = 6 * 60 * 60 * 1000
 const CANDIDATE_PAGE_SIZE = 100
+/** Poison/in-flight exclusion is SQL (registryReportId); page budget stays modest. */
 const CANDIDATE_MAX_PAGES = 50
 const QUEUE_JOB_PAGE_SIZE = 500
 const QUEUE_JOB_MAX_PAGES = 10
@@ -293,25 +295,29 @@ export async function countParkedOnApprovalAutoRuns(): Promise<number> {
   return threadIds.size
 }
 
-async function collectClaimedPdfUrls(): Promise<Set<string>> {
+/**
+ * Live queue URLs + unlinked poison/in-flight runs. Linked terminals are
+ * excluded in SQL via registryReportId; this net covers rows the migration
+ * missed or that were created before the FK was wired on every path.
+ */
+async function collectLiveClaimedPdfUrls(
+  staleBefore: Date
+): Promise<Set<string>> {
   const claimed = new Set<string>()
-  const staleBefore = new Date(Date.now() - STALE_RUNNING_CLAIM_MS)
 
-  const openRuns = await prisma.reportRun.findMany({
+  const unlinkedPoison = await prisma.reportRun.findMany({
     where: {
+      registryReportId: null,
       OR: [
-        // Fresh running claims only — abandoned creates (crash before progress) age out.
         { status: 'running', updatedAt: { gte: staleBefore } },
-        // Terminal outcomes must not be re-enqueued.
         { status: 'skipped_no_emissions' },
         { status: 'completed' },
-        // Failed auto-runs are poison until an operator retries manually outside this ticker.
         { status: 'failed', autoRun: true },
       ],
     },
     select: { pdfUrl: true },
   })
-  for (const run of openRuns) {
+  for (const run of unlinkedPoison) {
     if (run.pdfUrl) claimed.add(run.pdfUrl)
   }
 
@@ -335,7 +341,8 @@ async function collectClaimedPdfUrls(): Promise<Set<string>> {
 
 function buildReportFilterWhere(
   filters: PipelineAutoRunFilters,
-  runOptions: PipelineAutoRunOptions
+  runOptions: PipelineAutoRunOptions,
+  staleBefore: Date
 ): Prisma.ReportWhereInput {
   const parts: Prisma.ReportWhereInput[] = [{ companyReports: { none: {} } }]
   // When requireEmissionsPresence is on: skip known-false only. Null (Not
@@ -343,6 +350,8 @@ function buildReportFilterWhere(
   if (runOptions.requireEmissionsPresence) {
     parts.push(emissionsPresenceCandidateFilter())
   }
+  // Indexed anti-join: no linked poison / in-flight ReportRun on this report.
+  parts.push(linkedReportRunExclusion(staleBefore))
   if (filters.reportTypeIds.length) {
     parts.push({ reportTypeId: { in: filters.reportTypeIds } })
   }
@@ -380,8 +389,9 @@ export async function selectAutoRunCandidates(
 ): Promise<CandidateReportRow[]> {
   if (limit <= 0) return []
 
-  const claimed = await collectClaimedPdfUrls()
-  const baseWhere = buildReportFilterWhere(filters, runOptions)
+  const staleBefore = new Date(Date.now() - STALE_RUNNING_CLAIM_MS)
+  const claimed = await collectLiveClaimedPdfUrls(staleBefore)
+  const baseWhere = buildReportFilterWhere(filters, runOptions, staleBefore)
 
   const selected: CandidateReportRow[] = []
   let afterId: string | undefined
@@ -421,10 +431,10 @@ export async function estimateRemainingCandidates(
   runOptions: PipelineAutoRunOptions
 ): Promise<number | null> {
   try {
-    // Approximate: filter-matched reports with no CompanyReport (and not known
-    // no-emissions when the gate is on). Live claimed/failed fine-filter is omitted.
+    // Same SQL filters as select (including linked poison anti-join) — no URL list load.
+    const staleBefore = new Date(Date.now() - STALE_RUNNING_CLAIM_MS)
     return await prisma.report.count({
-      where: buildReportFilterWhere(filters, runOptions),
+      where: buildReportFilterWhere(filters, runOptions, staleBefore),
     })
   } catch {
     return null
@@ -627,6 +637,7 @@ export async function enqueueAutoRunReport(
       companyName: report.companyName,
       wikidataId: report.wikidataId,
       batchDbId,
+      registryReportId: report.id,
       autoRun: true,
       status: 'running',
     },

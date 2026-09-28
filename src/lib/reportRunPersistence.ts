@@ -12,6 +12,47 @@ export function companyIdFromJobData(data: unknown): string | null {
   return typeof id === 'string' && id.trim() ? id.trim() : null
 }
 
+/** Prefer explicit auto-run registry id from job data when present. */
+export function registryReportIdFromJobData(data: unknown): string | null {
+  if (!data || typeof data !== 'object') return null
+  const id = (data as { autoRunReportId?: unknown }).autoRunReportId
+  return typeof id === 'string' && id.trim() ? id.trim() : null
+}
+
+/**
+ * Resolve registry Report id for a ReportRun: job.autoRunReportId first, else
+ * pdfUrl match with priority url → sourceUrl → s3Url (same as migration backfill).
+ */
+export async function resolveRegistryReportIdForRun(input: {
+  jobData: unknown
+  pdfUrl: string
+}): Promise<string | null> {
+  const fromJob = registryReportIdFromJobData(input.jobData)
+  if (fromJob) return fromJob
+
+  const pdfUrl = input.pdfUrl.trim()
+  if (!pdfUrl) return null
+
+  const byUrl = await prisma.report.findFirst({
+    where: { url: pdfUrl },
+    select: { id: true },
+  })
+  if (byUrl) return byUrl.id
+
+  const bySource = await prisma.report.findFirst({
+    where: { sourceUrl: pdfUrl },
+    select: { id: true },
+  })
+  if (bySource) return bySource.id
+
+  const byS3 = await prisma.report.findFirst({
+    where: { s3Url: pdfUrl },
+    select: { id: true },
+    orderBy: { id: 'asc' },
+  })
+  return byS3?.id ?? null
+}
+
 /** Fields to sync onto an existing ReportRun from the latest job snapshot. */
 export function reportRunSyncFieldsFromJob(input: {
   companyName?: string | null
@@ -19,6 +60,7 @@ export function reportRunSyncFieldsFromJob(input: {
   wikidataId?: string | null
   companyReportId?: string | null
   batchDbId?: string | null
+  registryReportId?: string | null
 }) {
   return {
     companyName: input.companyName ?? undefined,
@@ -28,6 +70,9 @@ export function reportRunSyncFieldsFromJob(input: {
       ? { companyReportId: input.companyReportId }
       : {}),
     ...(input.batchDbId ? { batchDbId: input.batchDbId } : {}),
+    ...(input.registryReportId
+      ? { registryReportId: input.registryReportId }
+      : {}),
   }
 }
 
