@@ -3,6 +3,52 @@ import { z } from 'zod'
 export const DOCLING_FAILURE_AUTO_OFF = 3
 export const REPORT_FAILURE_AUTO_OFF = 5
 
+/** Pure event fold for auto-run soft-disable counters (unit-tested). */
+export type AutoRunOutcomeEvent =
+  | {
+      atMs: number
+      id: string
+      kind: 'job'
+      status: 'failed' | 'completed'
+      queueName: string
+    }
+  | {
+      atMs: number
+      id: string
+      kind: 'run'
+      status: 'completed' | 'skipped_no_emissions'
+    }
+
+export function foldAutoRunOutcomeEvents(
+  start: { doclingFails: number; reportFails: number },
+  events: AutoRunOutcomeEvent[]
+): { doclingFails: number; reportFails: number } {
+  const ordered = [...events].sort((a, b) => {
+    if (a.atMs !== b.atMs) return a.atMs - b.atMs
+    return a.id.localeCompare(b.id)
+  })
+  let doclingFails = start.doclingFails
+  let reportFails = start.reportFails
+  for (const event of ordered) {
+    if (event.kind === 'job') {
+      if (event.status === 'failed') {
+        if (event.queueName === 'doclingParsePDF') doclingFails += 1
+        reportFails += 1
+      } else if (event.status === 'completed') {
+        if (event.queueName === 'doclingParsePDF') doclingFails = 0
+        if (event.queueName === 'sendCompanyLink') {
+          doclingFails = 0
+          reportFails = 0
+        }
+      }
+      continue
+    }
+    // Terminal report success resets both streaks (ordered with jobs by time).
+    doclingFails = 0
+    reportFails = 0
+  }
+  return { doclingFails, reportFails }
+}
 /** Zod treats `null` as invalid for optional fields; JSON/DB often stores null. */
 const nullishArray = z.array(z.string().min(1)).nullish()
 const nullishBool = z.boolean().nullish()

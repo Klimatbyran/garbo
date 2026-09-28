@@ -1161,7 +1161,7 @@ Validate can enable a soft-gated backlog runner that enqueues saved registry `Re
 - **Defaults:** off; `maxConcurrent=1`; `autoApprove=true`; `forceReindex=false`; `requireEmissionsPresence=true` (passed through to the emissions presence gate).
 - **Filters:** `reportTypeIds`, registry `batchId`s, `coverageListIds` (Garbo coverage tables — no Unearth hop).
 - **Concurrency:** counts auto-run jobs on pipeline queues (Docling-early **and** mid-pipeline LLM/API). Jobs **delayed waiting for human approval free** the slot so Docling can keep draining. Overlapping ticks across replicas are serialized with a Redis tick lock.
-- **Safety:** Docling unreachable → pause (`pausedReason=docling_unreachable`); 3 consecutive Docling failures or 5 consecutive report failures → soft disable.
+- **Safety:** Docling unreachable → pause (`pausedReason=docling_unreachable`); 3 consecutive Docling failures or 5 consecutive report failures → soft disable. Failure observation uses a dedicated `outcomeObservedThrough` watermark (not the tick heartbeat) and folds job/run events in time order.
 - **Candidates:** pages past claimed/completed/`skipped_no_emissions`/failed auto-run URLs; when `requireEmissionsPresence` is on, SQL excludes `hasEmissionsMentions=false`. Redis/queue read failures fail closed (no enqueue). Stale `running` claims older than 6h are ignored.
 - **Attribution:** job data includes `autoRun: true`; `ReportRun.autoRun` is set for counter / status queries.
 
