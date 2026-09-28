@@ -115,7 +115,7 @@ export async function getPipelineAutoRunStatus(): Promise<PipelineAutoRunStatus>
         2_000,
         0
       ),
-      estimateRemainingCandidates(filters, runOptions),
+      withBudget(estimateRemainingCandidates(filters, runOptions), 2_000, null),
       withBudget(
         checkDoclingReachable().catch(() => null),
         3_000,
@@ -296,22 +296,28 @@ export async function countParkedOnApprovalAutoRuns(): Promise<number> {
 }
 
 /**
- * Live queue URLs only — historical poison/completed are excluded in SQL via
- * registryReportId. Keep unlinked fresh running rows here as a rollout safety net.
+ * Live queue URLs + unlinked poison/in-flight runs. Linked terminals are
+ * excluded in SQL via registryReportId; this net covers rows the migration
+ * missed or that were created before the FK was wired on every path.
  */
-async function collectLiveClaimedPdfUrls(): Promise<Set<string>> {
+async function collectLiveClaimedPdfUrls(
+  staleBefore: Date
+): Promise<Set<string>> {
   const claimed = new Set<string>()
-  const staleBefore = new Date(Date.now() - STALE_RUNNING_CLAIM_MS)
 
-  const unlinkedRunning = await prisma.reportRun.findMany({
+  const unlinkedPoison = await prisma.reportRun.findMany({
     where: {
-      status: 'running',
-      updatedAt: { gte: staleBefore },
       registryReportId: null,
+      OR: [
+        { status: 'running', updatedAt: { gte: staleBefore } },
+        { status: 'skipped_no_emissions' },
+        { status: 'completed' },
+        { status: 'failed', autoRun: true },
+      ],
     },
     select: { pdfUrl: true },
   })
-  for (const run of unlinkedRunning) {
+  for (const run of unlinkedPoison) {
     if (run.pdfUrl) claimed.add(run.pdfUrl)
   }
 
@@ -336,7 +342,7 @@ async function collectLiveClaimedPdfUrls(): Promise<Set<string>> {
 function buildReportFilterWhere(
   filters: PipelineAutoRunFilters,
   runOptions: PipelineAutoRunOptions,
-  staleBefore: Date = new Date(Date.now() - STALE_RUNNING_CLAIM_MS)
+  staleBefore: Date
 ): Prisma.ReportWhereInput {
   const parts: Prisma.ReportWhereInput[] = [{ companyReports: { none: {} } }]
   // When requireEmissionsPresence is on: skip known-false only. Null (Not
@@ -383,8 +389,9 @@ export async function selectAutoRunCandidates(
 ): Promise<CandidateReportRow[]> {
   if (limit <= 0) return []
 
-  const claimed = await collectLiveClaimedPdfUrls()
-  const baseWhere = buildReportFilterWhere(filters, runOptions)
+  const staleBefore = new Date(Date.now() - STALE_RUNNING_CLAIM_MS)
+  const claimed = await collectLiveClaimedPdfUrls(staleBefore)
+  const baseWhere = buildReportFilterWhere(filters, runOptions, staleBefore)
 
   const selected: CandidateReportRow[] = []
   let afterId: string | undefined
@@ -425,8 +432,9 @@ export async function estimateRemainingCandidates(
 ): Promise<number | null> {
   try {
     // Same SQL filters as select (including linked poison anti-join) — no URL list load.
+    const staleBefore = new Date(Date.now() - STALE_RUNNING_CLAIM_MS)
     return await prisma.report.count({
-      where: buildReportFilterWhere(filters, runOptions),
+      where: buildReportFilterWhere(filters, runOptions, staleBefore),
     })
   } catch {
     return null

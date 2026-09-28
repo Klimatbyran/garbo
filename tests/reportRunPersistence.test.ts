@@ -1,6 +1,7 @@
 import {
   companyReportIdFromJobData,
   companyIdFromJobData,
+  registryReportIdFromJobData,
   reportRunSyncFieldsFromJob,
 } from '../src/lib/reportRunPersistence'
 
@@ -32,6 +33,20 @@ describe('companyIdFromJobData', () => {
   })
 })
 
+describe('registryReportIdFromJobData', () => {
+  it('returns trimmed autoRunReportId from job data', () => {
+    expect(
+      registryReportIdFromJobData({ autoRunReportId: '  report-1  ' })
+    ).toBe('report-1')
+  })
+
+  it('returns null when missing or empty', () => {
+    expect(registryReportIdFromJobData({})).toBeNull()
+    expect(registryReportIdFromJobData({ autoRunReportId: '  ' })).toBeNull()
+    expect(registryReportIdFromJobData(null)).toBeNull()
+  })
+})
+
 describe('reportRunSyncFieldsFromJob', () => {
   it('includes companyId and wikidataId when present', () => {
     expect(
@@ -41,6 +56,7 @@ describe('reportRunSyncFieldsFromJob', () => {
         wikidataId: 'Q686030',
         companyReportId: 'cr-1',
         batchDbId: 'batch-1',
+        registryReportId: 'report-1',
       })
     ).toEqual({
       companyName: 'Alfa Laval',
@@ -48,6 +64,7 @@ describe('reportRunSyncFieldsFromJob', () => {
       wikidataId: 'Q686030',
       companyReportId: 'cr-1',
       batchDbId: 'batch-1',
+      registryReportId: 'report-1',
     })
   })
 
@@ -57,6 +74,7 @@ describe('reportRunSyncFieldsFromJob', () => {
         companyName: 'Alfa Laval',
         companyId: null,
         wikidataId: null,
+        registryReportId: null,
       })
     ).toEqual({
       companyName: 'Alfa Laval',

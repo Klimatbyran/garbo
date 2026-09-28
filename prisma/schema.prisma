@@ -679,7 +679,6 @@ model ReportRun {
   @@index([wikidataId])
   @@index([companyReportId])
   @@index([batchDbId])
-  @@index([registryReportId])
   @@index([registryReportId, status])
 }
 

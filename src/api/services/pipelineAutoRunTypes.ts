@@ -177,18 +177,40 @@ export function emissionsPresenceCandidateFilter(): {
   }
 }
 
+/** Snapshot used by pure terminal/in-flight poison checks (unit-tested). */
+export type PoisonRunSnapshot = {
+  status: string
+  autoRun: boolean
+  updatedAt: Date
+}
+
+/**
+ * Whether a ReportRun must block re-selection of its linked registry report.
+ * Preserves pre-FK semantics: all completed / skipped_no_emissions, auto-run
+ * failed, and fresh running — not only auto-run completed.
+ */
+export function isPoisonLinkedReportRun(
+  run: PoisonRunSnapshot,
+  staleBefore: Date
+): boolean {
+  if (run.status === 'skipped_no_emissions') return true
+  if (run.status === 'completed') return true
+  if (run.autoRun && run.status === 'failed') return true
+  if (run.status === 'running' && run.updatedAt >= staleBefore) return true
+  return false
+}
+
 /**
  * ReportRuns linked via `registryReportId` that must not be re-selected.
  * Used as an indexed SQL anti-join so 10k+ backlogs do not need URL IN lists.
+ * Keep in sync with {@link isPoisonLinkedReportRun}.
  */
 export function poisonLinkedReportRunFilter(staleBefore: Date) {
   return {
     OR: [
       { status: 'skipped_no_emissions' as const },
-      {
-        autoRun: true,
-        status: { in: ['failed' as const, 'completed' as const] },
-      },
+      { status: 'completed' as const },
+      { autoRun: true, status: 'failed' as const },
       { status: 'running' as const, updatedAt: { gte: staleBefore } },
     ],
   }
@@ -197,10 +219,8 @@ export function poisonLinkedReportRunFilter(staleBefore: Date) {
 /** Prisma `ReportWhereInput` fragment: no linked poison / in-flight ReportRun. */
 export function linkedReportRunExclusion(staleBefore: Date) {
   return {
-    NOT: {
-      reportRuns: {
-        some: poisonLinkedReportRunFilter(staleBefore),
-      },
+    reportRuns: {
+      none: poisonLinkedReportRunFilter(staleBefore),
     },
   }
 }
