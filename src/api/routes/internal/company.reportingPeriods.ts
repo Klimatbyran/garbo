@@ -65,7 +65,6 @@ type BiogenicUpsertInput = OptionalNullable<
 type ProvenancePayload = {
   sourceReference?: string
   pageNumber?: number
-  sourcePageUrl?: string
   verified?: boolean
 }
 
@@ -86,12 +85,20 @@ async function createDatapointMetadata({
     storagePdfUrl: reportS3Url,
     pageNumber: provenance?.pageNumber,
     sourceReference: provenance?.sourceReference,
-    sourcePageUrl: provenance?.sourcePageUrl,
   })
+
+  // Never persist client-supplied sourcePageUrl from baseMetadata — always
+  // derive from allowlisted storage URL + pageNumber / sourceReference.
+  const {
+    sourcePageUrl: _ignoredClientSourcePageUrl,
+    ...safeBaseMetadata
+  } = (baseMetadata ?? {}) as Partial<Metadata> & {
+    sourcePageUrl?: string | null
+  }
 
   return metadataService.createMetadata({
     metadata: {
-      ...baseMetadata,
+      ...safeBaseMetadata,
       ...(provenance?.sourceReference
         ? { sourceReference: provenance.sourceReference }
         : {}),
@@ -103,13 +110,7 @@ async function createDatapointMetadata({
 }
 
 function stripProvenanceFields<T extends ProvenancePayload>(payload: T) {
-  return _.omit(
-    payload,
-    'verified',
-    'sourceReference',
-    'pageNumber',
-    'sourcePageUrl'
-  )
+  return _.omit(payload, 'verified', 'sourceReference', 'pageNumber')
 }
 
 // Helper functions for emission deletion

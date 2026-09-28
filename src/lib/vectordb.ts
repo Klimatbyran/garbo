@@ -176,6 +176,22 @@ async function hasReport(url: string) {
     .then((r) => r?.documents?.length > 0)
 }
 
+/** True when at least one indexed chunk already carries pageNumber metadata. */
+async function reportHasPageProvenance(url: string): Promise<boolean> {
+  const result = await collection.get({
+    where: { source: url },
+    limit: 25,
+    include: ['metadatas'],
+  })
+  return (result.metadatas ?? []).some((metadata) => {
+    const rawPage = metadata?.pageNumber
+    return (
+      typeof rawPage === 'number' ||
+      (typeof rawPage === 'string' && /^\d+$/.test(rawPage))
+    )
+  })
+}
+
 async function getRelevantParagraphs(
   url: string,
   queryTexts: string[],
@@ -256,6 +272,7 @@ function clearAllReports() {
 export const vectorDB = {
   addReport,
   hasReport,
+  reportHasPageProvenance,
   deleteReport,
   getRelevantMarkdown,
   getRelevantParagraphs,

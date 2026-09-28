@@ -65,12 +65,48 @@ function pushPending(
 }
 
 /**
+ * Cap snippets by round-robin across pages so later GHG pages are not
+ * starved when early pages produce many short text cells.
+ */
+function sampleSnippetsAcrossPages(
+  pending: PendingSnippet[],
+  maxTotal: number
+): PendingSnippet[] {
+  if (pending.length <= maxTotal) return pending
+
+  const byPage = new Map<number, PendingSnippet[]>()
+  for (const snippet of pending) {
+    const list = byPage.get(snippet.pageNumber) ?? []
+    list.push(snippet)
+    byPage.set(snippet.pageNumber, list)
+  }
+
+  const pages = [...byPage.keys()].sort((a, b) => a - b)
+  const sampled: PendingSnippet[] = []
+  let index = 0
+  while (sampled.length < maxTotal) {
+    let added = false
+    for (const page of pages) {
+      const list = byPage.get(page)
+      if (!list || index >= list.length) continue
+      sampled.push(list[index])
+      added = true
+      if (sampled.length >= maxTotal) break
+    }
+    if (!added) break
+    index++
+  }
+  return sampled
+}
+
+/**
  * Build a compact text→page index from Docling JSON.
  * Includes both `texts` and table cell strings (tables are not in `texts`).
  * Used only for page lookup — never to replace Docling markdown.
  *
- * Snippets are interleaved by page (texts + tables together) so the
- * MAX_SNIPPETS cap does not starve later GHG table pages.
+ * Snippets are interleaved by page (texts + tables together) and sampled
+ * round-robin across pages so the MAX_SNIPPETS cap does not starve later
+ * GHG table pages.
  */
 export function pageSnippetsFromDoclingJson(
   jsonContent: unknown
@@ -101,19 +137,20 @@ export function pageSnippetsFromDoclingJson(
     }
   }
 
-  // Prefer earlier pages first, but keep table cells interleaved with texts
-  // on the same page so emissions tables are not dropped by the cap.
+  // Within each page: table cells before body text (emissions often in tables).
   pending.sort((a, b) => {
     if (a.pageNumber !== b.pageNumber) return a.pageNumber - b.pageNumber
     if (a.kind !== b.kind) return a.kind === 'table' ? -1 : 1
     return 0
   })
 
-  return pending.slice(0, MAX_SNIPPETS).map(({ text, pageNumber }) => ({
-    text,
-    pageNumber,
-    normalized: normalizeForMatch(text),
-  }))
+  return sampleSnippetsAcrossPages(pending, MAX_SNIPPETS).map(
+    ({ text, pageNumber }) => ({
+      text,
+      pageNumber,
+      normalized: normalizeForMatch(text),
+    })
+  )
 }
 
 /**

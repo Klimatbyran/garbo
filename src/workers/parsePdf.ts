@@ -117,11 +117,23 @@ const parsePdf = new PipelineWorker(
       const exists = await vectorDB.hasReport(url)
       job.log(`vector index exists for url: ${exists}`)
 
-      // If forcing reindex, delete existing indexed report to ensure a fresh run
-      if (forceReindex) {
+      // Pre-provenance Chroma indexes lack pageNumber on chunks. Re-index so
+      // follow-ups can attach page locators without requiring a manual forceReindex.
+      const hasPageProvenance = exists
+        ? await vectorDB.reportHasPageProvenance(url)
+        : false
+      const lacksPageProvenance = exists && !hasPageProvenance
+      if (lacksPageProvenance) {
+        job.log(
+          'vector index exists but chunks lack pageNumber — treating as forceReindex'
+        )
+      }
+
+      // If forcing reindex (or pages are missing), delete existing indexed report.
+      if (forceReindex || lacksPageProvenance) {
         try {
           job.log(
-            'forceReindex enabled: deleting existing vector index (if any)'
+            'reindex required: deleting existing vector index (if any)'
           )
           await vectorDB.deleteReport(url)
           job.log('deleteReport completed')
@@ -159,10 +171,11 @@ const parsePdf = new PipelineWorker(
         }
       }
 
-      if (!exists || forceReindex) {
-        // Chroma miss (or force): prefer re-embedding Report.markdown over a
-        // full Docling pass. forceReindex still means "re-parse the PDF".
-        if (!forceReindex) {
+      if (!exists || forceReindex || lacksPageProvenance) {
+        // Chroma miss: prefer re-embedding Report.markdown over a full Docling
+        // pass. forceReindex and missing page provenance still need Docling JSON
+        // (markdown-only reindex cannot attach pageNumber).
+        if (!forceReindex && !lacksPageProvenance) {
           const storedMarkdown = await findStoredReportMarkdown(job.data)
           if (storedMarkdown) {
             job.log(
@@ -212,7 +225,11 @@ const parsePdf = new PipelineWorker(
         }
 
         await startFreshParseFlow(
-          forceReindex ? 'forceReindex' : 'no chroma index'
+          forceReindex
+            ? 'forceReindex'
+            : lacksPageProvenance
+              ? 'chroma index missing pageNumber'
+              : 'no chroma index'
         )
       } else if (requireEmissionsPresence) {
         // Full markdown from registry — not the RAG company-name snippet.

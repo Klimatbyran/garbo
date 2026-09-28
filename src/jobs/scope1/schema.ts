@@ -1,19 +1,5 @@
 import { z } from 'zod'
 import { emissionUnitSchemaGarbo } from '@/api/schemas'
-const scope1ValueSchema = z
-  .object({
-    total: z.number(),
-    unit: emissionUnitSchemaGarbo,
-  })
-  .nullable()
-
-const scope1And2ValueSchema = z
-  .object({
-    total: z.number(),
-    unit: emissionUnitSchemaGarbo,
-  })
-  .describe('The combined scope 1 and 2 emissions, if other fields are not available')
-  .nullable()
 
 export const schema = z.object({
   scope1: z.array(
@@ -51,8 +37,28 @@ export const schema = z.object({
         .union([z.array(z.number()), z.null()])
         .nullable()
         .optional(),
-      scope1: z.union([scope1ValueSchema, z.null()]).optional(),
-      scope1And2: z.union([scope1And2ValueSchema, z.null()]).optional(),
+      scope1: z
+        .union([
+          z.object({
+            total: z.number(),
+            unit: emissionUnitSchemaGarbo,
+          }),
+          z.null(),
+        ])
+        .optional(),
+      scope1And2: z
+        .union([
+          z
+            .object({
+              total: z.number(),
+              unit: emissionUnitSchemaGarbo,
+            })
+            .describe(
+              'The combined scope 1 and 2 emissions, if other fields are not available'
+            ),
+          z.null(),
+        ])
+        .optional(),
     })
   ),
 })

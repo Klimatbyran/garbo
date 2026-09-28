@@ -92,6 +92,12 @@ describe('sourceReference', () => {
           ],
         },
       ],
+      biogenic: [
+        {
+          year: 2023,
+          biogenic: { total: 4.5, unit: 'tCO2e' },
+        },
+      ],
     }
 
     const enriched = attachPageProvenanceToExtraction(value, [
@@ -102,6 +108,10 @@ describe('sourceReference', () => {
       {
         text: 'Scope 1 emissions were 12.3 tCO2e according to the GHG table',
         pageNumber: 42,
+      },
+      {
+        text: 'Biogenic CO2e totaled 4.5 tonnes',
+        pageNumber: 18,
       },
     ])
 
@@ -121,6 +131,17 @@ describe('sourceReference', () => {
               sourceText: 'Scope 1 emissions were 12.3 tCO2e',
             },
           ],
+        },
+      ],
+      biogenic: [
+        {
+          year: 2023,
+          biogenic: {
+            total: 4.5,
+            unit: 'tCO2e',
+            pageNumber: 18,
+            sourceReference: 'p. 18',
+          },
         },
       ],
     })
@@ -333,14 +354,16 @@ describe('sourcePageUrl', () => {
     ).toBe(`${storageUrl}#page=12`)
   })
 
-  it('prefers an explicit sourcePageUrl when provided', () => {
+  it('only builds links for trusted storage hosts', () => {
+    expect(
+      buildSourcePageUrl('https://evil.example/report.pdf', 3)
+    ).toBeUndefined()
     expect(
       resolveSourcePageUrl({
-        storagePdfUrl: storageUrl,
+        storagePdfUrl: 'https://evil.example/report.pdf',
         pageNumber: 3,
-        sourcePageUrl: `${storageUrl}#page=99`,
       })
-    ).toBe(`${storageUrl}#page=99`)
+    ).toBeUndefined()
   })
 
   it('returns undefined without a storage URL or page', () => {

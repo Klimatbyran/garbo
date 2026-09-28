@@ -1,4 +1,5 @@
 import type { Prisma } from '@prisma/client'
+import { isStorageUrl } from '../api/services/registryReportIdentity'
 import type { RetrievedParagraph } from './vectordb'
 
 const scopeValueKeys = ['scope1', 'scope2', 'scope1And2'] as const
@@ -120,12 +121,13 @@ export function pageNumberFromSourceReference(
  * Build a deep link to the internally stored report PDF at a given page.
  * Uses the PDF open-parameter fragment `#page=N` (supported by browser PDF viewers).
  * Docling `page_no` is the physical PDF page index.
+ * Only trusted storage hosts are accepted — never arbitrary caller URLs.
  */
 export function buildSourcePageUrl(
   storagePdfUrl: string | null | undefined,
   pageNumber: number | null | undefined
 ): string | undefined {
-  if (!storagePdfUrl?.trim()) return undefined
+  if (!storagePdfUrl?.trim() || !isStorageUrl(storagePdfUrl)) return undefined
   if (
     typeof pageNumber !== 'number' ||
     !Number.isFinite(pageNumber) ||
@@ -141,15 +143,13 @@ export function buildSourcePageUrl(
 /**
  * Resolve page number from explicit extraction field or a "p. N" locator,
  * then build the internal storage PDF deep link when possible.
+ * Always derived server-side — caller-supplied sourcePageUrl is ignored.
  */
 export function resolveSourcePageUrl(args: {
   storagePdfUrl?: string | null
   pageNumber?: number | null
   sourceReference?: string | null
-  sourcePageUrl?: string | null
 }): string | undefined {
-  if (args.sourcePageUrl?.trim()) return args.sourcePageUrl.trim()
-
   const pageNumber =
     (typeof args.pageNumber === 'number' &&
     Number.isFinite(args.pageNumber) &&
@@ -395,6 +395,25 @@ export function attachPageProvenanceToExtraction(
     record.scope3 = record.scope3.map((entry) =>
       enrichScope3Entry(entry, paragraphs)
     )
+  }
+
+  if (Array.isArray(record.biogenic)) {
+    record.biogenic = record.biogenic.map((entry) => {
+      if (!entry || typeof entry !== 'object') return entry
+      const yearEntry = { ...(entry as Record<string, unknown>) }
+      const biogenic = yearEntry.biogenic
+      if (!biogenic || typeof biogenic !== 'object') return yearEntry
+      const biogenicRecord = { ...(biogenic as Record<string, unknown>) }
+      const needles =
+        typeof biogenicRecord.total === 'number'
+          ? numberNeedles(biogenicRecord.total)
+          : []
+      yearEntry.biogenic = withProvenance(
+        biogenicRecord,
+        pageNumberForNeedles(needles, paragraphs)
+      )
+      return yearEntry
+    })
   }
 
   return record

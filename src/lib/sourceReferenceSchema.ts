@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-/** Optional provenance fields on pipeline extraction outputs and save payloads. */
+/** Optional provenance fields on pipeline save payloads (pageNumber is write-path only). */
 export const sourceReferenceFields = {
   sourceReference: z
     .string()
@@ -13,7 +13,7 @@ export const sourceReferenceFields = {
     .int()
     .positive()
     .optional()
-    .describe('Report page number when known from <!-- PAGE: N --> markers'),
+    .describe(
+      'Report page number from Chroma chunk metadata / Docling JSON page lookup'
+    ),
 }
-
-export const sourceReferenceSchema = z.object(sourceReferenceFields)
