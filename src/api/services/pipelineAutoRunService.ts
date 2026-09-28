@@ -19,6 +19,7 @@ import {
   type PipelineAutoRunStatus,
   reportRunnableUrl,
   pickCandidatesFromPage,
+  emissionsPresenceCandidateFilter,
 } from './pipelineAutoRunTypes'
 import { tryWithPipelineAutoRunTickLock } from '../../lib/pipelineAutoRunLock'
 
@@ -334,10 +335,10 @@ function buildReportFilterWhere(
   runOptions: PipelineAutoRunOptions
 ): Prisma.ReportWhereInput {
   const parts: Prisma.ReportWhereInput[] = [{ companyReports: { none: {} } }]
-  // Known no-emissions PDFs stay in registry without CompanyReport; skip in SQL
-  // so they cannot fill a paged window and starve later candidates.
+  // When requireEmissionsPresence is on: skip known-false only. Null (Not
+  // checked) must enqueue so Docling + checkEmissionsPresence can populate it.
   if (runOptions.requireEmissionsPresence) {
-    parts.push({ NOT: { hasEmissionsMentions: false } })
+    parts.push(emissionsPresenceCandidateFilter())
   }
   if (filters.reportTypeIds.length) {
     parts.push({ reportTypeId: { in: filters.reportTypeIds } })

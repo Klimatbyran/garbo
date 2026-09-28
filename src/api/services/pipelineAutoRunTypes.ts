@@ -118,6 +118,20 @@ export function pickCandidatesFromPage(
 }
 
 /**
+ * Pre-enqueue emissions gate for SQL candidate selection.
+ * Excludes only known no-emissions (`false`). Keeps `true` and `null`
+ * (Not checked) so Docling + checkEmissionsPresence can still run.
+ * Do not use `NOT (col = false)` — Postgres drops NULLs in WHERE.
+ */
+export function emissionsPresenceCandidateFilter(): {
+  OR: Array<{ hasEmissionsMentions: boolean | null }>
+} {
+  return {
+    OR: [{ hasEmissionsMentions: true }, { hasEmissionsMentions: null }],
+  }
+}
+
+/**
  * Queues whose waiting/active/paused (and non-approval delayed) auto-run jobs
  * occupy a concurrency slot. Includes mid-pipeline LLM/API work — not only
  * Docling-early queues — so maxConcurrent bounds overnight drain cost.
