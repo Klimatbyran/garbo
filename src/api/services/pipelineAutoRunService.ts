@@ -99,24 +99,18 @@ export async function getPipelineAutoRunStatus(): Promise<PipelineAutoRunStatus>
   const row = await ensurePipelineAutoRunConfig()
   const filters = parseFilters(row.filters)
   const runOptions = parseOptions(row.runOptions)
-  // Status polls must stay under proxy budgets. Tick path still uses full
-  // Redis queue scans for concurrency gating; GET approximates active via DB
-  // and caps Redis/Docling probes so Validate polling cannot 500/504.
-  const [activelyProcessing, parkedOnApproval, remainingEstimate, docling] =
-    await Promise.all([
-      countRunningAutoRunClaims().catch(() => 0),
-      withBudget(
-        countParkedOnApprovalAutoRuns().catch(() => 0),
-        2_000,
-        0
-      ),
-      estimateRemainingCandidates(filters, runOptions),
-      withBudget(
-        checkDoclingReachable().catch(() => null),
-        3_000,
-        null
-      ),
-    ])
+  // Status polls must stay Redis-free and under proxy budgets. Tick still uses
+  // precise queue scans for concurrency gating; parked-on-approval is omitted
+  // here (0) so Validate's 15s polling cannot hang or pile up BullMQ scans.
+  const [activelyProcessing, remainingEstimate, docling] = await Promise.all([
+    countRunningAutoRunClaims().catch(() => 0),
+    estimateRemainingCandidates(filters, runOptions),
+    withBudget(
+      checkDoclingReachable().catch(() => null),
+      2_000,
+      null
+    ),
+  ])
 
   return {
     enabled: row.enabled,
@@ -133,7 +127,7 @@ export async function getPipelineAutoRunStatus(): Promise<PipelineAutoRunStatus>
     updatedBy: row.updatedBy,
     updatedAt: row.updatedAt.toISOString(),
     activelyProcessing,
-    parkedOnApproval,
+    parkedOnApproval: 0,
     remainingEstimate,
     doclingReachable: docling,
   }
