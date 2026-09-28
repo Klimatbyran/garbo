@@ -22,8 +22,6 @@ import {
 } from './pipelineAutoRunTypes'
 import { tryWithPipelineAutoRunTickLock } from '../../lib/pipelineAutoRunLock'
 
-export { pickCandidatesFromPage } from './pipelineAutoRunTypes'
-
 const CONFIG_ID = 'default'
 
 type ConfigRow = {
@@ -477,20 +475,20 @@ export async function observeAutoRunOutcomes(): Promise<void> {
     consecutiveReportFailures: reportFails,
   }
 
-  if (doclingFails >= DOCLING_FAILURE_AUTO_OFF && row.enabled) {
-    data.enabled = false
-    data.disabledReason = 'docling_failures'
-    data.lastError = `Auto-disabled after ${doclingFails} consecutive Docling failures`
-  } else if (reportFails >= REPORT_FAILURE_AUTO_OFF && row.enabled) {
-    data.enabled = false
-    data.disabledReason = 'report_failures'
-    data.lastError = `Auto-disabled after ${reportFails} consecutive report failures`
-  }
-
   await prisma.pipelineAutoRunConfig.update({
     where: { id: CONFIG_ID },
     data,
   })
+
+  if (doclingFails >= DOCLING_FAILURE_AUTO_OFF && row.enabled) {
+    await softDisable('docling_failures', {
+      lastError: `Auto-disabled after ${doclingFails} consecutive Docling failures`,
+    })
+  } else if (reportFails >= REPORT_FAILURE_AUTO_OFF && row.enabled) {
+    await softDisable('report_failures', {
+      lastError: `Auto-disabled after ${reportFails} consecutive report failures`,
+    })
+  }
 }
 
 export async function enqueueAutoRunReport(

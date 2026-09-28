@@ -3,7 +3,10 @@ import {
   getPipelineAutoRunStatus,
   patchPipelineAutoRunConfig,
 } from '../../services/pipelineAutoRunService'
-import { pipelineAutoRunPatchSchema } from '../../services/pipelineAutoRunTypes'
+import {
+  pipelineAutoRunPatchSchema,
+  type PipelineAutoRunPatch,
+} from '../../services/pipelineAutoRunTypes'
 
 /**
  * Staff JWT control surface for Validate auto-run (backlog drain).
@@ -36,7 +39,8 @@ export async function pipelineAutoRunRoutes(app: FastifyInstance) {
       },
     },
     async (request, reply) => {
-      const body = pipelineAutoRunPatchSchema.parse(request.body)
+      // Body already validated by Fastify + Zod type provider.
+      const body = request.body as PipelineAutoRunPatch
       const updatedBy =
         request.user && typeof request.user === 'object'
           ? ((request.user as { id?: string }).id ?? null)
