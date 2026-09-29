@@ -1,6 +1,7 @@
 import {
   BiogenicEmissions,
   Metadata,
+  Prisma,
   Scope1,
   Scope1And2,
   Scope3,
@@ -194,17 +195,36 @@ class EmissionsService {
       sourceReference?: string
       pageNumber?: number
       sourcePageUrl?: string
+      previousValue?: Prisma.InputJsonValue | null
     }) => Promise<Metadata>
   ) {
     const existingScope3Id = emissions.scope3?.id
 
     const stated = scope3.statedTotalEmissions
 
+    const existingStated = existingScope3Id
+      ? await prisma.statedTotalEmissions.findFirst({
+          where: { scope3Id: existingScope3Id },
+          select: { total: true, unit: true },
+        })
+      : null
+    const statedPreviousValue =
+      existingStated &&
+      stated &&
+      'total' in stated &&
+      existingStated.total !== stated.total
+        ? ({
+            total: existingStated.total,
+            unit: existingStated.unit,
+          } satisfies Prisma.InputJsonValue)
+        : undefined
+
     const metadata = await createMetadata({
       verified: stated?.verified ?? false,
       sourceReference: stated?.sourceReference,
       pageNumber: stated?.pageNumber,
       sourcePageUrl: stated?.sourcePageUrl,
+      previousValue: statedPreviousValue,
     })
 
     const updatedScope3 = await prisma.scope3.upsert({
@@ -243,11 +263,19 @@ class EmissionsService {
     })
     await Promise.all(
       (scope3.categories ?? []).map(async (scope3Category) => {
+        const matching = updatedScope3.categories.find(
+          ({ category }) => scope3Category.category === category
+        )
+        const previousValue =
+          matching && matching.total !== (scope3Category.total ?? null)
+            ? ({ total: matching.total } satisfies Prisma.InputJsonValue)
+            : undefined
         const metadataForScope3Category = await createMetadata({
           verified: scope3Category.verified ?? false,
           sourceReference: scope3Category.sourceReference,
           pageNumber: scope3Category.pageNumber,
           sourcePageUrl: scope3Category.sourcePageUrl,
+          previousValue,
         })
         const categoryData = _.omit(
           scope3Category,
@@ -255,9 +283,6 @@ class EmissionsService {
           'sourceReference',
           'pageNumber',
           'sourcePageUrl'
-        )
-        const matching = updatedScope3.categories.find(
-          ({ category }) => categoryData.category === category
         )
 
         return prisma.scope3Category.upsert({
