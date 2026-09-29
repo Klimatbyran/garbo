@@ -8,6 +8,10 @@ import {
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { vectorDB } from './vectordb'
 import { attachPageProvenanceToExtraction } from './sourceReference'
+import {
+  countAttachedPageNumbers,
+  formatPageProvenanceLog,
+} from './pageProvenanceLog'
 import { Queue } from 'bullmq'
 import redis from '../config/redis'
 import { z } from 'zod'
@@ -120,6 +124,18 @@ function addCustomMethods(job: FollowUpJob) {
 
     const parsedValue = JSON.parse(response)
     const value = attachPageProvenanceToExtraction(parsedValue, paragraphs)
+    const retrievedPageNumbers = paragraphs
+      .map((paragraph) => paragraph.pageNumber)
+      .filter((page): page is number => typeof page === 'number')
+    const attached = countAttachedPageNumbers(value)
+
+    job.log(
+      formatPageProvenanceLog('followUp', {
+        type,
+        retrievedPages: retrievedPageNumbers.length,
+        attached,
+      })
+    )
 
     const result = {
       value,
@@ -130,9 +146,7 @@ function addCustomMethods(job: FollowUpJob) {
         schema: zodResponseFormat(schema, type.replace(/\//g, '-')),
         chromaDurationMs,
         aiDurationMs,
-        retrievedPageNumbers: paragraphs
-          .map((paragraph) => paragraph.pageNumber)
-          .filter((page): page is number => typeof page === 'number'),
+        retrievedPageNumbers,
       },
     }
 
