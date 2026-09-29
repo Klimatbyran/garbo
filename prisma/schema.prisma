@@ -792,17 +792,30 @@ model CoverageListGroup {
   @@map("coverage_list_groups")
 }
 
+/// Crawl locale options for coverage lists (passed to report discovery as `country`).
+model CoverageListLocale {
+  id    String         @id @default(cuid())
+  slug  String         @unique
+  label String
+  lists CoverageList[]
+
+  @@map("coverage_list_locales")
+}
+
 /// Validate Coverage tab: named index lists (e.g. MSCI World Index).
 model CoverageList {
   id        String              @id @default(cuid())
   name      String              @unique
   groupId   String?             @map("group_id")
   group     CoverageListGroup?  @relation(fields: [groupId], references: [id], onDelete: SetNull)
+  localeId  String?             @map("locale_id")
+  locale    CoverageListLocale? @relation(fields: [localeId], references: [id], onDelete: SetNull)
   createdAt DateTime            @default(now()) @map("created_at")
   updatedAt DateTime            @updatedAt @map("updated_at")
   years     CoverageListYear[]
 
   @@index([groupId])
+  @@index([localeId])
   @@map("coverage_lists")
 }
 
