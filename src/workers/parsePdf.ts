@@ -117,7 +117,9 @@ const parsePdf = new PipelineWorker(
       const exists = await vectorDB.hasReport(url)
       job.log(`vector index exists for url: ${exists}`)
 
-      // If forcing reindex, delete existing indexed report to ensure a fresh run
+      // If forcing reindex, delete existing indexed report to ensure a fresh run.
+      // Missing pageNumber on old indexes is fine — provenance fields are optional
+      // and should not force expensive Docling re-parses of cached reports.
       if (forceReindex) {
         try {
           job.log(

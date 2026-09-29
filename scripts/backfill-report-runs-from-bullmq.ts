@@ -28,6 +28,7 @@ import type { Prisma } from '@prisma/client'
 import redis from '../src/config/redis'
 import { prisma } from '../src/lib/prisma'
 import { resolveReportBatchDbId } from '../src/lib/resolveReportBatchDbId'
+import { archiveFieldsFromFollowUpReturnValue } from '../src/lib/sourceReference'
 import { QUEUE_NAMES } from '../src/queues'
 
 const ALL_QUEUE_NAMES = [...new Set(Object.values(QUEUE_NAMES))] as string[]
@@ -76,19 +77,42 @@ function metadataFromReturnValue(rv: Record<string, unknown> | null): {
   prompt: string | null
   queryTexts: unknown
   markdown: string | null
+  sourceReference: string | null
+  extractionResult: Prisma.InputJsonValue | undefined
 } {
   if (!rv) {
-    return { prompt: null, queryTexts: null, markdown: null }
+    return {
+      prompt: null,
+      queryTexts: null,
+      markdown: null,
+      sourceReference: null,
+      extractionResult: undefined,
+    }
   }
   const meta = rv.metadata
   if (!meta || typeof meta !== 'object' || Array.isArray(meta)) {
-    return { prompt: null, queryTexts: null, markdown: null }
+    const archiveFields = archiveFieldsFromFollowUpReturnValue(rv)
+    return {
+      prompt: null,
+      queryTexts: null,
+      markdown: null,
+      sourceReference: archiveFields.sourceReference,
+      extractionResult: archiveFields.extractionResult,
+    }
   }
   const m = meta as Record<string, unknown>
   const prompt = typeof m.prompt === 'string' ? m.prompt : null
   const queryTexts = m.queryTexts ?? null
   const markdown = typeof m.context === 'string' ? m.context : null
-  return { prompt, queryTexts, markdown }
+  const archiveFields = archiveFieldsFromFollowUpReturnValue(rv)
+
+  return {
+    prompt,
+    queryTexts,
+    markdown,
+    sourceReference: archiveFields.sourceReference,
+    extractionResult: archiveFields.extractionResult,
+  }
 }
 
 async function resolvePdfUrl(
@@ -167,7 +191,8 @@ async function persistJobIfNeeded(args: {
   const companyName = companyNameFromData(data)
   const batchDbId = await resolveReportBatchDbId(batchIdFromData(data))
   const returnValue = parseReturnValue(job)
-  const { prompt, queryTexts, markdown } = metadataFromReturnValue(returnValue)
+  const { prompt, queryTexts, markdown, sourceReference, extractionResult } =
+    metadataFromReturnValue(returnValue)
 
   const failedReason =
     status === 'failed' && typeof job.failedReason === 'string'
@@ -228,6 +253,8 @@ async function persistJobIfNeeded(args: {
         prompt,
         queryTexts: queryTextsJson,
         markdown,
+        sourceReference,
+        extractionResult,
         startedAt,
         finishedAt,
         reportRunId: reportRun.id,

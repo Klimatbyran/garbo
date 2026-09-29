@@ -7,6 +7,7 @@ import {
 } from 'openai/resources'
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { vectorDB } from './vectordb'
+import { attachPageProvenanceToExtraction } from './sourceReference'
 import { Queue } from 'bullmq'
 import redis from '../config/redis'
 import { z } from 'zod'
@@ -58,12 +59,13 @@ function addCustomMethods(job: FollowUpJob) {
   ) => {
     job.log(`🔍 Querying vector DB for ${type}...`)
     const chromaStart = Date.now()
-    const markdown = await vectorDB.getRelevantMarkdown(
+    const paragraphs = await vectorDB.getRelevantParagraphs(
       url,
       queryTexts,
       15,
       (msg) => job.log(msg)
     )
+    const markdown = paragraphs.map((paragraph) => paragraph.text).join('\n\n')
     const chromaDurationMs = Date.now() - chromaStart
     job.log(
       `✅ Vector DB done for ${type} (${markdown.length} chars, ${chromaDurationMs}ms)`
@@ -116,8 +118,11 @@ function addCustomMethods(job: FollowUpJob) {
 
     job.log('Response: ' + response)
 
+    const parsedValue = JSON.parse(response)
+    const value = attachPageProvenanceToExtraction(parsedValue, paragraphs)
+
     const result = {
-      value: JSON.parse(response),
+      value,
       metadata: {
         context: markdown,
         prompt: prompt,
@@ -125,6 +130,9 @@ function addCustomMethods(job: FollowUpJob) {
         schema: zodResponseFormat(schema, type.replace(/\//g, '-')),
         chromaDurationMs,
         aiDurationMs,
+        retrievedPageNumbers: paragraphs
+          .map((paragraph) => paragraph.pageNumber)
+          .filter((page): page is number => typeof page === 'number'),
       },
     }
 
