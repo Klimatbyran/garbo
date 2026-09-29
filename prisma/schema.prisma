@@ -936,6 +936,35 @@ model CoverageCrawlState {
   @@map("coverage_crawl_states")
 }
 
+enum CoverageNightlyJobKind {
+  crawl
+  rematch
+}
+
+enum CoverageNightlyJobStatus {
+  running
+  completed
+  failed
+}
+
+/// One row per overnight coverage crawl or rematch CronJob execution.
+/// Summary JSON matches CoverageNightlyCrawlSummary / CoverageNightlyRematchSummary.
+model CoverageNightlyJobRun {
+  id           String                   @id @default(cuid())
+  kind         CoverageNightlyJobKind
+  status       CoverageNightlyJobStatus @default(running)
+  startedAt    DateTime                 @default(now()) @map("started_at")
+  finishedAt   DateTime?                @map("finished_at")
+  summary      Json                     @default("{}")
+  failures     Int                      @default(0)
+  errorMessage String?                  @map("error_message")
+  createdAt    DateTime                 @default(now()) @map("created_at")
+  updatedAt    DateTime                 @updatedAt @map("updated_at")
+
+  @@index([kind, startedAt])
+  @@map("coverage_nightly_job_runs")
+}
+
 /// Durable on/off + filters for Validate pipeline auto-run (backlog drain).
 model PipelineAutoRunConfig {
   id                         String    @id @default("default")
