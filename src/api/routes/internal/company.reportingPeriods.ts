@@ -30,6 +30,7 @@ import type {
   StatedTotalEmissions,
   User,
 } from '@prisma/client'
+import { Prisma } from '@prisma/client'
 import type { OptionalNullable } from '../../../lib/type-utils'
 
 /** Shape of `emissions` when purging (see `replaceAllEmissions` prisma include). */
@@ -74,12 +75,14 @@ async function createDatapointMetadata({
   user,
   verified,
   reportS3Url,
+  previousValue,
 }: {
   baseMetadata?: Partial<Metadata>
   provenance?: ProvenancePayload
   user: User
   verified: boolean
   reportS3Url?: string | null
+  previousValue?: Prisma.InputJsonValue | null
 }) {
   const sourcePageUrl = resolveSourcePageUrl({
     storagePdfUrl: reportS3Url,
@@ -104,6 +107,7 @@ async function createDatapointMetadata({
     },
     user,
     verified,
+    previousValue,
   })
 }
 
@@ -167,19 +171,28 @@ async function buildScope1Promise(
     return false
   }
 
+  const existing = existingScope1Id
+    ? await prisma.scope1.findUnique({
+        where: { id: existingScope1Id },
+        select: { total: true, unit: true },
+      })
+    : null
+  const next = stripProvenanceFields(scope1Payload) as Scope1UpsertInput
+  const previousValue =
+    existing && existing.total !== next.total
+      ? ({ total: existing.total, unit: existing.unit } satisfies Prisma.InputJsonValue)
+      : undefined
+
   const metadataForScope1 = await createDatapointMetadata({
     baseMetadata,
     provenance: scope1Payload,
     user,
     verified: scope1Payload.verified ?? false,
     reportS3Url,
+    previousValue,
   })
 
-  return emissionsService.upsertScope1(
-    dbEmissions,
-    stripProvenanceFields(scope1Payload) as Scope1UpsertInput,
-    metadataForScope1
-  )
+  return emissionsService.upsertScope1(dbEmissions, next, metadataForScope1)
 }
 
 async function buildScope2Promise(
@@ -199,19 +212,37 @@ async function buildScope2Promise(
     return false
   }
 
+  const existing = existingScope2Id
+    ? await prisma.scope2.findUnique({
+        where: { id: existingScope2Id },
+        select: { mb: true, lb: true, unknown: true, unit: true },
+      })
+    : null
+  const next = stripProvenanceFields(scope2Payload) as Scope2UpsertInput
+  const changed =
+    existing &&
+    (existing.mb !== (next.mb ?? null) ||
+      existing.lb !== (next.lb ?? null) ||
+      existing.unknown !== (next.unknown ?? null))
+  const previousValue = changed
+    ? ({
+        mb: existing.mb,
+        lb: existing.lb,
+        unknown: existing.unknown,
+        unit: existing.unit,
+      } satisfies Prisma.InputJsonValue)
+    : undefined
+
   const metadataForScope2 = await createDatapointMetadata({
     baseMetadata,
     provenance: scope2Payload,
     user,
     verified: scope2Payload.verified ?? false,
     reportS3Url,
+    previousValue,
   })
 
-  return emissionsService.upsertScope2(
-    dbEmissions,
-    stripProvenanceFields(scope2Payload) as Scope2UpsertInput,
-    metadataForScope2
-  )
+  return emissionsService.upsertScope2(dbEmissions, next, metadataForScope2)
 }
 
 export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
@@ -364,11 +395,6 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
               user,
               verified: false,
             })
-            const verifiedMetadata = await metadataService.createMetadata({
-              metadata,
-              user,
-              verified: true,
-            })
             const reportingPeriod =
               await reportingPeriodService.upsertReportingPeriod(
                 company,
@@ -452,71 +478,168 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
                       user,
                       verified: opts.verified,
                       reportS3Url: storagePdfUrl,
+                      previousValue: opts.previousValue,
                     })
                 ),
               statedTotalEmissions !== undefined &&
                 (async () => {
+                  const existingId = dbEmissions.statedTotalEmissions?.id
+                  const existing = existingId
+                    ? await prisma.statedTotalEmissions.findUnique({
+                        where: { id: existingId },
+                        select: { total: true, unit: true },
+                      })
+                    : null
+                  const next = stripProvenanceFields(
+                    statedTotalEmissions!
+                  ) as StatedTotalUpsertInput
+                  const previousValue =
+                    existing && existing.total !== next.total
+                      ? ({
+                          total: existing.total,
+                          unit: existing.unit,
+                        } satisfies Prisma.InputJsonValue)
+                      : undefined
                   const metadataForStatedTotal = await createDatapointMetadata({
                     baseMetadata: metadata,
                     provenance: statedTotalEmissions ?? undefined,
                     user,
                     verified: statedTotalEmissions?.verified ?? false,
                     reportS3Url: storagePdfUrl,
+                    previousValue,
                   })
                   return emissionsService.upsertStatedTotalEmissions(
                     dbEmissions,
                     metadataForStatedTotal,
-                    stripProvenanceFields(
-                      statedTotalEmissions!
-                    ) as StatedTotalUpsertInput
+                    next
                   )
                 })(),
               biogenic !== undefined &&
                 (async () => {
+                  const existingId = dbEmissions.biogenicEmissions?.id
+                  const existing = existingId
+                    ? await prisma.biogenicEmissions.findUnique({
+                        where: { id: existingId },
+                        select: { total: true, unit: true },
+                      })
+                    : null
+                  const next = stripProvenanceFields(
+                    biogenic!
+                  ) as BiogenicUpsertInput
+                  const previousValue =
+                    existing && existing.total !== next.total
+                      ? ({
+                          total: existing.total,
+                          unit: existing.unit,
+                        } satisfies Prisma.InputJsonValue)
+                      : undefined
                   const metadataForBiogenic = await createDatapointMetadata({
                     baseMetadata: metadata,
                     provenance: biogenic ?? undefined,
                     user,
                     verified: biogenic?.verified ?? false,
                     reportS3Url: storagePdfUrl,
+                    previousValue,
                   })
                   return emissionsService.upsertBiogenic(
                     dbEmissions,
-                    stripProvenanceFields(biogenic!) as BiogenicUpsertInput,
+                    next,
                     metadataForBiogenic
                   )
                 })(),
               scope1And2 !== undefined &&
                 (async () => {
+                  const existingId = dbEmissions.scope1And2?.id
+                  const existing = existingId
+                    ? await prisma.scope1And2.findUnique({
+                        where: { id: existingId },
+                        select: { total: true, unit: true },
+                      })
+                    : null
+                  const next = stripProvenanceFields(
+                    scope1And2!
+                  ) as Scope1And2UpsertInput
+                  const previousValue =
+                    existing && existing.total !== next.total
+                      ? ({
+                          total: existing.total,
+                          unit: existing.unit,
+                        } satisfies Prisma.InputJsonValue)
+                      : undefined
                   const metadataForScope1And2 = await createDatapointMetadata({
                     baseMetadata: metadata,
                     provenance: scope1And2 ?? undefined,
                     user,
                     verified: scope1And2?.verified ?? false,
                     reportS3Url: storagePdfUrl,
+                    previousValue,
                   })
                   return emissionsService.upsertScope1And2(
                     dbEmissions,
-                    stripProvenanceFields(scope1And2!) as Scope1And2UpsertInput,
+                    next,
                     metadataForScope1And2
                   )
                 })(),
               turnover &&
-                companyService.upsertTurnover({
-                  economy: dbEconomy,
-                  metadata: turnover.verified
-                    ? verifiedMetadata
-                    : createdMetadata,
-                  turnover: _.omit(turnover, 'verified'),
-                }),
+                (async () => {
+                  const existingId = dbEconomy.turnover?.id
+                  const existing = existingId
+                    ? await prisma.turnover.findUnique({
+                        where: { id: existingId },
+                        select: { value: true, currency: true },
+                      })
+                    : null
+                  const next = _.omit(turnover, 'verified')
+                  const previousValue =
+                    existing && existing.value !== next.value
+                      ? ({
+                          value: existing.value,
+                          currency: existing.currency,
+                        } satisfies Prisma.InputJsonValue)
+                      : undefined
+                  const metadataForTurnover = await createDatapointMetadata({
+                    baseMetadata: metadata,
+                    user,
+                    verified: turnover.verified ?? false,
+                    reportS3Url: storagePdfUrl,
+                    previousValue,
+                  })
+                  return companyService.upsertTurnover({
+                    economy: dbEconomy,
+                    metadata: metadataForTurnover,
+                    turnover: next,
+                  })
+                })(),
               employees &&
-                companyService.upsertEmployees({
-                  economy: dbEconomy,
-                  employees: _.omit(employees, 'verified'),
-                  metadata: employees.verified
-                    ? verifiedMetadata
-                    : createdMetadata,
-                }),
+                (async () => {
+                  const existingId = dbEconomy.employees?.id
+                  const existing = existingId
+                    ? await prisma.employees.findUnique({
+                        where: { id: existingId },
+                        select: { value: true, unit: true },
+                      })
+                    : null
+                  const next = _.omit(employees, 'verified')
+                  const previousValue =
+                    existing && existing.value !== next.value
+                      ? ({
+                          value: existing.value,
+                          unit: existing.unit,
+                        } satisfies Prisma.InputJsonValue)
+                      : undefined
+                  const metadataForEmployees = await createDatapointMetadata({
+                    baseMetadata: metadata,
+                    user,
+                    verified: employees.verified ?? false,
+                    reportS3Url: storagePdfUrl,
+                    previousValue,
+                  })
+                  return companyService.upsertEmployees({
+                    economy: dbEconomy,
+                    employees: next,
+                    metadata: metadataForEmployees,
+                  })
+                })(),
             ])
           }
         )
