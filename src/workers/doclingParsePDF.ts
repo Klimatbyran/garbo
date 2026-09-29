@@ -5,6 +5,7 @@ import docling from '../config/docling'
 import redis from '../config/redis'
 import { extractDoclingMarkdown } from '../lib/doclingPageLookup'
 import type { DoclingPageSnippet } from '../lib/doclingPageLookup'
+import { formatPageProvenanceLog } from '../lib/pageProvenanceLog'
 import { fireCallback, isAllowedCallbackUrl } from '../lib/webhook'
 import { prisma } from '../lib/prisma'
 import { buildReportMatchConditions } from '@/api/services/registryReportIdentity'
@@ -733,6 +734,12 @@ async function pollTaskAndGetResult(
       includePageSnippets
         ? `Docling markdown kept as-is; page snippets from JSON: ${pageSnippets.length}`
         : 'Docling markdown kept as-is; skipped page snippets (callbackUrl-only parse)'
+    )
+    job.log(
+      formatPageProvenanceLog('docling', {
+        snippets: pageSnippets.length,
+        skipped: !includePageSnippets,
+      })
     )
 
     if (!markdown) {

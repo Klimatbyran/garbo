@@ -6,6 +6,7 @@ import checkEmissionsPresence from './checkEmissionsPresence'
 import { vectorDB } from '../lib/vectordb'
 import { QUEUE_NAMES } from '../queues'
 import { withPipelineJobOpts } from '../lib/pipelineJobOptions'
+import { formatPageProvenanceLog } from '../lib/pageProvenanceLog'
 import { registryService } from '../api/services/registryService'
 
 const flow = new FlowProducer({ connection: redis })
@@ -242,6 +243,13 @@ const parsePdf = new PipelineWorker(
         }
       } else {
         job.editMessage(`✅ PDF already interpreted and indexed. Continuing...`)
+        job.log(
+          formatPageProvenanceLog('parsePdf', {
+            cacheHit: true,
+            forceReindex: Boolean(forceReindex),
+            note: 'existing_chroma_index_may_lack_pageNumber',
+          })
+        )
 
         const markdown = await vectorDB.getRelevantMarkdown(url, [
           'company name, annual report, about the company, introduction, company overview, who we are, our business, bolagets namn, årsredovisning, om bolaget',

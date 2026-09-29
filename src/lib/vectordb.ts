@@ -7,6 +7,7 @@ import {
   pageNumberForMarkdownSnippet,
   type DoclingPageSnippet,
 } from './doclingPageLookup'
+import { formatPageProvenanceLog } from './pageProvenanceLog'
 
 const client = new ChromaClient(config)
 const embedder = new OpenAIEmbeddingFunction({
@@ -129,11 +130,13 @@ async function addReport(
     }
   })
 
-  if (pageSnippets.length > 0) {
-    log(
-      `Page lookup: matched ${pagesResolved}/${documentChunks.length} chunks from ${pageSnippets.length} Docling snippets`
-    )
-  }
+  log(
+    formatPageProvenanceLog('chroma', {
+      snippets: pageSnippets.length,
+      matchedChunks: pagesResolved,
+      totalChunks: documentChunks.length,
+    })
+  )
 
   // Process in batches of 50 chunks to avoid token limit issues
   const batchSize = 50
