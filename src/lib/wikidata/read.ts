@@ -3,6 +3,7 @@ import { Claim, transformFromWikidataDateStringToDate, wbk } from './util'
 import { WbGetEntitiesResponse } from 'wikibase-sdk/dist/src/helpers/parse_responses'
 import wikidataConfig from '../../config/wikidata'
 import { fetchJsonWithRetries, WIKIDATA_SEARCH_HEADERS } from './wikidataHttp'
+import { normalizeLei } from '../normalizeLei'
 
 export { searchCompany, type CompanySearchResult } from './searchCompany'
 
@@ -60,7 +61,8 @@ export async function getLEINumber(
     return
   }
 
-  return claims['P1278'][0].mainsnak.datavalue.value
+  const raw = claims['P1278'][0].mainsnak.datavalue.value
+  return normalizeLei(typeof raw === 'string' ? raw : undefined) ?? undefined
 }
 
 export async function getWikidataEntities(ids: `Q${number}`[]) {
