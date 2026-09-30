@@ -51,6 +51,7 @@ export const reportingPeriodArgs = {
   },
 } satisfies Prisma.ReportingPeriodDefaultArgs
 
+/** External/public company reads — no page-provenance fields. */
 export const metadataArgs = {
   orderBy: {
     updatedAt: 'desc' as const,
@@ -60,8 +61,6 @@ export const metadataArgs = {
     id: true,
     comment: true,
     source: true,
-    sourceReference: true,
-    sourcePageUrl: true,
     updatedAt: true,
     user: {
       select: {
@@ -74,6 +73,35 @@ export const metadataArgs = {
       },
     },
   } satisfies Prisma.MetadataDefaultArgs['select'],
+}
+
+/** Internal/pipeline reads — includes source provenance. */
+export const internalMetadataArgs = {
+  orderBy: metadataArgs.orderBy,
+  take: metadataArgs.take,
+  select: {
+    ...metadataArgs.select,
+    sourceReference: true,
+    sourcePageUrl: true,
+  } satisfies Prisma.MetadataDefaultArgs['select'],
+}
+
+/** Swap public metadata selects for internal provenance selects by reference. */
+function withInternalMetadataArgs<T>(value: T): T {
+  if (value === metadataArgs) {
+    return internalMetadataArgs as T
+  }
+  if (Array.isArray(value)) {
+    return value.map((item) => withInternalMetadataArgs(item)) as T
+  }
+  if (value && typeof value === 'object') {
+    const out: Record<string, unknown> = {}
+    for (const [key, child] of Object.entries(value)) {
+      out[key] = withInternalMetadataArgs(child)
+    }
+    return out as T
+  }
+  return value
 }
 
 const minimalMetadataArgs = {
@@ -267,13 +295,13 @@ export const detailedCompanyArgs = {
 /** Staff/pipeline company detail — includes identifiers (not on partner reads). */
 export const pipelineCompanyDetailArgs = {
   select: {
-    ...detailedCompanyArgs.select,
+    ...withInternalMetadataArgs(detailedCompanyArgs.select),
     identifiers: {
       select: {
         id: true,
         type: true,
         value: true,
-        metadata: metadataArgs,
+        metadata: internalMetadataArgs,
       },
     },
   },

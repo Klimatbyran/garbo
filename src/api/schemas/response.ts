@@ -37,6 +37,7 @@ export const reportTypeSchema = z.object({
 export const reportTypeListResponseSchema = z.array(reportTypeSchema)
 export const emptyBodySchema = z.undefined()
 
+/** External/public metadata — no page-provenance fields. */
 export const MetadataSchema = z.object({
   id: z.string(),
   comment: z
@@ -44,14 +45,6 @@ export const MetadataSchema = z.object({
     .nullable()
     .openapi({ description: 'Comment about the data' }),
   source: z.string().nullable().openapi({ description: 'Source of the data' }),
-  sourceReference: z.string().nullable().openapi({
-    description:
-      'Where in the original report this datapoint came from (internal)',
-  }),
-  sourcePageUrl: z.string().nullable().openapi({
-    description:
-      'Internal stored PDF URL with #page=N deep link to the relevant page (internal)',
-  }),
   updatedAt: dateStringSchema.openapi({ description: 'Last update timestamp' }),
   user: z.object({
     name: z
@@ -67,6 +60,18 @@ export const MetadataSchema = z.object({
     .nullable(),
 })
 
+/** Internal/pipeline metadata — includes source provenance. */
+export const InternalMetadataSchema = MetadataSchema.extend({
+  sourceReference: z.string().nullable().openapi({
+    description:
+      'Where in the original report this datapoint came from (internal)',
+  }),
+  sourcePageUrl: z.string().nullable().openapi({
+    description:
+      'Internal stored PDF URL with #page=N deep link to the relevant page (internal)',
+  }),
+})
+
 export const MinimalMetadataSchema = MetadataSchema.pick({ verifiedBy: true })
 
 /**
@@ -74,6 +79,7 @@ export const MinimalMetadataSchema = MetadataSchema.pick({ verifiedBy: true })
  * `transformMetadata` collapses that to the latest row or `null` when empty.
  */
 export const ResponseMetadataSchema = MetadataSchema.nullable()
+export const ResponseInternalMetadataSchema = InternalMetadataSchema.nullable()
 export const ResponseMinimalMetadataSchema = MinimalMetadataSchema.nullable()
 
 export const CompanyIdentifierTypeSchema = z.enum([
@@ -533,13 +539,95 @@ export const CompanyDetails = CompanyBase.extend({
   initiatives: z.array(InitiativeSchema).nullable(),
 })
 
+const withInternalMetadata = (schema: z.ZodObject<z.ZodRawShape>) =>
+  schema.omit({ metadata: true }).extend({
+    metadata: ResponseInternalMetadataSchema,
+  })
+
+const InternalScope1Schema = withInternalMetadata(Scope1Schema)
+const InternalScope2Schema = withScope2Refinement(
+  withInternalMetadata(Scope2BaseSchema)
+)
+const InternalStatedTotalEmissionsSchema = withInternalMetadata(
+  StatedTotalEmissionsSchema
+)
+const InternalScope3CategorySchema = withInternalMetadata(Scope3CategorySchema)
+const InternalBiogenicSchema = withInternalMetadata(BiogenicSchema)
+const InternalScope1And2Schema = withInternalMetadata(Scope1And2Schema)
+const InternalScope3Schema = Scope3Schema.omit({
+  metadata: true,
+  categories: true,
+  statedTotalEmissions: true,
+}).extend({
+  metadata: ResponseInternalMetadataSchema,
+  categories: z.array(InternalScope3CategorySchema),
+  statedTotalEmissions: InternalStatedTotalEmissionsSchema.nullable().optional(),
+})
+const InternalEmissionsSchema = z.object({
+  id: z.string(),
+  scope1: InternalScope1Schema.nullable(),
+  scope2: InternalScope2Schema.nullable(),
+  scope3: InternalScope3Schema.nullable(),
+  biogenicEmissions: InternalBiogenicSchema.nullable(),
+  scope1And2: InternalScope1And2Schema.nullable(),
+  statedTotalEmissions: InternalStatedTotalEmissionsSchema.nullable(),
+  calculatedTotalEmissions: z.number().nullable().optional(),
+})
+const InternalEconomySchema = z.object({
+  id: z.string(),
+  turnover: withInternalMetadata(TurnoverSchema).nullable(),
+  employees: withInternalMetadata(EmployeesSchema).nullable(),
+})
+const InternalReportingPeriodSchema = ReportingPeriodSchema.omit({
+  emissions: true,
+  economy: true,
+}).extend({
+  emissions: InternalEmissionsSchema.nullable(),
+  economy: InternalEconomySchema.nullable(),
+})
+
 /**
- * Internal company details include tags (used by internal tools like Validate).
+ * Internal company details include tags and page-provenance metadata
+ * (used by internal tools like Validate / pipeline reads).
  */
-export const InternalCompanyDetails = CompanyDetails.extend({
+export const InternalCompanyDetails = CompanyDetails.omit({
+  reportingPeriods: true,
+  industry: true,
+  goals: true,
+  initiatives: true,
+  baseYear: true,
+}).extend({
   tags: z.array(z.string()),
   alternativeNames: z.array(z.string()).default([]),
-  identifiers: z.array(CompanyIdentifierSchema).optional(),
+  identifiers: z
+    .array(
+      CompanyIdentifierSchema.omit({ metadata: true }).extend({
+        metadata: ResponseInternalMetadataSchema,
+      })
+    )
+    .optional(),
+  industry: IndustrySchema.omit({ metadata: true })
+    .extend({ metadata: ResponseInternalMetadataSchema })
+    .nullable(),
+  goals: z
+    .array(
+      GoalSchema.omit({ metadata: true }).extend({
+        metadata: ResponseInternalMetadataSchema,
+      })
+    )
+    .nullable(),
+  initiatives: z
+    .array(
+      InitiativeSchema.omit({ metadata: true }).extend({
+        metadata: ResponseInternalMetadataSchema,
+      })
+    )
+    .nullable(),
+  baseYear: BaseYearSchema.omit({ metadata: true })
+    .extend({ metadata: ResponseInternalMetadataSchema })
+    .nullable()
+    .optional(),
+  reportingPeriods: z.array(InternalReportingPeriodSchema),
 })
 
 export const AuthentificationResponseScheme = z.object({
