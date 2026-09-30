@@ -103,22 +103,3 @@ export async function getLEINumbersFromGLEIF(
   const data = await response.json()
   return gleifRecordsToLeiCandidates(data.data)
 }
-
-/** Look up a single LEI record by LEI value. */
-export async function getGleifLeiCandidateByLei(
-  lei: string
-): Promise<GleifLeiCandidate | null> {
-  const normalized = normalizeLei(lei)
-  if (!normalized) return null
-
-  const response = await fetch(
-    `https://api.gleif.org/api/v1/lei-records/${encodeURIComponent(normalized)}`
-  )
-  if (!response.ok) {
-    console.log(`Error ${response.status}: ${response.statusText}`)
-    return null
-  }
-
-  const data = await response.json()
-  return toGleifLeiCandidate(data.data as GleifApiLeiRecord)
-}
