@@ -34,6 +34,23 @@ export function normalizeLei(value: string | undefined | null): string | null {
   return trimmed
 }
 
+/**
+ * Normalize a non-empty LEI for persistence. Throws `{ code: 400 }` when the
+ * value is present but not a valid checksum LEI.
+ */
+export function requireNormalizedLei(value: string): string {
+  const normalized = normalizeLei(value)
+  if (!normalized) {
+    throw Object.assign(
+      new Error(
+        `Invalid LEI: '${value.trim()}' is not a valid 20-character LEI with checksum`
+      ),
+      { code: 400 }
+    )
+  }
+  return normalized
+}
+
 /** Merge LEI from a pipeline child job with any LEI already on the parent job. */
 export function resolvePipelineLei(
   childLei: unknown,

@@ -1,6 +1,6 @@
 import { CompanyIdentifierType, User } from '@prisma/client'
 import { prisma } from '../../lib/prisma'
-import { normalizeLei } from '../../lib/normalizeLei'
+import { normalizeLei, requireNormalizedLei } from '../../lib/normalizeLei'
 import {
   GARBO_SERVICE_CLIENT_ID,
   getOrCreateServiceBotUser,
@@ -9,6 +9,7 @@ import {
 class CompanyIdentifierService {
   /**
    * Returns another company's id if it already owns this LEI (column or identifier row).
+   * Matches case-insensitively so mixed-case legacy rows still conflict.
    */
   async findOtherCompanyOwningLei(
     lei: string,
@@ -19,10 +20,8 @@ class CompanyIdentifierService {
 
     const byColumn = await prisma.company.findFirst({
       where: {
-        lei: normalized,
-        ...(excludeCompanyId
-          ? { NOT: { id: excludeCompanyId } }
-          : {}),
+        lei: { equals: normalized, mode: 'insensitive' },
+        ...(excludeCompanyId ? { NOT: { id: excludeCompanyId } } : {}),
       },
       select: { id: true },
     })
@@ -31,7 +30,7 @@ class CompanyIdentifierService {
     const byIdentifier = await prisma.companyIdentifier.findFirst({
       where: {
         type: 'LEI',
-        value: normalized,
+        value: { equals: normalized, mode: 'insensitive' },
         ...(excludeCompanyId
           ? { NOT: { companyId: excludeCompanyId } }
           : {}),
@@ -80,8 +79,11 @@ class CompanyIdentifierService {
     const trimmedValue = value.trim()
     if (!trimmedValue) return null
 
+    const persistedValue =
+      type === 'LEI' ? requireNormalizedLei(trimmedValue) : trimmedValue
+
     if (type === 'LEI') {
-      await this.assertLeiNotOwnedByOtherCompany(companyId, trimmedValue)
+      await this.assertLeiNotOwnedByOtherCompany(companyId, persistedValue)
     }
 
     const existing = await prisma.companyIdentifier.findUnique({
@@ -91,7 +93,7 @@ class CompanyIdentifierService {
       select: { id: true, value: true },
     })
 
-    if (existing?.value === trimmedValue && skipMetadataIfUnchanged) {
+    if (existing?.value === persistedValue && skipMetadataIfUnchanged) {
       return existing
     }
 
@@ -112,11 +114,11 @@ class CompanyIdentifierService {
         create: {
           companyId,
           type,
-          value: trimmedValue,
+          value: persistedValue,
           metadata: { connect: { id: metadataRecord.id } },
         },
         update: {
-          value: trimmedValue,
+          value: persistedValue,
           metadata: { connect: { id: metadataRecord.id } },
         },
       })
@@ -158,7 +160,7 @@ class CompanyIdentifierService {
       if (row) synced.push(row)
     }
 
-    const lei = company.lei?.trim()
+    const lei = normalizeLei(company.lei)
     if (lei) {
       const row = await this.upsertIdentifier({
         companyId: company.id,

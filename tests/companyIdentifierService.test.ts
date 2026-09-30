@@ -116,7 +116,7 @@ describe('companyIdentifierService', () => {
       {
         id: 'company-1',
         wikidataId: 'Q99',
-        lei: 'LEI123',
+        lei: '5493001KJTIIGC8Y1R12',
       },
       { user: botUser as any, source: 'migration-backfill' }
     )

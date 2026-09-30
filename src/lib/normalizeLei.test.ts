@@ -1,5 +1,5 @@
 import { describe, it, expect } from '@jest/globals'
-import { normalizeLei, isLeiFormat } from './normalizeLei'
+import { normalizeLei, isLeiFormat, requireNormalizedLei } from './normalizeLei'
 
 describe('normalizeLei', () => {
   it('accepts a valid 20-character LEI', () => {
@@ -18,5 +18,19 @@ describe('normalizeLei', () => {
   it('detects LEI format', () => {
     expect(isLeiFormat('5493001KJTIIGC8Y1R12')).toBe(true)
     expect(isLeiFormat('not-a-lei')).toBe(false)
+  })
+})
+
+describe('requireNormalizedLei', () => {
+  it('returns uppercase valid LEI', () => {
+    expect(requireNormalizedLei('  5493001kjtiigc8y1r12  ')).toBe(
+      '5493001KJTIIGC8Y1R12'
+    )
+  })
+
+  it('throws 400 for invalid LEI', () => {
+    expect(() => requireNormalizedLei('not-a-lei')).toThrow(
+      expect.objectContaining({ code: 400 })
+    )
   })
 })

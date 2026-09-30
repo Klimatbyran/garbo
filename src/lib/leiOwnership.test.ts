@@ -46,6 +46,7 @@ describe('decideLeiWrite', () => {
     })
     expect(result.action).toBe('skip')
     expect(result.reason).toMatch(/already belongs to company company-2/)
+    expect(result.reason).not.toMatch(/re-resolve/i)
   })
 
   it('writes when the owner of the incoming LEI is this company', () => {

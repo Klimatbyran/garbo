@@ -7,7 +7,7 @@ export type LeiWriteDecision =
 /**
  * Decide whether to write an LEI onto a company during pipeline diffLEI.
  * Does not auto-overwrite a different existing LEI, and never dual-assigns
- * when another company already owns the LEI (caller should re-resolve instead).
+ * when another company already owns the LEI.
  */
 export function decideLeiWrite(input: {
   companyId: string
@@ -43,7 +43,7 @@ export function decideLeiWrite(input: {
   if (ownerId && ownerId !== input.companyId.trim()) {
     return {
       action: 'skip',
-      reason: `LEI '${incoming}' already belongs to company ${ownerId}; not writing onto ${input.companyId}. Re-resolve the pipeline company instead.`,
+      reason: `LEI '${incoming}' already belongs to company ${ownerId}; not writing onto ${input.companyId}.`,
     }
   }
 
