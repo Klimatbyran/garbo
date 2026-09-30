@@ -1,5 +1,13 @@
 import { z } from 'zod'
 
+export interface AskOptions {
+  model?: string
+  temperature?: number
+  max_tokens?: number
+  baseURL?: string
+  apiKey?: string
+}
+
 export interface TestSuite {
   expectedResults: {
     [key: string]: any
@@ -12,6 +20,7 @@ export interface TestSuite {
     prompt: string
     schema: z.ZodSchema
     baseline?: boolean
+    askOptions?: AskOptions
   }>
 }
 
