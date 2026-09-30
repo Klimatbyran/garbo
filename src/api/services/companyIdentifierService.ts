@@ -1,11 +1,62 @@
 import { CompanyIdentifierType, User } from '@prisma/client'
 import { prisma } from '../../lib/prisma'
+import { normalizeLei, requireNormalizedLei } from '../../lib/normalizeLei'
 import {
   GARBO_SERVICE_CLIENT_ID,
   getOrCreateServiceBotUser,
 } from './serviceBotUser'
 
 class CompanyIdentifierService {
+  /**
+   * Returns another company's id if it already owns this LEI (column or identifier row).
+   * Matches case-insensitively so mixed-case legacy rows still conflict.
+   */
+  async findOtherCompanyOwningLei(
+    lei: string,
+    excludeCompanyId?: string | null
+  ): Promise<string | null> {
+    const normalized = normalizeLei(lei)
+    if (!normalized) return null
+
+    const byColumn = await prisma.company.findFirst({
+      where: {
+        lei: { equals: normalized, mode: 'insensitive' },
+        ...(excludeCompanyId ? { NOT: { id: excludeCompanyId } } : {}),
+      },
+      select: { id: true },
+    })
+    if (byColumn) return byColumn.id
+
+    const byIdentifier = await prisma.companyIdentifier.findFirst({
+      where: {
+        type: 'LEI',
+        value: { equals: normalized, mode: 'insensitive' },
+        ...(excludeCompanyId ? { NOT: { companyId: excludeCompanyId } } : {}),
+      },
+      select: { companyId: true },
+    })
+    return byIdentifier?.companyId ?? null
+  }
+
+  async assertLeiNotOwnedByOtherCompany(
+    companyId: string | null | undefined,
+    lei: string
+  ): Promise<void> {
+    const normalized = normalizeLei(lei)
+    if (!normalized) return
+
+    const ownerId = await this.findOtherCompanyOwningLei(
+      normalized,
+      companyId ?? null
+    )
+    if (ownerId) {
+      throw Object.assign(
+        new Error(`LEI ${normalized} is already in use by company ${ownerId}`),
+        { code: 409 }
+      )
+    }
+  }
+
   async upsertIdentifier({
     companyId,
     type,
@@ -26,6 +77,13 @@ class CompanyIdentifierService {
     const trimmedValue = value.trim()
     if (!trimmedValue) return null
 
+    const persistedValue =
+      type === 'LEI' ? requireNormalizedLei(trimmedValue) : trimmedValue
+
+    if (type === 'LEI') {
+      await this.assertLeiNotOwnedByOtherCompany(companyId, persistedValue)
+    }
+
     const existing = await prisma.companyIdentifier.findUnique({
       where: {
         companyId_type: { companyId, type },
@@ -33,7 +91,7 @@ class CompanyIdentifierService {
       select: { id: true, value: true },
     })
 
-    if (existing?.value === trimmedValue && skipMetadataIfUnchanged) {
+    if (existing?.value === persistedValue && skipMetadataIfUnchanged) {
       return existing
     }
 
@@ -54,11 +112,11 @@ class CompanyIdentifierService {
         create: {
           companyId,
           type,
-          value: trimmedValue,
+          value: persistedValue,
           metadata: { connect: { id: metadataRecord.id } },
         },
         update: {
-          value: trimmedValue,
+          value: persistedValue,
           metadata: { connect: { id: metadataRecord.id } },
         },
       })
@@ -100,7 +158,7 @@ class CompanyIdentifierService {
       if (row) synced.push(row)
     }
 
-    const lei = company.lei?.trim()
+    const lei = normalizeLei(company.lei)
     if (lei) {
       const row = await this.upsertIdentifier({
         companyId: company.id,

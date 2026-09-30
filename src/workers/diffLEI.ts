@@ -1,6 +1,9 @@
 import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { enqueueSaveToAPIWithParentFallback } from '../lib/DiffWorker'
 import { preferRicherDiacriticCompanyName } from '../lib/companyLinkResolve'
+import { decideLeiWrite } from '../lib/leiOwnership'
+import { findCompanyByLei } from '../lib/pipelineCompanyResolve'
+import { normalizeLei } from '../lib/normalizeLei'
 import { QUEUE_NAMES } from '../queues'
 
 export class DiffLEIJob extends PipelineJob {
@@ -13,51 +16,33 @@ export class DiffLEIJob extends PipelineJob {
   }
 }
 
-function compareLei(
-  existingLei?: string,
-  lei?: string
-): {
-  shouldUpdate: boolean
-  reason: string
-} {
-  if (!existingLei || existingLei.trim() === '') {
-    return {
-      shouldUpdate: true,
-
-      reason: `No existing LEI. New LEI '${lei}' will be set.`,
-    }
-  }
-
-  if (existingLei === lei) {
-    return {
-      shouldUpdate: false,
-      reason: `Current LEI '${existingLei}' is already correct. No changes needed.`,
-    }
-  }
-
-  return {
-    shouldUpdate: true,
-    reason: `Current LEI '${existingLei}' differs from New LEI '${lei}'. An update is required.`,
-  }
-}
-
 const diffLEI = new PipelineWorker<DiffLEIJob>(
   QUEUE_NAMES.DIFF_LEI,
   async (job: DiffLEIJob) => {
-    const { companyName, lei, existingCompany } = job.data
+    const { companyName, lei, existingCompany, companyId } = job.data
 
     const currentLei = existingCompany?.lei
+    const normalizedIncoming = normalizeLei(lei)
 
     job.log(
       `🔍 Comparing LEI for '${companyName}': \nCurrent LEI: '${currentLei}'\nNew LEI: '${lei}'`
     )
 
-    const comparisonResult = compareLei(currentLei, lei)
+    if (!normalizedIncoming) {
+      job.log(`❌ Incoming LEI '${lei}' is invalid — not saving.`)
+      return
+    }
 
-    if (!comparisonResult.shouldUpdate) {
-      job.log(
-        `✅ No changes detected for '${companyName}'. Current LEI is already correct.`
-      )
+    const owner = await findCompanyByLei(normalizedIncoming)
+    const decision = decideLeiWrite({
+      companyId,
+      existingLei: currentLei,
+      incomingLei: normalizedIncoming,
+      incomingLeiOwnerCompanyId: owner?.id,
+    })
+
+    if (decision.action === 'skip') {
+      job.log(`✅ ${decision.reason}`)
       return
     }
 
@@ -67,7 +52,7 @@ const diffLEI = new PipelineWorker<DiffLEIJob>(
     )
 
     const body = {
-      lei,
+      lei: normalizedIncoming,
       name,
       ...(job.data.wikidata?.node && { wikidataId: job.data.wikidata.node }),
     }
@@ -81,13 +66,15 @@ const diffLEI = new PipelineWorker<DiffLEIJob>(
       {
         ...job.data,
         body: body,
-        diff: comparisonResult.reason,
+        diff: decision.reason,
         requiresApproval: false,
         apiSubEndpoint: '',
       }
     )
 
-    job.log(`✅ Enqueued LEI update for '${companyName}' with LEI: '${lei}'.`)
+    job.log(
+      `✅ Enqueued LEI update for '${companyName}' with LEI: '${normalizedIncoming}'.`
+    )
   }
 )
 

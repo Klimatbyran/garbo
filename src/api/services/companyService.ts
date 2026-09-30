@@ -39,6 +39,7 @@ import {
   getOrCreateServiceBotUser,
 } from './serviceBotUser'
 import type { ReportingPeriod } from '@/types'
+import { normalizeLei, requireNormalizedLei } from '../../lib/normalizeLei'
 
 /** Latin accents stripped in SQL search (1:1 chars for Postgres translate). */
 const SQL_ACCENT_FROM =
@@ -54,6 +55,14 @@ type ReportsListResponse = z.infer<typeof ReportsListResponseSchema>
 const UUID_RE =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 const UUID_PREFIX_RE = /^[0-9a-f]{8}$/i
+
+/** Uppercase checksum-valid LEI for Company.lei writes; empty stays empty. */
+function leiForCompanyWrite(lei: string | undefined): string | undefined {
+  if (lei === undefined) return undefined
+  const trimmed = lei.trim()
+  if (!trimmed) return trimmed
+  return requireNormalizedLei(trimmed)
+}
 
 class CompanyService {
   private enrichCompaniesWithMetadata(
@@ -177,16 +186,16 @@ class CompanyService {
     param: string,
     args: typeof detailedCompanyArgs = detailedCompanyArgs
   ) {
-    const lei = param.trim().toUpperCase()
-    if (/^[A-Z0-9]{20}$/.test(lei)) {
+    const normalizedLei = normalizeLei(param)
+    if (normalizedLei) {
       const byLeiColumn = await prisma.company.findFirst({
         ...args,
-        where: { lei },
+        where: { lei: normalizedLei },
       })
       if (byLeiColumn) return byLeiColumn
 
       const identifierRow = await prisma.companyIdentifier.findFirst({
-        where: { type: 'LEI', value: lei },
+        where: { type: 'LEI', value: normalizedLei },
         select: { companyId: true },
       })
       if (identifierRow) {
@@ -298,15 +307,29 @@ class CompanyService {
     lei?: string
     user?: User
   }) {
+    const lei = leiForCompanyWrite(data.lei)
+    const writeData = lei !== undefined ? { ...data, lei } : data
+
+    if (lei) {
+      const existing = await prisma.company.findUnique({
+        where: { wikidataId },
+        select: { id: true },
+      })
+      await companyIdentifierService.assertLeiNotOwnedByOtherCompany(
+        existing?.id ?? null,
+        lei
+      )
+    }
+
     const company = await prisma.company.upsert({
       where: {
         wikidataId,
       },
       create: {
-        ...data,
+        ...writeData,
         wikidataId,
       },
-      update: { ...data },
+      update: { ...writeData },
     })
     await companyIdentifierService.syncFromLegacyColumns(company, {
       user,
@@ -404,9 +427,15 @@ class CompanyService {
       }
     }
 
+    const lei = leiForCompanyWrite(data.lei)
+    if (lei) {
+      await companyIdentifierService.assertLeiNotOwnedByOtherCompany(null, lei)
+    }
+
     const company = await prisma.company.create({
       data: {
         ...data,
+        ...(lei !== undefined ? { lei } : {}),
         wikidataId: wikidataId ?? null,
         ...(alternativeNames !== undefined
           ? {
@@ -440,11 +469,20 @@ class CompanyService {
     },
     user?: User
   ) {
+    const lei = leiForCompanyWrite(data.lei)
+    if (lei) {
+      await companyIdentifierService.assertLeiNotOwnedByOtherCompany(
+        companyId,
+        lei
+      )
+    }
+
     const { alternativeNames, ...rest } = data
     const company = await prisma.company.update({
       where: { id: companyId },
       data: {
         ...rest,
+        ...(lei !== undefined ? { lei } : {}),
         ...(alternativeNames !== undefined
           ? {
               alternativeNames: mergeAlternativeNames({
