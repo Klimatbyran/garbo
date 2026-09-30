@@ -161,6 +161,10 @@ interface DoclingServeRequest {
   // ignored by our server. Omitted entirely (not just false) unless the
   // caller explicitly asked for it, so no image cost is incurred by default.
   readImages?: boolean
+  // Only meaningful alongside readImages — skips the description cache
+  // entirely (every picture gets a fresh VLM call) instead of reusing an
+  // existing description for that exact image hash. See docling_test/app.py.
+  forceRedescribeImages?: boolean
   languages?: string[]
 }
 
@@ -188,6 +192,8 @@ class DoclingParsePDFJob extends PipelineJob {
     // extra time/money per picture — false/omitted by default, for any
     // caller, not just the climate plans pipeline. See createRequestPayload.
     readImages?: boolean
+    // See BergetDoclingRequest/DoclingServeRequest's forceRedescribeImages.
+    forceRedescribeImages?: boolean
     languages?: string[]
   }
 }
@@ -195,7 +201,8 @@ class DoclingParsePDFJob extends PipelineJob {
 function createRequestPayload(
   url: string,
   readImages?: boolean,
-  languages?: string[]
+  languages?: string[],
+  forceRedescribeImages?: boolean
 ): BergetDoclingRequest | DoclingServeRequest {
   // Use local format controls the payload structure
   // This is independent of which API endpoint we hit
@@ -226,6 +233,7 @@ function createRequestPayload(
       // false) otherwise, so our custom server's own default (no image
       // processing) is what actually governs when nothing is specified here.
       ...(readImages !== undefined ? { readImages } : {}),
+      ...(forceRedescribeImages !== undefined ? { forceRedescribeImages } : {}),
       ...(languages?.length ? { languages } : {}),
       sources: [
         {
@@ -457,7 +465,8 @@ const doclingParsePDF = new PipelineWorker(
       const requestPayload = createRequestPayload(
         url,
         job.data.readImages,
-        job.data.languages
+        job.data.languages,
+        job.data.forceRedescribeImages
       )
       job.updateData({
         ...job.data,
@@ -737,6 +746,23 @@ async function pollTaskAndGetResult(
           pictures_dropped_small: number
           pictures_dropped_duplicate: number
           pictures_described: number
+          // How many of pictures_described were served from the
+          // description cache (a byte-identical picture already described
+          // in an earlier run) rather than a fresh VLM call — only present
+          // once the server ships it.
+          pictures_from_cache?: number
+          // Tokens actually SPENT this run — excludes cache hits, which
+          // cost nothing this time even though they still show a token
+          // count on their own pictures_info entry (what they originally
+          // cost, not what was spent now). Only present once the server
+          // ships it.
+          vlm_usage?: {
+            model: string
+            calls: number
+            prompt_tokens: number
+            completion_tokens: number
+            total_tokens: number
+          }
           // Per-picture QA info (thumbnail + description/OCR text + page)
           // for the ones that made it into the markdown — only present
           // once the server ships it; older/incompatible servers just omit
@@ -747,6 +773,13 @@ async function pollTaskAndGetResult(
             description: string | null
             ocr_text: string | null
             thumbnail: string
+            // Tokens this picture's description cost — from the cache
+            // entry's original cost when from_cache is true, not a cost
+            // incurred again this run. Null for an OCR-only fallback
+            // entry (no VLM call at all). Only present once the server
+            // ships it.
+            tokens?: number | null
+            from_cache?: boolean
           }[]
         }
       | undefined
@@ -755,7 +788,13 @@ async function pollTaskAndGetResult(
         `Image recovery: ${imageRecovery.pictures_total} picture(s), ` +
           `${imageRecovery.pictures_dropped_small} too small, ` +
           `${imageRecovery.pictures_dropped_duplicate} duplicate, ` +
-          `${imageRecovery.pictures_described} described`
+          `${imageRecovery.pictures_described} described` +
+          (imageRecovery.pictures_from_cache
+            ? ` (${imageRecovery.pictures_from_cache} from cache)`
+            : '') +
+          (imageRecovery.vlm_usage
+            ? `, ${imageRecovery.vlm_usage.total_tokens} tokens spent this run`
+            : '')
       )
     }
 
