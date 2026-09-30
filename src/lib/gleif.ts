@@ -31,8 +31,7 @@ function toGleifLeiCandidate(
   const legalName = record.attributes?.entity?.legalName?.name?.trim()
   if (!legalName) return null
 
-  const jurisdiction =
-    record.attributes?.entity?.jurisdiction?.trim() || null
+  const jurisdiction = record.attributes?.entity?.jurisdiction?.trim() || null
 
   return { lei, legalName, jurisdiction }
 }
