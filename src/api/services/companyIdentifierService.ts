@@ -31,9 +31,7 @@ class CompanyIdentifierService {
       where: {
         type: 'LEI',
         value: { equals: normalized, mode: 'insensitive' },
-        ...(excludeCompanyId
-          ? { NOT: { companyId: excludeCompanyId } }
-          : {}),
+        ...(excludeCompanyId ? { NOT: { companyId: excludeCompanyId } } : {}),
       },
       select: { companyId: true },
     })
