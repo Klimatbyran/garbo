@@ -34,6 +34,7 @@ import {
 } from '../lib/applyStaffCompanyLink'
 import { collectAlternativeNameAfterConfirmedLink } from '../lib/collectAlternativeNameAfterConfirmedLink'
 import { resolvePipelineLei } from '../lib/normalizeLei'
+import { logAbandonedDisposableCompanyShell } from '../lib/loadDisposableCompanyShellSnapshot'
 
 export class CheckDBJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
@@ -264,6 +265,7 @@ const checkDB = new PipelineWorker(
         saveResolution.status === 'resolved' &&
         saveResolution.companyId !== companyId
       ) {
+        const abandonedCompanyId = companyId
         job.log(
           `Re-resolved company for save id=${saveResolution.companyId} method=${saveResolution.method} (was ${companyId})`
         )
@@ -281,6 +283,11 @@ const checkDB = new PipelineWorker(
         await collectAlternativeNameAfterConfirmedLink({
           companyId,
           extractedName: companyName,
+          log: (message) => job.log(message),
+        })
+        await logAbandonedDisposableCompanyShell({
+          abandonedCompanyId,
+          keptCompanyId: companyId,
           log: (message) => job.log(message),
         })
       }
