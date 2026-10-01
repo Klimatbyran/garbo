@@ -206,9 +206,7 @@ export async function clientApiKeysAdminRoutes(app: FastifyInstance) {
           role: { select: { id: true, slug: true, label: true } },
         },
       })
-      return reply.send(
-        keys.map((k) => mapKeyListItem(k))
-      )
+      return reply.send(keys.map((k) => mapKeyListItem(k)))
     }
   )
 

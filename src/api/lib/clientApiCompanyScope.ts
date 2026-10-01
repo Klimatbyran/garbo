@@ -40,14 +40,14 @@ export function companyInClientApiScope(
   return false
 }
 
-export function filterCompaniesByClientApiScope<
-  T extends { tags?: string[] | null },
->(
+export function filterCompaniesByClientApiScope<T>(
   companies: T[],
   scope: ClientApiCompanyScope | string | null | undefined
 ): T[] {
   if (scope == null) return companies
-  return companies.filter((c) => companyInClientApiScope(c, scope))
+  return companies.filter((c) =>
+    companyInClientApiScope(c as { tags?: string[] | null }, scope)
+  )
 }
 
 /** ETag / cache key segment so scoped and full responses never share validators. */

@@ -100,8 +100,12 @@ export async function companyReadRoutes(app: FastifyInstance) {
         await redisCache.set(dataCacheKey, JSON.stringify(companies))
       }
 
+      // Redis cache returns a loose type; restore the public-read list shape.
+      const publicCompanies = companies as Awaited<
+        ReturnType<typeof companyService.getAllCompaniesForPublicRead>
+      >
       const scoped = filterCompaniesByClientApiScope(
-        companies,
+        publicCompanies,
         request.clientApiCompanyScope
       )
 

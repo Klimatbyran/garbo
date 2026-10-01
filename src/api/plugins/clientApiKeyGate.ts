@@ -13,7 +13,10 @@ import {
   resolveClientApiPermission,
   type ClientApiPermissionCode,
 } from '../security/routePermissions'
-import { isClientApiKeyExpired, isKnownClientApiCompanyScope } from '../lib/clientApiCompanyScope'
+import {
+  isClientApiKeyExpired,
+  isKnownClientApiCompanyScope,
+} from '../lib/clientApiCompanyScope'
 
 declare module 'fastify' {
   interface FastifyRequest {

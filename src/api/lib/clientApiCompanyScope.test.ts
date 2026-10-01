@@ -23,7 +23,10 @@ describe('clientApiCompanyScope', () => {
       )
     ).toBe(true)
     expect(
-      companyInClientApiScope({ tags: ['norway'] }, CLIENT_API_COMPANY_SCOPE_SWEDEN)
+      companyInClientApiScope(
+        { tags: ['norway'] },
+        CLIENT_API_COMPANY_SCOPE_SWEDEN
+      )
     ).toBe(false)
     expect(
       companyInClientApiScope({ tags: null }, CLIENT_API_COMPANY_SCOPE_SWEDEN)
@@ -49,9 +52,10 @@ describe('clientApiCompanyScope', () => {
     ]
     expect(filterCompaniesByClientApiScope(companies, null)).toHaveLength(3)
     expect(
-      filterCompaniesByClientApiScope(companies, CLIENT_API_COMPANY_SCOPE_SWEDEN).map(
-        (c) => c.id
-      )
+      filterCompaniesByClientApiScope(
+        companies,
+        CLIENT_API_COMPANY_SCOPE_SWEDEN
+      ).map((c) => c.id)
     ).toEqual(['1', '3'])
     expect(filterCompaniesByClientApiScope(companies, 'unknown')).toEqual([])
   })
