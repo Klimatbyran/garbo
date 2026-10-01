@@ -1,4 +1,4 @@
-import { Metadata, User } from '@prisma/client'
+import { Metadata, Prisma, User } from '@prisma/client'
 import { prisma } from '../../lib/prisma'
 
 class MetadataService {
@@ -7,10 +7,13 @@ class MetadataService {
     user,
     metadata,
     verified = false,
+    previousValue,
   }: {
     user: User
     metadata?: Partial<Metadata>
     verified?: boolean
+    /** Value before this change; stored on the new history link. */
+    previousValue?: Prisma.InputJsonValue | null
   }) {
     return prisma.metadata.create({
       data: {
@@ -18,6 +21,12 @@ class MetadataService {
         source: metadata?.source,
         sourceReference: metadata?.sourceReference,
         sourcePageUrl: metadata?.sourcePageUrl,
+        previousValue:
+          previousValue === undefined
+            ? undefined
+            : previousValue === null
+              ? Prisma.JsonNull
+              : previousValue,
         user: {
           connect: {
             id: user.id,
