@@ -108,6 +108,9 @@ async function pickUniqueKeyLookup(
   throw new Error('Could not allocate unique keyLookup')
 }
 
+/** Garbo-era duplicates — hidden from create UI; seed migrates keys off these. */
+const LEGACY_CLIENT_API_ROLE_SLUGS = new Set(['all_access', 'company_data'])
+
 export async function clientApiKeysAdminRoutes(app: FastifyInstance) {
   app.get(
     '/roles',
@@ -115,7 +118,7 @@ export async function clientApiKeysAdminRoutes(app: FastifyInstance) {
       schema: {
         summary: 'List client API roles and permissions',
         description:
-          'Staff only (Bearer JWT). Returns roles that can be assigned when creating client API keys.',
+          'Staff only (Bearer JWT). Returns roles that can be assigned when creating client API keys. Legacy Garbo-era duplicate roles are omitted.',
         tags: getTags('Internal'),
         response: {
           200: z.array(clientApiRoleListItemSchema),
@@ -133,15 +136,17 @@ export async function clientApiKeysAdminRoutes(app: FastifyInstance) {
         },
       })
       return reply.send(
-        roles.map((r) => ({
-          id: r.id,
-          slug: r.slug,
-          label: r.label,
-          permissions: r.permissions.map((rp) => ({
-            code: rp.permission.code,
-            label: rp.permission.label,
-          })),
-        }))
+        roles
+          .filter((r) => !LEGACY_CLIENT_API_ROLE_SLUGS.has(r.slug))
+          .map((r) => ({
+            id: r.id,
+            slug: r.slug,
+            label: r.label,
+            permissions: r.permissions.map((rp) => ({
+              code: rp.permission.code,
+              label: rp.permission.label,
+            })),
+          }))
       )
     }
   )
