@@ -212,7 +212,8 @@ class EmissionsService {
       existingStated &&
       stated &&
       'total' in stated &&
-      existingStated.total !== stated.total
+      (existingStated.total !== stated.total ||
+        existingStated.unit !== (stated.unit ?? null))
         ? ({
             total: existingStated.total,
             unit: existingStated.unit,
@@ -249,6 +250,7 @@ class EmissionsService {
             id: true,
             category: true,
             total: true,
+            unit: true,
           },
         },
       },
@@ -267,8 +269,13 @@ class EmissionsService {
           ({ category }) => scope3Category.category === category
         )
         const previousValue =
-          matching && matching.total !== (scope3Category.total ?? null)
-            ? ({ total: matching.total } satisfies Prisma.InputJsonValue)
+          matching &&
+          (matching.total !== (scope3Category.total ?? null) ||
+            matching.unit !== (scope3Category.unit ?? null))
+            ? ({
+                total: matching.total,
+                unit: matching.unit,
+              } satisfies Prisma.InputJsonValue)
             : undefined
         const metadataForScope3Category = await createMetadata({
           verified: scope3Category.verified ?? false,
