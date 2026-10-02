@@ -59,6 +59,9 @@ const keyUsageSchema = z.object({
   endpoints: z.array(usageEndpointSchema),
 })
 
+/** First-party Validate/Bolt keys (seeded `GARBO_ALL_ACCESS_API_KEY`); omit from usage UI. */
+const INTERNAL_USAGE_ROLE_SLUGS = ['all-access', 'all_access'] as const
+
 const endpointCatalogEntrySchema = z.object({
   method: z.string(),
   type: z.enum(['exact', 'prefix']),
@@ -401,7 +404,7 @@ export async function clientApiKeysAdminRoutes(app: FastifyInstance) {
       schema: {
         summary: 'Client API key usage summary',
         description:
-          'Staff only. Returns aggregated request counts per key and endpoint for all roles (including all_access). Each endpoint row includes `service` (`garbo` | `unearth`, or null for legacy rows). Optional `since` query param (ISO date) to filter by time window.',
+          'Staff only. Returns aggregated request counts per key and endpoint for partner/client roles. Keys with the all-access role (first-party Validate/Bolt traffic) are excluded. Each endpoint row includes `service` (`garbo` | `unearth`, or null for legacy rows). Optional `since` query param (ISO date) to filter by time window.',
         tags: getTags('Internal'),
         querystring: z.object({
           since: z.string().datetime({ offset: true }).optional(),
@@ -426,7 +429,10 @@ export async function clientApiKeysAdminRoutes(app: FastifyInstance) {
       })
 
       const keys = await prisma.clientApiKey.findMany({
-        where: { id: { in: [...new Set(rows.map((r) => r.keyId))] } },
+        where: {
+          id: { in: [...new Set(rows.map((r) => r.keyId))] },
+          role: { slug: { notIn: [...INTERNAL_USAGE_ROLE_SLUGS] } },
+        },
         select: {
           id: true,
           keyLookup: true,
