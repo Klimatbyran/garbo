@@ -6,18 +6,20 @@ const LOCK_KEY = 'garbo:pipeline-auto-run:tick-lock'
 /** Longer than a slow tick; shorter than several missed repeat intervals. */
 const LOCK_TTL_MS = 3 * 60 * 1000
 
-const redisUrl = `redis://default:${redisConfig.password}@${redisConfig.host}:${redisConfig.port}`
-
 let client: RedisClientType | null = null
 
 async function getRedis(): Promise<RedisClientType> {
   if (!client || !client.isOpen) {
+    // Match BullMQ's connection shape (host/port/password). A URL with an
+    // unescaped password can fail while the rest of the pipeline Redis works.
     client = createClient({
-      url: redisUrl,
       socket: {
-        connectTimeout: 2000,
+        host: redisConfig.host,
+        port: redisConfig.port,
+        connectTimeout: 2_000,
         reconnectStrategy: false,
       },
+      ...(redisConfig.password ? { password: redisConfig.password } : {}),
     })
     client.on('error', (err) => {
       console.warn('pipelineAutoRunLock Redis error:', err.message)
