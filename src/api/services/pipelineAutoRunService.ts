@@ -217,30 +217,61 @@ const CANDIDATE_PAGE_SIZE = 100
 /** Poison/in-flight exclusion is SQL (registryReportId); page budget stays modest. */
 const CANDIDATE_MAX_PAGES = 50
 const QUEUE_JOB_PAGE_SIZE = 500
-const QUEUE_JOB_MAX_PAGES = 10
+/** Keep Redis scans bounded — ~36 slot queues × pages can wedge a tick. */
+const QUEUE_JOB_MAX_PAGES = 2
+/** Whole locked tick must finish or fail so concurrency:1 cannot wedge forever. */
+const TICK_LOCK_TIMEOUT_MS = 90_000
+const QUEUE_SCAN_TIMEOUT_MS = 20_000
+
+async function withTimeout<T>(
+  work: Promise<T>,
+  ms: number,
+  label: string
+): Promise<T> {
+  let timer: ReturnType<typeof setTimeout> | undefined
+  try {
+    return await Promise.race([
+      work,
+      new Promise<T>((_resolve, reject) => {
+        timer = setTimeout(
+          () => reject(new Error(`${label} timed out after ${ms}ms`)),
+          ms
+        )
+      }),
+    ])
+  } finally {
+    if (timer) clearTimeout(timer)
+  }
+}
 
 async function getJobsFromQueues(
   queueNames: readonly string[],
   statuses: Array<'waiting' | 'active' | 'delayed' | 'paused'>
 ): Promise<{ queueName: string; job: Job }[]> {
-  const out: { queueName: string; job: Job }[] = []
-  for (const queueName of queueNames) {
-    const q = new Queue(queueName, { connection: redis })
-    try {
-      for (let page = 0; page < QUEUE_JOB_MAX_PAGES; page++) {
-        const start = page * QUEUE_JOB_PAGE_SIZE
-        const end = start + QUEUE_JOB_PAGE_SIZE - 1
-        const jobs = await q.getJobs([...statuses], start, end)
-        for (const job of jobs) {
-          if (job) out.push({ queueName, job })
+  return withTimeout(
+    (async () => {
+      const out: { queueName: string; job: Job }[] = []
+      for (const queueName of queueNames) {
+        const q = new Queue(queueName, { connection: redis })
+        try {
+          for (let page = 0; page < QUEUE_JOB_MAX_PAGES; page++) {
+            const start = page * QUEUE_JOB_PAGE_SIZE
+            const end = start + QUEUE_JOB_PAGE_SIZE - 1
+            const jobs = await q.getJobs([...statuses], start, end)
+            for (const job of jobs) {
+              if (job) out.push({ queueName, job })
+            }
+            if (jobs.length < QUEUE_JOB_PAGE_SIZE) break
+          }
+        } finally {
+          await q.close().catch(() => undefined)
         }
-        if (jobs.length < QUEUE_JOB_PAGE_SIZE) break
       }
-    } finally {
-      await q.close().catch(() => undefined)
-    }
-  }
-  return out
+      return out
+    })(),
+    QUEUE_SCAN_TIMEOUT_MS,
+    `queue scan (${statuses.join(',')})`
+  )
 }
 
 /**
@@ -690,17 +721,28 @@ export async function runPipelineAutoRunTick(): Promise<{
   >
   try {
     locked = await tryWithPipelineAutoRunTickLock(() =>
-      runPipelineAutoRunTickLocked()
+      withTimeout(
+        runPipelineAutoRunTickLocked(),
+        TICK_LOCK_TIMEOUT_MS,
+        'pipeline-auto-run tick'
+      )
     )
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err)
     await prisma.pipelineAutoRunConfig.update({
       where: { id: CONFIG_ID },
       data: {
-        lastError: `Tick lock / Redis unavailable — skipped enqueue: ${message}`,
+        lastError: message.includes('timed out')
+          ? `Tick timed out — skipped enqueue: ${message}`
+          : `Tick lock / Redis unavailable — skipped enqueue: ${message}`,
       },
     })
-    return { enqueued: 0, skippedReason: 'queue_unavailable' }
+    return {
+      enqueued: 0,
+      skippedReason: message.includes('timed out')
+        ? 'tick_timeout'
+        : 'queue_unavailable',
+    }
   }
   if (!locked.acquired) {
     return { enqueued: 0, skippedReason: 'tick_locked' }

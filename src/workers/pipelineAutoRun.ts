@@ -28,7 +28,12 @@ const worker = new Worker(
   {
     connection: redis,
     concurrency: 1,
+    // Must exceed TICK_LOCK_TIMEOUT_MS so a timed-out tick can finish cleanup
+    // before BullMQ stalls the job; still short enough to recover if the
+    // process wedges without rejecting.
     lockDuration: 2 * 60 * 1000,
+    stalledInterval: 30_000,
+    maxStalledCount: 1,
   }
 )
 
