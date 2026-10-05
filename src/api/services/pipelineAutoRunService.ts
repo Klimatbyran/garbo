@@ -670,6 +670,16 @@ export async function runPipelineAutoRunTick(): Promise<{
   enqueued: number
   skippedReason?: string
 }> {
+  // Heartbeat before the Redis lock / observe work. If lastTickAt is frozen,
+  // the pipelineAutoRun worker is not running (or not reaching this function).
+  // Soft-disable does not stop ticks — only skips enqueue.
+  await prisma.pipelineAutoRunConfig
+    .update({
+      where: { id: CONFIG_ID },
+      data: { lastTickAt: new Date() },
+    })
+    .catch(() => undefined)
+
   let locked: Awaited<
     ReturnType<
       typeof tryWithPipelineAutoRunTickLock<{

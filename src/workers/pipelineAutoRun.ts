@@ -41,12 +41,21 @@ worker.on('failed', (job, err) => {
 
 async function ensureRepeatableTick() {
   try {
+    // Replace any prior tick schedules (e.g. older jobId-based keys) so we do
+    // not run duplicate overlapping ticks across deploys.
+    const existing = await queue.getRepeatableJobs()
+    for (const job of existing) {
+      if (job.name === 'tick') {
+        await queue.removeRepeatableByKey(job.key)
+      }
+    }
+    // Do not pass a fixed jobId with repeat — BullMQ needs unique ids per
+    // delayed repetition. Deduplication is via the repeatable job key.
     await queue.add(
       'tick',
       {},
       {
         repeat: { every: REPEAT_EVERY_MS },
-        jobId: 'pipeline-auto-run-tick',
         ...withPipelineJobOpts(),
       }
     )
