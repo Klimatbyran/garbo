@@ -799,6 +799,13 @@ async function pollTaskAndGetResult(
             // ships it.
             tokens?: number | null
             from_cache?: boolean
+            // False when the picture had too little OCR-recognized text
+            // to be worth a VLM call (skipped entirely — not a failure)
+            // — kept on every picture, not just ones that got recovered
+            // text, so a reviewer can audit whether this gate is actually
+            // catching the right pictures. Only present once the server
+            // ships it.
+            has_text?: boolean
           }[]
         }
       | undefined
@@ -854,6 +861,31 @@ async function pollTaskAndGetResult(
             // directly — this gives the receiver a same-infra copy to
             // proxy through instead, when pipeline-api cached one.
             pdfCacheUrl: job.data.pdfCache?.publicUrl,
+            // Only present when pipeline-api actually cached this PDF to
+            // S3 (cachePdf — on by default for stage/prod, off for local
+            // dev) — that's the same step that computes this hash, so it's
+            // unavailable whenever caching didn't run. Lets the receiver
+            // recognize a rerun of a document it already has under a
+            // different url (e.g. a tracking query string appended to an
+            // otherwise identical link) instead of treating it as a new
+            // document.
+            sha256: job.data.pdfCache?.sha256,
+            // Only the QA-relevant fields — tokens/cache-hit bookkeeping
+            // stays in this job's own returnvalue, not the receiver's DB.
+            // thumbnail is already a base64 JPEG string with no data-URI
+            // prefix, same shape the receiver should persist as-is.
+            ...(imageRecovery?.pictures?.length
+              ? {
+                  images: imageRecovery.pictures.map((p) => ({
+                    index: p.index,
+                    page: p.page,
+                    description: p.description,
+                    ocrText: p.ocr_text,
+                    thumbnail: p.thumbnail,
+                    hasText: p.has_text ?? true,
+                  })),
+                }
+              : {}),
           },
           (msg) => job.log(msg)
         )
@@ -930,6 +962,7 @@ async function pollTaskAndGetResult(
                 markdown,
                 threadId: job.data.threadId,
                 pdfCacheUrl: job.data.pdfCache?.publicUrl,
+                sha256: job.data.pdfCache?.sha256,
               },
               (msg) => job.log(msg)
             )

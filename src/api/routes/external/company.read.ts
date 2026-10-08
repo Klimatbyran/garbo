@@ -18,6 +18,11 @@ import {
   companySearchQuerySchema,
 } from '../../schemas'
 import { redisCache } from '../../../lib/redisCacheSingleton'
+import {
+  companyInClientApiScope,
+  filterCompaniesByClientApiScope,
+  clientApiCompanyScopeEtagSegment,
+} from '../../lib/clientApiCompanyScope'
 
 async function getCompaniesDatabaseFingerprint() {
   const [
@@ -95,9 +100,21 @@ export async function companyReadRoutes(app: FastifyInstance) {
         await redisCache.set(dataCacheKey, JSON.stringify(companies))
       }
 
-      reply.header('ETag', `${currentEtag}`)
+      // Redis cache returns a loose type; restore the public-read list shape.
+      const publicCompanies = companies as Awaited<
+        ReturnType<typeof companyService.getAllCompaniesForPublicRead>
+      >
+      const scoped = filterCompaniesByClientApiScope(
+        publicCompanies,
+        request.clientApiCompanyScope
+      )
 
-      reply.send(toPartnerCompanyList(companies))
+      const etag = `${currentEtag}:${clientApiCompanyScopeEtagSegment(
+        request.clientApiCompanyScope
+      )}`
+      reply.header('ETag', etag)
+
+      reply.send(toPartnerCompanyList(scoped))
     }
   )
 
@@ -124,7 +141,11 @@ export async function companyReadRoutes(app: FastifyInstance) {
       const companies = await companyService.getAllCompaniesBySearchTerm(q, {
         onePeriodPerDataYear: true,
       })
-      reply.send(toPartnerCompanyList(companies))
+      const scoped = filterCompaniesByClientApiScope(
+        companies,
+        request.clientApiCompanyScope
+      )
+      reply.send(toPartnerCompanyList(scoped))
     }
   )
 
@@ -146,6 +167,12 @@ export async function companyReadRoutes(app: FastifyInstance) {
     async (request: FastifyRequest<{ Params: WikidataIdParams }>, reply) => {
       const { wikidataId } = request.params
       const company = await companyService.getCompanyForPublicRead(wikidataId)
+      if (!companyInClientApiScope(company, request.clientApiCompanyScope)) {
+        return reply.status(404).send({
+          code: 'NOT_FOUND',
+          message: `There is no company with id '${wikidataId}'`,
+        })
+      }
       reply.send(
         toPartnerCompanyResponse({
           ...company,

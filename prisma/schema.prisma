@@ -51,6 +51,7 @@ model Company {
   coverageListEntries            CoverageListEntry[] @relation("CoverageEntryMatchedCompany")
   coverageListEntrySuggestions   CoverageListEntry[] @relation("CoverageEntrySuggestedCompany")
   coverageCrawlState             CoverageCrawlState?
+  reviewFlagDismissals           ReviewFlagDismissal[]
 }
 
 enum CompanyIdentifierType {
@@ -565,9 +566,30 @@ model User {
 
   // TODO: connect with github ID
   // TODO: store github profile image - or get it via API
-  updated        Metadata[]      @relation("metadata_user_id")
-  verified       Metadata[]      @relation("metadata_verified_by")
-  datapointNotes DatapointNote[]
+  updated              Metadata[]            @relation("metadata_user_id")
+  verified             Metadata[]            @relation("metadata_verified_by")
+  datapointNotes       DatapointNote[]
+  reviewFlagDismissals ReviewFlagDismissal[]
+}
+
+/// Manual Review tab: dismiss a computed data-quality flag until its evidence fingerprint changes.
+model ReviewFlagDismissal {
+  id                  String   @id @default(cuid())
+  companyId           String
+  /// Stable flag slug, e.g. year-gap, shell-company, scope-spike-drop.
+  flagKey             String
+  /// Hash/string of the evidence that triggered the flag; new evidence reopens the issue.
+  evidenceFingerprint String
+  note                String?
+  userId              String
+  createdAt           DateTime @default(now())
+
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([companyId, flagKey, evidenceFingerprint])
+  @@index([flagKey])
+  @@map("review_flag_dismissals")
 }
 
 // Follows the ISO 639 language codes
@@ -758,6 +780,10 @@ model ClientApiKey {
   role       ClientApiRole      @relation(fields: [roleId], references: [id], onDelete: Restrict)
   revokedAt  DateTime?          @map("revoked_at")
   lastUsedAt DateTime?          @map("last_used_at")
+  /// When set, the key is rejected after this time (trial keys).
+  expiresAt  DateTime?          @map("expires_at")
+  /// Null = full corpus; `sweden` = only companies tagged sweden (trial). Forward-compatible for later scopes.
+  companyScope String?          @map("company_scope")
   createdAt  DateTime           @default(now()) @map("created_at")
   requests   ClientApiRequest[]
 

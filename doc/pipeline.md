@@ -1157,7 +1157,7 @@ scope3: [
 Validate can enable a soft-gated backlog runner that enqueues saved registry `Report` rows into `parsePdf` overnight / in the background.
 
 - **Config API (staff JWT):** `GET|PATCH /api/pipeline-auto-run`
-- **Worker:** `pipelineAutoRun` repeatable tick (~60s). When `enabled=false`, it never enqueues new jobs (soft disable — in-flight work finishes).
+- **Worker:** `pipelineAutoRun` repeatable tick (~60s). When `enabled=false`, it never enqueues new jobs (soft disable — in-flight work finishes). `lastTickAt` still advances on every tick attempt (heartbeat); a frozen last tick means the worker process is not running the ticker. Queue scans and the locked tick body time out so a wedged Redis scan cannot pin `concurrency: 1` forever.
 - **Defaults:** off; `maxConcurrent=1`; `autoApprove=true`; `forceReindex=false`; `requireEmissionsPresence=true` (passed through to the emissions presence gate).
 - **Filters:** `reportTypeIds`, registry `batchId`s, `coverageListIds` (Garbo coverage tables — no Unearth hop).
 - **Concurrency:** counts auto-run jobs on pipeline queues (Docling-early **and** mid-pipeline LLM/API). Jobs **delayed waiting for human approval free** the slot so Docling can keep draining. Overlapping ticks across replicas are serialized with a Redis tick lock.
