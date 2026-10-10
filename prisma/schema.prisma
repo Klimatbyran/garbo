@@ -426,6 +426,11 @@ model Metadata {
   sourceReference  String?
   /// Deep link to the internal stored PDF at the relevant page (e.g. GCS URL + #page=N). Internal only.
   sourcePageUrl    String?
+  /// Value of the datapoint before this metadata row was written (scalar or structured JSON).
+  /// Null for the first write or when only attribution changed. Part of the append-only history chain.
+  previousValue    Json?
+  /// Immutable creation time for ordering the metadata history chain.
+  createdAt        DateTime @default(now())
   updatedAt        DateTime @default(now()) @updatedAt
   /// The userId who last updated the associated datapoint
   userId           String
