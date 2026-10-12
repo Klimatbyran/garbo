@@ -7,10 +7,11 @@ import {
 import {
   PIPELINE_AUTO_RUN_QUEUE,
   PIPELINE_AUTO_RUN_REPEAT_EVERY_MS,
-  syncPipelineAutoRunSchedule,
+  reconcilePipelineAutoRunSchedule,
 } from '../lib/pipelineAutoRunSchedule'
 
-export { PIPELINE_AUTO_RUN_QUEUE }
+/** Heal schedule drift (enabled with no tick, or disabled with a leftover tick). */
+const RECONCILE_EVERY_MS = 5 * 60 * 1000
 
 const worker = new Worker(
   PIPELINE_AUTO_RUN_QUEUE,
@@ -42,12 +43,17 @@ worker.on('failed', (job, err) => {
   )
 })
 
+async function readAutoRunEnabled(): Promise<boolean> {
+  const row = await ensurePipelineAutoRunConfig()
+  return row.enabled
+}
+
 async function syncScheduleFromConfig() {
   try {
-    const row = await ensurePipelineAutoRunConfig()
-    await syncPipelineAutoRunSchedule(row.enabled)
+    const enabled = await readAutoRunEnabled()
+    await reconcilePipelineAutoRunSchedule(readAutoRunEnabled)
     console.log(
-      row.enabled
+      enabled
         ? `[pipelineAutoRun] repeatable tick every ${PIPELINE_AUTO_RUN_REPEAT_EVERY_MS}ms registered`
         : '[pipelineAutoRun] auto-run disabled — repeatable tick not scheduled'
     )
@@ -57,5 +63,8 @@ async function syncScheduleFromConfig() {
 }
 
 void syncScheduleFromConfig()
+setInterval(() => {
+  void syncScheduleFromConfig()
+}, RECONCILE_EVERY_MS).unref?.()
 
 export default worker

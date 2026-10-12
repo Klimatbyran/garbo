@@ -25,7 +25,10 @@ import {
   linkedReportRunExclusion,
 } from './pipelineAutoRunTypes'
 import { tryWithPipelineAutoRunTickLock } from '../../lib/pipelineAutoRunLock'
-import { syncPipelineAutoRunSchedule } from '../../lib/pipelineAutoRunSchedule'
+import {
+  clearPipelineAutoRunRepeatableTicks,
+  reconcilePipelineAutoRunSchedule,
+} from '../../lib/pipelineAutoRunSchedule'
 
 const CONFIG_ID = 'default'
 
@@ -182,6 +185,9 @@ export async function patchPipelineAutoRunConfig(
             consecutiveReportFailures: 0,
           }
         : {}),
+      // Advance the outcome watermark on enable so failures that finished while
+      // ticks were stopped are not folded on the first tick and soft-disable again.
+      ...(enabling ? { outcomeObservedThrough: new Date() } : {}),
       ...(enabling || patch.enabled === true
         ? { disabledReason: null, pausedReason: null, lastError: null }
         : {}),
@@ -189,10 +195,13 @@ export async function patchPipelineAutoRunConfig(
     },
   })
 
-  // When off, drop the BullMQ repeatable tick so Redis is not polled every 60s.
-  // When on, (re)register it. Failures here must not block the config write.
-  if (nextEnabled !== row.enabled || patch.enabled !== undefined) {
-    await syncPipelineAutoRunSchedule(nextEnabled).catch((err) => {
+  // Sending enabled (even when already on) re-registers the tick as repair.
+  // Schedule ops use a fail-fast Redis client + timeout so this cannot hang PATCH.
+  if (patch.enabled !== undefined) {
+    await reconcilePipelineAutoRunSchedule(async () => {
+      const latest = await ensurePipelineAutoRunConfig()
+      return latest.enabled
+    }).catch((err) => {
       console.error(
         '[pipelineAutoRun] failed to sync repeatable tick schedule:',
         err
@@ -517,7 +526,10 @@ async function softDisable(
       ...(extra?.lastError ? { lastError: extra.lastError } : {}),
     },
   })
-  await syncPipelineAutoRunSchedule(false).catch((err) => {
+  await reconcilePipelineAutoRunSchedule(async () => {
+    const latest = await ensurePipelineAutoRunConfig()
+    return latest.enabled
+  }).catch((err) => {
     console.error(
       '[pipelineAutoRun] failed to clear repeatable tick after soft-disable:',
       err
@@ -723,6 +735,13 @@ export async function runPipelineAutoRunTick(): Promise<{
 }> {
   const config = await ensurePipelineAutoRunConfig()
   if (!config.enabled) {
+    // Heal a leftover repeatable schedule without blocking the tick return.
+    void clearPipelineAutoRunRepeatableTicks().catch((err) => {
+      console.error(
+        '[pipelineAutoRun] failed to clear stray tick while disabled:',
+        err
+      )
+    })
     return { enqueued: 0, skippedReason: 'disabled' }
   }
 
