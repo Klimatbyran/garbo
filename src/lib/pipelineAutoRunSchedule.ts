@@ -1,8 +1,11 @@
 import { Queue } from 'bullmq'
-import redis from '../config/redis'
+import redisConfig from '../config/redis'
 
 export const PIPELINE_AUTO_RUN_QUEUE = 'pipelineAutoRun'
 export const PIPELINE_AUTO_RUN_REPEAT_EVERY_MS = 60_000
+
+/** Fail fast — must not hang PATCH/soft-disable on the BullMQ endless-retry client. */
+const SCHEDULE_OP_TIMEOUT_MS = 3_000
 
 // Not withPipelineJobOpts(): that keeps completed jobs forever (pipeline-api
 // prunes by run, and ticks belong to no run), so a tick a minute would pile up
@@ -14,9 +17,43 @@ const TICK_JOB_RETENTION = {
 
 function createAutoRunQueue(): Queue {
   return new Queue(PIPELINE_AUTO_RUN_QUEUE, {
-    connection: redis,
+    connection: {
+      host: redisConfig.host,
+      port: redisConfig.port,
+      ...(redisConfig.password ? { password: redisConfig.password } : {}),
+      maxRetriesPerRequest: 1,
+      enableOfflineQueue: false,
+      connectTimeout: 2_000,
+      retryStrategy(times: number) {
+        if (times > 3) return null
+        return 200
+      },
+    },
     defaultJobOptions: TICK_JOB_RETENTION,
   })
+}
+
+async function withScheduleTimeout<T>(
+  work: Promise<T>,
+  label: string
+): Promise<T> {
+  let timer: ReturnType<typeof setTimeout> | undefined
+  try {
+    return await Promise.race([
+      work,
+      new Promise<T>((_resolve, reject) => {
+        timer = setTimeout(
+          () =>
+            reject(
+              new Error(`${label} timed out after ${SCHEDULE_OP_TIMEOUT_MS}ms`)
+            ),
+          SCHEDULE_OP_TIMEOUT_MS
+        )
+      }),
+    ])
+  } finally {
+    if (timer) clearTimeout(timer)
+  }
 }
 
 async function removeTickRepeatables(queue: Queue): Promise<void> {
@@ -28,45 +65,72 @@ async function removeTickRepeatables(queue: Queue): Promise<void> {
   }
 }
 
-/** Remove the ~60s repeatable tick so disabled auto-run does not hit Redis. */
-export async function clearPipelineAutoRunRepeatableTicks(): Promise<void> {
-  const queue = createAutoRunQueue()
-  try {
-    await removeTickRepeatables(queue)
-  } finally {
-    await queue.close()
-  }
+async function clearTicksOn(queue: Queue): Promise<void> {
+  await removeTickRepeatables(queue)
 }
 
-/** Register a single repeatable tick (clears any prior tick schedules first). */
-export async function ensurePipelineAutoRunRepeatableTick(): Promise<void> {
-  const queue = createAutoRunQueue()
-  try {
-    // Replace any prior tick schedules (e.g. older jobId-based keys) so we do
-    // not run duplicate overlapping ticks across deploys.
-    await removeTickRepeatables(queue)
-    // Do not pass a fixed jobId with repeat — BullMQ needs unique ids per
-    // delayed repetition. Deduplication is via the repeatable job key.
-    await queue.add(
-      'tick',
-      {},
-      {
-        repeat: { every: PIPELINE_AUTO_RUN_REPEAT_EVERY_MS },
-        ...TICK_JOB_RETENTION,
-      }
-    )
-  } finally {
-    await queue.close()
-  }
+async function ensureTickOn(queue: Queue): Promise<void> {
+  // Replace any prior tick schedules (e.g. older jobId-based keys) so we do
+  // not run duplicate overlapping ticks across deploys.
+  await removeTickRepeatables(queue)
+  // Do not pass a fixed jobId with repeat — BullMQ needs unique ids per
+  // delayed repetition. Deduplication is via the repeatable job key.
+  await queue.add(
+    'tick',
+    {},
+    {
+      repeat: { every: PIPELINE_AUTO_RUN_REPEAT_EVERY_MS },
+      ...TICK_JOB_RETENTION,
+    }
+  )
 }
 
-/** Align the BullMQ repeatable schedule with the enabled flag. */
-export async function syncPipelineAutoRunSchedule(
-  enabled: boolean
+/**
+ * Align the BullMQ repeatable schedule with the latest DB `enabled` flag.
+ * Re-reads `getEnabled` after mutating so a concurrent PATCH / worker boot
+ * cannot leave enabled=true with no tick (or the inverse).
+ */
+export async function reconcilePipelineAutoRunSchedule(
+  getEnabled: () => Promise<boolean>
 ): Promise<void> {
-  if (enabled) {
-    await ensurePipelineAutoRunRepeatableTick()
-  } else {
-    await clearPipelineAutoRunRepeatableTicks()
-  }
+  await withScheduleTimeout(
+    (async () => {
+      const queue = createAutoRunQueue()
+      try {
+        const enabled = await getEnabled()
+        if (enabled) {
+          await ensureTickOn(queue)
+        } else {
+          await clearTicksOn(queue)
+        }
+
+        const stillEnabled = await getEnabled()
+        if (stillEnabled !== enabled) {
+          if (stillEnabled) {
+            await ensureTickOn(queue)
+          } else {
+            await clearTicksOn(queue)
+          }
+        }
+      } finally {
+        await queue.close().catch(() => undefined)
+      }
+    })(),
+    'pipeline-auto-run schedule sync'
+  )
+}
+
+/** Remove the ~60s repeatable tick (stray-schedule cleanup). */
+export async function clearPipelineAutoRunRepeatableTicks(): Promise<void> {
+  await withScheduleTimeout(
+    (async () => {
+      const queue = createAutoRunQueue()
+      try {
+        await clearTicksOn(queue)
+      } finally {
+        await queue.close().catch(() => undefined)
+      }
+    })(),
+    'pipeline-auto-run schedule clear'
+  )
 }
