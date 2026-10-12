@@ -25,6 +25,7 @@ import {
   linkedReportRunExclusion,
 } from './pipelineAutoRunTypes'
 import { tryWithPipelineAutoRunTickLock } from '../../lib/pipelineAutoRunLock'
+import { syncPipelineAutoRunSchedule } from '../../lib/pipelineAutoRunSchedule'
 
 const CONFIG_ID = 'default'
 
@@ -187,6 +188,17 @@ export async function patchPipelineAutoRunConfig(
       ...(updatedBy ? { updatedBy } : {}),
     },
   })
+
+  // When off, drop the BullMQ repeatable tick so Redis is not polled every 60s.
+  // When on, (re)register it. Failures here must not block the config write.
+  if (nextEnabled !== row.enabled || patch.enabled !== undefined) {
+    await syncPipelineAutoRunSchedule(nextEnabled).catch((err) => {
+      console.error(
+        '[pipelineAutoRun] failed to sync repeatable tick schedule:',
+        err
+      )
+    })
+  }
 
   return getPipelineAutoRunStatus()
 }
@@ -505,6 +517,12 @@ async function softDisable(
       ...(extra?.lastError ? { lastError: extra.lastError } : {}),
     },
   })
+  await syncPipelineAutoRunSchedule(false).catch((err) => {
+    console.error(
+      '[pipelineAutoRun] failed to clear repeatable tick after soft-disable:',
+      err
+    )
+  })
 }
 
 /**
@@ -696,14 +714,20 @@ export async function enqueueAutoRunReport(
 /**
  * One ticker iteration: observe outcomes, Docling preflight, maybe enqueue.
  * Multi-replica safe via Redis tick lock (overlapping ticks skip enqueue).
+ * When disabled, returns immediately without Redis (schedule should also be
+ * cleared — this is defense in depth for in-flight / race ticks).
  */
 export async function runPipelineAutoRunTick(): Promise<{
   enqueued: number
   skippedReason?: string
 }> {
-  // Heartbeat before the Redis lock / observe work. If lastTickAt is frozen,
-  // the pipelineAutoRun worker is not running (or not reaching this function).
-  // Soft-disable does not stop ticks — only skips enqueue.
+  const config = await ensurePipelineAutoRunConfig()
+  if (!config.enabled) {
+    return { enqueued: 0, skippedReason: 'disabled' }
+  }
+
+  // Heartbeat before the Redis lock / observe work. If lastTickAt is frozen
+  // while enabled, the pipelineAutoRun worker is not running the ticker.
   await prisma.pipelineAutoRunConfig
     .update({
       where: { id: CONFIG_ID },
