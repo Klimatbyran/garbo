@@ -683,12 +683,17 @@ export async function enqueueAutoRunReport(
     )
     return { threadId, jobId: job.id }
   } catch (err) {
-    await prisma.reportRun
-      .update({
+    // try/catch, not .catch() on the call chain -- see the identical note on
+    // the heartbeat update above. A stale-client TypeError here would
+    // otherwise replace the real `err` we're trying to report and re-throw.
+    try {
+      await prisma.reportRun.update({
         where: { threadId },
         data: { status: 'failed' },
       })
-      .catch(() => undefined)
+    } catch {
+      // Best-effort failure marker -- always re-throw the original error below.
+    }
     throw err
   }
 }
@@ -704,12 +709,22 @@ export async function runPipelineAutoRunTick(): Promise<{
   // Heartbeat before the Redis lock / observe work. If lastTickAt is frozen,
   // the pipelineAutoRun worker is not running (or not reaching this function).
   // Soft-disable does not stop ticks — only skips enqueue.
-  await prisma.pipelineAutoRunConfig
-    .update({
+  //
+  // try/catch, not .catch() on the call chain: a trailing .catch() only
+  // catches a *rejected promise*, but prisma.pipelineAutoRunConfig itself
+  // being undefined (a stale Prisma client not yet regenerated against a
+  // schema change -- seen in prod) throws synchronously on property access,
+  // before .update(...) is even called and before any promise exists for
+  // .catch() to attach to. That left this tick failing every 60s with
+  // "Cannot read properties of undefined (reading 'update')", uncaught.
+  try {
+    await prisma.pipelineAutoRunConfig.update({
       where: { id: CONFIG_ID },
       data: { lastTickAt: new Date() },
     })
-    .catch(() => undefined)
+  } catch {
+    // Best-effort heartbeat -- never block the tick on this failing.
+  }
 
   let locked: Awaited<
     ReturnType<
