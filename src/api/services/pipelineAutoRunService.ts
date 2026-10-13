@@ -25,10 +25,7 @@ import {
   linkedReportRunExclusion,
 } from './pipelineAutoRunTypes'
 import { tryWithPipelineAutoRunTickLock } from '../../lib/pipelineAutoRunLock'
-import {
-  clearPipelineAutoRunRepeatableTicks,
-  reconcilePipelineAutoRunSchedule,
-} from '../../lib/pipelineAutoRunSchedule'
+import { reconcilePipelineAutoRunSchedule } from '../../lib/pipelineAutoRunSchedule'
 
 const CONFIG_ID = 'default'
 
@@ -735,10 +732,14 @@ export async function runPipelineAutoRunTick(): Promise<{
 }> {
   const config = await ensurePipelineAutoRunConfig()
   if (!config.enabled) {
-    // Heal a leftover repeatable schedule without blocking the tick return.
-    void clearPipelineAutoRunRepeatableTicks().catch((err) => {
+    // Heal a leftover schedule without blocking the tick return. Re-read DB
+    // inside reconcile so a concurrent enable is not wiped by a blind clear.
+    void reconcilePipelineAutoRunSchedule(async () => {
+      const latest = await ensurePipelineAutoRunConfig()
+      return latest.enabled
+    }).catch((err) => {
       console.error(
-        '[pipelineAutoRun] failed to clear stray tick while disabled:',
+        '[pipelineAutoRun] failed to reconcile schedule while disabled:',
         err
       )
     })

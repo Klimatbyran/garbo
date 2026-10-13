@@ -1,6 +1,7 @@
 import { jest } from '@jest/globals'
 
-const getRepeatableJobs = jest.fn<() => Promise<{ name: string; key: string }[]>>()
+const getRepeatableJobs =
+  jest.fn<() => Promise<{ name: string; key: string }[]>>()
 const removeRepeatableByKey = jest.fn<() => Promise<void>>()
 const add = jest.fn<() => Promise<unknown>>()
 const close = jest.fn<() => Promise<void>>()
@@ -18,11 +19,8 @@ jest.unstable_mockModule('../src/config/redis', () => ({
   default: { host: 'localhost', port: 6379, password: 'x' },
 }))
 
-const {
-  reconcilePipelineAutoRunSchedule,
-  clearPipelineAutoRunRepeatableTicks,
-  PIPELINE_AUTO_RUN_REPEAT_EVERY_MS,
-} = await import('../src/lib/pipelineAutoRunSchedule')
+const { reconcilePipelineAutoRunSchedule, PIPELINE_AUTO_RUN_REPEAT_EVERY_MS } =
+  await import('../src/lib/pipelineAutoRunSchedule')
 
 describe('pipelineAutoRunSchedule', () => {
   beforeEach(() => {
@@ -53,12 +51,16 @@ describe('pipelineAutoRunSchedule', () => {
     expect(close).toHaveBeenCalled()
   })
 
-  it('when disabled, removes tick schedules and does not add', async () => {
-    getRepeatableJobs.mockResolvedValue([{ name: 'tick', key: 't1' }])
+  it('when disabled, only removes tick-named schedules and does not add', async () => {
+    getRepeatableJobs.mockResolvedValue([
+      { name: 'tick', key: 't1' },
+      { name: 'other', key: 'o1' },
+    ])
 
     await reconcilePipelineAutoRunSchedule(async () => false)
 
     expect(removeRepeatableByKey).toHaveBeenCalledWith('t1')
+    expect(removeRepeatableByKey).not.toHaveBeenCalledWith('o1')
     expect(add).not.toHaveBeenCalled()
   })
 
@@ -77,18 +79,5 @@ describe('pipelineAutoRunSchedule', () => {
     expect(calls).toBe(2)
     expect(add).toHaveBeenCalledTimes(1)
     expect(removeRepeatableByKey).toHaveBeenCalledWith('just-added')
-  })
-
-  it('clearPipelineAutoRunRepeatableTicks only removes tick-named schedules', async () => {
-    getRepeatableJobs.mockResolvedValue([
-      { name: 'tick', key: 't1' },
-      { name: 'other', key: 'o1' },
-    ])
-
-    await clearPipelineAutoRunRepeatableTicks()
-
-    expect(removeRepeatableByKey).toHaveBeenCalledWith('t1')
-    expect(removeRepeatableByKey).not.toHaveBeenCalledWith('o1')
-    expect(add).not.toHaveBeenCalled()
   })
 })

@@ -61,72 +61,55 @@ async function removeTickRepeatables(queue: Queue): Promise<void> {
   }
 }
 
-async function clearTicksOn(queue: Queue): Promise<void> {
-  await removeTickRepeatables(queue)
-}
-
-async function ensureTickOn(queue: Queue): Promise<void> {
-  // Replace any prior tick schedules (e.g. older jobId-based keys) so we do
-  // not run duplicate overlapping ticks across deploys.
-  await removeTickRepeatables(queue)
-  // Do not pass a fixed jobId with repeat — BullMQ needs unique ids per
-  // delayed repetition. Deduplication is via the repeatable job key.
-  await queue.add(
-    'tick',
-    {},
-    {
-      repeat: { every: PIPELINE_AUTO_RUN_REPEAT_EVERY_MS },
-      ...withPipelineJobOpts(),
-    }
-  )
+async function applyEnabledState(
+  queue: Queue,
+  enabled: boolean
+): Promise<void> {
+  if (enabled) {
+    // Replace any prior tick schedules (e.g. older jobId-based keys) so we do
+    // not run duplicate overlapping ticks across deploys.
+    await removeTickRepeatables(queue)
+    // Do not pass a fixed jobId with repeat — BullMQ needs unique ids per
+    // delayed repetition. Deduplication is via the repeatable job key.
+    await queue.add(
+      'tick',
+      {},
+      {
+        repeat: { every: PIPELINE_AUTO_RUN_REPEAT_EVERY_MS },
+        ...withPipelineJobOpts(),
+      }
+    )
+  } else {
+    await removeTickRepeatables(queue)
+  }
 }
 
 /**
  * Align the BullMQ repeatable schedule with the latest DB `enabled` flag.
  * Re-reads `getEnabled` after mutating so a concurrent PATCH / worker boot
  * cannot leave enabled=true with no tick (or the inverse).
+ *
+ * On timeout, the queue connection is closed so a late Redis op is less likely
+ * to clobber a newer enable/disable.
  */
 export async function reconcilePipelineAutoRunSchedule(
   getEnabled: () => Promise<boolean>
 ): Promise<void> {
-  await withScheduleTimeout(
-    (async () => {
-      const queue = createAutoRunQueue()
-      try {
+  const queue = createAutoRunQueue()
+  try {
+    await withScheduleTimeout(
+      (async () => {
         const enabled = await getEnabled()
-        if (enabled) {
-          await ensureTickOn(queue)
-        } else {
-          await clearTicksOn(queue)
-        }
+        await applyEnabledState(queue, enabled)
 
         const stillEnabled = await getEnabled()
         if (stillEnabled !== enabled) {
-          if (stillEnabled) {
-            await ensureTickOn(queue)
-          } else {
-            await clearTicksOn(queue)
-          }
+          await applyEnabledState(queue, stillEnabled)
         }
-      } finally {
-        await queue.close().catch(() => undefined)
-      }
-    })(),
-    'pipeline-auto-run schedule sync'
-  )
-}
-
-/** Remove the ~60s repeatable tick (stray-schedule cleanup). */
-export async function clearPipelineAutoRunRepeatableTicks(): Promise<void> {
-  await withScheduleTimeout(
-    (async () => {
-      const queue = createAutoRunQueue()
-      try {
-        await clearTicksOn(queue)
-      } finally {
-        await queue.close().catch(() => undefined)
-      }
-    })(),
-    'pipeline-auto-run schedule clear'
-  )
+      })(),
+      'pipeline-auto-run schedule sync'
+    )
+  } finally {
+    await queue.close().catch(() => undefined)
+  }
 }

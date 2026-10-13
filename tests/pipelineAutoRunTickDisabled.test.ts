@@ -18,7 +18,6 @@ const prismaMock = {
 
 const tryWithLock = jest.fn()
 const reconcileSchedule = jest.fn<() => Promise<void>>()
-const clearTicks = jest.fn<() => Promise<void>>()
 
 jest.unstable_mockModule('../src/lib/prisma', () => ({
   prisma: prismaMock,
@@ -30,7 +29,6 @@ jest.unstable_mockModule('../src/lib/pipelineAutoRunLock', () => ({
 
 jest.unstable_mockModule('../src/lib/pipelineAutoRunSchedule', () => ({
   reconcilePipelineAutoRunSchedule: reconcileSchedule,
-  clearPipelineAutoRunRepeatableTicks: clearTicks,
 }))
 
 jest.unstable_mockModule('../src/config/redis', () => ({
@@ -81,22 +79,20 @@ describe('pipeline auto-run schedule when disabled', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     reconcileSchedule.mockResolvedValue(undefined)
-    clearTicks.mockResolvedValue(undefined)
     prismaMock.reportRun.count.mockResolvedValue(0)
     prismaMock.reportRun.findMany.mockResolvedValue([])
     prismaMock.report.count.mockResolvedValue(0)
     prismaMock.report.findMany.mockResolvedValue([])
   })
 
-  it('runPipelineAutoRunTick returns disabled without Redis lock and clears stray ticks', async () => {
+  it('runPipelineAutoRunTick returns disabled without Redis lock and reconciles schedule', async () => {
     prismaMock.pipelineAutoRunConfig.findUnique.mockResolvedValue(configRow())
 
     const result = await runPipelineAutoRunTick()
 
     expect(result).toEqual({ enqueued: 0, skippedReason: 'disabled' })
     expect(tryWithLock).not.toHaveBeenCalled()
-    expect(clearTicks).toHaveBeenCalledTimes(1)
-    expect(reconcileSchedule).not.toHaveBeenCalled()
+    expect(reconcileSchedule).toHaveBeenCalledTimes(1)
   })
 
   it('PATCH enable reconciles schedule and advances outcomeObservedThrough', async () => {
