@@ -5,6 +5,8 @@ import { vectorDB } from '../lib/vectordb'
 import type { DoclingPageSnippet } from '../lib/doclingPageLookup'
 import { QUEUE_NAMES } from '../queues'
 import { fireCallback } from '../lib/webhook'
+import { prisma } from '../lib/prisma'
+import { buildReportMatchConditions } from '../api/services/registryReportIdentity'
 
 class IndexMarkdownJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
@@ -50,10 +52,27 @@ const indexMarkdown = new PipelineWorker(
       typeof childEntries.markdown === 'string'
         ? childEntries.markdown
         : undefined
-    const markdown: string | undefined = job.data.markdown ?? childMarkdown
+    let markdown: string | undefined = job.data.markdown ?? childMarkdown
     const pageSnippets =
       job.data.pageSnippets ??
       pageSnippetsFromUnknown(childEntries.pageSnippets)
+
+    // doclingParsePDF already persists markdown to the Report registry row
+    // before this job ever runs -- its own returnvalue no longer carries the
+    // full string (see doclingParsePDF.ts), so this is the normal path now,
+    // not a rare fallback.
+    if ((!markdown || !markdown.trim()) && url) {
+      const matchConditions = buildReportMatchConditions({
+        url,
+        sourceUrl: url,
+        s3Url: url,
+      })
+      const report = await prisma.report.findFirst({
+        where: matchConditions.length > 0 ? { OR: matchConditions } : { url },
+        select: { markdown: true },
+      })
+      markdown = report?.markdown ?? undefined
+    }
 
     if (!markdown || !markdown.trim()) {
       job.editMessage(
@@ -85,7 +104,11 @@ const indexMarkdown = new PipelineWorker(
         await fireCallback(callbackUrl, { url }, (msg) => job.log(msg))
       }
 
-      return { url, markdown }
+      // Not { url, markdown } -- every downstream consumer (precheck,
+      // checkEmissionsPresence) now has its own Report-registry fallback,
+      // so this job's own returnvalue doesn't need to carry the full
+      // string just to survive in Redis until something reads it.
+      return { url }
     } catch (error) {
       job.log('Error: ' + error)
       job.editMessage(
