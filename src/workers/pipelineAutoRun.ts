@@ -1,18 +1,17 @@
-import { Worker, Queue } from 'bullmq'
+import { Worker } from 'bullmq'
 import redis from '../config/redis'
-import { runPipelineAutoRunTick } from '../api/services/pipelineAutoRunService'
-import { withPipelineJobOpts } from '../lib/pipelineJobOptions'
+import {
+  ensurePipelineAutoRunConfig,
+  runPipelineAutoRunTick,
+} from '../api/services/pipelineAutoRunService'
+import {
+  PIPELINE_AUTO_RUN_QUEUE,
+  PIPELINE_AUTO_RUN_REPEAT_EVERY_MS,
+  reconcilePipelineAutoRunSchedule,
+} from '../lib/pipelineAutoRunSchedule'
 
-export const PIPELINE_AUTO_RUN_QUEUE = 'pipelineAutoRun'
-const REPEAT_EVERY_MS = 60_000
-
-const queue = new Queue(PIPELINE_AUTO_RUN_QUEUE, {
-  connection: redis,
-  defaultJobOptions: withPipelineJobOpts({
-    removeOnComplete: { count: 20 },
-    removeOnFail: { count: 50 },
-  }),
-})
+/** Heal schedule drift (enabled with no tick, or disabled with a leftover tick). */
+const RECONCILE_EVERY_MS = 5 * 60 * 1000
 
 const worker = new Worker(
   PIPELINE_AUTO_RUN_QUEUE,
@@ -44,34 +43,28 @@ worker.on('failed', (job, err) => {
   )
 })
 
-async function ensureRepeatableTick() {
+async function readAutoRunEnabled(): Promise<boolean> {
+  const row = await ensurePipelineAutoRunConfig()
+  return row.enabled
+}
+
+async function syncScheduleFromConfig() {
   try {
-    // Replace any prior tick schedules (e.g. older jobId-based keys) so we do
-    // not run duplicate overlapping ticks across deploys.
-    const existing = await queue.getRepeatableJobs()
-    for (const job of existing) {
-      if (job.name === 'tick') {
-        await queue.removeRepeatableByKey(job.key)
-      }
-    }
-    // Do not pass a fixed jobId with repeat — BullMQ needs unique ids per
-    // delayed repetition. Deduplication is via the repeatable job key.
-    await queue.add(
-      'tick',
-      {},
-      {
-        repeat: { every: REPEAT_EVERY_MS },
-        ...withPipelineJobOpts(),
-      }
-    )
+    const enabled = await readAutoRunEnabled()
+    await reconcilePipelineAutoRunSchedule(readAutoRunEnabled)
     console.log(
-      `[pipelineAutoRun] repeatable tick every ${REPEAT_EVERY_MS}ms registered`
+      enabled
+        ? `[pipelineAutoRun] repeatable tick every ${PIPELINE_AUTO_RUN_REPEAT_EVERY_MS}ms registered`
+        : '[pipelineAutoRun] auto-run disabled — repeatable tick not scheduled'
     )
   } catch (err) {
-    console.error('[pipelineAutoRun] failed to register repeatable tick:', err)
+    console.error('[pipelineAutoRun] failed to sync repeatable tick:', err)
   }
 }
 
-void ensureRepeatableTick()
+void syncScheduleFromConfig()
+setInterval(() => {
+  void syncScheduleFromConfig()
+}, RECONCILE_EVERY_MS).unref?.()
 
 export default worker
