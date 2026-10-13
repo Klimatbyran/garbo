@@ -51,7 +51,7 @@ async function persistMarkdown(
   jobData: MarkdownJobData,
   markdown: string,
   reportTypeSlug?: string
-): Promise<{ url: string }> {
+): Promise<{ url: string; id: string }> {
   const reportType = reportTypeSlug
     ? await prisma.reportType.upsert({
         where: { slug: reportTypeSlug },
@@ -78,6 +78,7 @@ async function persistMarkdown(
     orderBy: { id: 'asc' },
   })
 
+  let reportId: string
   if (existing) {
     await prisma.report.update({
       where: { id: existing.id },
@@ -97,8 +98,9 @@ async function persistMarkdown(
           : { sha256: identity.reportSha256 ?? undefined }),
       },
     })
+    reportId = existing.id
   } else {
-    await prisma.report.create({
+    const created = await prisma.report.create({
       data: {
         url: identity.reportURL,
         sourceUrl: jobData.sourceUrl ?? undefined,
@@ -108,11 +110,72 @@ async function persistMarkdown(
         ...reportTypeConnect,
       },
     })
+    reportId = created.id
   }
 
   // Callers should send this (not job.data.url) onward — job.data.url is
-  // often the S3 cache URL, not the document's actual identity.
-  return { url: identity.reportURL }
+  // often the S3 cache URL, not the document's actual identity. id lets
+  // persistImages attach to the same row without re-resolving identity.
+  return { url: identity.reportURL, id: reportId }
+}
+
+interface RecoveredPicture {
+  index: number
+  page?: number | null
+  description?: string | null
+  ocr_text?: string | null
+  thumbnail: string
+  has_text?: boolean
+}
+
+// Persists recovered picture thumbnails/descriptions on the same Report row
+// persistMarkdown just resolved/wrote -- same reasoning as markdown: a
+// job's own returnvalue shouldn't need to carry every picture's full base64
+// thumbnail just to survive in Redis until something reads it, once it's
+// durably stored here. Upserts by (reportId, pictureIndex) so a reparse of
+// the same document updates existing rows instead of duplicating them.
+async function persistImages(
+  reportId: string,
+  pictures: RecoveredPicture[]
+): Promise<void> {
+  if (!pictures.length) return
+  await Promise.all(
+    pictures.map((picture) =>
+      prisma.recoveredImage.upsert({
+        where: {
+          reportId_pictureIndex: {
+            reportId,
+            pictureIndex: picture.index,
+          },
+        },
+        create: {
+          reportId,
+          pictureIndex: picture.index,
+          page: picture.page,
+          description: picture.description,
+          ocrText: picture.ocr_text,
+          thumbnail: picture.thumbnail,
+          hasText: picture.has_text ?? true,
+        },
+        update: {
+          page: picture.page,
+          description: picture.description,
+          ocrText: picture.ocr_text,
+          thumbnail: picture.thumbnail,
+          hasText: picture.has_text ?? true,
+        },
+      })
+    )
+  )
+}
+
+/** Strips the heavy per-picture thumbnails, keeps the small summary fields
+ * (counts, token usage) that are still useful for logging/QA. */
+function withoutPictures<T extends { pictures?: unknown }>(
+  imageRecovery: T
+): Omit<T, 'pictures'> {
+  const { pictures: _pictures, ...summary } = imageRecovery
+  return summary
 }
 
 // Berget AI payload structure
@@ -617,7 +680,23 @@ async function pollTaskAndGetResult(
   taskId: string,
   useLocalFormat: boolean,
   useBackupAPI: boolean
-): Promise<{ markdown: string; pageSnippets?: DoclingPageSnippet[] }> {
+): Promise<{
+  pageSnippets?: DoclingPageSnippet[]
+  imageRecovery?: {
+    pictures_total: number
+    pictures_dropped_small: number
+    pictures_dropped_duplicate: number
+    pictures_described: number
+    pictures_from_cache?: number
+    vlm_usage?: {
+      model: string
+      calls: number
+      prompt_tokens: number
+      completion_tokens: number
+      total_tokens: number
+    }
+  }
+}> {
   const startTime = Date.now()
 
   job.editMessage(`Parsing PDF... (Task ID: ${taskId})`)
@@ -835,12 +914,18 @@ async function pollTaskAndGetResult(
     // unhandled callback error above.
     let canonicalUrl = job.data.sourceUrl ?? job.data.url
     try {
-      canonicalUrl = (
-        await persistMarkdown(job.data, markdown, job.data.reportTypeSlug)
-      ).url
+      const persisted = await persistMarkdown(
+        job.data,
+        markdown,
+        job.data.reportTypeSlug
+      )
+      canonicalUrl = persisted.url
+      if (imageRecovery?.pictures?.length) {
+        await persistImages(persisted.id, imageRecovery.pictures)
+      }
     } catch (err) {
       job.log(
-        `persistMarkdown failed, continuing without registry update: ${err instanceof Error ? err.message : String(err)}`
+        `persistMarkdown/persistImages failed, continuing without registry update: ${err instanceof Error ? err.message : String(err)}`
       )
     }
 
@@ -896,10 +981,18 @@ async function pollTaskAndGetResult(
       }
     }
 
+    // Not { markdown, imageRecovery } -- both are already durably persisted
+    // above (Report.markdown, RecoveredImage rows), and every downstream
+    // consumer now has its own fallback to fetch them from there instead of
+    // relying on this job's returnvalue. imageRecovery's own `pictures`
+    // array specifically is what carried every thumbnail's full base64
+    // JPEG; the rest of imageRecovery (counts, token usage) is small and
+    // still useful for logging/QA, so only `pictures` is dropped here.
     return {
-      markdown,
       pageSnippets,
-      ...(imageRecovery ? { imageRecovery } : {}),
+      ...(imageRecovery
+        ? { imageRecovery: withoutPictures(imageRecovery) }
+        : {}),
     }
   } else {
     // Berget AI polling logic
@@ -973,7 +1066,10 @@ async function pollTaskAndGetResult(
           }
         }
 
-        return { markdown }
+        // Not { markdown } -- already durably persisted above
+        // (Report.markdown); downstream consumers fall back to fetching
+        // it from there now instead of relying on this returnvalue.
+        return {}
       } else if (response.status === 202) {
         const retryAfter = parseInt(response.headers.get('Retry-After') || '2')
         console.log(
