@@ -62,7 +62,14 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
       }>,
       reply
     ) => {
-      const { goals, metadata, reportId, reportS3Url, verified } = request.body
+      const {
+        goals,
+        metadata,
+        reportId,
+        reportS3Url,
+        verified,
+        replaceUnverifiedForReport,
+      } = request.body
 
       if (goals?.length) {
         const { id } = request.params
@@ -79,7 +86,8 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
                 user,
                 verified: Boolean(verified),
               }),
-            reportId
+            reportId,
+            { replaceUnverifiedForReport }
           )
         } catch (error) {
           console.error('ERROR Creation of goals failed:', error)

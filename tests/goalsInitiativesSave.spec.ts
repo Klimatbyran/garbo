@@ -37,6 +37,7 @@ describe('goalsInitiativesSave', () => {
     ).toEqual({
       reportId: 'rep-1',
       reportS3Url: 'https://storage.example/a.pdf',
+      replaceUnverifiedForReport: true,
     })
   })
 })

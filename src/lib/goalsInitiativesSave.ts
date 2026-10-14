@@ -29,6 +29,7 @@ export function goalsInitiativesSaveExtras(jobData: {
 }): {
   reportId?: string
   reportS3Url?: string
+  replaceUnverifiedForReport?: boolean
 } {
   const reportId = jobData.registryReportId?.trim()
   const reportS3Url =
@@ -36,7 +37,7 @@ export function goalsInitiativesSaveExtras(jobData: {
     jobData.pdfCache?.publicUrl?.trim() ||
     undefined
   return {
-    ...(reportId ? { reportId } : {}),
+    ...(reportId ? { reportId, replaceUnverifiedForReport: true } : {}),
     ...(reportS3Url ? { reportS3Url } : {}),
   }
 }

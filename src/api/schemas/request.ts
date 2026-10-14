@@ -116,8 +116,13 @@ export const postGoalSchema = z
 export const postGoalsSchema = z
   .object({
     goals: z.array(goalSchema),
-    /** Registry Report.id — when set, replaces unverified goals for this report. */
+    /** Registry Report.id applied to created rows (and to replace when flagged). */
     reportId: z.string().optional(),
+    /**
+     * Pipeline-only: when true with reportId, delete unverified goals for that
+     * report before insert. Editor single-creates must leave this unset/false.
+     */
+    replaceUnverifiedForReport: z.boolean().optional(),
     /** Storage PDF URL for deriving sourcePageUrl deep links. */
     reportS3Url: z.string().optional().nullable(),
   })
@@ -139,8 +144,13 @@ export const postInitiativeSchema = z
 export const postInitiativesSchema = z
   .object({
     initiatives: z.array(initiativeSchema),
-    /** Registry Report.id — when set, replaces unverified initiatives for this report. */
+    /** Registry Report.id applied to created rows (and to replace when flagged). */
     reportId: z.string().optional(),
+    /**
+     * Pipeline-only: when true with reportId, delete unverified initiatives for
+     * that report before insert. Editor single-creates must leave this unset/false.
+     */
+    replaceUnverifiedForReport: z.boolean().optional(),
     /** Storage PDF URL for deriving sourcePageUrl deep links. */
     reportS3Url: z.string().optional().nullable(),
   })

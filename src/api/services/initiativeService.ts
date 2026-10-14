@@ -1,4 +1,4 @@
-import { Initiative, Metadata } from '@prisma/client'
+import { Initiative, Metadata, Prisma } from '@prisma/client'
 import { prisma } from '../../lib/prisma'
 import { PostInitiativeBody, PostInitiativesBody } from '../types'
 
@@ -18,24 +18,12 @@ function initiativeDataFields(initiative: InitiativeWriteFields) {
   }
 }
 
-async function unverifiedIdsForReport(
-  companyId: string,
-  reportId: string
-): Promise<string[]> {
-  const existing = await prisma.initiative.findMany({
-    where: { companyId, reportId },
-    select: {
-      id: true,
-      metadata: {
-        orderBy: { updatedAt: 'desc' },
-        take: 1,
-        select: { verifiedByUserId: true },
-      },
-    },
-  })
-  return existing
-    .filter((row) => !row.metadata[0]?.verifiedByUserId)
-    .map((row) => row.id)
+export type CreateInitiativesOptions = {
+  /**
+   * When true with a reportId, delete unverified initiatives for that report
+   * before inserting. Pipeline bulk save sets this; editor single-creates must not.
+   */
+  replaceUnverifiedForReport?: boolean
 }
 
 class InitiativeService {
@@ -45,38 +33,64 @@ class InitiativeService {
     createMetadata: (
       initiative: PostInitiativesBody['initiatives'][number]
     ) => Promise<Metadata>,
-    reportId?: string | null
+    reportId?: string | null,
+    options: CreateInitiativesOptions = {}
   ) {
-    const trimmedReportId = reportId?.trim() || null
+    const batchReportId = reportId?.trim() || null
+    const replace =
+      Boolean(options.replaceUnverifiedForReport) && Boolean(batchReportId)
 
-    if (trimmedReportId) {
-      const ids = await unverifiedIdsForReport(companyId, trimmedReportId)
-      if (ids.length) {
-        await prisma.$transaction([
-          prisma.metadata.deleteMany({
-            where: { initiativeId: { in: ids } },
-          }),
-          prisma.initiative.deleteMany({ where: { id: { in: ids } } }),
-        ])
-      }
-    }
-
-    return Promise.all(
+    const prepared = await Promise.all(
       initiatives.map(async (initiative) => {
         const metadata = await createMetadata(initiative)
-        return prisma.initiative.create({
-          data: {
-            ...initiativeDataFields(initiative),
-            company: { connect: { id: companyId } },
-            ...(trimmedReportId
-              ? { report: { connect: { id: trimmedReportId } } }
-              : {}),
-            metadata: { connect: { id: metadata.id } },
-          },
-          select: { id: true },
-        })
+        const itemReportId =
+          (typeof initiative.reportId === 'string' &&
+            initiative.reportId.trim()) ||
+          batchReportId
+        return { initiative, metadata, itemReportId }
       })
     )
+
+    return prisma.$transaction(async (tx) => {
+      if (replace && batchReportId) {
+        const existing = await tx.initiative.findMany({
+          where: { companyId, reportId: batchReportId },
+          select: {
+            id: true,
+            metadata: {
+              orderBy: { updatedAt: 'desc' },
+              take: 1,
+              select: { verifiedByUserId: true },
+            },
+          },
+        })
+        const ids = existing
+          .filter((row) => !row.metadata[0]?.verifiedByUserId)
+          .map((row) => row.id)
+        if (ids.length) {
+          await tx.metadata.deleteMany({
+            where: { initiativeId: { in: ids } },
+          })
+          await tx.initiative.deleteMany({ where: { id: { in: ids } } })
+        }
+      }
+
+      return Promise.all(
+        prepared.map(({ initiative, metadata, itemReportId }) =>
+          tx.initiative.create({
+            data: {
+              ...initiativeDataFields(initiative),
+              company: { connect: { id: companyId } },
+              ...(itemReportId
+                ? { report: { connect: { id: itemReportId } } }
+                : {}),
+              metadata: { connect: { id: metadata.id } },
+            },
+            select: { id: true },
+          })
+        )
+      )
+    })
   }
 
   async updateInitiative(
@@ -93,7 +107,7 @@ class InitiativeService {
       ...fields
     } = initiative
 
-    const reportConnect =
+    const reportConnect: Prisma.InitiativeUpdateInput =
       reportId === undefined
         ? {}
         : reportId === null || reportId === ''

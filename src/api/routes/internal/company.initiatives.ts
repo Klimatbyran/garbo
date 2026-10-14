@@ -62,8 +62,14 @@ export async function companyInitiativesRoutes(app: FastifyInstance) {
       }>,
       reply
     ) => {
-      const { initiatives, metadata, reportId, reportS3Url, verified } =
-        request.body
+      const {
+        initiatives,
+        metadata,
+        reportId,
+        reportS3Url,
+        verified,
+        replaceUnverifiedForReport,
+      } = request.body
 
       if (initiatives?.length) {
         const { id } = request.params
@@ -83,7 +89,8 @@ export async function companyInitiativesRoutes(app: FastifyInstance) {
                 user: request.user,
                 verified: Boolean(verified),
               }),
-            reportId
+            reportId,
+            { replaceUnverifiedForReport }
           )
         } catch (error) {
           console.error('ERROR Creation of initiatives failed:', error)
