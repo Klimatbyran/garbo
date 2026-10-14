@@ -5,11 +5,14 @@ import { vectorDB } from '../lib/vectordb'
 import type { DoclingPageSnippet } from '../lib/doclingPageLookup'
 import { QUEUE_NAMES } from '../queues'
 import { fireCallback } from '../lib/webhook'
+import { findReportMarkdownByJobIdentity } from '../api/services/registryReportIdentity'
 
 class IndexMarkdownJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
     markdown: string
     pageSnippets?: DoclingPageSnippet[]
+    sourceUrl?: string
+    pdfCache?: { publicUrl?: string; sha256?: string }
     /** When set, POST {url} here instead of continuing into precheck. Must
      * match an entry in ALLOWED_CALLBACK_URLS. Set via parsePdf's same field. */
     callbackUrl?: string
@@ -50,10 +53,20 @@ const indexMarkdown = new PipelineWorker(
       typeof childEntries.markdown === 'string'
         ? childEntries.markdown
         : undefined
-    const markdown: string | undefined = job.data.markdown ?? childMarkdown
+    let markdown: string | undefined = job.data.markdown ?? childMarkdown
     const pageSnippets =
       job.data.pageSnippets ??
       pageSnippetsFromUnknown(childEntries.pageSnippets)
+
+    // doclingParsePDF already persists markdown to the Report registry row
+    // before this job ever runs -- its own returnvalue no longer carries the
+    // full string (see doclingParsePDF.ts), so this is the normal path now,
+    // not a rare fallback. Same identity resolution persistMarkdown writes
+    // with (sourceUrl/s3Url/sha256, oldest row wins), not a naive `{ url }`
+    // match -- url is often an S3 cache URL, not the document's real identity.
+    if ((!markdown || !markdown.trim()) && url) {
+      markdown = await findReportMarkdownByJobIdentity(job.data)
+    }
 
     if (!markdown || !markdown.trim()) {
       job.editMessage(
@@ -85,7 +98,11 @@ const indexMarkdown = new PipelineWorker(
         await fireCallback(callbackUrl, { url }, (msg) => job.log(msg))
       }
 
-      return { url, markdown }
+      // Not { url, markdown } -- every downstream consumer (precheck,
+      // checkEmissionsPresence) now has its own Report-registry fallback,
+      // so this job's own returnvalue doesn't need to carry the full
+      // string just to survive in Redis until something reads it.
+      return { url }
     } catch (error) {
       job.log('Error: ' + error)
       job.editMessage(

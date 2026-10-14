@@ -643,9 +643,37 @@ model Report {
   coverageEntryReports CoverageEntryReport[]
   /// Pipeline runs started from this registry row (auto-run candidate exclusion).
   reportRuns           ReportRun[]
+  /// Pictures docling recovered from this report's PDF, persisted
+  /// independently of any BullMQ job's returnvalue -- see RecoveredImage.
+  recoveredImages      RecoveredImage[]
 
   @@index([reportTypeId])
   @@index([batchId])
+}
+
+/// One recovered picture from a report's PDF (docling's image-recovery pass,
+/// readImages opt-in). Persisted here so a job's own returnvalue doesn't
+/// need to carry the full base64 thumbnail forever just to survive until
+/// something reads it -- same reasoning as Report.markdown.
+model RecoveredImage {
+  id           String   @id @default(cuid())
+  reportId     String
+  report       Report   @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  /// This picture's own index within docling's image_recovery result for
+  /// this report -- stable across reruns, used to upsert instead of
+  /// duplicating on a reparse.
+  pictureIndex Int      @map("picture_index")
+  page         Int?
+  description  String?
+  ocrText      String?  @map("ocr_text")
+  /// Base64 JPEG, no data-URI prefix -- same shape docling's own result
+  /// already uses, so no re-encoding needed on write or read.
+  thumbnail    String
+  hasText      Boolean  @default(true) @map("has_text")
+  createdAt    DateTime @default(now())
+
+  @@unique([reportId, pictureIndex])
+  @@index([reportId])
 }
 
 /// One processed PDF per company (links to Report registry). Several per company when multiple PDFs exist.

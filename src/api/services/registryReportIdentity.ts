@@ -1,4 +1,6 @@
 import { Prisma } from '@prisma/client'
+import { prisma } from '../../lib/prisma'
+import { buildPipelineReportIdentity } from '../../lib/reportSaveIdentity'
 
 // Typed explicitly so it stays valid before `prisma generate` runs after a schema change.
 export interface RegistryReportIdentityRow {
@@ -378,4 +380,36 @@ export function buildReportMatchConditions(input: {
   if (url && url !== sourceUrl) conditions.push({ sourceUrl: url })
 
   return conditions
+}
+
+/**
+ * Looks up a Report row's markdown using the same identity resolution
+ * doclingParsePDF.ts's persistMarkdown writes with: buildPipelineReportIdentity
+ * for reportURL/reportS3Url/reportSha256, sourceUrl taken from jobData (not
+ * the bare url), and the oldest matching row wins ties. A naive `{ url }`
+ * match can miss the row persistMarkdown actually wrote to -- jobData.url is
+ * often an S3 cache URL, not the document's real identity -- or land on a
+ * different row than persistMarkdown did when more than one candidate matches.
+ */
+export async function findReportMarkdownByJobIdentity(jobData: {
+  url: string
+  sourceUrl?: string
+  pdfCache?: { publicUrl?: string; sha256?: string }
+}): Promise<string | undefined> {
+  const identity = buildPipelineReportIdentity(jobData)
+  const matchConditions = buildReportMatchConditions({
+    url: identity.reportURL,
+    sourceUrl: jobData.sourceUrl,
+    s3Url: identity.reportS3Url,
+    sha256: identity.reportSha256,
+  })
+  const report = await prisma.report.findFirst({
+    where:
+      matchConditions.length > 0
+        ? { OR: matchConditions }
+        : { url: identity.reportURL },
+    orderBy: { id: 'asc' },
+    select: { markdown: true },
+  })
+  return report?.markdown ?? undefined
 }

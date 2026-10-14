@@ -22,6 +22,7 @@ import {
 import { collectAlternativeNameAfterConfirmedLink } from '../lib/collectAlternativeNameAfterConfirmedLink'
 import { EXTRACT_EMISSIONS_CHILD_QUEUES } from './precheckFlow'
 import { withPipelineJobOpts } from '../lib/pipelineJobOptions'
+import { findReportMarkdownByJobIdentity } from '../api/services/registryReportIdentity'
 
 class PrecheckJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
@@ -31,6 +32,8 @@ class PrecheckJob extends PipelineJob {
     lei?: string
     wikidata?: { node?: string }
     waitingForCompanyName?: boolean
+    sourceUrl?: string
+    pdfCache?: { publicUrl?: string; sha256?: string }
   }
 }
 
@@ -286,6 +289,42 @@ async function ensurePipelineCompany(
   return companyId
 }
 
+// Mirrors checkEmissionsPresence.ts's resolveMarkdown -- same fallback
+// chain (cachedMarkdown -> flow children's returnvalue -> Report registry
+// row directly), same reasoning: a job's own returnvalue shouldn't need to
+// carry the full markdown just to survive until something reads it, once
+// it's already durably persisted. getChildrenEntries() can throw for a job
+// enqueued without flow children (the parsePdf.ts cache-hit path adds
+// precheck directly via queue.add, not flow.add) -- this was previously
+// unguarded here, unlike the identical call in checkEmissionsPresence.ts.
+async function resolvePrecheckMarkdown(
+  job: PrecheckJob,
+  cachedMarkdown: string | undefined
+): Promise<string | undefined> {
+  if (typeof cachedMarkdown === 'string' && cachedMarkdown.trim()) {
+    return cachedMarkdown
+  }
+
+  try {
+    const childEntries = await job.getChildrenEntries()
+    if (
+      typeof childEntries.markdown === 'string' &&
+      childEntries.markdown.trim()
+    ) {
+      return childEntries.markdown
+    }
+  } catch {
+    // no children (e.g. cache-hit path enqueued this job directly)
+  }
+
+  if (!job.data.url) return undefined
+
+  // Same identity resolution persistMarkdown writes with (sourceUrl/s3Url/
+  // sha256, oldest row wins), not a naive `{ url }` match -- job.data.url is
+  // often an S3 cache URL, not the document's real identity.
+  return findReportMarkdownByJobIdentity(job.data)
+}
+
 const precheck = new PipelineWorker(
   QUEUE_NAMES.PRECHECK,
   async (job: PrecheckJob) => {
@@ -295,7 +334,19 @@ const precheck = new PipelineWorker(
       companyName: existingCompanyName,
       ...baseData
     } = job.data
-    const { markdown = cachedMarkdown } = await job.getChildrenEntries()
+    const markdown = await resolvePrecheckMarkdown(job, cachedMarkdown)
+
+    // Distinct from "AI couldn't find a name in valid text" below -- this
+    // means there's no text to analyze at all (every fallback in
+    // resolvePrecheckMarkdown came up empty), so fail clearly instead of
+    // letting extractCompanyName crash on `undefined as string` or silently
+    // fall into the manual-input UX for the wrong reason.
+    if (!markdown || !markdown.trim()) {
+      job.editMessage(
+        '❌ No markdown available for this report. Ensure the parser child returned markdown or the Report registry row has it.'
+      )
+      throw new Error('Precheck: missing markdown')
+    }
 
     if (existingCompanyName && waitingForCompanyName) {
       job.log('Using manually provided company name: ' + existingCompanyName)
@@ -347,7 +398,7 @@ Extract from this PDF:
       )
     }
 
-    const companyName = await extractCompanyName(markdown as string)
+    const companyName = await extractCompanyName(markdown)
 
     if (companyName) {
       await job.updateData({ ...job.data, companyName })
