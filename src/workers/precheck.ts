@@ -22,8 +22,7 @@ import {
 import { collectAlternativeNameAfterConfirmedLink } from '../lib/collectAlternativeNameAfterConfirmedLink'
 import { EXTRACT_EMISSIONS_CHILD_QUEUES } from './precheckFlow'
 import { withPipelineJobOpts } from '../lib/pipelineJobOptions'
-import { prisma } from '../lib/prisma'
-import { buildReportMatchConditions } from '../api/services/registryReportIdentity'
+import { findReportMarkdownByJobIdentity } from '../api/services/registryReportIdentity'
 
 class PrecheckJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
@@ -33,6 +32,8 @@ class PrecheckJob extends PipelineJob {
     lei?: string
     wikidata?: { node?: string }
     waitingForCompanyName?: boolean
+    sourceUrl?: string
+    pdfCache?: { publicUrl?: string; sha256?: string }
   }
 }
 
@@ -316,19 +317,12 @@ async function resolvePrecheckMarkdown(
     // no children (e.g. cache-hit path enqueued this job directly)
   }
 
-  const url = job.data.url
-  if (!url) return undefined
+  if (!job.data.url) return undefined
 
-  const matchConditions = buildReportMatchConditions({
-    url,
-    sourceUrl: url,
-    s3Url: url,
-  })
-  const report = await prisma.report.findFirst({
-    where: matchConditions.length > 0 ? { OR: matchConditions } : { url },
-    select: { markdown: true },
-  })
-  return report?.markdown ?? undefined
+  // Same identity resolution persistMarkdown writes with (sourceUrl/s3Url/
+  // sha256, oldest row wins), not a naive `{ url }` match -- job.data.url is
+  // often an S3 cache URL, not the document's real identity.
+  return findReportMarkdownByJobIdentity(job.data)
 }
 
 const precheck = new PipelineWorker(
@@ -341,6 +335,18 @@ const precheck = new PipelineWorker(
       ...baseData
     } = job.data
     const markdown = await resolvePrecheckMarkdown(job, cachedMarkdown)
+
+    // Distinct from "AI couldn't find a name in valid text" below -- this
+    // means there's no text to analyze at all (every fallback in
+    // resolvePrecheckMarkdown came up empty), so fail clearly instead of
+    // letting extractCompanyName crash on `undefined as string` or silently
+    // fall into the manual-input UX for the wrong reason.
+    if (!markdown || !markdown.trim()) {
+      job.editMessage(
+        '❌ No markdown available for this report. Ensure the parser child returned markdown or the Report registry row has it.'
+      )
+      throw new Error('Precheck: missing markdown')
+    }
 
     if (existingCompanyName && waitingForCompanyName) {
       job.log('Using manually provided company name: ' + existingCompanyName)
@@ -392,7 +398,7 @@ Extract from this PDF:
       )
     }
 
-    const companyName = await extractCompanyName(markdown as string)
+    const companyName = await extractCompanyName(markdown)
 
     if (companyName) {
       await job.updateData({ ...job.data, companyName })
