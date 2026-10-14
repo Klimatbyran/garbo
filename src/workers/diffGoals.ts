@@ -7,6 +7,11 @@ import {
   isPendingApprovalForDiffType,
   shouldRunDiffComputation,
 } from '../lib/DiffWorker'
+import {
+  filterByReportId,
+  goalsInitiativesSaveExtras,
+  stripGoalInitiativeDiffNoise,
+} from '../lib/goalsInitiativesSave'
 import { diffChanges } from '../lib/saveUtils'
 import { QUEUE_NAMES } from '../queues'
 import { Goal } from '../types'
@@ -17,6 +22,7 @@ export class DiffGoalsJob extends DiffJob {
     existingCompany: any
     wikidata: { node: string }
     goals: Goal[]
+    registryReportId?: string
   }
 }
 
@@ -25,24 +31,28 @@ const GOALS_ENDPOINT = 'goals'
 const diffGoals = new DiffWorker<DiffGoalsJob>(
   QUEUE_NAMES.DIFF_GOALS,
   async (job) => {
-    const { wikidata, companyName, existingCompany, goals } = job.data
+    const { companyName, existingCompany, goals, registryReportId } = job.data
+    const saveExtras = goalsInitiativesSaveExtras(job.data)
+
     if (isApprovedForDiffType(job, GOALS_ENDPOINT)) {
-      await job.enqueueSaveToAPI(
-        GOALS_ENDPOINT,
-        companyName,
-        job.getApprovedBody()
-      )
+      await job.enqueueSaveToAPI(GOALS_ENDPOINT, companyName, {
+        ...job.getApprovedBody(),
+        ...saveExtras,
+      })
       return
     }
 
     if (shouldRunDiffComputation(job, GOALS_ENDPOINT)) {
+      const previousGoals = filterByReportId(
+        existingCompany?.goals,
+        registryReportId
+      )
+
       const { diff, requiresApproval } = await diffChanges({
         existingCompany,
-        before: existingCompany?.goals,
-        after: goals,
+        before: stripGoalInitiativeDiffNoise(previousGoals),
+        after: stripGoalInitiativeDiffNoise(goals as any),
       })
-
-      const previousGoals = existingCompany?.goals ?? []
 
       const change: ChangeDescription = {
         type: 'goals',
@@ -54,7 +64,8 @@ const diffGoals = new DiffWorker<DiffGoalsJob>(
         GOALS_ENDPOINT,
         diff,
         change,
-        typeof requiresApproval == 'boolean' ? requiresApproval : false
+        typeof requiresApproval == 'boolean' ? requiresApproval : false,
+        { saveBodyExtras: saveExtras }
       )
     }
 

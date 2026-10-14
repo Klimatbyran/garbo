@@ -366,6 +366,43 @@ function enrichScope3Entry(
   return record
 }
 
+function textNeedlesFromFields(
+  record: Record<string, unknown>,
+  keys: string[]
+): string[] {
+  const needles: string[] = []
+  for (const key of keys) {
+    const value = record[key]
+    if (typeof value !== 'string') continue
+    const trimmed = value.trim()
+    if (trimmed.length < 8) continue
+    // Prefer a distinctive mid-length slice so translated fluff / trailing
+    // punctuation does not dominate; full string first when short enough.
+    needles.push(trimmed.length <= 120 ? trimmed : trimmed.slice(0, 120))
+    if (trimmed.length > 40) {
+      needles.push(trimmed.slice(0, 40))
+    }
+  }
+  return needles
+}
+
+function enrichGoalOrInitiativeItem(
+  entry: unknown,
+  paragraphs: RetrievedParagraph[],
+  textKeys: string[],
+  numberKeys: string[] = []
+): unknown {
+  if (!entry || typeof entry !== 'object') return entry
+  const record = { ...(entry as Record<string, unknown>) }
+  const needles = [
+    ...textNeedlesFromFields(record, textKeys),
+    ...numberKeys.flatMap((key) =>
+      typeof record[key] === 'number' ? numberNeedles(record[key] as number) : []
+    ),
+  ]
+  return withProvenance(record, pageNumberForNeedles(needles, paragraphs))
+}
+
 /**
  * Attach page provenance from Chroma-retrieved paragraph metadata.
  * Does not ask the LLM for page numbers — matches extracted values/snippets
@@ -412,6 +449,18 @@ export function attachPageProvenanceToExtraction(
       )
       return yearEntry
     })
+  }
+
+  if (Array.isArray(record.goals)) {
+    record.goals = record.goals.map((entry) =>
+      enrichGoalOrInitiativeItem(entry, paragraphs, ['description'], ['target'])
+    )
+  }
+
+  if (Array.isArray(record.initiatives)) {
+    record.initiatives = record.initiatives.map((entry) =>
+      enrichGoalOrInitiativeItem(entry, paragraphs, ['title', 'description'])
+    )
   }
 
   return record

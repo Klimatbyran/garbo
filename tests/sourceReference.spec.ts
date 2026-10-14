@@ -425,4 +425,41 @@ describe('mergeScope1AndScope2Results', () => {
       },
     ])
   })
+
+  it('attaches page provenance to goals and initiatives from description/title text', () => {
+    const value = {
+      goals: [
+        {
+          description: 'Reduce Scope 1 emissions by 40 percent by 2030',
+          year: '2030',
+          target: 40,
+        },
+      ],
+      initiatives: [
+        {
+          title: 'Supplier engagement program',
+          description: 'Work with key suppliers on climate targets',
+        },
+      ],
+    }
+
+    const enriched = attachPageProvenanceToExtraction(value, [
+      {
+        text: 'We will reduce Scope 1 emissions by 40 percent by 2030',
+        pageNumber: 22,
+      },
+      {
+        text: 'Our supplier engagement program starts next year',
+        pageNumber: 31,
+      },
+    ]) as {
+      goals: Array<{ pageNumber?: number; sourceReference?: string }>
+      initiatives: Array<{ pageNumber?: number; sourceReference?: string }>
+    }
+
+    expect(enriched.goals[0].pageNumber).toBe(22)
+    expect(enriched.goals[0].sourceReference).toBe('p. 22')
+    expect(enriched.initiatives[0].pageNumber).toBe(31)
+    expect(enriched.initiatives[0].sourceReference).toBe('p. 31')
+  })
 })

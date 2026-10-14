@@ -7,7 +7,12 @@ import {
   isPendingApprovalForDiffType,
   shouldRunDiffComputation,
 } from '../lib/DiffWorker'
-import { defaultMetadata, diffChanges } from '../lib/saveUtils'
+import {
+  filterByReportId,
+  goalsInitiativesSaveExtras,
+  stripGoalInitiativeDiffNoise,
+} from '../lib/goalsInitiativesSave'
+import { diffChanges } from '../lib/saveUtils'
 import { QUEUE_NAMES } from '../queues'
 import { Initiative } from '../types'
 
@@ -17,6 +22,7 @@ export class DiffInitiativesJob extends DiffJob {
     existingCompany: any
     wikidata: { node: string }
     initiatives: Initiative[]
+    registryReportId?: string
   }
 }
 
@@ -25,33 +31,29 @@ const INITIATIVES_ENDPOINT = 'initiatives'
 const diffInitiatives = new DiffWorker<DiffInitiativesJob>(
   QUEUE_NAMES.DIFF_INITIATIVES,
   async (job) => {
-    const {
-      url,
-      companyName,
-      existingCompany,
-      initiatives,
-      autoApprove,
-      wikidata,
-    } = job.data
-    const metadata = defaultMetadata(url)
+    const { companyName, existingCompany, initiatives, registryReportId } =
+      job.data
+    const saveExtras = goalsInitiativesSaveExtras(job.data)
 
     if (isApprovedForDiffType(job, INITIATIVES_ENDPOINT)) {
-      await job.enqueueSaveToAPI(
-        INITIATIVES_ENDPOINT,
-        companyName,
-        job.getApprovedBody()
-      )
+      await job.enqueueSaveToAPI(INITIATIVES_ENDPOINT, companyName, {
+        ...job.getApprovedBody(),
+        ...saveExtras,
+      })
       return
     }
 
     if (shouldRunDiffComputation(job, INITIATIVES_ENDPOINT)) {
+      const previousInitiatives = filterByReportId(
+        existingCompany?.initiatives,
+        registryReportId
+      )
+
       const { diff, requiresApproval } = await diffChanges({
         existingCompany,
-        before: existingCompany?.initiatives,
-        after: initiatives,
+        before: stripGoalInitiativeDiffNoise(previousInitiatives),
+        after: stripGoalInitiativeDiffNoise(initiatives as any),
       })
-
-      const previousInitiatives = existingCompany?.initiatives ?? []
 
       const change: ChangeDescription = {
         type: 'initiatives',
@@ -63,7 +65,8 @@ const diffInitiatives = new DiffWorker<DiffInitiativesJob>(
         INITIATIVES_ENDPOINT,
         diff,
         change,
-        typeof requiresApproval == 'boolean' ? requiresApproval : false
+        typeof requiresApproval == 'boolean' ? requiresApproval : false,
+        { saveBodyExtras: saveExtras }
       )
     }
 

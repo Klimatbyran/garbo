@@ -103,6 +103,8 @@ export const goalSchema = z.object({
   year: z.string().optional(),
   target: z.number().optional(),
   baseYear: z.string().optional(),
+  reportId: z.string().optional().nullable(),
+  ...sourceReferenceFields,
 })
 
 export const postGoalSchema = z
@@ -114,6 +116,10 @@ export const postGoalSchema = z
 export const postGoalsSchema = z
   .object({
     goals: z.array(goalSchema),
+    /** Registry Report.id — when set, replaces unverified goals for this report. */
+    reportId: z.string().optional(),
+    /** Storage PDF URL for deriving sourcePageUrl deep links. */
+    reportS3Url: z.string().optional().nullable(),
   })
   .merge(createMetadataSchema)
 
@@ -122,6 +128,8 @@ export const initiativeSchema = z.object({
   description: z.string().optional(),
   year: z.string().optional(),
   scope: z.string().optional(),
+  reportId: z.string().optional().nullable(),
+  ...sourceReferenceFields,
 })
 
 export const postInitiativeSchema = z
@@ -131,6 +139,10 @@ export const postInitiativeSchema = z
 export const postInitiativesSchema = z
   .object({
     initiatives: z.array(initiativeSchema),
+    /** Registry Report.id — when set, replaces unverified initiatives for this report. */
+    reportId: z.string().optional(),
+    /** Storage PDF URL for deriving sourcePageUrl deep links. */
+    reportS3Url: z.string().optional().nullable(),
   })
   .merge(createMetadataSchema)
 

@@ -18,6 +18,26 @@ import {
   PostInitiativesBody,
   CompanyInitiativeParams,
 } from '../../types'
+import { resolveSourcePageUrl } from '../../../lib/sourceReference'
+
+function provenanceMetadataFields(
+  item: { sourceReference?: string; pageNumber?: number },
+  base: { source?: string; comment?: string; sourceReference?: string } | undefined,
+  reportS3Url?: string | null
+) {
+  const sourcePageUrl = resolveSourcePageUrl({
+    storagePdfUrl: reportS3Url,
+    pageNumber: item.pageNumber,
+    sourceReference: item.sourceReference ?? base?.sourceReference,
+  })
+  return {
+    ...base,
+    ...(item.sourceReference
+      ? { sourceReference: item.sourceReference }
+      : {}),
+    ...(sourcePageUrl ? { sourcePageUrl } : {}),
+  }
+}
 
 export async function companyInitiativesRoutes(app: FastifyInstance) {
   app.post(
@@ -42,7 +62,8 @@ export async function companyInitiativesRoutes(app: FastifyInstance) {
       }>,
       reply
     ) => {
-      const { initiatives, metadata } = request.body
+      const { initiatives, metadata, reportId, reportS3Url, verified } =
+        request.body
 
       if (initiatives?.length) {
         const { id } = request.params
@@ -52,11 +73,17 @@ export async function companyInitiativesRoutes(app: FastifyInstance) {
           await initiativeService.createInitiatives(
             company.id,
             initiatives,
-            () =>
+            (initiative) =>
               metadataService.createMetadata({
-                metadata,
+                metadata: provenanceMetadataFields(
+                  initiative,
+                  metadata,
+                  reportS3Url
+                ),
                 user: request.user,
-              })
+                verified: Boolean(verified),
+              }),
+            reportId
           )
         } catch (error) {
           console.error('ERROR Creation of initiatives failed:', error)
@@ -92,10 +119,11 @@ export async function companyInitiativesRoutes(app: FastifyInstance) {
       reply
     ) => {
       const { initiativeId } = request.params
-      const { initiative, metadata } = request.body
+      const { initiative, metadata, verified } = request.body
       const createdMetadata = await metadataService.createMetadata({
-        metadata,
+        metadata: provenanceMetadataFields(initiative, metadata),
         user: request.user,
+        verified: Boolean(verified),
       })
 
       try {

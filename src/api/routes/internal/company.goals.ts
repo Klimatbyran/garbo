@@ -18,6 +18,26 @@ import {
 } from '../../types'
 import { metadataService } from '../../services/metadataService'
 import { getTags } from '../../../config/openapi'
+import { resolveSourcePageUrl } from '../../../lib/sourceReference'
+
+function provenanceMetadataFields(
+  item: { sourceReference?: string; pageNumber?: number },
+  base: { source?: string; comment?: string; sourceReference?: string } | undefined,
+  reportS3Url?: string | null
+) {
+  const sourcePageUrl = resolveSourcePageUrl({
+    storagePdfUrl: reportS3Url,
+    pageNumber: item.pageNumber,
+    sourceReference: item.sourceReference ?? base?.sourceReference,
+  })
+  return {
+    ...base,
+    ...(item.sourceReference
+      ? { sourceReference: item.sourceReference }
+      : {}),
+    ...(sourcePageUrl ? { sourcePageUrl } : {}),
+  }
+}
 
 export async function companyGoalsRoutes(app: FastifyInstance) {
   app.post(
@@ -42,7 +62,7 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
       }>,
       reply
     ) => {
-      const { goals, metadata } = request.body
+      const { goals, metadata, reportId, reportS3Url, verified } = request.body
 
       if (goals?.length) {
         const { id } = request.params
@@ -50,11 +70,16 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
 
         try {
           const company = await companyService.getCompanyByInternalId(id)
-          await goalService.createGoals(company.id, goals, () =>
-            metadataService.createMetadata({
-              metadata,
-              user,
-            })
+          await goalService.createGoals(
+            company.id,
+            goals,
+            (goal) =>
+              metadataService.createMetadata({
+                metadata: provenanceMetadataFields(goal, metadata, reportS3Url),
+                user,
+                verified: Boolean(verified),
+              }),
+            reportId
           )
         } catch (error) {
           console.error('ERROR Creation of goals failed:', error)
@@ -90,13 +115,14 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
       reply
     ) => {
       const { goalId } = request.params
-      const { goal } = request.body
+      const { goal, verified } = request.body
       let createdMetadata
 
       try {
         createdMetadata = await metadataService.createMetadata({
-          metadata: request.body.metadata,
+          metadata: provenanceMetadataFields(goal, request.body.metadata),
           user: request.user,
+          verified: Boolean(verified),
         })
       } catch (error) {
         console.error(
@@ -107,7 +133,7 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
       }
 
       try {
-        await goalService.updateGoal(goalId, { goal }, createdMetadata)
+        await goalService.updateGoal(goalId, goal, createdMetadata)
       } catch (error) {
         console.error('ERROR Update of goal failed:', error)
         return reply.status(500).send({ message: 'Update of goal failed.' })
