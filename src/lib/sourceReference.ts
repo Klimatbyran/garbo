@@ -397,7 +397,9 @@ function enrichGoalOrInitiativeItem(
   const needles = [
     ...textNeedlesFromFields(record, textKeys),
     ...numberKeys.flatMap((key) =>
-      typeof record[key] === 'number' ? numberNeedles(record[key] as number) : []
+      typeof record[key] === 'number'
+        ? numberNeedles(record[key] as number)
+        : []
     ),
   ]
   return withProvenance(record, pageNumberForNeedles(needles, paragraphs))

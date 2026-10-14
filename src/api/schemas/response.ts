@@ -305,13 +305,9 @@ export const InitiativeSchema = z.object({
     .openapi({ description: 'Initiative description' }),
   year: z.string().nullable().openapi({ description: 'Initiative year' }),
   scope: z.string().nullable().openapi({ description: 'Affected scopes' }),
-  reportId: z
-    .string()
-    .nullable()
-    .optional()
-    .openapi({
-      description: 'Registry report this initiative was extracted from',
-    }),
+  reportId: z.string().nullable().optional().openapi({
+    description: 'Registry report this initiative was extracted from',
+  }),
   metadata: ResponseMetadataSchema,
 })
 

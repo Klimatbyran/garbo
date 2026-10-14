@@ -22,7 +22,9 @@ import { resolveSourcePageUrl } from '../../../lib/sourceReference'
 
 function provenanceMetadataFields(
   item: { sourceReference?: string; pageNumber?: number },
-  base: { source?: string; comment?: string; sourceReference?: string } | undefined,
+  base:
+    | { source?: string; comment?: string; sourceReference?: string }
+    | undefined,
   reportS3Url?: string | null
 ) {
   const sourcePageUrl = resolveSourcePageUrl({
@@ -32,9 +34,7 @@ function provenanceMetadataFields(
   })
   return {
     ...base,
-    ...(item.sourceReference
-      ? { sourceReference: item.sourceReference }
-      : {}),
+    ...(item.sourceReference ? { sourceReference: item.sourceReference } : {}),
     ...(sourcePageUrl ? { sourcePageUrl } : {}),
   }
 }
