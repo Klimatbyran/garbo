@@ -162,6 +162,38 @@ export function resolveSourcePageUrl(args: {
   return buildSourcePageUrl(args.storagePdfUrl, pageNumber)
 }
 
+type ProvenanceItem = {
+  sourceReference?: string
+  pageNumber?: number
+}
+
+type ProvenanceBaseMetadata = {
+  source?: string
+  comment?: string
+  sourceReference?: string
+}
+
+/**
+ * Merge batch metadata with per-item page provenance for goal/initiative saves.
+ * sourcePageUrl is always derived server-side from storage URL + page.
+ */
+export function provenanceMetadataFields(
+  item: ProvenanceItem,
+  base: ProvenanceBaseMetadata | undefined,
+  reportS3Url?: string | null
+) {
+  const sourcePageUrl = resolveSourcePageUrl({
+    storagePdfUrl: reportS3Url,
+    pageNumber: item.pageNumber,
+    sourceReference: item.sourceReference ?? base?.sourceReference,
+  })
+  return {
+    ...base,
+    ...(item.sourceReference ? { sourceReference: item.sourceReference } : {}),
+    ...(sourcePageUrl ? { sourcePageUrl } : {}),
+  }
+}
+
 function normalizeSearchText(text: string): string {
   return text.toLowerCase().replace(/\s+/g, ' ').trim()
 }

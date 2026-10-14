@@ -18,26 +18,7 @@ import {
 } from '../../types'
 import { metadataService } from '../../services/metadataService'
 import { getTags } from '../../../config/openapi'
-import { resolveSourcePageUrl } from '../../../lib/sourceReference'
-
-function provenanceMetadataFields(
-  item: { sourceReference?: string; pageNumber?: number },
-  base:
-    | { source?: string; comment?: string; sourceReference?: string }
-    | undefined,
-  reportS3Url?: string | null
-) {
-  const sourcePageUrl = resolveSourcePageUrl({
-    storagePdfUrl: reportS3Url,
-    pageNumber: item.pageNumber,
-    sourceReference: item.sourceReference ?? base?.sourceReference,
-  })
-  return {
-    ...base,
-    ...(item.sourceReference ? { sourceReference: item.sourceReference } : {}),
-    ...(sourcePageUrl ? { sourcePageUrl } : {}),
-  }
-}
+import { provenanceMetadataFields } from '../../../lib/sourceReference'
 
 export async function companyGoalsRoutes(app: FastifyInstance) {
   app.post(
