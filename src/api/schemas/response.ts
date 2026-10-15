@@ -288,6 +288,11 @@ export const GoalSchema = z.object({
   year: z.string().nullable().openapi({ description: 'Target year' }),
   baseYear: z.string().nullable().openapi({ description: 'Base year' }),
   target: z.number().nullable().openapi({ description: 'Target value' }),
+  reportId: z
+    .string()
+    .nullable()
+    .optional()
+    .openapi({ description: 'Registry report this goal was extracted from' }),
   metadata: ResponseMetadataSchema,
 })
 
@@ -300,6 +305,9 @@ export const InitiativeSchema = z.object({
     .openapi({ description: 'Initiative description' }),
   year: z.string().nullable().openapi({ description: 'Initiative year' }),
   scope: z.string().nullable().openapi({ description: 'Affected scopes' }),
+  reportId: z.string().nullable().optional().openapi({
+    description: 'Registry report this initiative was extracted from',
+  }),
   metadata: ResponseMetadataSchema,
 })
 

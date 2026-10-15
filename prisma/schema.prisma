@@ -399,9 +399,15 @@ model Goal {
   // For now, let's store them as strings, but in the future maybe use another representation.
   baseYear    String?
   companyId   String
+  /// Registry Report this goal was extracted from. Null = legacy/unspecified orphan (still company-scoped).
+  reportId    String?
 
   metadata Metadata[]
   company  Company    @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  report   Report?    @relation(fields: [reportId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+
+  @@index([reportId])
+  @@index([companyId, reportId])
 }
 
 model Initiative {
@@ -411,9 +417,15 @@ model Initiative {
   year        String?
   scope       String?
   companyId   String
+  /// Registry Report this initiative was extracted from. Null = legacy/unspecified orphan (still company-scoped).
+  reportId    String?
 
   company  Company    @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  report   Report?    @relation(fields: [reportId], references: [id], onDelete: SetNull, onUpdate: Cascade)
   metadata Metadata[]
+
+  @@index([reportId])
+  @@index([companyId, reportId])
 }
 
 /// Every datapoint has associated metadata about who changed it, when, and using what source
@@ -646,6 +658,8 @@ model Report {
   /// Pictures docling recovered from this report's PDF, persisted
   /// independently of any BullMQ job's returnvalue -- see RecoveredImage.
   recoveredImages      RecoveredImage[]
+  goals                Goal[]
+  initiatives          Initiative[]
 
   @@index([reportTypeId])
   @@index([batchId])

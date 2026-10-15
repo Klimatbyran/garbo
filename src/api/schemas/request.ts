@@ -98,11 +98,26 @@ export const reportingPeriodBodySchema = z
     message: 'startDate must be earlier than endDate',
   })
 
+/** Shared batch extras for POST /goals and POST /initiatives. */
+export const goalsInitiativesBatchExtrasSchema = z.object({
+  /** Registry Report.id applied to created rows (and to replace when flagged). */
+  reportId: z.string().optional(),
+  /**
+   * Pipeline-only: when true with reportId, delete unverified rows for that
+   * report before insert. Editor single-creates must leave this unset/false.
+   */
+  replaceUnverifiedForReport: z.boolean().optional(),
+  /** Storage PDF URL for deriving sourcePageUrl deep links. */
+  reportS3Url: z.string().optional().nullable(),
+})
+
 export const goalSchema = z.object({
   description: z.string(),
   year: z.string().optional(),
   target: z.number().optional(),
   baseYear: z.string().optional(),
+  reportId: z.string().optional().nullable(),
+  ...sourceReferenceFields,
 })
 
 export const postGoalSchema = z
@@ -115,6 +130,7 @@ export const postGoalsSchema = z
   .object({
     goals: z.array(goalSchema),
   })
+  .merge(goalsInitiativesBatchExtrasSchema)
   .merge(createMetadataSchema)
 
 export const initiativeSchema = z.object({
@@ -122,6 +138,8 @@ export const initiativeSchema = z.object({
   description: z.string().optional(),
   year: z.string().optional(),
   scope: z.string().optional(),
+  reportId: z.string().optional().nullable(),
+  ...sourceReferenceFields,
 })
 
 export const postInitiativeSchema = z
@@ -132,6 +150,7 @@ export const postInitiativesSchema = z
   .object({
     initiatives: z.array(initiativeSchema),
   })
+  .merge(goalsInitiativesBatchExtrasSchema)
   .merge(createMetadataSchema)
 
 export const industrySchema = z.object({

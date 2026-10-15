@@ -239,6 +239,7 @@ export const detailedCompanyArgs = {
         year: true,
         baseYear: true,
         target: true,
+        reportId: true,
         metadata: metadataArgs,
       },
       orderBy: {
@@ -252,6 +253,7 @@ export const detailedCompanyArgs = {
         description: true,
         year: true,
         scope: true,
+        reportId: true,
         metadata: metadataArgs,
       },
       orderBy: {

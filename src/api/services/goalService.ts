@@ -1,43 +1,97 @@
 import { Goal, Metadata } from '@prisma/client'
+import {
+  CreateWithReportOptions,
+  deleteUnverifiedForReport,
+  reportConnectCreate,
+  reportRelationUpdate,
+  resolveBatchReportId,
+  resolveItemReportId,
+  shouldReplaceUnverifiedForReport,
+} from '../../lib/goalInitiativeReport'
 import { prisma } from '../../lib/prisma'
 import { PostGoalBody, PostGoalsBody } from '../types'
 
+type GoalWriteFields = {
+  description: string
+  year?: string | null
+  target?: number | null
+  baseYear?: string | null
+}
+
+function goalDataFields(goal: GoalWriteFields) {
+  return {
+    description: goal.description,
+    year: goal.year,
+    target: goal.target,
+    baseYear: goal.baseYear,
+  }
+}
+
+export type CreateGoalsOptions = CreateWithReportOptions
+
 class GoalService {
-  // TODO(Klimatbyran/garbo#1333): createMetadata + goal.create should run in one $transaction.
   async createGoals(
     companyId: string,
     goals: PostGoalsBody['goals'],
-    createMetadata: () => Promise<Metadata>
+    createMetadata: (goal: PostGoalsBody['goals'][number]) => Promise<Metadata>,
+    reportId?: string | null,
+    options: CreateGoalsOptions = {}
   ) {
-    return Promise.all(
+    const batchReportId = resolveBatchReportId(reportId)
+    const replace = shouldReplaceUnverifiedForReport(options, batchReportId)
+
+    // Metadata rows first, then one transaction for delete+create so a failed
+    // insert cannot leave a wiped report with no replacement.
+    const prepared = await Promise.all(
       goals.map(async (goal) => {
-        const metadata = await createMetadata()
-        return prisma.goal.create({
-          data: {
-            ...goal,
-            description: goal.description,
-            company: {
-              connect: {
-                id: companyId,
-              },
-            },
-            metadata: {
-              connect: {
-                id: metadata.id,
-              },
-            },
-          },
-          select: { id: true },
-        })
+        const metadata = await createMetadata(goal)
+        const itemReportId = resolveItemReportId(goal.reportId, batchReportId)
+        return { goal, metadata, itemReportId }
       })
     )
+
+    return prisma.$transaction(async (tx) => {
+      if (replace && batchReportId) {
+        await deleteUnverifiedForReport(tx, {
+          companyId,
+          reportId: batchReportId,
+          entity: 'goal',
+        })
+      }
+
+      return Promise.all(
+        prepared.map(({ goal, metadata, itemReportId }) =>
+          tx.goal.create({
+            data: {
+              ...goalDataFields(goal),
+              company: { connect: { id: companyId } },
+              ...reportConnectCreate(itemReportId),
+              metadata: { connect: { id: metadata.id } },
+            },
+            select: { id: true },
+          })
+        )
+      )
+    })
   }
 
-  async updateGoal(id: Goal['id'], goal: PostGoalBody, metadata: Metadata) {
+  async updateGoal(
+    id: Goal['id'],
+    goal: PostGoalBody['goal'] & { reportId?: string | null },
+    metadata: Metadata
+  ) {
+    const {
+      reportId,
+      sourceReference: _sourceReference,
+      pageNumber: _pageNumber,
+      ...fields
+    } = goal
+
     return prisma.goal.update({
       where: { id },
       data: {
-        ...goal,
+        ...goalDataFields(fields),
+        ...reportRelationUpdate(reportId),
         metadata: {
           connect: {
             id: metadata.id,

@@ -18,6 +18,7 @@ import {
   PostInitiativesBody,
   CompanyInitiativeParams,
 } from '../../types'
+import { provenanceMetadataFields } from '../../../lib/sourceReference'
 
 export async function companyInitiativesRoutes(app: FastifyInstance) {
   app.post(
@@ -42,21 +43,41 @@ export async function companyInitiativesRoutes(app: FastifyInstance) {
       }>,
       reply
     ) => {
-      const { initiatives, metadata } = request.body
+      const {
+        initiatives,
+        metadata,
+        reportId,
+        reportS3Url,
+        verified,
+        replaceUnverifiedForReport,
+      } = request.body
 
-      if (initiatives?.length) {
+      const rows = initiatives ?? []
+      // Empty array + replace still needs the service so unverified
+      // same-report rows are cleared when re-extraction finds nothing.
+      const mustReplace =
+        Boolean(replaceUnverifiedForReport) && Boolean(reportId?.trim())
+
+      if (rows.length || mustReplace) {
         const { id } = request.params
 
         try {
           const company = await companyService.getCompanyByInternalId(id)
           await initiativeService.createInitiatives(
             company.id,
-            initiatives,
-            () =>
+            rows,
+            (initiative) =>
               metadataService.createMetadata({
-                metadata,
+                metadata: provenanceMetadataFields(
+                  initiative,
+                  metadata,
+                  reportS3Url
+                ),
                 user: request.user,
-              })
+                verified: Boolean(verified),
+              }),
+            reportId,
+            { replaceUnverifiedForReport }
           )
         } catch (error) {
           console.error('ERROR Creation of initiatives failed:', error)
@@ -92,10 +113,11 @@ export async function companyInitiativesRoutes(app: FastifyInstance) {
       reply
     ) => {
       const { initiativeId } = request.params
-      const { initiative, metadata } = request.body
+      const { initiative, metadata, verified } = request.body
       const createdMetadata = await metadataService.createMetadata({
-        metadata,
+        metadata: provenanceMetadataFields(initiative, metadata),
         user: request.user,
+        verified: Boolean(verified),
       })
 
       try {

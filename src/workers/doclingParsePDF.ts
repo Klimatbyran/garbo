@@ -989,7 +989,7 @@ async function pollTaskAndGetResult(
         }
       } else {
         job.log(
-          'Skipping persistImages -- no persisted report id (persistMarkdown failed above); keeping picture thumbnails in this job\'s own returnvalue as a fallback.'
+          "Skipping persistImages -- no persisted report id (persistMarkdown failed above); keeping picture thumbnails in this job's own returnvalue as a fallback."
         )
       }
     }
