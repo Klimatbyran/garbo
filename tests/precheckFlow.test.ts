@@ -2,7 +2,7 @@ import {
   EXTRACT_EMISSIONS_CHILD_QUEUES,
   PRECHECK_SIBLING_QUEUES,
 } from '../src/workers/precheckFlow'
-import { QUEUE_NAMES } from '../src/queues'
+import { QUEUE_NAMES } from '../src/queueNames'
 
 describe('precheck flow structure', () => {
   it('runs guessWikidata as a sibling of extractEmissions', () => {
