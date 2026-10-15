@@ -35,6 +35,7 @@
     "delete-report": "node --import tsx scripts/delete-report.ts",
     "dedupe:report-registry": "node --import dotenv/config --import tsx scripts/dedupe-report-registry.ts",
     "find-duplicate-companies": "node --import dotenv/config --import tsx scripts/find-duplicate-companies.ts",
+    "cleanup-empty-company-shells": "node --import dotenv/config --import tsx scripts/cleanup-empty-company-shells.ts",
     "backfill:report-runs": "node --import tsx scripts/backfill-report-runs-from-bullmq.ts",
     "eslint": "npx eslint src",
     "format": "npx prettier --write .",
