@@ -52,7 +52,13 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
         replaceUnverifiedForReport,
       } = request.body
 
-      if (goals?.length) {
+      const rows = goals ?? []
+      // Empty array + replace still needs the service so unverified
+      // same-report rows are cleared when re-extraction finds nothing.
+      const mustReplace =
+        Boolean(replaceUnverifiedForReport) && Boolean(reportId?.trim())
+
+      if (rows.length || mustReplace) {
         const { id } = request.params
         const user = request.user
 
@@ -60,7 +66,7 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
           const company = await companyService.getCompanyByInternalId(id)
           await goalService.createGoals(
             company.id,
-            goals,
+            rows,
             (goal) =>
               metadataService.createMetadata({
                 metadata: provenanceMetadataFields(goal, metadata, reportS3Url),

@@ -52,14 +52,20 @@ export async function companyInitiativesRoutes(app: FastifyInstance) {
         replaceUnverifiedForReport,
       } = request.body
 
-      if (initiatives?.length) {
+      const rows = initiatives ?? []
+      // Empty array + replace still needs the service so unverified
+      // same-report rows are cleared when re-extraction finds nothing.
+      const mustReplace =
+        Boolean(replaceUnverifiedForReport) && Boolean(reportId?.trim())
+
+      if (rows.length || mustReplace) {
         const { id } = request.params
 
         try {
           const company = await companyService.getCompanyByInternalId(id)
           await initiativeService.createInitiatives(
             company.id,
-            initiatives,
+            rows,
             (initiative) =>
               metadataService.createMetadata({
                 metadata: provenanceMetadataFields(
