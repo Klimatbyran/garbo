@@ -2,10 +2,12 @@ import { createBullBoard } from '@bull-board/api'
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter'
 import { FastifyAdapter } from '@bull-board/fastify'
 
-import { workers } from './workers'
+import { queues as pipelineQueues } from './queues'
 import apiConfig from './config/api'
 
-const queues = workers.map((worker) => worker.queue)
+const queues = Object.values(pipelineQueues).map(
+  (pipelineQueue) => pipelineQueue.queue
+)
 const serverAdapter = new FastifyAdapter()
 serverAdapter.setBasePath(apiConfig.bullBoardBasePath)
 

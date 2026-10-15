@@ -1,7 +1,8 @@
 import { workers } from './workers'
-import { QueueEvents, Queue } from 'bullmq'
+import { QueueEvents } from 'bullmq'
 import redis from './config/redis'
-import { QUEUE_NAMES } from './queues'
+import { QUEUE_NAMES } from './queueNames'
+import { getSharedQueue } from './lib/getSharedQueue'
 import { prisma } from './lib/prisma'
 import {
   resolveReportBatchDbId,
@@ -10,16 +11,12 @@ import {
   reportRunSyncFieldsFromJob,
   resolveRegistryReportIdForRun,
 } from './lib/reportRunPersistence'
-import { DEFAULT_PIPELINE_JOB_OPTIONS } from './lib/pipelineJobOptions'
 import { requestPipelineRunPrune } from './lib/pipelineApiPrune'
 import { archiveFieldsFromFollowUpReturnValue } from './lib/sourceReference'
 
 for (const queueName of Object.values(QUEUE_NAMES)) {
   const queueEvents = new QueueEvents(queueName, { connection: redis })
-  const queue = new Queue(queueName, {
-    connection: redis,
-    defaultJobOptions: DEFAULT_PIPELINE_JOB_OPTIONS,
-  })
+  const queue = getSharedQueue(queueName)
 
   const saveRun = async (
     jobId: string,

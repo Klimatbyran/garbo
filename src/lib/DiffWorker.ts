@@ -1,5 +1,5 @@
 import { PipelineJob, PipelineWorker } from './PipelineWorker'
-import { Job, Queue, WorkerOptions } from 'bullmq'
+import { Job, WorkerOptions } from 'bullmq'
 import redis from '../config/redis'
 import saveToAPI from '../workers/saveToAPI'
 import { canonicalPublicReportUrl, defaultMetadata } from './saveUtils'
@@ -178,18 +178,15 @@ function addCustomMethods(job: DiffJob) {
 }
 
 export class DiffWorker<T extends DiffJob> extends PipelineWorker<DiffJob> {
-  queue: Queue
   constructor(
     name: string,
     callback: (job: T) => unknown,
     options?: WorkerOptions
   ) {
     super(name, (job: T) => callback(addCustomMethods(job) as T), {
-      connection: redis,
       concurrency: 3,
       ...options,
+      connection: redis,
     })
-
-    this.queue = new Queue(name, { connection: redis })
   }
 }
