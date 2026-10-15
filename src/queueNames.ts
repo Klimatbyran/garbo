@@ -37,3 +37,5 @@ export const QUEUE_NAMES = {
   FOLLOW_UP_REPORTING_QUALITY: 'followUpReportingQuality',
   DIFF_REPORTING_QUALITY: 'diffReportingQuality',
 }
+
+export const PIPELINE_AUTO_RUN_QUEUE = 'pipelineAutoRun'

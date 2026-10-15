@@ -3,8 +3,9 @@ import redis from '../config/redis'
 import { runPipelineAutoRunTick } from '../api/services/pipelineAutoRunService'
 import { withPipelineJobOpts } from '../lib/pipelineJobOptions'
 import { getSharedQueue } from '../lib/getSharedQueue'
+import { PIPELINE_AUTO_RUN_QUEUE } from '../queueNames'
 
-export const PIPELINE_AUTO_RUN_QUEUE = 'pipelineAutoRun'
+export { PIPELINE_AUTO_RUN_QUEUE }
 const REPEAT_EVERY_MS = 60_000
 
 const queue = getSharedQueue(
