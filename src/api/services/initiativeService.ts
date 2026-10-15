@@ -1,4 +1,13 @@
-import { Initiative, Metadata, Prisma } from '@prisma/client'
+import { Initiative, Metadata } from '@prisma/client'
+import {
+  CreateWithReportOptions,
+  deleteUnverifiedForReport,
+  reportConnectCreate,
+  reportRelationUpdate,
+  resolveBatchReportId,
+  resolveItemReportId,
+  shouldReplaceUnverifiedForReport,
+} from '../../lib/goalInitiativeReport'
 import { prisma } from '../../lib/prisma'
 import { PostInitiativeBody, PostInitiativesBody } from '../types'
 
@@ -18,13 +27,7 @@ function initiativeDataFields(initiative: InitiativeWriteFields) {
   }
 }
 
-export type CreateInitiativesOptions = {
-  /**
-   * When true with a reportId, delete unverified initiatives for that report
-   * before inserting. Pipeline bulk save sets this; editor single-creates must not.
-   */
-  replaceUnverifiedForReport?: boolean
-}
+export type CreateInitiativesOptions = CreateWithReportOptions
 
 class InitiativeService {
   async createInitiatives(
@@ -36,43 +39,27 @@ class InitiativeService {
     reportId?: string | null,
     options: CreateInitiativesOptions = {}
   ) {
-    const batchReportId = reportId?.trim() || null
-    const replace =
-      Boolean(options.replaceUnverifiedForReport) && Boolean(batchReportId)
+    const batchReportId = resolveBatchReportId(reportId)
+    const replace = shouldReplaceUnverifiedForReport(options, batchReportId)
 
     const prepared = await Promise.all(
       initiatives.map(async (initiative) => {
         const metadata = await createMetadata(initiative)
-        const itemReportId =
-          (typeof initiative.reportId === 'string' &&
-            initiative.reportId.trim()) ||
+        const itemReportId = resolveItemReportId(
+          initiative.reportId,
           batchReportId
+        )
         return { initiative, metadata, itemReportId }
       })
     )
 
     return prisma.$transaction(async (tx) => {
       if (replace && batchReportId) {
-        const existing = await tx.initiative.findMany({
-          where: { companyId, reportId: batchReportId },
-          select: {
-            id: true,
-            metadata: {
-              orderBy: { updatedAt: 'desc' },
-              take: 1,
-              select: { verifiedByUserId: true },
-            },
-          },
+        await deleteUnverifiedForReport(tx, {
+          companyId,
+          reportId: batchReportId,
+          entity: 'initiative',
         })
-        const ids = existing
-          .filter((row) => !row.metadata[0]?.verifiedByUserId)
-          .map((row) => row.id)
-        if (ids.length) {
-          await tx.metadata.deleteMany({
-            where: { initiativeId: { in: ids } },
-          })
-          await tx.initiative.deleteMany({ where: { id: { in: ids } } })
-        }
       }
 
       return Promise.all(
@@ -81,9 +68,7 @@ class InitiativeService {
             data: {
               ...initiativeDataFields(initiative),
               company: { connect: { id: companyId } },
-              ...(itemReportId
-                ? { report: { connect: { id: itemReportId } } }
-                : {}),
+              ...reportConnectCreate(itemReportId),
               metadata: { connect: { id: metadata.id } },
             },
             select: { id: true },
@@ -107,18 +92,11 @@ class InitiativeService {
       ...fields
     } = initiative
 
-    const reportConnect: Prisma.InitiativeUpdateInput =
-      reportId === undefined
-        ? {}
-        : reportId === null || reportId === ''
-          ? { report: { disconnect: true } }
-          : { report: { connect: { id: reportId } } }
-
     return prisma.initiative.update({
       where: { id },
       data: {
         ...initiativeDataFields(fields),
-        ...reportConnect,
+        ...reportRelationUpdate(reportId),
         metadata: {
           connect: {
             id: metadata.id,

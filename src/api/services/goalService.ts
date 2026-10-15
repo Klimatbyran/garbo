@@ -1,4 +1,13 @@
-import { Goal, Metadata, Prisma } from '@prisma/client'
+import { Goal, Metadata } from '@prisma/client'
+import {
+  CreateWithReportOptions,
+  deleteUnverifiedForReport,
+  reportConnectCreate,
+  reportRelationUpdate,
+  resolveBatchReportId,
+  resolveItemReportId,
+  shouldReplaceUnverifiedForReport,
+} from '../../lib/goalInitiativeReport'
 import { prisma } from '../../lib/prisma'
 import { PostGoalBody, PostGoalsBody } from '../types'
 
@@ -18,13 +27,7 @@ function goalDataFields(goal: GoalWriteFields) {
   }
 }
 
-export type CreateGoalsOptions = {
-  /**
-   * When true with a reportId, delete unverified goals for that report before
-   * inserting. Pipeline bulk save sets this; editor single-creates must not.
-   */
-  replaceUnverifiedForReport?: boolean
-}
+export type CreateGoalsOptions = CreateWithReportOptions
 
 class GoalService {
   async createGoals(
@@ -34,42 +37,26 @@ class GoalService {
     reportId?: string | null,
     options: CreateGoalsOptions = {}
   ) {
-    const batchReportId = reportId?.trim() || null
-    const replace =
-      Boolean(options.replaceUnverifiedForReport) && Boolean(batchReportId)
+    const batchReportId = resolveBatchReportId(reportId)
+    const replace = shouldReplaceUnverifiedForReport(options, batchReportId)
 
     // Metadata rows first, then one transaction for delete+create so a failed
     // insert cannot leave a wiped report with no replacement.
     const prepared = await Promise.all(
       goals.map(async (goal) => {
         const metadata = await createMetadata(goal)
-        const itemReportId =
-          (typeof goal.reportId === 'string' && goal.reportId.trim()) ||
-          batchReportId
+        const itemReportId = resolveItemReportId(goal.reportId, batchReportId)
         return { goal, metadata, itemReportId }
       })
     )
 
     return prisma.$transaction(async (tx) => {
       if (replace && batchReportId) {
-        const existing = await tx.goal.findMany({
-          where: { companyId, reportId: batchReportId },
-          select: {
-            id: true,
-            metadata: {
-              orderBy: { updatedAt: 'desc' },
-              take: 1,
-              select: { verifiedByUserId: true },
-            },
-          },
+        await deleteUnverifiedForReport(tx, {
+          companyId,
+          reportId: batchReportId,
+          entity: 'goal',
         })
-        const ids = existing
-          .filter((row) => !row.metadata[0]?.verifiedByUserId)
-          .map((row) => row.id)
-        if (ids.length) {
-          await tx.metadata.deleteMany({ where: { goalId: { in: ids } } })
-          await tx.goal.deleteMany({ where: { id: { in: ids } } })
-        }
       }
 
       return Promise.all(
@@ -78,9 +65,7 @@ class GoalService {
             data: {
               ...goalDataFields(goal),
               company: { connect: { id: companyId } },
-              ...(itemReportId
-                ? { report: { connect: { id: itemReportId } } }
-                : {}),
+              ...reportConnectCreate(itemReportId),
               metadata: { connect: { id: metadata.id } },
             },
             select: { id: true },
@@ -102,18 +87,11 @@ class GoalService {
       ...fields
     } = goal
 
-    const reportConnect: Prisma.GoalUpdateInput =
-      reportId === undefined
-        ? {}
-        : reportId === null || reportId === ''
-          ? { report: { disconnect: true } }
-          : { report: { connect: { id: reportId } } }
-
     return prisma.goal.update({
       where: { id },
       data: {
         ...goalDataFields(fields),
-        ...reportConnect,
+        ...reportRelationUpdate(reportId),
         metadata: {
           connect: {
             id: metadata.id,
