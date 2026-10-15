@@ -1,4 +1,4 @@
-import { QUEUE_NAMES } from '../queues'
+import { QUEUE_NAMES } from '../queueNames'
 
 /** BullMQ queues spawned from precheck — contract tested in precheckFlow.test.ts */
 export const PRECHECK_SIBLING_QUEUES = [

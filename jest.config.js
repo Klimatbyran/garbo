@@ -2,6 +2,9 @@ export default {
   preset: 'ts-jest',
   testEnvironment: 'node',
   setupFiles: ['<rootDir>/jest.env-setup.cjs'],
+  // BullMQ/ioredis reconnect timers can keep the process alive after suites
+  // finish; exit so CI cannot burn the 6h job limit on open handles.
+  forceExit: true,
   // Live Wikidata search specs need WIKIDATA_LIVE_TESTS=smoke|regular|fringe|all
   testPathIgnorePatterns: process.env.WIKIDATA_LIVE_TESTS
     ? []

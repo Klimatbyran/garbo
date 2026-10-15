@@ -1,7 +1,10 @@
 import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { enqueueSaveToAPIWithParentFallback } from '../lib/DiffWorker'
-import { QUEUE_NAMES } from '../queues'
+import { QUEUE_NAMES } from '../queueNames'
 import { apiFetch } from '../lib/api'
+import { registryReportTypeChanged } from './diffReportType.utils'
+
+export { registryReportTypeChanged }
 
 export class DiffReportTypeJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
@@ -19,13 +22,6 @@ async function resolveReportTypeId(slug: string): Promise<string | null> {
     (option: { id?: string; slug?: string }) => option.slug === slug
   )
   return match?.id ?? null
-}
-
-export function registryReportTypeChanged(
-  existingReportTypeId: string | null,
-  reportTypeId: string
-): boolean {
-  return existingReportTypeId !== reportTypeId
 }
 
 const diffReportType = new PipelineWorker<DiffReportTypeJob>(

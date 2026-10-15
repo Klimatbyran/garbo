@@ -1,8 +1,9 @@
 # PR checks: tests, type-check, lint, format, and audit.
-# Runs on every PR and push to main. Visible in the PR, but only require the
-# checks you want to block merges (Tests, Type Check, Lint, Format) in branch
-# protection — leave "Audit" optional so vulnerabilities are visible but
-# don't block merging.
+# Runs on non-draft PRs only (not on merge to main — merge already requires
+# green checks). Visible in the PR, but only require the checks you want to
+# block merges (Tests, Type Check, Lint, Format) in branch protection — leave
+# "Audit" optional so vulnerabilities are visible but don't block merging.
+# Draft PRs skip all jobs (saves Actions minutes); converting to ready re-runs.
 
 name: CI Pre-Checks (Non-blocking)
 
@@ -11,13 +12,18 @@ permissions:
 
 on:
   pull_request:
-  push:
-    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   tests:
     name: Tests
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -43,7 +49,9 @@ jobs:
 
   type-check:
     name: Type Check
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -69,7 +77,9 @@ jobs:
 
   lint:
     name: Lint
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -95,7 +105,9 @@ jobs:
 
   format:
     name: Format
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -123,7 +135,9 @@ jobs:
   # protection so it does not block merges.
   audit:
     name: Audit
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

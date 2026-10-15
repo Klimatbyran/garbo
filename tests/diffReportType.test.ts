@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@jest/globals'
-import { registryReportTypeChanged } from '../src/workers/diffReportType.js'
+import { registryReportTypeChanged } from '../src/workers/diffReportType.utils'
 
 describe('registryReportTypeChanged', () => {
   it('returns true when setting a type on an untyped report', () => {
