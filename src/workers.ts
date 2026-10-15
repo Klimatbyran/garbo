@@ -1,11 +1,6 @@
-import { Queue } from 'bullmq'
 import fs from 'fs'
-import redis from './config/redis'
-
-const options = { connection: redis }
 
 export const workers = getWorkerFiles('src/workers').map((file) => {
-  // Replace slashes with underscores and remove .ts extension
   let name = file.replace(/\.ts$/, '').replace(/\//g, '_')
 
   if (name.includes('_')) {
@@ -19,7 +14,6 @@ export const workers = getWorkerFiles('src/workers').map((file) => {
 
   return {
     name,
-    queue: new Queue(name, options),
     run: async () => {
       await import(`./workers/${file}`)
       return file.replace(/\.ts$/, '')

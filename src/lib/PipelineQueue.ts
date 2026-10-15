@@ -1,6 +1,5 @@
 import { JobsOptions, Queue, QueueOptions } from 'bullmq'
-import redis from '../config/redis'
-import { DEFAULT_PIPELINE_JOB_OPTIONS } from './pipelineJobOptions'
+import { getSharedQueue } from './getSharedQueue'
 
 export type PipelineJobData = {
   url: string
@@ -13,12 +12,8 @@ export type PipelineJobData = {
 export class PipelineQueue {
   queue: Queue
 
-  constructor(name: string, options?: QueueOptions) {
-    this.queue = new Queue(name, {
-      connection: redis,
-      defaultJobOptions: DEFAULT_PIPELINE_JOB_OPTIONS,
-      ...options,
-    })
+  constructor(name: string, _options?: QueueOptions) {
+    this.queue = getSharedQueue(name)
   }
 
   async add(name: string, data: PipelineJobData, options?: JobsOptions) {
@@ -26,6 +21,6 @@ export class PipelineQueue {
   }
 
   async close() {
-    return this.queue.close()
+    // Process-wide shared client; closing it would disconnect every user of this name.
   }
 }

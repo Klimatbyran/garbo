@@ -1,18 +1,20 @@
-import { Worker, Queue } from 'bullmq'
+import { Worker } from 'bullmq'
 import redis from '../config/redis'
 import { runPipelineAutoRunTick } from '../api/services/pipelineAutoRunService'
 import { withPipelineJobOpts } from '../lib/pipelineJobOptions'
+import { getSharedQueue } from '../lib/getSharedQueue'
+import { PIPELINE_AUTO_RUN_QUEUE } from '../queueNames'
 
-export const PIPELINE_AUTO_RUN_QUEUE = 'pipelineAutoRun'
+export { PIPELINE_AUTO_RUN_QUEUE }
 const REPEAT_EVERY_MS = 60_000
 
-const queue = new Queue(PIPELINE_AUTO_RUN_QUEUE, {
-  connection: redis,
-  defaultJobOptions: withPipelineJobOpts({
+const queue = getSharedQueue(
+  PIPELINE_AUTO_RUN_QUEUE,
+  withPipelineJobOpts({
     removeOnComplete: { count: 20 },
     removeOnFail: { count: 50 },
-  }),
-})
+  })
+)
 
 const worker = new Worker(
   PIPELINE_AUTO_RUN_QUEUE,

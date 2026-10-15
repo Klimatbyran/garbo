@@ -12,9 +12,9 @@ import {
   countAttachedPageNumbers,
   formatPageProvenanceLog,
 } from './pageProvenanceLog'
-import { Queue } from 'bullmq'
-import redis from '../config/redis'
 import { z } from 'zod'
+import { WorkerOptions } from 'bullmq'
+import redis from '../config/redis'
 import { FollowUpType } from '../types'
 
 export class FollowUpJob extends PipelineJob {
@@ -157,18 +157,15 @@ function addCustomMethods(job: FollowUpJob) {
 export class FollowUpWorker<
   T extends FollowUpJob,
 > extends PipelineWorker<FollowUpJob> {
-  queue: Queue
   constructor(
     name: string,
     callback: (job: T) => any,
     options?: WorkerOptions
   ) {
     super(name, (job: T) => callback(addCustomMethods(job) as T), {
-      connection: redis,
       concurrency: 1,
       ...options,
+      connection: redis,
     })
-
-    this.queue = new Queue(name, { connection: redis })
   }
 }
