@@ -286,23 +286,30 @@ export const MinimalIndustrySchema = z.object({
   metadata: ResponseMinimalMetadataSchema,
 })
 
+/** Partner/public company goals. Keep stable — classification lives on InternalGoalSchema. */
 export const GoalSchema = z.object({
   id: z.string(),
-  description: z.string().openapi({
-    description: 'AI-written Swedish summary of the goal, not a quote',
-  }),
+  description: z.string().openapi({ description: 'Goal description' }),
+  year: z.string().nullable().openapi({ description: 'Target year' }),
+  baseYear: z.string().nullable().openapi({ description: 'Base year' }),
+  target: z.number().nullable().openapi({ description: 'Target value' }),
+  reportId: z
+    .string()
+    .nullable()
+    .optional()
+    .openapi({ description: 'Registry report this goal was extracted from' }),
+  metadata: ResponseMetadataSchema,
+})
+
+/**
+ * Staff/pipeline only. Partner company details stay on GoalSchema.
+ * New columns are nullable so goals saved before classification still validate.
+ */
+export const InternalGoalSchema = GoalSchema.extend({
   originalQuote: z.string().nullable().openapi({
     description:
       "Verbatim sentence(s) stating the goal, in the report's original language",
   }),
-  year: z
-    .string()
-    .nullable()
-    .openapi({ description: 'Year by which the goal is to be reached' }),
-  baseYear: z
-    .string()
-    .nullable()
-    .openapi({ description: 'Year this goal is measured from' }),
   baseYearSource: goalBaseYearSourceSchema.nullable().openapi({
     description:
       'How baseYear was found: stated with the goal, the company base year the goal refers to, the report year for goals counted "from now", or not stated',
@@ -313,10 +320,6 @@ export const GoalSchema = z.object({
   targetDirection: goalTargetDirectionSchema.nullable().openapi({
     description:
       'Whether target is the amount reduced BY, or the absolute level to REACH',
-  }),
-  target: z.number().nullable().openapi({
-    description:
-      'Goal size; read together with targetDirection and unit, e.g. 60 (%) reduced by, or 50000 (tCO2e) level to reach',
   }),
   unit: z.string().nullable().openapi({
     description: 'Unit of target; canonical "%" or "tCO2e" where possible',
@@ -332,12 +335,6 @@ export const GoalSchema = z.object({
     .boolean()
     .nullable()
     .openapi({ description: 'Whether the report labels it an SBTi target' }),
-  reportId: z
-    .string()
-    .nullable()
-    .optional()
-    .openapi({ description: 'Registry report this goal was extracted from' }),
-  metadata: ResponseMetadataSchema,
 })
 
 export const InitiativeSchema = z.object({
@@ -581,7 +578,7 @@ export const RegistryReportSchema = z.object({
 export const RegistryList = z.array(RegistryReportSchema)
 
 export const CompanyDetails = CompanyBase.extend({
-  goals: z.array(GoalSchema).nullable(),
+  goals: z.array(InternalGoalSchema).nullable(),
   initiatives: z.array(InitiativeSchema).nullable(),
 })
 
