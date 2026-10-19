@@ -266,6 +266,28 @@ export const detailedCompanyArgs = {
   },
 } satisfies Prisma.CompanyDefaultArgs
 
+/**
+ * Goal columns for staff/pipeline reads. Partner detail stays on
+ * `detailedCompanyArgs`, which does not select these classification fields.
+ */
+const internalGoalSelect = {
+  id: true,
+  description: true,
+  originalQuote: true,
+  year: true,
+  baseYear: true,
+  baseYearSource: true,
+  targetType: true,
+  target: true,
+  unit: true,
+  intensityMetric: true,
+  targetDirection: true,
+  horizon: true,
+  isSbtiTarget: true,
+  reportId: true,
+  metadata: metadataArgs,
+} as const
+
 /** Staff/pipeline company detail — includes identifiers (not on partner reads). */
 export const pipelineCompanyDetailArgs = {
   select: {
@@ -276,6 +298,13 @@ export const pipelineCompanyDetailArgs = {
         type: true,
         value: true,
         metadata: metadataArgs,
+      },
+    },
+    // Internal-only: goal classification (not on Partner/public detail).
+    goals: {
+      select: internalGoalSelect,
+      orderBy: {
+        year: 'desc' as const,
       },
     },
   },

@@ -1,3 +1,10 @@
+import type {
+  GoalBaseYearSource,
+  GoalHorizon,
+  GoalTargetDirection,
+  GoalTargetType,
+} from '@prisma/client'
+
 export enum FollowUpType {
   IndustryGics = 'followUp/industryGics',
   Scope1 = 'followUp/scope1',
@@ -76,9 +83,17 @@ export interface ReportingPeriod {
 
 export interface Goal {
   description: string
-  year?: string
-  target?: number
-  baseYear?: string
+  originalQuote?: string | null
+  year?: string | null
+  targetType?: GoalTargetType | null
+  targetDirection?: GoalTargetDirection | null
+  target?: number | null
+  unit?: string | null
+  intensityMetric?: string | null
+  horizon?: GoalHorizon | null
+  isSbtiTarget?: boolean | null
+  baseYear?: string | null
+  baseYearSource?: GoalBaseYearSource | null
 }
 
 export interface Industry {

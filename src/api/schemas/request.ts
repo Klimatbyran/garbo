@@ -2,6 +2,10 @@ import { z } from 'zod'
 import {
   emissionUnitSchemaWithDefault,
   emissionUnitSchemaGarbo,
+  goalBaseYearSourceSchema,
+  goalHorizonSchema,
+  goalTargetDirectionSchema,
+  goalTargetTypeSchema,
   wikidataIdSchema,
 } from './common'
 import { sourceReferenceFields } from '../../lib/sourceReferenceSchema'
@@ -113,9 +117,17 @@ export const goalsInitiativesBatchExtrasSchema = z.object({
 
 export const goalSchema = z.object({
   description: z.string(),
-  year: z.string().optional(),
-  target: z.number().optional(),
-  baseYear: z.string().optional(),
+  originalQuote: z.string().nullable().optional(),
+  year: z.string().nullable().optional(),
+  targetType: goalTargetTypeSchema.nullable().optional(),
+  targetDirection: goalTargetDirectionSchema.nullable().optional(),
+  target: z.number().nullable().optional(),
+  unit: z.string().nullable().optional(),
+  intensityMetric: z.string().nullable().optional(),
+  horizon: goalHorizonSchema.nullable().optional(),
+  isSbtiTarget: z.boolean().nullable().optional(),
+  baseYear: z.string().nullable().optional(),
+  baseYearSource: goalBaseYearSourceSchema.nullable().optional(),
   reportId: z.string().optional().nullable(),
   ...sourceReferenceFields,
 })

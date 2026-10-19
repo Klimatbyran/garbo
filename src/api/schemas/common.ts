@@ -74,3 +74,22 @@ export const emissionUnitSchemaGarbo = validEmissionsUnits.nullable()
 
 export const emissionUnitSchemaWithDefault =
   validEmissionsUnits.default('tCO2e')
+
+export const goalTargetTypeSchema = z.enum([
+  'ABSOLUTE',
+  'INTENSITY',
+  'NET_ZERO',
+  'CLIMATE_NEUTRAL',
+  'OTHER',
+])
+
+export const goalHorizonSchema = z.enum(['NEAR_TERM', 'LONG_TERM'])
+
+export const goalTargetDirectionSchema = z.enum(['REDUCE_BY', 'REACH_LEVEL'])
+
+export const goalBaseYearSourceSchema = z.enum([
+  'STATED_FOR_GOAL',
+  'COMPANY_BASE_YEAR',
+  'REPORT_YEAR',
+  'NOT_STATED',
+])

@@ -659,9 +659,17 @@ The job returns the three properties `body`, `diff` and `requiresapproval`. The 
     },
     goals: {
       description: string,
-      year?: string,
+      originalQuote?: string,
+      targetType?: 'ABSOLUTE' | 'INTENSITY' | 'NET_ZERO' | 'CLIMATE_NEUTRAL' | 'OTHER',
+      targetDirection?: 'REDUCE_BY' | 'REACH_LEVEL',
       target?: number,
+      unit?: string,
+      intensityMetric?: string,
+      horizon?: 'NEAR_TERM' | 'LONG_TERM', // computed from baseYear and year, not extracted
+      isSbtiTarget?: boolean,
+      year?: string,
       baseYear?: string,
+      baseYearSource?: 'STATED_FOR_GOAL' | 'COMPANY_BASE_YEAR' | 'REPORT_YEAR' | 'NOT_STATED',
     }
 }
 ```
@@ -1081,9 +1089,17 @@ fiscalYear: {
 goals: [
     {
         description: string,
-        year?: string,
+        originalQuote?: string,
+        targetType?: 'ABSOLUTE' | 'INTENSITY' | 'NET_ZERO' | 'CLIMATE_NEUTRAL' | 'OTHER',
+        targetDirection?: 'REDUCE_BY' | 'REACH_LEVEL',
         target?: number,
-        baseYear?: string
+        unit?: string,
+        intensityMetric?: string,
+        horizon?: 'NEAR_TERM' | 'LONG_TERM', // computed from baseYear and year, not extracted
+        isSbtiTarget?: boolean,
+        year?: string,
+        baseYear?: string,
+        baseYearSource?: 'STATED_FOR_GOAL' | 'COMPANY_BASE_YEAR' | 'REPORT_YEAR' | 'NOT_STATED'
     }
 ]
 ```

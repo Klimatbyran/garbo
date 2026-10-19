@@ -388,19 +388,60 @@ model Employees {
   notes    DatapointNote[]
 }
 
+enum GoalTargetType {
+  ABSOLUTE
+  INTENSITY
+  NET_ZERO
+  CLIMATE_NEUTRAL
+  OTHER
+}
+
+enum GoalHorizon {
+  NEAR_TERM
+  LONG_TERM
+}
+
+enum GoalTargetDirection {
+  REDUCE_BY
+  REACH_LEVEL
+}
+
+enum GoalBaseYearSource {
+  STATED_FOR_GOAL
+  COMPANY_BASE_YEAR
+  REPORT_YEAR
+  NOT_STATED
+}
+
 model Goal {
-  id          String  @id @default(cuid())
-  description String
-  year        String?
-  target      Float?
+  id              String               @id @default(cuid())
+  /// AI-written Swedish summary of the goal, not a quote
+  description     String
+  /// Verbatim sentence(s) stating the goal, copied from the report in its original language
+  originalQuote   String?
+  year            String?
+  targetType      GoalTargetType?
+  /// Whether target is the amount reduced BY (e.g. 60 for "minska med 60 %") or the absolute level to REACH (e.g. 50000 for "högst 50 000 ton")
+  targetDirection GoalTargetDirection?
+  target          Float?
+  /// Canonical "%" or "tCO2e" where possible; other units kept as written
+  unit            String?
+  /// Denominator of INTENSITY goals, e.g. "per fordonskilometer"
+  intensityMetric String?
+  /// Computed by the pipeline from targetType and the span from baseYear to year, not extracted
+  horizon         GoalHorizon?
+  isSbtiTarget    Boolean?
   // TODO: Maybe reference ReportingPeriod instead
   // However, baseYears for goals might be different than other reporting periods for the company.
   // Thus, we in some cases need to reference something else than the reporting periods
   // For now, let's store them as strings, but in the future maybe use another representation.
-  baseYear    String?
-  companyId   String
+  /// The year this goal is measured from -- NOT the company's general emissions-accounting base year, if those differ
+  baseYear        String?
+  /// How baseYear was found; SBTi goals only ever use STATED_FOR_GOAL or NOT_STATED
+  baseYearSource  GoalBaseYearSource?
+  companyId       String
   /// Registry Report this goal was extracted from. Null = legacy/unspecified orphan (still company-scoped).
-  reportId    String?
+  reportId        String?
 
   metadata Metadata[]
   company  Company    @relation(fields: [companyId], references: [id], onDelete: Cascade)

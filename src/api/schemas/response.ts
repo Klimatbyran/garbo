@@ -3,6 +3,10 @@ import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi'
 import {
   companyIdSchema,
   emissionUnitSchemaGarbo,
+  goalBaseYearSourceSchema,
+  goalHorizonSchema,
+  goalTargetDirectionSchema,
+  goalTargetTypeSchema,
   wikidataIdSchema,
 } from './common'
 
@@ -282,6 +286,7 @@ export const MinimalIndustrySchema = z.object({
   metadata: ResponseMinimalMetadataSchema,
 })
 
+/** Partner/public company goals. Keep stable — classification lives on InternalGoalSchema. */
 export const GoalSchema = z.object({
   id: z.string(),
   description: z.string().openapi({ description: 'Goal description' }),
@@ -294,6 +299,42 @@ export const GoalSchema = z.object({
     .optional()
     .openapi({ description: 'Registry report this goal was extracted from' }),
   metadata: ResponseMetadataSchema,
+})
+
+/**
+ * Staff/pipeline only. Partner company details stay on GoalSchema.
+ * New columns are nullable so goals saved before classification still validate.
+ */
+export const InternalGoalSchema = GoalSchema.extend({
+  originalQuote: z.string().nullable().openapi({
+    description:
+      "Verbatim sentence(s) stating the goal, in the report's original language",
+  }),
+  baseYearSource: goalBaseYearSourceSchema.nullable().openapi({
+    description:
+      'How baseYear was found: stated with the goal, the company base year the goal refers to, the report year for goals counted "from now", or not stated',
+  }),
+  targetType: goalTargetTypeSchema
+    .nullable()
+    .openapi({ description: 'Kind of goal' }),
+  targetDirection: goalTargetDirectionSchema.nullable().openapi({
+    description:
+      'Whether target is the amount reduced BY, or the absolute level to REACH',
+  }),
+  unit: z.string().nullable().openapi({
+    description: 'Unit of target; canonical "%" or "tCO2e" where possible',
+  }),
+  intensityMetric: z.string().nullable().openapi({
+    description: 'Denominator of INTENSITY goals, e.g. "per fordonskilometer"',
+  }),
+  horizon: goalHorizonSchema.nullable().openapi({
+    description:
+      'Near-term (at most 10 years from baseYear to target year) or long-term; net zero and climate neutral goals are always long-term. null if baseYear or year is missing',
+  }),
+  isSbtiTarget: z
+    .boolean()
+    .nullable()
+    .openapi({ description: 'Whether the report labels it an SBTi target' }),
 })
 
 export const InitiativeSchema = z.object({
@@ -537,7 +578,7 @@ export const RegistryReportSchema = z.object({
 export const RegistryList = z.array(RegistryReportSchema)
 
 export const CompanyDetails = CompanyBase.extend({
-  goals: z.array(GoalSchema).nullable(),
+  goals: z.array(InternalGoalSchema).nullable(),
   initiatives: z.array(InitiativeSchema).nullable(),
 })
 
