@@ -3,6 +3,10 @@ import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi'
 import {
   companyIdSchema,
   emissionUnitSchemaGarbo,
+  goalBaseYearSourceSchema,
+  goalHorizonSchema,
+  goalTargetDirectionSchema,
+  goalTargetTypeSchema,
   wikidataIdSchema,
 } from './common'
 
@@ -284,10 +288,50 @@ export const MinimalIndustrySchema = z.object({
 
 export const GoalSchema = z.object({
   id: z.string(),
-  description: z.string().openapi({ description: 'Goal description' }),
-  year: z.string().nullable().openapi({ description: 'Target year' }),
-  baseYear: z.string().nullable().openapi({ description: 'Base year' }),
-  target: z.number().nullable().openapi({ description: 'Target value' }),
+  description: z.string().openapi({
+    description: 'AI-written Swedish summary of the goal, not a quote',
+  }),
+  originalQuote: z.string().nullable().openapi({
+    description:
+      "Verbatim sentence(s) stating the goal, in the report's original language",
+  }),
+  year: z
+    .string()
+    .nullable()
+    .openapi({ description: 'Year by which the goal is to be reached' }),
+  baseYear: z
+    .string()
+    .nullable()
+    .openapi({ description: 'Year this goal is measured from' }),
+  baseYearSource: goalBaseYearSourceSchema.nullable().openapi({
+    description:
+      'How baseYear was found: stated with the goal, the company base year the goal refers to, the report year for goals counted "from now", or not stated',
+  }),
+  targetType: goalTargetTypeSchema
+    .nullable()
+    .openapi({ description: 'Kind of goal' }),
+  targetDirection: goalTargetDirectionSchema.nullable().openapi({
+    description:
+      'Whether target is the amount reduced BY, or the absolute level to REACH',
+  }),
+  target: z.number().nullable().openapi({
+    description:
+      'Goal size; read together with targetDirection and unit, e.g. 60 (%) reduced by, or 50000 (tCO2e) level to reach',
+  }),
+  unit: z.string().nullable().openapi({
+    description: 'Unit of target; canonical "%" or "tCO2e" where possible',
+  }),
+  intensityMetric: z.string().nullable().openapi({
+    description: 'Denominator of INTENSITY goals, e.g. "per fordonskilometer"',
+  }),
+  horizon: goalHorizonSchema.nullable().openapi({
+    description:
+      'Near-term (at most 10 years from baseYear to target year) or long-term; net zero and climate neutral goals are always long-term. null if baseYear or year is missing',
+  }),
+  isSbtiTarget: z
+    .boolean()
+    .nullable()
+    .openapi({ description: 'Whether the report labels it an SBTi target' }),
   reportId: z
     .string()
     .nullable()

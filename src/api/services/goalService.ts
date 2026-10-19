@@ -11,19 +11,20 @@ import {
 import { prisma } from '../../lib/prisma'
 import { PostGoalBody, PostGoalsBody } from '../types'
 
-type GoalWriteFields = {
-  description: string
-  year?: string | null
-  target?: number | null
-  baseYear?: string | null
-}
-
-function goalDataFields(goal: GoalWriteFields) {
+function goalDataFields(goal: PostGoalsBody['goals'][number]) {
   return {
     description: goal.description,
+    originalQuote: goal.originalQuote,
     year: goal.year,
+    targetType: goal.targetType,
+    targetDirection: goal.targetDirection,
     target: goal.target,
+    unit: goal.unit,
+    intensityMetric: goal.intensityMetric,
+    horizon: goal.horizon,
+    isSbtiTarget: goal.isSbtiTarget,
     baseYear: goal.baseYear,
+    baseYearSource: goal.baseYearSource,
   }
 }
 
