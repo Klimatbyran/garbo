@@ -8,9 +8,7 @@ import { getSharedQueue } from './lib/getSharedQueue'
 import apiConfig from './config/api'
 
 const queues = [
-  ...Object.values(pipelineQueues).map(
-    (pipelineQueue) => pipelineQueue.queue
-  ),
+  ...Object.values(pipelineQueues).map((pipelineQueue) => pipelineQueue.queue),
   getSharedQueue(PIPELINE_AUTO_RUN_QUEUE),
 ]
 const serverAdapter = new FastifyAdapter()
