@@ -21,10 +21,14 @@ jest.unstable_mockModule('./prisma', () => ({
 
 let getCanonicalCompanyIdForThread: typeof import('./pipelineRunCompanyId').getCanonicalCompanyIdForThread
 let syncCanonicalReportRunCompanyId: typeof import('./pipelineRunCompanyId').syncCanonicalReportRunCompanyId
+let wikidataNodeFromConfirmedGuessJob: typeof import('./pipelineRunCompanyId').wikidataNodeFromConfirmedGuessJob
 
 beforeAll(async () => {
-  ;({ getCanonicalCompanyIdForThread, syncCanonicalReportRunCompanyId } =
-    await import('./pipelineRunCompanyId'))
+  ;({
+    getCanonicalCompanyIdForThread,
+    syncCanonicalReportRunCompanyId,
+    wikidataNodeFromConfirmedGuessJob,
+  } = await import('./pipelineRunCompanyId'))
 })
 
 describe('pipelineRunCompanyId', () => {
@@ -99,5 +103,36 @@ describe('pipelineRunCompanyId', () => {
       },
     })
     expect(prismaMock.reportRun.upsert).not.toHaveBeenCalled()
+  })
+
+  it('ignores rejected suggested Q-id when staff approved no Wikidata', () => {
+    expect(
+      wikidataNodeFromConfirmedGuessJob(
+        { wikidata: { node: 'Q999' } },
+        {
+          type: 'wikidata',
+          approved: true,
+          data: {
+            newValue: {
+              noWikidata: true,
+              wikidata: { node: 'Q123' },
+            },
+          },
+        }
+      )
+    ).toBeUndefined()
+  })
+
+  it('returns approved Wikidata Q-id when noWikidata is not set', () => {
+    expect(
+      wikidataNodeFromConfirmedGuessJob(
+        {},
+        {
+          type: 'wikidata',
+          approved: true,
+          data: { newValue: { wikidata: { node: 'Q123' } } },
+        }
+      )
+    ).toBe('Q123')
   })
 })

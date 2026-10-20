@@ -137,17 +137,27 @@ function wikidataNodeFromJobData(data: unknown): string | undefined {
   return node || undefined
 }
 
-type GuessWikidataJobApproval = {
+export type GuessWikidataJobApproval = {
   type?: string
   approved?: boolean
-  data?: { newValue?: { wikidata?: { node?: string } } }
+  data?: {
+    newValue?: {
+      wikidata?: { node?: string } | null
+      noWikidata?: boolean
+    }
+  }
 }
 
-function wikidataNodeFromConfirmedGuessJob(
+/** Q-id from an approved guessWikidata job; undefined when staff chose no Wikidata. */
+export function wikidataNodeFromConfirmedGuessJob(
   jobData: unknown,
   approval: GuessWikidataJobApproval | undefined
 ): string | undefined {
   if (approval?.type === 'wikidata' && approval.approved === true) {
+    // Explicit tombstone: do not fall back to suggested/stale Q-id on job data.
+    if (approval.data?.newValue?.noWikidata === true) {
+      return undefined
+    }
     const fromApproval = approval.data?.newValue?.wikidata?.node?.trim()
     if (fromApproval) return fromApproval
   }
