@@ -24,6 +24,7 @@ import {
 import { calculateFutureEmissionTrend } from '@/lib/company-emissions/companyEmissionsFutureTrendCalculator'
 import { foldDiacriticsForCompanyMatch } from '../../lib/companyLinkResolve'
 import { mergeAlternativeNames } from '../../lib/companyAlternativeNames'
+import { normalizeIsin } from '../../lib/normalizeIsin'
 import Firecrawl, { SearchResultWeb } from '@mendable/firecrawl-js'
 import { CompanyReports, SaveReportsBody, SaveReportsResult } from '../types'
 import { pdf } from 'pdf-to-img'
@@ -202,6 +203,23 @@ class CompanyService {
         return prisma.company.findFirstOrThrow({
           ...args,
           where: { id: identifierRow.companyId },
+        })
+      }
+    }
+
+    const normalizedIsin = normalizeIsin(param)
+    if (normalizedIsin) {
+      const isinIdentifier = await prisma.companyIdentifier.findFirst({
+        where: {
+          type: 'ISIN',
+          value: { equals: normalizedIsin, mode: 'insensitive' },
+        },
+        select: { companyId: true },
+      })
+      if (isinIdentifier) {
+        return prisma.company.findFirstOrThrow({
+          ...args,
+          where: { id: isinIdentifier.companyId },
         })
       }
     }

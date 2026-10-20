@@ -34,6 +34,8 @@ export const QUEUE_NAMES = {
   WIKIPEDIA_UPLOAD: 'wikipediaUpload',
   EXTRACT_LEI: 'extractLEI',
   DIFF_LEI: 'diffLEI',
+  EXTRACT_ISIN: 'extractISIN',
+  DIFF_ISIN: 'diffISIN',
   FOLLOW_UP_REPORTING_QUALITY: 'followUpReportingQuality',
   DIFF_REPORTING_QUALITY: 'diffReportingQuality',
 }

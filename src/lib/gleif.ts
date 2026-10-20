@@ -1,6 +1,7 @@
 // Functions for the GLEIF API: https://documenter.getpostman.com/view/7679680/SVYrrxuU?version=latest
 
 import { normalizeLei } from './normalizeLei'
+import { normalizeIsin } from './normalizeIsin'
 
 /** Slim LEI candidate for LLM selection — excludes registration.managingLou. */
 export type GleifLeiCandidate = {
@@ -101,4 +102,60 @@ export async function getLEINumbersFromGLEIF(
 
   const data = await response.json()
   return gleifRecordsToLeiCandidates(data.data)
+}
+
+type GleifIsinRecord = {
+  attributes?: {
+    isin?: string
+    lei?: string
+  }
+}
+
+/** Parse GLEIF `/lei-records/{lei}/isins` payload into unique valid ISINs. */
+export function gleifRecordsToIsins(records: unknown): string[] {
+  if (!Array.isArray(records)) return []
+
+  const byIsin = new Set<string>()
+  for (const record of records) {
+    const isin = normalizeIsin((record as GleifIsinRecord).attributes?.isin)
+    if (isin) byIsin.add(isin)
+  }
+  return [...byIsin]
+}
+
+/**
+ * Official ANNA/GLEIF LEI→ISIN mapping.
+ * See https://api.gleif.org/api/v1/lei-records/{lei}/isins
+ */
+export async function getIsinsForLei(lei: string): Promise<string[]> {
+  const normalizedLei = normalizeLei(lei)
+  if (!normalizedLei) return []
+
+  const isins: string[] = []
+  let page = 1
+  let lastPage = 1
+
+  while (page <= lastPage) {
+    const response = await fetch(
+      `https://api.gleif.org/api/v1/lei-records/${encodeURIComponent(normalizedLei)}/isins?page[number]=${page}&page[size]=50`
+    )
+    if (!response.ok) {
+      console.log(
+        `GLEIF ISIN lookup error ${response.status}: ${response.statusText}`
+      )
+      return isins
+    }
+
+    const data = (await response.json()) as {
+      data?: unknown
+      meta?: { pagination?: { lastPage?: number } }
+    }
+    for (const isin of gleifRecordsToIsins(data.data)) {
+      if (!isins.includes(isin)) isins.push(isin)
+    }
+    lastPage = data.meta?.pagination?.lastPage ?? 1
+    page += 1
+  }
+
+  return isins
 }

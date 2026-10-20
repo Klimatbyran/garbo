@@ -7,6 +7,7 @@ import {
   stripLegalEntitySuffixes,
 } from './companyLinkResolve'
 import { normalizeLei } from './normalizeLei'
+import { normalizeIsin } from './normalizeIsin'
 import { pipelineCompanyReadPath } from './pipelineCompanyPath'
 
 const COMPANY_UUID_RE =
@@ -163,6 +164,15 @@ export async function findCompanyByLei(
   const normalizedLei = normalizeLei(lei)
   if (!normalizedLei) return null
   return findCompanyByIdentifier(normalizedLei)
+}
+
+/** Look up which company already owns an ISIN in the current API. */
+export async function findCompanyByIsin(
+  isin: string
+): Promise<CompanyLinkCandidate | null> {
+  const normalizedIsin = normalizeIsin(isin)
+  if (!normalizedIsin) return null
+  return findCompanyByIdentifier(normalizedIsin)
 }
 
 /**

@@ -1,6 +1,7 @@
 import { describe, it, expect } from '@jest/globals'
 import {
   gleifRecordsToLeiCandidates,
+  gleifRecordsToIsins,
   isLeiAmongGleifCandidates,
   acceptLeiFromGleifCandidates,
 } from './gleif'
@@ -108,5 +109,22 @@ describe('acceptLeiFromGleifCandidates', () => {
       )
     ).toBeUndefined()
     expect(logs.join('\n')).toMatch(/not in the GLEIF entity candidate list/)
+  })
+})
+
+describe('gleifRecordsToIsins', () => {
+  it('collects unique valid ISINs', () => {
+    expect(
+      gleifRecordsToIsins([
+        { attributes: { isin: 'SE0000108656', lei: ENTITY_LEI } },
+        { attributes: { isin: 'se0000108656', lei: ENTITY_LEI } },
+        { attributes: { isin: 'not-valid', lei: ENTITY_LEI } },
+        { attributes: { isin: 'DE0006047004', lei: ENTITY_LEI } },
+      ])
+    ).toEqual(['SE0000108656', 'DE0006047004'])
+  })
+
+  it('returns empty for non-arrays', () => {
+    expect(gleifRecordsToIsins(null)).toEqual([])
   })
 })
