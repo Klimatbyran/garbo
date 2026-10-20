@@ -1,6 +1,7 @@
 import { CompanyIdentifierType, User } from '@prisma/client'
 import { prisma } from '../../lib/prisma'
 import { normalizeLei, requireNormalizedLei } from '../../lib/normalizeLei'
+import { requireNormalizedIsin } from '../../lib/normalizeIsin'
 import {
   GARBO_SERVICE_CLIENT_ID,
   getOrCreateServiceBotUser,
@@ -78,10 +79,33 @@ class CompanyIdentifierService {
     if (!trimmedValue) return null
 
     const persistedValue =
-      type === 'LEI' ? requireNormalizedLei(trimmedValue) : trimmedValue
+      type === 'LEI'
+        ? requireNormalizedLei(trimmedValue)
+        : type === 'ISIN'
+          ? requireNormalizedIsin(trimmedValue)
+          : trimmedValue
 
     if (type === 'LEI') {
       await this.assertLeiNotOwnedByOtherCompany(companyId, persistedValue)
+    }
+
+    if (type === 'ISIN') {
+      const other = await prisma.companyIdentifier.findFirst({
+        where: {
+          type: 'ISIN',
+          value: { equals: persistedValue, mode: 'insensitive' },
+          NOT: { companyId },
+        },
+        select: { companyId: true },
+      })
+      if (other) {
+        throw Object.assign(
+          new Error(
+            `ISIN ${persistedValue} is already in use by company ${other.companyId}`
+          ),
+          { code: 409 }
+        )
+      }
     }
 
     const existing = await prisma.companyIdentifier.findUnique({

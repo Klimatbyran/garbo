@@ -41,6 +41,8 @@ export const queues = {
   wikipediaUpload: new PipelineQueue(QUEUE_NAMES.WIKIPEDIA_UPLOAD),
   extractLEI: new PipelineQueue(QUEUE_NAMES.EXTRACT_LEI),
   diffLEI: new PipelineQueue(QUEUE_NAMES.DIFF_LEI),
+  extractISIN: new PipelineQueue(QUEUE_NAMES.EXTRACT_ISIN),
+  diffISIN: new PipelineQueue(QUEUE_NAMES.DIFF_ISIN),
   followUpReportingQuality: new PipelineQueue(
     QUEUE_NAMES.FOLLOW_UP_REPORTING_QUALITY
   ),

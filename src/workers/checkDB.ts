@@ -33,7 +33,7 @@ import {
   staffApprovedDisplayName,
 } from '../lib/applyStaffCompanyLink'
 import { collectAlternativeNameAfterConfirmedLink } from '../lib/collectAlternativeNameAfterConfirmedLink'
-import { resolvePipelineLei } from '../lib/normalizeLei'
+import { normalizeLei, resolvePipelineLei } from '../lib/normalizeLei'
 
 export class CheckDBJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
@@ -57,6 +57,7 @@ export class CheckDBJob extends PipelineJob {
     }
     approved?: boolean
     lei?: string
+    runOnly?: string[]
     replaceAllEmissions?: boolean
     tags?: string[]
   }
@@ -506,6 +507,33 @@ const checkDB = new PipelineWorker(
               },
             }
           : null,
+        (() => {
+          const leiForIsin =
+            mergedLei ?? normalizeLei(existingCompany?.lei ?? null)
+          const runOnly = Array.isArray(job.data.runOnly)
+            ? (job.data.runOnly as string[])
+            : undefined
+          const shouldFetchIsin =
+            Boolean(leiForIsin) &&
+            (!runOnly?.length ||
+              runOnly.includes('all') ||
+              runOnly.includes('isin') ||
+              runOnly.includes('lei'))
+          if (!shouldFetchIsin || !leiForIsin) return null
+          return {
+            ...base,
+            name: 'isin ' + companyName,
+            queueName: QUEUE_NAMES.EXTRACT_ISIN,
+            data: {
+              ...base.data,
+              lei: leiForIsin,
+            },
+            opts: withPipelineJobOpts({
+              attempts: 3,
+              failParentOnFailure: false,
+            }),
+          }
+        })(),
         descriptions
           ? {
               ...base,
