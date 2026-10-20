@@ -400,9 +400,30 @@ const guessWikidata = new PipelineWorker<GuessWikidataJob>(
 
     // If approved, process the wikidata (takes precedence - don't override approved data)
     if (job.data.approval?.type === 'wikidata' && job.isDataApproved()) {
-      const approvedWikidata = job.getApprovedBody().wikidata as
-        | Wikidata
-        | undefined
+      const approvedBody = job.getApprovedBody()
+
+      // Staff explicitly confirmed this company has no usable Wikidata ID.
+      // Complete like search not_found — do not write wikidataId or enter companyLink.
+      if (approvedBody.noWikidata === true) {
+        await job.sendMessage(
+          `✅ No Wikidata for: ${companyName}. Pipeline continues without Wikidata.`
+        )
+        job.log(
+          `Staff approved no Wikidata for "${companyName}" — completing without assigning`
+        )
+        return JSON.stringify(
+          {
+            status: 'not_found',
+            noWikidata: true,
+            message: `No Wikidata for ${companyName}`,
+            verifiedByUserId: job.data.approval?.verifiedByUserId,
+          },
+          null,
+          2
+        )
+      }
+
+      const approvedWikidata = approvedBody.wikidata as Wikidata | undefined
       if (!approvedWikidata) {
         throw new Error('Missing approved wikidata: ' + approvedWikidata)
       }
