@@ -1,17 +1,35 @@
-import { CompanyIdentifierType, User } from '@prisma/client'
+import {
+  CompanyIdentifierRole,
+  CompanyIdentifierType,
+  User,
+} from '@prisma/client'
 import { prisma } from '../../lib/prisma'
-import { normalizeLei, requireNormalizedLei } from '../../lib/normalizeLei'
 import { requireNormalizedIsin } from '../../lib/normalizeIsin'
+import { requireNormalizedBic } from '../../lib/normalizeBic'
+import { normalizeLei, requireNormalizedLei } from '../../lib/normalizeLei'
 import {
   GARBO_SERVICE_CLIENT_ID,
   getOrCreateServiceBotUser,
 } from './serviceBotUser'
 
+const SINGULAR_TYPES = new Set<CompanyIdentifierType>([
+  'WIKIDATA',
+  'LEI',
+  'ORG_NUMBER',
+])
+
+function persistIdentifierValue(
+  type: CompanyIdentifierType,
+  value: string
+): string {
+  if (type === 'LEI') return requireNormalizedLei(value)
+  if (type === 'ISIN') return requireNormalizedIsin(value)
+  if (type === 'BIC') return requireNormalizedBic(value)
+  return value.trim()
+}
+
 class CompanyIdentifierService {
-  /**
-   * Returns another company's id if it already owns this LEI (column or identifier row).
-   * Matches case-insensitively so mixed-case legacy rows still conflict.
-   */
+
   async findOtherCompanyOwningLei(
     lei: string,
     excludeCompanyId?: string | null
@@ -58,6 +76,45 @@ class CompanyIdentifierService {
     }
   }
 
+  async assertValueNotOwnedByOtherCompany(
+    companyId: string,
+    type: CompanyIdentifierType,
+    value: string
+  ): Promise<void> {
+    const other = await prisma.companyIdentifier.findFirst({
+      where: {
+        type,
+        ...(type === 'ISIN' || type === 'LEI' || type === 'BIC'
+          ? { value: { equals: value, mode: 'insensitive' as const } }
+          : { value }),
+        NOT: { companyId },
+      },
+      select: { companyId: true },
+    })
+    if (other) {
+      throw Object.assign(
+        new Error(`${type} value ${value} is already in use by company ${other.companyId}`),
+        { code: 409 }
+      )
+    }
+
+    if (type === 'LEI') {
+      const byColumn = await prisma.company.findFirst({
+        where: {
+          lei: { equals: value, mode: 'insensitive' },
+          NOT: { id: companyId },
+        },
+        select: { id: true },
+      })
+      if (byColumn) {
+        throw Object.assign(
+          new Error(`LEI ${value} is already in use by company ${byColumn.id}`),
+          { code: 409 }
+        )
+      }
+    }
+  }
+
   async upsertIdentifier({
     companyId,
     type,
@@ -66,6 +123,7 @@ class CompanyIdentifierService {
     metadata,
     verified = false,
     skipMetadataIfUnchanged = false,
+    role,
   }: {
     companyId: string
     type: CompanyIdentifierType
@@ -74,52 +132,53 @@ class CompanyIdentifierService {
     metadata?: { source?: string; comment?: string }
     verified?: boolean
     skipMetadataIfUnchanged?: boolean
-  }): Promise<{ id: string; value: string } | null> {
+    role?: CompanyIdentifierRole | null
+  }): Promise<{ id: string; value: string; role: CompanyIdentifierRole | null } | null> {
     const trimmedValue = value.trim()
     if (!trimmedValue) return null
 
-    const persistedValue =
-      type === 'LEI'
-        ? requireNormalizedLei(trimmedValue)
-        : type === 'ISIN'
-          ? requireNormalizedIsin(trimmedValue)
-          : trimmedValue
+    const persistedValue = persistIdentifierValue(type, trimmedValue)
+    await this.assertValueNotOwnedByOtherCompany(
+      companyId,
+      type,
+      persistedValue
+    )
 
-    if (type === 'LEI') {
-      await this.assertLeiNotOwnedByOtherCompany(companyId, persistedValue)
-    }
+    const singular = SINGULAR_TYPES.has(type)
+    const existing = singular
+      ? await prisma.companyIdentifier.findFirst({
+          where: { companyId, type },
+          select: { id: true, value: true, role: true },
+        })
+      : await prisma.companyIdentifier.findUnique({
+          where: {
+            companyId_type_value: { companyId, type, value: persistedValue },
+          },
+          select: { id: true, value: true, role: true },
+        })
 
-    if (type === 'ISIN') {
-      const other = await prisma.companyIdentifier.findFirst({
-        where: {
-          type: 'ISIN',
-          value: { equals: persistedValue, mode: 'insensitive' },
-          NOT: { companyId },
-        },
-        select: { companyId: true },
-      })
-      if (other) {
-        throw Object.assign(
-          new Error(
-            `ISIN ${persistedValue} is already in use by company ${other.companyId}`
-          ),
-          { code: 409 }
-        )
-      }
-    }
-
-    const existing = await prisma.companyIdentifier.findUnique({
-      where: {
-        companyId_type: { companyId, type },
-      },
-      select: { id: true, value: true },
-    })
-
-    if (existing?.value === persistedValue && skipMetadataIfUnchanged) {
+    if (
+      existing &&
+      existing.value === persistedValue &&
+      (role === undefined || existing.role === role) &&
+      skipMetadataIfUnchanged
+    ) {
       return existing
     }
 
     return prisma.$transaction(async (transaction) => {
+      if (role === 'PRIMARY') {
+        await transaction.companyIdentifier.updateMany({
+          where: {
+            companyId,
+            type,
+            role: 'PRIMARY',
+            ...(existing ? { NOT: { id: existing.id } } : {}),
+          },
+          data: { role: null },
+        })
+      }
+
       const metadataRecord = await transaction.metadata.create({
         data: {
           comment: metadata?.comment,
@@ -129,22 +188,65 @@ class CompanyIdentifierService {
         },
       })
 
-      return transaction.companyIdentifier.upsert({
-        where: {
-          companyId_type: { companyId, type },
-        },
-        create: {
+      if (existing) {
+        return transaction.companyIdentifier.update({
+          where: { id: existing.id },
+          data: {
+            value: persistedValue,
+            ...(role !== undefined ? { role } : {}),
+            metadata: { connect: { id: metadataRecord.id } },
+          },
+        })
+      }
+
+      return transaction.companyIdentifier.create({
+        data: {
           companyId,
           type,
           value: persistedValue,
-          metadata: { connect: { id: metadataRecord.id } },
-        },
-        update: {
-          value: persistedValue,
+          role: role ?? null,
           metadata: { connect: { id: metadataRecord.id } },
         },
       })
     })
+  }
+
+  async upsertMany({
+    companyId,
+    items,
+    user,
+    metadata,
+    verified = false,
+  }: {
+    companyId: string
+    items: Array<{
+      type: CompanyIdentifierType
+      value: string
+      role?: CompanyIdentifierRole | null
+    }>
+    user: User
+    metadata?: { source?: string; comment?: string }
+    verified?: boolean
+  }) {
+    const results: Array<{
+      id: string
+      value: string
+      role: CompanyIdentifierRole | null
+    }> = []
+    for (const item of items) {
+      const row = await this.upsertIdentifier({
+        companyId,
+        type: item.type,
+        value: item.value,
+        role: item.role,
+        user,
+        metadata,
+        verified,
+        skipMetadataIfUnchanged: true,
+      })
+      if (row) results.push(row)
+    }
+    return results
   }
 
   async syncFromLegacyColumns(
@@ -153,18 +255,22 @@ class CompanyIdentifierService {
       user?: User
       source?: string
       verified?: boolean
+      syncWikidata?: boolean
+      syncLei?: boolean
       wikidataMetadata?: { source?: string; comment?: string }
       leiMetadata?: { source?: string; comment?: string }
     }
   ) {
+    const syncWikidata = options?.syncWikidata ?? true
+    const syncLei = options?.syncLei ?? true
     const user =
       options?.user ??
       (await getOrCreateServiceBotUser(GARBO_SERVICE_CLIENT_ID))
     const defaultSource = options?.source ?? 'company-column-sync'
 
-    const synced: Array<{ id: string; value?: string }> = []
+    const synced: Array<{ id: string; value: string }> = []
 
-    if (company.wikidataId?.trim()) {
+    if (syncWikidata && company.wikidataId?.trim()) {
       const row = await this.upsertIdentifier({
         companyId: company.id,
         type: 'WIKIDATA',
@@ -179,11 +285,11 @@ class CompanyIdentifierService {
         verified: options?.verified ?? false,
         skipMetadataIfUnchanged: true,
       })
-      if (row) synced.push(row)
+      if (row) synced.push({ id: row.id, value: row.value })
     }
 
-    const lei = normalizeLei(company.lei)
-    if (lei) {
+    const lei = normalizeLei(company.lei) ?? company.lei?.trim()
+    if (syncLei && lei) {
       const row = await this.upsertIdentifier({
         companyId: company.id,
         type: 'LEI',
@@ -196,10 +302,20 @@ class CompanyIdentifierService {
         verified: options?.verified ?? false,
         skipMetadataIfUnchanged: true,
       })
-      if (row) synced.push(row)
+      if (row) synced.push({ id: row.id, value: row.value })
     }
 
     return synced
+  }
+
+  async deleteIdentifier(
+    companyId: string,
+    type: CompanyIdentifierType
+  ): Promise<boolean> {
+    const result = await prisma.companyIdentifier.deleteMany({
+      where: { companyId, type },
+    })
+    return result.count > 0
   }
 }
 
