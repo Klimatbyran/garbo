@@ -515,25 +515,26 @@ const checkDB = new PipelineWorker(
             }
           : null,
         (() => {
-          const leiForIsin =
+          const leiForGleif =
             mergedLei ?? normalizeLei(existingCompany?.lei ?? null)
           const runOnly = Array.isArray(job.data.runOnly)
             ? (job.data.runOnly as string[])
             : undefined
-          const shouldFetchIsin =
-            Boolean(leiForIsin) &&
+          const shouldFetchGleifIds =
+            Boolean(leiForGleif) &&
             (!runOnly?.length ||
               runOnly.includes('all') ||
+              runOnly.includes('gleifIds') ||
               runOnly.includes('isin') ||
               runOnly.includes('lei'))
-          if (!shouldFetchIsin || !leiForIsin) return null
+          if (!shouldFetchGleifIds || !leiForGleif) return null
           return {
             ...base,
-            name: 'isin ' + companyName,
-            queueName: QUEUE_NAMES.EXTRACT_ISIN,
+            name: 'gleifIds ' + companyName,
+            queueName: QUEUE_NAMES.EXTRACT_GLEIF_IDS,
             data: {
               ...base.data,
-              lei: leiForIsin,
+              lei: leiForGleif,
             },
             opts: withPipelineJobOpts({
               attempts: 3,

@@ -60,19 +60,28 @@ enum CompanyIdentifierType {
   LEI
   ORG_NUMBER
   ISIN
+  BIC
+}
+
+/// Optional role when a type allows multiple values (ISIN, BIC).
+enum CompanyIdentifierRole {
+  PRIMARY
 }
 
 model CompanyIdentifier {
-  id        String                @id @default(cuid())
+  id        String                 @id @default(cuid())
   companyId String
   type      CompanyIdentifierType
   value     String
+  /// PRIMARY = canonical value for UI when multiple ISINs/BICs exist.
+  role      CompanyIdentifierRole?
 
   company  Company    @relation(fields: [companyId], references: [id], onDelete: Cascade)
   metadata Metadata[]
 
-  @@unique([companyId, type])
+  @@unique([companyId, type, value])
   @@index([type, value])
+  @@index([companyId, type])
   @@map("company_identifiers")
 }
 

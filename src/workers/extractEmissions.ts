@@ -19,7 +19,7 @@ export type FollowUpKey =
   | 'companyTags'
   | 'reportType'
   | 'lei'
-  | 'isin'
+  | 'gleifIds'
   | 'descriptions'
   | 'reportingQuality'
 
@@ -38,7 +38,7 @@ export const FOLLOW_UP_KEYS: FollowUpKey[] = [
   'companyTags',
   'reportType',
   'lei',
-  'isin',
+  'gleifIds',
   'descriptions',
   'reportingQuality',
 ]
