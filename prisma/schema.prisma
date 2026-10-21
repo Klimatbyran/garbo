@@ -52,6 +52,7 @@ model Company {
   coverageListEntrySuggestions   CoverageListEntry[] @relation("CoverageEntrySuggestedCompany")
   coverageCrawlState             CoverageCrawlState?
   reviewFlagDismissals           ReviewFlagDismissal[]
+  reviewFlagHits                 ReviewFlagHit[]
 }
 
 enum CompanyIdentifierType {
@@ -643,6 +644,37 @@ model ReviewFlagDismissal {
   @@unique([companyId, flagKey, evidenceFingerprint])
   @@index([flagKey])
   @@map("review_flag_dismissals")
+}
+
+/// Manual Review: precomputed hits for one flag. Replaced per flag by the refresh job.
+/// Dismissals are not stored here — join review_flag_dismissals at read time.
+model ReviewFlagHit {
+  flagKey             String
+  companyId           String
+  evidenceFingerprint String
+  evidenceSummary     String
+  computedAt          DateTime @default(now())
+
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@id([flagKey, companyId, evidenceFingerprint])
+  @@index([flagKey, companyId])
+  @@index([companyId])
+  @@map("review_flag_hits")
+}
+
+/// Manual Review: last refresh outcome per flag (freshness / failure surface).
+model ReviewFlagRun {
+  flagKey    String    @id
+  /// ready | failed | running
+  status     String
+  hitCount   Int       @default(0)
+  computedAt DateTime?
+  durationMs Int?
+  error      String?
+  updatedAt  DateTime  @updatedAt
+
+  @@map("review_flag_runs")
 }
 
 // Follows the ISO 639 language codes
