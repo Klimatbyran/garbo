@@ -297,6 +297,7 @@ export const pipelineCompanyDetailArgs = {
         id: true,
         type: true,
         value: true,
+        role: true,
         metadata: metadataArgs,
       },
     },
