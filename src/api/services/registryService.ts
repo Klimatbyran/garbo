@@ -6,11 +6,13 @@ import {
 } from '../schemas'
 import z from 'zod'
 import {
+  archiveConflictingRegistryIdentityFields,
   buildReportMatchConditions,
   copyMissingFields,
   pickRowToKeep,
   mergeCompanyNameFromPipeline,
   mergeReportYearFromPipeline,
+  shouldForkRegistryReportForNewYear,
   type RegistryReportIdentityRow,
   trimStr,
   isStorageUrl,
@@ -94,6 +96,36 @@ function patchRow(
   if (webUrl) update.url = webUrl
 
   return update
+}
+
+/** Archive colliding unique identity on an older-year row, then create this year. */
+async function forkRegistryReportForNewYear(
+  prismaClient: typeof prisma,
+  existing: RegistryReportIdentityRow,
+  input: ReportInput
+) {
+  const archivePatch = archiveConflictingRegistryIdentityFields(existing, input)
+  return prismaClient.$transaction(async (tx) => {
+    if (Object.keys(archivePatch).length > 0) {
+      await tx.report.update({
+        where: { id: existing.id },
+        data: archivePatch,
+      })
+    }
+    return tx.report.create({
+      data: {
+        companyName: input.companyName,
+        wikidataId: input.wikidataId ?? undefined,
+        reportYear: input.reportYear ?? undefined,
+        url: input.url,
+        sourceUrl: input.sourceUrl ?? undefined,
+        s3Url: input.s3Url ?? undefined,
+        s3Key: input.s3Key ?? undefined,
+        s3Bucket: input.s3Bucket ?? undefined,
+        sha256: input.sha256 ?? undefined,
+      },
+    })
+  })
 }
 
 function applyMergedRows(
@@ -180,10 +212,15 @@ class RegistryService {
 
     if (matches.length === 0) return null
 
+    // Do not return a different catalog year — callers use this id for
+    // replaceUnverifiedForReport and would wipe that year's goals.
+    const compatible = (matches as RegistryReportIdentityRow[]).filter(
+      (row) => !shouldForkRegistryReportForNewYear(row, input)
+    )
+    if (compatible.length === 0) return null
+
     const row =
-      matches.length === 1
-        ? matches[0]
-        : pickRowToKeep(matches as RegistryReportIdentityRow[])
+      compatible.length === 1 ? compatible[0] : pickRowToKeep(compatible)
 
     return {
       id: row.id,
@@ -242,35 +279,85 @@ class RegistryService {
     }
 
     if (matches.length === 1) {
-      const existing = matches[0]
+      const existing = matches[0] as RegistryReportIdentityRow
+      if (shouldForkRegistryReportForNewYear(existing, input)) {
+        return forkRegistryReportForNewYear(prismaClient, existing, input)
+      }
       return prismaClient.report.update({
         where: { id: existing.id },
-        data: patchRow(existing as RegistryReportIdentityRow, input),
+        data: patchRow(existing, input),
       })
     }
 
     // Multiple matches: the same document was indexed more than once under different URLs.
-    // Collapse them into one row inside a transaction.
+    // Collapse same-year / yearless duplicates only — never merge away a different catalog year
+    // (that would orphan or later wipe that year's goals via replaceUnverifiedForReport).
     return prismaClient.$transaction(async (tx) => {
-      const rows = await tx.report.findMany({
+      const rows = (await tx.report.findMany({
         where: { id: { in: matches.map((m) => m.id) } },
         orderBy: { id: 'asc' },
-      })
+      })) as RegistryReportIdentityRow[]
 
-      const rowToKeep = pickRowToKeep(rows as RegistryReportIdentityRow[])
-      const rowsToDelete = rows.filter((r) => r.id !== rowToKeep.id)
+      const compatible = rows.filter(
+        (row) => !shouldForkRegistryReportForNewYear(row, input)
+      )
+      const conflicting = rows.filter((row) =>
+        shouldForkRegistryReportForNewYear(row, input)
+      )
+
+      if (compatible.length === 0) {
+        for (const row of conflicting) {
+          const archivePatch = archiveConflictingRegistryIdentityFields(
+            row,
+            input
+          )
+          if (Object.keys(archivePatch).length > 0) {
+            await tx.report.update({
+              where: { id: row.id },
+              data: archivePatch,
+            })
+          }
+        }
+        return tx.report.create({
+          data: {
+            companyName: input.companyName,
+            wikidataId: input.wikidataId ?? undefined,
+            reportYear: input.reportYear ?? undefined,
+            url: input.url,
+            sourceUrl: input.sourceUrl ?? undefined,
+            s3Url: input.s3Url ?? undefined,
+            s3Key: input.s3Key ?? undefined,
+            s3Bucket: input.s3Bucket ?? undefined,
+            sha256: input.sha256 ?? undefined,
+          },
+        })
+      }
+
+      const rowToKeep = pickRowToKeep(compatible)
+      const rowsToDelete = compatible.filter((r) => r.id !== rowToKeep.id)
 
       const mergedRow: RegistryReportIdentityRow = { ...rowToKeep }
       for (const row of rowsToDelete) {
-        Object.assign(
-          mergedRow,
-          copyMissingFields(mergedRow, row as RegistryReportIdentityRow)
-        )
+        Object.assign(mergedRow, copyMissingFields(mergedRow, row))
       }
 
       for (const row of rowsToDelete) {
         await tx.report.delete({ where: { id: row.id } })
       }
+
+      for (const row of conflicting) {
+        const archivePatch = archiveConflictingRegistryIdentityFields(
+          row,
+          input
+        )
+        if (Object.keys(archivePatch).length > 0) {
+          await tx.report.update({
+            where: { id: row.id },
+            data: archivePatch,
+          })
+        }
+      }
+
       return tx.report.update({
         where: { id: rowToKeep.id },
         data: applyMergedRows(mergedRow, input),

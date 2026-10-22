@@ -76,6 +76,103 @@ export function mergeReportYearFromPipeline(
   return inc
 }
 
+/**
+ * Whether registry upsert should create a new Report row instead of updating
+ * an identity match.
+ *
+ * Pipeline goals/initiatives replace unverified rows by reportId. If a newer
+ * catalog year reuses the same URL (or other identity key) and we update the
+ * old Report in place, that replace deletes the previous year's goals.
+ *
+ * Same year, missing year, or same sha256 (same PDF / year correction) → update.
+ * Different valid years and not the same sha256 → fork a new Report.
+ */
+export function shouldForkRegistryReportForNewYear(
+  existing: Pick<RegistryReportIdentityRow, 'reportYear' | 'sha256'>,
+  incoming: { reportYear?: string | null; sha256?: string | null }
+): boolean {
+  const existingYear = trimStr(existing.reportYear)
+  const incomingYear = trimStr(incoming.reportYear)
+  if (!existingYear || !incomingYear) return false
+  if (
+    !isValidReportCatalogYear(existingYear) ||
+    !isValidReportCatalogYear(incomingYear)
+  ) {
+    return false
+  }
+  if (existingYear === incomingYear) return false
+
+  const existingSha = trimStr(existing.sha256)
+  const incomingSha = trimStr(incoming.sha256)
+  if (existingSha && incomingSha && existingSha === incomingSha) {
+    return false
+  }
+  return true
+}
+
+/** Mark a unique url/sourceUrl as archived so a newer year can own the live URL. */
+export function archivedRegistryIdentityUrl(
+  url: string,
+  reportYear: string | null | undefined,
+  reportId: string
+): string {
+  if (url.includes('#kb-archived-')) return url
+  const year = trimStr(reportYear) || 'unknown'
+  return `${url}#kb-archived-${year}-${reportId}`
+}
+
+/**
+ * Prisma patch that frees @unique url/sourceUrl on an older-year row when they
+ * would collide with the incoming identity for a forked Report.
+ */
+export function archiveConflictingRegistryIdentityFields(
+  existing: RegistryReportIdentityRow,
+  incoming: {
+    url: string
+    sourceUrl?: string | null
+    sha256?: string | null
+  }
+): { url?: string; sourceUrl?: string | null; sha256?: string | null } {
+  const incomingUrl = trimStr(incoming.url)
+  const incomingSource = trimStr(incoming.sourceUrl)
+  const incomingSha = trimStr(incoming.sha256)
+
+  const conflictsLiveUrl = (value: string | null) =>
+    Boolean(value && (value === incomingUrl || value === incomingSource))
+
+  const patch: {
+    url?: string
+    sourceUrl?: string | null
+    sha256?: string | null
+  } = {}
+
+  const existingUrl = trimStr(existing.url)
+  if (conflictsLiveUrl(existingUrl)) {
+    patch.url = archivedRegistryIdentityUrl(
+      existing.url,
+      existing.reportYear,
+      existing.id
+    )
+  }
+
+  const existingSource = trimStr(existing.sourceUrl ?? null)
+  if (conflictsLiveUrl(existingSource) && existing.sourceUrl) {
+    patch.sourceUrl = archivedRegistryIdentityUrl(
+      existing.sourceUrl,
+      existing.reportYear,
+      existing.id
+    )
+  }
+
+  // Defensive: sha256 is unique; fork normally only when hashes differ.
+  const existingSha = trimStr(existing.sha256 ?? null)
+  if (incomingSha && existingSha === incomingSha) {
+    patch.sha256 = null
+  }
+
+  return patch
+}
+
 /** Last path segment of a report URL, lowercased (e.g. `annual-report-2024.pdf`). */
 export function pdfBasenameFromUrl(
   raw: string | null | undefined

@@ -1,4 +1,6 @@
 import {
+  archiveConflictingRegistryIdentityFields,
+  archivedRegistryIdentityUrl,
   buildReportMatchConditions,
   copyMissingFields,
   linkReportRowsByPdfBasename,
@@ -8,6 +10,7 @@ import {
   pdfBasenamesMatchForIdentityLink,
   preferReportYearFromWebUrls,
   pickRowToKeep,
+  shouldForkRegistryReportForNewYear,
   storageBasenameTailForMatch,
   type RegistryReportIdentityRow,
 } from '../src/api/services/registryReportIdentity'
@@ -350,5 +353,58 @@ describe('registryReportIdentity', () => {
     })
     const patch = copyMissingFields(rowToKeep, rowToDelete)
     expect(patch.reportTypeId).toBe('type_sustainability')
+  })
+
+  describe('shouldForkRegistryReportForNewYear', () => {
+    it('forks when years differ and hashes differ (prevents goals wipe)', () => {
+      expect(
+        shouldForkRegistryReportForNewYear(
+          { reportYear: '2024', sha256: 'aaa' },
+          { reportYear: '2025', sha256: 'bbb' }
+        )
+      ).toBe(true)
+    })
+
+    it('does not fork same year or same PDF year corrections', () => {
+      expect(
+        shouldForkRegistryReportForNewYear(
+          { reportYear: '2025', sha256: 'aaa' },
+          { reportYear: '2025', sha256: 'bbb' }
+        )
+      ).toBe(false)
+      expect(
+        shouldForkRegistryReportForNewYear(
+          { reportYear: '2024', sha256: 'same' },
+          { reportYear: '2025', sha256: 'same' }
+        )
+      ).toBe(false)
+      expect(
+        shouldForkRegistryReportForNewYear(
+          { reportYear: null, sha256: 'aaa' },
+          { reportYear: '2025', sha256: 'bbb' }
+        )
+      ).toBe(false)
+    })
+
+    it('archives colliding live urls so a new year can own them', () => {
+      const existing = row({
+        id: 'r2024',
+        url: 'https://company.com/report.pdf',
+        sourceUrl: 'https://company.com/report.pdf',
+        reportYear: '2024',
+      })
+      const patch = archiveConflictingRegistryIdentityFields(existing, {
+        url: 'https://company.com/report.pdf',
+        sourceUrl: 'https://company.com/report.pdf',
+        sha256: 'new',
+      })
+      expect(patch.url).toBe(
+        archivedRegistryIdentityUrl(
+          'https://company.com/report.pdf',
+          '2024',
+          'r2024'
+        )
+      )
+    })
   })
 })
