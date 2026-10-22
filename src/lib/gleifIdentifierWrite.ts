@@ -4,6 +4,9 @@ import { normalizeBic } from './normalizeBic'
 /** Pipeline auto-write cap — mega-issuers stay blank rather than dumping 100k+ rows. */
 export const MAX_AUTO_ISINS = 100
 
+/** Must match api `postCompanyIdentifiersBatchSchema` items.max. */
+export const IDENTIFIER_BATCH_MAX_ITEMS = 100
+
 export type ExistingIdentifier = {
   type: string
   value: string
@@ -30,8 +33,7 @@ function hasType(
 
 function hasValue(
   existing: ExistingIdentifier[],
-  type: string
-  ,
+  type: string,
   value: string
 ): boolean {
   return existing.some(
@@ -83,7 +85,13 @@ export function planGleifIdentifierWrites(input: {
       validIsins.length === 1 && !hasPrimary(existing, 'ISIN')
     for (const isin of validIsins) {
       if (hasValue(existing, 'ISIN', isin)) {
-        reasons.push(`ISIN ${isin} already on company; skip.`)
+        if (setPrimary) {
+          // Promote the existing sole ISIN to PRIMARY when GLEIF confirms it.
+          items.push({ type: 'ISIN', value: isin, role: 'PRIMARY' })
+          reasons.push(`Promoting existing sole ISIN ${isin} to PRIMARY.`)
+        } else {
+          reasons.push(`ISIN ${isin} already on company; skip.`)
+        }
         continue
       }
       items.push({
@@ -96,7 +104,7 @@ export function planGleifIdentifierWrites(input: {
       reasons.push(
         `Storing ${validIsins.length} ISINs without PRIMARY (staff/clients choose).`
       )
-    } else if (setPrimary) {
+    } else if (setPrimary && !hasValue(existing, 'ISIN', validIsins[0]!)) {
       reasons.push(`Storing single ISIN ${validIsins[0]} as PRIMARY.`)
     }
   }
@@ -127,7 +135,12 @@ export function planGleifIdentifierWrites(input: {
       validBics.length === 1 && !hasPrimary(existing, 'BIC')
     for (const bic of validBics) {
       if (hasValue(existing, 'BIC', bic)) {
-        reasons.push(`BIC ${bic} already on company; skip.`)
+        if (setPrimaryBic) {
+          items.push({ type: 'BIC', value: bic, role: 'PRIMARY' })
+          reasons.push(`Promoting existing sole BIC ${bic} to PRIMARY.`)
+        } else {
+          reasons.push(`BIC ${bic} already on company; skip.`)
+        }
         continue
       }
       items.push({
@@ -142,4 +155,17 @@ export function planGleifIdentifierWrites(input: {
   }
 
   return { items, reasons }
+}
+
+/** Split identifier writes so each API batch stays within the request max. */
+export function chunkIdentifierWriteItems<T>(
+  items: T[],
+  maxItems = IDENTIFIER_BATCH_MAX_ITEMS
+): T[][] {
+  if (items.length === 0) return []
+  const chunks: T[][] = []
+  for (let i = 0; i < items.length; i += maxItems) {
+    chunks.push(items.slice(i, i + maxItems))
+  }
+  return chunks
 }

@@ -2,8 +2,8 @@ import { describe, it, expect } from '@jest/globals'
 import { normalizeBic, isValidBic } from './normalizeBic'
 
 describe('normalizeBic', () => {
-  it('accepts 8- and 11-char BICs', () => {
-    expect(normalizeBic('teersess')).toBe('TEERSESS')
+  it('canonicalizes 8-char BICs to 11-char XXX form', () => {
+    expect(normalizeBic('teersess')).toBe('TEERSESSXXX')
     expect(normalizeBic('TEERSESSXXX')).toBe('TEERSESSXXX')
   })
 

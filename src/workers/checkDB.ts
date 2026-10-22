@@ -515,8 +515,21 @@ const checkDB = new PipelineWorker(
             }
           : null,
         (() => {
-          const leiForGleif =
-            mergedLei ?? normalizeLei(existingCompany?.lei ?? null)
+          // Only enrich from the LEI we will keep on this company.
+          // Never attach GLEIF ids from a mergedLei that differs from an
+          // existing LEI (diffLEI will refuse to overwrite).
+          const existingLei =
+            normalizeLei(existingCompany?.lei ?? null) ??
+            normalizeLei(
+              (
+                existingCompany?.identifiers as
+                  | Array<{ type: string; value: string }>
+                  | undefined
+              )?.find((row) => row.type === 'LEI')?.value ?? null
+            )
+          const leiForGleif = existingLei
+            ? existingLei
+            : (mergedLei ?? null)
           const runOnly = Array.isArray(job.data.runOnly)
             ? (job.data.runOnly as string[])
             : undefined

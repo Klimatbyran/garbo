@@ -82,6 +82,10 @@ model CompanyIdentifier {
   @@unique([companyId, type, value])
   @@index([type, value])
   @@index([companyId, type])
+  /// Partial unique indexes (SQL migration only; Prisma cannot express WHERE):
+  /// - singular types: UNIQUE (companyId, type) WHERE type IN (WIKIDATA, LEI, ORG_NUMBER)
+  /// - primary role: UNIQUE (companyId, type) WHERE role = PRIMARY
+  /// Do not let `prisma migrate dev` drop those indexes.
   @@map("company_identifiers")
 }
 
