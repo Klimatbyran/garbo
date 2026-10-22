@@ -4,12 +4,12 @@ Collect **all clear LEI-linked identifiers** from the official GLEIF API after a
 
 **Repos**
 
-| Repo | Role |
-| ---- | ---- |
-| **garbo** | Migrations (source of truth), GLEIF client, workers, write policy, backfill |
-| **api** (unearth-api) | Schema sync, identifier upsert/batch, validation, resolve-by-value |
-| **pipeline-api** | Queue names + non-blocking failure |
-| **Goffer** | Swimlane / `runOnly`, editor types for multi-ISIN + BIC |
+| Repo                  | Role                                                                        |
+| --------------------- | --------------------------------------------------------------------------- |
+| **garbo**             | Migrations (source of truth), GLEIF client, workers, write policy, backfill |
+| **api** (unearth-api) | Schema sync, identifier upsert/batch, validation, resolve-by-value          |
+| **pipeline-api**      | Queue names + non-blocking failure                                          |
+| **Goffer**            | Swimlane / `runOnly`, editor types for multi-ISIN + BIC                     |
 
 Validate approval UI for picking a “primary” ISIN among many is **out of scope** (editor can set `role=PRIMARY` later).
 
@@ -29,11 +29,11 @@ Validate approval UI for picking a “primary” ISIN among many is **out of sco
 
 ## Source of truth
 
-| Data | GLEIF endpoint / field | Auth |
-| ---- | ---------------------- | ---- |
-| ISINs | `GET /lei-records/{lei}/isins` | None |
+| Data       | GLEIF endpoint / field                           | Auth |
+| ---------- | ------------------------------------------------ | ---- |
+| ISINs      | `GET /lei-records/{lei}/isins`                   | None |
 | Org number | `GET /lei-records/{lei}` → `entity.registeredAs` | None |
-| BIC(s) | same LEI record → `bic` (array) | None |
+| BIC(s)     | same LEI record → `bic` (array)                  | None |
 
 - Rate limit ~60 req/min (throttle backfill).
 - GLEIF does **not** classify ISINs (no equity/bond type). Instrument class would need another source later.
@@ -77,10 +77,10 @@ model CompanyIdentifier {
 
 SQL also: partial unique index — at most one `PRIMARY` per `(companyId, type)`.
 
-| Type | Cardinality | App rule |
-| ---- | ----------- | -------- |
-| WIKIDATA, LEI, ORG_NUMBER | Singular | Upsert replaces / rejects second value |
-| ISIN, BIC | Multi | Many rows; optional one `PRIMARY` |
+| Type                      | Cardinality | App rule                               |
+| ------------------------- | ----------- | -------------------------------------- |
+| WIKIDATA, LEI, ORG_NUMBER | Singular    | Upsert replaces / rejects second value |
+| ISIN, BIC                 | Multi       | Many rows; optional one `PRIMARY`      |
 
 Partner API: **unchanged** (still no `identifiers[]` / ISIN on partner responses).
 
@@ -103,35 +103,35 @@ Pipeline metadata: `verifiedBy = null`, `source = gleif-lei-record` / `gleif-lei
 
 ### ISIN
 
-| Situation | Action |
-| --------- | ------ |
-| 0 valid ISINs | Write nothing |
-| 1..MAX valid ISINs (MAX=100) | **Upsert all** values not already on this company; skip values owned by another company |
-| \> MAX ISINs (e.g. banks with 100k+) | **Write nothing** for ISIN; log count (avoid blowing up DB on mega-issuers). Backfill can raise `--max-isins`. |
-| Exactly 1 ISIN and no existing PRIMARY | Set `role=PRIMARY` on that row |
-| 2+ ISINs | Store all; **do not** auto-set PRIMARY (clients/staff choose) |
-| Existing PRIMARY | Never auto-change or clear |
-| Existing ISIN row same value | Skip (idempotent) |
+| Situation                              | Action                                                                                                         |
+| -------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| 0 valid ISINs                          | Write nothing                                                                                                  |
+| 1..MAX valid ISINs (MAX=100)           | **Upsert all** values not already on this company; skip values owned by another company                        |
+| \> MAX ISINs (e.g. banks with 100k+)   | **Write nothing** for ISIN; log count (avoid blowing up DB on mega-issuers). Backfill can raise `--max-isins`. |
+| Exactly 1 ISIN and no existing PRIMARY | Set `role=PRIMARY` on that row                                                                                 |
+| 2+ ISINs                               | Store all; **do not** auto-set PRIMARY (clients/staff choose)                                                  |
+| Existing PRIMARY                       | Never auto-change or clear                                                                                     |
+| Existing ISIN row same value           | Skip (idempotent)                                                                                              |
 
 ### ORG_NUMBER (`registeredAs`)
 
-| Situation | Action |
-| --------- | ------ |
-| Missing / blank | Leave blank |
-| Company already has ORG_NUMBER | Never overwrite |
+| Situation                                           | Action                    |
+| --------------------------------------------------- | ------------------------- |
+| Missing / blank                                     | Leave blank               |
+| Company already has ORG_NUMBER                      | Never overwrite           |
 | Clear non-empty `registeredAs` and company has none | Write singular ORG_NUMBER |
-| Owned by another company | Skip |
+| Owned by another company                            | Skip                      |
 
-No jurisdiction filter required for v1: value comes from the certified LEI record for *this* LEI. Format varies by country (expected).
+No jurisdiction filter required for v1: value comes from the certified LEI record for _this_ LEI. Format varies by country (expected).
 
 ### BIC
 
-| Situation | Action |
-| --------- | ------ |
-| 0 BICs | Leave blank |
-| 1+ BICs | Upsert all (same ownership / idempotent rules as ISIN) |
-| Exactly 1 BIC and no PRIMARY | Optional `role=PRIMARY` |
-| 2+ BICs | Store all; no auto-PRIMARY |
+| Situation                    | Action                                                 |
+| ---------------------------- | ------------------------------------------------------ |
+| 0 BICs                       | Leave blank                                            |
+| 1+ BICs                      | Upsert all (same ownership / idempotent rules as ISIN) |
+| Exactly 1 BIC and no PRIMARY | Optional `role=PRIMARY`                                |
+| 2+ BICs                      | Store all; no auto-PRIMARY                             |
 
 Invalid checksum / format → reject that value only.
 

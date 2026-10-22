@@ -235,8 +235,7 @@ export async function getGleifLinkedIdentifiers(
   const jurisdiction = attrs?.entity?.jurisdiction?.trim() || null
   const bics = parseBics(attrs?.bic)
 
-  const maxIsinPages =
-    options?.maxIsinPages ?? Math.ceil(MAX_AUTO_ISINS / 50)
+  const maxIsinPages = options?.maxIsinPages ?? Math.ceil(MAX_AUTO_ISINS / 50)
   const isinResult = await getIsinsForLei(normalizedLei, {
     maxPages: maxIsinPages,
   })

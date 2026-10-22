@@ -29,7 +29,6 @@ function persistIdentifierValue(
 }
 
 class CompanyIdentifierService {
-
   async findOtherCompanyOwningLei(
     lei: string,
     excludeCompanyId?: string | null
@@ -93,7 +92,9 @@ class CompanyIdentifierService {
     })
     if (other) {
       throw Object.assign(
-        new Error(`${type} value ${value} is already in use by company ${other.companyId}`),
+        new Error(
+          `${type} value ${value} is already in use by company ${other.companyId}`
+        ),
         { code: 409 }
       )
     }
@@ -133,7 +134,11 @@ class CompanyIdentifierService {
     verified?: boolean
     skipMetadataIfUnchanged?: boolean
     role?: CompanyIdentifierRole | null
-  }): Promise<{ id: string; value: string; role: CompanyIdentifierRole | null } | null> {
+  }): Promise<{
+    id: string
+    value: string
+    role: CompanyIdentifierRole | null
+  } | null> {
     const trimmedValue = value.trim()
     if (!trimmedValue) return null
 
