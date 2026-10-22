@@ -3,6 +3,7 @@
 import { normalizeLei } from './normalizeLei'
 import { normalizeIsin } from './normalizeIsin'
 import { normalizeBic } from './normalizeBic'
+import { MAX_AUTO_ISINS } from './gleifIdentifierWrite'
 
 /** Slim LEI candidate for LLM selection — excludes registration.managingLou. */
 export type GleifLeiCandidate = {
@@ -150,10 +151,12 @@ export async function getIsinsForLei(
       `https://api.gleif.org/api/v1/lei-records/${encodeURIComponent(normalizedLei)}/isins?page[number]=${page}&page[size]=${pageSize}`
     )
     if (!response.ok) {
-      console.log(
+      if (response.status === 404 && page === 1) {
+        return { isins: [], total: 0, truncated: false }
+      }
+      throw new Error(
         `GLEIF ISIN lookup error ${response.status}: ${response.statusText}`
       )
-      return { isins, total, truncated: false }
     }
 
     const data = (await response.json()) as {
@@ -168,7 +171,9 @@ export async function getIsinsForLei(
     page += 1
   }
 
-  const truncated = lastPage > maxPages || (total > 0 && isins.length < total)
+  // Only treat as truncated when we stopped early due to the page cap.
+  // Do not use isins.length < total (invalid/duplicate ISINs reduce the count).
+  const truncated = lastPage > maxPages
   return { isins, total: total || isins.length, truncated }
 }
 
@@ -218,10 +223,10 @@ export async function getGleifLinkedIdentifiers(
     `https://api.gleif.org/api/v1/lei-records/${encodeURIComponent(normalizedLei)}`
   )
   if (!response.ok) {
-    console.log(
+    if (response.status === 404) return null
+    throw new Error(
       `GLEIF LEI record error ${response.status}: ${response.statusText}`
     )
-    return null
   }
 
   const payload = (await response.json()) as { data?: GleifLeiRecordDetail }
@@ -230,8 +235,10 @@ export async function getGleifLinkedIdentifiers(
   const jurisdiction = attrs?.entity?.jurisdiction?.trim() || null
   const bics = parseBics(attrs?.bic)
 
+  const maxIsinPages =
+    options?.maxIsinPages ?? Math.ceil(MAX_AUTO_ISINS / 50)
   const isinResult = await getIsinsForLei(normalizedLei, {
-    maxPages: options?.maxIsinPages,
+    maxPages: maxIsinPages,
   })
 
   return {

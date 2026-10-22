@@ -1,6 +1,7 @@
 import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { enqueueSaveToAPIWithParentFallback } from '../lib/DiffWorker'
 import {
+  chunkIdentifierWriteItems,
   planGleifIdentifierWrites,
   type ExistingIdentifier,
 } from '../lib/gleifIdentifierWrite'
@@ -54,31 +55,35 @@ const diffGleifIds = new PipelineWorker<DiffGleifIdsJob>(
       return
     }
 
-    const body = {
-      items: plan.items,
-      verified: false,
-      metadata: {
-        source: 'gleif-lei-record',
-        comment: job.data.lei
-          ? `Mapped from LEI ${job.data.lei} via GLEIF`
-          : 'Mapped via GLEIF',
-      },
-    }
-
+    const chunks = chunkIdentifierWriteItems(plan.items)
     job.log(
-      `⚡ Enqueuing ${plan.items.length} GLEIF identifier write(s) for '${companyName}'`
+      `⚡ Enqueuing ${plan.items.length} GLEIF identifier write(s) for '${companyName}' in ${chunks.length} batch(es)`
     )
-    await enqueueSaveToAPIWithParentFallback(
-      job,
-      `${companyName} - GLEIF identifiers`,
-      {
-        ...job.data,
-        body,
-        diff: plan.reasons.join(' '),
-        requiresApproval: false,
-        apiSubEndpoint: 'identifiers/batch',
+
+    for (const [index, chunk] of chunks.entries()) {
+      const body = {
+        items: chunk,
+        verified: false,
+        metadata: {
+          source: 'gleif-lei-record',
+          comment: job.data.lei
+            ? `Mapped from LEI ${job.data.lei} via GLEIF (batch ${index + 1}/${chunks.length})`
+            : `Mapped via GLEIF (batch ${index + 1}/${chunks.length})`,
+        },
       }
-    )
+
+      await enqueueSaveToAPIWithParentFallback(
+        job,
+        `${companyName} - GLEIF identifiers${chunks.length > 1 ? ` (${index + 1}/${chunks.length})` : ''}`,
+        {
+          ...job.data,
+          body,
+          diff: plan.reasons.join(' '),
+          requiresApproval: false,
+          apiSubEndpoint: 'identifiers/batch',
+        }
+      )
+    }
   }
 )
 

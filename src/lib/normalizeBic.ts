@@ -5,10 +5,15 @@ export function isValidBic(value: string): boolean {
   return BIC_PATTERN.test(value.trim().toUpperCase())
 }
 
-/** Normalize a BIC to uppercase, or null if invalid. */
+/**
+ * Normalize a BIC to uppercase 11-char form, or null if invalid.
+ * 8-char head-office BICs are canonicalized with a trailing `XXX` branch code
+ * so `TEERSESS` and `TEERSESSXXX` do not create duplicate rows.
+ */
 export function normalizeBic(value: string | undefined | null): string | null {
   const trimmed = value?.trim().toUpperCase()
   if (!trimmed || !isValidBic(trimmed)) return null
+  if (trimmed.length === 8) return `${trimmed}XXX`
   return trimmed
 }
 

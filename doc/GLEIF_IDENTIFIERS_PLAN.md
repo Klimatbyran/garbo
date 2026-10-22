@@ -84,6 +84,17 @@ SQL also: partial unique index — at most one `PRIMARY` per `(companyId, type)`
 
 Partner API: **unchanged** (still no `identifiers[]` / ISIN on partner responses).
 
+SQL also enforces singular cardinality via partial unique index  
+`UNIQUE (companyId, type) WHERE type IN ('WIKIDATA','LEI','ORG_NUMBER')`.
+
+### Deploy order
+
+1. Deploy **api** (and Goffer) code that understands multi-value + `companyId_type_value`.
+2. Run **garbo** migration `20261021140000_multi_gleif_identifiers`.
+3. Deploy **garbo** workers / pipeline-api queue names.
+
+Do **not** run the migration while `api`/`validate-frontend` on main still upsert via `companyId_type`. Rollback after multi-ISIN rows exist cannot recreate the old unique index.
+
 ---
 
 ## Write policy (foolproof)

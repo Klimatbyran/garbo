@@ -1,6 +1,8 @@
 import { describe, it, expect } from '@jest/globals'
 import {
   MAX_AUTO_ISINS,
+  IDENTIFIER_BATCH_MAX_ITEMS,
+  chunkIdentifierWriteItems,
   planGleifIdentifierWrites,
 } from './gleifIdentifierWrite'
 
@@ -73,5 +75,33 @@ describe('planGleifIdentifierWrites', () => {
     })
     expect(plan.items.find((i) => i.type === 'ORG_NUMBER')).toBeUndefined()
     expect(plan.items).toEqual([{ type: 'ISIN', value: ISIN_B }])
+  })
+
+  it('promotes an existing sole ISIN to PRIMARY when GLEIF confirms it', () => {
+    const plan = planGleifIdentifierWrites({
+      existing: [{ type: 'ISIN', value: ISIN_A }],
+      isins: [ISIN_A],
+      isinTotal: 1,
+      isinsTruncated: false,
+      registeredAs: null,
+      bics: [],
+    })
+    expect(plan.items).toEqual([
+      { type: 'ISIN', value: ISIN_A, role: 'PRIMARY' },
+    ])
+  })
+
+  it('chunks writes under the API batch max', () => {
+    const items = Array.from(
+      { length: IDENTIFIER_BATCH_MAX_ITEMS + 2 },
+      (_, i) => ({
+        type: 'ISIN' as const,
+        value: `item-${i}`,
+      })
+    )
+    const chunks = chunkIdentifierWriteItems(items)
+    expect(chunks).toHaveLength(2)
+    expect(chunks[0]).toHaveLength(IDENTIFIER_BATCH_MAX_ITEMS)
+    expect(chunks[1]).toHaveLength(2)
   })
 })

@@ -150,9 +150,18 @@ class CompanyIdentifierService {
           where: { companyId, type },
           select: { id: true, value: true, role: true },
         })
-      : await prisma.companyIdentifier.findUnique({
+      : await prisma.companyIdentifier.findFirst({
           where: {
-            companyId_type_value: { companyId, type, value: persistedValue },
+            companyId,
+            type,
+            ...(type === 'ISIN' || type === 'LEI' || type === 'BIC'
+              ? {
+                  value: {
+                    equals: persistedValue,
+                    mode: 'insensitive' as const,
+                  },
+                }
+              : { value: persistedValue }),
           },
           select: { id: true, value: true, role: true },
         })
@@ -234,17 +243,23 @@ class CompanyIdentifierService {
       role: CompanyIdentifierRole | null
     }> = []
     for (const item of items) {
-      const row = await this.upsertIdentifier({
-        companyId,
-        type: item.type,
-        value: item.value,
-        role: item.role,
-        user,
-        metadata,
-        verified,
-        skipMetadataIfUnchanged: true,
-      })
-      if (row) results.push(row)
+      try {
+        const row = await this.upsertIdentifier({
+          companyId,
+          type: item.type,
+          value: item.value,
+          role: item.role,
+          user,
+          metadata,
+          verified,
+          skipMetadataIfUnchanged: true,
+        })
+        if (row) results.push(row)
+      } catch (error) {
+        // Backfill / pipeline: skip values owned elsewhere; continue the batch.
+        if ((error as { code?: number }).code === 409) continue
+        throw error
+      }
     }
     return results
   }
@@ -288,7 +303,7 @@ class CompanyIdentifierService {
       if (row) synced.push({ id: row.id, value: row.value })
     }
 
-    const lei = normalizeLei(company.lei) ?? company.lei?.trim()
+    const lei = normalizeLei(company.lei)
     if (syncLei && lei) {
       const row = await this.upsertIdentifier({
         companyId: company.id,
