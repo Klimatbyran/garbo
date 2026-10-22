@@ -24,10 +24,7 @@ export type GleifWritePlan = {
   reasons: string[]
 }
 
-function hasType(
-  existing: ExistingIdentifier[],
-  type: string
-): boolean {
+function hasType(existing: ExistingIdentifier[], type: string): boolean {
   return existing.some((row) => row.type === type)
 }
 
@@ -38,7 +35,8 @@ function hasValue(
 ): boolean {
   return existing.some(
     (row) =>
-      row.type === type && row.value.trim().toUpperCase() === value.toUpperCase()
+      row.type === type &&
+      row.value.trim().toUpperCase() === value.toUpperCase()
   )
 }
 
@@ -81,8 +79,7 @@ export function planGleifIdentifierWrites(input: {
       `GLEIF reports ${effectiveTotal} ISINs (truncated=${input.isinsTruncated}); over auto-write cap ${maxIsins} — leaving ISIN blank.`
     )
   } else {
-    const setPrimary =
-      validIsins.length === 1 && !hasPrimary(existing, 'ISIN')
+    const setPrimary = validIsins.length === 1 && !hasPrimary(existing, 'ISIN')
     for (const isin of validIsins) {
       if (hasValue(existing, 'ISIN', isin)) {
         if (setPrimary) {
@@ -112,7 +109,9 @@ export function planGleifIdentifierWrites(input: {
   // --- ORG_NUMBER ---
   const org = input.registeredAs?.trim() || ''
   if (!org) {
-    reasons.push('No registeredAs on GLEIF LEI record; leaving ORG_NUMBER blank.')
+    reasons.push(
+      'No registeredAs on GLEIF LEI record; leaving ORG_NUMBER blank.'
+    )
   } else if (hasType(existing, 'ORG_NUMBER')) {
     reasons.push('ORG_NUMBER already set; not overwriting.')
   } else {
@@ -131,8 +130,7 @@ export function planGleifIdentifierWrites(input: {
   if (validBics.length === 0) {
     reasons.push('No valid BICs from GLEIF; leaving BIC blank.')
   } else {
-    const setPrimaryBic =
-      validBics.length === 1 && !hasPrimary(existing, 'BIC')
+    const setPrimaryBic = validBics.length === 1 && !hasPrimary(existing, 'BIC')
     for (const bic of validBics) {
       if (hasValue(existing, 'BIC', bic)) {
         if (setPrimaryBic) {

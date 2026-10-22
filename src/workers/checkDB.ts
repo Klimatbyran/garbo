@@ -527,9 +527,7 @@ const checkDB = new PipelineWorker(
                   | undefined
               )?.find((row) => row.type === 'LEI')?.value ?? null
             )
-          const leiForGleif = existingLei
-            ? existingLei
-            : (mergedLei ?? null)
+          const leiForGleif = existingLei ? existingLei : (mergedLei ?? null)
           const runOnly = Array.isArray(job.data.runOnly)
             ? (job.data.runOnly as string[])
             : undefined
