@@ -48,6 +48,8 @@ spec:
                 secretKeyRef:
                   name: env
                   key: NODE_ENV
+            - name: ENABLE_BULL_BOARD
+              value: 'false'
             - name: OPENAI_API_KEY
               valueFrom:
                 secretKeyRef:
