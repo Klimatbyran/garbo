@@ -276,7 +276,7 @@ Indexes the parsed markdown into the VectorDB for downstream retrieval.
 - Runs a cheap regex scan for Scope 1/2/3 language (`src/lib/emissionsPresence.ts`).
 - Persists `Report.hasEmissionsMentions` and `Report.emissionsPresenceCheckedAt`.
 - If mentions found: enqueues `precheck` and continues the pipeline.
-- If none found: completes successfully with `gated: true` (does not fail). `startWorkers` then sets `ReportRun.status` to `skipped_no_emissions` and requests run prune.
+- If none found: completes successfully with `gated: true` (does not fail). `startWorkers` then sets `ReportRun.status` to `skipped_no_emissions`. Redis run retention is handled by pipeline-api's prune CronJob (not a per-run hook).
 
 **Return Value:**
 
