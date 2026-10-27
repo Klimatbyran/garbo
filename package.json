@@ -1,6 +1,6 @@
 {
   "name": "garbo",
-  "version": "6.5.2",
+  "version": "6.5.3-rc.0",
   "description": "",
   "type": "module",
   "exports": {
