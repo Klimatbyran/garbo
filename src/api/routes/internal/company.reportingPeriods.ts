@@ -179,9 +179,11 @@ async function buildScope1Promise(
     : null
   const next = stripProvenanceFields(scope1Payload) as Scope1UpsertInput
   const previousValue =
-    existing &&
-    (existing.total !== next.total || existing.unit !== next.unit)
-      ? ({ total: existing.total, unit: existing.unit } satisfies Prisma.InputJsonValue)
+    existing && (existing.total !== next.total || existing.unit !== next.unit)
+      ? ({
+          total: existing.total,
+          unit: existing.unit,
+        } satisfies Prisma.InputJsonValue)
       : undefined
 
   const metadataForScope1 = await createDatapointMetadata({
@@ -497,7 +499,8 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
                   ) as StatedTotalUpsertInput
                   const previousValue =
                     existing &&
-                    (existing.total !== next.total || existing.unit !== next.unit)
+                    (existing.total !== next.total ||
+                      existing.unit !== next.unit)
                       ? ({
                           total: existing.total,
                           unit: existing.unit,
@@ -531,7 +534,8 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
                   ) as BiogenicUpsertInput
                   const previousValue =
                     existing &&
-                    (existing.total !== next.total || existing.unit !== next.unit)
+                    (existing.total !== next.total ||
+                      existing.unit !== next.unit)
                       ? ({
                           total: existing.total,
                           unit: existing.unit,
@@ -565,7 +569,8 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
                   ) as Scope1And2UpsertInput
                   const previousValue =
                     existing &&
-                    (existing.total !== next.total || existing.unit !== next.unit)
+                    (existing.total !== next.total ||
+                      existing.unit !== next.unit)
                       ? ({
                           total: existing.total,
                           unit: existing.unit,
@@ -629,7 +634,8 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
                   const next = _.omit(employees, 'verified')
                   const previousValue =
                     existing &&
-                    (existing.value !== next.value || existing.unit !== next.unit)
+                    (existing.value !== next.value ||
+                      existing.unit !== next.unit)
                       ? ({
                           value: existing.value,
                           unit: existing.unit,
