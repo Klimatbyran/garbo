@@ -6,7 +6,7 @@ function readOptionalUrl(value: string | undefined): string | undefined {
     return new URL(value.trim()).toString().replace(/\/$/, '')
   } catch {
     console.warn(
-      '[pipelineApi] invalid PIPELINE_API_URL; prune hook disabled until URL is fixed'
+      '[pipelineApi] invalid PIPELINE_API_URL; internal pipeline-api calls disabled until URL is fixed'
     )
     return undefined
   }
