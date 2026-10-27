@@ -79,13 +79,13 @@ function advisoryIdFromVia(via) {
 
 function zodMemoryFalsePositiveApplies(zodInstalls) {
   const zod3Installs = zodInstalls.filter((install) =>
-    String(install.version).startsWith('3.'),
+    String(install.version).startsWith('3.')
   )
   const zod4Installs = zodInstalls.filter((install) =>
-    String(install.version).startsWith('4.'),
+    String(install.version).startsWith('4.')
   )
   const unpatchedZod4 = zod4Installs.filter(
-    (install) => !versionGte(install.version, ZOD4_PATCHED),
+    (install) => !versionGte(install.version, ZOD4_PATCHED)
   )
   return zod3Installs.length > 0 && unpatchedZod4.length === 0
 }
@@ -95,7 +95,9 @@ function isDirectZodMemoryFalsePositive(vuln, zodInstalls) {
   const vias = Array.isArray(vuln.via) ? vuln.via : []
   const advisoryVias = vias.filter((via) => typeof via === 'object')
   if (advisoryVias.length === 0) return false
-  if (!advisoryVias.every((via) => advisoryIdFromVia(via) === ZOD_MEMORY_GHSA)) {
+  if (
+    !advisoryVias.every((via) => advisoryIdFromVia(via) === ZOD_MEMORY_GHSA)
+  ) {
     return false
   }
   return zodMemoryFalsePositiveApplies(zodInstalls)
@@ -118,7 +120,7 @@ function isAllowlisted(name, vulnerabilities, allowlisted, zodInstalls) {
   // Mark tentatively to break cycles, then confirm all edges are allowlisted.
   allowlisted.add(name)
   const allAllowlisted = vias.every((viaName) =>
-    isAllowlisted(viaName, vulnerabilities, allowlisted, zodInstalls),
+    isAllowlisted(viaName, vulnerabilities, allowlisted, zodInstalls)
   )
   if (!allAllowlisted) allowlisted.delete(name)
   return allAllowlisted
@@ -149,15 +151,15 @@ const zodInstalls = collectZodInstalls()
 const vulnerabilities = report.vulnerabilities || {}
 const allowlisted = new Set()
 const remaining = Object.keys(vulnerabilities).filter(
-  (name) => !isAllowlisted(name, vulnerabilities, allowlisted, zodInstalls),
+  (name) => !isAllowlisted(name, vulnerabilities, allowlisted, zodInstalls)
 )
 
 if (remaining.length === 0) {
   console.log(
-    'npm audit --omit=dev: clean after allowlisting Zod 3 false positive',
+    'npm audit --omit=dev: clean after allowlisting Zod 3 false positive'
   )
   console.log(
-    `${ZOD_MEMORY_GHSA} ignored because installed Zod majors are 3.x and patched 4.x (>= ${ZOD4_PATCHED}).`,
+    `${ZOD_MEMORY_GHSA} ignored because installed Zod majors are 3.x and patched 4.x (>= ${ZOD4_PATCHED}).`
   )
   for (const install of zodInstalls) {
     console.log(`- zod@${install.version}`)
