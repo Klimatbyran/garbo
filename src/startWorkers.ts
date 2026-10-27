@@ -11,7 +11,6 @@ import {
   reportRunSyncFieldsFromJob,
   resolveRegistryReportIdForRun,
 } from './lib/reportRunPersistence'
-import { requestPipelineRunPrune } from './lib/pipelineApiPrune'
 import { archiveFieldsFromFollowUpReturnValue } from './lib/sourceReference'
 
 for (const queueName of Object.values(QUEUE_NAMES)) {
@@ -147,10 +146,6 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
           where: { id: reportRun.id },
           data: { status: 'completed' },
         })
-
-        if (threadId) {
-          requestPipelineRunPrune({ threadId })
-        }
       } else if (
         queueName === QUEUE_NAMES.CHECK_EMISSIONS_PRESENCE &&
         returnValue?.gated === true
@@ -159,10 +154,6 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
           where: { id: reportRun.id },
           data: { status: 'skipped_no_emissions' },
         })
-
-        if (threadId) {
-          requestPipelineRunPrune({ threadId })
-        }
       }
     } catch (err) {
       console.error(`[ReportRun] failed to save run for job ${jobId}:`, err)

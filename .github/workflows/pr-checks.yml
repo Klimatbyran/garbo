@@ -138,4 +138,4 @@ jobs:
         run: npm ci
 
       - name: Audit dependencies (production, all severities)
-        run: npm audit --omit=dev
+        run: node scripts/audit-prod.mjs

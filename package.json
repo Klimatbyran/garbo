@@ -38,6 +38,7 @@
     "backfill:report-runs": "node --import tsx scripts/backfill-report-runs-from-bullmq.ts",
     "eslint": "npx eslint src",
     "format": "npx prettier --write .",
+    "audit:prod": "node scripts/audit-prod.mjs",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "test:wikidata:smoke": "WIKIDATA_LIVE_TESTS=smoke NODE_OPTIONS=--experimental-vm-modules jest tests/wikidata/wikidata-search-company",
     "test:wikidata:regular": "WIKIDATA_LIVE_TESTS=regular NODE_OPTIONS=--experimental-vm-modules jest tests/wikidata/wikidata-search-company",
@@ -106,7 +107,7 @@
   "overrides": {
     "esbuild": ">=0.28.1",
     "axios": "^1.16.1",
-    "undici": ">=6.23.0",
+    "undici": ">=7.30.1",
     "@tootallnate/once": ">=3.0.1",
     "@fastify/static": "^10.1.3",
     "prisma-zod-generator": {
