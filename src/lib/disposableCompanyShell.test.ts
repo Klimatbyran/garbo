@@ -50,9 +50,9 @@ describe('isDisposableCompanyShell', () => {
   })
 
   it('rejects shells with reporting periods', () => {
-    expect(
-      isDisposableCompanyShell(shell({ reportingPeriodCount: 1 }))
-    ).toBe(false)
+    expect(isDisposableCompanyShell(shell({ reportingPeriodCount: 1 }))).toBe(
+      false
+    )
   })
 
   it('rejects shells with wikidata column or identifier', () => {
@@ -105,16 +105,16 @@ describe('isDisposableCompanyShell', () => {
   })
 
   it('rejects shells referenced by an active ReportRun', () => {
-    expect(
-      isDisposableCompanyShell(shell({ activeReportRunCount: 1 }))
-    ).toBe(false)
+    expect(isDisposableCompanyShell(shell({ activeReportRunCount: 1 }))).toBe(
+      false
+    )
   })
 
   it('rejects shells with profile fields or related records', () => {
     expect(isDisposableCompanyShell(shell({ tags: ['listed'] }))).toBe(false)
-    expect(isDisposableCompanyShell(shell({ url: 'https://example.com' }))).toBe(
-      false
-    )
+    expect(
+      isDisposableCompanyShell(shell({ url: 'https://example.com' }))
+    ).toBe(false)
     expect(isDisposableCompanyShell(shell({ goalCount: 1 }))).toBe(false)
     expect(isDisposableCompanyShell(shell({ hasIndustry: true }))).toBe(false)
     expect(isDisposableCompanyShell(shell({ hasBaseYear: true }))).toBe(false)

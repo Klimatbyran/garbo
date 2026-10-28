@@ -93,8 +93,7 @@ export function explainDisposableCompanyShell(
 
   if (
     snapshot.identifiers.some(
-      (row) =>
-        OTHER_IDENTIFIER_TYPES.has(row.type) && Boolean(row.value.trim())
+      (row) => OTHER_IDENTIFIER_TYPES.has(row.type) && Boolean(row.value.trim())
     )
   ) {
     reasons.push('has_other_identifier')
