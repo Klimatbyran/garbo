@@ -10,7 +10,7 @@ type UpsertedReportingPeriod = Prisma.ReportingPeriodGetPayload<
 class ReportingPeriodService {
   async upsertReportingPeriod(
     company: Company,
-    metadata: Parameters<typeof prisma.metadata.create>[0]['data'],
+    metadata: { id: string },
     {
       startDate,
       endDate,
