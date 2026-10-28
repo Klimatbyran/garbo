@@ -71,15 +71,15 @@ Reports potential duplicate `Company` rows using the same normalized-name / LEI 
 
 ## Cleanup empty company shells
 
-Finds name-only `Company` rows with no reporting periods, Wikidata, valid LEI, or registry-linked reports (typical leftovers after pipeline create-then-relink). **Dry-run by default**; pass `--apply` to delete.
+Finds name-only `Company` rows with no reporting periods, Wikidata/LEI/other identifiers, profile fields, or related records (typical leftovers after pipeline create-then-relink).
+
+**The pipeline never auto-deletes.** checkDB only logs `Would delete empty company shell …`. Deletion is manual via this script (**dry-run by default**; pass `--apply`).
 
 ```bash
 npm run cleanup-empty-company-shells
 npm run cleanup-empty-company-shells -- --csv=./empty-shells.csv
 npm run cleanup-empty-company-shells -- --apply --limit=50
 ```
-
-After checkDB re-resolves away from a precheck-created company, the worker also **logs** `Would delete empty company shell …` when the abandoned row matches the same predicate (no auto-delete yet).
 
 ## Reporting periods per document (deploy order)
 

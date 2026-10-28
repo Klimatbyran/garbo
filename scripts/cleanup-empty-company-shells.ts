@@ -1,10 +1,10 @@
 /**
  * Find (and optionally delete) empty company shells left after pipeline
- * create-then-relink — name-only rows with no periods, Wikidata, LEI, or
- * registry-linked reports.
+ * create-then-relink — name-only rows with no periods, identifiers, profile
+ * fields, or related records.
  *
- * Usage:
- *   npm run cleanup-empty-company-shells
+ * Pipeline never auto-deletes. This script is manual:
+ *   npm run cleanup-empty-company-shells              # dry-run (default)
  *   npm run cleanup-empty-company-shells -- --json=./empty-shells.json
  *   npm run cleanup-empty-company-shells -- --csv=./empty-shells.csv
  *   npm run cleanup-empty-company-shells -- --apply
@@ -20,79 +20,94 @@ import {
   explainDisposableCompanyShell,
   type DisposableCompanyShellSnapshot,
 } from '../src/lib/disposableCompanyShell'
+import {
+  companyShellSelect,
+  toSnapshot,
+} from '../src/lib/loadDisposableCompanyShellSnapshot'
 import { companyService } from '../src/api/services/companyService'
+import { redisCache } from '../src/lib/redisCacheSingleton'
 
-type ShellRow = DisposableCompanyShellSnapshot & {
-  reasons: string[]
+function parsePositiveLimit(raw: string | undefined): number | undefined {
+  if (raw === undefined) return undefined
+  const parsed = Number(raw)
+  if (!Number.isInteger(parsed) || parsed < 1) {
+    throw new Error(
+      `Invalid --limit=${raw}. Use a positive integer (e.g. --limit=50).`
+    )
+  }
+  return parsed
+}
+
+function escapeCsvField(value: string): string {
+  if (/[",\n\r]/.test(value)) {
+    return `"${value.replace(/"/g, '""')}"`
+  }
+  return value
 }
 
 async function loadAllShellCandidates(
   limit?: number
 ): Promise<DisposableCompanyShellSnapshot[]> {
-  const companies = await prisma.company.findMany({
-    where: {
-      wikidataId: null,
-      reportingPeriods: { none: {} },
-    },
-    select: {
-      id: true,
-      name: true,
-      wikidataId: true,
-      lei: true,
-      _count: { select: { reportingPeriods: true } },
-      companyReports: { select: { registryReportId: true } },
-      identifiers: { select: { type: true, value: true } },
-    },
-    orderBy: { name: 'asc' },
-    ...(limit && limit > 0 ? { take: limit * 5 } : {}),
-  })
+  const disposable: DisposableCompanyShellSnapshot[] = []
+  const pageSize = 200
+  let skip = 0
 
-  const activeRuns = await prisma.reportRun.groupBy({
-    by: ['companyId'],
-    where: {
-      status: 'running',
-      companyId: { in: companies.map((company) => company.id) },
-    },
-    _count: { _all: true },
-  })
-  const activeByCompanyId = new Map(
-    activeRuns
-      .filter((row) => row.companyId)
-      .map((row) => [row.companyId as string, row._count._all])
-  )
+  while (limit === undefined || disposable.length < limit) {
+    const companies = await prisma.company.findMany({
+      where: {
+        wikidataId: null,
+        reportingPeriods: { none: {} },
+      },
+      select: companyShellSelect,
+      orderBy: [{ name: 'asc' }, { id: 'asc' }],
+      skip,
+      take: pageSize,
+    })
+    if (companies.length === 0) break
 
-  const snapshots = companies.map((company) => ({
-    id: company.id,
-    name: company.name,
-    wikidataId: company.wikidataId,
-    lei: company.lei,
-    reportingPeriodCount: company._count.reportingPeriods,
-    companyReports: company.companyReports,
-    identifiers: company.identifiers,
-    activeReportRunCount: activeByCompanyId.get(company.id) ?? 0,
-  }))
+    const activeRuns = await prisma.reportRun.groupBy({
+      by: ['companyId'],
+      where: {
+        status: 'running',
+        companyId: { in: companies.map((company) => company.id) },
+      },
+      _count: { _all: true },
+    })
+    const activeByCompanyId = new Map(
+      activeRuns
+        .filter((row) => row.companyId)
+        .map((row) => [row.companyId as string, row._count._all])
+    )
 
-  const disposable = snapshots.filter(
-    (snapshot) => explainDisposableCompanyShell(snapshot).disposable
-  )
+    for (const company of companies) {
+      const snapshot = toSnapshot(
+        company,
+        activeByCompanyId.get(company.id) ?? 0
+      )
+      if (!explainDisposableCompanyShell(snapshot).disposable) continue
+      disposable.push(snapshot)
+      if (limit !== undefined && disposable.length >= limit) break
+    }
 
-  if (limit && limit > 0) return disposable.slice(0, limit)
+    skip += companies.length
+    if (companies.length < pageSize) break
+  }
+
   return disposable
 }
 
-function toCsv(rows: ShellRow[]): string {
+function toCsv(rows: DisposableCompanyShellSnapshot[]): string {
   const header =
-    'company_id,company_name,lei,wikidata_id,reporting_period_count,company_report_count,active_report_run_count,reasons'
+    'company_id,company_name,lei,wikidata_id,reporting_period_count,company_report_count,active_report_run_count'
   const lines = rows.map((row) =>
     [
       row.id,
-      JSON.stringify(row.name),
+      escapeCsvField(row.name),
       row.lei ?? '',
       row.wikidataId ?? '',
-      row.reportingPeriodCount,
-      row.companyReports.length,
-      row.activeReportRunCount,
-      JSON.stringify(row.reasons.join('|')),
+      String(row.reportingPeriodCount),
+      String(row.companyReports.length),
+      String(row.activeReportRunCount),
     ].join(',')
   )
   return [header, ...lines].join('\n')
@@ -109,22 +124,18 @@ async function main() {
     allowPositionals: false,
   })
 
-  const limit = values.limit ? Number(values.limit) : undefined
+  const limit = parsePositiveLimit(values.limit)
   const apply = Boolean(values.apply)
 
-  const disposable = await loadAllShellCandidates(
-    limit && Number.isFinite(limit) ? limit : undefined
-  )
-
-  const rows: ShellRow[] = disposable.map((snapshot) => ({
-    ...snapshot,
-    reasons: [],
-  }))
+  const rows = await loadAllShellCandidates(limit)
 
   console.log('Empty company shell cleanup')
   console.log('===========================')
   console.log(`Disposable shells: ${rows.length}`)
   console.log(`Mode: ${apply ? 'APPLY (delete)' : 'dry-run'}`)
+  console.log(
+    'Note: pipeline never auto-deletes; --apply is manual opt-in only.'
+  )
   console.log('')
 
   for (const row of rows) {
@@ -155,18 +166,9 @@ async function main() {
   let deleted = 0
   let failed = 0
   for (const row of rows) {
-    // Re-check immediately before delete in case data changed.
     const snapshot = await prisma.company.findUnique({
       where: { id: row.id },
-      select: {
-        id: true,
-        name: true,
-        wikidataId: true,
-        lei: true,
-        _count: { select: { reportingPeriods: true } },
-        companyReports: { select: { registryReportId: true } },
-        identifiers: { select: { type: true, value: true } },
-      },
+      select: companyShellSelect,
     })
     if (!snapshot) {
       console.log(`  [skip] ${row.id} already gone`)
@@ -175,16 +177,9 @@ async function main() {
     const activeReportRunCount = await prisma.reportRun.count({
       where: { companyId: row.id, status: 'running' },
     })
-    const verdict = explainDisposableCompanyShell({
-      id: snapshot.id,
-      name: snapshot.name,
-      wikidataId: snapshot.wikidataId,
-      lei: snapshot.lei,
-      reportingPeriodCount: snapshot._count.reportingPeriods,
-      companyReports: snapshot.companyReports,
-      identifiers: snapshot.identifiers,
-      activeReportRunCount,
-    })
+    const verdict = explainDisposableCompanyShell(
+      toSnapshot(snapshot, activeReportRunCount)
+    )
     if (!verdict.disposable) {
       console.log(
         `  [skip] ${row.id} no longer disposable (${verdict.reasons.join(', ')})`
@@ -201,6 +196,10 @@ async function main() {
       const message = error instanceof Error ? error.message : String(error)
       console.error(`  [error] ${row.id}: ${message}`)
     }
+  }
+
+  if (deleted > 0) {
+    redisCache.clear()
   }
 
   console.log(`\nDeleted ${deleted}; failed ${failed}`)

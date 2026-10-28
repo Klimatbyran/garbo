@@ -15,7 +15,18 @@ function shell(
     name: 'Example AB',
     wikidataId: null,
     lei: null,
+    url: null,
+    logoUrl: null,
+    description: null,
+    internalComment: null,
+    tags: [],
+    alternativeNames: [],
     reportingPeriodCount: 0,
+    goalCount: 0,
+    initiativeCount: 0,
+    descriptionCount: 0,
+    hasIndustry: false,
+    hasBaseYear: false,
     companyReports: [],
     identifiers: [],
     activeReportRunCount: 0,
@@ -39,9 +50,9 @@ describe('isDisposableCompanyShell', () => {
   })
 
   it('rejects shells with reporting periods', () => {
-    expect(isDisposableCompanyShell(shell({ reportingPeriodCount: 1 }))).toBe(
-      false
-    )
+    expect(
+      isDisposableCompanyShell(shell({ reportingPeriodCount: 1 }))
+    ).toBe(false)
   })
 
   it('rejects shells with wikidata column or identifier', () => {
@@ -66,6 +77,23 @@ describe('isDisposableCompanyShell', () => {
     ).toBe(false)
   })
 
+  it('rejects shells with ORG_NUMBER or ISIN identifiers', () => {
+    expect(
+      isDisposableCompanyShell(
+        shell({
+          identifiers: [{ type: 'ORG_NUMBER', value: '556677-8899' }],
+        })
+      )
+    ).toBe(false)
+    expect(
+      isDisposableCompanyShell(
+        shell({
+          identifiers: [{ type: 'ISIN', value: 'SE0000108656' }],
+        })
+      )
+    ).toBe(false)
+  })
+
   it('rejects shells with a registry-linked CompanyReport', () => {
     expect(
       isDisposableCompanyShell(
@@ -77,9 +105,19 @@ describe('isDisposableCompanyShell', () => {
   })
 
   it('rejects shells referenced by an active ReportRun', () => {
-    expect(isDisposableCompanyShell(shell({ activeReportRunCount: 1 }))).toBe(
+    expect(
+      isDisposableCompanyShell(shell({ activeReportRunCount: 1 }))
+    ).toBe(false)
+  })
+
+  it('rejects shells with profile fields or related records', () => {
+    expect(isDisposableCompanyShell(shell({ tags: ['listed'] }))).toBe(false)
+    expect(isDisposableCompanyShell(shell({ url: 'https://example.com' }))).toBe(
       false
     )
+    expect(isDisposableCompanyShell(shell({ goalCount: 1 }))).toBe(false)
+    expect(isDisposableCompanyShell(shell({ hasIndustry: true }))).toBe(false)
+    expect(isDisposableCompanyShell(shell({ hasBaseYear: true }))).toBe(false)
   })
 })
 
