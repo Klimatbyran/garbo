@@ -69,6 +69,18 @@ Reports potential duplicate `Company` rows using the same normalized-name / LEI 
    kubectl cp -n garbo-stage <pod-name>:/tmp/duplicate-companies.csv ./duplicate-companies.csv
    ```
 
+## Cleanup empty company shells
+
+Finds name-only `Company` rows with no reporting periods, Wikidata/LEI/other identifiers, profile fields, or related records (typical leftovers after pipeline create-then-relink).
+
+**The pipeline never auto-deletes.** checkDB only logs `Would delete empty company shell …`. Deletion is manual via this script (**dry-run by default**; pass `--apply`).
+
+```bash
+npm run cleanup-empty-company-shells
+npm run cleanup-empty-company-shells -- --csv=./empty-shells.csv
+npm run cleanup-empty-company-shells -- --apply --limit=50
+```
+
 ## Reporting periods per document (deploy order)
 
 After the link job has run in that environment (no `companyReportId IS NULL`):
