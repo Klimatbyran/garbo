@@ -9,6 +9,7 @@ import {
   wikidataIdSchema,
 } from './common'
 import { sourceReferenceFields } from '../../lib/sourceReferenceSchema'
+import { isPlaceholderCompanyName } from '../../lib/companyNamePlaceholders'
 
 const createMetadataSchema = z.object({
   metadata: z
@@ -80,7 +81,14 @@ export const patchCompanyTagsBodySchema = z.object({
 export const postCompanyBodySchema = z
   .object({
     wikidataId: wikidataIdSchema.optional(),
-    name: z.string(),
+    name: z
+      .string()
+      .trim()
+      .min(1)
+      .refine((value) => !isPlaceholderCompanyName(value), {
+        message:
+          'Company name must not be a placeholder (e.g. null, unknown, n/a)',
+      }),
     descriptions: z.array(descriptionSchema).optional(),
     url: z.string().url().optional(),
     logoUrl: z.string().url().optional().nullable(),
