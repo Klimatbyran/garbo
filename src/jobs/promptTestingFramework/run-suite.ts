@@ -36,7 +36,12 @@ const main = async () => {
   try {
     const testSuite = await loadTestSuite(suiteName)
     const resolvedDataKey =
-      dataKey ?? (suiteName.includes('scope3') ? 'scope3' : 'scope12')
+      dataKey ??
+      (suiteName.includes('scope3')
+        ? 'scope3'
+        : suiteName === 'scope1' || suiteName === 'scope2'
+          ? suiteName
+          : 'scope12')
     const testFiles = loadTestFiles(
       suiteName,
       testSuite,
