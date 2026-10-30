@@ -10,17 +10,15 @@ export const schema = z.object({
         z.array(
           z.object({
             number: z.number(),
-            unit: z.string(
-              z.enum([
-                'tCO2e',
-                'tCO2',
-                'tCO2e/m2',
-                'tCO2/m2',
-                'tCO2e/revenue',
-                'tCO2/revenue',
-                'other',
-              ])
-            ),
+            unit: z.enum([
+              'tCO2e',
+              'tCO2',
+              'tCO2e/m2',
+              'tCO2/m2',
+              'tCO2e/revenue',
+              'tCO2/revenue',
+              'other',
+            ]),
             comment: z.string(),
             sourceText: z.string(),
             titleOfTableOrSectionJustAboveThisNumber: z.string(),

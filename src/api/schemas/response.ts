@@ -168,8 +168,14 @@ const withScope2Refinement = <T extends z.ZodRawShape>(
   schema: z.ZodObject<T>
 ) =>
   schema.refine(
-    ({ mb, lb, unknown }) =>
-      mb !== undefined || lb !== undefined || unknown !== undefined,
+    (data) => {
+      const { mb, lb, unknown } = data as {
+        mb?: unknown
+        lb?: unknown
+        unknown?: unknown
+      }
+      return mb !== undefined || lb !== undefined || unknown !== undefined
+    },
     {
       message:
         'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',

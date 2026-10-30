@@ -40,7 +40,7 @@ if (!parsedEnv.success) {
   console.error('❌ Invalid initialization of API environment variables:')
   console.error(parsedEnv.error.format())
 
-  if (parsedEnv.error.errors.some((err) => err.path[0] === 'API_SECRET')) {
+  if (parsedEnv.error.issues.some((err) => err.path[0] === 'API_SECRET')) {
     console.error('API_SECRET must be a secret in the form of a string.')
     console.error('When running locally, this variable can be set freely.')
     console.error(
@@ -48,7 +48,7 @@ if (!parsedEnv.success) {
     )
   }
 
-  if (parsedEnv.error.errors.some((err) => err.path[0] === 'JWT_SECRET')) {
+  if (parsedEnv.error.issues.some((err) => err.path[0] === 'JWT_SECRET')) {
     console.error('JWT_SECRET must be a secret in the form of a string.')
     console.error('When running locally, this variable can be set freely.')
     console.error(

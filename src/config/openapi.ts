@@ -19,7 +19,7 @@ if (!parsedEnv.success) {
   console.error('❌ Invalid initialization of OpenAPI environment variables:')
   console.error(parsedEnv.error.format())
 
-  if (parsedEnv.error.errors.some((err) => err.path[0] === 'OPENAPI_PREFIX')) {
+  if (parsedEnv.error.issues.some((err) => err.path[0] === 'OPENAPI_PREFIX')) {
     console.error('OPENAPI_PREFIX must be a prefix in the form of a string.')
   }
 

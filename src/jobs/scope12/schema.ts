@@ -33,19 +33,25 @@ export const oldSchema = z.object({
               ]),
               mb: z
                 .union([
-                  z.number({ description: 'Market-based scope 2 emissions' }),
+                  z
+                    .number()
+                    .openapi({ description: 'Market-based scope 2 emissions' }),
                   z.null(),
                 ])
                 .optional(),
               lb: z
                 .union([
-                  z.number({ description: 'Location-based scope 2 emissions' }),
+                  z.number().openapi({
+                    description: 'Location-based scope 2 emissions',
+                  }),
                   z.null(),
                 ])
                 .optional(),
               unknown: z
                 .union([
-                  z.number({ description: 'Unspecified Scope 2 emissions' }),
+                  z
+                    .number()
+                    .openapi({ description: 'Unspecified Scope 2 emissions' }),
                   z.null(),
                 ])
                 .optional(),
@@ -113,19 +119,25 @@ export const schema = z.object({
                 .optional(),
               mb: z
                 .union([
-                  z.number({ description: 'Market-based scope 2 emissions' }),
+                  z
+                    .number()
+                    .openapi({ description: 'Market-based scope 2 emissions' }),
                   z.null(),
                 ])
                 .optional(),
               lb: z
                 .union([
-                  z.number({ description: 'Location-based scope 2 emissions' }),
+                  z.number().openapi({
+                    description: 'Location-based scope 2 emissions',
+                  }),
                   z.null(),
                 ])
                 .optional(),
               unknown: z
                 .union([
-                  z.number({ description: 'Unspecified Scope 2 emissions' }),
+                  z
+                    .number()
+                    .openapi({ description: 'Unspecified Scope 2 emissions' }),
                   z.null(),
                 ])
                 .optional(),
@@ -236,19 +248,25 @@ export const schemaScope1And2 = z.object({
                 .optional(),
               mb: z
                 .union([
-                  z.number({ description: 'Market-based scope 2 emissions' }),
+                  z
+                    .number()
+                    .openapi({ description: 'Market-based scope 2 emissions' }),
                   z.null(),
                 ])
                 .optional(),
               lb: z
                 .union([
-                  z.number({ description: 'Location-based scope 2 emissions' }),
+                  z.number().openapi({
+                    description: 'Location-based scope 2 emissions',
+                  }),
                   z.null(),
                 ])
                 .optional(),
               unknown: z
                 .union([
-                  z.number({ description: 'Unspecified Scope 2 emissions' }),
+                  z
+                    .number()
+                    .openapi({ description: 'Unspecified Scope 2 emissions' }),
                   z.null(),
                 ])
                 .optional(),

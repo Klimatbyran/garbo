@@ -49,7 +49,7 @@
   "author": "Christian Landgren, William Ryder, Samuel Plumppu mfl",
   "license": "MIT License",
   "dependencies": {
-    "@asteasolutions/zod-to-openapi": "^7.3.0",
+    "@asteasolutions/zod-to-openapi": "^8.5.0",
     "@bull-board/api": "^6.6.1",
     "@bull-board/fastify": "^6.6.1",
     "@fastify/cookie": "^11.0.2",
@@ -70,11 +70,11 @@
     "exceljs": "^4.1.1",
     "fastify": "^5.2.1",
     "fastify-plugin": "^5.0.1",
-    "fastify-type-provider-zod": "^4.0.2",
+    "fastify-type-provider-zod": "^6.1.0",
     "jsonwebtoken": "^9.0.2",
     "ky": "^1.14.3",
     "lodash": "^4.17.21",
-    "openai": "^4.73.1",
+    "openai": "6.49.0",
     "pdf-to-img": "^5.0.0",
     "pino-http": "^10.4.0",
     "prisma-zod-generator": "^0.8.13",
@@ -84,8 +84,9 @@
     "tsx": "^4.22.4",
     "wikibase-edit": "^8.0.4",
     "wikibase-sdk": "^10.2.1",
-    "zod": "^3.23.8",
-    "zod-to-json-schema": "^3.24.6"
+    "zod": "4.6.7",
+    "zod-to-json-schema": "^3.24.6",
+    "openapi-types": "^12.1.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.20.0",
@@ -108,13 +109,16 @@
   "overrides": {
     "esbuild": ">=0.28.1",
     "axios": "^1.16.1",
-    "undici": ">=7.30.1",
+    "undici": "7.30.1",
     "@tootallnate/once": ">=3.0.1",
     "@fastify/static": "^10.1.3",
     "prisma-zod-generator": {
       "@prisma/client": "5.22.0"
     },
-    "uuid": "^11.1.1"
+    "uuid": "^11.1.1",
+    "zod": "4.6.7",
+    "handlebars": ">=4.7.10",
+    "shell-quote": ">=1.11.0"
   },
   "prisma": {
     "seed": "node --import=tsx prisma/seed.ts"
