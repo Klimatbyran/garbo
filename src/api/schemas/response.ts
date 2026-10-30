@@ -85,12 +85,16 @@ export const CompanyIdentifierTypeSchema = z.enum([
   'LEI',
   'ORG_NUMBER',
   'ISIN',
+  'BIC',
 ])
+
+export const CompanyIdentifierRoleSchema = z.enum(['PRIMARY'])
 
 export const CompanyIdentifierSchema = z.object({
   id: z.string(),
   type: CompanyIdentifierTypeSchema,
   value: z.string(),
+  role: CompanyIdentifierRoleSchema.nullable().optional(),
   metadata: ResponseMetadataSchema,
 })
 

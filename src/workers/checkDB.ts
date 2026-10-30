@@ -33,7 +33,7 @@ import {
   staffApprovedDisplayName,
 } from '../lib/applyStaffCompanyLink'
 import { collectAlternativeNameAfterConfirmedLink } from '../lib/collectAlternativeNameAfterConfirmedLink'
-import { resolvePipelineLei } from '../lib/normalizeLei'
+import { normalizeLei, resolvePipelineLei } from '../lib/normalizeLei'
 import { logAbandonedDisposableCompanyShell } from '../lib/loadDisposableCompanyShellSnapshot'
 
 export class CheckDBJob extends PipelineJob {
@@ -58,6 +58,7 @@ export class CheckDBJob extends PipelineJob {
     }
     approved?: boolean
     lei?: string
+    runOnly?: string[]
     replaceAllEmissions?: boolean
     tags?: string[]
   }
@@ -513,6 +514,45 @@ const checkDB = new PipelineWorker(
               },
             }
           : null,
+        (() => {
+          // Only enrich from the LEI we will keep on this company.
+          // Never attach GLEIF ids from a mergedLei that differs from an
+          // existing LEI (diffLEI will refuse to overwrite).
+          const existingLei =
+            normalizeLei(existingCompany?.lei ?? null) ??
+            normalizeLei(
+              (
+                existingCompany?.identifiers as
+                  | Array<{ type: string; value: string }>
+                  | undefined
+              )?.find((row) => row.type === 'LEI')?.value ?? null
+            )
+          const leiForGleif = existingLei ? existingLei : (mergedLei ?? null)
+          const runOnly = Array.isArray(job.data.runOnly)
+            ? (job.data.runOnly as string[])
+            : undefined
+          const shouldFetchGleifIds =
+            Boolean(leiForGleif) &&
+            (!runOnly?.length ||
+              runOnly.includes('all') ||
+              runOnly.includes('gleifIds') ||
+              runOnly.includes('isin') ||
+              runOnly.includes('lei'))
+          if (!shouldFetchGleifIds || !leiForGleif) return null
+          return {
+            ...base,
+            name: 'gleifIds ' + companyName,
+            queueName: QUEUE_NAMES.EXTRACT_GLEIF_IDS,
+            data: {
+              ...base.data,
+              lei: leiForGleif,
+            },
+            opts: withPipelineJobOpts({
+              attempts: 3,
+              failParentOnFailure: false,
+            }),
+          }
+        })(),
         descriptions
           ? {
               ...base,

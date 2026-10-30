@@ -60,19 +60,32 @@ enum CompanyIdentifierType {
   LEI
   ORG_NUMBER
   ISIN
+  BIC
+}
+
+/// Optional role when a type allows multiple values (ISIN, BIC).
+enum CompanyIdentifierRole {
+  PRIMARY
 }
 
 model CompanyIdentifier {
-  id        String                @id @default(cuid())
+  id        String                 @id @default(cuid())
   companyId String
   type      CompanyIdentifierType
   value     String
+  /// PRIMARY = canonical value for UI when multiple ISINs/BICs exist.
+  role      CompanyIdentifierRole?
 
   company  Company    @relation(fields: [companyId], references: [id], onDelete: Cascade)
   metadata Metadata[]
 
-  @@unique([companyId, type])
+  @@unique([companyId, type, value])
   @@index([type, value])
+  @@index([companyId, type])
+  /// Partial unique indexes (SQL migration only; Prisma cannot express WHERE):
+  /// - singular types: UNIQUE (companyId, type) WHERE type IN (WIKIDATA, LEI, ORG_NUMBER)
+  /// - primary role: UNIQUE (companyId, type) WHERE role = PRIMARY
+  /// Do not let `prisma migrate dev` drop those indexes.
   @@map("company_identifiers")
 }
 
