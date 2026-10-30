@@ -1,5 +1,6 @@
 import { apiFetch } from './api'
 import { normalizeCompanyNameForMatch } from './companyLinkResolve'
+import { sanitizeExtractedCompanyName } from './companyNamePlaceholders'
 import { withNormalizedCompanyNameLock } from './pipelineCompanyAdvisoryLock'
 import {
   resolvePipelineCompanyOutcome,
@@ -25,8 +26,14 @@ export type FindOrCreatePipelineCompanyResult =
 async function createPipelineCompanyByName(
   companyName: string
 ): Promise<string> {
+  const safeName = sanitizeExtractedCompanyName(companyName)
+  if (!safeName) {
+    throw new Error(
+      `Refusing to create company with placeholder name: ${JSON.stringify(companyName)}`
+    )
+  }
   const created = await apiFetch('/companies/', {
-    body: { name: companyName },
+    body: { name: safeName },
   })
   if (!created?.id) {
     throw new Error('Company create did not return id')
@@ -42,9 +49,16 @@ export async function findOrCreatePipelineCompanyLocked(
   jobData: PipelineCompanyRef,
   companyName: string
 ): Promise<FindOrCreatePipelineCompanyResult> {
-  const normalized = normalizeCompanyNameForMatch(companyName)
+  const safeName = sanitizeExtractedCompanyName(companyName)
+  if (!safeName) {
+    throw new Error(
+      `Refusing to resolve/create company with placeholder name: ${JSON.stringify(companyName)}`
+    )
+  }
 
-  const outcome = await resolvePipelineCompanyOutcome(jobData, companyName)
+  const normalized = normalizeCompanyNameForMatch(safeName)
+
+  const outcome = await resolvePipelineCompanyOutcome(jobData, safeName)
 
   if (outcome.status === 'resolved') {
     return {
@@ -59,10 +73,7 @@ export async function findOrCreatePipelineCompanyLocked(
   }
 
   return withNormalizedCompanyNameLock(normalized, async () => {
-    const lockedOutcome = await resolvePipelineCompanyOutcome(
-      jobData,
-      companyName
-    )
+    const lockedOutcome = await resolvePipelineCompanyOutcome(jobData, safeName)
 
     if (lockedOutcome.status === 'resolved') {
       return {
@@ -76,7 +87,7 @@ export async function findOrCreatePipelineCompanyLocked(
       return lockedOutcome
     }
 
-    const companyId = await createPipelineCompanyByName(companyName)
+    const companyId = await createPipelineCompanyByName(safeName)
     return {
       status: 'resolved',
       companyId,

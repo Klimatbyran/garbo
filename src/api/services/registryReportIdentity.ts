@@ -1,6 +1,9 @@
 import { Prisma } from '@prisma/client'
 import { prisma } from '../../lib/prisma'
 import { buildPipelineReportIdentity } from '../../lib/reportSaveIdentity'
+import { isPlaceholderCompanyName } from '../../lib/companyNamePlaceholders'
+
+export { isPlaceholderCompanyName }
 
 // Typed explicitly so it stays valid before `prisma generate` runs after a schema change.
 export interface RegistryReportIdentityRow {
@@ -32,15 +35,7 @@ export function trimStr(s: string | null | undefined): string | null {
   return trimmed.length ? trimmed : null
 }
 
-export function isPlaceholderCompanyName(
-  name: string | null | undefined
-): boolean {
-  const trimmed = trimStr(name)
-  if (!trimmed) return true
-  return trimmed.toLowerCase() === 'unknown'
-}
-
-/** Registry upsert: keep existing name unless it is missing or the placeholder "Unknown". */
+/** Registry upsert: keep existing name unless it is missing or a placeholder. */
 export function mergeCompanyNameFromPipeline(
   existing: string | null | undefined,
   incoming: string | null | undefined

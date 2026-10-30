@@ -23,6 +23,7 @@ import { collectAlternativeNameAfterConfirmedLink } from '../lib/collectAlternat
 import { EXTRACT_EMISSIONS_CHILD_QUEUES } from './precheckFlow'
 import { withPipelineJobOpts } from '../lib/pipelineJobOptions'
 import { findReportMarkdownByJobIdentity } from '../api/services/registryReportIdentity'
+import { sanitizeExtractedCompanyName } from '../lib/companyNamePlaceholders'
 
 class PrecheckJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
@@ -45,8 +46,14 @@ const companyNameSchema = z.object({
 })
 
 async function createPipelineCompany(companyName: string): Promise<string> {
+  const safeName = sanitizeExtractedCompanyName(companyName)
+  if (!safeName) {
+    throw new Error(
+      `Refusing to create company with placeholder name: ${JSON.stringify(companyName)}`
+    )
+  }
   const created = await apiFetch('/companies/', {
-    body: { name: companyName },
+    body: { name: safeName },
   })
   if (!created?.id) {
     throw new Error('Company create did not return id')
@@ -349,9 +356,22 @@ const precheck = new PipelineWorker(
     }
 
     if (existingCompanyName && waitingForCompanyName) {
-      job.log('Using manually provided company name: ' + existingCompanyName)
-      await job.updateData({ ...job.data, waitingForCompanyName: false })
-      return processWithCompanyName(existingCompanyName)
+      const manualName = sanitizeExtractedCompanyName(existingCompanyName)
+      if (!manualName) {
+        job.log(
+          `Ignoring placeholder company name override: ${JSON.stringify(existingCompanyName)}`
+        )
+        await job.updateData({ ...job.data, waitingForCompanyName: true })
+        await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+        return
+      }
+      job.log('Using manually provided company name: ' + manualName)
+      await job.updateData({
+        ...job.data,
+        companyName: manualName,
+        waitingForCompanyName: false,
+      })
+      return processWithCompanyName(manualName)
     }
 
     async function extractCompanyName(
@@ -390,7 +410,8 @@ Extract from this PDF:
       ).then(JSON.parse)
 
       const { companyName: rawName } = companyNameSchema.parse(response)
-      const companyName = rawName ? rawName.trim() : null
+      // Models often return the text "null" when the prompt asks for JSON null.
+      const companyName = sanitizeExtractedCompanyName(rawName)
 
       return (
         companyName ||

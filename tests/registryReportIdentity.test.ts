@@ -314,6 +314,10 @@ describe('registryReportIdentity', () => {
       expect(mergeCompanyNameFromPipeline('unknown', 'Acme Corp')).toBe(
         'Acme Corp'
       )
+      expect(mergeCompanyNameFromPipeline('null', 'Acme Corp')).toBe(
+        'Acme Corp'
+      )
+      expect(mergeCompanyNameFromPipeline('n/a', 'Acme Corp')).toBe('Acme Corp')
     })
 
     it('keeps a real existing name over the pipeline input', () => {
