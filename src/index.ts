@@ -13,10 +13,18 @@ const { values } = parseArgs({
       type: 'boolean',
       default: false,
     },
+    'with-board': {
+      type: 'boolean',
+      default: false,
+    },
   },
 })
 
-const START_BOARD = !values['api-only']
+// Bull Board serves /admin/queues without auth; enable only via explicit opt-in.
+// `--api-only` remains supported as an alias that forces the board off.
+const START_BOARD =
+  !values['api-only'] &&
+  (values['with-board'] || process.env.ENABLE_BULL_BOARD === 'true')
 const port = apiConfig.port
 
 const prisma = new PrismaClient()
