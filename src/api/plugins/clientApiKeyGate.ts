@@ -48,12 +48,30 @@ function allowClientApiRate(keyId: string): boolean {
   return true
 }
 
-function pathnameOnly(url: string): string {
+/** Decode URL path so permission checks match Fastify's decoded route paths. */
+export function normalizeClientApiPathname(url: string): string {
+  let pathname: string
   try {
-    return new URL(url, 'http://localhost').pathname
+    pathname = new URL(url, 'http://localhost').pathname
   } catch {
-    return url.split('?')[0] ?? url
+    pathname = url.split('?')[0] ?? url
   }
+
+  try {
+    pathname = decodeURIComponent(pathname)
+  } catch {
+    // Malformed percent-encoding: keep raw pathname for consistent gate behavior.
+  }
+
+  if (pathname.includes('//')) {
+    pathname = pathname.replace(/\/{2,}/g, '/')
+  }
+
+  return pathname
+}
+
+function pathnameOnly(url: string): string {
+  return normalizeClientApiPathname(url)
 }
 
 async function enforceClientApiKey(
