@@ -1,6 +1,6 @@
 import { assert } from 'console'
 import OpenAI from 'openai'
-import {
+import type {
   ChatCompletionAssistantMessageParam,
   ChatCompletionChunk,
   ChatCompletionCreateParamsNonStreaming,
@@ -11,8 +11,9 @@ import {
   ResponseFormatJSONSchema,
 } from 'openai/resources'
 import openaiConfig from '../config/openai'
-import { Stream } from 'openai/streaming'
-import { RequestOptions } from 'openai/core'
+import type { Stream } from 'openai/streaming'
+
+type RequestOptions = OpenAI.RequestOptions
 
 const openai = new OpenAI({
   apiKey: openaiConfig.apiKey,

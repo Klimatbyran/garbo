@@ -26,7 +26,7 @@ const envSchema = z.object({
     .enum(['true', 'false'])
     .transform((v) => v === 'true')
     .optional()
-    .default('false'),
+    .default(false),
   BACKUP_API_URL: z.string().optional(),
   BACKUP_API_TOKEN: z.string().optional(),
   BACKUP_API_AUTH_HEADER: z
@@ -41,7 +41,7 @@ if (!parsedEnv.success) {
   console.error('❌ Invalid Docling environment configuration:')
   console.error(parsedEnv.error.format())
 
-  if (parsedEnv.error.errors.some((err) => err.path[0] === 'DOCLING_URL')) {
+  if (parsedEnv.error.issues.some((err) => err.path[0] === 'DOCLING_URL')) {
     console.error('DOCLING_URL must be a valid URL or string.')
     console.error(
       'Examples: http://localhost:5001/v1 (local), https://api.example.com (remote)'
@@ -51,7 +51,7 @@ if (!parsedEnv.success) {
     )
   }
 
-  if (parsedEnv.error.errors.some((err) => err.path[0] === 'BERGET_AI_TOKEN')) {
+  if (parsedEnv.error.issues.some((err) => err.path[0] === 'BERGET_AI_TOKEN')) {
     console.error('BERGET_AI_TOKEN must be an API key.')
     console.error(
       'Please ask another member for the key if you did not receive it yet'

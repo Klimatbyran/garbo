@@ -204,15 +204,15 @@ export const emissionsSchema = z
     scope2: z
       .object({
         mb: z
-          .number({ description: 'Market-based scope 2 emissions' })
+          .number().openapi({ description: 'Market-based scope 2 emissions' })
           .nullable()
           .optional(),
         lb: z
-          .number({ description: 'Location-based scope 2 emissions' })
+          .number().openapi({ description: 'Location-based scope 2 emissions' })
           .nullable()
           .optional(),
         unknown: z
-          .number({ description: 'Unspecified Scope 2 emissions' })
+          .number().openapi({ description: 'Unspecified Scope 2 emissions' })
           .nullable()
           .optional(),
         unit: emissionUnitSchemaGarbo.optional(),

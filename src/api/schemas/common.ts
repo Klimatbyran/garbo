@@ -16,7 +16,12 @@ export const companyIdParamSchema = z.object({ id: companyIdSchema })
 export const companyUrlIdentifierSchema = z.union([
   wikidataIdSchema,
   companyIdSchema,
-  z.string().regex(/^[0-9a-f]{8}$/i),
+  // Runtime accepts upper/lower hex; OpenAPI pattern stays lowercase-only.
+  // Zod 4 would otherwise emit `$/i` in the generated pattern.
+  z
+    .string()
+    .regex(/^[0-9a-fA-F]{8}$/)
+    .openapi({ pattern: '^[0-9a-f]{8}$' }),
 ])
 
 export const companyIdentifierParamSchema = z.object({
@@ -70,7 +75,16 @@ export function getErrorSchemas(...codes: ErrorCode[]) {
 
 const validEmissionsUnits = z.enum(['tCO2e', 'tCO2'])
 
-export const emissionUnitSchemaGarbo = validEmissionsUnits.nullable()
+/**
+ * Nullable unit. Zod 4 + zod-to-openapi 8 would emit `enum: […, null]`; pin the
+ * OpenAPI 3.0 shape (`enum` without null + `nullable: true`).
+ * `as any`: OpenAPI 3.1 typings omit `nullable`.
+ */
+export const emissionUnitSchemaGarbo = validEmissionsUnits.nullable().openapi({
+  type: 'string',
+  enum: ['tCO2e', 'tCO2'],
+  nullable: true,
+} as any)
 
 export const emissionUnitSchemaWithDefault =
   validEmissionsUnits.default('tCO2e')
