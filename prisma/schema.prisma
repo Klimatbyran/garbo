@@ -1161,3 +1161,104 @@ model PipelineAutoRunConfig {
 
   @@map("pipeline_auto_run_config")
 }
+
+/// Model evaluation (Goffer): a locked test set, keyed by the testset/ commit.
+model ModelEvalTestset {
+  version     String                   @id
+  name        String
+  contentHash String                   @map("content_hash")
+  facitHash   String                   @map("facit_hash")
+  /// The tab's TestsetManifest as uploaded.
+  manifest    Json
+  createdById String                   @map("created_by_id")
+  createdAt   DateTime                 @default(now()) @map("created_at")
+  reports     ModelEvalTestsetReport[]
+
+  @@map("model_eval_testsets")
+}
+
+/// Model evaluation (Goffer): one report's texts in a test set.
+model ModelEvalTestsetReport {
+  testsetVersion String           @map("testset_version")
+  name           String
+  markdown       String
+  /// Null for a report uploaded without a facit file.
+  facitText      String?          @map("facit_text")
+  testset        ModelEvalTestset @relation(fields: [testsetVersion], references: [version], onDelete: Cascade)
+
+  @@id([testsetVersion, name])
+  @@map("model_eval_testset_reports")
+}
+
+/// Model evaluation (Goffer): one run of one setup on one test set.
+model ModelEvalRun {
+  /// The tab's crypto.randomUUID().
+  id             String              @id
+  testsetVersion String              @map("testset_version")
+  /// The tab's RunRecord without calls, paragraphs, feedCosts and interrupted.
+  header         Json
+  /// Jobs a stop cut short after they spent money; each save appends its own.
+  interrupted    Json
+  createdById    String              @map("created_by_id")
+  /// The record's createdAt, not the time of the first save.
+  createdAt      DateTime            @map("created_at")
+  updatedAt      DateTime            @updatedAt @map("updated_at")
+  calls          ModelEvalCall[]
+  feedCosts      ModelEvalFeedCost[]
+
+  @@index([createdAt])
+  @@map("model_eval_runs")
+}
+
+/// Model evaluation (Goffer): one call per run, file and worker.
+model ModelEvalCall {
+  id        String       @id @default(cuid())
+  runId     String       @map("run_id")
+  fileName  String       @map("file_name")
+  workerId  String       @map("worker_id")
+  /// The tab's CallResult as saved.
+  call      Json
+  createdAt DateTime     @default(now()) @map("created_at")
+  updatedAt DateTime     @updatedAt @map("updated_at")
+  run       ModelEvalRun @relation(fields: [runId], references: [id], onDelete: Cascade)
+
+  @@unique([runId, fileName, workerId])
+  @@map("model_eval_calls")
+}
+
+/// Model evaluation (Goffer): the cost of embedding one file in a run.
+model ModelEvalFeedCost {
+  runId    String       @map("run_id")
+  fileName String       @map("file_name")
+  /// The tab's FeedCost.
+  cost     Json
+  run      ModelEvalRun @relation(fields: [runId], references: [id], onDelete: Cascade)
+
+  @@id([runId, fileName])
+  @@map("model_eval_feed_costs")
+}
+
+/// Model evaluation (Goffer): a retrieved paragraph, stored once across all runs.
+model ModelEvalParagraph {
+  /// Lowercase hex SHA-256 of text's UTF-8 bytes.
+  hash String @id
+  text String
+
+  @@map("model_eval_paragraphs")
+}
+
+/// Model evaluation (Goffer): a report waiting to be published with its test set.
+model ModelEvalTestsetUpload {
+  /// The tab's crypto.randomUUID(), one per upload.
+  uploadId       String   @map("upload_id")
+  name           String
+  testsetVersion String   @map("testset_version")
+  markdown       String
+  /// Null for a report uploaded without a facit file.
+  facitText      String?  @map("facit_text")
+  createdById    String   @map("created_by_id")
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  @@id([uploadId, name])
+  @@map("model_eval_testset_uploads")
+}
