@@ -73,10 +73,7 @@ export async function findOrCreatePipelineCompanyLocked(
   }
 
   return withNormalizedCompanyNameLock(normalized, async () => {
-    const lockedOutcome = await resolvePipelineCompanyOutcome(
-      jobData,
-      safeName
-    )
+    const lockedOutcome = await resolvePipelineCompanyOutcome(jobData, safeName)
 
     if (lockedOutcome.status === 'resolved') {
       return {

@@ -89,9 +89,9 @@ describe('findOrCreatePipelineCompanyLocked', () => {
   })
 
   it('refuses placeholder names like "null" before create', async () => {
-    await expect(
-      findOrCreatePipelineCompanyLocked({}, 'null')
-    ).rejects.toThrow(/placeholder name/)
+    await expect(findOrCreatePipelineCompanyLocked({}, 'null')).rejects.toThrow(
+      /placeholder name/
+    )
     expect(mockApiFetch).not.toHaveBeenCalled()
     expect(mockWithLock).not.toHaveBeenCalled()
   })
