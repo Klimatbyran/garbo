@@ -87,7 +87,7 @@ export const postCompanyBodySchema = z
       .min(1)
       .refine((value) => !isPlaceholderCompanyName(value), {
         message:
-          'Company name must not be a placeholder (e.g. null, unknown, n/a)',
+          'Company name must not be a placeholder (e.g. null, unknown, n/a). Rename the company first, then retry.',
       }),
     descriptions: z.array(descriptionSchema).optional(),
     url: z.string().url().optional(),
