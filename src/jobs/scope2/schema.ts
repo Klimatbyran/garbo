@@ -102,11 +102,9 @@ export const schema = z.object({
                 .optional(),
               lb: z
                 .union([
-                  z
-                    .number()
-                    .openapi({
-                      description: 'Location-based scope 2 emissions',
-                    }),
+                  z.number().openapi({
+                    description: 'Location-based scope 2 emissions',
+                  }),
                   z.null(),
                 ])
                 .optional(),
