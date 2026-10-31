@@ -20,7 +20,8 @@ RUN apk add --no-cache \
     ghostscript \
     graphicsmagick
 
-COPY package*.json /app/
+# .npmrc must be here: npm ci otherwise rejects chromadb's optional openai@4 peer against openai 6.
+COPY package*.json .npmrc /app/
 WORKDIR /app
 COPY prisma /app/
 RUN npm ci --omit=dev
