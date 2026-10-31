@@ -20,7 +20,7 @@ RUN apk add --no-cache \
     ghostscript \
     graphicsmagick
 
-COPY package*.json /app/
+COPY package*.json .npmrc /app/
 WORKDIR /app
 COPY prisma /app/
 RUN npm ci --omit=dev
