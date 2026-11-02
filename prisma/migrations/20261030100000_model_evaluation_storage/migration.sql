@@ -81,10 +81,16 @@ CREATE TABLE "model_eval_testset_uploads" (
 CREATE INDEX "model_eval_runs_created_at_idx" ON "model_eval_runs"("created_at");
 
 -- CreateIndex
+CREATE INDEX "model_eval_runs_testset_version_idx" ON "model_eval_runs"("testset_version");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "model_eval_calls_run_id_file_name_worker_id_key" ON "model_eval_calls"("run_id", "file_name", "worker_id");
 
 -- AddForeignKey
 ALTER TABLE "model_eval_testset_reports" ADD CONSTRAINT "model_eval_testset_reports_testset_version_fkey" FOREIGN KEY ("testset_version") REFERENCES "model_eval_testsets"("version") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "model_eval_runs" ADD CONSTRAINT "model_eval_runs_testset_version_fkey" FOREIGN KEY ("testset_version") REFERENCES "model_eval_testsets"("version") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "model_eval_calls" ADD CONSTRAINT "model_eval_calls_run_id_fkey" FOREIGN KEY ("run_id") REFERENCES "model_eval_runs"("id") ON DELETE CASCADE ON UPDATE CASCADE;

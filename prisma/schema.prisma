@@ -1173,6 +1173,7 @@ model ModelEvalTestset {
   createdById String                   @map("created_by_id")
   createdAt   DateTime                 @default(now()) @map("created_at")
   reports     ModelEvalTestsetReport[]
+  runs        ModelEvalRun[]
 
   @@map("model_eval_testsets")
 }
@@ -1203,10 +1204,12 @@ model ModelEvalRun {
   /// The record's createdAt, not the time of the first save.
   createdAt      DateTime            @map("created_at")
   updatedAt      DateTime            @updatedAt @map("updated_at")
+  testset        ModelEvalTestset    @relation(fields: [testsetVersion], references: [version], onDelete: Restrict)
   calls          ModelEvalCall[]
   feedCosts      ModelEvalFeedCost[]
 
   @@index([createdAt])
+  @@index([testsetVersion])
   @@map("model_eval_runs")
 }
 
