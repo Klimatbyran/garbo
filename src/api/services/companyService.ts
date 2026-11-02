@@ -23,6 +23,10 @@ import {
 } from '@/lib/company-emissions/companyEmissionsCalculator'
 import { calculateFutureEmissionTrend } from '@/lib/company-emissions/companyEmissionsFutureTrendCalculator'
 import { foldDiacriticsForCompanyMatch } from '../../lib/companyLinkResolve'
+import {
+  companyNameSearchPatterns,
+  escapeIlikePattern,
+} from '../../lib/escapeIlikePattern'
 import { mergeAlternativeNames } from '../../lib/companyAlternativeNames'
 import { normalizeIsin } from '../../lib/normalizeIsin'
 import Firecrawl, { SearchResultWeb } from '@mendable/firecrawl-js'
@@ -110,54 +114,54 @@ class CompanyService {
     options?: { onePeriodPerDataYear?: boolean }
   ) {
     const normalizedSearchTerm = searchTerm.trim().toLocaleLowerCase('sv-SE')
-    const likePattern = normalizedSearchTerm + '%'
+    const { prefixPattern, containsPattern } =
+      companyNameSearchPatterns(normalizedSearchTerm)
     const foldedSearchTerm =
       foldDiacriticsForCompanyMatch(normalizedSearchTerm).toLocaleLowerCase(
         'sv-SE'
       )
-    const foldedLikePattern = foldedSearchTerm + '%'
+    const foldedEscaped = escapeIlikePattern(foldedSearchTerm)
+    const foldedPrefixPattern = `${foldedEscaped}%`
+    const foldedContainsPattern = `%${foldedEscaped}%`
 
+    // Escaped contains LIKE (not websearch_to_tsquery): mid-name matches and
+    // punctuation like `&` stay literal. Prefix and accent-folded hits still rank.
     const matches = await prisma.$queryRaw<{ id: string }[]>(
       Prisma.sql`
       SELECT "id"
       FROM "Company"
-      WHERE lower(name) LIKE ${likePattern}
+      WHERE lower(name) LIKE ${containsPattern} ESCAPE '\\'
          OR EXISTS (
               SELECT 1
               FROM unnest(COALESCE("alternativeNames", ARRAY[]::text[])) AS alt
-              WHERE lower(alt) LIKE ${likePattern}
+              WHERE lower(alt) LIKE ${containsPattern} ESCAPE '\\'
             )
          OR (
-              char_length(${normalizedSearchTerm}) >= 3
+              char_length(${foldedSearchTerm}) >= 2
               AND (
-                to_tsvector('simple', name) @@ websearch_to_tsquery('simple', ${normalizedSearchTerm})
+                translate(lower(name), ${SQL_ACCENT_FROM}, ${SQL_ACCENT_TO}) LIKE ${foldedContainsPattern} ESCAPE '\\'
                 OR EXISTS (
                   SELECT 1
                   FROM unnest(COALESCE("alternativeNames", ARRAY[]::text[])) AS alt
-                  WHERE to_tsvector('simple', alt) @@ websearch_to_tsquery('simple', ${normalizedSearchTerm})
-                )
-              )
-            )
-         OR (
-              char_length(${foldedSearchTerm}) >= 3
-              AND (
-                translate(lower(name), ${SQL_ACCENT_FROM}, ${SQL_ACCENT_TO}) LIKE ${foldedLikePattern}
-                OR EXISTS (
-                  SELECT 1
-                  FROM unnest(COALESCE("alternativeNames", ARRAY[]::text[])) AS alt
-                  WHERE translate(lower(alt), ${SQL_ACCENT_FROM}, ${SQL_ACCENT_TO}) LIKE ${foldedLikePattern}
+                  WHERE translate(lower(alt), ${SQL_ACCENT_FROM}, ${SQL_ACCENT_TO}) LIKE ${foldedContainsPattern} ESCAPE '\\'
                 )
               )
             )
       ORDER BY
-        CASE WHEN lower(name) LIKE ${likePattern} THEN 0 ELSE 1 END,
         CASE
-          WHEN char_length(${foldedSearchTerm}) >= 3
-               AND translate(lower(name), ${SQL_ACCENT_FROM}, ${SQL_ACCENT_TO}) LIKE ${foldedLikePattern}
-          THEN 0
-          ELSE 1
+          WHEN lower(name) LIKE ${prefixPattern} ESCAPE '\\' THEN 0
+          WHEN lower(name) LIKE ${containsPattern} ESCAPE '\\' THEN 1
+          ELSE 2
         END,
-        ts_rank(to_tsvector('simple', name), websearch_to_tsquery('simple', ${normalizedSearchTerm})) DESC,
+        CASE
+          WHEN char_length(${foldedSearchTerm}) >= 2
+               AND translate(lower(name), ${SQL_ACCENT_FROM}, ${SQL_ACCENT_TO}) LIKE ${foldedPrefixPattern} ESCAPE '\\'
+          THEN 0
+          WHEN char_length(${foldedSearchTerm}) >= 2
+               AND translate(lower(name), ${SQL_ACCENT_FROM}, ${SQL_ACCENT_TO}) LIKE ${foldedContainsPattern} ESCAPE '\\'
+          THEN 1
+          ELSE 2
+        END,
         name ASC
       LIMIT 30
     `
