@@ -3,6 +3,7 @@ import {
   companyIdFromJobData,
   registryReportIdFromJobData,
   reportRunSyncFieldsFromJob,
+  returnValueObjectFromJob,
 } from '../src/lib/reportRunPersistence'
 
 describe('companyReportIdFromJobData', () => {
@@ -79,5 +80,31 @@ describe('reportRunSyncFieldsFromJob', () => {
     ).toEqual({
       companyName: 'Alfa Laval',
     })
+  })
+})
+
+describe('returnValueObjectFromJob', () => {
+  it('parses a JSON object string', () => {
+    expect(
+      returnValueObjectFromJob('{"value":{"a":1},"metadata":{"model":"m"}}')
+    ).toEqual({ value: { a: 1 }, metadata: { model: 'm' } })
+  })
+
+  it('returns an object as is', () => {
+    const value = { value: { a: 1 } }
+    expect(returnValueObjectFromJob(value)).toBe(value)
+  })
+
+  it('returns null for a job id that parses as a number', () => {
+    expect(returnValueObjectFromJob('86')).toBeNull()
+    expect(returnValueObjectFromJob(86)).toBeNull()
+  })
+
+  it('returns null for plain strings and empty values', () => {
+    expect(returnValueObjectFromJob('Permanent TSB')).toBeNull()
+    expect(returnValueObjectFromJob('true')).toBeNull()
+    expect(returnValueObjectFromJob('')).toBeNull()
+    expect(returnValueObjectFromJob(null)).toBeNull()
+    expect(returnValueObjectFromJob(undefined)).toBeNull()
   })
 })

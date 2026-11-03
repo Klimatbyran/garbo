@@ -53,6 +53,25 @@ export async function resolveRegistryReportIdForRun(input: {
   return byS3?.id ?? null
 }
 
+/**
+ * Job return value as an object for the run archive, or null. parsePdf returns
+ * the id of the job it queued, such as "86", which JSON.parse turns into a number.
+ */
+export function returnValueObjectFromJob(
+  returnvalue: unknown
+): Record<string, any> | null {
+  let parsed = returnvalue
+  if (typeof returnvalue === 'string') {
+    try {
+      parsed = JSON.parse(returnvalue)
+    } catch {
+      // returnvalue is not JSON (e.g. precheck returns a plain string)
+      return null
+    }
+  }
+  return typeof parsed === 'object' && parsed !== null ? parsed : null
+}
+
 /** Fields to sync onto an existing ReportRun from the latest job snapshot. */
 export function reportRunSyncFieldsFromJob(input: {
   companyName?: string | null
