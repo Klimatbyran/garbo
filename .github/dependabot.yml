@@ -1,6 +1,6 @@
 version: 2
 # UN-46: weekly Dependabot for npm, Docker, and GitHub Actions.
-# draft: true so bump PRs stay draft until marked ready (skips draft-gated CI).
+# Note: Dependabot schema here rejects draft: true — bump PRs open ready-for-review.
 # Enable Dependabot alerts/security updates in repo settings separately.
 updates:
   - package-ecosystem: npm
@@ -9,7 +9,6 @@ updates:
       interval: weekly
       day: monday
     open-pull-requests-limit: 10
-    draft: true
     groups:
       production-npm:
         dependency-type: production
@@ -22,7 +21,6 @@ updates:
       interval: weekly
       day: monday
     open-pull-requests-limit: 5
-    draft: true
 
   - package-ecosystem: github-actions
     directory: /
@@ -30,9 +28,7 @@ updates:
       interval: weekly
       day: monday
     open-pull-requests-limit: 5
-    draft: true
     groups:
       github-actions:
         patterns:
-          - "*"
-
+          - '*'
