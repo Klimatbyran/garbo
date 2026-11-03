@@ -109,59 +109,70 @@ class CompanyService {
     return this.enrichCompaniesWithMetadata(companies, true)
   }
 
+  /**
+   * Public / pipeline company search.
+   * Keep prefix + FTS + accent-fold semantics for external clients; only escape
+   * LIKE metacharacters. Mid-name staff editor search is handled in Unearth API.
+   */
   async getAllCompaniesBySearchTerm(
     searchTerm: string,
     options?: { onePeriodPerDataYear?: boolean }
   ) {
     const normalizedSearchTerm = searchTerm.trim().toLocaleLowerCase('sv-SE')
-    const { prefixPattern, containsPattern } =
-      companyNameSearchPatterns(normalizedSearchTerm)
+    if (!normalizedSearchTerm) {
+      return this.enrichCompaniesWithMetadata(
+        [],
+        options?.onePeriodPerDataYear ?? false
+      )
+    }
+    const { prefixPattern } = companyNameSearchPatterns(normalizedSearchTerm)
     const foldedSearchTerm =
       foldDiacriticsForCompanyMatch(normalizedSearchTerm).toLocaleLowerCase(
         'sv-SE'
       )
-    const foldedEscaped = escapeIlikePattern(foldedSearchTerm)
-    const foldedPrefixPattern = `${foldedEscaped}%`
-    const foldedContainsPattern = `%${foldedEscaped}%`
+    const foldedPrefixPattern = `${escapeIlikePattern(foldedSearchTerm)}%`
 
-    // Escaped contains LIKE (not websearch_to_tsquery): mid-name matches and
-    // punctuation like `&` stay literal. Prefix and accent-folded hits still rank.
     const matches = await prisma.$queryRaw<{ id: string }[]>(
       Prisma.sql`
       SELECT "id"
       FROM "Company"
-      WHERE lower(name) LIKE ${containsPattern} ESCAPE '\\'
+      WHERE lower(name) LIKE ${prefixPattern} ESCAPE '\\'
          OR EXISTS (
               SELECT 1
               FROM unnest(COALESCE("alternativeNames", ARRAY[]::text[])) AS alt
-              WHERE lower(alt) LIKE ${containsPattern} ESCAPE '\\'
+              WHERE lower(alt) LIKE ${prefixPattern} ESCAPE '\\'
             )
          OR (
-              char_length(${foldedSearchTerm}) >= 2
+              char_length(${normalizedSearchTerm}) >= 3
               AND (
-                translate(lower(name), ${SQL_ACCENT_FROM}, ${SQL_ACCENT_TO}) LIKE ${foldedContainsPattern} ESCAPE '\\'
+                to_tsvector('simple', name) @@ websearch_to_tsquery('simple', ${normalizedSearchTerm})
                 OR EXISTS (
                   SELECT 1
                   FROM unnest(COALESCE("alternativeNames", ARRAY[]::text[])) AS alt
-                  WHERE translate(lower(alt), ${SQL_ACCENT_FROM}, ${SQL_ACCENT_TO}) LIKE ${foldedContainsPattern} ESCAPE '\\'
+                  WHERE to_tsvector('simple', alt) @@ websearch_to_tsquery('simple', ${normalizedSearchTerm})
+                )
+              )
+            )
+         OR (
+              char_length(${foldedSearchTerm}) >= 3
+              AND (
+                translate(lower(name), ${SQL_ACCENT_FROM}, ${SQL_ACCENT_TO}) LIKE ${foldedPrefixPattern} ESCAPE '\\'
+                OR EXISTS (
+                  SELECT 1
+                  FROM unnest(COALESCE("alternativeNames", ARRAY[]::text[])) AS alt
+                  WHERE translate(lower(alt), ${SQL_ACCENT_FROM}, ${SQL_ACCENT_TO}) LIKE ${foldedPrefixPattern} ESCAPE '\\'
                 )
               )
             )
       ORDER BY
+        CASE WHEN lower(name) LIKE ${prefixPattern} ESCAPE '\\' THEN 0 ELSE 1 END,
         CASE
-          WHEN lower(name) LIKE ${prefixPattern} ESCAPE '\\' THEN 0
-          WHEN lower(name) LIKE ${containsPattern} ESCAPE '\\' THEN 1
-          ELSE 2
-        END,
-        CASE
-          WHEN char_length(${foldedSearchTerm}) >= 2
+          WHEN char_length(${foldedSearchTerm}) >= 3
                AND translate(lower(name), ${SQL_ACCENT_FROM}, ${SQL_ACCENT_TO}) LIKE ${foldedPrefixPattern} ESCAPE '\\'
           THEN 0
-          WHEN char_length(${foldedSearchTerm}) >= 2
-               AND translate(lower(name), ${SQL_ACCENT_FROM}, ${SQL_ACCENT_TO}) LIKE ${foldedContainsPattern} ESCAPE '\\'
-          THEN 1
-          ELSE 2
+          ELSE 1
         END,
+        ts_rank(to_tsvector('simple', name), websearch_to_tsquery('simple', ${normalizedSearchTerm})) DESC,
         name ASC
       LIMIT 30
     `
