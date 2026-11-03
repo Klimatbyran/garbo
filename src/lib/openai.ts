@@ -49,16 +49,85 @@ const askPrompt = async (prompt: string, context: string) => {
   ])
 }
 
-const askStream = async (
-  messages: (
-    | ChatCompletionSystemMessageParam
-    | ChatCompletionUserMessageParam
-    | ChatCompletionAssistantMessageParam
-  )[],
-  options: RequestOptions & {
-    onParagraph?: (response: string, paragraph: string) => void
-  } & { response_format?: ResponseFormatJSONSchema }
-) => {
+type AskStreamMessages = (
+  | ChatCompletionSystemMessageParam
+  | ChatCompletionUserMessageParam
+  | ChatCompletionAssistantMessageParam
+)[]
+
+type AskStreamOptions = RequestOptions & {
+  onParagraph?: (response: string, paragraph: string) => void
+} & { response_format?: ResponseFormatJSONSchema }
+
+/**
+ * True when OpenAI rejected a request because the messages, plus room for the
+ * requested completion, do not fit the model's context window. Duck-typed on
+ * the SDK's `APIError` fields.
+ */
+const isContextWindowError = (error: unknown): boolean => {
+  if (!error || typeof error !== 'object') return false
+  const { status, code, message } = error as {
+    status?: unknown
+    code?: unknown
+    message?: unknown
+  }
+  if (status !== 400) return false
+  return (
+    code === 'context_length_exceeded' ||
+    (typeof message === 'string' && /maximum context length/i.test(message))
+  )
+}
+
+/**
+ * Runs `run` on the primary model. When that fails on the context window and a
+ * different fallback model is set, runs it once more on the fallback model.
+ * Any other error from the primary call is rethrown unchanged. If the input
+ * does not fit the fallback either, the fallback's context-window error is
+ * rethrown; any other fallback error is wrapped so the job's failure reason
+ * says that the input was too long for the primary model.
+ */
+const withContextWindowFallback = async <T>(
+  run: (model: string) => Promise<T>,
+  primaryModel: string,
+  fallbackModel: string | null,
+  onFallback: (error: unknown) => void
+): Promise<{ result: T; model: string }> => {
+  try {
+    return { result: await run(primaryModel), model: primaryModel }
+  } catch (error) {
+    if (
+      !fallbackModel ||
+      fallbackModel === primaryModel ||
+      !isContextWindowError(error)
+    ) {
+      throw error
+    }
+    onFallback(error)
+    try {
+      return { result: await run(fallbackModel), model: fallbackModel }
+    } catch (fallbackError) {
+      if (isContextWindowError(fallbackError)) throw fallbackError
+      const reason =
+        fallbackError instanceof Error
+          ? fallbackError.message
+          : String(fallbackError)
+      throw new Error(
+        `Input too long for ${primaryModel}, and the retry on ${fallbackModel} failed: ${reason}`,
+        { cause: fallbackError }
+      )
+    }
+  }
+}
+
+/**
+ * Same as `askStream`, but also returns the model that answered. When the
+ * input is too long for the primary model, the call is retried once on
+ * `openaiConfig.contextFallbackModel`.
+ */
+const askStreamWithModel = async (
+  messages: AskStreamMessages,
+  options: AskStreamOptions
+): Promise<{ response: string; model: string }> => {
   const { stream: _, ...safeOpenAIOptions } = options
 
   const config = {
@@ -71,8 +140,20 @@ const askStream = async (
     ...safeOpenAIOptions,
   } satisfies ChatCompletionCreateParamsStreaming
 
-  const stream: Stream<ChatCompletionChunk> =
-    await openai.chat.completions.create(config)
+  // Only the request is retried: a context-window error comes back before any
+  // chunk is streamed, so onParagraph has not been called yet.
+  const { result: stream, model } = await withContextWindowFallback<
+    Stream<ChatCompletionChunk>
+  >(
+    (model) => openai.chat.completions.create({ ...config, model }),
+    config.model,
+    openaiConfig.contextFallbackModel,
+    (error) =>
+      console.warn(
+        `askStream: input too long for ${config.model}, retrying once on ${openaiConfig.contextFallbackModel}:`,
+        error instanceof Error ? error.message : error
+      )
+  )
 
   let response = ''
   let paragraph = ''
@@ -89,7 +170,12 @@ const askStream = async (
   if (options?.onParagraph && paragraph)
     options?.onParagraph(response, paragraph)
 
-  return response
+  return { response, model }
 }
 
-export { openai, ask, askPrompt, askStream }
+const askStream = async (
+  messages: AskStreamMessages,
+  options: AskStreamOptions
+) => (await askStreamWithModel(messages, options)).response
+
+export { openai, ask, askPrompt, askStream, askStreamWithModel }
