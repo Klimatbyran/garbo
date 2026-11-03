@@ -10,6 +10,7 @@ import {
   companyIdFromJobData,
   reportRunSyncFieldsFromJob,
   resolveRegistryReportIdForRun,
+  returnValueObjectFromJob,
 } from './lib/reportRunPersistence'
 import { archiveFieldsFromFollowUpReturnValue } from './lib/sourceReference'
 
@@ -93,17 +94,7 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
         })
       }
 
-      let returnValue: Record<string, any> | null = null
-      if (job.returnvalue) {
-        try {
-          returnValue =
-            typeof job.returnvalue === 'string'
-              ? JSON.parse(job.returnvalue)
-              : job.returnvalue
-        } catch {
-          // returnvalue is not JSON (e.g. precheck returns a plain string)
-        }
-      }
+      const returnValue = returnValueObjectFromJob(job.returnvalue)
 
       const archiveFields = archiveFieldsFromFollowUpReturnValue(returnValue)
 
