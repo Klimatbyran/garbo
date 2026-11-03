@@ -1,4 +1,4 @@
-import { askStream } from './openai'
+import { askStreamWithModel } from './openai'
 import { PipelineJob, PipelineWorker } from './PipelineWorker'
 import {
   ChatCompletionAssistantMessageParam,
@@ -114,12 +114,14 @@ function addCustomMethods(job: FollowUpJob) {
       .filter((message) => message !== undefined)
       .filter((message) => message?.content)
 
+    // On a context-window fallback this also covers the rejected primary call.
     const aiStart = Date.now()
-    const response = await askStream(streamMessages, {
+    const { response, model } = await askStreamWithModel(streamMessages, {
       response_format: zodResponseFormat(schema, type.replace(/\//g, '-')),
     })
     const aiDurationMs = Date.now() - aiStart
 
+    job.log(`Model: ${model}`)
     job.log('Response: ' + response)
 
     const parsedValue = JSON.parse(response)
@@ -146,6 +148,7 @@ function addCustomMethods(job: FollowUpJob) {
         schema: zodResponseFormat(schema, type.replace(/\//g, '-')),
         chromaDurationMs,
         aiDurationMs,
+        model,
         retrievedPageNumbers,
       },
     }

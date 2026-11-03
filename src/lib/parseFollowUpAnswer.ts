@@ -16,3 +16,15 @@ export function parseFollowUpAnswer(
     return null
   }
 }
+
+/**
+ * Replaces the `value` of a followUp answer and keeps its `metadata`, so the
+ * run archive still stores the prompt, timings and model for the job.
+ */
+export function withFollowUpValue(
+  answer: string | undefined,
+  value: Record<string, unknown>
+): string {
+  const parsed = answer ? (JSON.parse(answer) as Record<string, unknown>) : {}
+  return JSON.stringify({ ...parsed, value })
+}

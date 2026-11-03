@@ -1,6 +1,9 @@
 import { QUEUE_NAMES } from '../../queues'
 import { FollowUpJob, FollowUpWorker } from '../../lib/FollowUpWorker'
-import { parseFollowUpAnswer } from '../../lib/parseFollowUpAnswer'
+import {
+  parseFollowUpAnswer,
+  withFollowUpValue,
+} from '../../lib/parseFollowUpAnswer'
 import { z } from 'zod'
 import { FollowUpType } from '../../types'
 import { apiFetch } from '../../lib/api'
@@ -94,16 +97,17 @@ const reportType = new FollowUpWorker<FollowUpJob>(
     const reportType = parsed?.reportType
 
     if (typeof reportType !== 'string' || !reportType.trim()) {
-      return { reportType: null }
+      return withFollowUpValue(answer, { reportType: null })
     }
 
     const normalizedSlug = reportType.trim()
     if (!validSlugs.includes(normalizedSlug)) {
       job.log(`Report type not in configured list: ${normalizedSlug}`)
-      return { reportType: null }
+      return withFollowUpValue(answer, { reportType: null })
     }
 
-    return { reportType: normalizedSlug }
+    // Keep the followUp metadata (prompt, timings, model) for the run archive.
+    return withFollowUpValue(answer, { reportType: normalizedSlug })
   }
 )
 
