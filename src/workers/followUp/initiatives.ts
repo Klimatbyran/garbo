@@ -6,11 +6,12 @@ import { FollowUpType } from '../../types'
 
 export const schema = z.object({
   initiatives: z.array(
+    // Every field is required: Structured Outputs rejects optional fields.
     z.object({
       title: z.string(),
-      description: z.string().optional(),
-      year: z.string().optional(),
-      scope: z.string().optional(),
+      description: z.string(),
+      year: z.string(),
+      scope: z.string(),
     })
   ),
 })
