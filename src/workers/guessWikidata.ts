@@ -618,7 +618,12 @@ const guessWikidata = new PipelineWorker<GuessWikidataJob>(
         ].filter(
           (m) => m && m.content?.length > 0
         ) as ChatCompletionMessageParam[],
-        { response_format: zodResponseFormat(wikidata.schema, 'wikidata') }
+        {
+          response_format: zodResponseFormat(
+            wikidata.responseSchema,
+            'wikidata'
+          ),
+        }
       )
 
       job.log('Response: ' + response)

@@ -483,7 +483,7 @@ Extract from this PDF:
           queueName: QUEUE_NAMES.GUESS_WIKIDATA,
           data: {
             ...base.data,
-            schema: zodResponseFormat(wikidata.schema, 'wikidata'),
+            schema: zodResponseFormat(wikidata.responseSchema, 'wikidata'),
           },
           opts: withPipelineJobOpts({
             attempts: 3,

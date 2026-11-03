@@ -30,6 +30,12 @@ const schema = z.object({
   }),
 })
 
+// Structured Outputs needs every field required. openai 4 made optional fields
+// required on its own; openai 6 throws instead, so the model gets this shape.
+const responseSchema = z.object({
+  wikidata: schema.shape.wikidata.required(),
+})
+
 export type Wikidata = z.infer<typeof schema>['wikidata']
 
-export default { prompt, schema }
+export default { prompt, schema, responseSchema }
