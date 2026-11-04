@@ -7,6 +7,7 @@ import {
 } from './chromaRetention'
 
 const noLog = () => {}
+const noWait = async () => {}
 
 describe('staleChunksWhere', () => {
   it('matches chunks indexed before now minus the TTL', () => {
@@ -24,6 +25,7 @@ describe('queryWithReindexOnMiss', () => {
       'u',
       async () => ['a'],
       reindex,
+      noWait,
       noLog
     )
     expect(result).toEqual(['a'])
@@ -37,11 +39,34 @@ describe('queryWithReindexOnMiss', () => {
       .mockResolvedValueOnce(['a'])
     const reindex = jest.fn(async () => {})
 
-    const result = await queryWithReindexOnMiss('u', query, reindex, noLog)
+    const result = await queryWithReindexOnMiss(
+      'u',
+      query,
+      reindex,
+      noWait,
+      noLog
+    )
 
     expect(result).toEqual(['a'])
     expect(reindex).toHaveBeenCalledWith('u', noLog)
     expect(query).toHaveBeenCalledTimes(2)
+  })
+
+  it('waits for indexing in progress before querying', async () => {
+    const order: string[] = []
+    await queryWithReindexOnMiss(
+      'u',
+      async () => {
+        order.push('query')
+        return ['a']
+      },
+      async () => {},
+      async () => {
+        order.push('wait')
+      },
+      noLog
+    )
+    expect(order).toEqual(['wait', 'query'])
   })
 })
 

@@ -14,6 +14,7 @@ import {
   staleChunksWhere,
 } from './chromaRetention'
 import { registryService } from '../api/services/registryService'
+import { waitForChromaIndexing, withChromaIndexLock } from './chromaIndexLock'
 
 const client = new ChromaClient(config)
 const embedder = new OpenAIEmbeddingFunction({
@@ -81,11 +82,22 @@ async function withChromaRetry<T>(
   throw lastError
 }
 
+type AddReportOptions = {
+  /** Do nothing if the report is already indexed (checked under the lock). */
+  skipIfIndexed?: boolean
+  /**
+   * false: write chunks without indexedAt so the TTL sweep never deletes them.
+   * Use when the markdown isn't stored in Postgres, since it couldn't be rebuilt.
+   */
+  sweepable?: boolean
+}
+
 async function addReport(
   url: string,
   markdown: string,
   log: (msg: string) => void = console.log,
-  pageSnippets: DoclingPageSnippet[] = []
+  pageSnippets: DoclingPageSnippet[] = [],
+  { skipIfIndexed = false, sweepable = true }: AddReportOptions = {}
 ) {
   const overlapSize = 200
 
@@ -148,39 +160,62 @@ async function addReport(
   // chunks together instead of leaving a partial index behind.
   const indexedAt = Date.now()
 
-  // Process in batches of 50 chunks to avoid token limit issues
-  const batchSize = 50
-  for (let i = 0; i < documentChunks.length; i += batchSize) {
-    const batchChunks = documentChunks.slice(i, i + batchSize)
-    const batchIds = batchChunks.map((_, j) => `${url}#${i + j}`)
-    const batchMetadatas = batchChunks.map(({ paragraph, pageNumber }) => ({
-      source: url,
-      paragraph,
-      type: reportMetadataType,
-      parsed: new Date(indexedAt).toISOString(),
-      indexedAt,
-      ...(pageNumber !== undefined ? { pageNumber } : {}),
-    }))
-
-    await withChromaLimit(async () => {
-      await withChromaRetry(
-        // upsert, not add: add silently skips existing ids, so a rebuild would
-        // keep the old chunks and their old indexedAt.
-        () =>
-          collection.upsert({
-            ids: batchIds,
-            metadatas: batchMetadatas,
-            documents: batchChunks.map(({ chunk }) => chunk),
-          }),
-        log
-      )
-    })
-
-    // Optional: Add a small delay between batches to avoid rate limiting
-    if (i + batchSize < documentChunks.length) {
-      await new Promise((resolve) => setTimeout(resolve, 100))
+  await withChromaIndexLock(url, log, async (refreshLock) => {
+    if (skipIfIndexed && (await hasReport(url))) {
+      log(`${url} was indexed by another worker meanwhile; skipping`)
+      return
     }
-  }
+    if (!sweepable) {
+      log(
+        `Report.markdown not stored for ${url}; indexing without indexedAt so the sweep keeps it`
+      )
+    }
+
+    try {
+      // Process in batches of 50 chunks to avoid token limit issues
+      const batchSize = 50
+      for (let i = 0; i < documentChunks.length; i += batchSize) {
+        const batchChunks = documentChunks.slice(i, i + batchSize)
+        const batchIds = batchChunks.map((_, j) => `${url}#${i + j}`)
+        const batchMetadatas = batchChunks.map(({ paragraph, pageNumber }) => ({
+          source: url,
+          paragraph,
+          type: reportMetadataType,
+          parsed: new Date(indexedAt).toISOString(),
+          ...(sweepable ? { indexedAt } : {}),
+          ...(pageNumber !== undefined ? { pageNumber } : {}),
+        }))
+
+        await withChromaLimit(async () => {
+          await withChromaRetry(
+            // upsert, not add: add silently skips existing ids, so a rebuild
+            // would keep the old chunks and their old indexedAt.
+            () =>
+              collection.upsert({
+                ids: batchIds,
+                metadatas: batchMetadatas,
+                documents: batchChunks.map(({ chunk }) => chunk),
+              }),
+            log
+          )
+        })
+        await refreshLock()
+
+        // Optional: Add a small delay between batches to avoid rate limiting
+        if (i + batchSize < documentChunks.length) {
+          await new Promise((resolve) => setTimeout(resolve, 100))
+        }
+      }
+    } catch (err) {
+      // Don't leave a partial report behind: searches would treat it as
+      // complete. Removing it makes the next attempt rebuild from scratch.
+      log(`Indexing ${url} failed; removing its partial chunks`)
+      await deleteReport(url).catch((cleanupErr) =>
+        log(`Removing partial chunks failed: ${cleanupErr}`)
+      )
+      throw err
+    }
+  })
 }
 
 async function hasReport(url: string) {
@@ -194,7 +229,8 @@ async function hasReport(url: string) {
 
 const reindexFromStoredMarkdown = createReindexFromStoredMarkdown({
   loadMarkdown: (url) => registryService.getMarkdownByUrl(url),
-  index: (url, markdown, log) => addReport(url, markdown, log),
+  index: (url, markdown, log) =>
+    addReport(url, markdown, log, [], { skipIfIndexed: true }),
 })
 
 async function getRelevantParagraphs(
@@ -231,6 +267,7 @@ async function getRelevantParagraphs(
     url,
     runQuery,
     reindexFromStoredMarkdown,
+    waitForChromaIndexing,
     log
   )
 

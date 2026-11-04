@@ -26,6 +26,7 @@ export class ReportNotIndexedError extends Error {
  */
 export function createReindexFromStoredMarkdown(deps: {
   loadMarkdown: (url: string) => Promise<string | null>
+  /** Must skip writing if the report got indexed meanwhile (e.g. by another pod). */
   index: (url: string, markdown: string, log: Log) => Promise<void>
 }) {
   const inFlight = new Map<string, Promise<void>>()
@@ -50,14 +51,17 @@ export function createReindexFromStoredMarkdown(deps: {
 
 /**
  * Runs a Chroma query; if it returns nothing for the report, rebuilds the
- * report's chunks and runs the query once more.
+ * report's chunks and runs the query once more. Waits first for any indexing
+ * of the report in progress, so a partly written report is never searched.
  */
 export async function queryWithReindexOnMiss<T>(
   url: string,
   query: () => Promise<T[]>,
   reindex: (url: string, log: Log) => Promise<void>,
+  waitForIndexing: (url: string, log: Log) => Promise<void>,
   log: Log
 ): Promise<T[]> {
+  await waitForIndexing(url, log)
   const first = await query()
   if (first.length > 0) return first
 

@@ -3,7 +3,6 @@ import redis from '../config/redis'
 import chromaConfig from '../config/chromadb'
 import { vectorDB } from '../lib/vectordb'
 import { getSharedQueue } from '../lib/getSharedQueue'
-import { withPipelineJobOpts } from '../lib/pipelineJobOptions'
 import { CHROMA_SWEEP_QUEUE } from '../queueNames'
 
 // Deletes Chroma chunks older than CHROMA_TTL_HOURS so the Chroma disk can't
@@ -13,13 +12,14 @@ import { CHROMA_SWEEP_QUEUE } from '../queueNames'
 const REPEAT_EVERY_MS = 60 * 60 * 1000
 const TICK_NAME = 'sweep'
 
-const queue = getSharedQueue(
-  CHROMA_SWEEP_QUEUE,
-  withPipelineJobOpts({
-    removeOnComplete: { count: 24 },
-    removeOnFail: { count: 50 },
-  })
-)
+// Not withPipelineJobOpts(): that keeps completed jobs forever (pipeline-api
+// prunes by run, and sweeps belong to no run), so cap them here.
+const SWEEP_JOB_RETENTION = {
+  removeOnComplete: { count: 24 },
+  removeOnFail: { count: 50 },
+}
+
+const queue = getSharedQueue(CHROMA_SWEEP_QUEUE, SWEEP_JOB_RETENTION)
 
 const worker = new Worker(
   CHROMA_SWEEP_QUEUE,
@@ -57,7 +57,7 @@ async function ensureRepeatableSweep() {
     await queue.add(
       TICK_NAME,
       {},
-      { repeat: { every: REPEAT_EVERY_MS }, ...withPipelineJobOpts() }
+      { repeat: { every: REPEAT_EVERY_MS }, ...SWEEP_JOB_RETENTION }
     )
     console.log(
       `[chromaSweep] sweep every ${REPEAT_EVERY_MS}ms registered (ttl ${chromaConfig.ttlHours}h)`

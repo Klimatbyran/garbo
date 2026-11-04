@@ -54,6 +54,7 @@ const indexMarkdown = new PipelineWorker(
         ? childEntries.markdown
         : undefined
     let markdown: string | undefined = job.data.markdown ?? childMarkdown
+    let markdownStored = false
     const pageSnippets =
       job.data.pageSnippets ??
       pageSnippetsFromUnknown(childEntries.pageSnippets)
@@ -66,6 +67,13 @@ const indexMarkdown = new PipelineWorker(
     // match -- url is often an S3 cache URL, not the document's real identity.
     if ((!markdown || !markdown.trim()) && url) {
       markdown = await findReportMarkdownByJobIdentity(job.data)
+      markdownStored = Boolean(markdown?.trim())
+    } else if (url) {
+      // doclingParsePDF keeps going if saving the markdown to Postgres fails.
+      // Such reports can't be rebuilt after a Chroma sweep, so keep them.
+      markdownStored = Boolean(
+        (await findReportMarkdownByJobIdentity(job.data))?.trim()
+      )
     }
 
     if (!markdown || !markdown.trim()) {
@@ -88,7 +96,8 @@ const indexMarkdown = new PipelineWorker(
         url,
         markdown,
         (msg) => job.log(msg),
-        pageSnippets
+        pageSnippets,
+        { sweepable: markdownStored }
       )
       job.editMessage(`✅ Saving to vector database...`)
       job.log('Done!')
