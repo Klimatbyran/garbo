@@ -1,20 +1,21 @@
 import { Worker } from 'bullmq'
 import redis from '../config/redis'
 import { runPipelineAutoRunTick } from '../api/services/pipelineAutoRunService'
-import { withPipelineJobOpts } from '../lib/pipelineJobOptions'
 import { getSharedQueue } from '../lib/getSharedQueue'
 import { PIPELINE_AUTO_RUN_QUEUE } from '../queueNames'
 
 export { PIPELINE_AUTO_RUN_QUEUE }
 const REPEAT_EVERY_MS = 60_000
 
-const queue = getSharedQueue(
-  PIPELINE_AUTO_RUN_QUEUE,
-  withPipelineJobOpts({
-    removeOnComplete: { count: 20 },
-    removeOnFail: { count: 50 },
-  })
-)
+// Not withPipelineJobOpts(): that keeps completed jobs forever (pipeline-api
+// prunes by run, and ticks belong to no run), so a tick a minute would pile up
+// in Redis, which runs with maxmemory + noeviction.
+const TICK_JOB_RETENTION = {
+  removeOnComplete: { count: 20 },
+  removeOnFail: { count: 50 },
+}
+
+const queue = getSharedQueue(PIPELINE_AUTO_RUN_QUEUE, TICK_JOB_RETENTION)
 
 const worker = new Worker(
   PIPELINE_AUTO_RUN_QUEUE,
@@ -63,7 +64,7 @@ async function ensureRepeatableTick() {
       {},
       {
         repeat: { every: REPEAT_EVERY_MS },
-        ...withPipelineJobOpts(),
+        ...TICK_JOB_RETENTION,
       }
     )
     console.log(
