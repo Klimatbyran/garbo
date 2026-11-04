@@ -8,6 +8,7 @@ import {
   type DoclingPageSnippet,
 } from './doclingPageLookup'
 import { formatPageProvenanceLog } from './pageProvenanceLog'
+import { createCollectionCache } from './chromaCollection'
 
 const client = new ChromaClient(config)
 const embedder = new OpenAIEmbeddingFunction({
@@ -16,10 +17,13 @@ const embedder = new OpenAIEmbeddingFunction({
 })
 const openaiClient = new OpenAI({ apiKey: openaiConfig.apiKey })
 
-const collection = await client.getOrCreateCollection({
-  name: 'emission_reports',
-  embeddingFunction: embedder,
-})
+// Looked up on first use (not at import), and again if Chroma loses it.
+const { withCollection } = createCollectionCache(() =>
+  client.getOrCreateCollection({
+    name: 'emission_reports',
+    embeddingFunction: embedder,
+  })
+)
 
 // this is our own type to be able to filter in the future if needed
 const reportMetadataType = 'company_sustainability_report'
@@ -154,11 +158,13 @@ async function addReport(
     await withChromaLimit(async () => {
       await withChromaRetry(
         () =>
-          collection.add({
-            ids: batchIds,
-            metadatas: batchMetadatas,
-            documents: batchChunks.map(({ chunk }) => chunk),
-          }),
+          withCollection((collection) =>
+            collection.add({
+              ids: batchIds,
+              metadatas: batchMetadatas,
+              documents: batchChunks.map(({ chunk }) => chunk),
+            })
+          ),
         log
       )
     })
@@ -171,12 +177,10 @@ async function addReport(
 }
 
 async function hasReport(url: string) {
-  return collection
-    .get({
-      where: { source: url },
-      limit: 1,
-    })
-    .then((r) => r?.documents?.length > 0)
+  const r = await withCollection((collection) =>
+    collection.get({ where: { source: url }, limit: 1 })
+  )
+  return r?.documents?.length > 0
 }
 
 async function getRelevantParagraphs(
@@ -197,11 +201,13 @@ async function getRelevantParagraphs(
   )
   return withChromaLimit(async () => {
     log(`Querying ChromaDB`)
-    const result = await collection.query({
-      nResults,
-      where: { source: url },
-      queryEmbeddings,
-    })
+    const result = await withCollection((collection) =>
+      collection.query({
+        nResults,
+        where: { source: url },
+        queryEmbeddings,
+      })
+    )
     log(`ChromaDB query complete`)
 
     const metadatas = result.metadatas.flat()
@@ -246,14 +252,18 @@ async function getRelevantMarkdown(
  * Delete a specific report
  */
 function deleteReport(url: string) {
-  return collection.delete({ where: { source: url } })
+  return withCollection((collection) =>
+    collection.delete({ where: { source: url } })
+  )
 }
 
 /**
  * Clear all reports. Useful during development.
  */
 function clearAllReports() {
-  return collection.delete({ where: { type: reportMetadataType } })
+  return withCollection((collection) =>
+    collection.delete({ where: { type: reportMetadataType } })
+  )
 }
 
 export const vectorDB = {
