@@ -8,6 +8,12 @@ import {
   type DoclingPageSnippet,
 } from './doclingPageLookup'
 import { formatPageProvenanceLog } from './pageProvenanceLog'
+import {
+  createReindexFromStoredMarkdown,
+  queryWithReindexOnMiss,
+  staleChunksWhere,
+} from './chromaRetention'
+import { registryService } from '../api/services/registryService'
 
 const client = new ChromaClient(config)
 const embedder = new OpenAIEmbeddingFunction({
@@ -138,6 +144,10 @@ async function addReport(
     })
   )
 
+  // One timestamp for the whole report, so the TTL sweep removes all of its
+  // chunks together instead of leaving a partial index behind.
+  const indexedAt = Date.now()
+
   // Process in batches of 50 chunks to avoid token limit issues
   const batchSize = 50
   for (let i = 0; i < documentChunks.length; i += batchSize) {
@@ -147,14 +157,17 @@ async function addReport(
       source: url,
       paragraph,
       type: reportMetadataType,
-      parsed: new Date().toISOString(),
+      parsed: new Date(indexedAt).toISOString(),
+      indexedAt,
       ...(pageNumber !== undefined ? { pageNumber } : {}),
     }))
 
     await withChromaLimit(async () => {
       await withChromaRetry(
+        // upsert, not add: add silently skips existing ids, so a rebuild would
+        // keep the old chunks and their old indexedAt.
         () =>
-          collection.add({
+          collection.upsert({
             ids: batchIds,
             metadatas: batchMetadatas,
             documents: batchChunks.map(({ chunk }) => chunk),
@@ -179,6 +192,11 @@ async function hasReport(url: string) {
     .then((r) => r?.documents?.length > 0)
 }
 
+const reindexFromStoredMarkdown = createReindexFromStoredMarkdown({
+  loadMarkdown: (url) => registryService.getMarkdownByUrl(url),
+  index: (url, markdown, log) => addReport(url, markdown, log),
+})
+
 async function getRelevantParagraphs(
   url: string,
   queryTexts: string[],
@@ -195,41 +213,51 @@ async function getRelevantParagraphs(
   log(
     `Waiting for ChromaDB slot (concurrency=${CHROMA_CONCURRENCY}, active=${activeChromaQueries})...`
   )
-  return withChromaLimit(async () => {
-    log(`Querying ChromaDB`)
-    const result = await collection.query({
-      nResults,
-      where: { source: url },
-      queryEmbeddings,
-    })
-    log(`ChromaDB query complete`)
-
-    const metadatas = result.metadatas.flat()
-    const unique = new Map<string, RetrievedParagraph>()
-
-    for (const metadata of metadatas) {
-      const text =
-        typeof metadata?.paragraph === 'string' ? metadata.paragraph : ''
-      if (!text || unique.has(text)) continue
-
-      const rawPage = metadata?.pageNumber
-      const pageNumber =
-        typeof rawPage === 'number'
-          ? rawPage
-          : typeof rawPage === 'string' && /^\d+$/.test(rawPage)
-            ? Number.parseInt(rawPage, 10)
-            : undefined
-
-      unique.set(text, {
-        text,
-        ...(pageNumber !== undefined && Number.isFinite(pageNumber)
-          ? { pageNumber }
-          : {}),
+  const runQuery = () =>
+    withChromaLimit(async () => {
+      log(`Querying ChromaDB`)
+      const result = await collection.query({
+        nResults,
+        where: { source: url },
+        queryEmbeddings,
       })
-    }
+      log(`ChromaDB query complete`)
+      return result.metadatas.flat()
+    })
 
-    return Array.from(unique.values())
-  })
+  // Reports are swept from Chroma after CHROMA_TTL_HOURS; reruns from goffer
+  // (or slow runs) rebuild them from Report.markdown here.
+  const metadatas = await queryWithReindexOnMiss(
+    url,
+    runQuery,
+    reindexFromStoredMarkdown,
+    log
+  )
+
+  const unique = new Map<string, RetrievedParagraph>()
+
+  for (const metadata of metadatas) {
+    const text =
+      typeof metadata?.paragraph === 'string' ? metadata.paragraph : ''
+    if (!text || unique.has(text)) continue
+
+    const rawPage = metadata?.pageNumber
+    const pageNumber =
+      typeof rawPage === 'number'
+        ? rawPage
+        : typeof rawPage === 'string' && /^\d+$/.test(rawPage)
+          ? Number.parseInt(rawPage, 10)
+          : undefined
+
+    unique.set(text, {
+      text,
+      ...(pageNumber !== undefined && Number.isFinite(pageNumber)
+        ? { pageNumber }
+        : {}),
+    })
+  }
+
+  return Array.from(unique.values())
 }
 
 async function getRelevantMarkdown(
@@ -250,6 +278,15 @@ function deleteReport(url: string) {
 }
 
 /**
+ * Delete chunks indexed more than `ttlHours` ago (see workers/chromaSweep.ts).
+ * Chunks indexed before indexedAt existed are not matched; clear those once
+ * with `npm run reset -- --chroma`.
+ */
+function deleteStaleChunks(ttlHours: number, nowMs = Date.now()) {
+  return collection.delete({ where: staleChunksWhere(nowMs, ttlHours) })
+}
+
+/**
  * Clear all reports. Useful during development.
  */
 function clearAllReports() {
@@ -263,4 +300,5 @@ export const vectorDB = {
   getRelevantMarkdown,
   getRelevantParagraphs,
   clearAllReports,
+  deleteStaleChunks,
 }
