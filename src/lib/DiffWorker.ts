@@ -17,60 +17,34 @@ type EnqueueTarget = {
 }
 
 /**
- * Enqueue a follow-up job with a BullMQ parent link when possible. If the
- * parent job key is missing in Redis (common for nested flow children mid-
- * processing, retention, or cleanup), retries without the parent so work
- * still proceeds.
+ * Enqueue a follow-up job without a BullMQ parent link.
+ *
+ * ParentOptions.queue must be the qualified name (`job.queueQualifiedName`,
+ * e.g. `bull:extractGleifIds`). Using `job.queueName` always fails with
+ * "Missing key for parent job". Real parenting also needs
+ * `moveToWaitingChildren` + `WaitingChildrenError` and an idempotent re-entry
+ * path in the processor — see extractGleifIds. Diff → saveToAPI stays
+ * unparented until that pattern is shared.
  */
-export async function enqueueWithParentFallback(
-  job: Job,
+export async function enqueueFollowUp(
   queue: EnqueueTarget,
   name: string,
   data: Record<string, unknown>,
   jobOptions: JobsOptions = {}
 ): Promise<void> {
-  const parentOpts = job.id
-    ? { parent: { id: job.id, queue: job.queueName } }
-    : undefined
-
-  try {
-    await queue.add(
-      name,
-      data,
-      withPipelineJobOpts({ ...parentOpts, ...jobOptions })
-    )
-  } catch (error) {
-    const msg =
-      error instanceof Error
-        ? error.message
-        : typeof error === 'string'
-          ? error
-          : ''
-
-    if (msg.includes('Missing key for parent job')) {
-      await job.log(
-        `Enqueue '${name}': parent missing; retrying without parent. (${msg})`
-      )
-      await queue.add(name, data, withPipelineJobOpts(jobOptions))
-      return
-    }
-
-    throw error
-  }
+  await queue.add(name, data, withPipelineJobOpts(jobOptions))
 }
 
 /**
- * Enqueue saveToAPI with a BullMQ parent link when possible. If the parent job
- * key is no longer in Redis (retention, cleanup, or inconsistent state),
- * retries without the parent so the save can still run.
+ * Enqueue saveToAPI without parenting the current job. Kept name for call
+ * sites; parenting is intentionally skipped (see enqueueFollowUp).
  */
 export async function enqueueSaveToAPIWithParentFallback(
-  job: Job,
+  _job: Job,
   name: string,
   data: Record<string, unknown>
 ): Promise<void> {
-  await enqueueWithParentFallback(
-    job,
+  await enqueueFollowUp(
     saveToAPI.queue,
     name,
     data,

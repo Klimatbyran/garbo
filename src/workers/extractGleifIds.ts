@@ -1,8 +1,9 @@
+import { WaitingChildrenError } from 'bullmq'
 import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
-import { enqueueWithParentFallback } from '../lib/DiffWorker'
 import { QUEUE_NAMES, queues } from '../queues'
 import { getGleifLinkedIdentifiers } from '../lib/gleif'
 import { normalizeLei } from '../lib/normalizeLei'
+import { withPipelineJobOpts } from '../lib/pipelineJobOptions'
 
 export class GleifIdsJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
@@ -12,14 +13,27 @@ export class GleifIdsJob extends PipelineJob {
     existingCompany?: {
       identifiers?: Array<{ type: string; value: string; role?: string | null }>
     }
+    /** Set after diffGleifIds is enqueued as a child; skips re-fetch on resume. */
+    gleifDiffEnqueued?: boolean
+    linked?: Awaited<ReturnType<typeof getGleifLinkedIdentifiers>>
   }
 }
 
 const extractGleifIds = new PipelineWorker<GleifIdsJob>(
   QUEUE_NAMES.EXTRACT_GLEIF_IDS,
-  async (job: GleifIdsJob) => {
+  async (job: GleifIdsJob, _logger, token?: string) => {
     const { companyName, companyId, lei } = job.data
     const normalizedLei = normalizeLei(lei)
+
+    // Resumed after waiting for diffGleifIds children.
+    if (job.data.gleifDiffEnqueued) {
+      job.log('GLEIF diff child finished; completing extractGleifIds.')
+      return {
+        companyId,
+        lei: normalizedLei,
+        linked: job.data.linked ?? null,
+      }
+    }
 
     if (!normalizedLei) {
       job.log(
@@ -50,19 +64,48 @@ const extractGleifIds = new PipelineWorker<GleifIdsJob>(
       `GLEIF linked: isins=${linked.isins.length}/${linked.isinTotal} truncated=${linked.isinsTruncated} org=${linked.registeredAs ?? 'none'} bics=${JSON.stringify(linked.bics)} jurisdiction=${linked.jurisdiction}`
     )
 
-    // Nested flow children often lack a stable Redis parent key when adding
-    // mid-processing; fall back to an unparented enqueue (same as saveToAPI).
-    await enqueueWithParentFallback(
-      job,
-      queues.diffGleifIds,
+    if (!job.id) {
+      throw new Error('extractGleifIds job is missing id; cannot parent diffGleifIds')
+    }
+
+    // ParentOptions.queue must include the BullMQ prefix (queueQualifiedName).
+    await queues.diffGleifIds.add(
       `${companyName} - GLEIF identifiers`,
       {
         ...job.data,
         lei: normalizedLei,
         linked,
       },
-      { attempts: 3 }
+      withPipelineJobOpts({
+        attempts: 3,
+        // Keep sendCompanyLink moving if the GLEIF diff fails.
+        failParentOnFailure: false,
+        ignoreDependencyOnFailure: true,
+        parent: {
+          id: job.id,
+          queue: job.queueQualifiedName,
+        },
+      })
     )
+
+    await job.updateData({
+      ...job.data,
+      lei: normalizedLei,
+      linked,
+      gleifDiffEnqueued: true,
+    })
+
+    if (!token) {
+      job.log(
+        'No worker token available; cannot moveToWaitingChildren — completing without wait.'
+      )
+      return { companyId, lei: normalizedLei, linked }
+    }
+
+    const shouldWait = await job.moveToWaitingChildren(token)
+    if (shouldWait) {
+      throw new WaitingChildrenError()
+    }
 
     return { companyId, lei: normalizedLei, linked }
   }
