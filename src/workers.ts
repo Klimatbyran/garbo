@@ -21,12 +21,18 @@ export const workers = getWorkerFiles('src/workers').map((file) => {
   }
 })
 
+function isRuntimeWorkerModule(fileName: string): boolean {
+  // Auto-import must not load Jest suites (or helpers that only exist for tests).
+  if (/\.(test|spec)\.ts$/.test(fileName)) return false
+  return fileName.endsWith('.ts')
+}
+
 function getWorkerFiles(dir: string, baseDir: string = dir): string[] {
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap((dirent) => {
     const path = `${dir}/${dirent.name}`
     if (dirent.isDirectory()) {
       return getWorkerFiles(path, baseDir)
-    } else if (dirent.name.endsWith('.ts')) {
+    } else if (isRuntimeWorkerModule(dirent.name)) {
       return [path.slice(baseDir.length + 1)]
     } else {
       return []

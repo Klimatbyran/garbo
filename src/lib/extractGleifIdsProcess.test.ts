@@ -5,7 +5,7 @@ import {
   processExtractGleifIds,
   type ExtractGleifDeps,
   type ExtractGleifJobLike,
-} from './extractGleifIdsProcess'
+} from '../workers/extractGleifIdsProcess'
 
 function makeJob(data: ExtractGleifJobLike['data']): ExtractGleifJobLike {
   return {
