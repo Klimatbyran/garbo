@@ -15,6 +15,7 @@ import {
 } from './chromaRetention'
 import { registryService } from '../api/services/registryService'
 import { waitForChromaIndexing, withChromaIndexLock } from './chromaIndexLock'
+import { withChromaRetry } from './chromaRetry'
 
 const client = new ChromaClient(config)
 const embedder = new OpenAIEmbeddingFunction({
@@ -57,29 +58,6 @@ async function withChromaLimit<T>(fn: () => Promise<T>): Promise<T> {
     activeChromaQueries--
     chromaQueryWaiters.shift()?.()
   }
-}
-
-async function withChromaRetry<T>(
-  fn: () => Promise<T>,
-  log: (msg: string) => void,
-  maxRetries = 5
-): Promise<T> {
-  let lastError: unknown
-  for (let attempt = 1; attempt <= maxRetries; attempt++) {
-    try {
-      return await fn()
-    } catch (err) {
-      lastError = err
-      if (attempt === maxRetries) break
-      const jitter = Math.floor(Math.random() * 1000)
-      const delayMs = 1000 * Math.pow(2, attempt - 1) + jitter
-      log(
-        `ChromaDB attempt ${attempt}/${maxRetries} failed, retrying in ${delayMs}ms: ${err}`
-      )
-      await new Promise((resolve) => setTimeout(resolve, delayMs))
-    }
-  }
-  throw lastError
 }
 
 type AddReportOptions = {
@@ -188,6 +166,7 @@ async function addReport(
 
         await withChromaLimit(async () => {
           await withChromaRetry(
+            `upsert (${url}, chunks ${i}-${i + batchChunks.length - 1})`,
             // upsert, not add: add silently skips existing ids, so a rebuild
             // would keep the old chunks and their old indexedAt.
             () =>
@@ -219,12 +198,12 @@ async function addReport(
 }
 
 async function hasReport(url: string) {
-  return collection
-    .get({
-      where: { source: url },
-      limit: 1,
-    })
-    .then((r) => r?.documents?.length > 0)
+  const r = await withChromaRetry(
+    `get (${url})`,
+    () => collection.get({ where: { source: url }, limit: 1 }),
+    console.log
+  )
+  return r?.documents?.length > 0
 }
 
 const reindexFromStoredMarkdown = createReindexFromStoredMarkdown({
@@ -252,11 +231,16 @@ async function getRelevantParagraphs(
   const runQuery = () =>
     withChromaLimit(async () => {
       log(`Querying ChromaDB`)
-      const result = await collection.query({
-        nResults,
-        where: { source: url },
-        queryEmbeddings,
-      })
+      const result = await withChromaRetry(
+        `query (${url})`,
+        () =>
+          collection.query({
+            nResults,
+            where: { source: url },
+            queryEmbeddings,
+          }),
+        log
+      )
       log(`ChromaDB query complete`)
       return result.metadatas.flat()
     })
@@ -311,7 +295,11 @@ async function getRelevantMarkdown(
  * Delete a specific report
  */
 function deleteReport(url: string) {
-  return collection.delete({ where: { source: url } })
+  return withChromaRetry(
+    `delete (${url})`,
+    () => collection.delete({ where: { source: url } }),
+    console.log
+  )
 }
 
 /**
@@ -320,7 +308,11 @@ function deleteReport(url: string) {
  * with `npm run reset -- --chroma`.
  */
 function deleteStaleChunks(ttlHours: number, nowMs = Date.now()) {
-  return collection.delete({ where: staleChunksWhere(nowMs, ttlHours) })
+  return withChromaRetry(
+    `delete stale chunks (older than ${ttlHours}h)`,
+    () => collection.delete({ where: staleChunksWhere(nowMs, ttlHours) }),
+    console.log
+  )
 }
 
 /**
