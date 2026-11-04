@@ -44,12 +44,7 @@ export async function enqueueSaveToAPIWithParentFallback(
   name: string,
   data: Record<string, unknown>
 ): Promise<void> {
-  await enqueueFollowUp(
-    saveToAPI.queue,
-    name,
-    data,
-    SAVE_TO_API_JOB_OPTIONS
-  )
+  await enqueueFollowUp(saveToAPI.queue, name, data, SAVE_TO_API_JOB_OPTIONS)
 }
 
 export interface ChangeDescription {

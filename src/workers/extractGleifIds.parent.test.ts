@@ -1,113 +1,72 @@
-import { describe, it, expect, jest, beforeEach } from '@jest/globals'
+import { describe, it, expect, jest } from '@jest/globals'
+import { WaitingChildrenError } from 'bullmq'
+import {
+  gleifDiffChildJobOpts,
+  processExtractGleifIds,
+  type ExtractGleifDeps,
+  type ExtractGleifJobLike,
+} from './extractGleifIdsProcess'
 
-const addDiff = jest.fn(async (..._args: unknown[]) => ({}))
-const getGleifLinkedIdentifiers = jest.fn(
-  async (..._args: unknown[]) => null as unknown
-)
-
-jest.mock('../queues', () => ({
-  QUEUE_NAMES: { EXTRACT_GLEIF_IDS: 'extractGleifIds' },
-  queues: {
-    diffGleifIds: {
-      add: (...args: unknown[]) => addDiff(...args),
-    },
-  },
-}))
-
-jest.mock('../lib/gleif', () => ({
-  getGleifLinkedIdentifiers: (...args: unknown[]) =>
-    getGleifLinkedIdentifiers(...args),
-}))
-
-jest.mock('../lib/normalizeLei', () => ({
-  normalizeLei: (lei: string) => (lei?.trim() ? lei.trim().toUpperCase() : null),
-}))
-
-jest.mock('../lib/PipelineWorker', () => {
-  class PipelineJob {
-    data: Record<string, unknown>
-    id?: string
-    queueQualifiedName: string
-    log = jest.fn(async () => undefined)
-    sendMessage = jest.fn(async () => undefined)
-    updateData = jest.fn(async (data: Record<string, unknown>) => {
-      this.data = data
-    })
-    moveToWaitingChildren = jest.fn(async () => true)
-
-    constructor(data: Record<string, unknown>) {
-      this.data = data
-      this.id = 'job-1'
-      this.queueQualifiedName = 'bull:extractGleifIds'
-    }
+function makeJob(data: ExtractGleifJobLike['data']): ExtractGleifJobLike {
+  return {
+    id: 'job-1',
+    queueQualifiedName: 'bull:extractGleifIds',
+    data,
+    log: jest.fn(async () => undefined),
+    sendMessage: jest.fn(async () => undefined),
+    updateData: jest.fn(async () => undefined),
+    moveToWaitingChildren: jest.fn(async () => true),
   }
-
-  class PipelineWorker {
-    processor: (
-      job: PipelineJob,
-      logger: unknown,
-      token?: string
-    ) => Promise<unknown>
-
-    constructor(_name: string, processor: PipelineWorker['processor']) {
-      this.processor = processor
-    }
-  }
-
-  return { PipelineJob, PipelineWorker }
-})
-
-type WorkerWithProcessor = {
-  processor: (
-    job: any,
-    logger: unknown,
-    token?: string
-  ) => Promise<unknown>
 }
 
-describe('extractGleifIds parent link', () => {
-  beforeEach(() => {
-    addDiff.mockReset()
-    addDiff.mockResolvedValue({})
-    getGleifLinkedIdentifiers.mockReset()
-    jest.resetModules()
+describe('gleifDiffChildJobOpts', () => {
+  it('parents with queueQualifiedName, not bare queueName', () => {
+    const opts = gleifDiffChildJobOpts({
+      id: 'job-1',
+      queueQualifiedName: 'bull:extractGleifIds',
+    })
+    expect(opts.parent).toEqual({
+      id: 'job-1',
+      queue: 'bull:extractGleifIds',
+    })
+    expect(opts.failParentOnFailure).toBe(false)
+    expect(opts.ignoreDependencyOnFailure).toBe(true)
+    expect(opts.attempts).toBe(3)
   })
+})
 
-  it('parents diffGleifIds with queueQualifiedName and waits for children', async () => {
-    getGleifLinkedIdentifiers.mockResolvedValue({
+describe('processExtractGleifIds', () => {
+  it('enqueues diff with qualified parent and waits for children', async () => {
+    const addDiff: ExtractGleifDeps['addDiff'] = jest.fn(async () => ({}))
+    const getLinked: ExtractGleifDeps['getLinked'] = jest.fn(async () => ({
+      lei: '5493001KJTIIGC8Y1R12',
       isins: ['SE0000108656'],
       isinTotal: 1,
       isinsTruncated: false,
       registeredAs: 'Org',
       bics: [],
       jurisdiction: 'SE',
-    })
-
-    const mod = await import('./extractGleifIds')
-    const worker = mod.default as unknown as WorkerWithProcessor
-    const { PipelineJob } = await import('../lib/PipelineWorker')
-    const job = new (PipelineJob as any)({
+    }))
+    const job = makeJob({
       url: 'https://example.com/r.pdf',
+      autoApprove: true,
       companyName: 'Acme',
       companyId: 'c1',
       lei: '5493001KJTIIGC8Y1R12',
-      autoApprove: true,
     })
 
-    await expect(worker.processor(job, {}, 'token-1')).rejects.toMatchObject({
-      name: 'WaitingChildrenError',
-    })
+    await expect(
+      processExtractGleifIds(job, 'token-1', { getLinked, addDiff })
+    ).rejects.toBeInstanceOf(WaitingChildrenError)
 
     expect(addDiff).toHaveBeenCalledTimes(1)
-    const opts = addDiff.mock.calls[0]?.[2] as Record<string, unknown>
+    const opts = (addDiff as jest.Mock).mock.calls[0]?.[2] as Record<
+      string,
+      unknown
+    >
     expect(opts).toEqual(
       expect.objectContaining({
-        parent: {
-          id: 'job-1',
-          queue: 'bull:extractGleifIds',
-        },
-        ignoreDependencyOnFailure: true,
-        failParentOnFailure: false,
+        parent: { id: 'job-1', queue: 'bull:extractGleifIds' },
       })
     )
     expect(job.updateData).toHaveBeenCalledWith(
@@ -117,24 +76,38 @@ describe('extractGleifIds parent link', () => {
   })
 
   it('skips re-fetch when resumed after children complete', async () => {
-    const mod = await import('./extractGleifIds')
-    const worker = mod.default as unknown as WorkerWithProcessor
-    const { PipelineJob } = await import('../lib/PipelineWorker')
-    const job = new (PipelineJob as any)({
+    const addDiff: ExtractGleifDeps['addDiff'] = jest.fn(async () => ({}))
+    const getLinked: ExtractGleifDeps['getLinked'] = jest.fn(async () => null)
+    const job = makeJob({
       url: 'https://example.com/r.pdf',
+      autoApprove: true,
       companyName: 'Acme',
       companyId: 'c1',
       lei: '5493001KJTIIGC8Y1R12',
-      autoApprove: true,
       gleifDiffEnqueued: true,
-      linked: { isins: [], isinTotal: 0, isinsTruncated: false, bics: [] },
+      linked: {
+        lei: '5493001KJTIIGC8Y1R12',
+        isins: [],
+        isinTotal: 0,
+        isinsTruncated: false,
+        bics: [],
+        registeredAs: null,
+        jurisdiction: null,
+      },
     })
 
-    const result = await worker.processor(job, {}, 'token-1')
-    expect(getGleifLinkedIdentifiers).not.toHaveBeenCalled()
+    const result = await processExtractGleifIds(job, 'token-1', {
+      getLinked,
+      addDiff,
+    })
+
+    expect(getLinked).not.toHaveBeenCalled()
     expect(addDiff).not.toHaveBeenCalled()
     expect(result).toEqual(
-      expect.objectContaining({ companyId: 'c1', lei: '5493001KJTIIGC8Y1R12' })
+      expect.objectContaining({
+        companyId: 'c1',
+        lei: '5493001KJTIIGC8Y1R12',
+      })
     )
   })
 })
