@@ -93,7 +93,7 @@ class CompanyIdentifierService {
     const other = await prisma.companyIdentifier.findFirst({
       where: {
         type,
-        ...(type === 'ISIN' || type === 'LEI' || type === 'BIC'
+        ...(CASE_INSENSITIVE_TYPES.has(type)
           ? { value: { equals: value, mode: 'insensitive' as const } }
           : { value }),
         NOT: { companyId },
@@ -195,6 +195,8 @@ class CompanyIdentifierService {
         })
 
     if (createOnly && existing) {
+      // Do not treat a blocked overwrite as a successful write.
+      if (existing.value !== persistedValue) return null
       return existing
     }
 
@@ -254,6 +256,7 @@ class CompanyIdentifierService {
     } catch (error) {
       // Concurrent PRIMARY / singular unique races surface as P2002.
       if ((error as { code?: string }).code === 'P2002') {
+        if (onOwnershipConflict === 'skip') return null
         throw Object.assign(
           new Error(
             `${type} value ${persistedValue} conflicts with an existing identifier`

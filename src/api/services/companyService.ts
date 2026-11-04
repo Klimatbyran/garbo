@@ -554,7 +554,15 @@ class CompanyService {
       )
     }
     if (type === 'LEI') {
-      // LEI is singular + dual-written; value-specific delete clears the type.
+      const requested = normalizeLei(value)
+      const company = await prisma.company.findFirstOrThrow({
+        where: { id: companyId },
+        select: { lei: true },
+      })
+      const stored = normalizeLei(company.lei)
+      if (!requested || !stored || requested !== stored) {
+        throw Object.assign(new Error('Identifier not found'), { code: 404 })
+      }
       await this.deleteCompanyIdentifier(companyId, 'LEI')
       return
     }
