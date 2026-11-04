@@ -143,15 +143,15 @@ export class PipelineWorker<T extends PipelineJob> extends Worker {
   queue: Queue
   constructor(
     name: string,
-    callback: (job: T, logger: Logger) => unknown,
+    callback: (job: T, logger: Logger, token?: string) => unknown,
     options?: WorkerOptions
   ) {
     super(
       name,
-      async (raw: T) => {
+      async (raw: T, token?: string) => {
         const job = addCustomMethods(raw) as T
         const logger = createPipelineLogger(job)
-        return callback(job, logger)
+        return callback(job, logger, token)
       },
       {
         connection: redis,

@@ -3,53 +3,21 @@ import { Job, WorkerOptions } from 'bullmq'
 import redis from '../config/redis'
 import saveToAPI from '../workers/saveToAPI'
 import { canonicalPublicReportUrl, defaultMetadata } from './saveUtils'
-import {
-  SAVE_TO_API_JOB_OPTIONS,
-  withPipelineJobOpts,
-} from './pipelineJobOptions'
+import { SAVE_TO_API_JOB_OPTIONS } from './pipelineJobOptions'
+import { enqueueFollowUp } from './enqueueFollowUp'
+
+export { enqueueFollowUp } from './enqueueFollowUp'
 
 /**
- * Enqueue saveToAPI with a BullMQ parent link when possible. If the parent job
- * key is no longer in Redis (retention, cleanup, or inconsistent state),
- * retries without the parent so the save can still run.
+ * Enqueue saveToAPI without parenting the current job. Kept name for call
+ * sites; parenting is intentionally skipped (see enqueueFollowUp).
  */
 export async function enqueueSaveToAPIWithParentFallback(
-  job: Job,
+  _job: Job,
   name: string,
   data: Record<string, unknown>
 ): Promise<void> {
-  const parentOpts = job.id
-    ? { parent: { id: job.id, queue: job.queueName } }
-    : undefined
-
-  try {
-    await saveToAPI.queue.add(
-      name,
-      data,
-      withPipelineJobOpts({ ...parentOpts, ...SAVE_TO_API_JOB_OPTIONS })
-    )
-  } catch (error) {
-    const msg =
-      error instanceof Error
-        ? error.message
-        : typeof error === 'string'
-          ? error
-          : ''
-
-    if (msg.includes('Missing key for parent job')) {
-      await job.log(
-        `saveToAPI enqueue: parent missing; retrying without parent. (${msg})`
-      )
-      await saveToAPI.queue.add(
-        name,
-        data,
-        withPipelineJobOpts(SAVE_TO_API_JOB_OPTIONS)
-      )
-      return
-    }
-
-    throw error
-  }
+  await enqueueFollowUp(saveToAPI.queue, name, data, SAVE_TO_API_JOB_OPTIONS)
 }
 
 export interface ChangeDescription {
