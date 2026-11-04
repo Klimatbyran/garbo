@@ -1,8 +1,8 @@
 import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
+import { enqueueWithParentFallback } from '../lib/DiffWorker'
 import { QUEUE_NAMES, queues } from '../queues'
 import { getGleifLinkedIdentifiers } from '../lib/gleif'
 import { normalizeLei } from '../lib/normalizeLei'
-import { withPipelineJobOpts } from '../lib/pipelineJobOptions'
 
 export class GleifIdsJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
@@ -50,19 +50,18 @@ const extractGleifIds = new PipelineWorker<GleifIdsJob>(
       `GLEIF linked: isins=${linked.isins.length}/${linked.isinTotal} truncated=${linked.isinsTruncated} org=${linked.registeredAs ?? 'none'} bics=${JSON.stringify(linked.bics)} jurisdiction=${linked.jurisdiction}`
     )
 
-    await queues.diffGleifIds.add(
+    // Nested flow children often lack a stable Redis parent key when adding
+    // mid-processing; fall back to an unparented enqueue (same as saveToAPI).
+    await enqueueWithParentFallback(
+      job,
+      queues.diffGleifIds,
       `${companyName} - GLEIF identifiers`,
       {
         ...job.data,
         lei: normalizedLei,
         linked,
       },
-      withPipelineJobOpts({
-        attempts: 3,
-        ...(job.id
-          ? { parent: { id: job.id, queue: job.queueName } }
-          : undefined),
-      })
+      { attempts: 3 }
     )
 
     return { companyId, lei: normalizedLei, linked }
