@@ -1,39 +1,12 @@
 import { PipelineJob, PipelineWorker } from './PipelineWorker'
-import { Job, JobsOptions, WorkerOptions } from 'bullmq'
+import { Job, WorkerOptions } from 'bullmq'
 import redis from '../config/redis'
 import saveToAPI from '../workers/saveToAPI'
 import { canonicalPublicReportUrl, defaultMetadata } from './saveUtils'
-import {
-  SAVE_TO_API_JOB_OPTIONS,
-  withPipelineJobOpts,
-} from './pipelineJobOptions'
+import { SAVE_TO_API_JOB_OPTIONS } from './pipelineJobOptions'
+import { enqueueFollowUp } from './enqueueFollowUp'
 
-type EnqueueTarget = {
-  add: (
-    name: string,
-    data: Record<string, unknown>,
-    opts?: JobsOptions
-  ) => Promise<unknown>
-}
-
-/**
- * Enqueue a follow-up job without a BullMQ parent link.
- *
- * ParentOptions.queue must be the qualified name (`job.queueQualifiedName`,
- * e.g. `bull:extractGleifIds`). Using `job.queueName` always fails with
- * "Missing key for parent job". Real parenting also needs
- * `moveToWaitingChildren` + `WaitingChildrenError` and an idempotent re-entry
- * path in the processor — see extractGleifIds. Diff → saveToAPI stays
- * unparented until that pattern is shared.
- */
-export async function enqueueFollowUp(
-  queue: EnqueueTarget,
-  name: string,
-  data: Record<string, unknown>,
-  jobOptions: JobsOptions = {}
-): Promise<void> {
-  await queue.add(name, data, withPipelineJobOpts(jobOptions))
-}
+export { enqueueFollowUp } from './enqueueFollowUp'
 
 /**
  * Enqueue saveToAPI without parenting the current job. Kept name for call
