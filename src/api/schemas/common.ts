@@ -12,6 +12,16 @@ export const wikidataIdParamSchema = z.object({ wikidataId: wikidataIdSchema })
 /** Staff mutation routes: internal UUID only. */
 export const companyIdParamSchema = z.object({ id: companyIdSchema })
 
+export const companyIdentifierDeleteParamsSchema = z.object({
+  id: companyIdSchema,
+  type: z.enum(['WIKIDATA', 'LEI', 'ORG_NUMBER', 'ISIN', 'BIC']),
+})
+
+/** Optional value query: delete one multi-value row instead of wiping the type. */
+export const companyIdentifierDeleteQuerySchema = z.object({
+  value: z.string().min(1).optional(),
+})
+
 /** Pipeline read: wikidataId, full UUID, or 8-char UUID prefix. */
 export const companyUrlIdentifierSchema = z.union([
   wikidataIdSchema,

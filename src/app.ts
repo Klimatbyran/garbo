@@ -22,6 +22,7 @@ import { companyInitiativesRoutes } from './api/routes/internal/company.initiati
 import { companyReportingPeriodsRoutes } from './api/routes/internal/company.reportingPeriods'
 import { pipelineCompanyReadRoutes } from './api/routes/internal/company.pipelineRead'
 import { companyUpdateRoutes } from './api/routes/internal/company.update'
+import { companyIdentifierRoutes } from './api/routes/internal/company.identifiers'
 import { companyDeleteRoutes } from './api/routes/internal/company.delete'
 import { errorHandler } from './api/plugins/errorhandler'
 import { clientApiKeysAdminRoutes } from './api/routes/internal/clientApiKeys.admin'
@@ -137,6 +138,7 @@ async function authenticatedContext(app: FastifyInstance) {
   })
   app.register(companyGoalsRoutes, { prefix: 'api/companies' })
   app.register(companyBaseYearRoutes, { prefix: 'api/companies' })
+  app.register(companyIdentifierRoutes, { prefix: 'api/companies' })
   app.register(companyReportingQualityRoutes, { prefix: 'api/companies' })
   app.register(companyInitiativesRoutes, { prefix: 'api/companies' })
 

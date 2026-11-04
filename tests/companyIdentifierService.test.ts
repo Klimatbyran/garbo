@@ -166,4 +166,73 @@ describe('companyIdentifierService', () => {
 
     expect(deleted).toBe(false)
   })
+
+  it('createOnly skips overwrite when ORG_NUMBER value differs', async () => {
+    prismaMock.companyIdentifier.findFirst
+      .mockResolvedValueOnce(null) // ownership
+      .mockResolvedValueOnce({
+        id: 'org-1',
+        value: '0403.201.185',
+        role: null,
+      })
+
+    const result = await companyIdentifierService.upsertIdentifier({
+      companyId: 'company-1',
+      type: 'ORG_NUMBER',
+      value: '9999.999.999',
+      user: botUser as any,
+      createOnly: true,
+    })
+
+    expect(result).toBeNull()
+    expect(prismaMock.companyIdentifier.create).not.toHaveBeenCalled()
+    expect(prismaMock.companyIdentifier.update).not.toHaveBeenCalled()
+  })
+
+  it('upsertMany skips ownership conflicts and reports skipped', async () => {
+    prismaMock.companyIdentifier.findFirst
+      .mockResolvedValueOnce({ companyId: 'other' }) // ownership for first
+      .mockResolvedValueOnce(null) // ownership for second
+      .mockResolvedValueOnce(null) // existing lookup for second
+
+    prismaMock.metadata.create.mockResolvedValue({ id: 'meta-2' })
+    prismaMock.companyIdentifier.create.mockResolvedValue({
+      id: 'isin-1',
+      value: 'SE0000108656',
+      role: null,
+    })
+
+    const out = await companyIdentifierService.upsertMany({
+      companyId: 'company-1',
+      items: [
+        { type: 'BIC', value: 'GKCCBEBBXXX' },
+        { type: 'ISIN', value: 'SE0000108656' },
+      ],
+      user: botUser as any,
+      onOwnershipConflict: 'skip',
+    })
+
+    expect(out.skipped).toEqual([{ type: 'BIC', value: 'GKCCBEBBXXX' }])
+    expect(out.results).toHaveLength(1)
+    expect(out.results[0]?.value).toBe('SE0000108656')
+  })
+
+  it('deleteIdentifierValue deletes by normalized case-insensitive value', async () => {
+    prismaMock.companyIdentifier.deleteMany.mockResolvedValue({ count: 1 })
+
+    const deleted = await companyIdentifierService.deleteIdentifierValue(
+      'company-1',
+      'ISIN',
+      'se0000108656'
+    )
+
+    expect(deleted).toBe(true)
+    expect(prismaMock.companyIdentifier.deleteMany).toHaveBeenCalledWith({
+      where: {
+        companyId: 'company-1',
+        type: 'ISIN',
+        value: { equals: 'SE0000108656', mode: 'insensitive' },
+      },
+    })
+  })
 })

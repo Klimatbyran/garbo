@@ -132,6 +132,8 @@ async function main() {
           user,
           metadata: GLEIF_METADATA,
           verified: false,
+          createOnlyTypes: ['ORG_NUMBER'],
+          onOwnershipConflict: 'skip',
         })
         console.info(
           `wrote ${company.name}: ${plan.items.map((i) => `${i.type}=${i.value}`).join(', ')}`

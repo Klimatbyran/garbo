@@ -416,6 +416,167 @@ class CompanyService {
     })
   }
 
+  async upsertCompanyIdentifier(
+    companyId: string,
+    type: 'WIKIDATA' | 'LEI' | 'ORG_NUMBER' | 'ISIN' | 'BIC',
+    value: string,
+    user: User,
+    options?: {
+      verified?: boolean
+      metadata?: { source?: string; comment?: string }
+      role?: 'PRIMARY' | null
+    }
+  ): Promise<void> {
+    const trimmedValue = value.trim()
+    if (!trimmedValue) {
+      throw Object.assign(new Error('Identifier value is required'), {
+        code: 400,
+      })
+    }
+
+    const defaultMetadata = {
+      source: 'validate-editor',
+      comment: 'Identifier updated via staff editor',
+    }
+
+    if (type === 'WIKIDATA') {
+      await this.updateCompanyWikidataIdentifier(
+        companyId,
+        trimmedValue,
+        user,
+        {
+          verified: options?.verified,
+          metadata: options?.metadata ?? defaultMetadata,
+        }
+      )
+      return
+    }
+
+    if (type === 'LEI') {
+      const lei = normalizeLei(trimmedValue)
+      if (!lei) {
+        throw Object.assign(new Error(`Invalid LEI: '${trimmedValue}'`), {
+          code: 400,
+        })
+      }
+      // Ownership must pass before dual-writing the legacy column.
+      await companyIdentifierService.assertValueNotOwnedByOtherCompany(
+        companyId,
+        'LEI',
+        lei
+      )
+      await prisma.company.update({
+        where: { id: companyId },
+        data: { lei },
+      })
+    }
+
+    await companyIdentifierService.upsertIdentifier({
+      companyId,
+      type,
+      value: trimmedValue,
+      user,
+      metadata: options?.metadata ?? defaultMetadata,
+      verified: options?.verified ?? false,
+      role: options?.role,
+    })
+  }
+
+  async upsertCompanyIdentifiersBatch(
+    companyId: string,
+    items: Array<{
+      type: 'ORG_NUMBER' | 'ISIN' | 'BIC'
+      value: string
+      role?: 'PRIMARY' | null
+    }>,
+    user: User,
+    options?: {
+      verified?: boolean
+      metadata?: { source?: string; comment?: string }
+    }
+  ): Promise<void> {
+    await companyIdentifierService.upsertMany({
+      companyId,
+      items,
+      user,
+      metadata: options?.metadata ?? {
+        source: 'gleif-lei-record',
+        comment: 'Batch identifier upsert',
+      },
+      verified: options?.verified ?? false,
+      createOnlyTypes: ['ORG_NUMBER'],
+      onOwnershipConflict: 'skip',
+    })
+  }
+
+  async deleteCompanyIdentifier(
+    companyId: string,
+    type: 'WIKIDATA' | 'LEI' | 'ORG_NUMBER' | 'ISIN' | 'BIC'
+  ): Promise<void> {
+    if (type === 'WIKIDATA') {
+      throw Object.assign(
+        new Error('Wikidata identifier cannot be cleared via this endpoint'),
+        { code: 400 }
+      )
+    }
+
+    if (type === 'LEI') {
+      await prisma.$transaction(async (transaction) => {
+        await transaction.company.update({
+          where: { id: companyId },
+          data: { lei: null },
+        })
+        await transaction.companyIdentifier.deleteMany({
+          where: { companyId, type: 'LEI' },
+        })
+      })
+      return
+    }
+
+    const deleted = await companyIdentifierService.deleteIdentifier(
+      companyId,
+      type
+    )
+    if (!deleted) {
+      throw Object.assign(new Error('Identifier not found'), { code: 404 })
+    }
+  }
+
+  async deleteCompanyIdentifierValue(
+    companyId: string,
+    type: 'WIKIDATA' | 'LEI' | 'ORG_NUMBER' | 'ISIN' | 'BIC',
+    value: string
+  ): Promise<void> {
+    if (type === 'WIKIDATA') {
+      throw Object.assign(
+        new Error('Wikidata identifier cannot be cleared via this endpoint'),
+        { code: 400 }
+      )
+    }
+    if (type === 'LEI') {
+      const requested = normalizeLei(value)
+      const company = await prisma.company.findFirstOrThrow({
+        where: { id: companyId },
+        select: { lei: true },
+      })
+      const stored = normalizeLei(company.lei)
+      if (!requested || !stored || requested !== stored) {
+        throw Object.assign(new Error('Identifier not found'), { code: 404 })
+      }
+      await this.deleteCompanyIdentifier(companyId, 'LEI')
+      return
+    }
+
+    const deleted = await companyIdentifierService.deleteIdentifierValue(
+      companyId,
+      type,
+      value
+    )
+    if (!deleted) {
+      throw Object.assign(new Error('Identifier not found'), { code: 404 })
+    }
+  }
+
   async createCompany({
     wikidataId,
     user,

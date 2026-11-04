@@ -18,6 +18,12 @@ const SINGULAR_TYPES = new Set<CompanyIdentifierType>([
   'ORG_NUMBER',
 ])
 
+const CASE_INSENSITIVE_TYPES = new Set<CompanyIdentifierType>([
+  'ISIN',
+  'LEI',
+  'BIC',
+])
+
 function persistIdentifierValue(
   type: CompanyIdentifierType,
   value: string
@@ -26,6 +32,10 @@ function persistIdentifierValue(
   if (type === 'ISIN') return requireNormalizedIsin(value)
   if (type === 'BIC') return requireNormalizedBic(value)
   return value.trim()
+}
+
+function isOwnershipConflict(error: unknown): boolean {
+  return (error as { code?: number }).code === 409
 }
 
 class CompanyIdentifierService {
@@ -83,7 +93,7 @@ class CompanyIdentifierService {
     const other = await prisma.companyIdentifier.findFirst({
       where: {
         type,
-        ...(type === 'ISIN' || type === 'LEI' || type === 'BIC'
+        ...(CASE_INSENSITIVE_TYPES.has(type)
           ? { value: { equals: value, mode: 'insensitive' as const } }
           : { value }),
         NOT: { companyId },
@@ -125,6 +135,8 @@ class CompanyIdentifierService {
     verified = false,
     skipMetadataIfUnchanged = false,
     role,
+    createOnly = false,
+    onOwnershipConflict = 'throw',
   }: {
     companyId: string
     type: CompanyIdentifierType
@@ -134,6 +146,9 @@ class CompanyIdentifierService {
     verified?: boolean
     skipMetadataIfUnchanged?: boolean
     role?: CompanyIdentifierRole | null
+    /** When true, leave an existing singular-type row unchanged. */
+    createOnly?: boolean
+    onOwnershipConflict?: 'throw' | 'skip'
   }): Promise<{
     id: string
     value: string
@@ -143,11 +158,19 @@ class CompanyIdentifierService {
     if (!trimmedValue) return null
 
     const persistedValue = persistIdentifierValue(type, trimmedValue)
-    await this.assertValueNotOwnedByOtherCompany(
-      companyId,
-      type,
-      persistedValue
-    )
+
+    try {
+      await this.assertValueNotOwnedByOtherCompany(
+        companyId,
+        type,
+        persistedValue
+      )
+    } catch (error) {
+      if (onOwnershipConflict === 'skip' && isOwnershipConflict(error)) {
+        return null
+      }
+      throw error
+    }
 
     const singular = SINGULAR_TYPES.has(type)
     const existing = singular
@@ -159,7 +182,7 @@ class CompanyIdentifierService {
           where: {
             companyId,
             type,
-            ...(type === 'ISIN' || type === 'LEI' || type === 'BIC'
+            ...(CASE_INSENSITIVE_TYPES.has(type)
               ? {
                   value: {
                     equals: persistedValue,
@@ -171,6 +194,12 @@ class CompanyIdentifierService {
           select: { id: true, value: true, role: true },
         })
 
+    if (createOnly && existing) {
+      // Do not treat a blocked overwrite as a successful write.
+      if (existing.value !== persistedValue) return null
+      return existing
+    }
+
     if (
       existing &&
       existing.value === persistedValue &&
@@ -180,49 +209,63 @@ class CompanyIdentifierService {
       return existing
     }
 
-    return prisma.$transaction(async (transaction) => {
-      if (role === 'PRIMARY') {
-        await transaction.companyIdentifier.updateMany({
-          where: {
+    try {
+      return await prisma.$transaction(async (transaction) => {
+        if (role === 'PRIMARY') {
+          await transaction.companyIdentifier.updateMany({
+            where: {
+              companyId,
+              type,
+              role: 'PRIMARY',
+              ...(existing ? { NOT: { id: existing.id } } : {}),
+            },
+            data: { role: null },
+          })
+        }
+
+        const metadataRecord = await transaction.metadata.create({
+          data: {
+            comment: metadata?.comment,
+            source: metadata?.source,
+            user: { connect: { id: user.id } },
+            verifiedBy: verified ? { connect: { id: user.id } } : undefined,
+          },
+        })
+
+        if (existing) {
+          return transaction.companyIdentifier.update({
+            where: { id: existing.id },
+            data: {
+              value: persistedValue,
+              ...(role !== undefined ? { role } : {}),
+              metadata: { connect: { id: metadataRecord.id } },
+            },
+          })
+        }
+
+        return transaction.companyIdentifier.create({
+          data: {
             companyId,
             type,
-            role: 'PRIMARY',
-            ...(existing ? { NOT: { id: existing.id } } : {}),
-          },
-          data: { role: null },
-        })
-      }
-
-      const metadataRecord = await transaction.metadata.create({
-        data: {
-          comment: metadata?.comment,
-          source: metadata?.source,
-          user: { connect: { id: user.id } },
-          verifiedBy: verified ? { connect: { id: user.id } } : undefined,
-        },
-      })
-
-      if (existing) {
-        return transaction.companyIdentifier.update({
-          where: { id: existing.id },
-          data: {
             value: persistedValue,
-            ...(role !== undefined ? { role } : {}),
+            role: role ?? null,
             metadata: { connect: { id: metadataRecord.id } },
           },
         })
-      }
-
-      return transaction.companyIdentifier.create({
-        data: {
-          companyId,
-          type,
-          value: persistedValue,
-          role: role ?? null,
-          metadata: { connect: { id: metadataRecord.id } },
-        },
       })
-    })
+    } catch (error) {
+      // Concurrent PRIMARY / singular unique races surface as P2002.
+      if ((error as { code?: string }).code === 'P2002') {
+        if (onOwnershipConflict === 'skip') return null
+        throw Object.assign(
+          new Error(
+            `${type} value ${persistedValue} conflicts with an existing identifier`
+          ),
+          { code: 409 }
+        )
+      }
+      throw error
+    }
   }
 
   async upsertMany({
@@ -231,6 +274,8 @@ class CompanyIdentifierService {
     user,
     metadata,
     verified = false,
+    createOnlyTypes,
+    onOwnershipConflict = 'skip',
   }: {
     companyId: string
     items: Array<{
@@ -241,32 +286,37 @@ class CompanyIdentifierService {
     user: User
     metadata?: { source?: string; comment?: string }
     verified?: boolean
+    createOnlyTypes?: Iterable<CompanyIdentifierType>
+    onOwnershipConflict?: 'throw' | 'skip'
   }) {
+    const createOnly = new Set(createOnlyTypes ?? [])
     const results: Array<{
       id: string
       value: string
       role: CompanyIdentifierRole | null
     }> = []
+    const skipped: Array<{ type: CompanyIdentifierType; value: string }> = []
+
     for (const item of items) {
-      try {
-        const row = await this.upsertIdentifier({
-          companyId,
-          type: item.type,
-          value: item.value,
-          role: item.role,
-          user,
-          metadata,
-          verified,
-          skipMetadataIfUnchanged: true,
-        })
-        if (row) results.push(row)
-      } catch (error) {
-        // Backfill / pipeline: skip values owned elsewhere; continue the batch.
-        if ((error as { code?: number }).code === 409) continue
-        throw error
+      const row = await this.upsertIdentifier({
+        companyId,
+        type: item.type,
+        value: item.value,
+        role: item.role,
+        user,
+        metadata,
+        verified,
+        skipMetadataIfUnchanged: true,
+        createOnly: createOnly.has(item.type),
+        onOwnershipConflict,
+      })
+      if (row) {
+        results.push(row)
+      } else {
+        skipped.push({ type: item.type, value: item.value })
       }
     }
-    return results
+    return { results, skipped }
   }
 
   async syncFromLegacyColumns(
@@ -334,6 +384,29 @@ class CompanyIdentifierService {
   ): Promise<boolean> {
     const result = await prisma.companyIdentifier.deleteMany({
       where: { companyId, type },
+    })
+    return result.count > 0
+  }
+
+  async deleteIdentifierValue(
+    companyId: string,
+    type: CompanyIdentifierType,
+    value: string
+  ): Promise<boolean> {
+    const persistedValue = persistIdentifierValue(type, value)
+    const result = await prisma.companyIdentifier.deleteMany({
+      where: {
+        companyId,
+        type,
+        ...(CASE_INSENSITIVE_TYPES.has(type)
+          ? {
+              value: {
+                equals: persistedValue,
+                mode: 'insensitive' as const,
+              },
+            }
+          : { value: persistedValue }),
+      },
     })
     return result.count > 0
   }
