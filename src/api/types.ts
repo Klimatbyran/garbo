@@ -40,6 +40,12 @@ export type PostReportingPeriodsBody = z.infer<
   typeof schemas.postReportingPeriodsSchema
 >
 export type PostBaseYearBody = z.infer<typeof schemas.postBaseYear>
+export type PostCompanyIdentifierBody = z.infer<
+  typeof schemas.postCompanyIdentifierSchema
+>
+export type CompanyIdentifierDeleteParams = z.infer<
+  typeof schemas.companyIdentifierDeleteParamsSchema
+>
 export type PostCompanyBody = z.infer<typeof schemas.postCompanyBodySchema>
 
 export type GarboEntityId = z.infer<typeof schemas.garboEntityIdSchema>

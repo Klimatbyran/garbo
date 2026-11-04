@@ -10,6 +10,8 @@ import {
 } from './common'
 import { sourceReferenceFields } from '../../lib/sourceReferenceSchema'
 import { isPlaceholderCompanyName } from '../../lib/companyNamePlaceholders'
+import { isValidIsin } from '../../lib/normalizeIsin'
+import { isValidBic } from '../../lib/normalizeBic'
 
 const createMetadataSchema = z.object({
   metadata: z
@@ -325,6 +327,78 @@ export const baseYear = z.object({
 export const postBaseYear = z
   .object({
     baseYear: z.number(),
+  })
+  .merge(createMetadataSchema)
+
+export const postCompanyIdentifierSchema = z
+  .object({
+    type: z.enum(['WIKIDATA', 'LEI', 'ORG_NUMBER', 'ISIN', 'BIC']),
+    value: z.string(),
+    role: z.enum(['PRIMARY']).nullable().optional(),
+  })
+  .merge(createMetadataSchema)
+  .superRefine((body, ctx) => {
+    const trimmed = body.value.trim()
+    if (
+      body.type === 'WIKIDATA' &&
+      trimmed &&
+      !wikidataIdSchema.safeParse(trimmed).success
+    ) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Invalid Wikidata ID format (expected Q followed by digits)',
+        path: ['value'],
+      })
+    }
+    if (body.type === 'ISIN' && trimmed && !isValidIsin(trimmed)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message:
+          'Invalid ISIN format (expected 12-character ISO 6166 value with checksum)',
+        path: ['value'],
+      })
+    }
+    if (body.type === 'BIC' && trimmed && !isValidBic(trimmed)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Invalid BIC format (expected 8- or 11-character SWIFT BIC)',
+        path: ['value'],
+      })
+    }
+  })
+
+export const postCompanyIdentifiersBatchSchema = z
+  .object({
+    items: z
+      .array(
+        z
+          .object({
+            type: z.enum(['ORG_NUMBER', 'ISIN', 'BIC']),
+            value: z.string().min(1),
+            role: z.enum(['PRIMARY']).nullable().optional(),
+          })
+          .superRefine((item, ctx) => {
+            const trimmed = item.value.trim()
+            if (item.type === 'ISIN' && !isValidIsin(trimmed)) {
+              ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message:
+                  'Invalid ISIN format (expected 12-character ISO 6166 value with checksum)',
+                path: ['value'],
+              })
+            }
+            if (item.type === 'BIC' && !isValidBic(trimmed)) {
+              ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message:
+                  'Invalid BIC format (expected 8- or 11-character SWIFT BIC)',
+                path: ['value'],
+              })
+            }
+          })
+      )
+      .min(1)
+      .max(100),
   })
   .merge(createMetadataSchema)
 
