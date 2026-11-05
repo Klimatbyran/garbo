@@ -23,6 +23,10 @@ import {
 } from '@/lib/company-emissions/companyEmissionsCalculator'
 import { calculateFutureEmissionTrend } from '@/lib/company-emissions/companyEmissionsFutureTrendCalculator'
 import { foldDiacriticsForCompanyMatch } from '../../lib/companyLinkResolve'
+import {
+  companyNameSearchPatterns,
+  escapeIlikePattern,
+} from '../../lib/escapeIlikePattern'
 import { mergeAlternativeNames } from '../../lib/companyAlternativeNames'
 import { normalizeIsin } from '../../lib/normalizeIsin'
 import Firecrawl, { SearchResultWeb } from '@mendable/firecrawl-js'
@@ -105,27 +109,38 @@ class CompanyService {
     return this.enrichCompaniesWithMetadata(companies, true)
   }
 
+  /**
+   * Public / pipeline company search.
+   * Keep prefix + FTS + accent-fold semantics for external clients; only escape
+   * LIKE metacharacters. Mid-name staff editor search is handled in Unearth API.
+   */
   async getAllCompaniesBySearchTerm(
     searchTerm: string,
     options?: { onePeriodPerDataYear?: boolean }
   ) {
     const normalizedSearchTerm = searchTerm.trim().toLocaleLowerCase('sv-SE')
-    const likePattern = normalizedSearchTerm + '%'
+    if (!normalizedSearchTerm) {
+      return this.enrichCompaniesWithMetadata(
+        [],
+        options?.onePeriodPerDataYear ?? false
+      )
+    }
+    const { prefixPattern } = companyNameSearchPatterns(normalizedSearchTerm)
     const foldedSearchTerm =
       foldDiacriticsForCompanyMatch(normalizedSearchTerm).toLocaleLowerCase(
         'sv-SE'
       )
-    const foldedLikePattern = foldedSearchTerm + '%'
+    const foldedPrefixPattern = `${escapeIlikePattern(foldedSearchTerm)}%`
 
     const matches = await prisma.$queryRaw<{ id: string }[]>(
       Prisma.sql`
       SELECT "id"
       FROM "Company"
-      WHERE lower(name) LIKE ${likePattern}
+      WHERE lower(name) LIKE ${prefixPattern} ESCAPE '\\'
          OR EXISTS (
               SELECT 1
               FROM unnest(COALESCE("alternativeNames", ARRAY[]::text[])) AS alt
-              WHERE lower(alt) LIKE ${likePattern}
+              WHERE lower(alt) LIKE ${prefixPattern} ESCAPE '\\'
             )
          OR (
               char_length(${normalizedSearchTerm}) >= 3
@@ -141,19 +156,19 @@ class CompanyService {
          OR (
               char_length(${foldedSearchTerm}) >= 3
               AND (
-                translate(lower(name), ${SQL_ACCENT_FROM}, ${SQL_ACCENT_TO}) LIKE ${foldedLikePattern}
+                translate(lower(name), ${SQL_ACCENT_FROM}, ${SQL_ACCENT_TO}) LIKE ${foldedPrefixPattern} ESCAPE '\\'
                 OR EXISTS (
                   SELECT 1
                   FROM unnest(COALESCE("alternativeNames", ARRAY[]::text[])) AS alt
-                  WHERE translate(lower(alt), ${SQL_ACCENT_FROM}, ${SQL_ACCENT_TO}) LIKE ${foldedLikePattern}
+                  WHERE translate(lower(alt), ${SQL_ACCENT_FROM}, ${SQL_ACCENT_TO}) LIKE ${foldedPrefixPattern} ESCAPE '\\'
                 )
               )
             )
       ORDER BY
-        CASE WHEN lower(name) LIKE ${likePattern} THEN 0 ELSE 1 END,
+        CASE WHEN lower(name) LIKE ${prefixPattern} ESCAPE '\\' THEN 0 ELSE 1 END,
         CASE
           WHEN char_length(${foldedSearchTerm}) >= 3
-               AND translate(lower(name), ${SQL_ACCENT_FROM}, ${SQL_ACCENT_TO}) LIKE ${foldedLikePattern}
+               AND translate(lower(name), ${SQL_ACCENT_FROM}, ${SQL_ACCENT_TO}) LIKE ${foldedPrefixPattern} ESCAPE '\\'
           THEN 0
           ELSE 1
         END,
