@@ -41,3 +41,4 @@ export const QUEUE_NAMES = {
 }
 
 export const PIPELINE_AUTO_RUN_QUEUE = 'pipelineAutoRun'
+export const CHROMA_SWEEP_QUEUE = 'chromaSweep'

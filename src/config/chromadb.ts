@@ -6,6 +6,8 @@ const envSchema = z.object({
   CHROMA_CHUNK_SIZE: z.coerce.number(),
   CHROMA_CONCURRENCY: z.coerce.number().int().positive().default(2),
   CHROMA_EMBEDDING_MODEL: z.string().default('text-embedding-ada-002'),
+  // Chunks older than this are deleted by the chromaSweep worker. 0 disables the sweep.
+  CHROMA_TTL_HOURS: z.coerce.number().nonnegative().default(24),
 })
 
 const parsedEnv = envSchema.safeParse(process.env)
@@ -34,4 +36,5 @@ export default {
   chunkSize: env.CHROMA_CHUNK_SIZE,
   concurrency: env.CHROMA_CONCURRENCY,
   embeddingModel: env.CHROMA_EMBEDDING_MODEL,
+  ttlHours: env.CHROMA_TTL_HOURS,
 }
