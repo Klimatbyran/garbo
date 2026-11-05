@@ -34,7 +34,12 @@ const createBatchBodySchema = z.object({
   batchName: z.string().min(1).max(512),
 })
 
-/** GET-only archive routes for the X-API-Key client API mount. */
+/**
+ * Archive routes for the X-API-Key client API mount.
+ * GET list/detail plus POST /batches (same handlers as staff JWT queue-archive).
+ * Used by Goffer’s fixed stage proxy so prod Overview → stage Garbo does not
+ * need a stage-valid staff JWT.
+ */
 export async function queueArchiveInternalReadRoutes(app: FastifyInstance) {
   app.get(
     '/batches',
@@ -51,6 +56,33 @@ export async function queueArchiveInternalReadRoutes(app: FastifyInstance) {
       const q = queryBatches.parse(request.query)
       const data = await listArchivedBatches(q.limit)
       return reply.send(data)
+    }
+  )
+
+  app.post(
+    '/batches',
+    {
+      schema: {
+        summary:
+          'Create or return existing Garbo batch by human-readable name',
+        tags: ['Internal'],
+        body: createBatchBodySchema,
+        hide: true,
+      },
+    },
+    async (request, reply) => {
+      const { batchName } = request.body as z.infer<
+        typeof createBatchBodySchema
+      >
+      try {
+        const batch = await upsertBatchByName(batchName)
+        return reply.send({ batch })
+      } catch (err) {
+        request.log.error({ err }, 'queue-archive POST /batches failed')
+        return reply.status(400).send({
+          error: err instanceof Error ? err.message : 'Invalid batch',
+        })
+      }
     }
   )
 
@@ -122,36 +154,10 @@ export async function queueArchiveInternalReadRoutes(app: FastifyInstance) {
 }
 
 /**
- * Full archive surface for staff JWT (Validate Jobbstatus).
- * Twin read routes: `api/internal-queue-archive` (X-API-Key, GET only).
+ * Full archive surface for staff JWT (Validate / Goffer Jobbstatus).
+ * Twin: `api/internal-queue-archive` (X-API-Key) — same handlers via
+ * queueArchiveInternalReadRoutes.
  */
 export async function queueArchiveReadRoutes(app: FastifyInstance) {
-  app.post(
-    '/batches',
-    {
-      schema: {
-        summary:
-          'Create or return existing Garbo batch by human-readable name (Validate upload)',
-        tags: ['Internal'],
-        body: createBatchBodySchema,
-        hide: true,
-      },
-    },
-    async (request, reply) => {
-      const { batchName } = request.body as z.infer<
-        typeof createBatchBodySchema
-      >
-      try {
-        const batch = await upsertBatchByName(batchName)
-        return reply.send({ batch })
-      } catch (err) {
-        request.log.error({ err }, 'queue-archive POST /batches failed')
-        return reply.status(400).send({
-          error: err instanceof Error ? err.message : 'Invalid batch',
-        })
-      }
-    }
-  )
-
   await queueArchiveInternalReadRoutes(app)
 }
