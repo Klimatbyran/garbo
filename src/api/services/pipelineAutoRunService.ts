@@ -179,6 +179,10 @@ export async function patchPipelineAutoRunConfig(
         ? {
             consecutiveDoclingFailures: 0,
             consecutiveReportFailures: 0,
+            // Fresh streak: ignore failures that already finished (or are still
+            // finishing) from the run that soft-disabled us, so re-enable is not
+            // immediately undone by the next observe tick.
+            outcomeObservedThrough: new Date(),
           }
         : {}),
       ...(enabling || patch.enabled === true
@@ -580,6 +584,19 @@ export async function observeAutoRunOutcomes(): Promise<void> {
     })
   }
 
+  // While soft-disabled: keep the watermark moving so late failures from the
+  // disabled batch are not replayed after re-enable, but do not write counters
+  // (a concurrent enable reset must stick) and do not soft-disable again.
+  if (!row.enabled) {
+    if (events.length > 0) {
+      await prisma.pipelineAutoRunConfig.update({
+        where: { id: CONFIG_ID },
+        data: { outcomeObservedThrough: new Date(maxThrough) },
+      })
+    }
+    return
+  }
+
   const folded = foldAutoRunOutcomeEvents(
     {
       doclingFails: row.consecutiveDoclingFailures,
@@ -599,11 +616,15 @@ export async function observeAutoRunOutcomes(): Promise<void> {
     },
   })
 
-  if (folded.doclingFails >= DOCLING_FAILURE_AUTO_OFF && row.enabled) {
+  // Re-read enabled: an operator may have re-enabled during this observe.
+  const still = await ensurePipelineAutoRunConfig()
+  if (!still.enabled) return
+
+  if (folded.doclingFails >= DOCLING_FAILURE_AUTO_OFF) {
     await softDisable('docling_failures', {
       lastError: `Auto-disabled after ${folded.doclingFails} consecutive Docling failures`,
     })
-  } else if (folded.reportFails >= REPORT_FAILURE_AUTO_OFF && row.enabled) {
+  } else if (folded.reportFails >= REPORT_FAILURE_AUTO_OFF) {
     await softDisable('report_failures', {
       lastError: `Auto-disabled after ${folded.reportFails} consecutive report failures`,
     })
