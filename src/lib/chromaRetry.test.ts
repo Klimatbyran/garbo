@@ -28,6 +28,28 @@ describe('describeChromaError', () => {
     )
   })
 
+  it('follows nested causes down to the socket error', () => {
+    const socketError = Object.assign(
+      new Error('connect ECONNREFUSED 10.43.12.7:8000'),
+      { code: 'ECONNREFUSED' }
+    )
+    const fetchError = new TypeError('fetch failed', { cause: socketError })
+    expect(
+      describeChromaError(
+        namedError('ChromaConnectionError', 'Failed to connect', fetchError)
+      )
+    ).toBe(
+      'ChromaConnectionError: Failed to connect (cause: TypeError fetch failed → Error ECONNREFUSED connect ECONNREFUSED 10.43.12.7:8000)'
+    )
+  })
+
+  it('stops on a cause cycle', () => {
+    const a = new Error('a')
+    const b = new Error('b', { cause: a })
+    a.cause = b
+    expect(describeChromaError(a)).toBe('Error: a (cause: Error b)')
+  })
+
   it('handles non-errors', () => {
     expect(describeChromaError('boom')).toBe('boom')
   })

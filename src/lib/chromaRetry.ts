@@ -19,23 +19,41 @@ export function isRetryableChromaError(err: unknown): boolean {
   return !(err instanceof Error && NON_RETRYABLE.has(err.name))
 }
 
+/** Follows at most this many nested causes, in case of a cycle or a long chain. */
+const MAX_CAUSE_DEPTH = 5
+
+function describeCause(cause: unknown): string {
+  if (!(cause instanceof Error)) return String(cause)
+  return [cause.name, (cause as NodeJS.ErrnoException).code, cause.message]
+    .filter(Boolean)
+    .join(' ')
+}
+
 /**
- * "Name: message (cause: ...)". The chromadb client turns most HTTP failures
- * into generic messages; the cause (e.g. ECONNREFUSED, a timeout) is often
- * the only real clue, and String(err) drops it.
+ * "Name: message (cause: A → B)". The chromadb client turns most HTTP
+ * failures into generic messages, and Node's fetch wraps the socket error
+ * (e.g. ECONNREFUSED and the address) inside a "fetch failed" TypeError, so
+ * the real clue is usually a few causes deep. String(err) drops all of them.
  */
 export function describeChromaError(err: unknown): string {
   if (!(err instanceof Error)) return String(err)
   const base = `${err.name}: ${err.message}`
-  const cause = err.cause
-  if (cause === undefined || cause === null) return base
-  const causeText =
-    cause instanceof Error
-      ? [cause.name, (cause as NodeJS.ErrnoException).code, cause.message]
-          .filter(Boolean)
-          .join(' ')
-      : String(cause)
-  return `${base} (cause: ${causeText})`
+
+  const causes: string[] = []
+  const seen = new Set<unknown>([err])
+  let cause: unknown = err.cause
+  while (
+    cause !== undefined &&
+    cause !== null &&
+    !seen.has(cause) &&
+    causes.length < MAX_CAUSE_DEPTH
+  ) {
+    seen.add(cause)
+    causes.push(describeCause(cause))
+    cause = cause instanceof Error ? cause.cause : undefined
+  }
+
+  return causes.length > 0 ? `${base} (cause: ${causes.join(' → ')})` : base
 }
 
 export async function withChromaRetry<T>(
