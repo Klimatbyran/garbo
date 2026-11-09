@@ -73,7 +73,7 @@
     "jsonwebtoken": "^9.0.2",
     "ky": "^2.2.0",
     "lodash": "^4.17.21",
-    "openai": "7.47.0",
+    "openai": "7.53.0",
     "pdf-to-img": "^7.0.1",
     "pino-http": "^11.0.0",
     "prisma": "^5.22.0",
