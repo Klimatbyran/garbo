@@ -50,7 +50,10 @@ export async function withCompanySaveLock<T>(
   const waitStartedAt = Date.now()
 
   while (true) {
-    const acquired = await redis.set(key, token, { NX: true, PX: LOCK_TTL_MS })
+    const acquired = await redis.set(key, token, {
+      condition: 'NX',
+      expiration: { type: 'PX', value: LOCK_TTL_MS },
+    })
     if (acquired) break
 
     if (Date.now() - waitStartedAt > MAX_WAIT_MS) {

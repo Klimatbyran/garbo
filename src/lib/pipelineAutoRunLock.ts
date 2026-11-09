@@ -51,8 +51,8 @@ export async function tryWithPipelineAutoRunTickLock<T>(
   }
 
   const acquired = await redis.set(LOCK_KEY, token, {
-    NX: true,
-    PX: LOCK_TTL_MS,
+    condition: 'NX',
+    expiration: { type: 'PX', value: LOCK_TTL_MS },
   })
   if (!acquired) {
     return { acquired: false }
