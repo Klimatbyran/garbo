@@ -47,28 +47,31 @@ worker.on('failed', (job, err) => {
   )
 })
 
+const TICK_SCHEDULER_ID = 'pipeline-auto-run-tick'
+
 async function ensureRepeatableTick() {
   try {
-    // Replace any prior tick schedules (e.g. older jobId-based keys) so we do
-    // not run duplicate overlapping ticks across deploys.
-    const existing = await queue.getRepeatableJobs()
-    for (const job of existing) {
-      if (job.name === 'tick') {
-        await queue.removeRepeatableByKey(job.key)
+    // BullMQ 6: Job Schedulers replace legacy repeatable jobs. Clear prior
+    // schedulers so redeploys do not stack duplicate ticks. Pre-v6
+    // `bull:<queue>:repeat:*` keys (if any) should be deleted once in Redis
+    // after the first deploy of this change.
+    for (const scheduler of await queue.getJobSchedulers()) {
+      if (scheduler.name === 'tick') {
+        await queue.removeJobScheduler(scheduler.key)
       }
     }
-    // Do not pass a fixed jobId with repeat — BullMQ needs unique ids per
-    // delayed repetition. Deduplication is via the repeatable job key.
-    await queue.add(
-      'tick',
-      {},
+
+    await queue.upsertJobScheduler(
+      TICK_SCHEDULER_ID,
+      { every: REPEAT_EVERY_MS },
       {
-        repeat: { every: REPEAT_EVERY_MS },
-        ...TICK_JOB_RETENTION,
+        name: 'tick',
+        data: {},
+        opts: { ...TICK_JOB_RETENTION },
       }
     )
     console.log(
-      `[pipelineAutoRun] repeatable tick every ${REPEAT_EVERY_MS}ms registered`
+      `[pipelineAutoRun] job scheduler tick every ${REPEAT_EVERY_MS}ms registered`
     )
   } catch (err) {
     console.error('[pipelineAutoRun] failed to register repeatable tick:', err)

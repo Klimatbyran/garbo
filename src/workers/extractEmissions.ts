@@ -1,4 +1,4 @@
-import { FlowChildJob, FlowProducer } from 'bullmq'
+import { FlowJobNode, FlowProducer } from 'bullmq'
 import redis from '../config/redis'
 import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { QUEUE_NAMES } from '../queues'
@@ -95,7 +95,7 @@ const extractEmissions = new PipelineWorker<ExtractEmissionsJob>(
 
     const wikidataId = wikidata?.node
 
-    const childrenJobs: { key: FollowUpKey; job: FlowChildJob }[] = [
+    const childrenJobs: { key: FollowUpKey; job: FlowJobNode }[] = [
       {
         key: 'industryGics',
         job: {

@@ -44,23 +44,34 @@ worker.on('failed', (job, err) => {
   )
 })
 
+const SWEEP_SCHEDULER_ID = 'chroma-sweep'
+
 async function ensureRepeatableSweep() {
   try {
-    // Replace older schedules so redeploys don't stack duplicate sweeps.
-    for (const job of await queue.getRepeatableJobs()) {
-      if (job.name === TICK_NAME) await queue.removeRepeatableByKey(job.key)
+    // BullMQ 6: Job Schedulers replace legacy repeatable jobs. Pre-v6
+    // `bull:<queue>:repeat:*` keys (if any) should be deleted once in Redis
+    // after the first deploy of this change.
+    for (const scheduler of await queue.getJobSchedulers()) {
+      if (scheduler.name === TICK_NAME) {
+        await queue.removeJobScheduler(scheduler.key)
+      }
     }
+
     if (chromaConfig.ttlHours <= 0) {
       console.log('[chromaSweep] CHROMA_TTL_HOURS is 0; sweep not scheduled')
       return
     }
-    await queue.add(
-      TICK_NAME,
-      {},
-      { repeat: { every: REPEAT_EVERY_MS }, ...SWEEP_JOB_RETENTION }
+    await queue.upsertJobScheduler(
+      SWEEP_SCHEDULER_ID,
+      { every: REPEAT_EVERY_MS },
+      {
+        name: TICK_NAME,
+        data: {},
+        opts: { ...SWEEP_JOB_RETENTION },
+      }
     )
     console.log(
-      `[chromaSweep] sweep every ${REPEAT_EVERY_MS}ms registered (ttl ${chromaConfig.ttlHours}h)`
+      `[chromaSweep] job scheduler every ${REPEAT_EVERY_MS}ms registered (ttl ${chromaConfig.ttlHours}h)`
     )
   } catch (err) {
     console.error('[chromaSweep] failed to register repeatable sweep:', err)

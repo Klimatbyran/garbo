@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client'
-import { Job, Queue } from 'bullmq'
+import { Job, Queue, type JobType } from 'bullmq'
 import redis from '../../config/redis'
 import doclingConfig from '../../config/docling'
 import { prisma } from '../../lib/prisma'
@@ -257,7 +257,13 @@ async function getJobsFromQueues(
           for (let page = 0; page < QUEUE_JOB_MAX_PAGES; page++) {
             const start = page * QUEUE_JOB_PAGE_SIZE
             const end = start + QUEUE_JOB_PAGE_SIZE - 1
-            const jobs = await q.getJobs([...statuses], start, end)
+            // BullMQ 6 JobType dropped `paused`, but getJobs still accepts it
+            // for jobs sitting on a paused queue.
+            const jobs = await q.getJobs(
+              [...statuses] as JobType[],
+              start,
+              end
+            )
             for (const job of jobs) {
               if (job) out.push({ queueName, job })
             }
