@@ -3,6 +3,7 @@ import redis from '../config/redis'
 import chromaConfig from '../config/chromadb'
 import { vectorDB } from '../lib/vectordb'
 import { getSharedQueue } from '../lib/getSharedQueue'
+import { purgeLegacyBullmqRepeatables } from '../lib/purgeLegacyBullmqRepeatables'
 import { CHROMA_SWEEP_QUEUE } from '../queueNames'
 
 // Deletes Chroma chunks older than CHROMA_TTL_HOURS so the Chroma disk can't
@@ -44,13 +45,21 @@ worker.on('failed', (job, err) => {
   )
 })
 
+worker.on('error', (err) => {
+  console.error('[chromaSweep] worker error:', err?.message ?? err)
+})
+
 const SWEEP_SCHEDULER_ID = 'chroma-sweep'
 
 async function ensureRepeatableSweep() {
   try {
-    // BullMQ 6: Job Schedulers replace legacy repeatable jobs. Pre-v6
-    // `bull:<queue>:repeat:*` keys (if any) should be deleted once in Redis
-    // after the first deploy of this change.
+    const purged = await purgeLegacyBullmqRepeatables(CHROMA_SWEEP_QUEUE)
+    if (purged > 0) {
+      console.log(
+        `[chromaSweep] purged ${purged} legacy BullMQ v5 repeatable key(s)`
+      )
+    }
+
     for (const scheduler of await queue.getJobSchedulers()) {
       if (scheduler.name === TICK_NAME) {
         await queue.removeJobScheduler(scheduler.key)

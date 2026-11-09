@@ -259,11 +259,7 @@ async function getJobsFromQueues(
             const end = start + QUEUE_JOB_PAGE_SIZE - 1
             // BullMQ 6 JobType dropped `paused`, but getJobs still accepts it
             // for jobs sitting on a paused queue.
-            const jobs = await q.getJobs(
-              [...statuses] as JobType[],
-              start,
-              end
-            )
+            const jobs = await q.getJobs([...statuses] as JobType[], start, end)
             for (const job of jobs) {
               if (job) out.push({ queueName, job })
             }

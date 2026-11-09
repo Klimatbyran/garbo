@@ -2,6 +2,7 @@ import { Worker } from 'bullmq'
 import redis from '../config/redis'
 import { runPipelineAutoRunTick } from '../api/services/pipelineAutoRunService'
 import { getSharedQueue } from '../lib/getSharedQueue'
+import { purgeLegacyBullmqRepeatables } from '../lib/purgeLegacyBullmqRepeatables'
 import { PIPELINE_AUTO_RUN_QUEUE } from '../queueNames'
 
 export { PIPELINE_AUTO_RUN_QUEUE }
@@ -47,14 +48,21 @@ worker.on('failed', (job, err) => {
   )
 })
 
+worker.on('error', (err) => {
+  console.error('[pipelineAutoRun] worker error:', err?.message ?? err)
+})
+
 const TICK_SCHEDULER_ID = 'pipeline-auto-run-tick'
 
 async function ensureRepeatableTick() {
   try {
-    // BullMQ 6: Job Schedulers replace legacy repeatable jobs. Clear prior
-    // schedulers so redeploys do not stack duplicate ticks. Pre-v6
-    // `bull:<queue>:repeat:*` keys (if any) should be deleted once in Redis
-    // after the first deploy of this change.
+    const purged = await purgeLegacyBullmqRepeatables(PIPELINE_AUTO_RUN_QUEUE)
+    if (purged > 0) {
+      console.log(
+        `[pipelineAutoRun] purged ${purged} legacy BullMQ v5 repeatable key(s)`
+      )
+    }
+
     for (const scheduler of await queue.getJobSchedulers()) {
       if (scheduler.name === 'tick') {
         await queue.removeJobScheduler(scheduler.key)
