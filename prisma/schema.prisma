@@ -1194,20 +1194,20 @@ model ModelEvalTestsetReport {
 /// Model evaluation (Goffer): one run of one setup on one test set.
 model ModelEvalRun {
   /// The tab's crypto.randomUUID().
-  id               String                 @id
-  testsetVersion   String                 @map("testset_version")
+  id               String               @id
+  testsetVersion   String               @map("testset_version")
   /// Null means Clark's prompts at the run's own Clark commit.
-  promptsetVersion String?                @map("promptset_version")
+  promptsetVersion String?              @map("promptset_version")
   /// The tab's RunRecord without calls, paragraphs, feedCosts and interrupted.
   header           Json
   /// Jobs a stop cut short after they spent money; each save appends its own.
   interrupted      Json
-  createdById      String                 @map("created_by_id")
+  createdById      String               @map("created_by_id")
   /// The record's createdAt, not the time of the first save.
-  createdAt        DateTime               @map("created_at")
-  updatedAt        DateTime               @updatedAt @map("updated_at")
-  testset          ModelEvalTestset       @relation(fields: [testsetVersion], references: [version], onDelete: Restrict)
-  promptset        ModelEvalPromptset?    @relation(fields: [promptsetVersion], references: [version], onDelete: Restrict)
+  createdAt        DateTime             @map("created_at")
+  updatedAt        DateTime             @updatedAt @map("updated_at")
+  testset          ModelEvalTestset     @relation(fields: [testsetVersion], references: [version], onDelete: Restrict)
+  promptset        ModelEvalPromptset?  @relation(fields: [promptsetVersion], references: [version], onDelete: Restrict)
   calls            ModelEvalCall[]
   feedCosts        ModelEvalFeedCost[]
   summary          ModelEvalRunSummary?
