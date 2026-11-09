@@ -2,6 +2,9 @@ version: 2
 # UN-46: weekly Dependabot for npm, Docker, and GitHub Actions.
 # Note: Dependabot schema here rejects draft: true — bump PRs open ready-for-review.
 # Enable Dependabot alerts/security updates in repo settings separately.
+#
+# npm majors stay ungrouped so each major lands as its own PR (Prisma 7, bullmq 6,
+# etc. need companion code changes and must not ride with patch/minor batches).
 updates:
   - package-ecosystem: npm
     directory: /
@@ -10,10 +13,16 @@ updates:
       day: monday
     open-pull-requests-limit: 10
     groups:
-      production-npm:
+      production-npm-patch-minor:
         dependency-type: production
-      development-npm:
+        update-types:
+          - patch
+          - minor
+      development-npm-patch-minor:
         dependency-type: development
+        update-types:
+          - patch
+          - minor
 
   - package-ecosystem: docker
     directory: /
