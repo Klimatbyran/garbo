@@ -10,10 +10,10 @@
  * GARBO_BASE_API_KEY to also upsert seed keys.
  */
 import 'dotenv/config'
-import { PrismaClient } from '@prisma/client'
+import { createPrismaClient } from '../src/lib/prisma'
 import { seedClientApi } from '../prisma/seedClientApi'
 
-const prisma = new PrismaClient()
+const prisma = createPrismaClient()
 
 seedClientApi(prisma)
   .then(async () => {

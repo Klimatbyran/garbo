@@ -4,9 +4,9 @@
  *   npm run seed:report-types
  */
 import 'dotenv/config'
-import { PrismaClient } from '@prisma/client'
+import { createPrismaClient } from '../src/lib/prisma'
 
-const prisma = new PrismaClient()
+const prisma = createPrismaClient()
 
 const REPORT_TYPES = [
   { slug: 'sustainability-report', label: 'Sustainability report' },

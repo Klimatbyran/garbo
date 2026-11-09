@@ -1,7 +1,7 @@
-import { PrismaClient } from '@prisma/client'
+import { createPrismaClient } from '../src/lib/prisma'
 import fs from 'fs'
 
-const prisma = new PrismaClient()
+const prisma = createPrismaClient()
 
 async function emptyDB() {
   await prisma.$transaction([

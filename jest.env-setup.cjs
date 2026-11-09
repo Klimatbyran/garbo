@@ -29,6 +29,8 @@ const defaults = {
   DISCORD_CHANNEL_ID: '000000000000000000',
   OPENAI_API_KEY: 'jest-openai-api-key',
   OPENAI_ORG_ID: 'jest-openai-org-id',
+  // Prisma 7 creates the client at import time via the pg adapter.
+  DATABASE_URL: 'postgresql://jest:jest@127.0.0.1:5432/garbo_jest',
 }
 
 for (const [key, value] of Object.entries(defaults)) {

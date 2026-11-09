@@ -1,9 +1,10 @@
-import { IndustryGics, PrismaClient } from '@prisma/client'
+import { IndustryGics } from '@prisma/client'
+import { createPrismaClient } from '../src/lib/prisma'
 import { mkdir, writeFile } from 'fs/promises'
 import { resolve } from 'path'
 import { isMainModule } from './utils'
 
-const prisma = new PrismaClient()
+const prisma = createPrismaClient()
 
 // Definitions from https://github.com/bluealba/gics/blob/master/definitions/20230318.js
 const GICS_2023 = {
