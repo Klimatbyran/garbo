@@ -17,7 +17,7 @@ export function classifySearchHit(
 ): SearchHitStatus {
   if (results.length === 0) return 'empty'
   const topIds = results.slice(0, topN).map((r) => r.id)
-  if (topIds.includes(expectedId)) return 'top'
+  if (topIds.some((id) => id === expectedId)) return 'top'
   if (results.some((r) => r.id === expectedId)) return 'low'
   return 'empty'
 }
@@ -29,7 +29,7 @@ export function classifyGapRecovery(
 ): GapRecoveryStatus {
   if (results.length === 0) return 'still_empty'
   const topIds = results.slice(0, topN).map((r) => r.id)
-  if (topIds.includes(expectedId)) return 'now_top'
+  if (topIds.some((id) => id === expectedId)) return 'now_top'
   if (results.some((r) => r.id === expectedId)) return 'now_low'
   return 'still_missing'
 }

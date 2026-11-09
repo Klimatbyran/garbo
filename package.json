@@ -83,7 +83,7 @@
     "tldts": "^7.4.19",
     "tsx": "^4.23.15",
     "wikibase-edit": "^8.2.3",
-    "wikibase-sdk": "^10.2.1",
+    "wikibase-sdk": "^11.6.8",
     "zod": "4.6.7",
     "zod-to-json-schema": "^3.24.6",
     "openapi-types": "^12.1.3"
