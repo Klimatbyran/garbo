@@ -1,9 +1,9 @@
 import { parseArgs } from 'node:util'
-import { PrismaClient } from '@prisma/client'
 
 import startApp from './app'
 import apiConfig from './config/api'
 import openAPIConfig from './config/openapi'
+import { prisma } from './lib/prisma'
 
 export { redisCache } from './lib/redisCacheSingleton'
 
@@ -27,7 +27,6 @@ const START_BOARD =
   (values['with-board'] || process.env.ENABLE_BULL_BOARD === 'true')
 const port = apiConfig.port
 
-const prisma = new PrismaClient()
 const app = await startApp()
 
 async function main() {

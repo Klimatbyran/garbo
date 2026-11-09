@@ -6,9 +6,9 @@
  *   kubectl exec -it deployment/garbo -c garbo -n garbo-stage -- npm run seed:tags
  */
 import 'dotenv/config'
-import { PrismaClient } from '@prisma/client'
+import { createPrismaClient } from '../src/lib/prisma'
 
-const prisma = new PrismaClient()
+const prisma = createPrismaClient()
 
 const TAG_OPTIONS = [
   { slug: 'public', label: 'Publicly traded companies' },

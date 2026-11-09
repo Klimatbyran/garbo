@@ -1,9 +1,9 @@
 import 'dotenv/config'
-import { PrismaClient } from '@prisma/client'
+import { createPrismaClient } from '../src/lib/prisma'
 import { seedGicsCodes } from '../scripts/add-gics'
 import { seedClientApi } from './seedClientApi'
 
-const prisma = new PrismaClient()
+const prisma = createPrismaClient()
 
 async function seedUsers() {
   const users = [
