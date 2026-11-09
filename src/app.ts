@@ -53,6 +53,9 @@ async function startApp() {
   app.register(cors, {
     origin: apiConfig.corsAllowOrigins as unknown as string[],
     credentials: true,
+    // @fastify/cors v11 defaults to GET/HEAD/POST only; restore the v10 set
+    // so Validate's PUT/PATCH/DELETE preflights still succeed.
+    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-API-Key'],
     exposedHeaders: ['etag'],
   })
