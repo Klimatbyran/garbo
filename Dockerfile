@@ -23,6 +23,7 @@ RUN apk add --no-cache \
 COPY package*.json .npmrc /app/
 WORKDIR /app
 COPY prisma /app/
+COPY prisma.config.ts /app/
 RUN npm ci --omit=dev
 RUN npx prisma generate
 
