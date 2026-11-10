@@ -3,6 +3,7 @@ import redis from '../config/redis'
 import chromaConfig from '../config/chromadb'
 import { vectorDB } from '../lib/vectordb'
 import { getSharedQueue } from '../lib/getSharedQueue'
+import { purgeLegacyBullmqRepeatables } from '../lib/purgeLegacyBullmqRepeatables'
 import { CHROMA_SWEEP_QUEUE } from '../queueNames'
 
 // Deletes Chroma chunks older than CHROMA_TTL_HOURS so the Chroma disk can't
@@ -44,23 +45,42 @@ worker.on('failed', (job, err) => {
   )
 })
 
+worker.on('error', (err) => {
+  console.error('[chromaSweep] worker error:', err?.message ?? err)
+})
+
+const SWEEP_SCHEDULER_ID = 'chroma-sweep'
+
 async function ensureRepeatableSweep() {
   try {
-    // Replace older schedules so redeploys don't stack duplicate sweeps.
-    for (const job of await queue.getRepeatableJobs()) {
-      if (job.name === TICK_NAME) await queue.removeRepeatableByKey(job.key)
+    const purged = await purgeLegacyBullmqRepeatables(CHROMA_SWEEP_QUEUE)
+    if (purged > 0) {
+      console.log(
+        `[chromaSweep] purged ${purged} legacy BullMQ v5 repeatable key(s)`
+      )
     }
+
+    for (const scheduler of await queue.getJobSchedulers()) {
+      if (scheduler.name === TICK_NAME) {
+        await queue.removeJobScheduler(scheduler.key)
+      }
+    }
+
     if (chromaConfig.ttlHours <= 0) {
       console.log('[chromaSweep] CHROMA_TTL_HOURS is 0; sweep not scheduled')
       return
     }
-    await queue.add(
-      TICK_NAME,
-      {},
-      { repeat: { every: REPEAT_EVERY_MS }, ...SWEEP_JOB_RETENTION }
+    await queue.upsertJobScheduler(
+      SWEEP_SCHEDULER_ID,
+      { every: REPEAT_EVERY_MS },
+      {
+        name: TICK_NAME,
+        data: {},
+        opts: { ...SWEEP_JOB_RETENTION },
+      }
     )
     console.log(
-      `[chromaSweep] sweep every ${REPEAT_EVERY_MS}ms registered (ttl ${chromaConfig.ttlHours}h)`
+      `[chromaSweep] job scheduler every ${REPEAT_EVERY_MS}ms registered (ttl ${chromaConfig.ttlHours}h)`
     )
   } catch (err) {
     console.error('[chromaSweep] failed to register repeatable sweep:', err)
