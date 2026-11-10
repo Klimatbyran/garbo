@@ -1194,23 +1194,73 @@ model ModelEvalTestsetReport {
 /// Model evaluation (Goffer): one run of one setup on one test set.
 model ModelEvalRun {
   /// The tab's crypto.randomUUID().
-  id             String              @id
-  testsetVersion String              @map("testset_version")
+  id               String               @id
+  testsetVersion   String               @map("testset_version")
+  /// Null means Clark's prompts at the run's own Clark commit.
+  promptsetVersion String?              @map("promptset_version")
   /// The tab's RunRecord without calls, paragraphs, feedCosts and interrupted.
-  header         Json
+  header           Json
   /// Jobs a stop cut short after they spent money; each save appends its own.
-  interrupted    Json
-  createdById    String              @map("created_by_id")
+  interrupted      Json
+  createdById      String               @map("created_by_id")
   /// The record's createdAt, not the time of the first save.
-  createdAt      DateTime            @map("created_at")
-  updatedAt      DateTime            @updatedAt @map("updated_at")
-  testset        ModelEvalTestset    @relation(fields: [testsetVersion], references: [version], onDelete: Restrict)
-  calls          ModelEvalCall[]
-  feedCosts      ModelEvalFeedCost[]
+  createdAt        DateTime             @map("created_at")
+  updatedAt        DateTime             @updatedAt @map("updated_at")
+  testset          ModelEvalTestset     @relation(fields: [testsetVersion], references: [version], onDelete: Restrict)
+  promptset        ModelEvalPromptset?  @relation(fields: [promptsetVersion], references: [version], onDelete: Restrict)
+  calls            ModelEvalCall[]
+  feedCosts        ModelEvalFeedCost[]
+  summary          ModelEvalRunSummary?
 
   @@index([createdAt])
   @@index([testsetVersion])
+  @@index([promptsetVersion])
   @@map("model_eval_runs")
+}
+
+/// Model evaluation (Goffer): the team's own prompts for the workers, one version per set.
+model ModelEvalPromptset {
+  /// SHA-256 over the prompt texts in the tab's worker order; the API checks it.
+  version     String         @id
+  name        String
+  /// The Clark commit whose prompts the set starts from.
+  clarkCommit String         @map("clark_commit")
+  /// One prompt text per editable worker.
+  prompts     Json
+  createdById String         @map("created_by_id")
+  createdAt   DateTime       @default(now()) @map("created_at")
+  runs        ModelEvalRun[]
+
+  @@map("model_eval_promptsets")
+}
+
+/// Model evaluation (Goffer): one run's summary, written by the tab when the run is done.
+model ModelEvalRunSummary {
+  runId            String       @id @map("run_id")
+  testsetVersion   String       @map("testset_version")
+  /// full or search.
+  mode             String
+  setupKey         String       @map("setup_key")
+  /// The leaderboard's top row: the model, the embedding model or the prompt set.
+  rowKey           String       @map("row_key")
+  /// The run's setup, copied from its header.
+  setup            Json
+  workerIds        Json         @map("worker_ids")
+  /// Null means Clark's prompts.
+  promptsetVersion String?      @map("promptset_version")
+  /// The test set's facit hash when the summary was computed.
+  facitHash        String       @map("facit_hash")
+  /// The tab's scoring version; a newer one means the summary is recomputed.
+  scoringVersion   Int          @map("scoring_version")
+  /// The tab's measures, untyped here.
+  measures         Json
+  createdAt        DateTime     @default(now()) @map("created_at")
+  updatedAt        DateTime     @updatedAt @map("updated_at")
+  run              ModelEvalRun @relation(fields: [runId], references: [id], onDelete: Cascade)
+
+  @@index([testsetVersion])
+  @@index([promptsetVersion])
+  @@map("model_eval_run_summaries")
 }
 
 /// Model evaluation (Goffer): one call per run, file and worker.
