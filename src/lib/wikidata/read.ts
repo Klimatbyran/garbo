@@ -26,7 +26,10 @@ export async function getWikipediaTitle(id: EntityId): Promise<string> {
     res.json()
   )
   const entity = entities[id]
-  const sitelinks = entity?.type === 'item' ? entity.sitelinks : undefined
+  const sitelinks =
+    entity && 'type' in entity && entity.type === 'item'
+      ? entity.sitelinks
+      : undefined
   const title = sitelinks?.enwiki?.title ?? sitelinks?.svwiki?.title ?? null
 
   if (!title) {

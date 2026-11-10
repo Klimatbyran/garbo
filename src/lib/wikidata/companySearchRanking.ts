@@ -1,4 +1,4 @@
-import { Entity, EntityId, ItemId, SearchResult } from 'wikibase-sdk'
+import { Entity, EntityId, Item, ItemId, SearchResult } from 'wikibase-sdk'
 import { wbk } from './util'
 import { WbGetEntitiesResponse } from 'wikibase-sdk/dist/src/helpers/parse_responses'
 import { SearchEntitiesOptions } from 'wikibase-sdk/dist/src/queries/search_entities'
@@ -9,9 +9,11 @@ import {
   normalizedHitLabel,
 } from './companySearchNames'
 
-/** `wbgetentities` returns sitelinks; the SDK `Entity` type omits them. */
-type EntityWithSitelinks = Entity & {
-  sitelinks?: Record<string, { title?: string } | undefined>
+/** v11 `Entity` includes Form/Sense without a discriminant `type` field. */
+function asItem(entity: Entity | undefined): Item | undefined {
+  return entity && 'type' in entity && entity.type === 'item'
+    ? entity
+    : undefined
 }
 
 /** Industry (P452) — item-valued; exposed on {@link searchCompany} hits under `statements.P452`. */
@@ -33,8 +35,8 @@ const COMPANY_LIKE_INSTANCE_OF = new Set<string>([
 
 function collectInstanceOfIds(entity: Entity | undefined): Set<string> {
   const ids = new Set<string>()
-  if (!entity || entity.type !== 'item') return ids
-  const p31 = entity.claims?.P31
+  const item = asItem(entity)
+  const p31 = item?.claims?.P31
   if (!p31) return ids
   for (const claim of p31) {
     if (claim.mainsnak.snaktype !== 'value' || !claim.mainsnak.datavalue) {
@@ -53,8 +55,7 @@ function collectItemIdsForProperty(
   property: string
 ): ItemId[] {
   const out: ItemId[] = []
-  if (!entity || entity.type !== 'item') return out
-  const claims = entity.claims?.[property]
+  const claims = asItem(entity)?.claims?.[property]
   if (!claims) return out
   for (const claim of claims) {
     if (claim.mainsnak.snaktype !== 'value' || !claim.mainsnak.datavalue) {
@@ -99,8 +100,7 @@ const WIKI_SITES_EXCLUDED_FROM_NOTABILITY_COUNT = new Set([
 
 function collectP17CountryIds(entity: Entity | undefined): string[] {
   const out: string[] = []
-  if (!entity || entity.type !== 'item') return out
-  const p17 = entity.claims?.P17
+  const p17 = asItem(entity)?.claims?.P17
   if (!p17) return out
   for (const claim of p17) {
     if (claim.mainsnak.snaktype !== 'value' || !claim.mainsnak.datavalue) {
@@ -115,7 +115,7 @@ function collectP17CountryIds(entity: Entity | undefined): string[] {
 }
 
 function countEncyclopediaSitelinks(
-  sitelinks: EntityWithSitelinks['sitelinks'] | undefined
+  sitelinks: Item['sitelinks'] | undefined
 ): number {
   if (!sitelinks) return 0
   let n = 0
@@ -142,8 +142,7 @@ function computeSitelinkPreferenceRank(
   entity: Entity | undefined,
   language: SearchEntitiesOptions['language'] | undefined
 ): number {
-  if (!entity || entity.type !== 'item') return 0
-  const sl = (entity as EntityWithSitelinks).sitelinks
+  const sl = asItem(entity)?.sitelinks
   if (!sl) return 0
 
   const hasSite = (site: string) => {
