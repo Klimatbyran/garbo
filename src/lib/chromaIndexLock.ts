@@ -58,7 +58,12 @@ export async function withChromaIndexLock<T>(
 
   const started = Date.now()
   let loggedWait = false
-  while (!(await redis.set(key, token, { NX: true, PX: LOCK_TTL_MS }))) {
+  while (
+    !(await redis.set(key, token, {
+      condition: 'NX',
+      expiration: { type: 'PX', value: LOCK_TTL_MS },
+    }))
+  ) {
     if (Date.now() - started > MAX_WAIT_MS) {
       throw new Error(`Timed out waiting for Chroma indexing lock on ${url}`)
     }

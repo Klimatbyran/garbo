@@ -49,7 +49,9 @@ export function createServerCache({ maxAge }: { maxAge: number }) {
       try {
         const client = await getRedis()
         const namespacedKey = `${API_REDIS_PREFIX}${key}`
-        await client.set(namespacedKey, value, { PX: maxAge })
+        await client.set(namespacedKey, value, {
+          expiration: { type: 'PX', value: maxAge },
+        })
       } catch (err) {
         console.warn('Redis set failed, skipping cache write:', err.message)
       }
