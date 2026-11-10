@@ -48,11 +48,7 @@ if (!parsedEnv.success) {
 const env = parsedEnv.data
 
 export default {
-  // Used by the `OpenAIEmbeddingFunction` from `chromadb`:
-  openai_api_key: env.OPENAI_API_KEY,
-  openai_organization_id: env.OPENAI_ORG_ID,
-
-  // Used by the `openai` Node.js API:
+  // Used by the `openai` Node.js API and `@chroma-core/openai`:
   organization: env.OPENAI_ORG_ID,
   apiKey: env.OPENAI_API_KEY,
 

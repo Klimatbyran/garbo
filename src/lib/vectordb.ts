@@ -1,4 +1,5 @@
-import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
+import { ChromaClient } from 'chromadb'
+import { OpenAIEmbeddingFunction } from '@chroma-core/openai'
 import OpenAI from 'openai'
 
 import config from '../config/chromadb'
@@ -17,10 +18,11 @@ import { registryService } from '../api/services/registryService'
 import { waitForChromaIndexing, withChromaIndexLock } from './chromaIndexLock'
 import { withChromaRetry } from './chromaRetry'
 
-const client = new ChromaClient(config)
+const client = new ChromaClient({ path: config.path })
 const embedder = new OpenAIEmbeddingFunction({
-  ...openaiConfig,
-  openai_model: config.embeddingModel,
+  apiKey: openaiConfig.apiKey,
+  organizationId: openaiConfig.organization,
+  modelName: config.embeddingModel,
 })
 const openaiClient = new OpenAI({ apiKey: openaiConfig.apiKey })
 
