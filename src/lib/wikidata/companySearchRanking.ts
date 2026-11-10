@@ -11,7 +11,9 @@ import {
 
 /** v11 `Entity` includes Form/Sense without a discriminant `type` field. */
 function asItem(entity: Entity | undefined): Item | undefined {
-  return entity && 'type' in entity && entity.type === 'item' ? entity : undefined
+  return entity && 'type' in entity && entity.type === 'item'
+    ? entity
+    : undefined
 }
 
 /** Industry (P452) — item-valued; exposed on {@link searchCompany} hits under `statements.P452`. */
