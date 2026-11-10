@@ -1259,6 +1259,7 @@ model ModelEvalRunSummary {
   run              ModelEvalRun @relation(fields: [runId], references: [id], onDelete: Cascade)
 
   @@index([testsetVersion])
+  @@index([promptsetVersion])
   @@map("model_eval_run_summaries")
 }
 
