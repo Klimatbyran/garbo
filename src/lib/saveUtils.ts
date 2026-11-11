@@ -89,9 +89,7 @@ export function hasDeterministicChanges(
   after: object | null | undefined
 ): boolean {
   const strip = (value: object | null | undefined) =>
-    value
-      ? recursiveOmit(structuredClone(value), new Set(['metadata']))
-      : null
+    value ? recursiveOmit(structuredClone(value), new Set(['metadata'])) : null
   return JSON.stringify(strip(before)) !== JSON.stringify(strip(after))
 }
 

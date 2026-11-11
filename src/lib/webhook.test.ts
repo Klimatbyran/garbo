@@ -1,4 +1,11 @@
-import { describe, it, expect, beforeEach, afterEach, jest } from '@jest/globals'
+import {
+  describe,
+  it,
+  expect,
+  beforeEach,
+  afterEach,
+  jest,
+} from '@jest/globals'
 
 const saved = process.env.ALLOWED_CALLBACK_URLS
 
@@ -41,8 +48,8 @@ describe('isAllowedCallbackUrl', () => {
       'https://allowed.example.com/'
     )
     expect(isAllowedCallbackUrl('javascript:alert(1)')).toBe(false)
-    expect(
-      isAllowedCallbackUrl('https://user:pass@allowed.example.com/')
-    ).toBe(false)
+    expect(isAllowedCallbackUrl('https://user:pass@allowed.example.com/')).toBe(
+      false
+    )
   })
 })

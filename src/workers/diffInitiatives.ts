@@ -72,7 +72,7 @@ const diffInitiatives = new DiffWorker<DiffInitiativesJob>(
     }
 
     if (isPendingApprovalForDiffType(job, INITIATIVES_ENDPOINT)) {
-      await delayJob(job, Date.now() + apiConfig.jobDelay)
+      return await delayJob(job, Date.now() + apiConfig.jobDelay)
     }
   }
 )

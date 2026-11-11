@@ -71,7 +71,7 @@ const diffGoals = new DiffWorker<DiffGoalsJob>(
     }
 
     if (isPendingApprovalForDiffType(job, GOALS_ENDPOINT)) {
-      await delayJob(job, Date.now() + apiConfig.jobDelay)
+      return await delayJob(job, Date.now() + apiConfig.jobDelay)
     }
   }
 )

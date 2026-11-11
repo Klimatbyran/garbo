@@ -241,7 +241,7 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
     }
 
     if (isPendingApprovalForDiffType(job, REPORTING_PERIODS_ENDPOINT)) {
-      await delayJob(job, Date.now() + apiConfig.jobDelay)
+      return await delayJob(job, Date.now() + apiConfig.jobDelay)
     }
   }
 )

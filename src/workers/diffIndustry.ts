@@ -58,7 +58,7 @@ const diffIndustry = new DiffWorker<DiffIndustryJob>(
     }
 
     if (isPendingApprovalForDiffType(job, INDUSTRY_ENDPOINT)) {
-      await delayJob(job, Date.now() + apiConfig.jobDelay)
+      return await delayJob(job, Date.now() + apiConfig.jobDelay)
     }
   }
 )

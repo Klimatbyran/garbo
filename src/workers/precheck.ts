@@ -174,7 +174,7 @@ async function ensurePipelineCompany(
     !job.isDataApproved()
   ) {
     job.log('Waiting for company link approval')
-    await delayJob(job, Date.now() + apiConfig.jobDelay)
+    return await delayJob(job, Date.now() + apiConfig.jobDelay)
   }
 
   const outcome = await resolvePipelineCompanyOutcome(job.data, companyName)
@@ -240,7 +240,7 @@ async function ensurePipelineCompany(
     await job.sendMessage({
       content: `Multiple companies match "${companyName}". Please select the correct company in Validate before the pipeline continues.`,
     })
-    await delayJob(job, Date.now() + apiConfig.jobDelay)
+    return await delayJob(job, Date.now() + apiConfig.jobDelay)
   }
 
   const locked = await resolveOrCreateCompanyForPrecheck(job, companyName)
@@ -276,7 +276,7 @@ async function ensurePipelineCompany(
       },
       `Company link for ${companyName}`
     )
-    await delayJob(job, Date.now() + apiConfig.jobDelay)
+    return await delayJob(job, Date.now() + apiConfig.jobDelay)
   }
 
   const companyId = locked.companyId
@@ -360,7 +360,7 @@ const precheck = new PipelineWorker(
           `Ignoring placeholder company name override: ${JSON.stringify(existingCompanyName)}`
         )
         await job.updateData({ ...job.data, waitingForCompanyName: true })
-        await delayJob(job, Date.now() + apiConfig.jobDelay)
+        return await delayJob(job, Date.now() + apiConfig.jobDelay)
         return
       }
       job.log('Using manually provided company name: ' + manualName)
@@ -426,7 +426,7 @@ Extract from this PDF:
     if (!companyName) {
       if (waitingForCompanyName) {
         job.log('Still waiting for companyName in job data...')
-        await delayJob(job, Date.now() + apiConfig.jobDelay)
+        return await delayJob(job, Date.now() + apiConfig.jobDelay)
         return
       }
 
@@ -438,7 +438,7 @@ Extract from this PDF:
         content:
           'Could not identify the company name from this report. Please enter the company name in Validate to continue.',
       })
-      await delayJob(job, Date.now() + apiConfig.jobDelay)
+      return await delayJob(job, Date.now() + apiConfig.jobDelay)
       return
     }
 

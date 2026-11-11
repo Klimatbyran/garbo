@@ -58,7 +58,7 @@ const diffBaseYear = new DiffWorker<DiffBaseYearJob>(
 
     if (isPendingApprovalForDiffType(job, BASE_YEAR_ENDPOINT)) {
       try {
-        await delayJob(job, Date.now() + apiConfig.jobDelay)
+        return await delayJob(job, Date.now() + apiConfig.jobDelay)
       } catch (_err) {}
     }
   }

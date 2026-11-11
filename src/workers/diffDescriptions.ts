@@ -64,10 +64,7 @@ const diffDescriptions = new PipelineWorker<DiffDescriptionsJob>(
 
     job.log('Diff:' + diff)
 
-    const changed = hasDeterministicChanges(
-      existingDescriptions,
-      descriptions
-    )
+    const changed = hasDeterministicChanges(existingDescriptions, descriptions)
     // Only save when structured descriptions actually changed.
     if (changed) {
       const readable =
