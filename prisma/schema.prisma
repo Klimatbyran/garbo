@@ -862,11 +862,14 @@ model ReportRunJob {
   finishedAt        DateTime  @default(now())
   chromaDurationMs  Int?      @map("chroma_duration_ms")
   aiDurationMs      Int?      @map("ai_duration_ms")
+  /// Resolved LLM model id used for this follow-up (e.g. gpt-6-luna).
+  model             String?
   reportRunId       String
   reportRun         ReportRun @relation(fields: [reportRunId], references: [id])
 
   @@index([reportRunId])
   @@index([companyId])
+  @@index([model])
 }
 
 /// Permission codes for the client API key layer (browser/proxy + partner integrations) — see `src/api/security/routePermissions.ts`.

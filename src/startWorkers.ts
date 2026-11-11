@@ -118,6 +118,10 @@ for (const queueName of Object.values(QUEUE_NAMES)) {
           extractionResult: archiveFields.extractionResult,
           chromaDurationMs: returnValue?.metadata?.chromaDurationMs ?? null,
           aiDurationMs: returnValue?.metadata?.aiDurationMs ?? null,
+          model:
+            typeof returnValue?.metadata?.model === 'string'
+              ? returnValue.metadata.model
+              : null,
           startedAt: job.processedOn ? new Date(job.processedOn) : null,
           finishedAt: new Date(),
           reportRunId: reportRun.id,
