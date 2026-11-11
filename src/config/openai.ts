@@ -6,9 +6,10 @@ const envSchema = z.object({
   OPENAI_ORG_ID: z.string(),
   /**
    * Model that `askStream` retries on, once, when the input is too long for
-   * the primary model's context window. It gets the same request as the
-   * primary model, so it must accept `temperature`, `max_tokens` and a JSON
-   * schema response format. Temporary: OpenAI retires gpt-4o and gpt-4.1 on
+   * the primary model (`gpt-6-luna`, ~1M context). Off by default because Luna
+   * almost never needs it; set `OPENAI_CONTEXT_FALLBACK_ENABLED=true` to retry
+   * on this model. The fallback request includes `temperature: 0.1` (Luna
+   * requests omit temperature). Temporary: OpenAI retires gpt-4.1 on
    * 2027-01-14.
    */
   OPENAI_CONTEXT_FALLBACK_MODEL: z
@@ -17,12 +18,13 @@ const envSchema = z.object({
     .min(1)
     .optional()
     .default('gpt-4.1-2025-04-14'),
-  /** `false` turns the context-window fallback off. On when unset. */
+  /** `true` turns the context-window fallback on. Off when unset. */
   OPENAI_CONTEXT_FALLBACK_ENABLED: z
     .enum(['true', 'false'])
-    .transform((v) => v === 'true')
     .optional()
-    .default(true),
+    .default('false')
+    // Transform after default so an unset env still yields a boolean.
+    .transform((v) => v === 'true'),
 })
 
 const parsedEnv = envSchema.safeParse(process.env)

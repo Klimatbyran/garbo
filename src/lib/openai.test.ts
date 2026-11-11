@@ -17,7 +17,12 @@ import {
   RateLimitError,
 } from 'openai/core/error'
 
-type CreateParams = { model: string; stream: boolean }
+type CreateParams = {
+  model: string
+  stream: boolean
+  temperature?: number
+  max_completion_tokens?: number
+}
 
 const create = jest.fn<(params: CreateParams) => Promise<unknown>>()
 
@@ -29,6 +34,7 @@ jest.unstable_mockModule('openai', () => ({
 
 // Same default as src/config/openai.ts; tests change it per case.
 const DEFAULT_FALLBACK = 'gpt-4.1-2025-04-14'
+const PRIMARY = 'gpt-6-luna'
 const openaiConfigMock: {
   apiKey: string
   contextFallbackModel: string | null
@@ -68,11 +74,10 @@ const body = (message: string, code?: string) => ({
   code,
 })
 
-// The two wordings OpenAI uses when gpt-4o's window is exceeded.
 const messagesTooLong = new BadRequestError(
   400,
   body(
-    "This model's maximum context length is 128000 tokens. However, your messages resulted in 135065 tokens. Please reduce the length of the messages.",
+    "This model's maximum context length is 1050000 tokens. However, your messages resulted in 1100000 tokens. Please reduce the length of the messages.",
     'context_length_exceeded'
   ),
   undefined,
@@ -81,7 +86,7 @@ const messagesTooLong = new BadRequestError(
 const completionDoesNotFit = new BadRequestError(
   400,
   body(
-    "This model's maximum context length is 128000 tokens. However, you requested 133651 tokens (117267 in the messages, 16384 in the completion). Please reduce the length of the messages or completion.",
+    "This model's maximum context length is 1050000 tokens. However, you requested 1100000 tokens (1083616 in the messages, 16384 in the completion). Please reduce the length of the messages or completion.",
     'context_length_exceeded'
   ),
   undefined,
@@ -93,16 +98,18 @@ const messages = [{ role: 'user' as const, content: 'Results from PDF: ...' }]
 const calledModels = () => create.mock.calls.map(([params]) => params.model)
 
 describe('askStreamWithModel', () => {
-  it('answers on gpt-4o when the input fits', async () => {
+  it('answers on gpt-6-luna without temperature when the input fits', async () => {
     create.mockResolvedValueOnce(streamOf('{"a":', '1}'))
 
     const outcome = await askStreamWithModel(messages, {})
 
     expect(outcome).toEqual({
       response: '{"a":1}',
-      model: 'gpt-4o-2024-08-06',
+      model: PRIMARY,
     })
-    expect(calledModels()).toEqual(['gpt-4o-2024-08-06'])
+    expect(calledModels()).toEqual([PRIMARY])
+    expect(create.mock.calls[0][0].temperature).toBeUndefined()
+    expect(create.mock.calls[0][0].max_completion_tokens).toBe(16384)
     expect(console.warn).not.toHaveBeenCalled()
   })
 
@@ -118,10 +125,10 @@ describe('askStreamWithModel', () => {
       response: '{"a":1}\n{"b":2}',
       model: 'gpt-4.1-2025-04-14',
     })
-    expect(calledModels()).toEqual(['gpt-4o-2024-08-06', 'gpt-4.1-2025-04-14'])
-    // Same request apart from the model.
+    expect(calledModels()).toEqual([PRIMARY, 'gpt-4.1-2025-04-14'])
     const [first, second] = create.mock.calls.map(([params]) => params)
-    expect({ ...second, model: first.model }).toEqual(first)
+    expect(first.temperature).toBeUndefined()
+    expect(second.temperature).toBe(0.1)
     // Paragraphs only come from the answering stream.
     expect(onParagraph.mock.calls).toEqual([
       ['{"a":1}\n', '{"a":1}\n'],
@@ -136,7 +143,7 @@ describe('askStreamWithModel', () => {
       'the error has the wording but no code',
       new BadRequestError(
         400,
-        body("This model's maximum context length is 128000 tokens."),
+        body("This model's maximum context length is 1050000 tokens."),
         undefined,
         headers
       ),
@@ -148,7 +155,7 @@ describe('askStreamWithModel', () => {
       response: '{}',
       model: 'gpt-4.1-2025-04-14',
     })
-    expect(calledModels()).toEqual(['gpt-4o-2024-08-06', 'gpt-4.1-2025-04-14'])
+    expect(calledModels()).toEqual([PRIMARY, 'gpt-4.1-2025-04-14'])
   })
 
   it.each([
@@ -156,7 +163,7 @@ describe('askStreamWithModel', () => {
       'a rate limit',
       new RateLimitError(
         429,
-        body('Rate limit reached for gpt-4o', 'rate_limit_exceeded'),
+        body('Rate limit reached for gpt-6-luna', 'rate_limit_exceeded'),
         undefined,
         headers
       ),
@@ -186,7 +193,7 @@ describe('askStreamWithModel', () => {
       'a server error with the same wording',
       new InternalServerError(
         500,
-        body("This model's maximum context length is 128000 tokens."),
+        body("This model's maximum context length is 1050000 tokens."),
         undefined,
         headers
       ),
@@ -195,7 +202,7 @@ describe('askStreamWithModel', () => {
     create.mockRejectedValueOnce(error)
 
     await expect(askStreamWithModel(messages, {})).rejects.toBe(error)
-    expect(calledModels()).toEqual(['gpt-4o-2024-08-06'])
+    expect(calledModels()).toEqual([PRIMARY])
   })
 
   it('does not use gpt-4.1 on an empty response', async () => {
@@ -203,9 +210,9 @@ describe('askStreamWithModel', () => {
 
     await expect(askStreamWithModel(messages, {})).resolves.toEqual({
       response: '',
-      model: 'gpt-4o-2024-08-06',
+      model: PRIMARY,
     })
-    expect(calledModels()).toEqual(['gpt-4o-2024-08-06'])
+    expect(calledModels()).toEqual([PRIMARY])
   })
 
   it('fails with the gpt-4.1 error when the input does not fit there either', async () => {
@@ -223,7 +230,7 @@ describe('askStreamWithModel', () => {
       .mockRejectedValueOnce(fallbackTooLong)
 
     await expect(askStreamWithModel(messages, {})).rejects.toBe(fallbackTooLong)
-    expect(calledModels()).toEqual(['gpt-4o-2024-08-06', 'gpt-4.1-2025-04-14'])
+    expect(calledModels()).toEqual([PRIMARY, 'gpt-4.1-2025-04-14'])
   })
 
   it('says the input was too long when the fallback fails for another reason', async () => {
@@ -244,10 +251,10 @@ describe('askStreamWithModel', () => {
 
     expect(failure).toBeInstanceOf(Error)
     expect((failure as Error).message).toBe(
-      'Input too long for gpt-4o-2024-08-06, and the retry on gpt-4.1x failed: 404 The model `gpt-4.1x` does not exist'
+      `Input too long for ${PRIMARY}, and the retry on gpt-4.1x failed: 404 The model \`gpt-4.1x\` does not exist`
     )
     expect((failure as Error).cause).toBe(notFound)
-    expect(calledModels()).toEqual(['gpt-4o-2024-08-06', 'gpt-4.1x'])
+    expect(calledModels()).toEqual([PRIMARY, 'gpt-4.1x'])
   })
 
   it('uses the configured fallback model', async () => {
@@ -260,12 +267,12 @@ describe('askStreamWithModel', () => {
       response: '{}',
       model: 'gpt-4.1-mini',
     })
-    expect(calledModels()).toEqual(['gpt-4o-2024-08-06', 'gpt-4.1-mini'])
+    expect(calledModels()).toEqual([PRIMARY, 'gpt-4.1-mini'])
   })
 
   it.each([
     ['turned off', null],
-    ['the primary model', 'gpt-4o-2024-08-06'],
+    ['the primary model', PRIMARY],
   ])(
     'fails as before when the fallback is %s',
     async (_name, fallbackModel) => {
@@ -275,7 +282,7 @@ describe('askStreamWithModel', () => {
       await expect(askStreamWithModel(messages, {})).rejects.toBe(
         messagesTooLong
       )
-      expect(calledModels()).toEqual(['gpt-4o-2024-08-06'])
+      expect(calledModels()).toEqual([PRIMARY])
     }
   )
 })

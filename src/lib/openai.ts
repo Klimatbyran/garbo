@@ -15,9 +15,22 @@ import type { Stream } from 'openai/streaming'
 
 type RequestOptions = OpenAI.RequestOptions
 
+/** Default chat model. Luna rejects `temperature` at its default reasoning effort. */
+export const PRIMARY_CHAT_MODEL = 'gpt-6-luna'
+
+const FALLBACK_TEMPERATURE = 0.1
+const MAX_COMPLETION_TOKENS = 16384
+
 const openai = new OpenAI({
   apiKey: openaiConfig.apiKey,
 })
+
+/**
+ * Luna (and other GPT-6 reasoning models at non-`none` effort) reject
+ * `temperature`. Older chat models still take it; send 0.1 only for those.
+ */
+const samplingFor = (model: string): { temperature?: number } =>
+  model === PRIMARY_CHAT_MODEL ? {} : { temperature: FALLBACK_TEMPERATURE }
 
 const ask = async (
   messages: ChatCompletionMessageParam[],
@@ -25,9 +38,9 @@ const ask = async (
 ) => {
   const response = await openai.chat.completions.create({
     messages: messages.filter((m) => m.content),
-    model: 'gpt-4o',
-    max_completion_tokens: 16384,
-    temperature: 0.1,
+    model: PRIMARY_CHAT_MODEL,
+    max_completion_tokens: MAX_COMPLETION_TOKENS,
+    ...samplingFor(PRIMARY_CHAT_MODEL),
     stream: false,
     ...options,
   } as ChatCompletionCreateParamsNonStreaming)
@@ -130,27 +143,30 @@ const askStreamWithModel = async (
 ): Promise<{ response: string; model: string }> => {
   const { stream: _, ...safeOpenAIOptions } = options
 
-  const config = {
+  const base = {
     messages: messages.filter((m) => m.content),
-    model: 'gpt-4o-2024-08-06',
-    temperature: 0.1,
-    stream: true,
-    max_tokens: 16384,
+    stream: true as const,
+    max_completion_tokens: MAX_COMPLETION_TOKENS,
     response_format: options.response_format,
     ...safeOpenAIOptions,
-  } satisfies ChatCompletionCreateParamsStreaming
+  }
 
   // Only the request is retried: a context-window error comes back before any
   // chunk is streamed, so onParagraph has not been called yet.
   const { result: stream, model } = await withContextWindowFallback<
     Stream<ChatCompletionChunk>
   >(
-    (model) => openai.chat.completions.create({ ...config, model }),
-    config.model,
+    (model) =>
+      openai.chat.completions.create({
+        ...base,
+        model,
+        ...samplingFor(model),
+      } satisfies ChatCompletionCreateParamsStreaming),
+    PRIMARY_CHAT_MODEL,
     openaiConfig.contextFallbackModel,
     (error) =>
       console.warn(
-        `askStream: input too long for ${config.model}, retrying once on ${openaiConfig.contextFallbackModel}:`,
+        `askStream: input too long for ${PRIMARY_CHAT_MODEL}, retrying once on ${openaiConfig.contextFallbackModel}:`,
         error instanceof Error ? error.message : error
       )
   )
