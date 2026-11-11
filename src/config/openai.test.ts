@@ -42,22 +42,28 @@ describe('openai config: contextFallbackModel', () => {
     setEnv('OPENAI_CONTEXT_FALLBACK_ENABLED', saved.enabled)
   })
 
-  it('defaults to gpt-4.1 when nothing is set', async () => {
-    expect((await loadConfig()).contextFallbackModel).toBe('gpt-4.1-2025-04-14')
+  it('defaults to off when nothing is set (Luna rarely needs a fallback)', async () => {
+    expect((await loadConfig()).contextFallbackModel).toBe(null)
   })
 
-  it('uses the configured model', async () => {
-    expect((await loadConfig(' gpt-4.1-mini ')).contextFallbackModel).toBe(
-      'gpt-4.1-mini'
-    )
+  it('uses the configured model when enabled', async () => {
+    expect(
+      (await loadConfig(' gpt-4.1-mini ', 'true')).contextFallbackModel
+    ).toBe('gpt-4.1-mini')
     expect((await loadConfig('gpt-4.1', 'true')).contextFallbackModel).toBe(
       'gpt-4.1'
     )
   })
 
-  it('is off when disabled', async () => {
+  it('stays off when explicitly disabled', async () => {
     expect((await loadConfig(undefined, 'false')).contextFallbackModel).toBe(
       null
+    )
+  })
+
+  it('uses the default gpt-4.1 model when only enabled', async () => {
+    expect((await loadConfig(undefined, 'true')).contextFallbackModel).toBe(
+      'gpt-4.1-2025-04-14'
     )
   })
 
