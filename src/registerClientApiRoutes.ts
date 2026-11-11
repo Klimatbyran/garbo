@@ -28,7 +28,7 @@ export async function registerClientApiRoutes(app: FastifyInstance) {
     }
   )
 
-  // X-API-Key — GET only; staff JWT mount has POST /batches too.
+  // X-API-Key twin of staff JWT api/queue-archive (GET + POST /batches).
   app.register(queueArchiveInternalReadRoutes, {
     prefix: 'api/internal-queue-archive',
   })
