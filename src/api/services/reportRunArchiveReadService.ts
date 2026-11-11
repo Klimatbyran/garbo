@@ -12,6 +12,7 @@ const jobListSelect = {
   failedReason: true,
   startedAt: true,
   finishedAt: true,
+  model: true,
 } as const
 
 const batchListSelect = {
@@ -68,6 +69,11 @@ function buildListWhere(args: {
                   { id: { contains: qTrim, mode: 'insensitive' } },
                 ],
               },
+            },
+          },
+          {
+            jobs: {
+              some: { model: { contains: qTrim, mode: 'insensitive' } },
             },
           },
         ],
