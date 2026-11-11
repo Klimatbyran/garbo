@@ -1076,8 +1076,16 @@ async function pollTaskAndGetResult(
 
     job.log(`Result URL: ${resultUrl}`)
 
-    // Poll the result endpoint until completion
+    // Poll the result endpoint until completion (same bound as local format).
+    const maxPollingTime = 25 * 60 * 1000 // 25 minutes (less than lockDuration)
+    const pollingStartTime = Date.now()
     while (true) {
+      if (Date.now() - pollingStartTime > maxPollingTime) {
+        throw new Error(
+          `Berget AI polling timed out after ${maxPollingTime / 1000}s. Task may still be processing on the server.`
+        )
+      }
+
       job.log(`Polling Berget AI result: ${resultUrl}`)
 
       const response = await fetchWithRetry(resultUrl, { headers }, job)

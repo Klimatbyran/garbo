@@ -6,9 +6,39 @@ const allowedCallbackUrls = (process.env.ALLOWED_CALLBACK_URLS ?? '')
   .map((u) => u.trim())
   .filter(Boolean)
 
+/**
+ * Allow only http(s) callback URLs whose origin matches an allowlist entry.
+ * Prefix `startsWith` is rejected: `https://allowed.example.com.evil` must not
+ * match `https://allowed.example.com`.
+ */
 export function isAllowedCallbackUrl(url: string): boolean {
   if (allowedCallbackUrls.length === 0) return false
-  return allowedCallbackUrls.some((allowed) => url.startsWith(allowed))
+
+  let candidate: URL
+  try {
+    candidate = new URL(url)
+  } catch {
+    return false
+  }
+
+  if (candidate.protocol !== 'http:' && candidate.protocol !== 'https:') {
+    return false
+  }
+  if (candidate.username || candidate.password) {
+    return false
+  }
+
+  return allowedCallbackUrls.some((allowed) => {
+    try {
+      const base = new URL(allowed)
+      if (base.protocol !== 'http:' && base.protocol !== 'https:') return false
+      if (candidate.origin !== base.origin) return false
+      // Optional path prefix on the pathname only (not the full string).
+      return candidate.pathname.startsWith(base.pathname)
+    } catch {
+      return false
+    }
+  })
 }
 
 const CALLBACK_TIMEOUT_MS = 30_000

@@ -101,6 +101,8 @@ class AuthService {
   verifyToken(token: string) {
     const userPayload = jwt.verify(token, apiConfig.jwtSecret) as User & {
       exp: number
+      iat?: number
+      nbf?: number
     }
     if (!userPayload.email && !userPayload.githubId) {
       throw new Error('Invalid token: No email or GitHub ID present')
@@ -112,7 +114,9 @@ class AuthService {
     const shouldRenew =
       currentTimeInSeconds > userPayload.exp - renewalThreshold
 
-    const { exp, ...user } = userPayload
+    // Drop iat/nbf with exp so createToken's expiresIn is relative to now.
+    // Keeping iat made renewed tokens expire at the original absolute time.
+    const { exp: _exp, iat: _iat, nbf: _nbf, ...user } = userPayload
     return {
       user,
       newToken: shouldRenew ? this.createToken(user) : undefined,
