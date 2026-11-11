@@ -12,6 +12,7 @@ import {
 import apiConfig from '../config/api'
 import { apiFetch } from '../lib/api'
 import { pipelineCompanyReadPath } from '../lib/pipelineCompanyPath'
+import { delayJob } from '../lib/delayJob'
 import {
   buildPipelineReportIdentity,
   buildReportingPeriodsApiBodyExtras,
@@ -240,7 +241,7 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
     }
 
     if (isPendingApprovalForDiffType(job, REPORTING_PERIODS_ENDPOINT)) {
-      await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+      await delayJob(job, Date.now() + apiConfig.jobDelay)
     }
   }
 )

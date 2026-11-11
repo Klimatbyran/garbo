@@ -35,6 +35,7 @@ import {
 import { collectAlternativeNameAfterConfirmedLink } from '../lib/collectAlternativeNameAfterConfirmedLink'
 import { normalizeLei, resolvePipelineLei } from '../lib/normalizeLei'
 import { logAbandonedDisposableCompanyShell } from '../lib/loadDisposableCompanyShellSnapshot'
+import { delayJob } from '../lib/delayJob'
 
 export class CheckDBJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
@@ -87,7 +88,7 @@ const checkDB = new PipelineWorker(
       job.log(
         'Waiting for company link resolution on guessWikidata before API save'
       )
-      await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+      await delayJob(job, Date.now() + apiConfig.jobDelay)
       return
     }
 
@@ -147,7 +148,7 @@ const checkDB = new PipelineWorker(
       !job.isDataApproved()
     ) {
       job.log('Waiting for company link approval before API save')
-      await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+      await delayJob(job, Date.now() + apiConfig.jobDelay)
       return
     }
 
@@ -258,7 +259,7 @@ const checkDB = new PipelineWorker(
           },
           `Company link before save for ${companyName}`
         )
-        await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+        await delayJob(job, Date.now() + apiConfig.jobDelay)
         return
       }
 

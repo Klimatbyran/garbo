@@ -112,7 +112,12 @@ class AuthService {
     const shouldRenew =
       currentTimeInSeconds > userPayload.exp - renewalThreshold
 
-    const { exp, ...user } = userPayload
+    // Drop iat/nbf with exp so createToken's expiresIn is relative to now.
+    // Keeping iat made renewed tokens expire at the original absolute time.
+    const { exp, iat, nbf, ...user } = userPayload
+    void exp
+    void iat
+    void nbf
     return {
       user,
       newToken: shouldRenew ? this.createToken(user) : undefined,

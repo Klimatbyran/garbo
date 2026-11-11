@@ -442,7 +442,9 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
 
             const storagePdfUrl = reportS3Url ?? request.body.reportS3Url
 
-            await Promise.allSettled([
+            // Promise.all so a failed datapoint upsert fails the period
+            // (and the request) instead of returning 200 with partial data.
+            await Promise.all([
               buildScope1Promise(
                 scope1,
                 dbEmissions,

@@ -13,6 +13,7 @@ import {
   stripGoalInitiativeDiffNoise,
 } from '../lib/goalsInitiativesSave'
 import { diffChanges } from '../lib/saveUtils'
+import { delayJob } from '../lib/delayJob'
 import { QUEUE_NAMES } from '../queues'
 import { Initiative } from '../types'
 
@@ -71,7 +72,7 @@ const diffInitiatives = new DiffWorker<DiffInitiativesJob>(
     }
 
     if (isPendingApprovalForDiffType(job, INITIATIVES_ENDPOINT)) {
-      await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+      await delayJob(job, Date.now() + apiConfig.jobDelay)
     }
   }
 )
