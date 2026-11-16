@@ -78,8 +78,8 @@ export async function getCanonicalCompanyIdForThread(
 }
 
 async function listGuessWikidataJobsForThread(threadId: string) {
-  // Shared client: an ephemeral Queue + close() kills the Redis connection that
-  // Job.getState() still needs (intermittent "Connection is closed" on checkDB).
+  // Don't create/close a per-call Queue: returned Job objects still use that
+  // connection for getState().
   const queue = getSharedQueue(QUEUE_NAMES.GUESS_WIKIDATA)
   const jobs = await queue.getJobs([
     'delayed',

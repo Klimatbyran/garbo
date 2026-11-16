@@ -151,6 +151,7 @@ describe('pipelineRunCompanyId', () => {
 
   it('treats delayed companyLink guessWikidata jobs as pending without closing the shared queue', async () => {
     const getState = jest.fn(async () => 'delayed')
+    const otherThreadGetState = jest.fn(async () => 'delayed')
     getJobsMock.mockResolvedValue([
       {
         data: {
@@ -161,7 +162,7 @@ describe('pipelineRunCompanyId', () => {
       },
       {
         data: { threadId: 'other-thread' },
-        getState: jest.fn(async () => 'delayed'),
+        getState: otherThreadGetState,
       },
     ])
 
@@ -171,6 +172,7 @@ describe('pipelineRunCompanyId', () => {
 
     expect(getSharedQueueMock).toHaveBeenCalledWith('guessWikidata')
     expect(getState).toHaveBeenCalledTimes(1)
+    expect(otherThreadGetState).not.toHaveBeenCalled()
     expect(closeMock).not.toHaveBeenCalled()
   })
 
