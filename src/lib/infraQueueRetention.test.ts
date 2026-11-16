@@ -1,6 +1,10 @@
 import { describe, it, expect, jest } from '@jest/globals'
 import type { Queue } from 'bullmq'
-import { trimInfraQueueRetention, trimQueueJobSet } from './infraQueueRetention'
+import {
+  INFRA_TRIM_BATCH_SIZE,
+  trimInfraQueueRetention,
+  trimQueueJobSet,
+} from './infraQueueRetention'
 
 function fakeJob(id: string) {
   return {
@@ -23,6 +27,25 @@ describe('infraQueueRetention', () => {
     for (const job of oldest) {
       expect(job.remove).toHaveBeenCalledTimes(1)
     }
+  })
+
+  it('trimQueueJobSet caps a single pass at INFRA_TRIM_BATCH_SIZE', async () => {
+    const oldest = Array.from({ length: INFRA_TRIM_BATCH_SIZE }, (_, i) =>
+      fakeJob(String(i))
+    )
+    const queue = {
+      getJobCounts: jest.fn(async () => ({ completed: 5000 })),
+      getJobs: jest.fn(async () => oldest),
+    } as unknown as Queue
+
+    const removed = await trimQueueJobSet(queue, 'completed', 20)
+    expect(removed).toBe(INFRA_TRIM_BATCH_SIZE)
+    expect(queue.getJobs).toHaveBeenCalledWith(
+      ['completed'],
+      0,
+      INFRA_TRIM_BATCH_SIZE - 1,
+      true
+    )
   })
 
   it('trimQueueJobSet is a no-op when already at/under keep', async () => {

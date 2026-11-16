@@ -9,6 +9,9 @@ export const PIPELINE_AUTO_RUN_KEEP_FAILED = 50
 export const CHROMA_SWEEP_KEEP_COMPLETED = 24
 export const CHROMA_SWEEP_KEEP_FAILED = 50
 
+/** Cap removals per trim call so a huge backlog cannot OOM / hang the process. */
+export const INFRA_TRIM_BATCH_SIZE = 500
+
 export const PIPELINE_AUTO_RUN_REMOVE_ON_COMPLETE: KeepJobs = {
   count: PIPELINE_AUTO_RUN_KEEP_COMPLETED,
 }
@@ -34,28 +37,31 @@ export const CHROMA_SWEEP_JOB_RETENTION: DefaultJobOptions = {
 }
 
 /**
- * Force-trim a finished set down to `keep` newest jobs.
+ * Force-trim a finished set toward `keep` newest jobs.
  *
- * BullMQ's removeOnComplete only runs when a job finishes. After a Redis /
- * client bump, or when older jobs were stored with removeOnComplete:false,
- * call this so already-piled jobs are cleared immediately.
+ * Removes at most `INFRA_TRIM_BATCH_SIZE` jobs per call so a multi-week tick
+ * backlog cannot load every hash into memory. Callers (startup + crons) will
+ * catch up over subsequent passes.
  */
 export async function trimQueueJobSet(
   queue: Queue,
   status: 'completed' | 'failed',
-  keep: number
+  keep: number,
+  options: { batchSize?: number } = {}
 ): Promise<number> {
   if (!Number.isInteger(keep) || keep < 0) {
     throw new Error(`keep must be an integer >= 0, got ${keep}`)
   }
 
+  const batchSize = options.batchSize ?? INFRA_TRIM_BATCH_SIZE
   const counts = await queue.getJobCounts(status)
   const total = counts[status] ?? 0
   const excess = total - keep
   if (excess <= 0) return 0
 
+  const toRemove = Math.min(excess, batchSize)
   // asc:true → oldest first for scored sets (completed/failed).
-  const oldest = await queue.getJobs([status], 0, excess - 1, true)
+  const oldest = await queue.getJobs([status], 0, toRemove - 1, true)
   let removed = 0
   for (const job of oldest) {
     try {

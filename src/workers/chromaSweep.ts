@@ -62,7 +62,26 @@ worker.on('error', (err) => {
 
 const SWEEP_SCHEDULER_ID = 'chroma-sweep'
 
+async function trimExcessSweeps() {
+  try {
+    const trimmed = await trimInfraQueueRetention(queue, {
+      keepCompleted: CHROMA_SWEEP_KEEP_COMPLETED,
+      keepFailed: CHROMA_SWEEP_KEEP_FAILED,
+    })
+    if (trimmed.completedRemoved > 0 || trimmed.failedRemoved > 0) {
+      console.log(
+        `[chromaSweep] trimmed excess sweeps completed=${trimmed.completedRemoved} failed=${trimmed.failedRemoved}`
+      )
+    }
+  } catch (err) {
+    console.error('[chromaSweep] failed to trim excess sweeps:', err)
+  }
+}
+
 async function ensureRepeatableSweep() {
+  // Always trim leftover sweep jobs, even when the sweep itself is disabled.
+  await trimExcessSweeps()
+
   try {
     const purged = await purgeLegacyBullmqRepeatables(CHROMA_SWEEP_QUEUE)
     if (purged > 0) {
@@ -90,16 +109,6 @@ async function ensureRepeatableSweep() {
         opts: { ...SWEEP_JOB_RETENTION },
       }
     )
-
-    const trimmed = await trimInfraQueueRetention(queue, {
-      keepCompleted: CHROMA_SWEEP_KEEP_COMPLETED,
-      keepFailed: CHROMA_SWEEP_KEEP_FAILED,
-    })
-    if (trimmed.completedRemoved > 0 || trimmed.failedRemoved > 0) {
-      console.log(
-        `[chromaSweep] trimmed excess sweeps completed=${trimmed.completedRemoved} failed=${trimmed.failedRemoved}`
-      )
-    }
 
     console.log(
       `[chromaSweep] job scheduler every ${REPEAT_EVERY_MS}ms registered (ttl ${chromaConfig.ttlHours}h)`

@@ -43,8 +43,8 @@ const worker = new Worker(
     lockDuration: 2 * 60 * 1000,
     stalledInterval: 30_000,
     maxStalledCount: 1,
-    // Docs-recommended place for auto-removal. Job/scheduler opts also set
-    // this; worker-level covers jobs whose stored opts lost removeOnComplete.
+    // Worker-level fallback when job opts omit removeOnComplete. Jobs that
+    // explicitly store removeOnComplete:false still need the startup/cron trim.
     removeOnComplete: PIPELINE_AUTO_RUN_REMOVE_ON_COMPLETE,
     removeOnFail: PIPELINE_AUTO_RUN_REMOVE_ON_FAIL,
   }
@@ -63,7 +63,27 @@ worker.on('error', (err) => {
 
 const TICK_SCHEDULER_ID = 'pipeline-auto-run-tick'
 
+async function trimExcessTicks() {
+  try {
+    const trimmed = await trimInfraQueueRetention(queue, {
+      keepCompleted: PIPELINE_AUTO_RUN_KEEP_COMPLETED,
+      keepFailed: PIPELINE_AUTO_RUN_KEEP_FAILED,
+    })
+    if (trimmed.completedRemoved > 0 || trimmed.failedRemoved > 0) {
+      console.log(
+        `[pipelineAutoRun] trimmed excess ticks completed=${trimmed.completedRemoved} failed=${trimmed.failedRemoved}`
+      )
+    }
+  } catch (err) {
+    console.error('[pipelineAutoRun] failed to trim excess ticks:', err)
+  }
+}
+
 async function ensureRepeatableTick() {
+  // Trim independently of scheduler registration — getJobSchedulers can throw
+  // on leftover legacy members; retention still needs to run.
+  await trimExcessTicks()
+
   try {
     const purged = await purgeLegacyBullmqRepeatables(PIPELINE_AUTO_RUN_QUEUE)
     if (purged > 0) {
@@ -87,16 +107,6 @@ async function ensureRepeatableTick() {
         opts: { ...TICK_JOB_RETENTION },
       }
     )
-
-    const trimmed = await trimInfraQueueRetention(queue, {
-      keepCompleted: PIPELINE_AUTO_RUN_KEEP_COMPLETED,
-      keepFailed: PIPELINE_AUTO_RUN_KEEP_FAILED,
-    })
-    if (trimmed.completedRemoved > 0 || trimmed.failedRemoved > 0) {
-      console.log(
-        `[pipelineAutoRun] trimmed excess ticks completed=${trimmed.completedRemoved} failed=${trimmed.failedRemoved}`
-      )
-    }
 
     console.log(
       `[pipelineAutoRun] job scheduler tick every ${REPEAT_EVERY_MS}ms registered`

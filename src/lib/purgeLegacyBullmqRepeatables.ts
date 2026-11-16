@@ -3,10 +3,17 @@ import redisConfig from '../config/redis'
 import { hasLegacyRepeatableKeyShape } from './bullmqLegacyRepeatableKey'
 
 /**
- * BullMQ 6 throws from `getJobSchedulers()` when pre-v6 `bull:<queue>:repeat:*`
- * metadata is still in Redis. Delete only legacy-shaped keys before registering
- * Job Schedulers — never wipe v6 scheduler hashes (`repeat:<schedulerId>`),
- * which share the same key prefix.
+ * BullMQ 6 throws from `getJobSchedulers()` when pre-v6 repeatable job
+ * *members* remain in the `bull:<queue>:repeat` sorted set.
+ *
+ * Cleanup:
+ * 1. Scan ZSET members; remove legacy-shaped entries and their metadata hashes
+ *    (hashes without the v6-only `ic` field).
+ * 2. Delete any leftover legacy hash keys under `bull:<queue>:repeat:*` that
+ *    match the legacy shape (belt-and-braces for orphaned hashes).
+ *
+ * Never delete v6 Job Scheduler hashes (`ic` present) or delayed job keys
+ * (`<schedulerId>:<millis>`).
  */
 export async function purgeLegacyBullmqRepeatables(
   queueName: string
@@ -17,32 +24,47 @@ export async function purgeLegacyBullmqRepeatables(
     password: redisConfig.password,
     maxRetriesPerRequest: 1,
     lazyConnect: true,
-    // ioredis 6 defaults to RESP3; keep RESP2 for Redis/BullMQ Lua compatibility.
     protocol: 2,
   })
   try {
     await client.connect()
-    const prefix = `bull:${queueName}:repeat:`
-    const pattern = `${prefix}*`
+    const repeatZset = `bull:${queueName}:repeat`
+    const prefix = `${repeatZset}:`
     let deleted = 0
+
+    const members = await client.zrange(repeatZset, 0, -1)
+    for (const member of members) {
+      if (!hasLegacyRepeatableKeyShape(member)) continue
+      const hashKey = `${prefix}${member}`
+      // v6 schedulers always write `ic` (iteration count). Legacy repeatables do not.
+      const isV6Scheduler = (await client.hexists(hashKey, 'ic')) === 1
+      if (isV6Scheduler) continue
+      deleted += await client.zrem(repeatZset, member)
+      deleted += await client.del(hashKey)
+    }
+
     let cursor = '0'
     do {
       const [next, keys] = await client.scan(
         cursor,
         'MATCH',
-        pattern,
+        `${prefix}*`,
         'COUNT',
         100
       )
       cursor = next
-      const legacyKeys = keys.filter((key) => {
+      const legacyKeys: string[] = []
+      for (const key of keys) {
         const suffix = key.startsWith(prefix) ? key.slice(prefix.length) : key
-        return hasLegacyRepeatableKeyShape(suffix)
-      })
+        if (!hasLegacyRepeatableKeyShape(suffix)) continue
+        if ((await client.hexists(key, 'ic')) === 1) continue
+        legacyKeys.push(key)
+      }
       if (legacyKeys.length > 0) {
         deleted += await client.del(...legacyKeys)
       }
     } while (cursor !== '0')
+
     return deleted
   } finally {
     client.disconnect()
