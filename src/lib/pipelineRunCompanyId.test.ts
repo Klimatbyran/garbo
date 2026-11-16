@@ -15,19 +15,32 @@ const prismaMock = {
   },
 }
 
+const getJobsMock = jest.fn<() => Promise<unknown[]>>()
+const closeMock = jest.fn<() => Promise<void>>()
+const getSharedQueueMock = jest.fn(() => ({
+  getJobs: getJobsMock,
+  close: closeMock,
+}))
+
 jest.unstable_mockModule('./prisma', () => ({
   prisma: prismaMock,
+}))
+
+jest.unstable_mockModule('./getSharedQueue', () => ({
+  getSharedQueue: getSharedQueueMock,
 }))
 
 let getCanonicalCompanyIdForThread: typeof import('./pipelineRunCompanyId').getCanonicalCompanyIdForThread
 let syncCanonicalReportRunCompanyId: typeof import('./pipelineRunCompanyId').syncCanonicalReportRunCompanyId
 let wikidataNodeFromConfirmedGuessJob: typeof import('./pipelineRunCompanyId').wikidataNodeFromConfirmedGuessJob
+let isCompanyLinkResolutionPendingForThread: typeof import('./pipelineRunCompanyId').isCompanyLinkResolutionPendingForThread
 
 beforeAll(async () => {
   ;({
     getCanonicalCompanyIdForThread,
     syncCanonicalReportRunCompanyId,
     wikidataNodeFromConfirmedGuessJob,
+    isCompanyLinkResolutionPendingForThread,
   } = await import('./pipelineRunCompanyId'))
 })
 
@@ -134,5 +147,47 @@ describe('pipelineRunCompanyId', () => {
         }
       )
     ).toBe('Q123')
+  })
+
+  it('treats delayed companyLink guessWikidata jobs as pending without closing the shared queue', async () => {
+    const getState = jest.fn(async () => 'delayed')
+    getJobsMock.mockResolvedValue([
+      {
+        data: {
+          threadId: 'thread-1',
+          approval: { type: 'companyLink', approved: false },
+        },
+        getState,
+      },
+      {
+        data: { threadId: 'other-thread' },
+        getState: jest.fn(async () => 'delayed'),
+      },
+    ])
+
+    await expect(
+      isCompanyLinkResolutionPendingForThread('thread-1')
+    ).resolves.toBe(true)
+
+    expect(getSharedQueueMock).toHaveBeenCalledWith('guessWikidata')
+    expect(getState).toHaveBeenCalledTimes(1)
+    expect(closeMock).not.toHaveBeenCalled()
+  })
+
+  it('ignores terminal companyLink guessWikidata jobs', async () => {
+    getJobsMock.mockResolvedValue([
+      {
+        data: {
+          threadId: 'thread-1',
+          approval: { type: 'companyLink', approved: false },
+        },
+        getState: jest.fn(async () => 'completed'),
+      },
+    ])
+
+    await expect(
+      isCompanyLinkResolutionPendingForThread('thread-1')
+    ).resolves.toBe(false)
+    expect(closeMock).not.toHaveBeenCalled()
   })
 })
