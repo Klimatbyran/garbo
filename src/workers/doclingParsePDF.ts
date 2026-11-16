@@ -925,6 +925,19 @@ async function pollTaskAndGetResult(
             // catching the right pictures. Only present once the server
             // ships it.
             has_text?: boolean
+            // Unix timestamp (seconds) of when this description was
+            // actually generated -- for a cache hit, that's the ORIGINAL
+            // VLM call, possibly from a much earlier rerun, not now. Lets
+            // a reviewer tell "freshly re-checked" apart from "served
+            // from a weeks-old cache entry." Only present once the server
+            // ships it.
+            described_at?: number | null
+            // Set only when has_text was true AND a VLM call was actually
+            // attempted and failed -- distinguishes a real failure from
+            // "no VLM call was needed" (has_text false), both of which
+            // otherwise look identical (description null). Only present
+            // once the server ships it.
+            vlm_error?: string | null
           }[]
         }
       | undefined
@@ -1020,10 +1033,16 @@ async function pollTaskAndGetResult(
             // otherwise identical link) instead of treating it as a new
             // document.
             sha256: job.data.pdfCache?.sha256,
-            // Only the QA-relevant fields — tokens/cache-hit bookkeeping
-            // stays in this job's own returnvalue, not the receiver's DB.
-            // thumbnail is already a base64 JPEG string with no data-URI
-            // prefix, same shape the receiver should persist as-is.
+            // Raw token counts and from_cache still stay out of this payload
+            // (cost bookkeeping only this job's own returnvalue needs) --
+            // but describedAt/vlmError DO cross over despite being added
+            // later than this comment's original "QA-relevant only" cutoff:
+            // a reviewer looking at the receiver's persisted gallery, not
+            // this job's live log, is exactly who needs to tell "fresh
+            // VLM read" apart from "stale cached read" or "silently fell
+            // back to OCR because the VLM call failed." thumbnail is
+            // already a base64 JPEG string with no data-URI prefix, same
+            // shape the receiver should persist as-is.
             ...(imageRecovery?.pictures?.length
               ? {
                   images: imageRecovery.pictures.map((p) => ({
@@ -1033,6 +1052,8 @@ async function pollTaskAndGetResult(
                     ocrText: p.ocr_text,
                     thumbnail: p.thumbnail,
                     hasText: p.has_text ?? true,
+                    describedAt: p.described_at ?? null,
+                    vlmError: p.vlm_error ?? null,
                   })),
                 }
               : {}),
