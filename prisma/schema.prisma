@@ -1318,3 +1318,41 @@ model ModelEvalTestsetUpload {
   @@id([uploadId, name])
   @@map("model_eval_testset_uploads")
 }
+
+/// Model evaluation (Goffer): a model a colleague added to the model library through OpenRouter.
+model ModelEvalLibraryModel {
+  /// The OpenRouter id.
+  modelId     String   @id @map("model_id")
+  /// llm or embedding.
+  kind        String
+  /// The saved endpoint of an LLM, or the provider an embedding model is locked to. Null for an LLM means the first endpoint OpenRouter lists.
+  endpointTag String?  @map("endpoint_tag")
+  createdById String   @map("created_by_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("model_eval_library_models")
+}
+
+/// Model evaluation (Goffer): a suggested model the team marked as not for us.
+model ModelEvalDeclinedModel {
+  /// The OpenRouter id.
+  modelId     String   @id @map("model_id")
+  reason      String?
+  createdById String   @map("created_by_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@map("model_eval_declined_models")
+}
+
+/// Model evaluation (Goffer): the model ids the suggestions held when a colleague marked them as reviewed.
+model ModelEvalLibraryReview {
+  id          String   @id @default(cuid())
+  /// The OpenRouter ids, as a JSON array of strings.
+  modelIds    Json     @map("model_ids")
+  createdById String   @map("created_by_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@index([createdAt])
+  @@map("model_eval_library_reviews")
+}
