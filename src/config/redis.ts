@@ -36,6 +36,8 @@ export default {
   password: env.REDIS_PASSWORD,
   // Required for BullMQ: queue commands instead of failing immediately on disconnect
   maxRetriesPerRequest: null,
+  // ioredis 6 defaults to RESP3; pin RESP2 for BullMQ Lua script compatibility.
+  protocol: 2 as const,
   // Reconnect with exponential backoff (caps at 30s) instead of crashing
   retryStrategy(times: number) {
     return Math.min(times * 1000, 30000)

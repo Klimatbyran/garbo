@@ -3,6 +3,14 @@ import redis from '../config/redis'
 import chromaConfig from '../config/chromadb'
 import { vectorDB } from '../lib/vectordb'
 import { getSharedQueue } from '../lib/getSharedQueue'
+import {
+  CHROMA_SWEEP_JOB_RETENTION,
+  CHROMA_SWEEP_KEEP_COMPLETED,
+  CHROMA_SWEEP_KEEP_FAILED,
+  CHROMA_SWEEP_REMOVE_ON_COMPLETE,
+  CHROMA_SWEEP_REMOVE_ON_FAIL,
+  trimInfraQueueRetention,
+} from '../lib/infraQueueRetention'
 import { purgeLegacyBullmqRepeatables } from '../lib/purgeLegacyBullmqRepeatables'
 import { CHROMA_SWEEP_QUEUE } from '../queueNames'
 
@@ -15,10 +23,7 @@ const TICK_NAME = 'sweep'
 
 // Not withPipelineJobOpts(): that keeps completed jobs forever (pipeline-api
 // prunes by run, and sweeps belong to no run), so cap them here.
-const SWEEP_JOB_RETENTION = {
-  removeOnComplete: { count: 24 },
-  removeOnFail: { count: 50 },
-}
+const SWEEP_JOB_RETENTION = CHROMA_SWEEP_JOB_RETENTION
 
 const queue = getSharedQueue(CHROMA_SWEEP_QUEUE, SWEEP_JOB_RETENTION)
 
@@ -35,7 +40,13 @@ const worker = new Worker(
     job.log('Chroma sweep done')
     return { ttlHours }
   },
-  { connection: redis, concurrency: 1, lockDuration: 10 * 60 * 1000 }
+  {
+    connection: redis,
+    concurrency: 1,
+    lockDuration: 10 * 60 * 1000,
+    removeOnComplete: CHROMA_SWEEP_REMOVE_ON_COMPLETE,
+    removeOnFail: CHROMA_SWEEP_REMOVE_ON_FAIL,
+  }
 )
 
 worker.on('failed', (job, err) => {
@@ -51,7 +62,26 @@ worker.on('error', (err) => {
 
 const SWEEP_SCHEDULER_ID = 'chroma-sweep'
 
+async function trimExcessSweeps() {
+  try {
+    const trimmed = await trimInfraQueueRetention(queue, {
+      keepCompleted: CHROMA_SWEEP_KEEP_COMPLETED,
+      keepFailed: CHROMA_SWEEP_KEEP_FAILED,
+    })
+    if (trimmed.completedRemoved > 0 || trimmed.failedRemoved > 0) {
+      console.log(
+        `[chromaSweep] trimmed excess sweeps completed=${trimmed.completedRemoved} failed=${trimmed.failedRemoved}`
+      )
+    }
+  } catch (err) {
+    console.error('[chromaSweep] failed to trim excess sweeps:', err)
+  }
+}
+
 async function ensureRepeatableSweep() {
+  // Always trim leftover sweep jobs, even when the sweep itself is disabled.
+  await trimExcessSweeps()
+
   try {
     const purged = await purgeLegacyBullmqRepeatables(CHROMA_SWEEP_QUEUE)
     if (purged > 0) {
@@ -79,6 +109,7 @@ async function ensureRepeatableSweep() {
         opts: { ...SWEEP_JOB_RETENTION },
       }
     )
+
     console.log(
       `[chromaSweep] job scheduler every ${REPEAT_EVERY_MS}ms registered (ttl ${chromaConfig.ttlHours}h)`
     )

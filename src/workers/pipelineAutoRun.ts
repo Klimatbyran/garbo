@@ -2,6 +2,14 @@ import { Worker } from 'bullmq'
 import redis from '../config/redis'
 import { runPipelineAutoRunTick } from '../api/services/pipelineAutoRunService'
 import { getSharedQueue } from '../lib/getSharedQueue'
+import {
+  PIPELINE_AUTO_RUN_JOB_RETENTION,
+  PIPELINE_AUTO_RUN_KEEP_COMPLETED,
+  PIPELINE_AUTO_RUN_KEEP_FAILED,
+  PIPELINE_AUTO_RUN_REMOVE_ON_COMPLETE,
+  PIPELINE_AUTO_RUN_REMOVE_ON_FAIL,
+  trimInfraQueueRetention,
+} from '../lib/infraQueueRetention'
 import { purgeLegacyBullmqRepeatables } from '../lib/purgeLegacyBullmqRepeatables'
 import { PIPELINE_AUTO_RUN_QUEUE } from '../queueNames'
 
@@ -11,10 +19,7 @@ const REPEAT_EVERY_MS = 60_000
 // Not withPipelineJobOpts(): that keeps completed jobs forever (pipeline-api
 // prunes by run, and ticks belong to no run), so a tick a minute would pile up
 // in Redis, which runs with maxmemory + noeviction.
-const TICK_JOB_RETENTION = {
-  removeOnComplete: { count: 20 },
-  removeOnFail: { count: 50 },
-}
+const TICK_JOB_RETENTION = PIPELINE_AUTO_RUN_JOB_RETENTION
 
 const queue = getSharedQueue(PIPELINE_AUTO_RUN_QUEUE, TICK_JOB_RETENTION)
 
@@ -38,6 +43,10 @@ const worker = new Worker(
     lockDuration: 2 * 60 * 1000,
     stalledInterval: 30_000,
     maxStalledCount: 1,
+    // Worker-level fallback when job opts omit removeOnComplete. Jobs that
+    // explicitly store removeOnComplete:false still need the startup/cron trim.
+    removeOnComplete: PIPELINE_AUTO_RUN_REMOVE_ON_COMPLETE,
+    removeOnFail: PIPELINE_AUTO_RUN_REMOVE_ON_FAIL,
   }
 )
 
@@ -54,7 +63,27 @@ worker.on('error', (err) => {
 
 const TICK_SCHEDULER_ID = 'pipeline-auto-run-tick'
 
+async function trimExcessTicks() {
+  try {
+    const trimmed = await trimInfraQueueRetention(queue, {
+      keepCompleted: PIPELINE_AUTO_RUN_KEEP_COMPLETED,
+      keepFailed: PIPELINE_AUTO_RUN_KEEP_FAILED,
+    })
+    if (trimmed.completedRemoved > 0 || trimmed.failedRemoved > 0) {
+      console.log(
+        `[pipelineAutoRun] trimmed excess ticks completed=${trimmed.completedRemoved} failed=${trimmed.failedRemoved}`
+      )
+    }
+  } catch (err) {
+    console.error('[pipelineAutoRun] failed to trim excess ticks:', err)
+  }
+}
+
 async function ensureRepeatableTick() {
+  // Trim independently of scheduler registration — getJobSchedulers can throw
+  // on leftover legacy members; retention still needs to run.
+  await trimExcessTicks()
+
   try {
     const purged = await purgeLegacyBullmqRepeatables(PIPELINE_AUTO_RUN_QUEUE)
     if (purged > 0) {
@@ -78,6 +107,7 @@ async function ensureRepeatableTick() {
         opts: { ...TICK_JOB_RETENTION },
       }
     )
+
     console.log(
       `[pipelineAutoRun] job scheduler tick every ${REPEAT_EVERY_MS}ms registered`
     )
