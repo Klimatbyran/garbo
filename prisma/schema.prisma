@@ -1102,18 +1102,23 @@ model CoverageCrawlState {
   lastCrawlOutcome      CoverageCrawlOutcome?  @map("last_crawl_outcome")
   lastCrawlReportsSaved Int                    @default(0) @map("last_crawl_reports_saved")
   crawlSkipUntil        DateTime?              @map("crawl_skip_until")
+  /// Seasonal year-hunt cooldown (independent of sparse crawlSkipUntil).
+  lastSeasonalCrawledAt DateTime?              @map("last_seasonal_crawled_at")
+  seasonalSkipUntil     DateTime?              @map("seasonal_skip_until")
   needsManualFind       Boolean                @default(false) @map("needs_manual_find")
   createdAt             DateTime               @default(now()) @map("created_at")
   updatedAt             DateTime               @updatedAt @map("updated_at")
 
   @@index([needsManualFind])
   @@index([crawlSkipUntil])
+  @@index([seasonalSkipUntil])
   @@map("coverage_crawl_states")
 }
 
 enum CoverageNightlyJobKind {
   crawl
   rematch
+  seasonal_crawl
 }
 
 enum CoverageNightlyJobStatus {
@@ -1122,8 +1127,9 @@ enum CoverageNightlyJobStatus {
   failed
 }
 
-/// One row per overnight coverage crawl or rematch CronJob execution.
-/// Summary JSON matches CoverageNightlyCrawlSummary / CoverageNightlyRematchSummary.
+/// One row per overnight coverage crawl, seasonal crawl, or rematch CronJob execution.
+/// Summary JSON matches CoverageNightlyCrawlSummary / CoverageSeasonalCrawlSummary /
+/// CoverageNightlyRematchSummary.
 model CoverageNightlyJobRun {
   id           String                   @id @default(cuid())
   kind         CoverageNightlyJobKind
