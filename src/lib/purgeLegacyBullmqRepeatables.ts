@@ -32,7 +32,9 @@ export async function purgeLegacyBullmqRepeatables(
     const prefix = `${repeatZset}:`
     let deleted = 0
 
-    const members = await client.zrange(repeatZset, 0, -1)
+    // ioredis 6 typings type `stop` as string|Buffer (not number) on the
+    // basic ZRANGE overload — Redis accepts either form.
+    const members = await client.zrange(repeatZset, 0, '-1')
     for (const member of members) {
       if (!hasLegacyRepeatableKeyShape(member)) continue
       const hashKey = `${prefix}${member}`
