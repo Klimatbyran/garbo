@@ -1,72 +1,78 @@
-import { Queue, Worker } from 'bullmq'
-import IORedis from 'ioredis'
-import {
-  PIPELINE_AUTO_RUN_KEEP_COMPLETED,
-  trimInfraQueueRetention,
-  trimQueueJobSet,
-} from './infraQueueRetention'
+import type { Queue } from 'bullmq'
+import { trimInfraQueueRetention, trimQueueJobSet } from './infraQueueRetention'
 
-const REDIS_URL = {
-  host: process.env.REDIS_HOST || '127.0.0.1',
-  port: Number(process.env.REDIS_PORT || 6379),
-  maxRetriesPerRequest: null as null,
-  protocol: 2 as const,
+function fakeJob(id: string) {
+  return {
+    id,
+    remove: jest.fn().mockResolvedValue(undefined),
+  }
 }
 
 describe('infraQueueRetention', () => {
-  let connection: IORedis
-  let queue: Queue
-  let worker: Worker
-
-  beforeAll(() => {
-    connection = new IORedis(REDIS_URL)
-  })
-
-  afterAll(async () => {
-    await connection.quit()
-  })
-
-  beforeEach(async () => {
-    const name = `test-infra-retention-${Date.now()}`
-    queue = new Queue(name, {
-      connection,
-      defaultJobOptions: { removeOnComplete: false },
-    })
-    worker = new Worker(name, async () => ({ ok: true }), {
-      connection,
-      concurrency: 1,
-    })
-  })
-
-  afterEach(async () => {
-    await worker.close()
-    await queue.obliterate({ force: true })
-    await queue.close()
-  })
-
-  it('trimQueueJobSet keeps only the newest N completed jobs', async () => {
-    for (let i = 0; i < 12; i++) {
-      await queue.add('tick', { i })
-    }
-    await new Promise((r) => setTimeout(r, 1500))
-    expect(await queue.getCompletedCount()).toBe(12)
+  it('trimQueueJobSet removes oldest excess completed jobs', async () => {
+    const oldest = Array.from({ length: 7 }, (_, i) => fakeJob(String(i + 1)))
+    const queue = {
+      getJobCounts: jest.fn().mockResolvedValue({ completed: 12 }),
+      getJobs: jest.fn().mockResolvedValue(oldest),
+    } as unknown as Queue
 
     const removed = await trimQueueJobSet(queue, 'completed', 5)
     expect(removed).toBe(7)
-    expect(await queue.getCompletedCount()).toBe(5)
-  }, 15_000)
-
-  it('trimInfraQueueRetention caps completed and failed', async () => {
-    for (let i = 0; i < 8; i++) {
-      await queue.add('tick', { i })
+    expect(queue.getJobs).toHaveBeenCalledWith(['completed'], 0, 6, true)
+    for (const job of oldest) {
+      expect(job.remove).toHaveBeenCalledTimes(1)
     }
-    await new Promise((r) => setTimeout(r, 1200))
+  })
+
+  it('trimQueueJobSet is a no-op when already at/under keep', async () => {
+    const queue = {
+      getJobCounts: jest.fn().mockResolvedValue({ completed: 3 }),
+      getJobs: jest.fn(),
+    } as unknown as Queue
+
+    const removed = await trimQueueJobSet(queue, 'completed', 5)
+    expect(removed).toBe(0)
+    expect(queue.getJobs).not.toHaveBeenCalled()
+  })
+
+  it('trimQueueJobSet skips jobs that fail to remove', async () => {
+    const locked = {
+      id: 'locked',
+      remove: jest.fn().mockRejectedValue(new Error('locked')),
+    }
+    const ok = fakeJob('ok')
+    const queue = {
+      getJobCounts: jest.fn().mockResolvedValue({ failed: 4 }),
+      getJobs: jest.fn().mockResolvedValue([locked, ok]),
+    } as unknown as Queue
+
+    const removed = await trimQueueJobSet(queue, 'failed', 2)
+    expect(removed).toBe(1)
+    expect(locked.remove).toHaveBeenCalled()
+    expect(ok.remove).toHaveBeenCalled()
+  })
+
+  it('trimInfraQueueRetention trims completed then failed', async () => {
+    const oldestCompleted = [fakeJob('c1'), fakeJob('c2')]
+    const oldestFailed = [fakeJob('f1')]
+    const queue = {
+      getJobCounts: jest
+        .fn()
+        .mockResolvedValueOnce({ completed: 5 })
+        .mockResolvedValueOnce({ failed: 4 }),
+      getJobs: jest
+        .fn()
+        .mockResolvedValueOnce(oldestCompleted)
+        .mockResolvedValueOnce(oldestFailed),
+    } as unknown as Queue
 
     const result = await trimInfraQueueRetention(queue, {
       keepCompleted: 3,
-      keepFailed: PIPELINE_AUTO_RUN_KEEP_COMPLETED,
+      keepFailed: 3,
     })
-    expect(result.completedRemoved).toBe(5)
-    expect(await queue.getCompletedCount()).toBe(3)
-  }, 15_000)
+
+    expect(result).toEqual({ completedRemoved: 2, failedRemoved: 1 })
+    expect(queue.getJobs).toHaveBeenNthCalledWith(1, ['completed'], 0, 1, true)
+    expect(queue.getJobs).toHaveBeenNthCalledWith(2, ['failed'], 0, 0, true)
+  })
 })
