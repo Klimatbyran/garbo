@@ -1,6 +1,9 @@
+# Stage queue cutover to Clark: stop consuming shared Redis while Clark stage
+# workers are enabled. Keep Garbo stage API up for rollback.
+# HPA is deleted via worker-hpa-delete.yaml (minReplicas: 1 would fight replicas: 0).
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: worker
 spec:
-  replicas: 2 # We don't need as many workers in staging
+  replicas: 0
