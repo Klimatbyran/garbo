@@ -1,0 +1,6 @@
+# Remove staging HPA so replicas: 0 sticks (CPU/memory HPA cannot use minReplicas: 0).
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: worker-hpa
+$patch: delete
