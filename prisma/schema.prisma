@@ -33,6 +33,9 @@ model Company {
   companyReports   CompanyReport[]
   goals            Goal[]
   initiatives      Initiative[]
+  reportingChanges ReportingChange[] @relation("ReportingChangeSubject")
+  /// Reporting changes where this company appears as the named counterparty (read-only link).
+  counterpartyReportingChanges ReportingChange[] @relation("ReportingChangeCounterparty")
   baseYear         BaseYear?
 
   /// A comment only visible for reviewers to help them work with the company data and remember important info about this company.
@@ -483,6 +486,93 @@ model Initiative {
   @@index([companyId, reportId])
 }
 
+enum ReportingChangeType {
+  ACQUISITION
+  MERGER
+  DIVESTMENT
+  BOUNDARY_CHANGE
+  METHODOLOGY_CHANGE
+  COVERAGE_CHANGE
+  RESTATEMENT
+  ACTIVITY_CHANGE
+  NOT_REPORTED
+  OTHER
+}
+
+/// Values align with review spike/drop metric keys where possible.
+enum EmissionsScopeKey {
+  SCOPE_1
+  SCOPE_2
+  SCOPE_1_AND_2
+  SCOPE_3
+  STATED_TOTAL
+}
+
+enum ReportingChangeImpact {
+  INCREASE
+  DECREASE
+  MIXED
+}
+
+/// Disclosed reporting change that explains how to interpret emissions figures.
+/// Internal/staff only — not on Partner or public company reads.
+/// Exploratory: seeded and edited from Goffer; extraction is Review-triggered only (not main pipeline yet).
+model ReportingChange {
+  id                       String                  @id @default(cuid())
+  companyId                String
+  type                     ReportingChangeType
+  /// English summary written by AI or editor — not a quote
+  description              String
+  /// Year the change took effect (ReportingPeriod.year convention). Null = not stated.
+  effectiveYear            String?
+  /// Years whose figures this change explains. Empty = not stated (NOT "all").
+  affectedYears            String[]                @default([])
+  /// Scopes affected. Empty = not stated (NOT "all").
+  affectedScopes           EmissionsScopeKey[]     @default([])
+  /// GHG Protocol Scope 3 categories 1–15, plus 16 = other. Empty = not stated.
+  affectedScope3Categories Int[]                   @default([])
+  impactDirection          ReportingChangeImpact?
+  /// true/false if the source says prior years were restated; null if not mentioned.
+  priorYearsRestated       Boolean?
+  /// Other party as written in the source (M&A / divestment).
+  counterpartyName         String?
+  /// Soft-resolved Company link; set only on a clear unique match, else null.
+  counterpartyCompanyId    String?
+  /// Registry Report evidence came from. Null = manual / external source only.
+  reportId                 String?
+  /// Free-text / URL provenance when outside (or beside) a processed report.
+  source                   String?
+
+  quotes               ReportingChangeQuote[]
+  metadata             Metadata[]
+  reviewFlagDismissals ReviewFlagDismissal[]
+  company              Company  @relation("ReportingChangeSubject", fields: [companyId], references: [id], onDelete: Cascade)
+  counterpartyCompany  Company? @relation("ReportingChangeCounterparty", fields: [counterpartyCompanyId], references: [id], onDelete: SetNull)
+  report               Report?  @relation(fields: [reportId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+
+  @@index([companyId, effectiveYear])
+  @@index([companyId, reportId])
+  @@index([reportId])
+  @@index([counterpartyCompanyId])
+  @@map("reporting_changes")
+}
+
+/// One verbatim mention supporting a ReportingChange (PDF highlight needle).
+model ReportingChangeQuote {
+  id                String @id @default(cuid())
+  reportingChangeId String
+  /// Verbatim text in the report's original language
+  originalQuote     String
+  sortOrder         Int    @default(0)
+  sourceReference   String?
+  sourcePageUrl     String?
+
+  reportingChange ReportingChange @relation(fields: [reportingChangeId], references: [id], onDelete: Cascade)
+
+  @@index([reportingChangeId])
+  @@map("reporting_change_quotes")
+}
+
 /// Every datapoint has associated metadata about who changed it, when, and using what source
 model Metadata {
   id               String   @id @default(cuid())
@@ -522,9 +612,11 @@ model Metadata {
   employeesId            String?
   descriptionId          String?
   companyIdentifierId    String?
+  reportingChangeId      String?
 
   goal                 Goal?                 @relation(fields: [goalId], references: [id])
   initiative           Initiative?           @relation(fields: [initiativeId], references: [id])
+  reportingChange      ReportingChange?      @relation(fields: [reportingChangeId], references: [id], onDelete: Cascade)
   scope1               Scope1?               @relation(fields: [scope1Id], references: [id])
   scope2               Scope2?               @relation(fields: [scope2Id], references: [id])
   scope3               Scope3?               @relation(fields: [scope3Id], references: [id])
@@ -653,14 +745,20 @@ model ReviewFlagDismissal {
   /// Hash/string of the evidence that triggered the flag; new evidence reopens the issue.
   evidenceFingerprint String
   note                String?
+  /// Why the reviewer dismissed — e.g. EXPLAINED_BY_EVENT, PIPELINE_OR_EXTRACTION_ERROR.
+  reasonCode          String?
+  /// Optional reporting change cited as the explanation (ReportingChanges exploratory feature).
+  reportingChangeId   String?
   userId              String
   createdAt           DateTime @default(now())
 
-  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  company         Company          @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  user            User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reportingChange ReportingChange? @relation(fields: [reportingChangeId], references: [id], onDelete: SetNull)
 
   @@unique([companyId, flagKey, evidenceFingerprint])
   @@index([flagKey])
+  @@index([reportingChangeId])
   @@map("review_flag_dismissals")
 }
 
@@ -751,6 +849,7 @@ model Report {
   recoveredImages      RecoveredImage[]
   goals                Goal[]
   initiatives          Initiative[]
+  reportingChanges     ReportingChange[]
 
   @@index([reportTypeId])
   @@index([batchId])
@@ -1102,18 +1201,23 @@ model CoverageCrawlState {
   lastCrawlOutcome      CoverageCrawlOutcome?  @map("last_crawl_outcome")
   lastCrawlReportsSaved Int                    @default(0) @map("last_crawl_reports_saved")
   crawlSkipUntil        DateTime?              @map("crawl_skip_until")
+  /// Seasonal year-hunt cooldown (independent of sparse crawlSkipUntil).
+  lastSeasonalCrawledAt DateTime?              @map("last_seasonal_crawled_at")
+  seasonalSkipUntil     DateTime?              @map("seasonal_skip_until")
   needsManualFind       Boolean                @default(false) @map("needs_manual_find")
   createdAt             DateTime               @default(now()) @map("created_at")
   updatedAt             DateTime               @updatedAt @map("updated_at")
 
   @@index([needsManualFind])
   @@index([crawlSkipUntil])
+  @@index([seasonalSkipUntil])
   @@map("coverage_crawl_states")
 }
 
 enum CoverageNightlyJobKind {
   crawl
   rematch
+  seasonal_crawl
 }
 
 enum CoverageNightlyJobStatus {
@@ -1122,8 +1226,9 @@ enum CoverageNightlyJobStatus {
   failed
 }
 
-/// One row per overnight coverage crawl or rematch CronJob execution.
-/// Summary JSON matches CoverageNightlyCrawlSummary / CoverageNightlyRematchSummary.
+/// One row per overnight coverage crawl, seasonal crawl, or rematch CronJob execution.
+/// Summary JSON matches CoverageNightlyCrawlSummary / CoverageSeasonalCrawlSummary /
+/// CoverageNightlyRematchSummary.
 model CoverageNightlyJobRun {
   id           String                   @id @default(cuid())
   kind         CoverageNightlyJobKind
