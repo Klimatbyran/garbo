@@ -5,8 +5,8 @@ resources:
   - ../../base
 patches:
   - path: ingress-patch.yaml
-  - path: worker-patch.yaml
-  - path: worker-hpa-delete.yaml
+  # Temporary stage revert from Clark: base worker + HPA apply again.
+  # Do not re-add worker-patch / worker-hpa-delete until the next Clark cutover.
 images:
   - name: ghcr.io/klimatbyran/garbo
     newTag: '6.7.2-rc.6' # {"$imagepolicy": "flux-system:garbo-stage:tag"}
