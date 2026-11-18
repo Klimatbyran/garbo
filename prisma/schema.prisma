@@ -1,3 +1,5 @@
+// TODO(Prisma 7): datasource.url moves to prisma.config.ts; runtime needs a driver adapter
+// (e.g. @prisma/adapter-pg). See https://www.prisma.io/docs/guides/upgrade-prisma-orm/v7
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
