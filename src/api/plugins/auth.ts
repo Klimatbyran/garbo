@@ -8,8 +8,9 @@ declare module 'fastify' {
     user: User | null
   }
 
-  export interface AuthenticatedFastifyRequest<T extends RouteGenericInterface>
-    extends FastifyRequest<T> {
+  export interface AuthenticatedFastifyRequest<
+    T extends RouteGenericInterface,
+  > extends FastifyRequest<T> {
     user: User
   }
 }

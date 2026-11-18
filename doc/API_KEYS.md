@@ -221,7 +221,7 @@ cd garbo && npm test
 | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Rate limit**            | In-memory `**Map`\*\* per process — not shared across replicas; reset on restart. Move to Redis or edge if you need global limits.                       |
 | **DB lookup per request** | Loads key + role + permissions each time — fine for v1; could cache by `**keyLookup`\*\* with TTL + invalidation on revoke.                              |
-| **Staff role management** | No HTTP API yet to create/edit **roles** or **role ↔ permission** without seed/SQL — only keys + revoke + read catalog.                                 |
+| **Staff role management** | No HTTP API yet to create/edit **roles** or **role ↔ permission** without seed/SQL — only keys + revoke + read catalog.                                  |
 | **Key rotation**          | Today: revoke + create new; optional “rotate secret” endpoint could re-hash in one step.                                                                 |
 | **Audit trail**           | Create/revoke logs include `**createdByUserId`** / `**revokedByUserId\*\*` in app logs; no dedicated audit table yet.                                    |
 | **All-access vs base**    | Base role scope is a **hard-coded list** (`BASE_PERMISSION_CODES`) in `**seedClientApi.ts`\*\* — change there when base should access new client routes. |

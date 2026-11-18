@@ -5,10 +5,7 @@ export const WIKIDATA_SEARCH_TOP_N = 10
 export type SearchHitStatus = 'top' | 'low' | 'empty'
 
 export type GapRecoveryStatus =
-  | 'still_empty'
-  | 'now_top'
-  | 'now_low'
-  | 'still_missing'
+  'still_empty' | 'now_top' | 'now_low' | 'still_missing'
 
 export function classifySearchHit(
   results: SearchResult[],

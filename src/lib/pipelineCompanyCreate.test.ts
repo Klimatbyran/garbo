@@ -23,9 +23,8 @@ jest.unstable_mockModule('./pipelineCompanyAdvisoryLock', () => ({
 let findOrCreatePipelineCompanyLocked: typeof import('./pipelineCompanyCreate').findOrCreatePipelineCompanyLocked
 
 beforeAll(async () => {
-  ;({ findOrCreatePipelineCompanyLocked } = await import(
-    './pipelineCompanyCreate'
-  ))
+  ;({ findOrCreatePipelineCompanyLocked } =
+    await import('./pipelineCompanyCreate'))
 })
 
 describe('findOrCreatePipelineCompanyLocked', () => {

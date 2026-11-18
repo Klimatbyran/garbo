@@ -79,8 +79,7 @@ async function main() {
 
   const minGroupSize = Math.max(2, Number(values['min-group-size']) || 2)
   const reasonFilter = values.reason?.trim() as
-    | DuplicateDetectionReason
-    | undefined
+    DuplicateDetectionReason | undefined
   if (reasonFilter && !REASONS.includes(reasonFilter)) {
     throw new Error(
       `Invalid --reason=${reasonFilter}. Use one of: ${REASONS.join(', ')}`

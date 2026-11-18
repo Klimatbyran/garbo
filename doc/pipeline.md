@@ -462,7 +462,7 @@ The input data contains the three standard properties as well as the property `c
 
 ```typescript
 {
-  scope1,
+  ;(scope1,
     scope2,
     scope12,
     scope3,
@@ -474,7 +474,7 @@ The input data contains the three standard properties as well as the property `c
     initiatives,
     tags,
     lei,
-    descriptions
+    descriptions)
 }
 ```
 
@@ -574,7 +574,7 @@ Except for the properties identical to the job's input properties the properties
 
 ```typescript
 {
-  body, diff, requiresApproval
+  ;(body, diff, requiresApproval)
 }
 ```
 
@@ -633,7 +633,7 @@ Except for the properties identical to the job's input properties the properties
 
 ```typescript
 {
-  body, diff, requiresApproval
+  ;(body, diff, requiresApproval)
 }
 ```
 
@@ -705,7 +705,7 @@ Except for the properties identical to the job's input properties the properties
 
 ```typescript
 {
-  body, diff, requiresApproval
+  ;(body, diff, requiresApproval)
 }
 ```
 
@@ -764,7 +764,7 @@ Except for the properties identical to the job's input properties the properties
 
 ```typescript
 {
-  body, diff, requiresApproval
+  ;(body, diff, requiresApproval)
 }
 ```
 
@@ -828,7 +828,7 @@ Except for the properties identical to the job's input properties the properties
 
 ```typescript
 {
-  body, diff, requiresApproval
+  ;(body, diff, requiresApproval)
 }
 ```
 

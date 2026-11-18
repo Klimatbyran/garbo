@@ -1,8 +1,7 @@
 import { normalizeLei } from './normalizeLei'
 
 export type LeiWriteDecision =
-  | { action: 'write'; reason: string }
-  | { action: 'skip'; reason: string }
+  { action: 'write'; reason: string } | { action: 'skip'; reason: string }
 
 /**
  * Decide whether to write an LEI onto a company during pipeline diffLEI.

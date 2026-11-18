@@ -1,10 +1,7 @@
 import type { NamedWikidataCase } from './wikidata-search-helpers'
 
 export type WikidataSearchGapBucket =
-  | 'special'
-  | 'empty'
-  | 'impossible'
-  | 'wrongWinner'
+  'special' | 'empty' | 'impossible' | 'wrongWinner'
 
 export type WikidataSearchGapCases = Readonly<{
   specialCases?: ReadonlyArray<NamedWikidataCase>

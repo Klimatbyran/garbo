@@ -10,9 +10,8 @@ jest.unstable_mockModule('../src/lib/prisma', () => ({
   prisma: prismaMock,
 }))
 
-const { getOrCreateServiceBotUser, GARBO_SERVICE_CLIENT_ID } = await import(
-  '../src/api/services/serviceBotUser'
-)
+const { getOrCreateServiceBotUser, GARBO_SERVICE_CLIENT_ID } =
+  await import('../src/api/services/serviceBotUser')
 
 describe('serviceBotUser', () => {
   beforeEach(() => {
