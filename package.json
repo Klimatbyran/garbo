@@ -58,7 +58,7 @@
     "@fastify/static": "^10.1.3",
     "@fastify/swagger": "^9.9.4",
     "@mendable/firecrawl-js": "^4.54.0",
-    "@prisma/client": "^5.22.0",
+    "@prisma/client": "^7.10.1",
     "@scalar/fastify-api-reference": "^1.78.1",
     "@types/node": "^26.6.6",
     "axios": "^1.16.1",
@@ -79,8 +79,8 @@
     "openapi-types": "^12.1.3",
     "pdf-to-img": "^7.0.1",
     "pino-http": "^11.0.0",
-    "prisma": "^5.22.0",
-    "prisma-zod-generator": "^0.8.13",
+    "prisma": "^7.10.1",
+    "prisma-zod-generator": "^3.3.1",
     "redis": "^6.3.1",
     "sharp": "^0.35.4",
     "tldts": "^7.5.2",
@@ -115,7 +115,7 @@
     "@tootallnate/once": ">=3.0.1",
     "@fastify/static": "^10.1.3",
     "prisma-zod-generator": {
-      "@prisma/client": "5.22.0"
+      "@prisma/client": "7.10.1"
     },
     "uuid": "^11.1.1",
     "zod": "4.6.7",
