@@ -21,12 +21,7 @@ type PipelineCompanyRef = {
 }
 
 export type CompanyResolutionMethod =
-  | 'job_data'
-  | 'wikidata'
-  | 'lei'
-  | 'exact_name'
-  | 'approved_link'
-  | 'created'
+  'job_data' | 'wikidata' | 'lei' | 'exact_name' | 'approved_link' | 'created'
 
 export type CompanyResolution = {
   companyId: string

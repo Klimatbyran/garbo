@@ -2,10 +2,7 @@ import { QUEUE_NAMES } from '../queues'
 import { DiffJob, DiffWorker } from '../lib/DiffWorker'
 
 type FragmentedValuesReporting =
-  | 'NONE'
-  | 'PARTS_WITH_TOTAL'
-  | 'PARTS_ONLY_NO_TOTAL'
-  | null
+  'NONE' | 'PARTS_WITH_TOTAL' | 'PARTS_ONLY_NO_TOTAL' | null
 
 type Scope3CategoryFragmentation = {
   category: number
@@ -20,11 +17,7 @@ export class DiffReportingQualityJob extends DiffJob {
     companyReportId?: string
     reportingQuality: {
       usesGhgProtocolCategories:
-        | 'FULL'
-        | 'GROUPED'
-        | 'CUSTOM_LABELS'
-        | 'SINGLE_TOTAL'
-        | null
+        'FULL' | 'GROUPED' | 'CUSTOM_LABELS' | 'SINGLE_TOTAL' | null
       categoryLabelsExample: string | null
       methodChanges: { year: number | null; description: string }[]
       missingScopesExplained: boolean | null

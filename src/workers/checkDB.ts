@@ -523,8 +523,7 @@ const checkDB = new PipelineWorker(
             normalizeLei(
               (
                 existingCompany?.identifiers as
-                  | Array<{ type: string; value: string }>
-                  | undefined
+                  Array<{ type: string; value: string }> | undefined
               )?.find((row) => row.type === 'LEI')?.value ?? null
             )
           const leiForGleif = existingLei ? existingLei : (mergedLei ?? null)

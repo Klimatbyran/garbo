@@ -1,8 +1,7 @@
 import companyWikidata from '../../data/klimatkollen-company-wikidata.json'
 
 export type CompanyRegistryEntry =
-  | string
-  | { wikidataId: string; tags?: string[] }
+  string | { wikidataId: string; tags?: string[] }
 
 export const companyRegistry = companyWikidata as Record<
   string,

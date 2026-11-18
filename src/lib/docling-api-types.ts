@@ -656,10 +656,7 @@ export interface components {
      * @enum {string}
      */
     DoclingComponentType:
-      | 'document_backend'
-      | 'model'
-      | 'doc_assembler'
-      | 'user_input'
+      'document_backend' | 'model' | 'doc_assembler' | 'user_input'
     /**
      * DoclingDocument
      * @description DoclingDocument.
@@ -949,11 +946,7 @@ export interface components {
      * @enum {string}
      */
     GraphLinkLabel:
-      | 'unspecified'
-      | 'to_value'
-      | 'to_key'
-      | 'to_parent'
-      | 'to_child'
+      'unspecified' | 'to_value' | 'to_key' | 'to_parent' | 'to_child'
     /**
      * GroupItem
      * @description GroupItem.
@@ -1814,11 +1807,7 @@ export interface components {
      * @enum {string}
      */
     ocr_engines_enum:
-      | 'easyocr'
-      | 'ocrmac'
-      | 'rapidocr'
-      | 'tesserocr'
-      | 'tesseract'
+      'easyocr' | 'ocrmac' | 'rapidocr' | 'tesserocr' | 'tesseract'
   }
   responses: never
   parameters: never

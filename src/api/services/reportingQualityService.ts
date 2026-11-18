@@ -7,10 +7,7 @@ type MethodChange = {
 }
 
 type FragmentedValuesReporting =
-  | 'NONE'
-  | 'PARTS_WITH_TOTAL'
-  | 'PARTS_ONLY_NO_TOTAL'
-  | null
+  'NONE' | 'PARTS_WITH_TOTAL' | 'PARTS_ONLY_NO_TOTAL' | null
 
 type Scope3CategoryFragmentation = {
   category: number
@@ -23,11 +20,7 @@ type ReportingQualityInput = {
   /** Resolved once by checkDB; when present, use directly instead of re-deriving via url. */
   companyReportId?: string
   usesGhgProtocolCategories:
-    | 'FULL'
-    | 'GROUPED'
-    | 'CUSTOM_LABELS'
-    | 'SINGLE_TOTAL'
-    | null
+    'FULL' | 'GROUPED' | 'CUSTOM_LABELS' | 'SINGLE_TOTAL' | null
   categoryLabelsExample: string | null
   methodChanges: MethodChange[]
   missingScopesExplained: boolean | null

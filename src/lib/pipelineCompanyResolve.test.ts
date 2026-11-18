@@ -335,9 +335,8 @@ describe('resolvePipelineCompanyAfterIdentifiers', () => {
   let resolvePipelineCompanyAfterIdentifiers: typeof import('./pipelineCompanyResolve').resolvePipelineCompanyAfterIdentifiers
 
   beforeAll(async () => {
-    ;({ resolvePipelineCompanyAfterIdentifiers } = await import(
-      './pipelineCompanyResolve'
-    ))
+    ;({ resolvePipelineCompanyAfterIdentifiers } =
+      await import('./pipelineCompanyResolve'))
   })
 
   beforeEach(() => {

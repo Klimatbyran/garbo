@@ -11,9 +11,7 @@ export type CompanyDuplicateRow = {
 }
 
 export type DuplicateDetectionReason =
-  | 'normalized_name'
-  | 'lei'
-  | 'wikidata_conflict'
+  'normalized_name' | 'lei' | 'wikidata_conflict'
 
 export type DuplicateCompanyGroup = {
   reason: DuplicateDetectionReason

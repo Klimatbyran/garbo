@@ -33,9 +33,8 @@ jest.unstable_mockModule('../src/api/services/serviceBotUser', () => ({
   getOrCreateServiceBotUser: jest.fn(async () => botUser),
 }))
 
-const { companyIdentifierService } = await import(
-  '../src/api/services/companyIdentifierService'
-)
+const { companyIdentifierService } =
+  await import('../src/api/services/companyIdentifierService')
 
 const botUser = { id: 'user-garbo', name: 'garbo', bot: true }
 const VALID_LEI = '5493001KJTIIGC8Y1R12'
