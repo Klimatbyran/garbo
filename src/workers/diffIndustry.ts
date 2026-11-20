@@ -8,6 +8,7 @@ import {
   shouldRunDiffComputation,
 } from '../lib/DiffWorker'
 import { diffChanges } from '../lib/saveUtils'
+import { delayJob } from '../lib/delayJob'
 import { QUEUE_NAMES } from '../queues'
 
 export class DiffIndustryJob extends DiffJob {
@@ -57,7 +58,7 @@ const diffIndustry = new DiffWorker<DiffIndustryJob>(
     }
 
     if (isPendingApprovalForDiffType(job, INDUSTRY_ENDPOINT)) {
-      await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+      return await delayJob(job, Date.now() + apiConfig.jobDelay)
     }
   }
 )

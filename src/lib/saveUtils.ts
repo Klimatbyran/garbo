@@ -83,6 +83,16 @@ const askDiff = async (before: object, after: object) => {
   )
 }
 
+/** Stable compare after stripping metadata — never trust the LLM for the gate. */
+export function hasDeterministicChanges(
+  before: object | null | undefined,
+  after: object | null | undefined
+): boolean {
+  const strip = (value: object | null | undefined) =>
+    value ? recursiveOmit(structuredClone(value), new Set(['metadata'])) : null
+  return JSON.stringify(strip(before)) !== JSON.stringify(strip(after))
+}
+
 export async function diffChanges<T extends object>({
   existingCompany,
   before,
@@ -92,10 +102,18 @@ export async function diffChanges<T extends object>({
   before: T
   after: T
 }) {
+  const hasChanges = hasDeterministicChanges(before, after)
+  if (!hasChanges) {
+    return { diff: '', requiresApproval: Boolean(existingCompany) }
+  }
+
   const diff = await askDiff(before, after)
-  const hasChanges = diff && !diff.includes('NO_CHANGES')
+  const readable =
+    diff && !diff.includes('NO_CHANGES')
+      ? diff
+      : 'Detected structured data changes (LLM summary unavailable).'
   const requiresApproval = Boolean(existingCompany) || hasChanges
-  return { diff: hasChanges ? diff : '', requiresApproval }
+  return { diff: readable, requiresApproval }
 }
 
 export function getCompanyURL(

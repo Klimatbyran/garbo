@@ -24,6 +24,7 @@ import {
 } from '../lib/companyLinkResolve'
 import { LEGAL_ENTITY_SUFFIXES } from '../lib/companyLegalEntitySuffixes'
 import { syncCanonicalReportRunCompanyId } from '../lib/pipelineRunCompanyId'
+import { delayJob } from '../lib/delayJob'
 import { buildEarlyRegistryPayload } from './saveToAPI.utils'
 import { registryService } from '../api/services/registryService'
 
@@ -105,8 +106,7 @@ ${JSON.stringify(wikidataForApproval, null, 2)}
 \`\`\``,
   })
 
-  await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
-  return null
+  return await delayJob(job, Date.now() + apiConfig.jobDelay)
 }
 
 async function loadCompanyLinkCandidate(
@@ -140,7 +140,7 @@ async function requestCompanyLinkIfWikidataConflict(
 ): Promise<boolean> {
   if (job.data.approval?.type === 'companyLink' && !job.isDataApproved()) {
     job.log('Waiting for company link approval before Wikidata persist')
-    await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+    return await delayJob(job, Date.now() + apiConfig.jobDelay)
     return false
   }
 
@@ -196,7 +196,7 @@ async function requestCompanyLinkIfWikidataConflict(
     content: `Wikidata ${wikidata.node} is already linked to "${wikidataOwner.name}". Please confirm which company this report belongs to in Validate.`,
   })
 
-  await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+  return await delayJob(job, Date.now() + apiConfig.jobDelay)
   return false
 }
 
@@ -394,7 +394,7 @@ const guessWikidata = new PipelineWorker<GuessWikidataJob>(
       job.hasApproval() &&
       !job.isDataApproved()
     ) {
-      await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+      return await delayJob(job, Date.now() + apiConfig.jobDelay)
       return
     }
 
@@ -473,7 +473,7 @@ const guessWikidata = new PipelineWorker<GuessWikidataJob>(
 
     // If approval exists but not approved, wait for approval
     if (job.hasApproval() && !job.isDataApproved()) {
-      await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+      return await delayJob(job, Date.now() + apiConfig.jobDelay)
       return
     }
 
@@ -805,7 +805,7 @@ ${JSON.stringify(wikidataForApproval, null, 2)}
 \`\`\``,
     })
 
-    await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+    return await delayJob(job, Date.now() + apiConfig.jobDelay)
   }
 )
 
