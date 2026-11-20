@@ -2,6 +2,7 @@ import { Prisma } from '@prisma/client'
 import { Job, Queue, type JobType } from 'bullmq'
 import redis from '../../config/redis'
 import doclingConfig from '../../config/docling'
+import { isDoclingHealthy } from '../../lib/doclingHealth'
 import { prisma } from '../../lib/prisma'
 import { queues } from '../../queues'
 import { withPipelineJobOpts } from '../../lib/pipelineJobOptions'
@@ -475,24 +476,10 @@ export async function estimateRemainingCandidates(
 }
 
 export async function checkDoclingReachable(): Promise<boolean> {
-  const base = doclingConfig.baseUrl.replace(/\/+$/, '')
-  const candidates = [`${base}/health`, `${base}/`, base]
-  for (const url of candidates) {
-    try {
-      const controller = new AbortController()
-      const timer = setTimeout(() => controller.abort(), 4_000)
-      const res = await fetch(url, {
-        method: 'GET',
-        signal: controller.signal,
-      })
-      clearTimeout(timer)
-      // Any HTTP response (including 404/401) means the host is reachable.
-      if (res.status > 0) return true
-    } catch {
-      // try next
-    }
-  }
-  return false
+  // Requires a 2xx from Docling's /health. Previously any HTTP response
+  // (including 401/404/502) counted as reachable, so auto-run kept enqueueing
+  // into a dead backend, and the probe hit `/v1/health` instead of `/health`.
+  return isDoclingHealthy(doclingConfig.baseUrl)
 }
 
 async function softDisable(
