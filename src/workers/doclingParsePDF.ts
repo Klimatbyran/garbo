@@ -4,6 +4,7 @@ import { QUEUE_NAMES } from '../queues'
 import docling from '../config/docling'
 import redis from '../config/redis'
 import { extractDoclingMarkdown } from '../lib/doclingPageLookup'
+import { doclingHealthUrl } from '../lib/doclingHealth'
 import type { DoclingPageSnippet } from '../lib/doclingPageLookup'
 import { formatPageProvenanceLog } from '../lib/pageProvenanceLog'
 import { fireCallback, isAllowedCallbackUrl } from '../lib/webhook'
@@ -365,9 +366,7 @@ async function assertDoclingHealthy(
   job: DoclingParsePDFJob,
   apiBaseUrl: string
 ): Promise<void> {
-  // Docling serves API routes under `/v1`, but health is at `/health` (no `/v1`).
-  const baseForHealth = apiBaseUrl.replace(/\/+$/, '').replace(/\/v1$/, '')
-  const healthUrl = `${baseForHealth}/health`
+  const healthUrl = doclingHealthUrl(apiBaseUrl)
 
   try {
     const res = await fetchWithRetry(
