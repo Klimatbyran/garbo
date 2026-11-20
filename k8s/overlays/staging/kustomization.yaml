@@ -9,4 +9,4 @@ patches:
   - path: worker-hpa-delete.yaml
 images:
   - name: ghcr.io/klimatbyran/garbo
-    newTag: '6.7.2-rc.8' # {"$imagepolicy": "flux-system:garbo-stage:tag"}
+    newTag: '6.7.2-rc.9' # {"$imagepolicy": "flux-system:garbo-stage:tag"}
