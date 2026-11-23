@@ -5,6 +5,8 @@ resources:
   - ../../base
 patches:
   - path: ingress-patch.yaml
+  - path: worker-patch.yaml
+  - path: worker-hpa-delete.yaml
 images:
   - name: ghcr.io/klimatbyran/garbo
     newTag: '6.7.2' # {"$imagepolicy": "flux-system:garbo:tag"}
