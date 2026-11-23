@@ -15,10 +15,6 @@ const NON_RETRYABLE = new Set([
   'InvalidCollectionError',
 ])
 
-export function isRetryableChromaError(err: unknown): boolean {
-  return !(err instanceof Error && NON_RETRYABLE.has(err.name))
-}
-
 /** Follows at most this many nested causes, in case of a cycle or a long chain. */
 const MAX_CAUSE_DEPTH = 5
 
@@ -54,6 +50,20 @@ export function describeChromaError(err: unknown): string {
   }
 
   return causes.length > 0 ? `${base} (cause: ${causes.join(' → ')})` : base
+}
+
+/**
+ * HTTP 413 from Chroma/proxy: the request body is too big. Retrying the same
+ * payload never helps — callers should split the batch (see chromaUpsertBatch).
+ */
+export function isChromaPayloadTooLarge(err: unknown): boolean {
+  const text = describeChromaError(err)
+  return /\b413\b/.test(text) || /payload too large/i.test(text)
+}
+
+export function isRetryableChromaError(err: unknown): boolean {
+  if (isChromaPayloadTooLarge(err)) return false
+  return !(err instanceof Error && NON_RETRYABLE.has(err.name))
 }
 
 export async function withChromaRetry<T>(

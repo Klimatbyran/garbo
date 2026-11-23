@@ -17,6 +17,10 @@ import {
 import { registryService } from '../api/services/registryService'
 import { waitForChromaIndexing, withChromaIndexLock } from './chromaIndexLock'
 import { withChromaRetry } from './chromaRetry'
+import {
+  DEFAULT_CHROMA_UPSERT_BATCH_SIZE,
+  upsertAllWithAdaptiveBatches,
+} from './chromaUpsertBatch'
 
 const client = new ChromaClient({ path: config.path })
 const embedder = new OpenAIEmbeddingFunction({
@@ -152,41 +156,47 @@ async function addReport(
     }
 
     try {
-      // Process in batches of 50 chunks to avoid token limit issues
-      const batchSize = 50
-      for (let i = 0; i < documentChunks.length; i += batchSize) {
-        const batchChunks = documentChunks.slice(i, i + batchSize)
-        const batchIds = batchChunks.map((_, j) => `${url}#${i + j}`)
-        const batchMetadatas = batchChunks.map(({ paragraph, pageNumber }) => ({
-          source: url,
-          paragraph,
-          type: reportMetadataType,
-          parsed: new Date(indexedAt).toISOString(),
-          ...(sweepable ? { indexedAt } : {}),
-          ...(pageNumber !== undefined ? { pageNumber } : {}),
-        }))
-
-        await withChromaLimit(async () => {
-          await withChromaRetry(
-            `upsert (${url}, chunks ${i}-${i + batchChunks.length - 1})`,
-            // upsert, not add: add silently skips existing ids, so a rebuild
-            // would keep the old chunks and their old indexedAt.
-            () =>
-              collection.upsert({
-                ids: batchIds,
-                metadatas: batchMetadatas,
-                documents: batchChunks.map(({ chunk }) => chunk),
-              }),
-            log
+      // Batches of 50 keep embedding payloads reasonable. Each chunk metadata
+      // still carries the full parent paragraph, so some windows hit a 413
+      // from Chroma/proxy — those ranges split in half until they fit.
+      await upsertAllWithAdaptiveBatches({
+        total: documentChunks.length,
+        batchSize: DEFAULT_CHROMA_UPSERT_BATCH_SIZE,
+        log,
+        label: `upsert (${url})`,
+        betweenBatches: () =>
+          new Promise((resolve) => setTimeout(resolve, 100)),
+        upsertRange: async (from, to) => {
+          const batchChunks = documentChunks.slice(from, to)
+          const batchIds = batchChunks.map((_, j) => `${url}#${from + j}`)
+          const batchMetadatas = batchChunks.map(
+            ({ paragraph, pageNumber }) => ({
+              source: url,
+              paragraph,
+              type: reportMetadataType,
+              parsed: new Date(indexedAt).toISOString(),
+              ...(sweepable ? { indexedAt } : {}),
+              ...(pageNumber !== undefined ? { pageNumber } : {}),
+            })
           )
-        })
-        await refreshLock()
 
-        // Optional: Add a small delay between batches to avoid rate limiting
-        if (i + batchSize < documentChunks.length) {
-          await new Promise((resolve) => setTimeout(resolve, 100))
-        }
-      }
+          await withChromaLimit(async () => {
+            await withChromaRetry(
+              `upsert (${url}, chunks ${from}-${to - 1})`,
+              // upsert, not add: add silently skips existing ids, so a rebuild
+              // would keep the old chunks and their old indexedAt.
+              () =>
+                collection.upsert({
+                  ids: batchIds,
+                  metadatas: batchMetadatas,
+                  documents: batchChunks.map(({ chunk }) => chunk),
+                }),
+              log
+            )
+          })
+          await refreshLock()
+        },
+      })
     } catch (err) {
       // Don't leave a partial report behind: searches would treat it as
       // complete. Removing it makes the next attempt rebuild from scratch.

@@ -1,6 +1,7 @@
 import { describe, it, expect, jest } from '@jest/globals'
 import {
   describeChromaError,
+  isChromaPayloadTooLarge,
   isRetryableChromaError,
   withChromaRetry,
 } from './chromaRetry'
@@ -55,11 +56,50 @@ describe('describeChromaError', () => {
   })
 })
 
+describe('isChromaPayloadTooLarge', () => {
+  it('detects 413 in the error message', () => {
+    expect(
+      isChromaPayloadTooLarge(
+        namedError('ChromaServerError', '413: Payload Too Large')
+      )
+    ).toBe(true)
+  })
+
+  it('detects wrapped retry errors that mention payload too large', () => {
+    expect(
+      isChromaPayloadTooLarge(
+        new Error(
+          'ChromaDB upsert (u, chunks 150-199) failed: ChromaServerError: 413: Payload Too Large',
+          {
+            cause: namedError('ChromaServerError', '413: Payload Too Large'),
+          }
+        )
+      )
+    ).toBe(true)
+  })
+
+  it('ignores unrelated server errors', () => {
+    expect(
+      isChromaPayloadTooLarge(
+        namedError('ChromaServerError', 'database or disk is full')
+      )
+    ).toBe(false)
+  })
+})
+
 describe('isRetryableChromaError', () => {
   it('does not retry client-side errors', () => {
     expect(isRetryableChromaError(namedError('ChromaValueError', 'x'))).toBe(
       false
     )
+  })
+
+  it('does not retry 413 payload too large', () => {
+    expect(
+      isRetryableChromaError(
+        namedError('ChromaServerError', '413: Payload Too Large')
+      )
+    ).toBe(false)
   })
 
   it('retries connection and unknown errors', () => {
@@ -108,6 +148,21 @@ describe('withChromaRetry', () => {
       withChromaRetry('query (u)', fn, noLog, { sleep: noSleep })
     ).rejects.toThrow(
       'ChromaDB query (u) failed: ChromaValueError: bad where filter'
+    )
+    expect(fn).toHaveBeenCalledTimes(1)
+  })
+
+  it('fails right away on 413 instead of retrying the same payload', async () => {
+    const fn = jest.fn(async () => {
+      throw namedError('ChromaServerError', '413: Payload Too Large')
+    })
+
+    await expect(
+      withChromaRetry('upsert (u, chunks 150-199)', fn, noLog, {
+        sleep: noSleep,
+      })
+    ).rejects.toThrow(
+      'ChromaDB upsert (u, chunks 150-199) failed: ChromaServerError: 413: Payload Too Large'
     )
     expect(fn).toHaveBeenCalledTimes(1)
   })
