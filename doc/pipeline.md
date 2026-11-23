@@ -1011,8 +1011,9 @@ Docling settings are managed via `src/config/docling.ts`.
 For local development, uncomment the `docling` service in `docker-compose.yaml` and set:
 
 ```bash
-DOCLING_USE_LOCAL=true
 DOCLING_URL=http://localhost:5001/v1
+# Only when your Docling requires an API key (sent as Authorization: Bearer):
+DOCLING_API_TOKEN=
 ```
 
 `doclingParsePDF` uses docling-serve endpoints: `/convert/source/async`, `/status/poll/{task_id}`, `/result/{task_id}`.

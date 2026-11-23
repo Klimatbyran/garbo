@@ -3,103 +3,25 @@ import { z } from 'zod'
 
 const envSchema = z.object({
   /**
-   * Docling base URL. For local Docling, prefer `http://localhost:5001/v1`.
-   * When omitted, we fall back to the local default.
+   * Docling API base URL, including `/v1`. Health is checked at `/health` on
+   * the same host. Defaults to a local docling-serve.
    */
   DOCLING_URL: z.string().optional().default('http://localhost:5001/v1'),
   /**
-   * Token used for Berget Docling API format. Not required for local Docling.
+   * Sent as `Authorization: Bearer <token>` when set. Leave empty for a
+   * local Docling without auth.
    */
-  BERGET_AI_TOKEN: z.string().optional().default(''),
-  /**
-   * Prefer `DOCLING_USE_LOCAL`. We also accept legacy `DOCLING_RUN_LOCAL`.
-   */
-  DOCLING_USE_LOCAL: z
-    .enum(['true', 'false'])
-    .optional()
-    .transform((v) => (v === undefined ? undefined : v === 'true')),
-  DOCLING_RUN_LOCAL: z
-    .enum(['true', 'false'])
-    .optional()
-    .transform((v) => (v === undefined ? undefined : v === 'true')),
-  USE_BACKUP_API: z
-    .enum(['true', 'false'])
-    .transform((v) => v === 'true')
-    .optional()
-    .default(false),
-  BACKUP_API_URL: z.string().optional(),
-  BACKUP_API_TOKEN: z.string().optional(),
-  BACKUP_API_AUTH_HEADER: z
-    .enum(['authorization', 'x-api-key'])
-    .optional()
-    .default('authorization'),
+  DOCLING_API_TOKEN: z.string().optional().default(''),
 })
 
-// Parse environment variables
 const parsedEnv = envSchema.safeParse(process.env)
 if (!parsedEnv.success) {
   console.error('❌ Invalid Docling environment configuration:')
   console.error(parsedEnv.error.format())
-
-  if (parsedEnv.error.issues.some((err) => err.path[0] === 'DOCLING_URL')) {
-    console.error('DOCLING_URL must be a valid URL or string.')
-    console.error(
-      'Examples: http://localhost:5001/v1 (local), https://api.example.com (remote)'
-    )
-    console.error(
-      'In production, ensure this is correctly set in your Kubernetes config.'
-    )
-  }
-
-  if (parsedEnv.error.issues.some((err) => err.path[0] === 'BERGET_AI_TOKEN')) {
-    console.error('BERGET_AI_TOKEN must be an API key.')
-    console.error(
-      'Please ask another member for the key if you did not receive it yet'
-    )
-  }
-
   throw new Error('Invalid Docling environment configuration')
 }
 
-const {
-  BERGET_AI_TOKEN,
-  DOCLING_URL,
-  USE_BACKUP_API,
-  BACKUP_API_URL,
-  BACKUP_API_TOKEN,
-  BACKUP_API_AUTH_HEADER,
-} = parsedEnv.data
-
-const resolvedUseLocal =
-  parsedEnv.data.DOCLING_USE_LOCAL ?? parsedEnv.data.DOCLING_RUN_LOCAL ?? true
-
-// DOCLING_USE_LOCAL controls request format, not URL.
-// To use localhost, set DOCLING_URL=http://localhost:5001/v1 (default).
-const baseUrl = DOCLING_URL.replace(/\/+$/, '')
-
-if (!resolvedUseLocal && (!baseUrl || !BERGET_AI_TOKEN)) {
-  // When using Berget format, warn if config is incomplete
-  console.warn(
-    '⚠️ Docling configuration appears incomplete when using Berget format (DOCLING_URL and/or BERGET_AI_TOKEN missing).'
-  )
-  console.warn(
-    'Either set DOCLING_USE_LOCAL=true to use local format, or provide DOCLING_URL and BERGET_AI_TOKEN for Berget format.'
-  )
-}
-
-// Validate backup API configuration if enabled
-if (USE_BACKUP_API && (!BACKUP_API_URL || !BACKUP_API_TOKEN)) {
-  throw new Error(
-    'USE_BACKUP_API is true but BACKUP_API_URL or BACKUP_API_TOKEN is missing'
-  )
-}
-
 export default {
-  baseUrl,
-  BERGET_AI_TOKEN,
-  DOCLING_USE_LOCAL: resolvedUseLocal,
-  USE_BACKUP_API: USE_BACKUP_API || false,
-  BACKUP_API_URL: BACKUP_API_URL || '',
-  BACKUP_API_TOKEN: BACKUP_API_TOKEN || '',
-  BACKUP_API_AUTH_HEADER: BACKUP_API_AUTH_HEADER || 'authorization',
+  baseUrl: parsedEnv.data.DOCLING_URL.replace(/\/+$/, ''),
+  apiToken: parsedEnv.data.DOCLING_API_TOKEN,
 }

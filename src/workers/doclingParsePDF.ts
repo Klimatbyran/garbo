@@ -204,25 +204,6 @@ function withoutPictures<T extends { pictures?: unknown }>(
   return summary
 }
 
-// Berget AI payload structure
-interface BergetDoclingRequest {
-  model: 'docling-v1'
-  document: {
-    url: string
-    type: 'document'
-  }
-  async: boolean
-  options: {
-    tableMode: 'accurate' | 'strict'
-    ocrMethod: 'tesseract' | 'easyocr' | 'ocrmac' | 'rapidocr' | 'tesserocr'
-    doOcr: boolean
-    doTableStructure: boolean
-    inputFormat: ('pdf' | 'html' | 'docx' | 'pptx')[]
-    outputFormat: 'md' | 'json'
-    includeImages: boolean
-  }
-}
-
 // Docling-serve payload structure
 interface DoclingServeRequest {
   options: {
@@ -249,7 +230,7 @@ interface DoclingServeRequest {
   }>
   // Voluntary opt-in, forwarded from the caller's job data — our custom
   // garbo-docling-server reads these; the real do_ocr/images_scale fields
-  // above are for the upstream docling-serve/Berget schema shape and are
+  // above are for the upstream docling-serve schema shape and are
   // ignored by our server. Omitted entirely (not just false) unless the
   // caller explicitly asked for it, so no image cost is incurred by default.
   readImages?: boolean
@@ -263,9 +244,8 @@ interface DoclingServeRequest {
 class DoclingParsePDFJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
     url: string
-    doclingSettings?: BergetDoclingRequest | DoclingServeRequest
+    doclingSettings?: DoclingServeRequest
     taskId?: string
-    resultUrl?: string // For Berget AI
     // Original document URL when job.data.url is an S3 cache URL instead
     // (set by pipeline-api's cachePdf path). See persistMarkdown.
     sourceUrl?: string
@@ -284,7 +264,7 @@ class DoclingParsePDFJob extends PipelineJob {
     // extra time/money per picture — false/omitted by default, for any
     // caller, not just the climate plans pipeline. See createRequestPayload.
     readImages?: boolean
-    // See BergetDoclingRequest/DoclingServeRequest's forceRedescribeImages.
+    // See DoclingServeRequest's forceRedescribeImages.
     forceRedescribeImages?: boolean
     languages?: string[]
   }
@@ -295,66 +275,38 @@ function createRequestPayload(
   readImages?: boolean,
   languages?: string[],
   forceRedescribeImages?: boolean
-): BergetDoclingRequest | DoclingServeRequest {
-  // Use local format controls the payload structure
-  // This is independent of which API endpoint we hit
-  const useLocalFormat = docling.DOCLING_USE_LOCAL
-
-  if (useLocalFormat) {
-    // Docling-serve payload structure
-    const doclingServePayload: DoclingServeRequest = {
-      options: {
-        from_formats: ['pdf'],
-        to_formats: ['md', 'json'],
-        image_export_mode: 'placeholder',
-        do_ocr: false,
-        force_ocr: false,
-        pdf_backend: 'dlparse_v4',
-        table_mode: 'accurate',
-        abort_on_error: false,
-        return_as_file: false,
-        do_table_structure: true,
-        include_images: false,
-        images_scale: 2,
-        do_code_enrichment: false,
-        do_formula_enrichment: false,
-        do_picture_classification: false,
-        do_picture_description: false,
-      },
-      // Only sent when the caller explicitly opts in — omitted (not just
-      // false) otherwise, so our custom server's own default (no image
-      // processing) is what actually governs when nothing is specified here.
-      ...(readImages !== undefined ? { readImages } : {}),
-      ...(forceRedescribeImages !== undefined ? { forceRedescribeImages } : {}),
-      ...(languages?.length ? { languages } : {}),
-      sources: [
-        {
-          kind: 'http',
-          url,
-        },
-      ],
-    }
-    return doclingServePayload
-  } else {
-    // Berget AI payload structure
-    const bergetPayload: BergetDoclingRequest = {
-      model: 'docling-v1',
-      document: {
+): DoclingServeRequest {
+  return {
+    options: {
+      from_formats: ['pdf'],
+      to_formats: ['md', 'json'],
+      image_export_mode: 'placeholder',
+      do_ocr: false,
+      force_ocr: false,
+      pdf_backend: 'dlparse_v4',
+      table_mode: 'accurate',
+      abort_on_error: false,
+      return_as_file: false,
+      do_table_structure: true,
+      include_images: false,
+      images_scale: 2,
+      do_code_enrichment: false,
+      do_formula_enrichment: false,
+      do_picture_classification: false,
+      do_picture_description: false,
+    },
+    // Only sent when the caller explicitly opts in — omitted (not just
+    // false) otherwise, so our custom server's own default (no image
+    // processing) is what actually governs when nothing is specified here.
+    ...(readImages !== undefined ? { readImages } : {}),
+    ...(forceRedescribeImages !== undefined ? { forceRedescribeImages } : {}),
+    ...(languages?.length ? { languages } : {}),
+    sources: [
+      {
+        kind: 'http',
         url,
-        type: 'document',
       },
-      async: true,
-      options: {
-        inputFormat: ['pdf'],
-        outputFormat: 'md',
-        includeImages: false,
-        doOcr: false,
-        ocrMethod: 'easyocr',
-        tableMode: 'accurate',
-        doTableStructure: true,
-      },
-    }
-    return bergetPayload
+    ],
   }
 }
 
@@ -455,39 +407,24 @@ async function fetchWithRetry(
   throw lastError || new Error('Fetch failed after retries')
 }
 
-function shouldAddAuthHeader(
-  useLocalFormat: boolean,
-  useBackupAPI: boolean,
-  apiToken: string | undefined
-): boolean {
-  // No token available, can't add auth
-  if (!apiToken) {
-    return false
+function doclingHeaders(): Record<string, string> {
+  return {
+    'Content-Type': 'application/json',
+    ...(docling.apiToken
+      ? { authorization: `Bearer ${docling.apiToken}` }
+      : {}),
   }
-
-  // Local format (docling-serve style)
-  if (useLocalFormat) {
-    // Local docling-serve typically doesn't need auth
-    // BUT backup API might require it even with local format
-    return useBackupAPI
-  }
-
-  // Berget format always requires authentication
-  return true
 }
 
-// Configure limiter when using backup API to prevent overload
-// Limiter applies across ALL worker instances (shared via Redis)
+// The limiter is shared via Redis, so it applies across ALL worker instances.
 const workerOptions = {
   concurrency: 1,
   connection: redis,
   lockDuration: 30 * 60 * 1000,
-  ...(docling.USE_BACKUP_API && {
-    limiter: {
-      max: 1, // Max 1 concurrent job across all worker instances (Docling handles one at a time)
-      duration: 1, // Per 1ms (essentially "at any given time")
-    },
-  }),
+  limiter: {
+    max: 1, // Max 1 concurrent job across all worker instances (Docling handles one at a time)
+    duration: 1, // Per 1ms (essentially "at any given time")
+  },
 }
 
 // Flag to log configuration once in the first job (appears in BullMQ logs)
@@ -499,13 +436,8 @@ function logConfigurationOnce(job: DoclingParsePDFJob): void {
   }
   hasLoggedConfiguration = true
   job.log('📡 Docling configuration:')
-  job.log(`  - Primary API URL: ${docling.baseUrl}`)
-  job.log(`  - Use local format: ${docling.DOCLING_USE_LOCAL}`)
-  job.log(`  - Use backup API: ${docling.USE_BACKUP_API}`)
-  if (docling.USE_BACKUP_API) {
-    job.log(`  - Backup API URL: ${docling.BACKUP_API_URL}`)
-    job.log(`  - Backup auth header: ${docling.BACKUP_API_AUTH_HEADER}`)
-  }
+  job.log(`  - API URL: ${docling.baseUrl}`)
+  job.log(`  - API token set: ${Boolean(docling.apiToken)}`)
 }
 
 const doclingParsePDF = new PipelineWorker(
@@ -532,15 +464,7 @@ const doclingParsePDF = new PipelineWorker(
     try {
       if (taskId) {
         job.log(`Checking status of existing task: ${taskId}`)
-        // When resuming a task, use current config settings
-        const useBackupAPI = docling.USE_BACKUP_API
-        const useLocalFormat = docling.DOCLING_USE_LOCAL
-        return await pollTaskAndGetResult(
-          job,
-          taskId,
-          useLocalFormat,
-          useBackupAPI
-        )
+        return await pollTaskAndGetResult(job, taskId)
       }
 
       // Add a small random delay (0-5 seconds) to stagger job starts and avoid thundering herd
@@ -568,46 +492,19 @@ const doclingParsePDF = new PipelineWorker(
       job.log('Submitting async task to Docling API...')
 
       try {
-        // Determine which API to use
-        const useBackupAPI = docling.USE_BACKUP_API
-        const useLocalFormat = docling.DOCLING_USE_LOCAL
-
-        // Select API endpoint and token
-        const apiBaseUrl = useBackupAPI
-          ? docling.BACKUP_API_URL
-          : docling.baseUrl
-        const apiToken = useBackupAPI
-          ? docling.BACKUP_API_TOKEN
-          : docling.BERGET_AI_TOKEN
+        const apiBaseUrl = docling.baseUrl
 
         await assertDoclingHealthy(job, apiBaseUrl)
 
-        job.log(`Making request to: ${apiBaseUrl}`)
+        const endpoint = `${apiBaseUrl}/convert/source/async`
+        job.log(`Making request to: ${endpoint}`)
         job.log(`With payload: ${JSON.stringify(job.data.doclingSettings)}`)
-
-        // Build endpoint URL - local format uses /convert/source/async
-        const endpoint = useLocalFormat
-          ? `${apiBaseUrl}/convert/source/async`
-          : `${apiBaseUrl}`
-
-        const headers: Record<string, string> = {
-          'Content-Type': 'application/json',
-        }
-
-        // Add authorization based on format and API choice
-        if (shouldAddAuthHeader(useLocalFormat, useBackupAPI, apiToken)) {
-          headers.authorization = `Bearer ${apiToken}`
-        }
-
-        job.log(
-          `Using ${useBackupAPI ? 'backup' : 'primary'} API (${useLocalFormat ? 'local format' : 'Berget format'}): ${endpoint}`
-        )
 
         const startResponse = await fetchWithRetry(
           endpoint,
           {
             method: 'POST',
-            headers,
+            headers: doclingHeaders(),
             body: JSON.stringify(job.data.doclingSettings),
           },
           job,
@@ -633,39 +530,19 @@ const doclingParsePDF = new PipelineWorker(
         const responseData = await startResponse.json()
         job.log(`Response: ${JSON.stringify(responseData)}`)
 
-        let taskId: string
-        let resultUrl: string | undefined
-
-        if (useLocalFormat) {
-          // Local format returns task_id
-          taskId = responseData.task_id
-          if (!taskId) {
-            throw new Error(
-              'No task_id returned from docling-serve async endpoint'
-            )
-          }
-        } else {
-          // Berget format returns taskId and resultUrl
-          taskId = responseData.taskId
-          resultUrl = responseData.resultUrl
-          if (!taskId) {
-            job.log(`Full Berget response: ${JSON.stringify(responseData)}`)
-            throw new Error('No taskId returned from Berget AI endpoint')
-          }
+        const taskId: string = responseData.task_id
+        if (!taskId) {
+          throw new Error(
+            'No task_id returned from docling-serve async endpoint'
+          )
         }
 
         job.updateData({
           ...job.data,
           taskId: taskId,
-          resultUrl: resultUrl,
         })
 
-        return await pollTaskAndGetResult(
-          job,
-          taskId,
-          useLocalFormat,
-          useBackupAPI
-        )
+        return await pollTaskAndGetResult(job, taskId)
       } catch (networkError) {
         if (networkError instanceof UnrecoverableError) throw networkError
 
@@ -701,9 +578,7 @@ const doclingParsePDF = new PipelineWorker(
 
 async function pollTaskAndGetResult(
   job: DoclingParsePDFJob,
-  taskId: string,
-  useLocalFormat: boolean,
-  useBackupAPI: boolean
+  taskId: string
 ): Promise<{
   pageSnippets?: DoclingPageSnippet[]
   // Only present when persistMarkdown's registry write failed above --
@@ -739,443 +614,333 @@ async function pollTaskAndGetResult(
   const startTime = Date.now()
 
   job.editMessage(`Parsing PDF... (Task ID: ${taskId})`)
-  job.log(`Using ${useLocalFormat ? 'local format' : 'Berget format'} polling`)
+  const apiBaseUrl = docling.baseUrl
+  const headers = doclingHeaders()
 
-  // Select API endpoint and token (same logic as before)
-  const apiBaseUrl = useBackupAPI ? docling.BACKUP_API_URL : docling.baseUrl
-  const apiToken = useBackupAPI
-    ? docling.BACKUP_API_TOKEN
-    : docling.BERGET_AI_TOKEN
+  const statusUrl = `${apiBaseUrl}/status/poll/${taskId}`
+  const resultUrl = `${apiBaseUrl}/result/${taskId}`
 
-  const headers: Record<string, string> = {
-    'Content-Type': 'application/json',
-  }
+  job.log(`Status URL: ${statusUrl}`)
+  job.log(`Result URL: ${resultUrl}`)
 
-  // Add authorization based on format and API choice
-  if (shouldAddAuthHeader(useLocalFormat, useBackupAPI, apiToken)) {
-    headers.authorization = `Bearer ${apiToken}`
-  }
-
-  if (useLocalFormat) {
-    // Local format polling logic (works with both primary and backup APIs)
-    const statusUrl = `${apiBaseUrl}/status/poll/${taskId}`
-    const resultUrl = `${apiBaseUrl}/result/${taskId}`
-
-    job.log(`Status URL: ${statusUrl}`)
-    job.log(`Result URL: ${resultUrl}`)
-
-    // Poll for the task status until it's complete
-    const maxPollingTime = 25 * 60 * 1000 // 25 minutes (less than lockDuration)
-    const pollingStartTime = Date.now()
-    let taskComplete = false
-    while (!taskComplete) {
-      // Check if we've exceeded max polling time
-      if (Date.now() - pollingStartTime > maxPollingTime) {
-        throw new Error(
-          `Task polling timed out after ${maxPollingTime / 1000}s. Task may still be processing on the server.`
-        )
-      }
-
-      job.log(`Polling task status: ${statusUrl}`)
-
-      const statusResponse = await fetchWithRetry(statusUrl, { headers }, job)
-      job.log(`Polling status ${statusResponse.status}`)
-
-      if (!statusResponse.ok) {
-        const errorText = await statusResponse.text()
-        job.log(`Status check error: ${errorText}`)
-
-        if (statusResponse.status === 404) {
-          // Task no longer exists — Docling likely restarted and lost in-memory state.
-          // Clear taskId so the next BullMQ retry resubmits from scratch.
-          await job.updateData({
-            ...job.data,
-            taskId: undefined,
-            resultUrl: undefined,
-          })
-          throw new Error(
-            'Task not found on Docling (container may have restarted). Will resubmit on retry.'
-          )
-        }
-
-        const msg = `Status check failed with status: ${statusResponse.status}`
-        if ([502, 503, 504].includes(statusResponse.status)) {
-          throw new Error(msg)
-        }
-        throw new UnrecoverableError(msg)
-      }
-
-      const statusData = await statusResponse.json()
-      job.log(`Status data: ${JSON.stringify(statusData)}`)
-
-      if (statusData.task_status === 'success') {
-        job.log('Task complete, exiting polling loop')
-        taskComplete = true
-      } else if (statusData.task_status === 'failure') {
-        throw new UnrecoverableError(
-          `Task failed: ${JSON.stringify(statusData)}`
-        )
-      } else {
-        // Task is still pending or processing
-        job.log(
-          `Task status is "${statusData.task_status}", sleeping for 2s before next poll`
-        )
-        await sleep(2000)
-        job.log('Sleep complete, starting next poll iteration')
-      }
+  // Poll for the task status until it's complete
+  const maxPollingTime = 25 * 60 * 1000 // 25 minutes (less than lockDuration)
+  const pollingStartTime = Date.now()
+  let taskComplete = false
+  while (!taskComplete) {
+    // Check if we've exceeded max polling time
+    if (Date.now() - pollingStartTime > maxPollingTime) {
+      throw new Error(
+        `Task polling timed out after ${maxPollingTime / 1000}s. Task may still be processing on the server.`
+      )
     }
 
-    // Wait a moment for result to be fully available
-    job.log('Task succeeded, waiting 1s before fetching result')
-    await sleep(1000)
+    job.log(`Polling task status: ${statusUrl}`)
 
-    job.log(`Fetching result from: ${resultUrl}`)
-    const resultResponse = await fetchWithRetry(
-      resultUrl,
-      { headers },
-      job,
-      5,
-      30000
-    ) // 5 retries with 30s timeout
+    const statusResponse = await fetchWithRetry(statusUrl, { headers }, job)
+    job.log(`Polling status ${statusResponse.status}`)
 
-    if (!resultResponse.ok) {
-      const errorText = await resultResponse.text()
-      job.log(`Result fetch error: ${errorText}`)
-      const msg = `Failed to fetch result with status: ${resultResponse.status}`
-      if ([502, 503, 504].includes(resultResponse.status)) {
+    if (!statusResponse.ok) {
+      const errorText = await statusResponse.text()
+      job.log(`Status check error: ${errorText}`)
+
+      if (statusResponse.status === 404) {
+        // Task no longer exists — Docling likely restarted and lost in-memory state.
+        // Clear taskId so the next BullMQ retry resubmits from scratch.
+        await job.updateData({
+          ...job.data,
+          taskId: undefined,
+        })
+        throw new Error(
+          'Task not found on Docling (container may have restarted). Will resubmit on retry.'
+        )
+      }
+
+      const msg = `Status check failed with status: ${statusResponse.status}`
+      if ([502, 503, 504].includes(statusResponse.status)) {
         throw new Error(msg)
       }
       throw new UnrecoverableError(msg)
     }
 
-    const resultData = await resultResponse.json()
-    job.log(`Result data keys: ${Object.keys(resultData).join(', ')}`)
+    const statusData = await statusResponse.json()
+    job.log(`Status data: ${JSON.stringify(statusData)}`)
 
-    // Climate-plans callback-only parses never index into Chroma — skip the
-    // page-snippet payload so BullMQ return values stay small.
-    const includePageSnippets = !job.data.callbackUrl
-    const { markdown, pageSnippets } = extractDoclingMarkdown(resultData, {
-      includePageSnippets,
+    if (statusData.task_status === 'success') {
+      job.log('Task complete, exiting polling loop')
+      taskComplete = true
+    } else if (statusData.task_status === 'failure') {
+      throw new UnrecoverableError(`Task failed: ${JSON.stringify(statusData)}`)
+    } else {
+      // Task is still pending or processing
+      job.log(
+        `Task status is "${statusData.task_status}", sleeping for 2s before next poll`
+      )
+      await sleep(2000)
+      job.log('Sleep complete, starting next poll iteration')
+    }
+  }
+
+  // Wait a moment for result to be fully available
+  job.log('Task succeeded, waiting 1s before fetching result')
+  await sleep(1000)
+
+  job.log(`Fetching result from: ${resultUrl}`)
+  const resultResponse = await fetchWithRetry(
+    resultUrl,
+    { headers },
+    job,
+    5,
+    30000
+  ) // 5 retries with 30s timeout
+
+  if (!resultResponse.ok) {
+    const errorText = await resultResponse.text()
+    job.log(`Result fetch error: ${errorText}`)
+    const msg = `Failed to fetch result with status: ${resultResponse.status}`
+    if ([502, 503, 504].includes(resultResponse.status)) {
+      throw new Error(msg)
+    }
+    throw new UnrecoverableError(msg)
+  }
+
+  const resultData = await resultResponse.json()
+  job.log(`Result data keys: ${Object.keys(resultData).join(', ')}`)
+
+  // Climate-plans callback-only parses never index into Chroma — skip the
+  // page-snippet payload so BullMQ return values stay small.
+  const includePageSnippets = !job.data.callbackUrl
+  const { markdown, pageSnippets } = extractDoclingMarkdown(resultData, {
+    includePageSnippets,
+  })
+  job.log(
+    includePageSnippets
+      ? `Docling markdown kept as-is; page snippets from JSON: ${pageSnippets.length}`
+      : 'Docling markdown kept as-is; skipped page snippets (callbackUrl-only parse)'
+  )
+  job.log(
+    formatPageProvenanceLog('docling', {
+      snippets: pageSnippets.length,
+      skipped: !includePageSnippets,
     })
-    job.log(
-      includePageSnippets
-        ? `Docling markdown kept as-is; page snippets from JSON: ${pageSnippets.length}`
-        : 'Docling markdown kept as-is; skipped page snippets (callbackUrl-only parse)'
-    )
-    job.log(
-      formatPageProvenanceLog('docling', {
-        snippets: pageSnippets.length,
-        skipped: !includePageSnippets,
-      })
-    )
+  )
 
-    if (!markdown) {
-      job.log(`Full result data: ${JSON.stringify(resultData, null, 2)}`)
-      throw new Error('No markdown content found in result')
-    }
+  if (!markdown) {
+    job.log(`Full result data: ${JSON.stringify(resultData, null, 2)}`)
+    throw new Error('No markdown content found in result')
+  }
 
-    // Only present when readImages was on — the custom server's own
-    // per-picture OCR/VLM counts, so it's visible how much of a document
-    // actually got image content recovered without reading the markdown.
-    const imageRecovery = resultData.result?.image_recovery as
-      | {
-          pictures_total: number
-          pictures_dropped_small: number
-          pictures_dropped_duplicate: number
-          pictures_described: number
-          // How many of pictures_described were served from the
-          // description cache (a byte-identical picture already described
-          // in an earlier run) rather than a fresh VLM call — only present
-          // once the server ships it.
-          pictures_from_cache?: number
-          // Tokens actually SPENT this run — excludes cache hits, which
-          // cost nothing this time even though they still show a token
-          // count on their own pictures_info entry (what they originally
-          // cost, not what was spent now). Only present once the server
+  // Only present when readImages was on — the custom server's own
+  // per-picture OCR/VLM counts, so it's visible how much of a document
+  // actually got image content recovered without reading the markdown.
+  const imageRecovery = resultData.result?.image_recovery as
+    | {
+        pictures_total: number
+        pictures_dropped_small: number
+        pictures_dropped_duplicate: number
+        pictures_described: number
+        // How many of pictures_described were served from the
+        // description cache (a byte-identical picture already described
+        // in an earlier run) rather than a fresh VLM call — only present
+        // once the server ships it.
+        pictures_from_cache?: number
+        // Tokens actually SPENT this run — excludes cache hits, which
+        // cost nothing this time even though they still show a token
+        // count on their own pictures_info entry (what they originally
+        // cost, not what was spent now). Only present once the server
+        // ships it.
+        vlm_usage?: {
+          model: string
+          calls: number
+          prompt_tokens: number
+          completion_tokens: number
+          total_tokens: number
+        }
+        // Per-picture QA info (thumbnail + description/OCR text + page)
+        // for the ones that made it into the markdown — only present
+        // once the server ships it; older/incompatible servers just omit
+        // the field, so this stays optional rather than defaulted.
+        pictures?: {
+          index: number
+          page: number | null
+          description: string | null
+          ocr_text: string | null
+          thumbnail: string
+          // Tokens this picture's description cost — from the cache
+          // entry's original cost when from_cache is true, not a cost
+          // incurred again this run. Null for an OCR-only fallback
+          // entry (no VLM call at all). Only present once the server
           // ships it.
-          vlm_usage?: {
-            model: string
-            calls: number
-            prompt_tokens: number
-            completion_tokens: number
-            total_tokens: number
-          }
-          // Per-picture QA info (thumbnail + description/OCR text + page)
-          // for the ones that made it into the markdown — only present
-          // once the server ships it; older/incompatible servers just omit
-          // the field, so this stays optional rather than defaulted.
-          pictures?: {
-            index: number
-            page: number | null
-            description: string | null
-            ocr_text: string | null
-            thumbnail: string
-            // Tokens this picture's description cost — from the cache
-            // entry's original cost when from_cache is true, not a cost
-            // incurred again this run. Null for an OCR-only fallback
-            // entry (no VLM call at all). Only present once the server
-            // ships it.
-            tokens?: number | null
-            from_cache?: boolean
-            // False when the picture had too little OCR-recognized text
-            // to be worth a VLM call (skipped entirely — not a failure)
-            // — kept on every picture, not just ones that got recovered
-            // text, so a reviewer can audit whether this gate is actually
-            // catching the right pictures. Only present once the server
-            // ships it.
-            has_text?: boolean
-            // Unix timestamp (seconds) of when this description was
-            // actually generated -- for a cache hit, that's the ORIGINAL
-            // VLM call, possibly from a much earlier rerun, not now. Lets
-            // a reviewer tell "freshly re-checked" apart from "served
-            // from a weeks-old cache entry." Only present once the server
-            // ships it.
-            described_at?: number | null
-            // Set only when has_text was true AND a VLM call was actually
-            // attempted and failed -- distinguishes a real failure from
-            // "no VLM call was needed" (has_text false), both of which
-            // otherwise look identical (description null). Only present
-            // once the server ships it.
-            vlm_error?: string | null
-          }[]
-        }
-      | undefined
-    if (imageRecovery) {
-      job.log(
-        `Image recovery: ${imageRecovery.pictures_total} picture(s), ` +
-          `${imageRecovery.pictures_dropped_small} too small, ` +
-          `${imageRecovery.pictures_dropped_duplicate} duplicate, ` +
-          `${imageRecovery.pictures_described} described` +
-          (imageRecovery.pictures_from_cache
-            ? ` (${imageRecovery.pictures_from_cache} from cache)`
-            : '') +
-          (imageRecovery.vlm_usage
-            ? `, ${imageRecovery.vlm_usage.total_tokens} tokens spent this run`
-            : '')
-      )
-    }
-
-    const totalTime = Math.floor((Date.now() - startTime) / 1000)
-    job.editMessage(`PDF parsed successfully in ${totalTime}s`)
-    job.log(`Task completed in ${totalTime}s`)
-
-    // A registry DB error must not fail this job — persistMarkdown runs on
-    // every parse (not just callbackUrl jobs), and BullMQ would otherwise
-    // retry the whole (already-completed, expensive) Docling parse on the
-    // concurrency-1 worker for a write failure, same stall class as an
-    // unhandled callback error above. But a swallowed failure must not
-    // silently drop the only copy of the parse either -- when the write
-    // fails, markdown/pictures fall back into this job's own returnvalue
-    // below (the pre-this-PR behavior) instead of vanishing from both
-    // Postgres and Redis.
-    let canonicalUrl = job.data.sourceUrl ?? job.data.url
-    let persistedReportId: string | undefined
-    let markdownPersisted = false
-    try {
-      const persisted = await persistMarkdown(
-        job.data,
-        markdown,
-        job.data.reportTypeSlug
-      )
-      canonicalUrl = persisted.url
-      persistedReportId = persisted.id
-      markdownPersisted = true
-    } catch (err) {
-      job.log(
-        `persistMarkdown failed -- keeping markdown in this job's own returnvalue as a fallback so it isn't lost: ${err instanceof Error ? err.message : String(err)}`
-      )
-    }
-
-    // Omitted pictures means this server did not run image recovery, so
-    // leave any stored rows alone. An empty array is a real result.
-    let imagesPersisted = false
-    if (imageRecovery?.pictures) {
-      if (persistedReportId) {
-        try {
-          await persistImages(persistedReportId, imageRecovery.pictures)
-          imagesPersisted = true
-        } catch (err) {
-          job.log(
-            `persistImages failed -- keeping picture thumbnails in this job's own returnvalue as a fallback: ${err instanceof Error ? err.message : String(err)}`
-          )
-        }
-      } else {
-        job.log(
-          "Skipping persistImages -- no persisted report id (persistMarkdown failed above); keeping picture thumbnails in this job's own returnvalue as a fallback."
-        )
+          tokens?: number | null
+          from_cache?: boolean
+          // False when the picture had too little OCR-recognized text
+          // to be worth a VLM call (skipped entirely — not a failure)
+          // — kept on every picture, not just ones that got recovered
+          // text, so a reviewer can audit whether this gate is actually
+          // catching the right pictures. Only present once the server
+          // ships it.
+          has_text?: boolean
+          // Unix timestamp (seconds) of when this description was
+          // actually generated -- for a cache hit, that's the ORIGINAL
+          // VLM call, possibly from a much earlier rerun, not now. Lets
+          // a reviewer tell "freshly re-checked" apart from "served
+          // from a weeks-old cache entry." Only present once the server
+          // ships it.
+          described_at?: number | null
+          // Set only when has_text was true AND a VLM call was actually
+          // attempted and failed -- distinguishes a real failure from
+          // "no VLM call was needed" (has_text false), both of which
+          // otherwise look identical (description null). Only present
+          // once the server ships it.
+          vlm_error?: string | null
+        }[]
       }
-    }
+    | undefined
+  if (imageRecovery) {
+    job.log(
+      `Image recovery: ${imageRecovery.pictures_total} picture(s), ` +
+        `${imageRecovery.pictures_dropped_small} too small, ` +
+        `${imageRecovery.pictures_dropped_duplicate} duplicate, ` +
+        `${imageRecovery.pictures_described} described` +
+        (imageRecovery.pictures_from_cache
+          ? ` (${imageRecovery.pictures_from_cache} from cache)`
+          : '') +
+        (imageRecovery.vlm_usage
+          ? `, ${imageRecovery.vlm_usage.total_tokens} tokens spent this run`
+          : '')
+    )
+  }
 
-    if (job.data.callbackUrl) {
-      // A failed/unreachable callbackUrl must not fail this job — BullMQ
-      // would retry it on the concurrency-1 Docling worker, which re-parses
-      // the PDF and blocks every other job (including garbo's own pipeline)
-      // for as long as the callback keeps failing.
+  const totalTime = Math.floor((Date.now() - startTime) / 1000)
+  job.editMessage(`PDF parsed successfully in ${totalTime}s`)
+  job.log(`Task completed in ${totalTime}s`)
+
+  // A registry DB error must not fail this job — persistMarkdown runs on
+  // every parse (not just callbackUrl jobs), and BullMQ would otherwise
+  // retry the whole (already-completed, expensive) Docling parse on the
+  // concurrency-1 worker for a write failure, same stall class as an
+  // unhandled callback error above. But a swallowed failure must not
+  // silently drop the only copy of the parse either -- when the write
+  // fails, markdown/pictures fall back into this job's own returnvalue
+  // below (the pre-this-PR behavior) instead of vanishing from both
+  // Postgres and Redis.
+  let canonicalUrl = job.data.sourceUrl ?? job.data.url
+  let persistedReportId: string | undefined
+  let markdownPersisted = false
+  try {
+    const persisted = await persistMarkdown(
+      job.data,
+      markdown,
+      job.data.reportTypeSlug
+    )
+    canonicalUrl = persisted.url
+    persistedReportId = persisted.id
+    markdownPersisted = true
+  } catch (err) {
+    job.log(
+      `persistMarkdown failed -- keeping markdown in this job's own returnvalue as a fallback so it isn't lost: ${err instanceof Error ? err.message : String(err)}`
+    )
+  }
+
+  // Omitted pictures means this server did not run image recovery, so
+  // leave any stored rows alone. An empty array is a real result.
+  let imagesPersisted = false
+  if (imageRecovery?.pictures) {
+    if (persistedReportId) {
       try {
-        await fireCallback(
-          job.data.callbackUrl,
-          {
-            url: canonicalUrl,
-            markdown,
-            threadId: job.data.threadId,
-            // The municipality's own site routinely has no CORS headers,
-            // so a browser-side PDF viewer can't fetch canonicalUrl
-            // directly — this gives the receiver a same-infra copy to
-            // proxy through instead, when pipeline-api cached one.
-            pdfCacheUrl: job.data.pdfCache?.publicUrl,
-            // Only present when pipeline-api actually cached this PDF to
-            // S3 (cachePdf — on by default for stage/prod, off for local
-            // dev) — that's the same step that computes this hash, so it's
-            // unavailable whenever caching didn't run. Lets the receiver
-            // recognize a rerun of a document it already has under a
-            // different url (e.g. a tracking query string appended to an
-            // otherwise identical link) instead of treating it as a new
-            // document.
-            sha256: job.data.pdfCache?.sha256,
-            // Raw token counts and from_cache still stay out of this payload
-            // (cost bookkeeping only this job's own returnvalue needs) --
-            // but describedAt/vlmError DO cross over despite being added
-            // later than this comment's original "QA-relevant only" cutoff:
-            // a reviewer looking at the receiver's persisted gallery, not
-            // this job's live log, is exactly who needs to tell "fresh
-            // VLM read" apart from "stale cached read" or "silently fell
-            // back to OCR because the VLM call failed." thumbnail is
-            // already a base64 JPEG string with no data-URI prefix, same
-            // shape the receiver should persist as-is.
-            ...(imageRecovery?.pictures?.length
-              ? {
-                  images: imageRecovery.pictures.map((p) => ({
-                    index: p.index,
-                    page: p.page,
-                    description: p.description,
-                    ocrText: p.ocr_text,
-                    thumbnail: p.thumbnail,
-                    hasText: p.has_text ?? true,
-                    describedAt: p.described_at ?? null,
-                    vlmError: p.vlm_error ?? null,
-                  })),
-                }
-              : {}),
-          },
-          (msg) => job.log(msg)
-        )
+        await persistImages(persistedReportId, imageRecovery.pictures)
+        imagesPersisted = true
       } catch (err) {
         job.log(
-          `Callback failed, continuing without retry: ${err instanceof Error ? err.message : String(err)}`
+          `persistImages failed -- keeping picture thumbnails in this job's own returnvalue as a fallback: ${err instanceof Error ? err.message : String(err)}`
         )
       }
+    } else {
+      job.log(
+        "Skipping persistImages -- no persisted report id (persistMarkdown failed above); keeping picture thumbnails in this job's own returnvalue as a fallback."
+      )
     }
+  }
 
-    // Not { markdown, imageRecovery } -- both are already durably persisted
-    // above (Report.markdown, RecoveredImage rows), and every downstream
-    // consumer now has its own fallback to fetch them from there instead of
-    // relying on this job's returnvalue. imageRecovery's own `pictures`
-    // array specifically is what carried every thumbnail's full base64
-    // JPEG; the rest of imageRecovery (counts, token usage) is small and
-    // still useful for logging/QA, so only `pictures` is dropped here --
-    // unless the Postgres write above failed, in which case markdown/
-    // pictures stay in the returnvalue as the only surviving copy.
-    return {
-      pageSnippets,
-      ...(imageRecovery
-        ? {
-            imageRecovery: imagesPersisted
-              ? withoutPictures(imageRecovery)
-              : imageRecovery,
-          }
-        : {}),
-      ...(markdownPersisted ? {} : { markdown }),
+  if (job.data.callbackUrl) {
+    // A failed/unreachable callbackUrl must not fail this job — BullMQ
+    // would retry it on the concurrency-1 Docling worker, which re-parses
+    // the PDF and blocks every other job (including garbo's own pipeline)
+    // for as long as the callback keeps failing.
+    try {
+      await fireCallback(
+        job.data.callbackUrl,
+        {
+          url: canonicalUrl,
+          markdown,
+          threadId: job.data.threadId,
+          // The municipality's own site routinely has no CORS headers,
+          // so a browser-side PDF viewer can't fetch canonicalUrl
+          // directly — this gives the receiver a same-infra copy to
+          // proxy through instead, when pipeline-api cached one.
+          pdfCacheUrl: job.data.pdfCache?.publicUrl,
+          // Only present when pipeline-api actually cached this PDF to
+          // S3 (cachePdf — on by default for stage/prod, off for local
+          // dev) — that's the same step that computes this hash, so it's
+          // unavailable whenever caching didn't run. Lets the receiver
+          // recognize a rerun of a document it already has under a
+          // different url (e.g. a tracking query string appended to an
+          // otherwise identical link) instead of treating it as a new
+          // document.
+          sha256: job.data.pdfCache?.sha256,
+          // Raw token counts and from_cache still stay out of this payload
+          // (cost bookkeeping only this job's own returnvalue needs) --
+          // but describedAt/vlmError DO cross over despite being added
+          // later than this comment's original "QA-relevant only" cutoff:
+          // a reviewer looking at the receiver's persisted gallery, not
+          // this job's live log, is exactly who needs to tell "fresh
+          // VLM read" apart from "stale cached read" or "silently fell
+          // back to OCR because the VLM call failed." thumbnail is
+          // already a base64 JPEG string with no data-URI prefix, same
+          // shape the receiver should persist as-is.
+          ...(imageRecovery?.pictures?.length
+            ? {
+                images: imageRecovery.pictures.map((p) => ({
+                  index: p.index,
+                  page: p.page,
+                  description: p.description,
+                  ocrText: p.ocr_text,
+                  thumbnail: p.thumbnail,
+                  hasText: p.has_text ?? true,
+                  describedAt: p.described_at ?? null,
+                  vlmError: p.vlm_error ?? null,
+                })),
+              }
+            : {}),
+        },
+        (msg) => job.log(msg)
+      )
+    } catch (err) {
+      job.log(
+        `Callback failed, continuing without retry: ${err instanceof Error ? err.message : String(err)}`
+      )
     }
-  } else {
-    // Berget AI polling logic
-    const resultUrl = job.data.resultUrl
+  }
 
-    if (!resultUrl) {
-      throw new Error('No result url provided.')
-    }
-
-    job.log(`Result URL: ${resultUrl}`)
-
-    // Poll the result endpoint until completion
-    while (true) {
-      job.log(`Polling Berget AI result: ${resultUrl}`)
-
-      const response = await fetchWithRetry(resultUrl, { headers }, job)
-
-      if (response.status === 200) {
-        const result = await response.json()
-
-        if (result.error) {
-          throw new Error(`Berget AI error: ${result.error}`)
+  // Not { markdown, imageRecovery } -- both are already durably persisted
+  // above (Report.markdown, RecoveredImage rows), and every downstream
+  // consumer now has its own fallback to fetch them from there instead of
+  // relying on this job's returnvalue. imageRecovery's own `pictures`
+  // array specifically is what carried every thumbnail's full base64
+  // JPEG; the rest of imageRecovery (counts, token usage) is small and
+  // still useful for logging/QA, so only `pictures` is dropped here --
+  // unless the Postgres write above failed, in which case markdown/
+  // pictures stay in the returnvalue as the only surviving copy.
+  return {
+    pageSnippets,
+    ...(imageRecovery
+      ? {
+          imageRecovery: imagesPersisted
+            ? withoutPictures(imageRecovery)
+            : imageRecovery,
         }
-
-        const markdown = result.content ?? ''
-
-        if (!markdown) {
-          job.log(`Full Berget result data: ${JSON.stringify(result, null, 2)}`)
-          throw new Error('No content found in Berget AI result')
-        }
-
-        const totalTime = Math.floor((Date.now() - startTime) / 1000)
-        const pages = result.usage?.pages || 'unknown'
-        const characters = result.usage?.characters || 'unknown'
-
-        job.editMessage(
-          `PDF parsed successfully in ${totalTime}s (${pages} pages, ${characters} characters)`
-        )
-        job.log(
-          `Task completed in ${totalTime}s - Pages: ${pages}, Characters: ${characters}`
-        )
-
-        let canonicalUrl = job.data.sourceUrl ?? job.data.url
-        let markdownPersisted = false
-        try {
-          canonicalUrl = (
-            await persistMarkdown(job.data, markdown, job.data.reportTypeSlug)
-          ).url
-          markdownPersisted = true
-        } catch (err) {
-          job.log(
-            `persistMarkdown failed -- keeping markdown in this job's own returnvalue as a fallback so it isn't lost: ${err instanceof Error ? err.message : String(err)}`
-          )
-        }
-
-        if (job.data.callbackUrl) {
-          try {
-            await fireCallback(
-              job.data.callbackUrl,
-              {
-                url: canonicalUrl,
-                markdown,
-                threadId: job.data.threadId,
-                pdfCacheUrl: job.data.pdfCache?.publicUrl,
-                sha256: job.data.pdfCache?.sha256,
-              },
-              (msg) => job.log(msg)
-            )
-          } catch (err) {
-            job.log(
-              `Callback failed, continuing without retry: ${err instanceof Error ? err.message : String(err)}`
-            )
-          }
-        }
-
-        // Not { markdown } -- already durably persisted above
-        // (Report.markdown); downstream consumers fall back to fetching
-        // it from there now instead of relying on this returnvalue --
-        // unless the write above failed, in which case markdown stays in
-        // the returnvalue as the only surviving copy.
-        return markdownPersisted ? {} : { markdown }
-      } else if (response.status === 202) {
-        const retryAfter = parseInt(response.headers.get('Retry-After') || '2')
-        console.log(
-          `Job still processing, retrying in ${retryAfter} seconds...`
-        )
-        await new Promise((resolve) => setTimeout(resolve, retryAfter * 1000))
-      } else {
-        throw new Error(`Failed to get result: ${response.status}`)
-      }
-    }
+      : {}),
+    ...(markdownPersisted ? {} : { markdown }),
   }
 }
 

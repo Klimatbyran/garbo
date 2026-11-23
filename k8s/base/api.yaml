@@ -119,11 +119,6 @@ spec:
                 secretKeyRef:
                   name: env
                   key: DOCLING_URL
-            - name: BERGET_AI_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: env
-                  key: BERGET_AI_TOKEN
             - name: GITHUB_CLIENT_ID
               valueFrom:
                 secretKeyRef:
