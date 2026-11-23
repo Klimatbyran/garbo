@@ -97,11 +97,14 @@ export const emissionUnitSchemaGarbo = validEmissionsUnits.nullable().openapi({
 } as any)
 
 /**
- * Nullable emission unit. Do not invent `tCO2e` when the LLM sends null —
- * extraction prompts already ask the model to default when unclear. Alias of
- * `emissionUnitSchemaGarbo` kept for call-site compatibility.
+ * Zod `.default()` only applies to `undefined`, not `null`. LLM extraction
+ * often returns `"unit": null`, so coerce nullish values to tCO2e on write.
+ * Partner list/detail schemas still require a string unit.
  */
-export const emissionUnitSchemaWithDefault = emissionUnitSchemaGarbo
+export const emissionUnitSchemaWithDefault = z.preprocess(
+  (value) => (value == null ? 'tCO2e' : value),
+  validEmissionsUnits
+)
 
 export const goalTargetTypeSchema = z.enum([
   'ABSOLUTE',
