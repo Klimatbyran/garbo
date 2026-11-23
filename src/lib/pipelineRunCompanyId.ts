@@ -1,8 +1,6 @@
-import { Queue } from 'bullmq'
-import redis from '../config/redis'
 import { prisma } from './prisma'
-
-const GUESS_WIKIDATA_QUEUE = 'guessWikidata'
+import { getSharedQueue } from './getSharedQueue'
+import { QUEUE_NAMES } from '../queueNames'
 
 const GUESS_WIKIDATA_TERMINAL_STATES = new Set(['completed', 'failed'])
 
@@ -80,21 +78,19 @@ export async function getCanonicalCompanyIdForThread(
 }
 
 async function listGuessWikidataJobsForThread(threadId: string) {
-  const queue = new Queue(GUESS_WIKIDATA_QUEUE, { connection: redis })
-  try {
-    const jobs = await queue.getJobs([
-      'delayed',
-      'waiting',
-      'active',
-      'prioritized',
-      'waiting-children',
-      'completed',
-      'failed',
-    ])
-    return jobs.filter((job) => job.data?.threadId === threadId)
-  } finally {
-    await queue.close()
-  }
+  // Don't create/close a per-call Queue: returned Job objects still use that
+  // connection for getState().
+  const queue = getSharedQueue(QUEUE_NAMES.GUESS_WIKIDATA)
+  const jobs = await queue.getJobs([
+    'delayed',
+    'waiting',
+    'active',
+    'prioritized',
+    'waiting-children',
+    'completed',
+    'failed',
+  ])
+  return jobs.filter((job) => job.data?.threadId === threadId)
 }
 
 function isCompanyLinkApprovalPending(jobData: unknown): boolean {
