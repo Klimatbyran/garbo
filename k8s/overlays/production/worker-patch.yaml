@@ -1,0 +1,9 @@
+# Prod queue cutover to Clark: stop consuming shared Redis while Clark prod
+# workers are enabled. Keep Garbo prod API up for rollback.
+# HPA is deleted via worker-hpa-delete.yaml (minReplicas: 1 would fight replicas: 0).
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker
+spec:
+  replicas: 0
