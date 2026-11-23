@@ -235,27 +235,6 @@ export const emissionsSchema = z
             'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',
         }
       )
-      .refine(
-        ({ mb, lb, unknown, unit }) => {
-          // If all values are null or undefined, unit can be null
-          const allValuesNull =
-            (mb === null || mb === undefined) &&
-            (lb === null || lb === undefined) &&
-            (unknown === null || unknown === undefined)
-
-          if (allValuesNull) {
-            return true // unit can be null when all values are null
-          }
-
-          // If any value is not null, unit must be provided (not null)
-          return unit !== null && unit !== undefined
-        },
-        {
-          message:
-            'Unit must be provided when any emission value (mb, lb, or unknown) is not null',
-          path: ['unit'],
-        }
-      )
       .optional()
       .nullable(),
     scope3: z

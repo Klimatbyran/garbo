@@ -96,8 +96,12 @@ export const emissionUnitSchemaGarbo = validEmissionsUnits.nullable().openapi({
   nullable: true,
 } as any)
 
-export const emissionUnitSchemaWithDefault =
-  validEmissionsUnits.default('tCO2e')
+/**
+ * Nullable emission unit. Do not invent `tCO2e` when the LLM sends null —
+ * extraction prompts already ask the model to default when unclear. Alias of
+ * `emissionUnitSchemaGarbo` kept for call-site compatibility.
+ */
+export const emissionUnitSchemaWithDefault = emissionUnitSchemaGarbo
 
 export const goalTargetTypeSchema = z.enum([
   'ABSOLUTE',
