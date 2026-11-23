@@ -106,7 +106,7 @@ npm i
 
 This project expects some containers running in the background to work properly. We use Postgres as our primary database, Redis for BullMQ, and ChromaDB for embeddings. PDF parsing uses **Docling** via local docling-serve.
 
-For local development, uncomment the `docling` service in `docker-compose.yaml`, set `DOCLING_URL=http://localhost:5001/v1` and `DOCLING_USE_LOCAL=true` in `.env`, then start the containers:
+For local development, uncomment the `docling` service in `docker-compose.yaml`, set `DOCLING_URL=http://localhost:5001/v1` in `.env` (and `DOCLING_API_TOKEN` if your Docling requires an API key), then start the containers:
 
 The simplest way to start the containers is to run the following docker command.
 

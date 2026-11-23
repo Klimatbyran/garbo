@@ -108,11 +108,11 @@ spec:
                 secretKeyRef:
                   name: env
                   key: DOCLING_URL
-            - name: BERGET_AI_TOKEN
+            - name: DOCLING_API_TOKEN
               valueFrom:
                 secretKeyRef:
                   name: env
-                  key: BERGET_AI_TOKEN
+                  key: DOCLING_API_TOKEN
             - name: GITHUB_CLIENT_ID
               valueFrom:
                 secretKeyRef:
@@ -163,31 +163,6 @@ spec:
                 secretKeyRef:
                   name: env
                   key: WIKI_USERNAME
-            - name: DOCLING_USE_LOCAL
-              valueFrom:
-                secretKeyRef:
-                  name: env
-                  key: DOCLING_USE_LOCAL
-            - name: USE_BACKUP_API
-              valueFrom:
-                secretKeyRef:
-                  name: env
-                  key: USE_BACKUP_API
-            - name: BACKUP_API_URL
-              valueFrom:
-                secretKeyRef:
-                  name: env
-                  key: BACKUP_API_URL
-            - name: BACKUP_API_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: env
-                  key: BACKUP_API_TOKEN
-            - name: BACKUP_API_AUTH_HEADER
-              valueFrom:
-                secretKeyRef:
-                  name: env
-                  key: BACKUP_API_AUTH_HEADER
             - name: PIPELINE_API_URL
               value: http://pipeline-api:4000
             - name: INTERNAL_SERVICE_TOKEN
