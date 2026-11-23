@@ -5,6 +5,7 @@ import { defaultMetadata } from '../lib/saveUtils'
 import { QUEUE_NAMES } from '../queues'
 import { Description } from '../api/types'
 import { askPrompt } from '../lib/openai'
+import { hasDeterministicChanges } from '../lib/saveUtils'
 
 export class DiffDescriptionsJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
@@ -63,15 +64,20 @@ const diffDescriptions = new PipelineWorker<DiffDescriptionsJob>(
 
     job.log('Diff:' + diff)
 
-    // Only save if we detected any meaningful changes
-    if (!diff.includes('NO_CHANGES')) {
+    const changed = hasDeterministicChanges(existingDescriptions, descriptions)
+    // Only save when structured descriptions actually changed.
+    if (changed) {
+      const readable =
+        diff && !diff.includes('NO_CHANGES')
+          ? diff
+          : 'Detected description changes (LLM summary unavailable).'
       await enqueueSaveToAPIWithParentFallback(
         job,
         companyName + ' descriptions',
         {
           ...job.data,
           body,
-          diff,
+          diff: readable,
           apiSubEndpoint: '',
         }
       )

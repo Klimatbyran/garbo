@@ -58,16 +58,28 @@ export async function tryWithPipelineAutoRunTickLock<T>(
     return { acquired: false }
   }
 
+  let keepLockUntilTtl = false
   try {
-    return { acquired: true, result: await fn() }
+    const result = await fn()
+    return { acquired: true, result }
+  } catch (err) {
+    // Soft tick timeouts reject while work may still be running. Keep the
+    // lock until TTL so the next tick cannot double-enqueue.
+    const message = err instanceof Error ? err.message : String(err)
+    if (message.includes('timed out')) {
+      keepLockUntilTtl = true
+    }
+    throw err
   } finally {
-    try {
-      const current = await redis.get(LOCK_KEY)
-      if (current === token) {
-        await redis.del(LOCK_KEY)
+    if (!keepLockUntilTtl) {
+      try {
+        const current = await redis.get(LOCK_KEY)
+        if (current === token) {
+          await redis.del(LOCK_KEY)
+        }
+      } catch (err) {
+        console.warn('pipelineAutoRunLock release failed:', err)
       }
-    } catch (err) {
-      console.warn('pipelineAutoRunLock release failed:', err)
     }
   }
 }
