@@ -250,7 +250,8 @@ model StatedTotalEmissions {
   id          String  @id @default(cuid())
   total       Float?
   scope3Id    String? @unique
-  unit        String
+  /// Null when extraction left the unit unset; prompts ask the LLM to default to tCO2e when unclear.
+  unit        String?
   emissionsId String? @unique
 
   emissions Emissions?      @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
@@ -265,7 +266,8 @@ model Scope1And2 {
   total       Float?
   emissionsId String? @unique
 
-  unit      String
+  /// Null when extraction left the unit unset; prompts ask the LLM to default to tCO2e when unclear.
+  unit      String?
   emissions Emissions?      @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
   metadata  Metadata[]
   notes     DatapointNote[]
@@ -287,7 +289,8 @@ model BiogenicEmissions {
 model Scope1 {
   id          String  @id @default(cuid())
   total       Float?
-  unit        String
+  /// Null when extraction left the unit unset; prompts ask the LLM to default to tCO2e when unclear.
+  unit        String?
   emissionsId String? @unique
 
   emissions Emissions?      @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
@@ -305,7 +308,8 @@ model Scope2 {
   lb          Float?
   /// Unknown scope 2 emissions could be either market-based or location-based
   unknown     Float?
-  unit        String
+  /// Null when extraction left the unit unset; prompts ask the LLM to default to tCO2e when unclear.
+  unit        String?
   emissionsId String? @unique
 
   emissions Emissions?      @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
