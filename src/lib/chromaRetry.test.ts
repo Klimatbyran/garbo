@@ -65,7 +65,15 @@ describe('isChromaPayloadTooLarge', () => {
     ).toBe(true)
   })
 
-  it('detects wrapped retry errors that mention payload too large', () => {
+  it('detects nginx-style request entity too large', () => {
+    expect(
+      isChromaPayloadTooLarge(
+        namedError('ChromaServerError', '413: Request Entity Too Large')
+      )
+    ).toBe(true)
+  })
+
+  it('detects wrapped retry errors via the cause chain', () => {
     expect(
       isChromaPayloadTooLarge(
         new Error(
@@ -82,6 +90,22 @@ describe('isChromaPayloadTooLarge', () => {
     expect(
       isChromaPayloadTooLarge(
         namedError('ChromaServerError', 'database or disk is full')
+      )
+    ).toBe(false)
+  })
+
+  it('does not treat chunk indices or URLs containing 413 as payload errors', () => {
+    expect(
+      isChromaPayloadTooLarge(
+        new Error(
+          'ChromaDB upsert (https://cdn.example/report-413.pdf, chunks 400-413) failed: ChromaServerError: database or disk is full',
+          {
+            cause: namedError(
+              'ChromaServerError',
+              'database or disk is full'
+            ),
+          }
+        )
       )
     ).toBe(false)
   })

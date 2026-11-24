@@ -55,10 +55,35 @@ export function describeChromaError(err: unknown): string {
 /**
  * HTTP 413 from Chroma/proxy: the request body is too big. Retrying the same
  * payload never helps — callers should split the batch (see chromaUpsertBatch).
+ *
+ * Match only each error's own message (and causes), never a joined
+ * `describeChromaError` string: `withChromaRetry` embeds the operation label
+ * (`upsert (${url}, chunks from-to)`), so a bare `\b413\b` would false-positive
+ * on chunk indices or URLs like `report-413.pdf`.
  */
 export function isChromaPayloadTooLarge(err: unknown): boolean {
-  const text = describeChromaError(err)
-  return /\b413\b/.test(text) || /payload too large/i.test(text)
+  const seen = new Set<unknown>()
+  let current: unknown = err
+  while (
+    current !== undefined &&
+    current !== null &&
+    !seen.has(current) &&
+    seen.size <= MAX_CAUSE_DEPTH
+  ) {
+    seen.add(current)
+    if (!(current instanceof Error)) break
+    const msg = current.message.trim()
+    if (
+      /^413\b/.test(msg) ||
+      /413:\s*Payload Too Large/i.test(msg) ||
+      /payload too large/i.test(msg) ||
+      /request entity too large/i.test(msg)
+    ) {
+      return true
+    }
+    current = current.cause
+  }
+  return false
 }
 
 export function isRetryableChromaError(err: unknown): boolean {
