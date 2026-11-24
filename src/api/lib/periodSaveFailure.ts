@@ -9,8 +9,15 @@ export function describePeriodSaveFailure(reason: unknown): string {
   }
 
   const maybeCode = (reason as unknown as { code?: unknown }).code
-  const prismaCode = typeof maybeCode === 'string' ? maybeCode : undefined
+  const errorCode = typeof maybeCode === 'string' ? maybeCode : undefined
 
-  const message = reason.message.replace(/\s+/g, ' ').trim().slice(0, 500)
-  return prismaCode ? `${message} [${prismaCode}]` : message
+  // Outside production Prisma dumps a long invocation preamble; keep the
+  // useful tail (constraint text) as well as the head when truncating.
+  const collapsed = reason.message.replace(/\s+/g, ' ').trim()
+  const message =
+    collapsed.length <= 500
+      ? collapsed
+      : `${collapsed.slice(0, 240)} … ${collapsed.slice(-240)}`
+
+  return errorCode ? `${message} [${errorCode}]` : message
 }

@@ -19,4 +19,17 @@ describe('describePeriodSaveFailure', () => {
   it('stringifies non-errors', () => {
     expect(describePeriodSaveFailure('disk full')).toBe('disk full')
   })
+
+  it('keeps head and useful tail when the message exceeds 500 chars', () => {
+    const head = 'Invalid `prisma.scope1.create()` invocation: '
+    const mid = 'x'.repeat(600)
+    const tail = 'Null constraint violation on the fields: (`unit`)'
+    const err = new Error(head + mid + tail)
+    ;(err as { code?: string }).code = 'P2011'
+    const out = describePeriodSaveFailure(err)
+    expect(out.startsWith(head)).toBe(true)
+    expect(out).toContain(' … ')
+    expect(out.endsWith(`${tail} [P2011]`)).toBe(true)
+    expect(out.length).toBeLessThan(head.length + mid.length + tail.length)
+  })
 })
