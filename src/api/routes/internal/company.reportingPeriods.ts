@@ -18,6 +18,7 @@ import {
   PostReportingPeriodsBody,
   DefaultEmissions,
 } from '../../types'
+import { describePeriodSaveFailure } from '../../lib/periodSaveFailure'
 import { metadataService } from '../../services/metadataService'
 import _ from 'lodash'
 import { prisma } from '../../../lib/prisma'
@@ -671,9 +672,12 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
               message: result.reason.message,
             })
           }
+          // Always include details: this is an internal/pipeline route, and
+          // BullMQ failedReason is built from the response body (apiFetch).
           return reply.status(500).send({
             code: 'INTERNAL_SERVER_ERROR',
             message: 'Creation or update of reporting periods failed.',
+            details: describePeriodSaveFailure(result.reason),
           })
         }
       }
