@@ -100,10 +100,7 @@ describe('isChromaPayloadTooLarge', () => {
         new Error(
           'ChromaDB upsert (https://cdn.example/report-413.pdf, chunks 400-413) failed: ChromaServerError: database or disk is full',
           {
-            cause: namedError(
-              'ChromaServerError',
-              'database or disk is full'
-            ),
+            cause: namedError('ChromaServerError', 'database or disk is full'),
           }
         )
       )
