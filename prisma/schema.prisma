@@ -49,6 +49,10 @@ model Company {
 
   logoUrl String?
 
+  /// Bumped on every company row write so list-cache fingerprints notice scalar edits
+  /// (name, logo, tags, …) that do not touch Metadata or CompanyReport.
+  updatedAt DateTime @default(now()) @updatedAt
+
   identifiers CompanyIdentifier[]
 
   coverageListEntries            CoverageListEntry[] @relation("CoverageEntryMatchedCompany")
