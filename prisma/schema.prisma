@@ -1461,3 +1461,17 @@ model ModelEvalLibraryReview {
   @@index([createdAt])
   @@map("model_eval_library_reviews")
 }
+
+/// Model evaluation (Goffer): the team's baseline, one row per database.
+model ModelEvalBaseline {
+  /// Always "team": one baseline per environment.
+  id      String   @id @default("team")
+  /// The setup the views call the baseline: Goffer's Setup object as JSON.
+  setup   Json
+  /// The finished run the setup was chosen from.
+  runId   String   @map("run_id")
+  setById String   @map("set_by_id")
+  setAt   DateTime @updatedAt @map("set_at")
+
+  @@map("model_eval_baseline")
+}
