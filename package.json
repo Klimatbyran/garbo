@@ -80,7 +80,7 @@
     "pdf-to-img": "^7.0.1",
     "pino-http": "^11.0.0",
     "prisma": "^5.22.0",
-    "prisma-zod-generator": "^0.8.13",
+    "prisma-zod-generator": "^3.3.1",
     "redis": "^6.3.1",
     "sharp": "^0.35.4",
     "tldts": "^7.5.5",
