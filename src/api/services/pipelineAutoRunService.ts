@@ -30,6 +30,19 @@ import { reconcilePipelineAutoRunSchedule } from '../../lib/pipelineAutoRunSched
 
 const CONFIG_ID = 'default'
 
+/** Best-effort Job Scheduler sync from DB `enabled`. Never throws to callers. */
+async function syncScheduleFromDb(context: string): Promise<void> {
+  await reconcilePipelineAutoRunSchedule(async () => {
+    const latest = await ensurePipelineAutoRunConfig()
+    return latest.enabled
+  }).catch((err) => {
+    console.error(
+      `[pipelineAutoRun] failed to sync job scheduler tick (${context}):`,
+      err
+    )
+  })
+}
+
 type ConfigRow = {
   id: string
   enabled: boolean
@@ -196,15 +209,7 @@ export async function patchPipelineAutoRunConfig(
   // Sending enabled (even when already on) re-registers the tick as repair.
   // Schedule ops use a fail-fast Redis client + timeout so this cannot hang PATCH.
   if (patch.enabled !== undefined) {
-    await reconcilePipelineAutoRunSchedule(async () => {
-      const latest = await ensurePipelineAutoRunConfig()
-      return latest.enabled
-    }).catch((err) => {
-      console.error(
-        '[pipelineAutoRun] failed to sync job scheduler tick schedule:',
-        err
-      )
-    })
+    await syncScheduleFromDb('PATCH enabled')
   }
 
   return getPipelineAutoRunStatus()
@@ -512,15 +517,7 @@ async function softDisable(
       ...(extra?.lastError ? { lastError: extra.lastError } : {}),
     },
   })
-  await reconcilePipelineAutoRunSchedule(async () => {
-    const latest = await ensurePipelineAutoRunConfig()
-    return latest.enabled
-  }).catch((err) => {
-    console.error(
-      '[pipelineAutoRun] failed to clear job scheduler tick after soft-disable:',
-      err
-    )
-  })
+  await syncScheduleFromDb('soft-disable')
 }
 
 /**
@@ -728,15 +725,7 @@ export async function runPipelineAutoRunTick(): Promise<{
   if (!config.enabled) {
     // Heal a leftover schedule without blocking the tick return. Re-read DB
     // inside reconcile so a concurrent enable is not wiped by a blind clear.
-    void reconcilePipelineAutoRunSchedule(async () => {
-      const latest = await ensurePipelineAutoRunConfig()
-      return latest.enabled
-    }).catch((err) => {
-      console.error(
-        '[pipelineAutoRun] failed to reconcile schedule while disabled:',
-        err
-      )
-    })
+    void syncScheduleFromDb('disabled-tick')
     return { enqueued: 0, skippedReason: 'disabled' }
   }
 

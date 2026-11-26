@@ -18,6 +18,7 @@ import {
   PIPELINE_AUTO_RUN_REPEAT_EVERY_MS,
   reconcilePipelineAutoRunSchedule,
 } from '../lib/pipelineAutoRunSchedule'
+import { purgeLegacyBullmqRepeatables } from '../lib/purgeLegacyBullmqRepeatables'
 
 export { PIPELINE_AUTO_RUN_QUEUE }
 
@@ -94,8 +95,7 @@ async function syncScheduleFromConfig() {
   await trimExcessTicks()
 
   try {
-    const enabled = await readAutoRunEnabled()
-    await reconcilePipelineAutoRunSchedule(readAutoRunEnabled)
+    const enabled = await reconcilePipelineAutoRunSchedule(readAutoRunEnabled)
     console.log(
       enabled
         ? `[pipelineAutoRun] job scheduler tick every ${PIPELINE_AUTO_RUN_REPEAT_EVERY_MS}ms registered`
@@ -106,7 +106,23 @@ async function syncScheduleFromConfig() {
   }
 }
 
-void syncScheduleFromConfig()
+async function bootSchedule() {
+  try {
+    // One-shot: strip pre-v6 repeatable members that break getJobSchedulers.
+    // Must NOT run on every reconcile — v6 scheduler keys share the same prefix.
+    const purged = await purgeLegacyBullmqRepeatables(PIPELINE_AUTO_RUN_QUEUE)
+    if (purged > 0) {
+      console.log(
+        `[pipelineAutoRun] purged ${purged} legacy BullMQ v5 repeatable key(s)`
+      )
+    }
+  } catch (err) {
+    console.error('[pipelineAutoRun] failed to purge legacy repeatables:', err)
+  }
+  await syncScheduleFromConfig()
+}
+
+void bootSchedule()
 setInterval(() => {
   void syncScheduleFromConfig()
 }, RECONCILE_EVERY_MS).unref?.()

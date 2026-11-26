@@ -16,8 +16,13 @@ const prismaMock = {
   },
 }
 
-const tryWithLock = jest.fn()
-const reconcileSchedule = jest.fn<() => Promise<void>>()
+const tryWithLock = jest.fn<
+  () => Promise<{
+    acquired: boolean
+    result?: { enqueued: number; skippedReason?: string }
+  }>
+>()
+const reconcileSchedule = jest.fn<() => Promise<boolean>>()
 
 jest.unstable_mockModule('../src/lib/prisma', () => ({
   prisma: prismaMock,
@@ -77,7 +82,7 @@ function configRow(overrides: Record<string, unknown> = {}) {
 describe('pipeline auto-run schedule when disabled', () => {
   beforeEach(() => {
     jest.clearAllMocks()
-    reconcileSchedule.mockResolvedValue(undefined)
+    reconcileSchedule.mockResolvedValue(false)
     prismaMock.reportRun.count.mockResolvedValue(0)
     prismaMock.reportRun.findMany.mockResolvedValue([])
     prismaMock.report.count.mockResolvedValue(0)
@@ -178,5 +183,28 @@ describe('pipeline auto-run schedule when disabled', () => {
     expect(status.enabled).toBe(true)
     expect(prismaMock.pipelineAutoRunConfig.update).toHaveBeenCalled()
     expect(reconcileSchedule).toHaveBeenCalled()
+  })
+
+  it('enabled tick writes heartbeat and acquires the Redis lock', async () => {
+    prismaMock.pipelineAutoRunConfig.findUnique.mockResolvedValue(
+      configRow({ enabled: true })
+    )
+    prismaMock.pipelineAutoRunConfig.update.mockResolvedValue(
+      configRow({ enabled: true })
+    )
+    tryWithLock.mockResolvedValue({
+      acquired: true,
+      result: { enqueued: 0, skippedReason: 'at_capacity' },
+    })
+
+    const result = await runPipelineAutoRunTick()
+
+    expect(prismaMock.pipelineAutoRunConfig.update).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: expect.objectContaining({ lastTickAt: expect.any(Date) }),
+      })
+    )
+    expect(tryWithLock).toHaveBeenCalledTimes(1)
+    expect(result).toEqual({ enqueued: 0, skippedReason: 'at_capacity' })
   })
 })
