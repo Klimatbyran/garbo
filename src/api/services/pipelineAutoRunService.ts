@@ -26,6 +26,7 @@ import {
   linkedReportRunExclusion,
 } from './pipelineAutoRunTypes'
 import { tryWithPipelineAutoRunTickLock } from '../../lib/pipelineAutoRunLock'
+import { reconcilePipelineAutoRunSchedule } from '../../lib/pipelineAutoRunSchedule'
 
 const CONFIG_ID = 'default'
 
@@ -182,12 +183,29 @@ export async function patchPipelineAutoRunConfig(
             consecutiveReportFailures: 0,
           }
         : {}),
+      // Advance the outcome watermark on enable so failures that finished while
+      // ticks were stopped are not folded on the first tick and soft-disable again.
+      ...(enabling ? { outcomeObservedThrough: new Date() } : {}),
       ...(enabling || patch.enabled === true
         ? { disabledReason: null, pausedReason: null, lastError: null }
         : {}),
       ...(updatedBy ? { updatedBy } : {}),
     },
   })
+
+  // Sending enabled (even when already on) re-registers the tick as repair.
+  // Schedule ops use a fail-fast Redis client + timeout so this cannot hang PATCH.
+  if (patch.enabled !== undefined) {
+    await reconcilePipelineAutoRunSchedule(async () => {
+      const latest = await ensurePipelineAutoRunConfig()
+      return latest.enabled
+    }).catch((err) => {
+      console.error(
+        '[pipelineAutoRun] failed to sync job scheduler tick schedule:',
+        err
+      )
+    })
+  }
 
   return getPipelineAutoRunStatus()
 }
@@ -494,6 +512,15 @@ async function softDisable(
       ...(extra?.lastError ? { lastError: extra.lastError } : {}),
     },
   })
+  await reconcilePipelineAutoRunSchedule(async () => {
+    const latest = await ensurePipelineAutoRunConfig()
+    return latest.enabled
+  }).catch((err) => {
+    console.error(
+      '[pipelineAutoRun] failed to clear job scheduler tick after soft-disable:',
+      err
+    )
+  })
 }
 
 /**
@@ -690,14 +717,31 @@ export async function enqueueAutoRunReport(
 /**
  * One ticker iteration: observe outcomes, Docling preflight, maybe enqueue.
  * Multi-replica safe via Redis tick lock (overlapping ticks skip enqueue).
+ * When disabled, returns immediately without Redis (schedule should also be
+ * cleared — this is defense in depth for in-flight / race ticks).
  */
 export async function runPipelineAutoRunTick(): Promise<{
   enqueued: number
   skippedReason?: string
 }> {
-  // Heartbeat before the Redis lock / observe work. If lastTickAt is frozen,
-  // the pipelineAutoRun worker is not running (or not reaching this function).
-  // Soft-disable does not stop ticks — only skips enqueue.
+  const config = await ensurePipelineAutoRunConfig()
+  if (!config.enabled) {
+    // Heal a leftover schedule without blocking the tick return. Re-read DB
+    // inside reconcile so a concurrent enable is not wiped by a blind clear.
+    void reconcilePipelineAutoRunSchedule(async () => {
+      const latest = await ensurePipelineAutoRunConfig()
+      return latest.enabled
+    }).catch((err) => {
+      console.error(
+        '[pipelineAutoRun] failed to reconcile schedule while disabled:',
+        err
+      )
+    })
+    return { enqueued: 0, skippedReason: 'disabled' }
+  }
+
+  // Heartbeat before the Redis lock / observe work. If lastTickAt is frozen
+  // while enabled, the pipelineAutoRun worker is not running the ticker.
   //
   // try/catch, not .catch() on the call chain: a trailing .catch() only
   // catches a *rejected promise*, but prisma.pipelineAutoRunConfig itself

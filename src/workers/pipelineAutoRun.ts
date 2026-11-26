@@ -1,6 +1,9 @@
 import { Worker } from 'bullmq'
 import redis from '../config/redis'
-import { runPipelineAutoRunTick } from '../api/services/pipelineAutoRunService'
+import {
+  ensurePipelineAutoRunConfig,
+  runPipelineAutoRunTick,
+} from '../api/services/pipelineAutoRunService'
 import { getSharedQueue } from '../lib/getSharedQueue'
 import {
   PIPELINE_AUTO_RUN_JOB_RETENTION,
@@ -10,18 +13,21 @@ import {
   PIPELINE_AUTO_RUN_REMOVE_ON_FAIL,
   trimInfraQueueRetention,
 } from '../lib/infraQueueRetention'
-import { purgeLegacyBullmqRepeatables } from '../lib/purgeLegacyBullmqRepeatables'
-import { PIPELINE_AUTO_RUN_QUEUE } from '../queueNames'
+import {
+  PIPELINE_AUTO_RUN_QUEUE,
+  PIPELINE_AUTO_RUN_REPEAT_EVERY_MS,
+  reconcilePipelineAutoRunSchedule,
+} from '../lib/pipelineAutoRunSchedule'
 
 export { PIPELINE_AUTO_RUN_QUEUE }
-const REPEAT_EVERY_MS = 60_000
 
-// Not withPipelineJobOpts(): that keeps completed jobs forever (pipeline-api
-// prunes by run, and ticks belong to no run), so a tick a minute would pile up
-// in Redis, which runs with maxmemory + noeviction.
-const TICK_JOB_RETENTION = PIPELINE_AUTO_RUN_JOB_RETENTION
+/** Heal schedule drift (enabled with no tick, or disabled with a leftover tick). */
+const RECONCILE_EVERY_MS = 5 * 60 * 1000
 
-const queue = getSharedQueue(PIPELINE_AUTO_RUN_QUEUE, TICK_JOB_RETENTION)
+const queue = getSharedQueue(
+  PIPELINE_AUTO_RUN_QUEUE,
+  PIPELINE_AUTO_RUN_JOB_RETENTION
+)
 
 const worker = new Worker(
   PIPELINE_AUTO_RUN_QUEUE,
@@ -61,8 +67,6 @@ worker.on('error', (err) => {
   console.error('[pipelineAutoRun] worker error:', err?.message ?? err)
 })
 
-const TICK_SCHEDULER_ID = 'pipeline-auto-run-tick'
-
 async function trimExcessTicks() {
   try {
     const trimmed = await trimInfraQueueRetention(queue, {
@@ -79,43 +83,32 @@ async function trimExcessTicks() {
   }
 }
 
-async function ensureRepeatableTick() {
+async function readAutoRunEnabled(): Promise<boolean> {
+  const row = await ensurePipelineAutoRunConfig()
+  return row.enabled
+}
+
+async function syncScheduleFromConfig() {
   // Trim independently of scheduler registration — getJobSchedulers can throw
   // on leftover legacy members; retention still needs to run.
   await trimExcessTicks()
 
   try {
-    const purged = await purgeLegacyBullmqRepeatables(PIPELINE_AUTO_RUN_QUEUE)
-    if (purged > 0) {
-      console.log(
-        `[pipelineAutoRun] purged ${purged} legacy BullMQ v5 repeatable key(s)`
-      )
-    }
-
-    for (const scheduler of await queue.getJobSchedulers()) {
-      if (scheduler.name === 'tick') {
-        await queue.removeJobScheduler(scheduler.key)
-      }
-    }
-
-    await queue.upsertJobScheduler(
-      TICK_SCHEDULER_ID,
-      { every: REPEAT_EVERY_MS },
-      {
-        name: 'tick',
-        data: {},
-        opts: { ...TICK_JOB_RETENTION },
-      }
-    )
-
+    const enabled = await readAutoRunEnabled()
+    await reconcilePipelineAutoRunSchedule(readAutoRunEnabled)
     console.log(
-      `[pipelineAutoRun] job scheduler tick every ${REPEAT_EVERY_MS}ms registered`
+      enabled
+        ? `[pipelineAutoRun] job scheduler tick every ${PIPELINE_AUTO_RUN_REPEAT_EVERY_MS}ms registered`
+        : '[pipelineAutoRun] auto-run disabled — job scheduler tick not scheduled'
     )
   } catch (err) {
-    console.error('[pipelineAutoRun] failed to register repeatable tick:', err)
+    console.error('[pipelineAutoRun] failed to sync job scheduler tick:', err)
   }
 }
 
-void ensureRepeatableTick()
+void syncScheduleFromConfig()
+setInterval(() => {
+  void syncScheduleFromConfig()
+}, RECONCILE_EVERY_MS).unref?.()
 
 export default worker
