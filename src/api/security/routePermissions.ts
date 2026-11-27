@@ -57,6 +57,12 @@ export const clientApiRouteRules: Rule[] = [
     path: '/api/internal-queue-archive',
     permission: 'api.internal.queue_archive',
   },
+  {
+    method: 'POST',
+    type: 'exact',
+    path: '/api/internal-queue-archive/batches',
+    permission: 'api.internal.queue_archive',
+  },
 ]
 
 export function resolveClientApiPermission(
